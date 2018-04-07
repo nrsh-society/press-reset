@@ -29,8 +29,19 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
             self.timeRemainingLabel.setText(timeRemaining.description);
             self.timeElapsedLabel.setText(timeElapsed.description)
             
+            //#todo: this seems like it is causing a crash during testing.
+            //going to comment and move to getting the tick data in the cloud for vr display.
+            /*let url = URL(string: "https://api.soundcloud.com/tracks/418761428/download?client_id=7f7f14c97e33d1209679b4f94aead3c1")!
+            
+            self.presentMediaPlayerController(with: url, options: [WKMediaPlayerControllerOptionsAutoplayKey: 1]) {
+                    didPlayToEnd, endTime, error in
+                
+                if(didPlayToEnd) { self.dismissMediaPlayerController(); }
+            }
+ 
+            */
+            
         }
-        
     }
     
     @IBAction func onDonePress() {
@@ -50,7 +61,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
             
             _session.delegate = self;
             
-            let minutesRemaining = _session.duration / 60;
+            let minutesRemaining = _session.duration!;
             
             timeRemainingLabel.setText(minutesRemaining.description);
             timeElapsedLabel.setText("0")

@@ -9,28 +9,31 @@
 import UIKit
 import HealthKit
 
-class ZendoController: UITableViewController {
+class ZendoController: UITableViewController  {
     
-    private var _sampleCount = 0;
-    private var _samples = nil as [HKSample]?;
-    private let _healthStore = HKHealthStore();
+    private var _sampleCount = 0
+    private var _samples = nil as [HKSample]?
+    private let _healthStore = ZBFHealthKit.healthStore
+    private var currentWorkout : HKWorkout?
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
+      
         let hkType = HKObjectType.workoutType();
+        let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
         
-        let hkPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody);
+        let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: false)
         
-        let hkQuery = HKSampleQuery.init(sampleType: hkType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: nil, resultsHandler: {query,results,error in
+        let hkQuery = HKSampleQuery.init(sampleType: hkType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor], resultsHandler: {query,results,error in
             
             if(error != nil ) { print(error!); } else {
                 
                 DispatchQueue.main.async() {
                     
                     self._sampleCount = results!.count;
-                    self._samples = results;
+                    //self._samples = results?.reversed();
+                    self._samples = results
                     
                     self.tableView.reloadData();
                     
@@ -41,19 +44,33 @@ class ZendoController: UITableViewController {
         
         _healthStore.execute(hkQuery)
         
-        /*
-         
-         let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
-         let hkSource = HKSource.default();
-         
-         /let hkPredicate = HKQuery.predicateForObjects(from: hkSource);
-         
-         */
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let sample = _samples![indexPath.row];
+        
+        currentWorkout = (sample as! HKWorkout);
+                
+        let details = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "zazen-controller") as! ZazenController
+
+        details.workout = currentWorkout
+        
+        present(details, animated: true, completion: {});
+        
+    }
+    
+    public override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        
+        let sample = _samples![indexPath.row];
+        
+        currentWorkout = (sample as! HKWorkout);
+    }
+
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return _sampleCount;
@@ -67,34 +84,18 @@ class ZendoController: UITableViewController {
         
         let sample = _samples![indexPath.row];
         
-        let workout = sample as! HKWorkout;
+        let workout = (sample as! HKWorkout);
         
-        let dateFormatter = DateFormatter();
-
-        dateFormatter.timeZone = TimeZone.autoupdatingCurrent;
-        dateFormatter.setLocalizedDateFormatFromTemplate("YYYY.MM.dd")
-        
-        let localDate = dateFormatter.string(from: sample.endDate)
-        
-        dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm")
-        let localTime = dateFormatter.string(from: sample.endDate)
-        
-        //let text = localDate.description + " : " + Int((workout.duration / 60).rounded()).description;
-        
-        cell.textLabel?.text = Int((workout.duration / 60).rounded()).description;
-        
-        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 33.0);
-        
-        cell.detailTextLabel?.text = localDate.description + " " + localTime.description;
+        ZBFHealthKit.populateCell(workout: workout, cell: cell);
         
         return cell;
-        
+                
     }
-    
     
     @IBAction func onReload(_ sender: UIRefreshControl) {
         
         self.viewDidLoad();
+        
         sender.endRefreshing()
     }
     
@@ -109,7 +110,7 @@ class ZendoController: UITableViewController {
            
         }
         
-        let alert = UIAlertController(title: "New Session", message: "Continue on Watch", preferredStyle: .alert);
+        let alert = UIAlertController(title: "Zendo", message: "Continue on Watch", preferredStyle: .alert);
         
         let ok = UIAlertAction(title: "OK", style: .default) { action in }
         
@@ -118,6 +119,28 @@ class ZendoController: UITableViewController {
         self.present(alert, animated: true, completion: {
             
         });
+    }
+    
+    @IBAction func buddhaClick(_ sender: Any) {
+        
+        let buddhaController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "buddha-controller") as! BuddhaController
+        
+        present(buddhaController, animated: true, completion: {});
+    }
+    
+    @IBAction func sanghaClick(_ sender: Any) {
+        
+        let sanghaController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sangha-controller") as! SanghaController
+        
+        present(sanghaController, animated: true, completion: {});
+        
+    }
+    
+    @IBAction func dharmaClick(_ sender: Any) {
+        
+        let dharmaController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "dharma-controller") as! DharmaController
+        
+        present(dharmaController, animated: true, completion: {});
     }
     
     

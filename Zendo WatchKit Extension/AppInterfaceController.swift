@@ -17,7 +17,7 @@ class AppInterfaceController: WKInterfaceController {
         
         NSLog("onFortyMinuteStartPress");
         
-        startSession(duration: 40 * 60);
+        startSession(duration: 40);
     
     }
     
@@ -25,21 +25,21 @@ class AppInterfaceController: WKInterfaceController {
         
         NSLog("onThirtyMinuteStartPress");
         
-        startSession(duration: 30 * 60);
+        startSession(duration: 30);
     }
     
     @IBAction func onTwentyMinutesStartPress() {
         
         NSLog("onTwentyMinutesStartPress");
         
-        startSession(duration: 20 * 60);
+        startSession(duration: 20);
     }
     
     @IBAction func onTenMinutesStartPress() {
         
         NSLog("onTenMinutesStartPress");
         
-        startSession(duration: 10 * 60);
+        startSession(duration: 10);
     }
     
     func startSession(duration: Int) {

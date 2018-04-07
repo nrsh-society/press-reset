@@ -9,6 +9,8 @@
 import WatchKit
 import HealthKit
 import Foundation
+import CoreMotion
+import CoreFoundation
 
 protocol SessionDelegate {
     
@@ -16,21 +18,31 @@ protocol SessionDelegate {
     func sessionTick(startDate: Date, endDate: Date);
 }
 
+struct Attitude  {
+    var pitch : Double = 0.0
+    var roll : Double = 0.0
+    var yaw : Double = 0.0
+}
+
 class Session : NSObject {
     
     var duration: Int!
-    var startDate : Date?;
-    var endDate : Date?;
-    var lastTick : Date?;
-    var workoutSession : HKWorkoutSession?;
-    var isRunning : Bool! = false;
-    var delegate : SessionDelegate! = nil;
+    var startDate : Date?
+    var endDate : Date?
+    var lastTick : Date?
+    var workoutSession : HKWorkoutSession?
+    var isRunning : Bool! = false
+    var delegate : SessionDelegate! = nil
+    var attitude = Attitude(pitch: 0.0, roll: 0.0, yaw: 0.0)
+    var heartRate : Double = 0.0
+    var heartSDNN : Double = 0.0
     
     private var _timer : Timer?;
     private let _healthStore = HKHealthStore();
     private let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
     private let hkworkT = HKObjectType.workoutType();
     private var samples = [HKCategorySample]();
+    private let motionManager = CMMotionManager();
     
     init(duration: Int) {
         
@@ -45,15 +57,8 @@ class Session : NSObject {
         do {
             workoutSession = try HKWorkoutSession(configuration: configuration)
             
-            _healthStore.requestAuthorization(
-                toShare: Set([hkType, HKObjectType.workoutType()]),
-                read: Set([hkType, HKObjectType.workoutType()]),
-                completion: { (success, error) in
-                    
-                    if(error != nil) {
-                        print(error.debugDescription);
-                    }
-            })
+            ZBFHealthKit.getPermissions() //#todo: add the workout management to the wrapper too
+            
         } catch let error as NSError {
             // Perform proper error handling here...
             fatalError("*** Unable to create the workout session: \(error.localizedDescription) ***")
@@ -64,10 +69,12 @@ class Session : NSObject {
         
         if(!self.isRunning) {
             
-            startDate = Date();
+            self.startDate = Date();
             
-            endDate = startDate!.addingTimeInterval(Double(duration));
-        
+            self.endDate = startDate!.addingTimeInterval(Double(duration * 60));
+            
+            motionManager.startDeviceMotionUpdates();
+            
             _healthStore.start(workoutSession!);
             
             WKInterfaceDevice.current().play(.start)
@@ -89,13 +96,16 @@ class Session : NSObject {
             return;
         }
         
+        motionManager.stopDeviceMotionUpdates()
+        
         WKInterfaceDevice.current().play(.stop)
         
         _healthStore.end(workoutSession!)
         
         self.endDate = Date();
         
-        let workout = HKWorkout(activityType: HKWorkoutActivityType.mindAndBody, start: self.startDate!, end: self.endDate!)
+        let workout = HKWorkout(activityType: HKWorkoutActivityType.mindAndBody,
+                                start: self.startDate!, end: self.endDate!)
         
         _healthStore.save([workout]) { success, error in
             
@@ -125,20 +135,102 @@ class Session : NSObject {
     
     @objc public func notify()  {
         
-        let metadata = ["initial_duration": self.duration] as [String:Any]; //add location + heart beat, etc.
+        if let deviceMotion = self.motionManager.deviceMotion {
+            
+            self.attitude.pitch = deviceMotion.attitude.pitch
+            self.attitude.roll = deviceMotion.attitude.roll
+            self.attitude.yaw = deviceMotion.attitude.yaw
         
-        let sample = HKCategorySample(type: hkType, value: 0, start: lastTick!, end: Date(), metadata: metadata)
+        }
         
-        _healthStore.save([sample]) { _,_ in
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+        
+        let heartRateSDNNType = HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
+        
+        let heartRateSDNNPredicate: NSPredicate? = HKQuery.predicateForSamples(withStart: yesterday,
+                                                                               end: Date(),
+                                                                               options: .strictEndDate)
+        
+        _healthStore.execute(HKStatisticsQuery(quantityType: heartRateSDNNType,
+                                               quantitySamplePredicate: heartRateSDNNPredicate,
+                                               options: .discreteAverage) { query, result, error in
+                                                
+                                                if(error != nil) {
+                                                    print(error.debugDescription);
+                                                }
+                                                
+                                                if let sdnn = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
+                                                    
+                                                    self.heartSDNN = sdnn
+                                                }
+        })
+        
+        let heartRateType =
+            HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
+        
+        
+        let heartRatePredicate: NSPredicate? = HKQuery.predicateForSamples(withStart: self.startDate, end: self.endDate, options: .strictEndDate)
+        
+        
+        _healthStore.execute(HKStatisticsQuery(quantityType: heartRateType,
+                                               quantitySamplePredicate: heartRatePredicate,
+                                               options: .discreteAverage) { query, result, error in
+                                                
+                                                if(error != nil) {
+                                                    print(error.debugDescription);
+                                                }
+                                            
+                                                if let heartRate = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "count/s")) {
+                                                    
+                                                    self.heartRate = heartRate
+                                                }
+                                                
+        })
+        
+        
+        let metadata = ["zazen.now": Date().description,
+                        "zazen.program": duration.description,
+                        "attitude.yaw": attitude.yaw.description,
+                        "attitude.pitch": attitude.pitch.description,
+                        "attitude.roll": attitude.roll.description,
+                        "heart.sdnn": heartSDNN.description,
+                        "heart.rate": heartRate.description] as [String: String]
+        
+        let values = metadata as [String: Any]
+        
+        let sample = HKCategorySample(type: self.hkType, value: 0, start: self.lastTick!, end: Date(), metadata: values )
+        
+        self._healthStore.save([sample]) { _,_ in
             
             self.samples.append(sample);
         }
+        
+/*      #todo: post dataset to server to drive av
+        do {
+            
+            let json = try JSONSerialization.data(withJSONObject: metadata, options: []).description
+            
+            let serviceURL = URL(string:"https://zendo-v1.firebaseio.com/zazen")!
+            var request = URLRequest(url: serviceURL)
+            request.httpMethod = "POST"
+        
+            let config = URLSessionConfiguration()
+            config.allowsCellularAccess = true;
+            
+            let session = URLSession(configuration: config)
+            let task = session.uploadTask(with: request, from: json.data(using: .utf8)!)
+            
+            task.resume()
+            
+        } catch {}
+ 
+ */
         
         WKInterfaceDevice.current().play(.success)
         
         self.delegate.sessionTick(startDate: self.startDate!, endDate: self.endDate!);
         
-        lastTick = Date();
+        self.lastTick = Date();
         
     }
     
