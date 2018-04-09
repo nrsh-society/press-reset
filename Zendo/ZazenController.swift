@@ -103,7 +103,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
         hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
-        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: workout.endDate)
         
         hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: workout.endDate, options: .strictEndDate)
         
@@ -119,7 +119,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                                 
                                                  DispatchQueue.main.async() {
                                                 
-                                                    self.hrvLabel.text = String(value * 1.0)
+                                                    self.hrvLabel.text = String(format: "%.1f", value)
                                                     
                                                 }
                                             }
@@ -129,115 +129,65 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
     }
     
-    func populateChart() {
+    func getChartDataSet(key: String, color: UIColor) -> LineChartDataSet {
         
+        var entries = [ChartDataEntry]()
         
-            var rate : [ChartDataEntry] = [ChartDataEntry]()
+        for(index, sample) in samples.enumerated() {
             
-            for(index, sample) in samples.enumerated() {
-                
-                let value = sample["heart.rate"] as! String;
+            if let value = sample[key] as? String {
                 
                 let y = Double(value)!
                 
-                rate.append(ChartDataEntry(x: Double(index), y: y ))
-                
+                entries.append(ChartDataEntry(x: Double(index), y: y ))
             }
             
-            /*
-             var ssdn : [ChartDataEntry] = [ChartDataEntry]()
-             
-             for(index, sample) in samples.enumerated() {
-             
-             let value = sample["heart.sdnn"] as! String
-             
-             let y = Double(value)!
-             
-             ssdn.append(ChartDataEntry(x: Double(index), y: y ))
-             
-             }
-             */
-            
-            var yaw : [ChartDataEntry] = [ChartDataEntry]()
-            
-            for(index, sample) in samples.enumerated() {
-                
-                let y = Double(sample["attitude.yaw"] as! String)!
-                
-                yaw.append(ChartDataEntry(x: Double(index), y: y ))
-                
-            }
-            
-            var pitch : [ChartDataEntry] = [ChartDataEntry]()
-            
-            for(index, sample) in samples.enumerated() {
-                
-                let y = Double(sample["attitude.pitch"] as! String)!
-                
-                pitch.append(ChartDataEntry(x: Double(index), y: y ))
-                
-            }
-            
-            var roll : [ChartDataEntry] = [ChartDataEntry]()
-            
-            for(index, sample) in samples.enumerated() {
-                
-                let y = Double((sample["attitude.roll"] as! String))!
-                
-                roll.append(ChartDataEntry(x: Double(index), y: y ))
-                
-            }
-            
-            let set1: LineChartDataSet = LineChartDataSet(values: rate, label: "heart.rate")
-            
-            set1.setColor(UIColor.red)
-            set1.setCircleColor(UIColor.red)
-            
-            /*
-             let set2: LineChartDataSet = LineChartDataSet(values: ssdn, label: "heart.ssdn")
-             
-             set2.setColor(UIColor.blue)
-             set2.setCircleColor(UIColor.blue)
-             
-             */
-            
-            let set3: LineChartDataSet = LineChartDataSet(values: yaw, label: "attitude.yaw")
-            
-            set3.setColor(UIColor.yellow)
-            set3.setCircleColor(UIColor.yellow)
-            
-            let set4: LineChartDataSet = LineChartDataSet(values: pitch, label: "attitude.pitch")
-            
-            set4.setColor(UIColor.purple)
-            set4.setCircleColor(UIColor.purple)
-            
-            let set5: LineChartDataSet = LineChartDataSet(values: roll, label: "attitude.roll")
-            
-            set5.setColor(UIColor.green)
-            set5.setCircleColor(UIColor.green)
-            
-            let data = LineChartData(dataSets: [set1, /*set2, */ set3, set4, set5])
-            
-            //chartView.xAxis.valueFormatter = self
-            
-            //chartView.xAxis.axisRange = Double(self.samples.count)
-            
-            //chartView.xAxis.axisMaxLabels = Int(chartView.xAxis.axisRange) + 1
-            //chartView.xAxis.axisMinLabels = Int(chartView.xAxis.axisRange) + 1
-            
-            chartView.data = data
-            
-            chartView.chartDescription?.enabled = false
-            
-            //chartView.centerViewTo(xValue: 1.00, yValue: 60.00, axis: YAxis.AxisDependency.left)
-            
-            //chartView.zoomIn()
-
+        }
+        
+        let retval = LineChartDataSet(values: entries, label: key)
+        
+        retval.setColor(color)
+        
+        retval.drawCirclesEnabled = false
+        
+        return retval
+        
+    }
+    
+    func populateChart() {
+        
+        let rate = getChartDataSet(key: "rate", color: UIColor.red )
+        
+        rate.lineWidth = 3.0
+        
+        let movement = getChartDataSet(key: "motion", color: UIColor.green)
+        
+        movement.lineWidth = 2.5
+        
+        let data = LineChartData(dataSets: [rate, movement])
+        
+        chartView.xAxis.valueFormatter = self
+        
+        if(rate.entryCount > 0) {  chartView.data = data }
+       
+        chartView.autoScaleMinMaxEnabled = true
+        
+        chartView.chartDescription?.enabled = false
+        
+        chartView.noDataText = "No samples"
+        
+        if(rate.entryCount > 0) {  chartView.data = data }
+        
+        chartView.animate(xAxisDuration: 3)
+        
     }
     
     func stringForValue(_ value: Double,
                         axis: AxisBase?) -> String {
-        return value.description
+        
+        let label = (value / 60)
+        
+        return String(format: "%.2f", label)
     }
     
     func export(samples: [[String:Any]]) -> UIActivityViewController {
@@ -245,18 +195,16 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         let fileName = "zazen.csv"
         let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
         
-        var csvText = "zazen.now, zazen.program, heart.rate, heart.sdnn, attitude.yaw, attitude.pitch, attitude.roll\n"
+        var csvText = "now, program, rate, sdnn, motion\n"
         
         for sample in samples {
             
             let line : String =
-                "\(sample["zazen.now"]!),"  +
-                    "\(sample["zazen.program"]!)," +
-                    "\(sample["heart.rate"]!)," +
-                    "\(sample["heart.sdnn"]!)," +
-                    "\(sample["attitude.yaw"]!)," +
-                    "\(sample["attitude.pitch"]!)," +
-            "\(sample["attitude.roll"]!)"
+                "\(sample["now"]!),"  +
+                    "\(sample["program"]!)," +
+                    "\(sample["rate"]!)," +
+                    "\(sample["sdnn"]!)," +
+                    "\(sample["motion"]!)"
             
             csvText += line  + "\n"
         }

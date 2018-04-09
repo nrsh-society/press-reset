@@ -22,7 +22,9 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
      func sessionTick(startDate: Date, endDate: Date) {
         
         DispatchQueue.main.async {
-        
+            
+            WKInterfaceDevice.current().play(.success)
+            
             let timeRemaining = Int((endDate.timeIntervalSinceNow / 60).rounded());
             let timeElapsed = Int(abs(startDate.timeIntervalSinceNow / 60).rounded());
         

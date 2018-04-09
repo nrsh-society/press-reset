@@ -1,5 +1,7 @@
-
 .DS_Store
 Zendo WatchKit App/.DS_Store
 Zendo.xcodeproj/xcuserdata/dmp.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
 Zendo.xcodeproj/project.xcworkspace/xcuserdata/dmp.xcuserdatad/UserInterfaceState.xcuserstate
+Carthage/*
+*.xcbkptlist
+*.xcuserstate

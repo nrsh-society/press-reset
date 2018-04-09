@@ -18,7 +18,7 @@ protocol SessionDelegate {
     func sessionTick(startDate: Date, endDate: Date);
 }
 
-struct Attitude  {
+struct Rotation  {
     var pitch : Double = 0.0
     var roll : Double = 0.0
     var yaw : Double = 0.0
@@ -29,15 +29,18 @@ class Session : NSObject {
     var duration: Int!
     var startDate : Date?
     var endDate : Date?
-    var lastTick : Date?
+    var lastSample = Date()
     var workoutSession : HKWorkoutSession?
     var isRunning : Bool! = false
     var delegate : SessionDelegate! = nil
-    var attitude = Attitude(pitch: 0.0, roll: 0.0, yaw: 0.0)
+    var rotation = Rotation(pitch: 0.0, roll: 0.0, yaw: 0.0)
+    var motion : Double = 0.0
     var heartRate : Double = 0.0
     var heartSDNN : Double = 0.0
     
-    private var _timer : Timer?;
+    private var _sampleTimer : Timer?;
+    private var _notifyTimer : Timer?;
+    
     private let _healthStore = HKHealthStore();
     private let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
     private let hkworkT = HKObjectType.workoutType();
@@ -57,10 +60,11 @@ class Session : NSObject {
         do {
             workoutSession = try HKWorkoutSession(configuration: configuration)
             
-            ZBFHealthKit.getPermissions() //#todo: add the workout management to the wrapper too
+            //#todo: add the workout management to the wrapper too
+            ZBFHealthKit.getPermissions()
             
         } catch let error as NSError {
-            // Perform proper error handling here...
+            //$todo: clean up all error handling
             fatalError("*** Unable to create the workout session: \(error.localizedDescription) ***")
         }
     }
@@ -79,12 +83,11 @@ class Session : NSObject {
             
             WKInterfaceDevice.current().play(.start)
             
-            createTimer();
+            createTimers();
             
             self.isRunning = true;
             
-        }
-        else {
+        } else {
             print("called start on running session")
         }
     }
@@ -113,7 +116,8 @@ class Session : NSObject {
                 print(error.debugDescription);
             }
             
-            self._healthStore.add(self.samples, to: workout) { (success, error) in
+            self._healthStore.add(self.samples, to: workout) {
+                (success, error) in
                 
                 if(error != nil) {
                     print(error.debugDescription);
@@ -126,30 +130,42 @@ class Session : NSObject {
         
     }
     
-    func createTimer() {
+    func createTimers() {
         
-        _timer = Timer.scheduledTimer(timeInterval: 60, target:self, selector: #selector(Session.notify), userInfo: nil, repeats: true)
+        _sampleTimer = Timer.scheduledTimer(timeInterval: 1, target:self, selector: #selector(Session.sample), userInfo: nil, repeats: true)
         
-        lastTick = Date();
+        _notifyTimer = Timer.scheduledTimer(timeInterval: 60, target:self, selector: #selector(Session.notify), userInfo: nil, repeats: true)
+        
     }
     
     @objc public func notify()  {
         
+        self.delegate.sessionTick(startDate: self.startDate!, endDate: self.endDate!);
+        
+    }
+    
+    @objc public func sample()  {
+        
+
         if let deviceMotion = self.motionManager.deviceMotion {
             
-            self.attitude.pitch = deviceMotion.attitude.pitch
-            self.attitude.roll = deviceMotion.attitude.roll
-            self.attitude.yaw = deviceMotion.attitude.yaw
-        
+            self.rotation.pitch = deviceMotion.rotationRate.x
+            self.rotation.roll = deviceMotion.rotationRate.y
+            self.rotation.yaw = deviceMotion.rotationRate.z
+            
         }
+    
+        self.motion = abs(self.rotation.pitch) + abs(self.rotation.roll) + abs(self.rotation.yaw)
         
+        self.motion = self.motion / 3
+        
+        self.motion = Double(round(100*self.motion)/100)
+    
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
         
         let heartRateSDNNType = HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
         
-        let heartRateSDNNPredicate: NSPredicate? = HKQuery.predicateForSamples(withStart: yesterday,
-                                                                               end: Date(),
-                                                                               options: .strictEndDate)
+        let heartRateSDNNPredicate: NSPredicate? = HKQuery.predicateForSamples(withStart: yesterday, end: Date(), options: .strictEndDate)
         
         _healthStore.execute(HKStatisticsQuery(quantityType: heartRateSDNNType,
                                                quantitySamplePredicate: heartRateSDNNPredicate,
@@ -188,22 +204,24 @@ class Session : NSObject {
         })
         
         
-        let metadata = ["zazen.now": Date().description,
-                        "zazen.program": duration.description,
-                        "attitude.yaw": attitude.yaw.description,
-                        "attitude.pitch": attitude.pitch.description,
-                        "attitude.roll": attitude.roll.description,
-                        "heart.sdnn": heartSDNN.description,
-                        "heart.rate": heartRate.description] as [String: String]
+        let metadata = ["now": Date().description,
+                        "program": duration.description,
+                        "motion": motion.description,
+                        "sdnn": heartSDNN.description,
+                        "rate": heartRate.description] as [String: String]
         
         let values = metadata as [String: Any]
         
-        let sample = HKCategorySample(type: self.hkType, value: 0, start: self.lastTick!, end: Date(), metadata: values )
+        //#todo: should this be another lighterweight sample type?
+        let sample = HKCategorySample(type: self.hkType, value: 0, start: self.lastSample, end: Date(), metadata: values )
         
         self._healthStore.save([sample]) { _,_ in
             
             self.samples.append(sample);
+            
         }
+        
+        lastSample = Date();
         
 /*      #todo: post dataset to server to drive av
         do {
@@ -225,18 +243,12 @@ class Session : NSObject {
         } catch {}
  
  */
-        
-        WKInterfaceDevice.current().play(.success)
-        
-        self.delegate.sessionTick(startDate: self.startDate!, endDate: self.endDate!);
-        
-        self.lastTick = Date();
-        
     }
     
     func invalidate() {
         
-        _timer!.invalidate();
+        _sampleTimer!.invalidate();
+        _notifyTimer!.invalidate();
         self.isRunning = false;
         
     }

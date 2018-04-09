@@ -11,7 +11,6 @@ import HealthKit
 
 class ZendoController: UITableViewController  {
     
-    private var _sampleCount = 0
     private var _samples = nil as [HKSample]?
     private let _healthStore = ZBFHealthKit.healthStore
     private var currentWorkout : HKWorkout?
@@ -30,9 +29,7 @@ class ZendoController: UITableViewController  {
             if(error != nil ) { print(error!); } else {
                 
                 DispatchQueue.main.async() {
-                    
-                    self._sampleCount = results!.count;
-                    //self._samples = results?.reversed();
+
                     self._samples = results
                     
                     self.tableView.reloadData();
@@ -73,7 +70,9 @@ class ZendoController: UITableViewController  {
 
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return _sampleCount;
+        if let count = _samples?.count {
+            return count
+        } else { return 0 }
     }
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
