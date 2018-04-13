@@ -156,7 +156,13 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     
     func populateChart() {
         
-        let rate = getChartDataSet(key: "heart", color: UIColor.red )
+        var rate = getChartDataSet(key: "heart", color: UIColor.red )
+       
+        //#todo: support v.002 schema
+        if rate.entryCount == 0 {
+            
+            rate = getChartDataSet(key: "heart", color: UIColor.red )
+        }
         
         rate.lineWidth = 3.0
         
