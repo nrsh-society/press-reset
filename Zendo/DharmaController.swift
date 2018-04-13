@@ -13,11 +13,28 @@ class DharmaController : UIViewController {
     
     @IBOutlet weak var webView: UIWebView!
     
+    let url = URL(string: "http://zenbf.org/dharma")!
+    
     override func viewDidLoad() {
-        webView.loadRequest(URLRequest(url: URL(string: "http://zenbf.org/dharma")!))
+        webView.loadRequest(URLRequest(url: url))
     }
     
     @IBAction func actionClick(_ sender: Any) {
+        
+        let vc = UIActivityViewController(activityItems: [url as Any], applicationActivities: [])
+        
+        vc.excludedActivityTypes = [
+            UIActivityType.assignToContact,
+            UIActivityType.saveToCameraRoll,
+            UIActivityType.postToFlickr,
+            UIActivityType.postToVimeo,
+            UIActivityType.postToTencentWeibo,
+            UIActivityType.postToTwitter,
+            UIActivityType.postToFacebook,
+            UIActivityType.openInIBooks
+        ]
+        
+        self.present(vc, animated: true, completion: nil)
         
     }
     

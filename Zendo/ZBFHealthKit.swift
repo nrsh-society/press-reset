@@ -47,6 +47,13 @@ class ZBFHealthKit {
         
         cell.detailTextLabel?.text = ZBFHealthKit.format(date: workout.endDate)
         
+        let tenScale  = CGFloat(workout.duration / 60 / 10)
+        
+        UIView.animate(withDuration: 1) {
+        
+            cell.imageView?.transform = CGAffineTransform(scaleX: tenScale, y: tenScale)
+            
+        }
     }
     
     class func getSamples(workout:HKWorkout) -> [HKCategorySample] {

@@ -28,11 +28,11 @@
         <!--Zazen-->
         <scene sceneID="agu-hn-eOg">
             <objects>
-                <controller identifier="SessionInterfaceController" title="Zazen" contentMode="scaleAspectFit" animationDuration="2" alwaysBounce="YES" id="LqQ-c8-Qbp" customClass="SessionInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="SessionInterfaceController" title="Zazen" contentMode="scaleAspectFit" initiallyAnimated="NO" animationDuration="2" alwaysBounce="YES" id="LqQ-c8-Qbp" customClass="SessionInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <label width="136" height="120" alignment="center" verticalAlignment="center" text="07" textAlignment="center" numberOfLines="0" id="Erh-81-UMf">
+                        <label width="136" height="120" alignment="center" verticalAlignment="center" text="100" textAlignment="center" numberOfLines="0" id="Erh-81-UMf">
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="font" type="boldSystem" pointSize="118"/>
+                            <fontDescription key="font" type="boldSystem" pointSize="87"/>
                         </label>
                     </items>
                     <menu key="menu" id="uaY-fT-kfg">

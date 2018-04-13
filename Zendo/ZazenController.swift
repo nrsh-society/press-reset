@@ -23,6 +23,15 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     @IBOutlet weak var chartView: LineChartView!
     @IBOutlet weak var programImage: UIImageView!
     
+    override open var shouldAutorotate: Bool {
+        return false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
     override func viewDidLoad() {
         
         let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
@@ -121,11 +130,13 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                                 
                                                     self.hrvLabel.text = String(format: "%.1f", value)
                                                     
+                                                    
                                                 }
                                             }
         }
         
         ZBFHealthKit.healthStore.execute(hkQuery)
+        
         
     }
     
@@ -161,7 +172,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         //#todo: support v.002 schema
         if rate.entryCount == 0 {
             
-            rate = getChartDataSet(key: "heart", color: UIColor.red )
+            rate = getChartDataSet(key: "rate", color: UIColor.red )
         }
         
         rate.lineWidth = 3.0

@@ -15,6 +15,15 @@ class ZendoController: UITableViewController  {
     private let _healthStore = ZBFHealthKit.healthStore
     private var currentWorkout : HKWorkout?
     
+    override open var shouldAutorotate: Bool {
+        return false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -84,7 +93,7 @@ class ZendoController: UITableViewController  {
         let sample = _samples![indexPath.row];
         
         let workout = (sample as! HKWorkout);
-        
+    
         ZBFHealthKit.populateCell(workout: workout, cell: cell);
         
         return cell;
@@ -142,5 +151,69 @@ class ZendoController: UITableViewController  {
         present(dharmaController, animated: true, completion: {});
     }
     
+    @IBAction func actionClick(_ sender: Any) {
+        exportAll()
+    }
+    
+    func exportAll() {
+        
+        var samples = [[String:Any]]()
+        
+        let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
+        let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
+        
+        let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: false)
+        
+        
+        let hkQuery = HKSampleQuery.init(sampleType: mindfulSessionType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor], resultsHandler: {query, results, error in
+            
+            if(error != nil ) { print(error!); } else {
+                
+                DispatchQueue.main.sync() {
+                    
+                    samples = results!.map { dictionary in
+                        var dict: [String: String] = [:]
+                        dictionary.metadata!.forEach { (key, value) in dict[key] = "\(value)" }
+                        return dict
+                    }
+                    
+                    let fileName = "zazen.json"
+                    let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+                    
+                    let outputStream = OutputStream(url: path!, append: false)
+                    
+                    outputStream?.open()
+                    
+                    JSONSerialization.writeJSONObject(
+                        samples,
+                        to: outputStream!,
+                        options: JSONSerialization.WritingOptions.prettyPrinted,
+                        error: nil)
+                    
+                    outputStream?.close()
+                    
+                    let vc = UIActivityViewController(activityItems: [path as Any], applicationActivities: [])
+                    
+                    vc.excludedActivityTypes = [
+                        UIActivityType.assignToContact,
+                        UIActivityType.saveToCameraRoll,
+                        UIActivityType.postToFlickr,
+                        UIActivityType.postToVimeo,
+                        UIActivityType.postToTencentWeibo,
+                        UIActivityType.postToTwitter,
+                        UIActivityType.postToFacebook,
+                        UIActivityType.openInIBooks
+                    ]
+                    
+                    self.present(vc, animated: true, completion: nil)
+                    
+                };
+            }
+            
+        });
+        
+        HKHealthStore().execute(hkQuery)
+        
+    }
     
 }
