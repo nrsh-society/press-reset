@@ -15,7 +15,7 @@ import CoreFoundation
 protocol SessionDelegate {
     
     //fired everytime the session interface should be updated
-    func sessionTick(startDate: Date, endDate: Date);
+    func sessionTick(startDate: Date);
 }
 
 struct Rotation  {
@@ -25,8 +25,6 @@ struct Rotation  {
 }
 
 class Session : NSObject {
-    
-    var duration: Int!
     var startDate : Date?
     var endDate : Date?
     var lastSample = Date()
@@ -47,11 +45,9 @@ class Session : NSObject {
     private var samples = [HKCategorySample]();
     private let motionManager = CMMotionManager();
     
-    init(duration: Int) {
+    override init() {
         
         super.init();
-        
-        self.duration = duration;
         
         let configuration = HKWorkoutConfiguration()
         configuration.activityType = .mindAndBody
@@ -74,8 +70,6 @@ class Session : NSObject {
         if(!self.isRunning) {
             
             self.startDate = Date();
-            
-            self.endDate = startDate!.addingTimeInterval(Double(duration * 60));
             
             motionManager.startDeviceMotionUpdates();
             
@@ -140,7 +134,7 @@ class Session : NSObject {
     
     @objc public func notify()  {
         
-        self.delegate.sessionTick(startDate: self.startDate!, endDate: self.endDate!);
+        self.delegate.sessionTick(startDate: self.startDate!);
         
     }
     
@@ -185,7 +179,7 @@ class Session : NSObject {
             HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
         
         
-        let heartRatePredicate: NSPredicate? = HKQuery.predicateForSamples(withStart: self.startDate, end: self.endDate, options: .strictEndDate)
+        let heartRatePredicate: NSPredicate? = HKQuery.predicateForSamples(withStart: self.startDate, end: Date(), options: .strictEndDate)
         
         
         _healthStore.execute(HKStatisticsQuery(quantityType: heartRateType,
@@ -205,10 +199,13 @@ class Session : NSObject {
         
         
         let metadata = ["now": Date().description,
-                        "program": duration.description,
                         "motion": motion.description,
                         "sdnn": heartSDNN.description,
-                        "rate": heartRate.description] as [String: String]
+                        "heart": heartRate.description,
+                        "pitch" : self.rotation.pitch.description,
+                        "roll" : self.rotation.roll.description,
+                        "yaw": self.rotation.yaw.description
+                        ] as [String: String]
         
         let values = metadata as [String: Any]
         

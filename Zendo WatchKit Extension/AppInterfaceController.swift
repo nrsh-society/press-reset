@@ -13,38 +13,19 @@ var _currentSession : Session?
 
 class AppInterfaceController: WKInterfaceController {
 
-    @IBAction func onFortyMinuteStartPress() {
-        
-        NSLog("onFortyMinuteStartPress");
-        
-        startSession(duration: 40);
     
+    @IBAction func start() {
+        
+        NSLog("start press");
+        
+        startSession();
+        
     }
     
-    @IBAction func onThirtyMinuteStartPress() {
-        
-        NSLog("onThirtyMinuteStartPress");
-        
-        startSession(duration: 30);
-    }
     
-    @IBAction func onTwentyMinutesStartPress() {
-        
-        NSLog("onTwentyMinutesStartPress");
-        
-        startSession(duration: 20);
-    }
-    
-    @IBAction func onTenMinutesStartPress() {
-        
-        NSLog("onTenMinutesStartPress");
-        
-        startSession(duration: 10);
-    }
-    
-    func startSession(duration: Int) {
+    func startSession() {
 
-        _currentSession = Session(duration: duration);
+        _currentSession = Session();
         
         _currentSession?.start();
         

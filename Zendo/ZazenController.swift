@@ -156,7 +156,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     
     func populateChart() {
         
-        let rate = getChartDataSet(key: "rate", color: UIColor.red )
+        let rate = getChartDataSet(key: "heart", color: UIColor.red )
         
         rate.lineWidth = 3.0
         
@@ -201,8 +201,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
             
             let line : String =
                 "\(sample["now"]!),"  +
-                    "\(sample["program"]!)," +
-                    "\(sample["rate"]!)," +
+                    "\(sample["heart"]!)," +
                     "\(sample["sdnn"]!)," +
                     "\(sample["motion"]!)"
             

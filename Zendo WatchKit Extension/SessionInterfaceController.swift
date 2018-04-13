@@ -16,20 +16,23 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     var _timer: Timer!
     var _session: Session!;
     
-    @IBOutlet var timeRemainingLabel: WKInterfaceLabel!
     @IBOutlet var timeElapsedLabel: WKInterfaceLabel!
     
-     func sessionTick(startDate: Date, endDate: Date) {
+     func sessionTick(startDate: Date) {
         
         DispatchQueue.main.async {
             
             WKInterfaceDevice.current().play(.success)
             
-            let timeRemaining = Int((endDate.timeIntervalSinceNow / 60).rounded());
             let timeElapsed = Int(abs(startDate.timeIntervalSinceNow / 60).rounded());
+            
+            var value = timeElapsed.description
+            
+            if timeElapsed < 10 {
+                value = "0\(value)"
+            }
         
-            self.timeRemainingLabel.setText(timeRemaining.description);
-            self.timeElapsedLabel.setText(timeElapsed.description)
+            self.timeElapsedLabel.setText(value)
             
             //#todo: this seems like it is causing a crash during testing.
             //going to comment and move to getting the tick data in the cloud for vr display.
@@ -49,7 +52,6 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     @IBAction func onDonePress() {
         
         _session.end();
-        
         WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: NSNull())])
     }
     
@@ -59,14 +61,11 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         
         if(context != nil) {
         
-            _session = context as! Session;
+            _session = context as! Session
             
-            _session.delegate = self;
+            _session.delegate = self
             
-            let minutesRemaining = _session.duration!;
-            
-            timeRemainingLabel.setText(minutesRemaining.description);
-            timeElapsedLabel.setText("0")
+            timeElapsedLabel.setText("00")
             
         }
     }
