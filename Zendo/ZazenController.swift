@@ -22,6 +22,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     
     @IBOutlet weak var chartView: LineChartView!
     @IBOutlet weak var programImage: UIImageView!
+    @IBOutlet weak var motionChart: LineChartView!
     
     override open var shouldAutorotate: Bool {
         return false
@@ -141,7 +142,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
     }
     
-    func getChartDataSet(key: String, color: UIColor) -> LineChartDataSet {
+    func getChartDataSet(key: String, color: UIColor, scale: Double) -> LineChartDataSet {
         
         var entries = [ChartDataEntry]()
         
@@ -151,7 +152,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                 
                 let y = Double(value)!
                 
-                entries.append(ChartDataEntry(x: Double(index), y: y ))
+                entries.append(ChartDataEntry(x: Double(index), y: y * scale ))
             }
             
         }
@@ -168,35 +169,38 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     
     func populateChart() {
         
-        var rate = getChartDataSet(key: "heart", color: UIColor.red )
+        var rate = getChartDataSet(key: "heart", color: UIColor.red, scale: 60 )
        
         //#todo: support v.002 schema
         if rate.entryCount == 0 {
             
-            rate = getChartDataSet(key: "rate", color: UIColor.red )
+            rate = getChartDataSet(key: "rate", color: UIColor.red, scale: 60 )
         }
         
         rate.lineWidth = 3.0
         
-        let movement = getChartDataSet(key: "motion", color: UIColor.green)
+        let motion = getChartDataSet(key: "motion", color: UIColor.green, scale: 1)
         
-        movement.lineWidth = 2.5
+        motion.lineWidth = 3.0
         
-        let data = LineChartData(dataSets: [rate, movement])
+        let data1 = LineChartData(dataSets: [rate])
+        let data2 = LineChartData(dataSets: [motion])
         
         chartView.xAxis.valueFormatter = self
+        motionChart.xAxis.valueFormatter = self
         
-        if(rate.entryCount > 0) {  chartView.data = data }
+        if(rate.entryCount > 0) {  chartView.data = data1 }
+        if(motion.entryCount > 0) { motionChart.data = data2 }
        
         chartView.autoScaleMinMaxEnabled = true
-        
         chartView.chartDescription?.enabled = false
-        
         chartView.noDataText = "No samples"
-        
-        if(rate.entryCount > 0) {  chartView.data = data }
-        
         chartView.animate(xAxisDuration: 3)
+        
+        motionChart.autoScaleMinMaxEnabled = true
+        motionChart.chartDescription?.enabled = false
+        motionChart.noDataText = "No samples"
+        motionChart.animate(xAxisDuration: 3)
         
     }
     
