@@ -30,6 +30,7 @@
 		BE2E82141FF44A7B00D104AC /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E82131FF44A7B00D104AC /* NotificationController.swift */; };
 		BE38CF612075D1D10095BB6C /* BuddhaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38CF602075D1D10095BB6C /* BuddhaController.swift */; };
 		BE4895AC206B0CC400B007D6 /* ZazenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4895AB206B0CC400B007D6 /* ZazenController.swift */; };
+		BE7FCBFF20819BA400965986 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE7FCBFE20819BA400965986 /* Media.xcassets */; };
 		BE81B26F2001B85500274FA1 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE81B26E2001B85500274FA1 /* HealthKit.framework */; };
 		BE8BB21F1FFDCC4600B2E113 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8BB21E1FFDCC4600B2E113 /* HealthKit.framework */; };
 		BE9B00002065F317007FF96A /* ZBFHealthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9BFFFF2065F317007FF96A /* ZBFHealthKit.swift */; };
@@ -38,7 +39,6 @@
 		BE9BFFFE2065F215007FF96A /* ZBFHealthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9BFFFC2065EE3D007FF96A /* ZBFHealthKit.swift */; };
 		BEA398DE2075F14300C85A84 /* SanghaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA398DD2075F14300C85A84 /* SanghaController.swift */; };
 		BEA398E12075F2BE00C85A84 /* DharmaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA398E02075F2BE00C85A84 /* DharmaController.swift */; };
-		BEA398EE20762CBB00C85A84 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA398ED20762CBB00C85A84 /* Media.xcassets */; };
 		BEA398F220762F4700C85A84 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA398F120762F4700C85A84 /* Media.xcassets */; };
 		BEEAE8CF2079130600DFECFA /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEEAE8CE2079130600DFECFA /* Charts.framework */; };
 		BEEAE8D02079130600DFECFA /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BEEAE8CE2079130600DFECFA /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -123,6 +123,7 @@
 		BE2E82181FF44A7B00D104AC /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		BE38CF602075D1D10095BB6C /* BuddhaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddhaController.swift; sourceTree = "<group>"; };
 		BE4895AB206B0CC400B007D6 /* ZazenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZazenController.swift; sourceTree = "<group>"; };
+		BE7FCBFE20819BA400965986 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		BE81B26D2001B85500274FA1 /* Zendo.entitlements */ = {isa = PBXFileReference; explicitFileType = text.plist.entitlements; path = Zendo.entitlements; sourceTree = "<group>"; };
 		BE81B26E2001B85500274FA1 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		BE8BB21E1FFDCC4600B2E113 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS4.1.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -133,7 +134,6 @@
 		BE9BFFFF2065F317007FF96A /* ZBFHealthKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZBFHealthKit.swift; sourceTree = "<group>"; };
 		BEA398DD2075F14300C85A84 /* SanghaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SanghaController.swift; sourceTree = "<group>"; };
 		BEA398E02075F2BE00C85A84 /* DharmaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DharmaController.swift; sourceTree = "<group>"; };
-		BEA398ED20762CBB00C85A84 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		BEA398F120762F4700C85A84 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		BEEAE8CE2079130600DFECFA /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/iOS/Charts.framework; sourceTree = "<group>"; };
 		C5EE270417BDD012045FC9FF /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -218,7 +218,7 @@
 				BEA398DD2075F14300C85A84 /* SanghaController.swift */,
 				BE4895AB206B0CC400B007D6 /* ZazenController.swift */,
 				BE2E81EE1FF44A7B00D104AC /* ZendoController.swift */,
-				BEA398ED20762CBB00C85A84 /* Media.xcassets */,
+				BE7FCBFE20819BA400965986 /* Media.xcassets */,
 			);
 			path = Zendo;
 			sourceTree = "<group>";
@@ -387,7 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE2E81F71FF44A7B00D104AC /* LaunchScreen.storyboard in Resources */,
-				BEA398EE20762CBB00C85A84 /* Media.xcassets in Resources */,
+				BE7FCBFF20819BA400965986 /* Media.xcassets in Resources */,
 				BE2E81F21FF44A7B00D104AC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,9 +11,12 @@ import HealthKit
 
 class ZendoController: UITableViewController  {
     
-    private var _samples = nil as [HKSample]?
-    private let _healthStore = ZBFHealthKit.healthStore
-    private var currentWorkout : HKWorkout?
+    var currentWorkout : HKWorkout?
+    var samples = nil as [HKSample]?
+    let hkType = HKObjectType.workoutType();
+    let healthStore = ZBFHealthKit.healthStore
+    let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
+    
     
     override open var shouldAutorotate: Bool {
         return false
@@ -24,12 +27,7 @@ class ZendoController: UITableViewController  {
         
     }
     
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-      
-        let hkType = HKObjectType.workoutType();
-        let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
+    func populateTable() {
         
         let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: false)
         
@@ -38,8 +36,8 @@ class ZendoController: UITableViewController  {
             if(error != nil ) { print(error!); } else {
                 
                 DispatchQueue.main.async() {
-
-                    self._samples = results
+                    
+                    self.samples = results
                     
                     self.tableView.reloadData();
                     
@@ -48,22 +46,44 @@ class ZendoController: UITableViewController  {
             
         });
         
-        _healthStore.execute(hkQuery)
+        healthStore.execute(hkQuery)
         
     }
-
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        populateTable()
+        
+        let oQuery = HKObserverQuery.init(sampleType: hkType, predicate:hkPredicate) {
+            
+            query,results,error in
+            
+            if(error != nil ) { print(error!); } else {
+                
+                DispatchQueue.main.async() {
+                    
+                    self.populateTable()
+                    
+                };
+            }
+        }
+        
+        healthStore.execute(oQuery)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let sample = _samples![indexPath.row];
+        let sample = samples![indexPath.row];
         
         currentWorkout = (sample as! HKWorkout);
-                
+        
         let details = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "zazen-controller") as! ZazenController
-
+        
         details.workout = currentWorkout
         
         present(details, animated: true, completion: {});
@@ -72,14 +92,14 @@ class ZendoController: UITableViewController  {
     
     public override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         
-        let sample = _samples![indexPath.row];
+        let sample = samples![indexPath.row];
         
         currentWorkout = (sample as! HKWorkout);
     }
-
+    
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let count = _samples?.count {
+        if let count = samples?.count {
             return count
         } else { return 0 }
     }
@@ -90,14 +110,14 @@ class ZendoController: UITableViewController  {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: key, for: indexPath);
         
-        let sample = _samples![indexPath.row];
+        let sample = samples![indexPath.row];
         
         let workout = (sample as! HKWorkout);
-    
+        
         ZBFHealthKit.populateCell(workout: workout, cell: cell);
         
         return cell;
-                
+        
     }
     
     @IBAction func onReload(_ sender: UIRefreshControl) {
@@ -113,9 +133,9 @@ class ZendoController: UITableViewController  {
         configuration.activityType = .mindAndBody
         configuration.locationType = .unknown
         
-        _healthStore.startWatchApp(with: configuration) { (success, error) in
+        healthStore.startWatchApp(with: configuration) { (success, error) in
             guard success else { print (error.debugDescription); return }
-           
+            
         }
         
         let alert = UIAlertController(title: "Zendo", message: "Continue on Watch", preferredStyle: .alert);
@@ -126,9 +146,13 @@ class ZendoController: UITableViewController  {
         
         self.present(alert, animated: true, completion: {
             
+            self.populateTable()
+            
         });
     }
     
+    
+    //#todo: make one function path with one "browsercontroller"
     @IBAction func buddhaClick(_ sender: Any) {
         
         let buddhaController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "buddha-controller") as! BuddhaController

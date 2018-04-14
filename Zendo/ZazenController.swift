@@ -137,6 +137,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
         ZBFHealthKit.healthStore.execute(hkQuery)
         
+        programImage.image = ZBFHealthKit.getImage(duration: workout.duration)
         
     }
     

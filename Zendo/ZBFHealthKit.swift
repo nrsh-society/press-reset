@@ -35,25 +35,67 @@ class ZBFHealthKit {
                     if(!success && error != nil) {
                         print(error.debugDescription);
                     }
+                    
             })
         }
     }
     
+    
     class func populateCell(workout : HKWorkout, cell:UITableViewCell)  {
         
-        cell.textLabel?.text = Int((workout.duration / 60).rounded()).description;
+        let minutes = (workout.duration / 60).rounded()
+        
+        cell.textLabel?.text = Int(minutes).description;
         
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 33.0);
         
         cell.detailTextLabel?.text = ZBFHealthKit.format(date: workout.endDate)
         
-        let tenScale  = CGFloat(workout.duration / 60 / 10)
-        
         UIView.animate(withDuration: 1) {
+            
+            cell.imageView?.transform = CGAffineTransform(scaleX: CGFloat(minutes), y: CGFloat(minutes))
+            
+            cell.imageView!.image = getImage(duration: workout.duration)
         
-            cell.imageView?.transform = CGAffineTransform(scaleX: tenScale, y: tenScale)
+        }
+    }
+    
+    class func getImage(duration: TimeInterval) -> UIImage {
+        
+         var retval : UIImage? = nil
+        
+        let minutes = Int((duration / 60))
+        
+        switch (minutes) {
+        
+            case 0...9:
+                retval = UIImage(named: "shobogenzo60")
+                break
+            
+            case 10...19:
+                retval = UIImage(named: "shobogenzo70")
+                break
+
+            case 20...29:
+                retval = UIImage(named: "shobogenzo80")
+                break
+            
+            case 30...39:
+                retval = UIImage(named: "shobogenzo90")
+                break
+            
+            case 40...:
+                retval = UIImage(named: "shobogenzo100")
+                break
+            
+            default:
+                retval = UIImage(named: "shobogenzo50")
+                break
             
         }
+        
+        return retval!
+        
     }
     
     class func getSamples(workout:HKWorkout) -> [HKCategorySample] {
@@ -79,11 +121,11 @@ class ZBFHealthKit {
         return samples
         
     }
-    
-    
+
     class func format(date:Date) -> String {
     
         let dateFormatter = DateFormatter();
+        
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent;
         dateFormatter.setLocalizedDateFormatFromTemplate("YYYY-MM-dd")
     
@@ -95,5 +137,4 @@ class ZBFHealthKit {
         
         return localDate + " " + localTime
     }
-        
 }
