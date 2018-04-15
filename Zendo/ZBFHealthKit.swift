@@ -50,14 +50,16 @@ class ZBFHealthKit {
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 33.0);
         
         cell.detailTextLabel?.text = ZBFHealthKit.format(date: workout.endDate)
+      
+        cell.imageView!.image = getImage(duration: workout.duration)
         
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
             
-            cell.imageView?.transform = CGAffineTransform(scaleX: CGFloat(minutes), y: CGFloat(minutes))
+            let scale = CGAffineTransform(scaleX: 1 + CGFloat(minutes / 10), y: 1 + CGFloat(minutes / 10))
             
-            cell.imageView!.image = getImage(duration: workout.duration)
-        
-        }
+            cell.imageView?.transform = scale
+            
+        }, completion: nil)
     }
     
     class func getImage(duration: TimeInterval) -> UIImage {

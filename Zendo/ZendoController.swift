@@ -99,9 +99,13 @@ class ZendoController: UITableViewController  {
     
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         if let count = samples?.count {
             return count
-        } else { return 0 }
+        } else {
+            return 0
+            
+        }
     }
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -151,28 +155,24 @@ class ZendoController: UITableViewController  {
         });
     }
     
-    
-    //#todo: make one function path with one "browsercontroller"
     @IBAction func buddhaClick(_ sender: Any) {
-        
-        let buddhaController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "buddha-controller") as! BuddhaController
-        
-        present(buddhaController, animated: true, completion: {});
+        showController("buddha-controller")
     }
     
     @IBAction func sanghaClick(_ sender: Any) {
-        
-        let sanghaController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sangha-controller") as! SanghaController
-        
-        present(sanghaController, animated: true, completion: {});
-        
+        showController("sangha-controller")
     }
     
     @IBAction func dharmaClick(_ sender: Any) {
+        showController("dharma-controller")
+    }
+    
+    func showController(_ named: String) {
         
-        let dharmaController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "dharma-controller") as! DharmaController
+        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: named)
         
-        present(dharmaController, animated: true, completion: {});
+        present(controller, animated: true, completion: {});
+        
     }
     
     @IBAction func actionClick(_ sender: Any) {
