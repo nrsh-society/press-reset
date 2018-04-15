@@ -21,8 +21,8 @@
                         <color key="barTintColor" red="0.50178641080856323" green="0.50585794448852539" blue="0.50994640588760376" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <color key="textShadowColor" red="1" green="0.58255845309999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" red="0.87058823529411766" green="0.8784313725490196" blue="0.89411764705882357" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="50"/>
@@ -55,8 +55,8 @@
                                 <color key="barTintColor" red="0.50189149379730225" green="0.50192040205001831" blue="0.50597971677780151" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="33"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="textShadowColor" red="1" green="0.58255845309999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textColor" red="0.87058823529999996" green="0.87843137250000003" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Buddha" id="ZcU-Uk-sIe">
@@ -204,12 +204,12 @@
                                 <color key="barTintColor" red="0.50178641080856323" green="0.50585794448852539" blue="0.50994640588760376" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="33"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="textShadowColor" red="1" green="0.58255845309999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textColor" red="0.87058823529999996" green="0.87843137250000003" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textAttributes>
                                 <textAttributes key="largeTitleTextAttributes">
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="33"/>
-                                    <color key="textColor" red="1" green="0.58255845309999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="textShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textAttributes>
                                 <items>
@@ -234,61 +234,61 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pU3-qy-VOM" customClass="LineChartView" customModule="Charts">
-                                        <rect key="frame" x="8" y="195" width="359" height="173"/>
+                                        <rect key="frame" x="8" y="195" width="359" height="250"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="0.58255845309999998" blue="0.0" alpha="0.2751765839041096" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MinHR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3Z-in-xL7">
-                                        <rect key="frame" x="143" y="81.325560890310499" width="83.000000000000057" height="29.999999999999886"/>
+                                        <rect key="frame" x="159" y="84" width="83.000000000000057" height="29.999999999999886"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ybl-hF-vtb">
-                                        <rect key="frame" x="245" y="82.412780445155931" width="85.000000000000028" height="23.999999999999659"/>
+                                        <rect key="frame" x="261" y="85" width="85.000000000000028" height="23.999999999999659"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0QH-ta-L9u">
-                                        <rect key="frame" x="245" y="37" width="85.000000000000028" height="24"/>
+                                        <rect key="frame" x="261" y="40" width="85.000000000000028" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="HRV" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dpg-0p-L5v">
-                                        <rect key="frame" x="143" y="37" width="83.000000000000057" height="30"/>
+                                        <rect key="frame" x="159" y="40" width="83.000000000000057" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MaxHR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iT-yc-M9E">
-                                        <rect key="frame" x="143" y="132" width="67.000000000000114" height="23.999999999999886"/>
+                                        <rect key="frame" x="159" y="135" width="67.000000000000114" height="23.999999999999886"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ahn-60-1Lr">
-                                        <rect key="frame" x="245" y="132" width="85.000000000000028" height="23.999999999999886"/>
+                                        <rect key="frame" x="261" y="135" width="85.000000000000028" height="23.999999999999886"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kve-to-s04" customClass="LineChartView" customModule="Charts">
-                                        <rect key="frame" x="8" y="376" width="359" height="191"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shobogenzo100" translatesAutoresizingMaskIntoConstraints="NO" id="q6l-Hl-KtD">
                                         <rect key="frame" x="17" y="49" width="106" height="101"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kve-to-s04" customClass="LineChartView" customModule="Charts">
+                                        <rect key="frame" x="8" y="453" width="359" height="250"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -330,8 +330,8 @@
                                 <color key="barTintColor" red="0.50178641080856323" green="0.50585794448852539" blue="0.50994640588760376" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="33"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="textShadowColor" red="1" green="0.58255845309999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textColor" red="0.87058823529999996" green="0.87843137250000003" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Sangha" id="bYq-sZ-Ttj">
@@ -378,8 +378,8 @@
                                 <color key="barTintColor" red="0.50178641080856323" green="0.50585794448852539" blue="0.50994640588760376" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="33"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="textShadowColor" red="1" green="0.58255845309999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textColor" red="0.87058823529999996" green="0.87843137250000003" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Dharma" id="Es2-o7-ksJ">
