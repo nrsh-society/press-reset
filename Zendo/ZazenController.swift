@@ -16,13 +16,15 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     public var workout : HKWorkout!
     public var samples: [[String:Any]]!
     
-    @IBOutlet weak var minLabel: UILabel!
-    @IBOutlet weak var maxLabel: UILabel!
-    @IBOutlet weak var hrvLabel: UILabel!
+    @IBOutlet weak var minHRLabel: UILabel!
+    @IBOutlet weak var maxHRLabel: UILabel!
+    @IBOutlet weak var minHRVLabel: UILabel!
+    @IBOutlet weak var maxHRVLabel: UILabel!
     
     @IBOutlet weak var chartView: LineChartView!
     @IBOutlet weak var programImage: UIImageView!
     @IBOutlet weak var motionChart: LineChartView!
+    @IBOutlet weak var durationLabel: UILabel!
     
     override open var shouldAutorotate: Bool {
         return false
@@ -93,7 +95,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                                 
                                                  DispatchQueue.main.async() {
                                                 
-                                                    self.minLabel.text = String(value * 60.0)
+                                                    self.minHRLabel.text = String(value * 60.0)
                                                 
                                                 }
                                             }
@@ -102,7 +104,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                                 
                                                  DispatchQueue.main.async() {
                                                     
-                                                    self.maxLabel.text = String(value * 60.0)
+                                                    self.maxHRLabel.text = String(value * 60.0)
                                                 }
                                             }
                               
@@ -119,17 +121,27 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
         hkQuery = HKStatisticsQuery(quantityType: hkType,
                                         quantitySamplePredicate: hkPredicate,
-                                        options: .discreteAverage) { query, result, error in
+                                        options: options) { query, result, error in
                                             
                                             if(error != nil) {
                                                 print(error.debugDescription);
                                             }
                                             
-                                            if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
+                                            if let value = result!.minimumQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
                                                 
                                                  DispatchQueue.main.async() {
                                                 
-                                                    self.hrvLabel.text = String(format: "%.1f", value)
+                                                    self.minHRVLabel.text = String(format: "%.1f", value)
+                                                    
+                                                    
+                                                }
+                                            }
+                                            
+                                            if let value = result!.maximumQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
+                                                
+                                                DispatchQueue.main.async() {
+                                                    
+                                                    self.maxHRVLabel.text = String(format: "%.1f", value)
                                                     
                                                     
                                                 }
@@ -139,6 +151,11 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         ZBFHealthKit.healthStore.execute(hkQuery)
         
         programImage.image = ZBFHealthKit.getImage(duration: workout.duration)
+        
+        
+        let minutes = (workout.duration / 60).rounded()
+        
+        durationLabel.text = Int(minutes).description;
         
     }
     
@@ -152,7 +169,10 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                 
                 let y = Double(value)!
                 
+                if(y > 0.00) {
+                
                 entries.append(ChartDataEntry(x: Double(index), y: y * scale ))
+                }
             }
             
         }
@@ -169,12 +189,12 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     
     func populateChart() {
         
-        var rate = getChartDataSet(key: "heart", color: UIColor.red, scale: 60 )
+        var rate = getChartDataSet(key: "heart", color: UIColor.red, scale: 60)
        
         //#todo: support v.002 schema
         if rate.entryCount == 0 {
             
-            rate = getChartDataSet(key: "rate", color: UIColor.red, scale: 60 )
+            rate = getChartDataSet(key: "rate", color: UIColor.red, scale: 60)
         }
         
         rate.lineWidth = 3.0
@@ -217,7 +237,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         let fileName = "zazen.csv"
         let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
         
-        var csvText = "now, program, rate, sdnn, motion\n"
+        var csvText = "now, hr, sdnn, motion\n"
         
         for sample in samples {
             

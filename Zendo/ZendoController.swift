@@ -201,7 +201,7 @@ class ZendoController: UITableViewController  {
                         return dict
                     }
                     
-                    let fileName = "zazen.json"
+                    let fileName = "zendo.json"
                     let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
                     
                     let outputStream = OutputStream(url: path!, append: false)
