@@ -134,6 +134,8 @@ class Session : NSObject {
     
     @objc public func notify()  {
         
+        WKInterfaceDevice.current().play(.success)
+        
         self.delegate.sessionTick(startDate: self.startDate!);
         
     }

@@ -22,8 +22,6 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         
         DispatchQueue.main.async {
             
-            WKInterfaceDevice.current().play(.success)
-            
             let timeElapsed = Int(abs(startDate.timeIntervalSinceNow / 60).rounded());
             
             var value = timeElapsed.description
@@ -45,6 +43,8 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
             }
  
             */
+            
+            WKInterfaceDevice.current().play(.directionUp)
             
         }
     }
