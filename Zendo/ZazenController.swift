@@ -23,7 +23,6 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     
     @IBOutlet weak var chartView: LineChartView!
     @IBOutlet weak var motionChart: LineChartView!
-    @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var hrvChart: LineChartView!
     
     override open var shouldAutorotate: Bool {
@@ -153,13 +152,38 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
         let minutes = (workout.duration / 60).rounded()
         
-        durationLabel.text = Int(minutes).description;
+        let view = super.view!
+        
+        let center_x = view.frame.width / 2
+        let center_y = view.frame.height / 2
+        let middle = CGPoint(x: center_x, y: center_y)
+        
+        let frame = CGRect(x: 88 - 25, y: 179 - 25, width: 50.0, height: 50.0)
+        let bezier = UIBezierPath(ovalIn: frame)
+        let shape = CAShapeLayer()
+        
+        shape.fillColor = UIColor.gray.cgColor
+        shape.path = bezier.cgPath
+        
+        let text = CATextLayer()
+        text.string = Int(minutes).description
+        text.foregroundColor = UIColor.white.cgColor
+        text.font = UIFont(name: "Menlo-Regular", size: 33.0)
+        text.fontSize = 33.0
+        text.alignmentMode = kCAAlignmentCenter
+        text.backgroundColor = UIColor.clear.cgColor
+        text.frame = CGRect(x: 88  - 25 , y: 184 - 25 , width: 50.0, height: 50.0)
+        
+        view.layer.addSublayer(shape)
+        view.layer.addSublayer(text)
         
     }
     
-    func getChartDataSet(key: String, color: UIColor, scale: Double) -> LineChartDataSet {
+    func getChartData(key: String, scale: Double) -> LineChartData {
         
+        var sum = 0.0
         var entries = [ChartDataEntry]()
+        var avgEntries = [ChartDataEntry]()
         
         for(index, sample) in samples.enumerated() {
             
@@ -169,46 +193,55 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                 
                 if(y > 0.00) {
                     
-                    entries.append(ChartDataEntry(x: Double(index), y: y * scale ))
+                    let value = y * scale
+                    
+                    entries.append(ChartDataEntry(x: Double(index), y: value ))
+                    
+                    sum = sum + value
+                    
+                    let avg = sum / Double(entries.count)
+                    
+                    avgEntries.append(ChartDataEntry(x: Double(index), y: avg))
                 }
             }
             
         }
         
-        let retval = LineChartDataSet(values: entries, label: key)
+        let entryDataset = LineChartDataSet(values: entries, label: key)
+
+        let avgDataset = LineChartDataSet(values: avgEntries, label: "avg")
         
-        retval.setColor(color)
+        entryDataset.drawCirclesEnabled = false
+        entryDataset.drawValuesEnabled = false
+        entryDataset.setColor(UIColor.lightGray)
+        entryDataset.lineWidth = 2.0
         
-        retval.drawCirclesEnabled = false
-        
-        return retval
+        avgDataset.drawCirclesEnabled = false
+        avgDataset.drawValuesEnabled = false
+        avgDataset.setColor(UIColor.black)
+        avgDataset.lineWidth = 3.0
+    
+        return LineChartData(dataSets: [entryDataset, avgDataset ])
         
     }
     
     func populateChart() {
         
-        var rate = getChartDataSet(key: "heart", color: UIColor.black, scale: 60)
+        var rate = getChartData(key: "heart", scale: 60)
         
         //#todo: support v.002 schema
         if rate.entryCount == 0 {
             
-            rate = getChartDataSet(key: "rate", color: UIColor.lightGray, scale: 60)
+            rate = getChartData(key: "rate", scale: 60)
         }
         
-        rate.lineWidth = 3.0
-        
-        let motion = getChartDataSet(key: "motion", color: UIColor.lightGray, scale: 1)
-        
-        motion.lineWidth = 3.0
-        
-        let data1 = LineChartData(dataSets: [rate])
-        let data2 = LineChartData(dataSets: [motion])
+        let motion = getChartData(key: "motion", scale: 1)
         
         chartView.xAxis.valueFormatter = self
         motionChart.xAxis.valueFormatter = self
         
-        if(rate.entryCount > 0) {  chartView.data = data1 }
-        if(motion.entryCount > 0) { motionChart.data = data2 }
+        if(rate.entryCount > 0) {  chartView.data = rate }
+        if(motion.entryCount > 0) { motionChart.data = motion }
         
         chartView.autoScaleMinMaxEnabled = true
         chartView.chartDescription?.enabled = false
@@ -229,7 +262,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         let avgset = LineChartDataSet(values: [ChartDataEntry](), label: "avg")
         
         dataset.drawCirclesEnabled = false
-        dataset.lineWidth = 3.0
+        dataset.lineWidth = 2.0
         dataset.setColor(UIColor.lightGray)
         dataset.drawValuesEnabled = false
         

@@ -50,8 +50,10 @@ class ZBFHealthKit {
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 33.0);
         
         cell.detailTextLabel?.text = ZBFHealthKit.format(date: workout.endDate)
-      
-        cell.imageView!.image = getImage(duration: workout.duration)
+        
+        cell.imageView?.contentMode = .scaleAspectFit
+        
+        cell.imageView?.image = getImage(duration: workout.duration)
         
         UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
             
@@ -64,38 +66,25 @@ class ZBFHealthKit {
     
     class func getImage(duration: TimeInterval) -> UIImage {
         
-         var retval : UIImage? = nil
-        
         let minutes = Int((duration / 60))
         
-        switch (minutes) {
+        let image : UIImage = UIImage(named: "shobogenzo")!
         
-            case 0...9:
-                retval = UIImage(named: "shobogenzo60")
-                break
-            
-            case 10...19:
-                retval = UIImage(named: "shobogenzo70")
-                break
-
-            case 20...29:
-                retval = UIImage(named: "shobogenzo80")
-                break
-            
-            case 30...39:
-                retval = UIImage(named: "shobogenzo90")
-                break
-            
-            case 40...:
-                retval = UIImage(named: "shobogenzo100")
-                break
-            
-            default:
-                retval = UIImage(named: "shobogenzo50")
-                break
-            
-        }
         
+        let size = CGSize(width: 55 + minutes, height: 55 + minutes)
+        
+        //UIGraphicsBeginImageContext(size)
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        
+        image.draw(in: rect)
+        
+        let retval : UIImage! = UIGraphicsGetImageFromCurrentImageContext();
+        
+        UIGraphicsEndImageContext();
+    
         return retval!
         
     }
@@ -139,4 +128,5 @@ class ZBFHealthKit {
         
         return localDate + " " + localTime
     }
+    
 }

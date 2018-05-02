@@ -44,7 +44,24 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
  
             */
             
-            WKInterfaceDevice.current().play(.directionUp)
+            Thread.detachNewThread {
+                
+                DispatchQueue.main.sync {
+                    WKInterfaceDevice.current().play(.success)
+                }
+                
+                Thread.sleep(forTimeInterval: 1)
+                
+                DispatchQueue.main.sync {
+                    WKInterfaceDevice.current().play(.success)
+                }
+                
+                Thread.sleep(forTimeInterval: 1)
+                
+                DispatchQueue.main.sync {
+                    WKInterfaceDevice.current().play(.success)
+                }
+            }
             
         }
     }
