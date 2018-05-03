@@ -162,12 +162,12 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         let bezier = UIBezierPath(ovalIn: frame)
         let shape = CAShapeLayer()
         
-        shape.fillColor = UIColor.gray.cgColor
+        shape.fillColor = UIColor.white.cgColor
         shape.path = bezier.cgPath
         
         let text = CATextLayer()
         text.string = Int(minutes).description
-        text.foregroundColor = UIColor.white.cgColor
+        text.foregroundColor = UIColor.black.cgColor
         text.font = UIFont(name: "Menlo-Regular", size: 33.0)
         text.fontSize = 33.0
         text.alignmentMode = kCAAlignmentCenter
