@@ -31,7 +31,8 @@ class AppInterfaceController: WKInterfaceController {
         
         WKInterfaceDevice.current().play(WKHapticType.start)
         
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: _currentSession  as AnyObject)])
+        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: _currentSession  as AnyObject)
+            , (name: "OptionsInterfaceController", context: _currentSession  as AnyObject)])
 
     }
     

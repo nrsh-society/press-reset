@@ -16,6 +16,7 @@
 		756D884E8BA9CBA19FB37A43 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67414F738D8DE6FB16C9FEE1 /* CoreTelephony.framework */; };
 		9D71E58EE28B8772ED672785 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A40FB3C69940CC2A7D2835 /* QuartzCore.framework */; };
 		9F2DCAFBFAFD0BB491AB15EF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED375D9041CFE360443FA0F /* SystemConfiguration.framework */; };
+		BE0A7228209C2B83009E23AA /* OptionsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */; };
 		BE24023B1FFC961A008679C4 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24023A1FFC961A008679C4 /* Session.swift */; };
 		BE24023D1FFC965F008679C4 /* SessionInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24023C1FFC965F008679C4 /* SessionInterfaceController.swift */; };
 		BE2E81ED1FF44A7B00D104AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E81EC1FF44A7B00D104AC /* AppDelegate.swift */; };
@@ -104,6 +105,7 @@
 		6E976786A0B62DF02B6D3728 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		73956C9DFF514C25FAEB0010 /* Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		91FBDAC94D9B42088C3E7F8B /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
+		BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsInterfaceController.swift; sourceTree = "<group>"; };
 		BE24023A1FFC961A008679C4 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		BE24023C1FFC965F008679C4 /* SessionInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionInterfaceController.swift; sourceTree = "<group>"; };
 		BE2E81E91FF44A7B00D104AC /* Zendo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zendo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -245,6 +247,7 @@
 				BE2E82131FF44A7B00D104AC /* NotificationController.swift */,
 				BE2E82171FF44A7B00D104AC /* Info.plist */,
 				BE2E82181FF44A7B00D104AC /* PushNotificationPayload.apns */,
+				BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */,
 			);
 			path = "Zendo WatchKit Extension";
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				BE2E82141FF44A7B00D104AC /* NotificationController.swift in Sources */,
 				BE2E82121FF44A7B00D104AC /* ExtensionDelegate.swift in Sources */,
 				BE24023D1FFC965F008679C4 /* SessionInterfaceController.swift in Sources */,
+				BE0A7228209C2B83009E23AA /* OptionsInterfaceController.swift in Sources */,
 				BE2E82101FF44A7B00D104AC /* AppInterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

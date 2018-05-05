@@ -44,27 +44,15 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
  
             */
             
-            Thread.detachNewThread {
-                
-                DispatchQueue.main.sync {
-                    WKInterfaceDevice.current().play(.success)
-                }
-                
-                Thread.sleep(forTimeInterval: 1)
-                
-                DispatchQueue.main.sync {
-                    WKInterfaceDevice.current().play(.success)
-                }
-                
-            }
-            
         }
     }
     
     @IBAction func onDonePress() {
         
         _session.end();
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: NSNull())])
+        
+        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: _currentSession  as AnyObject)
+            , (name: "OptionsInterfaceController", context: _currentSession  as AnyObject)])
     }
     
     override func awake(withContext context: Any?) {

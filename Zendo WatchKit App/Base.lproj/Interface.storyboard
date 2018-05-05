@@ -12,7 +12,7 @@
         <!--Zendo-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="AppInterfaceController" title="Zendo" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="AppInterfaceController" title="Zendo" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <button width="136" height="129" alignment="center" verticalAlignment="center" backgroundImage="Icon-98" id="STw-fC-CsJ">
                             <color key="titleColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -21,9 +21,32 @@
                             </connections>
                         </button>
                     </items>
+                    <connections>
+                        <segue destination="Cs8-9P-1Q0" kind="relationship" relationship="nextPage" id="mZF-je-AWj"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="103" y="141"/>
+        </scene>
+        <!--Kyōsaku-->
+        <scene sceneID="SLO-n2-qa9">
+            <objects>
+                <controller identifier="OptionsInterfaceController" title="Kyōsaku" id="Cs8-9P-1Q0" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
+                    <items>
+                        <group alignment="center" spacing="0.0" id="euX-5G-gdh">
+                            <items>
+                                <slider alignment="center" verticalAlignment="center" continuous="YES" value="1" maximum="3" steps="3" id="AWO-T6-lMh">
+                                    <connections>
+                                        <action selector="KyosakChanged:" destination="Cs8-9P-1Q0" id="06D-WF-yeF"/>
+                                    </connections>
+                                </slider>
+                            </items>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="7" bottom="0.0"/>
+                        </group>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="375" y="141"/>
         </scene>
         <!--Zazen-->
         <scene sceneID="agu-hn-eOg">
@@ -49,7 +72,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="308" y="141"/>
+            <point key="canvasLocation" x="103" y="440"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">

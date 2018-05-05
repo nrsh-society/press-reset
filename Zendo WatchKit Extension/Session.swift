@@ -24,7 +24,13 @@ struct Rotation  {
     var yaw : Double = 0.0
 }
 
+struct Options {
+    
+    var hapticStrength = 1
+}
+
 class Session : NSObject {
+    
     var startDate : Date?
     var endDate : Date?
     var lastSample = Date()
@@ -44,6 +50,8 @@ class Session : NSObject {
     private let hkworkT = HKObjectType.workoutType();
     private var samples = [HKCategorySample]();
     private let motionManager = CMMotionManager();
+    
+    static var options = Options(hapticStrength: 1)
     
     override init() {
         
@@ -133,14 +141,29 @@ class Session : NSObject {
     }
     
     @objc public func notify()  {
-                
+        
         self.delegate.sessionTick(startDate: self.startDate!);
         
+        if(Session.options.hapticStrength > 0) {
+            
+            Thread.detachNewThread {
+                
+                for _ in 1...Session.options.hapticStrength {
+                    
+                    DispatchQueue.main.sync {
+                        WKInterfaceDevice.current().play(.success)
+                    }
+                    
+                    Thread.sleep(forTimeInterval: 1)
+                    
+                }
+            }
+        }
     }
     
     @objc public func sample()  {
         
-
+        
         if let deviceMotion = self.motionManager.deviceMotion {
             
             self.rotation.pitch = deviceMotion.rotationRate.x
@@ -148,13 +171,13 @@ class Session : NSObject {
             self.rotation.yaw = deviceMotion.rotationRate.z
             
         }
-    
+        
         self.motion = abs(self.rotation.pitch) + abs(self.rotation.roll) + abs(self.rotation.yaw)
         
         self.motion = self.motion / 3
         
         self.motion = Double(round(100*self.motion)/100)
-    
+        
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
         
         let heartRateSDNNType = HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
@@ -189,7 +212,7 @@ class Session : NSObject {
                                                 if(error != nil) {
                                                     print(error.debugDescription);
                                                 }
-                                            
+                                                
                                                 if let heartRate = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "count/s")) {
                                                     
                                                     self.heartRate = heartRate
@@ -205,7 +228,7 @@ class Session : NSObject {
                         "pitch" : self.rotation.pitch.description,
                         "roll" : self.rotation.roll.description,
                         "yaw": self.rotation.yaw.description
-                        ] as [String: String]
+            ] as [String: String]
         
         let values = metadata as [String: Any]
         
@@ -220,26 +243,26 @@ class Session : NSObject {
         
         lastSample = Date();
         
-/*      #todo: post dataset to server to drive av
-        do {
-            
-            let json = try JSONSerialization.data(withJSONObject: metadata, options: []).description
-            
-            let serviceURL = URL(string:"https://zendo-v1.firebaseio.com/zazen")!
-            var request = URLRequest(url: serviceURL)
-            request.httpMethod = "POST"
-        
-            let config = URLSessionConfiguration()
-            config.allowsCellularAccess = true;
-            
-            let session = URLSession(configuration: config)
-            let task = session.uploadTask(with: request, from: json.data(using: .utf8)!)
-            
-            task.resume()
-            
-        } catch {}
- 
- */
+        /*      #todo: post dataset to server to drive av
+         do {
+         
+         let json = try JSONSerialization.data(withJSONObject: metadata, options: []).description
+         
+         let serviceURL = URL(string:"https://zendo-v1.firebaseio.com/zazen")!
+         var request = URLRequest(url: serviceURL)
+         request.httpMethod = "POST"
+         
+         let config = URLSessionConfiguration()
+         config.allowsCellularAccess = true;
+         
+         let session = URLSession(configuration: config)
+         let task = session.uploadTask(with: request, from: json.data(using: .utf8)!)
+         
+         task.resume()
+         
+         } catch {}
+         
+         */
     }
     
     func invalidate() {

@@ -158,7 +158,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         let center_y = view.frame.height / 2
         let middle = CGPoint(x: center_x, y: center_y)
         
-        let frame = CGRect(x: 88 - 25, y: 179 - 25, width: 50.0, height: 50.0)
+        let frame = CGRect(x: 88 - 20, y: 179 - 20, width: 40.0, height: 40.0)
         let bezier = UIBezierPath(ovalIn: frame)
         let shape = CAShapeLayer()
         
@@ -168,11 +168,11 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         let text = CATextLayer()
         text.string = Int(minutes).description
         text.foregroundColor = UIColor.black.cgColor
-        text.font = UIFont(name: "Menlo-Regular", size: 33.0)
-        text.fontSize = 33.0
+        text.font = UIFont(name: "Menlo-Bold", size: 22.0)
+        text.fontSize = 22.0
         text.alignmentMode = kCAAlignmentCenter
         text.backgroundColor = UIColor.clear.cgColor
-        text.frame = CGRect(x: 88  - 25 , y: 184 - 25 , width: 50.0, height: 50.0)
+        text.frame = CGRect(x: 88  - 20 , y: 186 - 20 , width: 40.0, height: 40.0)
         
         view.layer.addSublayer(shape)
         view.layer.addSublayer(text)
