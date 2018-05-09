@@ -17,6 +17,7 @@ class ZendoController: UITableViewController  {
     let healthStore = ZBFHealthKit.healthStore
     let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
     
+    let url = URL(string: "http://zenbf.org/zendo")!
     
     override open var shouldAutorotate: Bool {
         return false
@@ -176,7 +177,28 @@ class ZendoController: UITableViewController  {
     }
     
     @IBAction func actionClick(_ sender: Any) {
-        exportAll()
+        
+        #if DEBUG
+        
+        //self.exportAll() #todo: make this change the attachment when in debug mode
+       
+        #endif
+        
+        let vc = UIActivityViewController(activityItems: [url as Any], applicationActivities: [])
+        
+        vc.excludedActivityTypes = [
+            UIActivityType.assignToContact,
+            UIActivityType.saveToCameraRoll,
+            UIActivityType.postToFlickr,
+            UIActivityType.postToVimeo,
+            UIActivityType.postToTencentWeibo,
+            UIActivityType.postToTwitter,
+            UIActivityType.postToFacebook,
+            UIActivityType.openInIBooks
+        ]
+        
+        self.present(vc, animated: true, completion: nil)
+        
     }
     
     func exportAll() {

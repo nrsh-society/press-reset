@@ -12,15 +12,16 @@
         <!--Zendo-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="AppInterfaceController" title="Zendo" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
-                    <items>
-                        <button width="136" height="129" alignment="center" verticalAlignment="center" backgroundImage="Icon-98" id="STw-fC-CsJ">
-                            <color key="titleColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="start" destination="AgC-eL-Hgc" id="8uy-LK-CXW"/>
-                            </connections>
-                        </button>
-                    </items>
+                <controller identifier="AppInterfaceController" title="Zendo" backgroundImage="shobogenzo" contentMode="scaleAspectFit" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
+                    <menu key="menu" id="CLv-vs-SZH">
+                        <items>
+                            <menuItem title="Enter" icon="accept" id="y6z-2K-t8h" userLabel="Start">
+                                <connections>
+                                    <action selector="start" destination="AgC-eL-Hgc" id="fSW-RB-kIg"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                     <connections>
                         <segue destination="Cs8-9P-1Q0" kind="relationship" relationship="nextPage" id="mZF-je-AWj"/>
                     </connections>
@@ -60,7 +61,7 @@
                     </items>
                     <menu key="menu" id="uaY-fT-kfg">
                         <items>
-                            <menuItem title="Stop" icon="decline" id="x3i-XK-nhL">
+                            <menuItem title="Exit" icon="decline" id="x3i-XK-nhL">
                                 <connections>
                                     <action selector="onDonePress" destination="LqQ-c8-Qbp" id="amn-9d-ZI1"/>
                                 </connections>

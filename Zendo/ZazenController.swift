@@ -221,7 +221,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         avgDataset.setColor(UIColor.black)
         avgDataset.lineWidth = 3.0
     
-        return LineChartData(dataSets: [entryDataset, avgDataset ])
+        return LineChartData(dataSets: [entryDataset, avgDataset])
         
     }
     
@@ -241,26 +241,29 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         chartView.data?.setDrawValues(false)
         chartView.chartDescription?.enabled = false
         
+        chartView.xAxis.avoidFirstLastClippingEnabled = true
+        
         if(rate.entryCount > 0) {  chartView.data = rate }
         chartView.animate(xAxisDuration: 3)
         
         let motion = getChartData(key: "motion", scale: 1)
         
         motionChart.xAxis.valueFormatter = self
+        motionChart.xAxis.avoidFirstLastClippingEnabled = true
         motionChart.autoScaleMinMaxEnabled = true
         motionChart.noDataText = "No samples"
         motionChart.data?.setDrawValues(false)
         motionChart.chartDescription?.enabled = false
-
+        
         if(motion.entryCount > 0) { motionChart.data = motion }
-        motionChart.animate(xAxisDuration: 3)
+        
+        
         
     }
     
     func populateHrvChart() {
         
         let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "hrv")
-        
         let avgset = LineChartDataSet(values: [ChartDataEntry](), label: "avg")
         
         dataset.drawCirclesEnabled = false
