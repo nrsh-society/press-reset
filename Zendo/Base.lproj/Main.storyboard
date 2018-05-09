@@ -126,7 +126,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="shobogenzo" id="MFP-ui-ii5">
-                                            <rect key="frame" x="16" y="0.0" width="56" height="55.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="56" height="55"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                     </subviews>
@@ -216,7 +216,7 @@
                                                 <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kve-to-s04" customClass="LineChartView" customModule="Charts">
-                                                <rect key="frame" x="8" y="277" width="343" height="122"/>
+                                                <rect key="frame" x="8" y="277" width="343" height="69"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.58255845309999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
@@ -335,7 +335,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6r6-nM-AB9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="276" y="-467.73399014778329"/>
+            <point key="canvasLocation" x="276" y="-468.21589205397305"/>
         </scene>
         <!--Sangha-->
         <scene sceneID="svA-KX-stx">
