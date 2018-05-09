@@ -235,22 +235,24 @@ class ZazenController : UIViewController, IAxisValueFormatter {
             rate = getChartData(key: "rate", scale: 60)
         }
         
-        let motion = getChartData(key: "motion", scale: 1)
-        
         chartView.xAxis.valueFormatter = self
-        motionChart.xAxis.valueFormatter = self
+        chartView.autoScaleMinMaxEnabled = true
+        chartView.noDataText = "No samples"
+        chartView.data?.setDrawValues(false)
+        chartView.chartDescription?.enabled = false
         
         if(rate.entryCount > 0) {  chartView.data = rate }
-        if(motion.entryCount > 0) { motionChart.data = motion }
-        
-        chartView.autoScaleMinMaxEnabled = true
-        chartView.chartDescription?.enabled = false
-        chartView.noDataText = "No samples"
         chartView.animate(xAxisDuration: 3)
         
+        let motion = getChartData(key: "motion", scale: 1)
+        
+        motionChart.xAxis.valueFormatter = self
         motionChart.autoScaleMinMaxEnabled = true
-        motionChart.chartDescription?.enabled = false
         motionChart.noDataText = "No samples"
+        motionChart.data?.setDrawValues(false)
+        motionChart.chartDescription?.enabled = false
+
+        if(motion.entryCount > 0) { motionChart.data = motion }
         motionChart.animate(xAxisDuration: 3)
         
     }
@@ -368,12 +370,14 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         let fileName = "zazen.csv"
         let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
         
-        var csvText = "now, hr, sdnn, motion\n"
+        var csvText = "start, end, now, hr, sdnn, motion\n"
         
         for sample in samples {
-            
+                        
             let line : String =
-                "\(sample["now"]!),"  +
+                "\(workout.startDate),"  +
+                    "\(workout.endDate)," +
+                    "\(sample["now"]!)," +
                     "\(sample["heart"]!)," +
                     "\(sample["sdnn"]!)," +
             "\(sample["motion"]!)"
