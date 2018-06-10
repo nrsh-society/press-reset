@@ -1,5 +1,4 @@
 
-# zendo: 
-building a beautiful life, together. 
+# zendo
 
 ![zendo](zendo.png)
