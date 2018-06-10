@@ -24,6 +24,11 @@
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>org.zenbf</key>
+			<string></string>
+		</dict>
 	</dict>
 	<key>NSHealthShareUsageDescription</key>
 	<string>Show progress across Zendo sessions </string>

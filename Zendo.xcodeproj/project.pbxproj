@@ -31,6 +31,7 @@
 		BE2E82141FF44A7B00D104AC /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E82131FF44A7B00D104AC /* NotificationController.swift */; };
 		BE38CF612075D1D10095BB6C /* BuddhaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38CF602075D1D10095BB6C /* BuddhaController.swift */; };
 		BE4895AC206B0CC400B007D6 /* ZazenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4895AB206B0CC400B007D6 /* ZazenController.swift */; };
+		BE50D2F220CC3BA200FF9C54 /* CommunityDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */; };
 		BE7FCBFF20819BA400965986 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE7FCBFE20819BA400965986 /* Media.xcassets */; };
 		BE81B26F2001B85500274FA1 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE81B26E2001B85500274FA1 /* HealthKit.framework */; };
 		BE8BB21F1FFDCC4600B2E113 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8BB21E1FFDCC4600B2E113 /* HealthKit.framework */; };
@@ -41,8 +42,8 @@
 		BEA398DE2075F14300C85A84 /* SanghaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA398DD2075F14300C85A84 /* SanghaController.swift */; };
 		BEA398E12075F2BE00C85A84 /* DharmaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA398E02075F2BE00C85A84 /* DharmaController.swift */; };
 		BEA398F220762F4700C85A84 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA398F120762F4700C85A84 /* Media.xcassets */; };
-		BEEAE8CF2079130600DFECFA /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEEAE8CE2079130600DFECFA /* Charts.framework */; };
-		BEEAE8D02079130600DFECFA /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BEEAE8CE2079130600DFECFA /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BEABAC7320CCDECA0016D891 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEABAC7020CCDEAB0016D891 /* Charts.framework */; };
+		BEABAC7420CCDECA0016D891 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BEABAC7020CCDEAB0016D891 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = BE2E82091FF44A7B00D104AC;
 			remoteInfo = "Zazen WatchKit Extension";
+		};
+		BEABAC6F20CCDEAB0016D891 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
+			remoteInfo = Charts;
+		};
+		BEABAC7120CCDEAB0016D891 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
+			remoteInfo = ChartsTests;
+		};
+		BEABAC7520CCDECA0016D891 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A58A4ED274A941CA248EA921;
+			remoteInfo = Charts;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -85,13 +107,13 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BE566411206CC4EC001579D1 /* Embed Frameworks */ = {
+		BEF96F7C20CCC20C009510C9 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				BEEAE8D02079130600DFECFA /* Charts.framework in Embed Frameworks */,
+				BEABAC7420CCDECA0016D891 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -125,6 +147,7 @@
 		BE2E82181FF44A7B00D104AC /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		BE38CF602075D1D10095BB6C /* BuddhaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddhaController.swift; sourceTree = "<group>"; };
 		BE4895AB206B0CC400B007D6 /* ZazenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZazenController.swift; sourceTree = "<group>"; };
+		BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDataLoader.swift; sourceTree = "<group>"; };
 		BE7FCBFE20819BA400965986 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		BE81B26D2001B85500274FA1 /* Zendo.entitlements */ = {isa = PBXFileReference; explicitFileType = text.plist.entitlements; path = Zendo.entitlements; sourceTree = "<group>"; };
 		BE81B26E2001B85500274FA1 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
@@ -137,7 +160,7 @@
 		BEA398DD2075F14300C85A84 /* SanghaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SanghaController.swift; sourceTree = "<group>"; };
 		BEA398E02075F2BE00C85A84 /* DharmaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DharmaController.swift; sourceTree = "<group>"; };
 		BEA398F120762F4700C85A84 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		BEEAE8CE2079130600DFECFA /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/iOS/Charts.framework; sourceTree = "<group>"; };
+		BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		C5EE270417BDD012045FC9FF /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		C86368BD68AC54656999A5EB /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		CE470C27D2A61BA1066BBB3D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -156,7 +179,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BEEAE8CF2079130600DFECFA /* Charts.framework in Frameworks */,
 				BE9B00022065FE45007FF96A /* CoreMotion.framework in Frameworks */,
 				BE81B26F2001B85500274FA1 /* HealthKit.framework in Frameworks */,
 				2D6D2103091066D4D73A2088 /* BuddyBuildSDK.framework in Frameworks */,
@@ -166,6 +188,7 @@
 				9F2DCAFBFAFD0BB491AB15EF /* SystemConfiguration.framework in Frameworks */,
 				9D71E58EE28B8772ED672785 /* QuartzCore.framework in Frameworks */,
 				46B6105F4E6FC71E77E4ED53 /* AVFoundation.framework in Frameworks */,
+				BEABAC7320CCDECA0016D891 /* Charts.framework in Frameworks */,
 				0E0FC1C6319858D621367458 /* CoreMedia.framework in Frameworks */,
 				0973EA6DCC666F3334C6334B /* CoreVideo.framework in Frameworks */,
 			);
@@ -186,7 +209,7 @@
 		BE2E81E01FF44A7B00D104AC = {
 			isa = PBXGroup;
 			children = (
-				BEEAE8CE2079130600DFECFA /* Charts.framework */,
+				BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */,
 				BE2E81EB1FF44A7B00D104AC /* Zendo */,
 				BE2E81FF1FF44A7B00D104AC /* Zendo WatchKit App */,
 				BE2E820E1FF44A7B00D104AC /* Zendo WatchKit Extension */,
@@ -221,6 +244,7 @@
 				BE4895AB206B0CC400B007D6 /* ZazenController.swift */,
 				BE2E81EE1FF44A7B00D104AC /* ZendoController.swift */,
 				BE7FCBFE20819BA400965986 /* Media.xcassets */,
+				BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */,
 			);
 			path = Zendo;
 			sourceTree = "<group>";
@@ -272,6 +296,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BEABAC6B20CCDEAB0016D891 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BEABAC7020CCDEAB0016D891 /* Charts.framework */,
+				BEABAC7220CCDEAB0016D891 /* ChartsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -283,12 +316,13 @@
 				BE2E81E61FF44A7B00D104AC /* Frameworks */,
 				BE2E81E71FF44A7B00D104AC /* Resources */,
 				BE2E82221FF44A7B00D104AC /* Embed Watch Content */,
-				BE566411206CC4EC001579D1 /* Embed Frameworks */,
+				BEF96F7C20CCC20C009510C9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				BE2E81FE1FF44A7B00D104AC /* PBXTargetDependency */,
+				BEABAC7620CCDECA0016D891 /* PBXTargetDependency */,
 			);
 			name = Zendo;
 			productName = Zazen;
@@ -375,6 +409,12 @@
 			mainGroup = BE2E81E01FF44A7B00D104AC;
 			productRefGroup = BE2E81EA1FF44A7B00D104AC /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = BEABAC6B20CCDEAB0016D891 /* Products */;
+					ProjectRef = BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				BE2E81E81FF44A7B00D104AC /* Zendo */,
@@ -383,6 +423,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		BEABAC7020CCDEAB0016D891 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = BEABAC6F20CCDEAB0016D891 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BEABAC7220CCDEAB0016D891 /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = BEABAC7120CCDEAB0016D891 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		BE2E81E71FF44A7B00D104AC /* Resources */ = {
@@ -420,6 +477,7 @@
 			files = (
 				BE38CF612075D1D10095BB6C /* BuddhaController.swift in Sources */,
 				BEA398E12075F2BE00C85A84 /* DharmaController.swift in Sources */,
+				BE50D2F220CC3BA200FF9C54 /* CommunityDataLoader.swift in Sources */,
 				BEA398DE2075F14300C85A84 /* SanghaController.swift in Sources */,
 				BE2E81EF1FF44A7B00D104AC /* ZendoController.swift in Sources */,
 				BE9B00002065F317007FF96A /* ZBFHealthKit.swift in Sources */,
@@ -454,6 +512,11 @@
 			isa = PBXTargetDependency;
 			target = BE2E82091FF44A7B00D104AC /* Zendo WatchKit Extension */;
 			targetProxy = BE2E820C1FF44A7B00D104AC /* PBXContainerItemProxy */;
+		};
+		BEABAC7620CCDECA0016D891 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = BEABAC7520CCDECA0016D891 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -541,6 +604,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -592,6 +656,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

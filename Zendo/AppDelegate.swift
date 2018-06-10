@@ -25,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         applicationShouldRequestHealthAuthorization(application);
         
+        CommunityDataLoader.load()
+        
         return true
     }
 

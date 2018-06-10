@@ -184,45 +184,64 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         var sum = 0.0
         var entries = [ChartDataEntry]()
         var avgEntries = [ChartDataEntry]()
+        var communityEntries = [ChartDataEntry]()
         
         for(index, sample) in samples.enumerated() {
             
             if let value = sample[key] as? String {
                 
                 let y = Double(value)!
+                let x = Double(index)
                 
                 if(y > 0.00) {
                     
                     let value = y * scale
                     
-                    entries.append(ChartDataEntry(x: Double(index), y: value ))
+                    entries.append(ChartDataEntry(x: x, y: value ))
                     
                     sum = sum + value
                     
                     let avg = sum / Double(entries.count)
                     
-                    avgEntries.append(ChartDataEntry(x: Double(index), y: avg))
+                    avgEntries.append(ChartDataEntry(x: x, y: avg))
+                    
+                    communityEntries.append(getCommunityDataEntry(key: key, interval: x, scale: scale))
                 }
             }
-            
         }
         
         let entryDataset = LineChartDataSet(values: entries, label: key)
-
-        let avgDataset = LineChartDataSet(values: avgEntries, label: "avg")
         
         entryDataset.drawCirclesEnabled = false
         entryDataset.drawValuesEnabled = false
         entryDataset.setColor(UIColor.lightGray)
         entryDataset.lineWidth = 2.0
         
+        let avgDataset = LineChartDataSet(values: avgEntries, label: "avg")
+        
         avgDataset.drawCirclesEnabled = false
         avgDataset.drawValuesEnabled = false
         avgDataset.setColor(UIColor.black)
         avgDataset.lineWidth = 3.0
-    
-        return LineChartData(dataSets: [entryDataset, avgDataset])
         
+        let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
+        
+        communityDataset.drawCirclesEnabled = false
+        communityDataset.drawValuesEnabled = false
+        communityDataset.setColor(UIColor.green)
+        communityDataset.lineWidth = 3.0
+        
+        return LineChartData(dataSets: [entryDataset, avgDataset, communityDataset])
+        
+    }
+    
+    func getCommunityDataEntry(key: String, interval: Double, scale: Double) -> ChartDataEntry {
+        
+        var value = CommunityDataLoader.get(measure: key, at: interval)
+        
+        value = value * scale;
+        
+        return ChartDataEntry(x: interval, y: value)
     }
     
     func populateChart() {
@@ -257,14 +276,21 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
         if(motion.entryCount > 0) { motionChart.data = motion }
         
-        
-        
     }
     
     func populateHrvChart() {
         
         let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "hrv")
         let avgset = LineChartDataSet(values: [ChartDataEntry](), label: "avg")
+        
+        var communityEntries = [ChartDataEntry]()
+        
+        let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
+        
+        communityDataset.drawCirclesEnabled = false
+        communityDataset.drawValuesEnabled = false
+        communityDataset.setColor(UIColor.green)
+        communityDataset.lineWidth = 3.0
         
         dataset.drawCirclesEnabled = false
         dataset.lineWidth = 2.0
@@ -276,7 +302,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         avgset.setColor(UIColor.black)
         avgset.drawValuesEnabled = false
         
-        self.hrvChart.data = LineChartData(dataSets: [dataset, avgset])
+        self.hrvChart.data = LineChartData(dataSets: [dataset, avgset, communityDataset])
         
         self.hrvChart.drawGridBackgroundEnabled = false
         
@@ -343,6 +369,10 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                 let avg = ChartDataEntry(x: Double(-days), y:  hrvsum / num )
                 
                 self.hrvChart.data!.addEntry(avg, dataSetIndex: 1)
+                
+                let community = self.getCommunityDataEntry(key: "sdnn", interval: Double(-days), scale: 1.0)
+                
+                self.hrvChart.data!.addEntry(community, dataSetIndex: 2)
                 
                 DispatchQueue.main.async() {
                     self.hrvChart.notifyDataSetChanged()
