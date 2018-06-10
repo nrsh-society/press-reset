@@ -42,7 +42,8 @@
 		BEA398DE2075F14300C85A84 /* SanghaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA398DD2075F14300C85A84 /* SanghaController.swift */; };
 		BEA398E12075F2BE00C85A84 /* DharmaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA398E02075F2BE00C85A84 /* DharmaController.swift */; };
 		BEA398F220762F4700C85A84 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA398F120762F4700C85A84 /* Media.xcassets */; };
-		BEABAC7420CCDECA0016D891 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BEABAC7020CCDEAB0016D891 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BEAFCD3620CCF0210037F38C /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEABAC7020CCDEAB0016D891 /* Charts.framework */; };
+		BEAFCD3720CCF0210037F38C /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BEABAC7020CCDEAB0016D891 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +68,7 @@
 			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
 			remoteInfo = Charts;
 		};
-		BEABAC7520CCDECA0016D891 /* PBXContainerItemProxy */ = {
+		BEAFCD3820CCF0210037F38C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */;
 			proxyType = 1;
@@ -99,13 +100,13 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BEF96F7C20CCC20C009510C9 /* Embed Frameworks */ = {
+		BEAFCD3A20CCF0210037F38C /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				BEABAC7420CCDECA0016D891 /* Charts.framework in Embed Frameworks */,
+				BEAFCD3720CCF0210037F38C /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,6 +181,7 @@
 				9F2DCAFBFAFD0BB491AB15EF /* SystemConfiguration.framework in Frameworks */,
 				9D71E58EE28B8772ED672785 /* QuartzCore.framework in Frameworks */,
 				46B6105F4E6FC71E77E4ED53 /* AVFoundation.framework in Frameworks */,
+				BEAFCD3620CCF0210037F38C /* Charts.framework in Frameworks */,
 				0E0FC1C6319858D621367458 /* CoreMedia.framework in Frameworks */,
 				0973EA6DCC666F3334C6334B /* CoreVideo.framework in Frameworks */,
 			);
@@ -306,13 +308,13 @@
 				BE2E81E61FF44A7B00D104AC /* Frameworks */,
 				BE2E81E71FF44A7B00D104AC /* Resources */,
 				BE2E82221FF44A7B00D104AC /* Embed Watch Content */,
-				BEF96F7C20CCC20C009510C9 /* Embed Frameworks */,
+				BEAFCD3A20CCF0210037F38C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				BE2E81FE1FF44A7B00D104AC /* PBXTargetDependency */,
-				BEABAC7620CCDECA0016D891 /* PBXTargetDependency */,
+				BEAFCD3920CCF0210037F38C /* PBXTargetDependency */,
 			);
 			name = Zendo;
 			productName = Zazen;
@@ -496,10 +498,10 @@
 			target = BE2E82091FF44A7B00D104AC /* Zendo WatchKit Extension */;
 			targetProxy = BE2E820C1FF44A7B00D104AC /* PBXContainerItemProxy */;
 		};
-		BEABAC7620CCDECA0016D891 /* PBXTargetDependency */ = {
+		BEAFCD3920CCF0210037F38C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Charts;
-			targetProxy = BEABAC7520CCDECA0016D891 /* PBXContainerItemProxy */;
+			targetProxy = BEAFCD3820CCF0210037F38C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
