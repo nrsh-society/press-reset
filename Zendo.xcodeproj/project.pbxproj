@@ -19,6 +19,8 @@
 		BE0A7228209C2B83009E23AA /* OptionsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */; };
 		BE24023B1FFC961A008679C4 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24023A1FFC961A008679C4 /* Session.swift */; };
 		BE24023D1FFC965F008679C4 /* SessionInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24023C1FFC965F008679C4 /* SessionInterfaceController.swift */; };
+		BE2DCAFB20CDC2C700666FBD /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE2DCAFA20CDC2C700666FBD /* Charts.framework */; };
+		BE2DCAFC20CDC2C700666FBD /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE2DCAFA20CDC2C700666FBD /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE2E81ED1FF44A7B00D104AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E81EC1FF44A7B00D104AC /* AppDelegate.swift */; };
 		BE2E81EF1FF44A7B00D104AC /* ZendoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E81EE1FF44A7B00D104AC /* ZendoController.swift */; };
 		BE2E81F21FF44A7B00D104AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE2E81F01FF44A7B00D104AC /* Main.storyboard */; };
@@ -42,8 +44,6 @@
 		BEA398DE2075F14300C85A84 /* SanghaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA398DD2075F14300C85A84 /* SanghaController.swift */; };
 		BEA398E12075F2BE00C85A84 /* DharmaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA398E02075F2BE00C85A84 /* DharmaController.swift */; };
 		BEA398F220762F4700C85A84 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA398F120762F4700C85A84 /* Media.xcassets */; };
-		BEAFCD3620CCF0210037F38C /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEABAC7020CCDEAB0016D891 /* Charts.framework */; };
-		BEAFCD3720CCF0210037F38C /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BEABAC7020CCDEAB0016D891 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,20 +60,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = BE2E82091FF44A7B00D104AC;
 			remoteInfo = "Zazen WatchKit Extension";
-		};
-		BEABAC6F20CCDEAB0016D891 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
-			remoteInfo = Charts;
-		};
-		BEAFCD3820CCF0210037F38C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A58A4ED274A941CA248EA921;
-			remoteInfo = Charts;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -106,7 +92,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				BEAFCD3720CCF0210037F38C /* Charts.framework in Embed Frameworks */,
+				BE2DCAFC20CDC2C700666FBD /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,6 +109,7 @@
 		BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsInterfaceController.swift; sourceTree = "<group>"; };
 		BE24023A1FFC961A008679C4 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		BE24023C1FFC965F008679C4 /* SessionInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionInterfaceController.swift; sourceTree = "<group>"; };
+		BE2DCAFA20CDC2C700666FBD /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2E81E91FF44A7B00D104AC /* Zendo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zendo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2E81EC1FF44A7B00D104AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2E81EE1FF44A7B00D104AC /* ZendoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZendoController.swift; sourceTree = "<group>"; };
@@ -153,7 +140,7 @@
 		BEA398DD2075F14300C85A84 /* SanghaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SanghaController.swift; sourceTree = "<group>"; };
 		BEA398E02075F2BE00C85A84 /* DharmaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DharmaController.swift; sourceTree = "<group>"; };
 		BEA398F120762F4700C85A84 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
+		BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = SOURCE_ROOT; };
 		C5EE270417BDD012045FC9FF /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		C86368BD68AC54656999A5EB /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		CE470C27D2A61BA1066BBB3D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -181,7 +168,7 @@
 				9F2DCAFBFAFD0BB491AB15EF /* SystemConfiguration.framework in Frameworks */,
 				9D71E58EE28B8772ED672785 /* QuartzCore.framework in Frameworks */,
 				46B6105F4E6FC71E77E4ED53 /* AVFoundation.framework in Frameworks */,
-				BEAFCD3620CCF0210037F38C /* Charts.framework in Frameworks */,
+				BE2DCAFB20CDC2C700666FBD /* Charts.framework in Frameworks */,
 				0E0FC1C6319858D621367458 /* CoreMedia.framework in Frameworks */,
 				0973EA6DCC666F3334C6334B /* CoreVideo.framework in Frameworks */,
 			);
@@ -202,6 +189,7 @@
 		BE2E81E01FF44A7B00D104AC = {
 			isa = PBXGroup;
 			children = (
+				BE2DCAFA20CDC2C700666FBD /* Charts.framework */,
 				BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */,
 				BE2E81EB1FF44A7B00D104AC /* Zendo */,
 				BE2E81FF1FF44A7B00D104AC /* Zendo WatchKit App */,
@@ -289,14 +277,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BEABAC6B20CCDEAB0016D891 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				BEABAC7020CCDEAB0016D891 /* Charts.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -314,7 +294,6 @@
 			);
 			dependencies = (
 				BE2E81FE1FF44A7B00D104AC /* PBXTargetDependency */,
-				BEAFCD3920CCF0210037F38C /* PBXTargetDependency */,
 			);
 			name = Zendo;
 			productName = Zazen;
@@ -401,12 +380,6 @@
 			mainGroup = BE2E81E01FF44A7B00D104AC;
 			productRefGroup = BE2E81EA1FF44A7B00D104AC /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = BEABAC6B20CCDEAB0016D891 /* Products */;
-					ProjectRef = BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				BE2E81E81FF44A7B00D104AC /* Zendo */,
@@ -415,16 +388,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		BEABAC7020CCDEAB0016D891 /* Charts.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Charts.framework;
-			remoteRef = BEABAC6F20CCDEAB0016D891 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		BE2E81E71FF44A7B00D104AC /* Resources */ = {
@@ -497,11 +460,6 @@
 			isa = PBXTargetDependency;
 			target = BE2E82091FF44A7B00D104AC /* Zendo WatchKit Extension */;
 			targetProxy = BE2E820C1FF44A7B00D104AC /* PBXContainerItemProxy */;
-		};
-		BEAFCD3920CCF0210037F38C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Charts;
-			targetProxy = BEAFCD3820CCF0210037F38C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

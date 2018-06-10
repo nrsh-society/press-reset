@@ -500,7 +500,7 @@
 				65AD9E95D9ED4DC0BD73A743 /* Charts.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		AD1224C45A29A5C88D6B7450 /* Jobs */ = {
 			isa = PBXGroup;
