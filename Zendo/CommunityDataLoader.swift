@@ -33,9 +33,15 @@ class CommunityDataLoader {
     
     static func get(measure: String, at: Double) -> Double {
         
+        var value = 0.0
+    
         let key = measure.contains("heart") ? "hr" : measure
+    
+        if let communityValues = values {
+            value = communityValues[key] as! Double
+        }
         
-        return values![key] as! Double
+        return value
     }
 }
 

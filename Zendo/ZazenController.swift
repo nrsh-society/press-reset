@@ -224,7 +224,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         avgDataset.setColor(UIColor.black)
         avgDataset.lineWidth = 3.0
         
-        let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
+        let communityDataset = LineChartDataSet(values: communityEntries, label: "sangha")
         
         communityDataset.drawCirclesEnabled = false
         communityDataset.drawValuesEnabled = false
@@ -283,9 +283,9 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "hrv")
         let avgset = LineChartDataSet(values: [ChartDataEntry](), label: "avg")
         
-        var communityEntries = [ChartDataEntry]()
+        let communityEntries = [ChartDataEntry]()
         
-        let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
+        let communityDataset = LineChartDataSet(values: communityEntries, label: "sangha")
         
         communityDataset.drawCirclesEnabled = false
         communityDataset.drawValuesEnabled = false

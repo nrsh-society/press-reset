@@ -90,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zendo/ZazenController.swift"
-            timestampString = "545374757.314593"
+            timestampString = "550553802.002547"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "45"
@@ -121,7 +121,7 @@
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "UIViewAlertForUnsatisfiableConstraints"
-                  moduleName = "UIKit"
+                  moduleName = "UIKitCore"
                   usesParentBreakpointCondition = "Yes"
                   offsetFromSymbolStart = "0">
                </Location>
@@ -131,16 +131,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zendo/ZazenController.swift"
-            timestampString = "545374757.314652"
+            timestampString = "550553802.0026079"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "140"
             endingLineNumber = "140"
             landmarkName = "populateSummary()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zendo/CommunityDataLoader.swift"
+            timestampString = "550553802.002655"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "get(measure:at:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
