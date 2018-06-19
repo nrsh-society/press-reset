@@ -154,10 +154,6 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
         let view = super.view!
         
-        let center_x = view.frame.width / 2
-        let center_y = view.frame.height / 2
-        let middle = CGPoint(x: center_x, y: center_y)
-        
         let frame = CGRect(x: 88 - 20, y: 179 - 20, width: 40.0, height: 40.0)
         let bezier = UIBezierPath(ovalIn: frame)
         let shape = CAShapeLayer()
@@ -167,14 +163,14 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
         let text = CATextLayer()
         text.string = Int(minutes).description
-        text.foregroundColor = UIColor.black.cgColor
-        text.font = UIFont(name: "Menlo-Bold", size: 22.0)
-        text.fontSize = 22.0
+        text.foregroundColor = UIColor.white.cgColor
+        text.font = UIFont(name: "Menlo-Bold", size: 33.0)
+        text.fontSize = 33.0
         text.alignmentMode = kCAAlignmentCenter
         text.backgroundColor = UIColor.clear.cgColor
-        text.frame = CGRect(x: 88  - 20 , y: 186 - 20 , width: 40.0, height: 40.0)
+        text.frame = CGRect(x: 68, y: 162 , width: 40.0, height: 40.0)
         
-        view.layer.addSublayer(shape)
+        //view.layer.addSublayer(shape)
         view.layer.addSublayer(text)
         
     }
@@ -332,8 +328,6 @@ class ZazenController : UIViewController, IAxisValueFormatter {
             
             statsCollection.enumerateStatistics(from: quarter, to: self.workout.endDate) { [unowned self] statistics, stop in
                 
-                var minValue = 0.0
-                var maxValue = 0.0
                 var avgValue = 0.0
                 
                 if let avgQ = statistics.averageQuantity() {
@@ -341,18 +335,6 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                     avgValue = avgQ.doubleValue(for: HKUnit(from: "ms"))
                     
                 }
-                
-                if let minQ = statistics.minimumQuantity() {
-                    
-                    minValue = minQ.doubleValue(for: HKUnit(from: "ms"))
-                }
-                
-                
-                if let maxQ = statistics.maximumQuantity() {
-                    
-                    maxValue = maxQ.doubleValue(for: HKUnit(from: "ms"))
-                }
-                
                 
                 let date = statistics.startDate
                 
