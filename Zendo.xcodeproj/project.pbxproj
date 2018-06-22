@@ -47,13 +47,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		BE0DA46B20D09C8000DA4723 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
-			remoteInfo = Charts;
-		};
 		BE2E81FD1FF44A7B00D104AC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BE2E81E11FF44A7B00D104AC /* Project object */;
@@ -183,7 +176,7 @@
 		BE9BFFFC2065EE3D007FF96A /* ZBFHealthKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZBFHealthKit.swift; sourceTree = "<group>"; };
 		BE9BFFFF2065F317007FF96A /* ZBFHealthKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZBFHealthKit.swift; sourceTree = "<group>"; };
 		BEA398F120762F4700C85A84 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = SOURCE_ROOT; };
+		BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		BECBD39C20DCB14900C682EA /* Mixpanel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Mixpanel.xcodeproj; path = "mixpanel-swift/Mixpanel.xcodeproj"; sourceTree = "<group>"; };
 		BEEA862E20D4A941003E1E1D /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		C5EE270417BDD012045FC9FF /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -232,14 +225,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BE0DA46820D09C8000DA4723 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				BE0DA46C20D09C8000DA4723 /* Charts.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		BE2E81E01FF44A7B00D104AC = {
 			isa = PBXGroup;
 			children = (
@@ -447,10 +432,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = BE0DA46820D09C8000DA4723 /* Products */;
-					ProjectRef = BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */;
-				},
-				{
 					ProductGroup = BECBD39D20DCB14900C682EA /* Products */;
 					ProjectRef = BECBD39C20DCB14900C682EA /* Mixpanel.xcodeproj */;
 				},
@@ -465,13 +446,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		BE0DA46C20D09C8000DA4723 /* Charts.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Charts.framework;
-			remoteRef = BE0DA46B20D09C8000DA4723 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		BECBD3A320DCB14900C682EA /* Mixpanel.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
