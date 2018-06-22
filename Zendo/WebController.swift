@@ -1,5 +1,5 @@
 //
-//  BuddhaController.swift
+//  WebController.swift
 //  Zendo
 //
 //  Created by Douglas Purdy on 4/4/18.
@@ -10,17 +10,22 @@ import UIKit
 import Foundation
 import HealthKit
 
-class BuddhaController : UIViewController {
+class WebController : UIViewController {
+    
+    @IBOutlet var Url : String?
     
     @IBOutlet weak var webView: UIWebView!
-        
-    let url = URL(string: "http://zenbf.org/buddha")!
     
     override func viewDidLoad() {
-        webView.loadRequest(URLRequest(url: url))
+        
+        let url = URL(string: self.Url!)
+        webView.loadRequest(URLRequest(url: url!))
+        
     }
     
     @IBAction func actionClick(_ sender: Any) {
+        
+        let url = URL(string: self.Url!)
         
         let vc = UIActivityViewController(activityItems: [url as Any], applicationActivities: [])
         
@@ -41,6 +46,4 @@ class BuddhaController : UIViewController {
     @IBAction func doneClick(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
-    
 }

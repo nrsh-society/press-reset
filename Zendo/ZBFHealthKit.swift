@@ -40,20 +40,58 @@ class ZBFHealthKit {
         }
     }
     
+    class func overlayHRV(workout : HKWorkout, imageView : UIImageView ) {
+        
+        let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
+        
+        let hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictEndDate)
+        
+        let options : HKStatisticsOptions  = HKStatisticsOptions.discreteAverage
+    
+        let hkQuery = HKStatisticsQuery(quantityType: hkType,
+                                        quantitySamplePredicate: hkPredicate,
+                                        options: options) {
+                                            query, result, error in
+    
+                                            if(error != nil) {
+                                                print(error.debugDescription);
+                                            }
+    
+                                            if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
+    
+                                                DispatchQueue.main.async() {
+                                                    
+                                                    let text = CATextLayer()
+                                                    text.string = String(format: "%.1f", value)
+                                                    text.foregroundColor = UIColor.white.cgColor
+                                                    text.font = UIFont(name: "Menlo-Bold", size: 33.0)
+                                                    text.fontSize = 33.0
+                                                    text.alignmentMode = kCAAlignmentCenter
+                                                    text.backgroundColor = UIColor.clear.cgColor
+                                                    text.frame = CGRect(x: 68, y: 162 , width: 40.0, height: 40.0)
+                                                    
+                                                    imageView.layer.addSublayer(text)
+                                                
+                                                }
+                                            }
+        }
+        
+        ZBFHealthKit.healthStore.execute(hkQuery)
+    }
     
     class func populateCell(workout : HKWorkout, cell:UITableViewCell)  {
         
         let minutes = (workout.duration / 60).rounded()
         
-        cell.textLabel?.text = Int(minutes).description;
-        
-        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 33.0);
+        cell.textLabel?.text = "\(Int(minutes).description) minutes"
         
         cell.detailTextLabel?.text = ZBFHealthKit.format(date: workout.endDate)
         
         cell.imageView?.contentMode = .scaleAspectFit
         
-        cell.imageView?.image = getImage(duration: workout.duration)
+        cell.imageView?.image = getImage(workout: workout)
+        
+        overlayHRV(workout: workout, imageView: cell.imageView!)
         
         UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
             
@@ -64,16 +102,13 @@ class ZBFHealthKit {
         }, completion: nil)
     }
     
-    class func getImage(duration: TimeInterval) -> UIImage {
+    class func getImage(workout: HKWorkout) -> UIImage {
         
-        let minutes = Int((duration / 60))
+        let minutes = Int((workout.duration / 60))
         
         let image : UIImage = UIImage(named: "shobogenzo")!
         
-        
         let size = CGSize(width: 55 + minutes, height: 55 + minutes)
-        
-        //UIGraphicsBeginImageContext(size)
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         

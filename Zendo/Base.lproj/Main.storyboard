@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7Hz-Na-seI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7Hz-Na-seI">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -44,7 +44,7 @@
         <!--Buddha-->
         <scene sceneID="IL8-BH-KMX">
             <objects>
-                <viewController storyboardIdentifier="buddha-controller" title="Buddha" hidesBottomBarWhenPushed="YES" id="VRq-Ri-ekZ" customClass="BuddhaController" customModule="Zendo" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="buddha-controller" title="Buddha" hidesBottomBarWhenPushed="YES" id="VRq-Ri-ekZ" customClass="WebController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="235-E2-m1N">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -88,6 +88,9 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="Url" value="http://zenbf.org/buddha"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="webView" destination="lSV-J1-vOQ" id="XAD-iu-y8g"/>
                     </connections>
@@ -103,7 +106,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3Qe-6i-7b8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.49797028303146362" green="0.49799859523773193" blue="0.50205862522125244" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.8901960784313725" green="0.8901960784313725" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="zendoCell" textLabel="BYC-dR-rys" detailTextLabel="JRA-Ie-S2d" imageView="MFP-ui-ii5" rowHeight="56" style="IBUITableViewCellStyleSubtitle" id="g8T-oJ-Sak">
                                 <rect key="frame" x="0.0" y="28" width="375" height="56"/>
@@ -113,17 +116,15 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BYC-dR-rys">
-                                            <rect key="frame" x="87" y="7" width="47.5" height="27.5"/>
+                                            <rect key="frame" x="87" y="9" width="40" height="24"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JRA-Ie-S2d">
-                                            <rect key="frame" x="87" y="34.5" width="44" height="14.5"/>
+                                            <rect key="frame" x="87" y="33" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="shobogenzo" id="MFP-ui-ii5">
@@ -133,7 +134,7 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.49797028303146362" green="0.49799859523773193" blue="0.50205862522125244" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.8901960784313725" green="0.8901960784313725" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableViewCell>
                         </prototypes>
@@ -289,7 +290,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.50178641080856323" green="0.50585794448852539" blue="0.50994640588760376" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.8901960784313725" green="0.8901960784313725" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6U-6w-qel">
@@ -345,7 +346,7 @@
         <!--Sangha-->
         <scene sceneID="svA-KX-stx">
             <objects>
-                <viewController storyboardIdentifier="sangha-controller" title="Sangha" hidesBottomBarWhenPushed="YES" id="Z0W-On-1Qn" customClass="SanghaController" customModule="Zendo" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="sangha-controller" title="Sangha" hidesBottomBarWhenPushed="YES" id="Z0W-On-1Qn" customClass="WebController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fsF-jS-ZNr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -387,6 +388,9 @@
                         <viewLayoutGuide key="safeArea" id="rF4-j8-9n6"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="Url" value="http://zenbf.org/sangha"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="webView" destination="5Xd-px-hdi" id="iez-si-Otb"/>
                     </connections>
@@ -398,7 +402,7 @@
         <!--Dharma-->
         <scene sceneID="7x7-F1-S33">
             <objects>
-                <viewController storyboardIdentifier="dharma-controller" title="Dharma" hidesBottomBarWhenPushed="YES" id="MgO-Zk-sVg" customClass="DharmaController" customModule="Zendo" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="dharma-controller" title="Dharma" hidesBottomBarWhenPushed="YES" id="MgO-Zk-sVg" customClass="WebController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O68-Fv-uU3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -440,6 +444,9 @@
                         <viewLayoutGuide key="safeArea" id="DVB-1s-MHF"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="Url" value="http://zenbf.org/dharma"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="webView" destination="vHg-Fi-FDV" id="Wd8-mZ-wWR"/>
                     </connections>

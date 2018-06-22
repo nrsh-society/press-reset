@@ -10,6 +10,7 @@ import UIKit
 import HealthKit
 import Foundation
 import Charts
+import Mixpanel
 
 class ZazenController : UIViewController, IAxisValueFormatter {
     
@@ -30,8 +31,15 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+    
         super.viewWillAppear(animated)
+        Mixpanel.mainInstance().track(event: "zazen_enter")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
         
+        super.viewWillDisappear(animated)
+        Mixpanel.mainInstance().track(event: "zazen_exit")
     }
     
     override func viewDidLoad() {
@@ -78,11 +86,11 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     func populateSummary() {
         
         var hkType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
+        
         var hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictEndDate)
         
-        //#todo: this seems wrong
-        let options : HKStatisticsOptions = HKStatisticsOptions(rawValue: HKStatisticsOptions.RawValue(UInt8(HKStatisticsOptions.discreteMin.rawValue) | UInt8(HKStatisticsOptions.discreteMax.rawValue)))
-        
+        let options : HKStatisticsOptions  = [HKStatisticsOptions.discreteAverage, HKStatisticsOptions.discreteMax, HKStatisticsOptions.discreteMin]
+
         var hkQuery = HKStatisticsQuery(quantityType: hkType,
                                         quantitySamplePredicate: hkPredicate,
                                         options: options) { query, result, error in
@@ -146,32 +154,28 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                                 
                                             }
                                         }
+                                        
+                                        if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
+                                            
+                                            DispatchQueue.main.async() {
+                                                
+                                                let text = CATextLayer()
+                                                text.string = String(format: "%.1f", value)
+                                                text.foregroundColor = UIColor.white.cgColor
+                                                text.font = UIFont(name: "Menlo-Bold", size: 33.0)
+                                                text.fontSize = 33.0
+                                                text.alignmentMode = kCAAlignmentCenter
+                                                text.backgroundColor = UIColor.clear.cgColor
+                                                text.frame = CGRect(x: 68, y: 162 , width: 40.0, height: 40.0)
+                                                
+                                                self.view.layer.addSublayer(text)
+                                                
+                                            }
+                                        }
+                                        
         }
         
         ZBFHealthKit.healthStore.execute(hkQuery)
-        
-        let minutes = (workout.duration / 60).rounded()
-        
-        let view = super.view!
-        
-        let frame = CGRect(x: 88 - 20, y: 179 - 20, width: 40.0, height: 40.0)
-        let bezier = UIBezierPath(ovalIn: frame)
-        let shape = CAShapeLayer()
-        
-        shape.fillColor = UIColor.white.cgColor
-        shape.path = bezier.cgPath
-        
-        let text = CATextLayer()
-        text.string = Int(minutes).description
-        text.foregroundColor = UIColor.white.cgColor
-        text.font = UIFont(name: "Menlo-Bold", size: 33.0)
-        text.fontSize = 33.0
-        text.alignmentMode = kCAAlignmentCenter
-        text.backgroundColor = UIColor.clear.cgColor
-        text.frame = CGRect(x: 68, y: 162 , width: 40.0, height: 40.0)
-        
-        //view.layer.addSublayer(shape)
-        view.layer.addSublayer(text)
         
     }
     
@@ -271,6 +275,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         motionChart.chartDescription?.enabled = false
         
         if(motion.entryCount > 0) { motionChart.data = motion }
+        motionChart.animate(xAxisDuration: 3)
         
     }
     

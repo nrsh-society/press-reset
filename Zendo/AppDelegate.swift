@@ -8,6 +8,7 @@
 
 import UIKit
 import HealthKit
+import Mixpanel
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        Mixpanel.initialize(token: "73167d0429d8da0c05c6707e832cbb46")
         
         BuddyBuildSDK.setup()
         

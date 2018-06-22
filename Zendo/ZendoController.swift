@@ -8,6 +8,7 @@
 
 import UIKit
 import HealthKit
+import Mixpanel
 
 class ZendoController: UITableViewController  {
     
@@ -15,7 +16,8 @@ class ZendoController: UITableViewController  {
     var samples = nil as [HKSample]?
     let hkType = HKObjectType.workoutType();
     let healthStore = ZBFHealthKit.healthStore
-    let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
+    //let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
+    let hkPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody)
     
     let url = URL(string: "http://zenbf.org/zendo")!
     
@@ -24,8 +26,15 @@ class ZendoController: UITableViewController  {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
+        super.viewWillAppear(animated)
+        Mixpanel.mainInstance().track(event: "zendo_enter")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        Mixpanel.mainInstance().track(event: "zendo_exit")
     }
     
     func populateTable() {
@@ -39,6 +48,9 @@ class ZendoController: UITableViewController  {
                 DispatchQueue.main.async() {
                     
                     self.samples = results
+                    
+                    Mixpanel.mainInstance().track(event: "zendo_session_load",
+                        properties: ["session_count" : self.samples!.count ])
                     
                     self.tableView.reloadData();
                     
