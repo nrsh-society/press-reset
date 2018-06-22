@@ -61,6 +61,13 @@
 			remoteGlobalIDString = BE2E82091FF44A7B00D104AC;
 			remoteInfo = "Zazen WatchKit Extension";
 		};
+		BEB9D4FB20DCF03E007DAA1F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
+			remoteInfo = Charts;
+		};
 		BECBD3A220DCB14900C682EA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BECBD39C20DCB14900C682EA /* Mixpanel.xcodeproj */;
@@ -315,6 +322,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BEB9D4F820DCF03E007DAA1F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BEB9D4FC20DCF03E007DAA1F /* Charts.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		BECBD39D20DCB14900C682EA /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -432,6 +447,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = BEB9D4F820DCF03E007DAA1F /* Products */;
+					ProjectRef = BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */;
+				},
+				{
 					ProductGroup = BECBD39D20DCB14900C682EA /* Products */;
 					ProjectRef = BECBD39C20DCB14900C682EA /* Mixpanel.xcodeproj */;
 				},
@@ -446,6 +465,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		BEB9D4FC20DCF03E007DAA1F /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = BEB9D4FB20DCF03E007DAA1F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		BECBD3A320DCB14900C682EA /* Mixpanel.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;

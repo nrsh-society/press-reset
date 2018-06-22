@@ -111,7 +111,7 @@
                             <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="zendoCell" textLabel="BYC-dR-rys" detailTextLabel="JRA-Ie-S2d" imageView="MFP-ui-ii5" rowHeight="56" style="IBUITableViewCellStyleSubtitle" id="g8T-oJ-Sak">
                                 <rect key="frame" x="0.0" y="28" width="375" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g8T-oJ-Sak" id="oW6-Mg-s1h">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g8T-oJ-Sak" id="oW6-Mg-s1h">
                                     <rect key="frame" x="0.0" y="0.0" width="341" height="55.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
@@ -127,7 +127,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="shobogenzo" id="MFP-ui-ii5">
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="shobogenzo" id="MFP-ui-ii5">
                                             <rect key="frame" x="16" y="0.0" width="56" height="55.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         </imageView>
