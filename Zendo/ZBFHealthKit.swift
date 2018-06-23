@@ -91,11 +91,11 @@ class ZBFHealthKit {
                                                     
                                                     text.string = Int(value).description
                                                     text.foregroundColor = UIColor.white.cgColor
-                                                    text.font = UIFont(name: "Menlo-Bold", size: 25.0)
-                                                    text.fontSize = 25.0
+                                                    text.font = UIFont(name: "Menlo-Bold", size: 33.0)
+                                                    text.fontSize = 33.0
                                                     //text.alignmentMode = kCAAlignmentCenter
                                                     text.backgroundColor = UIColor.clear.cgColor
-                                                    text.frame = CGRect(x: (cell.imageView?.frame.minX)!, y: (cell.imageView?.frame.minY)! + 17, width: (cell.imageView?.frame.width)!, height: (cell.imageView?.frame.height)!)
+                                                    text.frame = CGRect(x: (cell.imageView?.frame.minX)!, y: (cell.imageView?.frame.minY)!, width: (cell.imageView?.frame.width)!, height: (cell.imageView?.frame.height)!)
                                                     
                                                     cell.imageView?.layer.addSublayer(text)
                                                     
@@ -121,8 +121,8 @@ class ZBFHealthKit {
         var size = CGSize(width: 75 , height: 75)
         
         if (delta < 0) {
-            size = CGSize(width: size.width - CGFloat(delta) ,
-                          height: size.height - CGFloat(delta))
+            size = CGSize(width: size.width + CGFloat(delta) ,
+                          height: size.height + CGFloat(delta))
         }
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
