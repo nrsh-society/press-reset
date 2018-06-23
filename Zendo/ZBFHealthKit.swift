@@ -104,28 +104,12 @@ class ZBFHealthKit {
         }
         
         ZBFHealthKit.healthStore.execute(hkQuery)
-        
-        /*
-        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
             
-            let scale = CGAffineTransform(scaleX: 1 + CGFloat(minutes / 10), y: 1 + CGFloat(minutes / 10))
-            
-            cell.imageView?.transform = scale
-            
-            cell.transform = scale
-            
-        }, completion: nil)
- 
-         */
     }
     
     class func getImage(workout: HKWorkout) -> UIImage {
         
-        let minutes = Int((workout.duration / 60))
-        
         let image : UIImage = UIImage(named: "shobogenzo")!
-        
-        //let size = CGSize(width: 55 + minutes, height: 55 + minutes)
         
         let size = CGSize(width: 75 , height: 75)
         

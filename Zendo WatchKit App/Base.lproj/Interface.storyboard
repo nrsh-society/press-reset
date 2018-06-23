@@ -15,7 +15,7 @@
                 <controller identifier="AppInterfaceController" title="Zendo" backgroundImage="shobogenzo" contentMode="scaleAspectFit" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <label alignment="center" verticalAlignment="center" textAlignment="center" id="c3z-hl-RcP">
-                            <fontDescription key="font" style="UICTFontTextStyleTitle0"/>
+                            <fontDescription key="font" type="system" weight="semibold" pointSize="42"/>
                         </label>
                     </items>
                     <menu key="menu" id="CLv-vs-SZH">
