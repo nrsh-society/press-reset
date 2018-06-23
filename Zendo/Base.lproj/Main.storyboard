@@ -108,27 +108,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.8901960784313725" green="0.8901960784313725" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="zendoCell" textLabel="BYC-dR-rys" detailTextLabel="JRA-Ie-S2d" imageView="MFP-ui-ii5" rowHeight="56" style="IBUITableViewCellStyleSubtitle" id="g8T-oJ-Sak">
-                                <rect key="frame" x="0.0" y="28" width="375" height="56"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="zendoCell" textLabel="BYC-dR-rys" detailTextLabel="JRA-Ie-S2d" imageView="MFP-ui-ii5" rowHeight="84" style="IBUITableViewCellStyleSubtitle" id="g8T-oJ-Sak">
+                                <rect key="frame" x="0.0" y="28" width="375" height="84"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g8T-oJ-Sak" id="oW6-Mg-s1h">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="55.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="83.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BYC-dR-rys">
-                                            <rect key="frame" x="87" y="9" width="40" height="24"/>
+                                            <rect key="frame" x="115" y="19.5" width="40" height="24"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JRA-Ie-S2d">
-                                            <rect key="frame" x="87" y="33" width="44" height="14.5"/>
+                                            <rect key="frame" x="115" y="47" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="shobogenzo" id="MFP-ui-ii5">
-                                            <rect key="frame" x="16" y="0.0" width="56" height="55.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="84" height="83.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                     </subviews>
@@ -191,7 +191,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qxR-ML-0u6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-458.39999999999998" y="-466.99507389162562"/>
+            <point key="canvasLocation" x="-458.39999999999998" y="-467.3163418290855"/>
         </scene>
         <!--Zazen-->
         <scene sceneID="OWy-UP-yZ6">

@@ -45,7 +45,7 @@ class ZBFHealthKit {
         
         let minutes = (workout.duration / 60).rounded()
         
-        cell.textLabel?.text = "\(Int(minutes).description) min"
+        cell.textLabel?.text = "\(Int(minutes).description)min"
         
         cell.detailTextLabel?.text = ZBFHealthKit.format(date: workout.endDate)
         
@@ -109,9 +109,21 @@ class ZBFHealthKit {
     
     class func getImage(workout: HKWorkout) -> UIImage {
         
+        let minutes = Int(workout.duration / 60)
+        
+        //#todo: this should be in options
+        let goalMintues = 20
+        
+        let delta = minutes - goalMintues
+        
         let image : UIImage = UIImage(named: "shobogenzo")!
         
-        let size = CGSize(width: 75 , height: 75)
+        var size = CGSize(width: 75 , height: 75)
+        
+        if (delta < 0) {
+            size = CGSize(width: size.width - CGFloat(delta) ,
+                          height: size.height - CGFloat(delta))
+        }
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         
