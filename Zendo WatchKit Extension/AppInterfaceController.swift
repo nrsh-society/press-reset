@@ -63,7 +63,7 @@ class AppInterfaceController: WKInterfaceController {
                                                 DispatchQueue.main.async() {
                                                     
                                                     if value > 0.0 {
-                                                        self.hrvLabel.setText("\(Int(value).description)ms")
+                                                        self.hrvLabel.setText("\(Int(value).description)")
                                                     }
                                                 }
                                             }

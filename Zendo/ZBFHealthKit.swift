@@ -45,7 +45,7 @@ class ZBFHealthKit {
         
         let minutes = (workout.duration / 60).rounded()
         
-        cell.textLabel?.text = "\(Int(minutes).description)min"
+        cell.textLabel?.text = "\(Int(minutes).description) min"
         
         cell.detailTextLabel?.text = ZBFHealthKit.format(date: workout.endDate)
         
