@@ -40,44 +40,6 @@ class ZBFHealthKit {
         }
     }
     
-    class func overlayHRV(workout : HKWorkout, imageView : UIImageView ) {
-        
-        let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
-        
-        let hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictEndDate)
-        
-        let options : HKStatisticsOptions  = HKStatisticsOptions.discreteAverage
-    
-        let hkQuery = HKStatisticsQuery(quantityType: hkType,
-                                        quantitySamplePredicate: hkPredicate,
-                                        options: options) {
-                                            query, result, error in
-    
-                                            if(error != nil) {
-                                                print(error.debugDescription);
-                                            }
-    
-                                            if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
-    
-                                                DispatchQueue.main.async() {
-                                                    
-                                                    let text = CATextLayer()
-                                                    text.string = String(format: "%.1f", value)
-                                                    text.foregroundColor = UIColor.white.cgColor
-                                                    text.font = UIFont(name: "Menlo-Bold", size: 33.0)
-                                                    text.fontSize = 33.0
-                                                    text.alignmentMode = kCAAlignmentCenter
-                                                    text.backgroundColor = UIColor.clear.cgColor
-                                                    text.frame = CGRect(x: 0, y: 0, width: imageView.frame.width, height: imageView.frame.height)
-                                                    
-                                                    imageView.layer.addSublayer(text)
-                                                
-                                                }
-                                            }
-        }
-        
-        ZBFHealthKit.healthStore.execute(hkQuery)
-    }
     
     class func populateCell(workout : HKWorkout, cell:UITableViewCell)  {
         
@@ -91,15 +53,70 @@ class ZBFHealthKit {
         
         cell.imageView?.image = getImage(workout: workout)
         
-        overlayHRV(workout: workout, imageView: cell.imageView!)
+        let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: workout.endDate)
+        
+        let hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: workout.endDate, options: .strictEndDate)
+        
+        let options : HKStatisticsOptions  = HKStatisticsOptions.discreteAverage
+        
+        let hkQuery = HKStatisticsQuery(quantityType: hkType,
+                                        quantitySamplePredicate: hkPredicate,
+                                        options: options) {
+                                            query, result, error in
+                                            
+                                            if(error != nil) {
+                                                print(error.debugDescription);
+                                            }
+                                            
+                                            if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
+                                                
+                                                DispatchQueue.main.async() {
+                                                    
+                                                    if let layers = cell.imageView?.layer.sublayers {
+                                                        
+                                                        for layer in layers {
+                                                    
+                                                            if layer.name == "hrv" {
+                                                            
+                                                                layer.removeFromSuperlayer()
+                                                            
+                                                            }
+                                                        }
+                                                    }
+                                                    
+                                                    let text = CATextLayer()
+                                                    text.name = "hrv"
+                                                    
+                                                    text.string = Int(value).description
+                                                    text.foregroundColor = UIColor.white.cgColor
+                                                    text.font = UIFont(name: "Menlo-Bold", size: 25.0)
+                                                    text.fontSize = 25.0
+                                                    //text.alignmentMode = kCAAlignmentCenter
+                                                    text.backgroundColor = UIColor.clear.cgColor
+                                                    text.frame = CGRect(x: (cell.imageView?.frame.minX)!, y: (cell.imageView?.frame.minY)! + 17, width: (cell.imageView?.frame.width)!, height: (cell.imageView?.frame.height)!)
+                                                    
+                                                    cell.imageView?.layer.addSublayer(text)
+                                                    
+                                                }
+                                            }
+        }
+        
+        ZBFHealthKit.healthStore.execute(hkQuery)
+        
+        /*
         UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
             
             let scale = CGAffineTransform(scaleX: 1 + CGFloat(minutes / 10), y: 1 + CGFloat(minutes / 10))
             
             cell.imageView?.transform = scale
             
+            cell.transform = scale
+            
         }, completion: nil)
+ 
+         */
     }
     
     class func getImage(workout: HKWorkout) -> UIImage {
@@ -108,7 +125,9 @@ class ZBFHealthKit {
         
         let image : UIImage = UIImage(named: "shobogenzo")!
         
-        let size = CGSize(width: 55 + minutes, height: 55 + minutes)
+        //let size = CGSize(width: 55 + minutes, height: 55 + minutes)
+        
+        let size = CGSize(width: 75 , height: 75)
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         

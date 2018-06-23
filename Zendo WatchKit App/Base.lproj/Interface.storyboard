@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14109" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14269.14" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14031"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14224.4"/>
     </dependencies>
     <scenes>
         <!--Zendo-->
         <scene sceneID="aou-V4-d1y">
             <objects>
                 <controller identifier="AppInterfaceController" title="Zendo" backgroundImage="shobogenzo" contentMode="scaleAspectFit" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
+                    <items>
+                        <label alignment="center" verticalAlignment="center" textAlignment="center" id="c3z-hl-RcP">
+                            <fontDescription key="font" style="UICTFontTextStyleTitle0"/>
+                        </label>
+                    </items>
                     <menu key="menu" id="CLv-vs-SZH">
                         <items>
                             <menuItem title="Enter" icon="accept" id="y6z-2K-t8h" userLabel="Start">
@@ -23,6 +28,7 @@
                         </items>
                     </menu>
                     <connections>
+                        <outlet property="hrvLabel" destination="c3z-hl-RcP" id="wYd-MY-4LK"/>
                         <segue destination="Cs8-9P-1Q0" kind="relationship" relationship="nextPage" id="mZF-je-AWj"/>
                     </connections>
                 </controller>
