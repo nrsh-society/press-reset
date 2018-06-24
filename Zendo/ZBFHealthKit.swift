@@ -86,19 +86,9 @@ class ZBFHealthKit {
                                                         }
                                                     }
                                                     
-                                                    let text = CATextLayer()
-                                                    text.name = "hrv"
+                                                    cell.imageView?.image =  generateImageWithText(size: (cell.imageView?.image?.size)!, text: Int(value).description, fontSize: 25.0)
                                                     
-                                                    text.string = Int(value).description
-                                                    text.foregroundColor = UIColor.white.cgColor
-                                                    text.font = UIFont(name: "Menlo-Bold", size: 33.0)
-                                                    text.fontSize = 33.0
-                                                    text.alignmentMode = kCAAlignmentCenter
-                                                    text.backgroundColor = UIColor.clear.cgColor
-                                                    text.frame = CGRect(x: (cell.imageView?.image?.size.width)! / 2 , y: (cell.imageView?.image?.size.height)! / 2, width: (cell.imageView?.image?.size.width)!, height: (cell.imageView?.image?.size.height)!)
-                                                    
-                                                    cell.imageView?.layer.addSublayer(text)
-                                                    
+                                                    cell.setNeedsDisplay();
                                                 }
                                             }
         }
@@ -177,6 +167,35 @@ class ZBFHealthKit {
         let localTime = dateFormatter.string(from: date)
         
         return localDate + " " + localTime
+    }
+    
+    class func generateImageWithText(size: CGSize, text: String, fontSize: CGFloat ) -> UIImage
+    {
+        let image = UIImage(named: "shobogenzo")!
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFill
+        imageView.frame = rect
+        imageView.backgroundColor = UIColor.clear
+        
+        let label = UILabel(frame: rect)
+        label.backgroundColor = UIColor.clear
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.text = text
+        label.font = UIFont.boldSystemFont(ofSize: fontSize)
+        
+        UIGraphicsBeginImageContextWithOptions(label.bounds.size, false, 0);
+        
+        imageView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        label.layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        let imageWithText = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext();
+        
+        return imageWithText!
     }
     
 }

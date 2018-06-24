@@ -17,12 +17,13 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     public var workout : HKWorkout!
     public var samples: [[String:Any]]!
     
-    @IBOutlet weak var minHRLabel: UILabel!
-    @IBOutlet weak var maxHRLabel: UILabel!
-    @IBOutlet weak var minHRVLabel: UILabel!
-    @IBOutlet weak var maxHRVLabel: UILabel!
+    //@IBOutlet weak var minHRLabel: UILabel!
+    //@IBOutlet weak var maxHRLabel: UILabel!
+    //@IBOutlet weak var minHRVLabel: UILabel!
+    //@IBOutlet weak var maxHRVLabel: UILabel!
+    @IBOutlet weak var hrvImageView: UIImageView!
     
-    @IBOutlet weak var chartView: LineChartView!
+    @IBOutlet weak var bpmView: LineChartView!
     @IBOutlet weak var motionChart: LineChartView!
     @IBOutlet weak var hrvChart: LineChartView!
     
@@ -103,7 +104,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                                 
                                                 DispatchQueue.main.async() {
                                                     
-                                                    self.minHRLabel.text = String(value * 60.0)
+                                                    //self.minHRLabel.text = String(value * 60.0)
                                                     
                                                 }
                                             }
@@ -112,7 +113,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                                 
                                                 DispatchQueue.main.async() {
                                                     
-                                                    self.maxHRLabel.text = String(value * 60.0)
+                                                    //self.maxHRLabel.text = String(value * 60.0)
                                                 }
                                             }
                                             
@@ -139,7 +140,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                             
                                             DispatchQueue.main.async() {
                                                 
-                                                self.minHRVLabel.text = String(format: "%.1f", value)
+                                                //self.minHRVLabel.text = String(format: "%.1f", value)
                                                 
                                                 
                                             }
@@ -149,7 +150,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                             
                                             DispatchQueue.main.async() {
                                                 
-                                                self.maxHRVLabel.text = String(format: "%.1f", value)
+                                                //self.maxHRVLabel.text = String(format: "%.1f", value)
                                                 
                                                 
                                             }
@@ -159,17 +160,13 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                             
                                             DispatchQueue.main.async() {
                                                 
-                                                let text = CATextLayer()
-                                                text.string = String(format: "%.1f", value)
-                                                text.foregroundColor = UIColor.white.cgColor
-                                                text.font = UIFont(name: "Menlo-Bold", size: 33.0)
-                                                text.fontSize = 33.0
-                                                text.alignmentMode = kCAAlignmentCenter
-                                                text.backgroundColor = UIColor.clear.cgColor
-                                                text.frame = CGRect(x: 68, y: 162 , width: 40.0, height: 40.0)
                                                 
-                                                self.view.layer.addSublayer(text)
+                                                self.hrvImageView.image = ZBFHealthKit.generateImageWithText(size: self.hrvImageView.frame.size, text: Int(value).description, fontSize: 55.0)
                                                 
+                                                
+                                                self.hrvImageView.setNeedsDisplay()
+                                                
+                
                                             }
                                         }
                                         
@@ -254,16 +251,16 @@ class ZazenController : UIViewController, IAxisValueFormatter {
             rate = getChartData(key: "rate", scale: 60)
         }
         
-        chartView.xAxis.valueFormatter = self
-        chartView.autoScaleMinMaxEnabled = true
-        chartView.noDataText = "No samples"
-        chartView.data?.setDrawValues(false)
-        chartView.chartDescription?.enabled = false
+        bpmView.xAxis.valueFormatter = self
+        bpmView.autoScaleMinMaxEnabled = true
+        bpmView.noDataText = "No samples"
+        bpmView.data?.setDrawValues(false)
+        bpmView.chartDescription?.enabled = false
         
-        chartView.xAxis.avoidFirstLastClippingEnabled = true
+        bpmView.xAxis.avoidFirstLastClippingEnabled = true
         
-        if(rate.entryCount > 0) {  chartView.data = rate }
-        chartView.animate(xAxisDuration: 3)
+        if(rate.entryCount > 0) {  bpmView.data = rate }
+        bpmView.animate(xAxisDuration: 3)
         
         let motion = getChartData(key: "motion", scale: 1)
         
