@@ -29,7 +29,7 @@
                         </textAttributes>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="t64-BZ-37H">
-                        <rect key="frame" x="0.0" y="729" width="375" height="49"/>
+                        <rect key="frame" x="0.0" y="768" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.49797028303146362" green="0.49799859523773193" blue="0.50205862522125244" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </toolbar>
