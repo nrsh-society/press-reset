@@ -95,7 +95,7 @@ class ZBFHealthKit {
                                                     text.fontSize = 33.0
                                                     text.alignmentMode = kCAAlignmentCenter
                                                     text.backgroundColor = UIColor.clear.cgColor
-                                                    text.frame = CGRect(x: 0, y: (cell.imageView?.image?.size.height)! / 2, width: (cell.imageView?.image?.size.width)!, height: (cell.imageView?.image?.size.height)!)
+                                                    text.frame = CGRect(x: (cell.imageView?.image?.size.width)! / 2 , y: (cell.imageView?.image?.size.height)! / 2, width: (cell.imageView?.image?.size.width)!, height: (cell.imageView?.image?.size.height)!)
                                                     
                                                     cell.imageView?.layer.addSublayer(text)
                                                     
