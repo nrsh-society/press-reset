@@ -53,6 +53,14 @@ class ZBFHealthKit {
         
         cell.imageView?.image = getImage(workout: workout)
         
+        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+            
+            let scale = CGAffineTransform(scaleX: 1 + CGFloat(minutes / 10), y: 1 + CGFloat(minutes / 10))
+            
+            cell.imageView?.transform = scale
+            
+        }, completion: nil)
+        
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: workout.endDate)
@@ -89,6 +97,7 @@ class ZBFHealthKit {
                                                     cell.imageView?.image =  generateImageWithText(size: (cell.imageView?.image?.size)!, text: Int(value).description, fontSize: 25.0)
                                                     
                                                     cell.setNeedsDisplay();
+                                                    
                                                 }
                                             }
         }
@@ -110,10 +119,10 @@ class ZBFHealthKit {
         
         var size = CGSize(width: 75 , height: 75)
         
-        if (delta < 0) {
+        //if (delta < 0) {
             size = CGSize(width: size.width + CGFloat(delta) ,
                           height: size.height + CGFloat(delta))
-        }
+        //}
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         
