@@ -150,22 +150,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Zendo/ZBFHealthKit.swift"
-            timestampString = "551599692.2597671"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
-            landmarkName = "getImage(workout:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Zendo/ZazenController.swift"
             timestampString = "551599692.259825"
             startingColumnNumber = "9223372036854775807"
@@ -183,11 +167,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zendo/ZendoController.swift"
-            timestampString = "551599692.259873"
+            timestampString = "551656435.14333"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "populateTable()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zendo/ZendoController.swift"
+            timestampString = "551656435.143829"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "populateTable()"
             landmarkType = "7">
          </BreakpointContent>

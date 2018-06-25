@@ -12,6 +12,8 @@ import Mixpanel
 
 class ZendoController: UITableViewController  {
     
+    var nuxView: UIImageView?
+    
     var currentWorkout : HKWorkout?
     var samples = nil as [HKSample]?
     let hkType = HKObjectType.workoutType();
@@ -41,10 +43,16 @@ class ZendoController: UITableViewController  {
         
         let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: false)
         
-        let hkQuery = HKSampleQuery.init(sampleType: hkType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor], resultsHandler: {query,results,error in
+        let hkQuery = HKSampleQuery.init(sampleType: hkType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor], resultsHandler:
+        {
+            query,results,error in
             
-            if(error != nil ) { print(error!); } else {
-                
+            if(error != nil )
+            {
+                print(error!)
+            }
+            else
+            {
                 DispatchQueue.main.async() {
                     
                     self.samples = results
@@ -52,11 +60,31 @@ class ZendoController: UITableViewController  {
                     Mixpanel.mainInstance().track(event: "zendo_session_load",
                         properties: ["session_count" : self.samples!.count ])
                     
-                    if(results?.count == 0) {
+                    if(results?.count == 0)
+                    {
+                        self.refreshControl = nil
+                        
+                        let image = UIImage(named: "nux")
+                        let frame = self.view.frame.offsetBy(dx: CGFloat(0), dy: CGFloat(-88))
+                    
+                        self.nuxView = UIImageView(frame: frame)
+                        
+                        self.nuxView?.image = image;
+                        self.nuxView?.contentMode = .scaleAspectFit
+                        
+                        self.view.addSubview(self.nuxView!)
+                        self.view.bringSubview(toFront: self.nuxView!)
                         
                         self.showController("welcome-controller")
+                    }
+                    else
+                    {
                         
-                    } else {
+                        if let view = self.nuxView
+                        {
+                            view.removeFromSuperview()
+                            self.refreshControl = UIRefreshControl(frame: self.view.frame)
+                        }
                         
                         self.tableView.reloadData();
                     }
@@ -78,13 +106,17 @@ class ZendoController: UITableViewController  {
             
             query,results,error in
             
-            if(error != nil ) { print(error!); } else {
+            if(error != nil )
+            {
+                print(error!)
                 
-                DispatchQueue.main.async() {
-                    
+            }
+            else
+            {
+                DispatchQueue.main.async()
+                {
                     self.populateTable()
-                    
-                };
+                }
             }
         }
         
@@ -145,7 +177,7 @@ class ZendoController: UITableViewController  {
     
     @IBAction func onReload(_ sender: UIRefreshControl) {
         
-        self.viewDidLoad();
+        self.populateTable()
         
         sender.endRefreshing()
     }

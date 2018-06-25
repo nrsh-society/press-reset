@@ -104,7 +104,7 @@
             <objects>
                 <tableViewController title="Zendo" id="OgR-X5-jbh" customClass="ZendoController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3Qe-6i-7b8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="680"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.8901960784313725" green="0.8901960784313725" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -191,7 +191,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qxR-ML-0u6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-458.39999999999998" y="-467.3163418290855"/>
+            <point key="canvasLocation" x="-458.39999999999998" y="-467.73399014778329"/>
         </scene>
         <!--Zazen-->
         <scene sceneID="OWy-UP-yZ6">

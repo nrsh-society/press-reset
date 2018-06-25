@@ -112,21 +112,9 @@ class ZBFHealthKit {
     
     class func getImage(workout: HKWorkout) -> UIImage {
         
-        //let minutes = Int(workout.duration / 60)
-        
-        //#todo: this should be in options
-        //let goalMintues = 20
-        
-        //let delta = minutes - goalMintues
-        
         let image : UIImage = UIImage(named: "shobogenzo")!
         
         let size = CGSize(width: 100 , height: 100)
-        
-        //if (delta < 0) {
-            //size = CGSize(width: size.width + CGFloat(delta) ,
-              //            height: size.height + CGFloat(delta))
-        //}
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         
