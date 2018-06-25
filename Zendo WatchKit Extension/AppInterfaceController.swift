@@ -13,7 +13,7 @@ import HealthKit
 var _currentSession : Session?
 
 class AppInterfaceController: WKInterfaceController {
-
+    
     @IBOutlet var hrvLabel: WKInterfaceLabel!
     
     @IBAction func start() {
@@ -24,9 +24,8 @@ class AppInterfaceController: WKInterfaceController {
         
     }
     
-    
     func startSession() {
-
+        
         _currentSession = Session();
         
         _currentSession?.start();
@@ -35,11 +34,19 @@ class AppInterfaceController: WKInterfaceController {
         
         WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: _currentSession  as AnyObject)
             , (name: "OptionsInterfaceController", context: _currentSession  as AnyObject)])
-
+        
     }
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        
+        ZBFHealthKit.getPermissions()
+        
+    }
+    
+    override func willActivate() {
+       
+        super.willActivate()
         
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
@@ -55,15 +62,18 @@ class AppInterfaceController: WKInterfaceController {
                                             query, result, error in
                                             
                                             if(error != nil) {
-                                                print(error.debugDescription);
-                                            }
-                                            
-                                            if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
                                                 
-                                                DispatchQueue.main.async() {
+                                                print(error.debugDescription);
+                                                
+                                            } else {
+                                                
+                                                if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
                                                     
-                                                    if value > 0.0 {
-                                                        self.hrvLabel.setText(Int(value).description)
+                                                    DispatchQueue.main.async() {
+                                                        
+                                                        if value > 0.0 {
+                                                            self.hrvLabel.setText(Int(value).description)
+                                                        }
                                                     }
                                                 }
                                             }
@@ -72,14 +82,9 @@ class AppInterfaceController: WKInterfaceController {
         ZBFHealthKit.healthStore.execute(hkQuery)
     }
     
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
-    }
-    
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
-
+    
 }

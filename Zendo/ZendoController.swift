@@ -52,8 +52,14 @@ class ZendoController: UITableViewController  {
                     Mixpanel.mainInstance().track(event: "zendo_session_load",
                         properties: ["session_count" : self.samples!.count ])
                     
-                    self.tableView.reloadData();
-                    
+                    if(results?.count == 0) {
+                        
+                        self.showController("welcome-controller")
+                        
+                    } else {
+                        
+                        self.tableView.reloadData();
+                    }
                 };
             }
             

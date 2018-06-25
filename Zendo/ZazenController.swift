@@ -160,11 +160,19 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                             
                                             DispatchQueue.main.async() {
                                                 
-                                                
                                                 self.hrvImageView.image = ZBFHealthKit.generateImageWithText(size: self.hrvImageView.frame.size, text: Int(value).description, fontSize: 55.0)
                                                 
-                                                
                                                 self.hrvImageView.setNeedsDisplay()
+                                                
+                                                UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                                                    
+                                                    let scale = CGAffineTransform(scaleX: 1 - CGFloat(value/100), y: 1 - CGFloat(value/100))
+                                                    
+                                                    self.hrvImageView.transform = scale
+                                                    
+                                                    self.hrvImageView.transform = CGAffineTransform.identity
+                                                    
+                                                }, completion: nil )
                                                 
                 
                                             }

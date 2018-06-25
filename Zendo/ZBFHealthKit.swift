@@ -53,14 +53,6 @@ class ZBFHealthKit {
         
         cell.imageView?.image = getImage(workout: workout)
         
-        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-            
-            let scale = CGAffineTransform(scaleX: 1 + CGFloat(minutes / 10), y: 1 + CGFloat(minutes / 10))
-            
-            cell.imageView?.transform = scale
-            
-        }, completion: nil)
-        
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: workout.endDate)
@@ -94,9 +86,21 @@ class ZBFHealthKit {
                                                         }
                                                     }
                                                     
-                                                    cell.imageView?.image =  generateImageWithText(size: (cell.imageView?.image?.size)!, text: Int(value).description, fontSize: 25.0)
+                                                    let size = (cell.imageView?.image?.size)!
+                                                    
+                                                    cell.imageView?.image =  generateImageWithText(size: size, text: Int(value).description, fontSize: 33.0)
                                                     
                                                     cell.setNeedsDisplay();
+                                                 
+                                                    UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                                                        
+                                                        let scale = CGAffineTransform(scaleX: 1 - CGFloat(value/100), y: 1 - CGFloat(value/100))
+                                                        
+                                                        cell.imageView?.transform = scale
+                                                        
+                                                        cell.imageView?.transform = CGAffineTransform.identity
+                                                        
+                                                    }, completion: nil )
                                                     
                                                 }
                                             }
@@ -108,20 +112,20 @@ class ZBFHealthKit {
     
     class func getImage(workout: HKWorkout) -> UIImage {
         
-        let minutes = Int(workout.duration / 60)
+        //let minutes = Int(workout.duration / 60)
         
         //#todo: this should be in options
-        let goalMintues = 20
+        //let goalMintues = 20
         
-        let delta = minutes - goalMintues
+        //let delta = minutes - goalMintues
         
         let image : UIImage = UIImage(named: "shobogenzo")!
         
-        var size = CGSize(width: 75 , height: 75)
+        let size = CGSize(width: 100 , height: 100)
         
         //if (delta < 0) {
-            size = CGSize(width: size.width + CGFloat(delta) ,
-                          height: size.height + CGFloat(delta))
+            //size = CGSize(width: size.width + CGFloat(delta) ,
+              //            height: size.height + CGFloat(delta))
         //}
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
