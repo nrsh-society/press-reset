@@ -41,15 +41,34 @@ class ZendoController: UITableViewController  {
     
     func populateTable() {
         
+        if (self.nuxView == nil) {
+            
+            self.refreshControl?.isEnabled = false
+            let image = UIImage(named: "nux")
+            let frame = self.tableView.frame.offsetBy(dx: CGFloat(0), dy: CGFloat(-88))
+            
+            self.nuxView = UIImageView(frame: frame)
+            self.nuxView?.image = image;
+            self.nuxView?.contentMode = .scaleAspectFit
+            self.nuxView?.backgroundColor = UIColor(red: 0.89, green: 0.89, blue: 0.89, alpha: 1.0)
+            
+          //  self.view.addSubview(self.nuxView!)
+        //    self.view.bringSubview(toFront: self.nuxView!)
+            self.tableView.backgroundView = nuxView
+        
+            self.view.setNeedsDisplay()
+            
+        }
+        
         let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: false)
         
         let hkQuery = HKSampleQuery.init(sampleType: hkType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor], resultsHandler:
         {
             query,results,error in
             
-            if(error != nil )
+            if let error = error
             {
-                print(error!)
+                print(error)
             }
             else
             {
@@ -60,49 +79,25 @@ class ZendoController: UITableViewController  {
                     Mixpanel.mainInstance().track(event: "zendo_session_load",
                         properties: ["session_count" : self.samples!.count ])
                     
-                    if(results?.count == 0)
+                    if((results?.count)! > 0)
                     {
-                        self.refreshControl = nil
                         
-                        let image = UIImage(named: "nux")
-                        let frame = self.view.frame.offsetBy(dx: CGFloat(0), dy: CGFloat(-88))
-                    
-                        self.nuxView = UIImageView(frame: frame)
+                        self.tableView.backgroundView = nil
+                        self.tableView.reloadData();
                         
-                        self.nuxView?.image = image;
-                        self.nuxView?.contentMode = .scaleAspectFit
-                        
-                        self.view.addSubview(self.nuxView!)
-                        self.view.bringSubview(toFront: self.nuxView!)
-                        
-                        self.showController("welcome-controller")
                     }
                     else
                     {
-                        
-                        if let view = self.nuxView
-                        {
-                            view.removeFromSuperview()
-                            self.refreshControl = UIRefreshControl(frame: self.view.frame)
-                        }
-                        
-                        self.tableView.reloadData();
+                       //self.showController("welcome-controller")
                     }
-                };
+                }
             }
             
-        });
+        })
         
         healthStore.execute(hkQuery)
         
-    }
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        
-        populateTable()
-        
-        let oQuery = HKObserverQuery.init(sampleType: hkType, predicate:hkPredicate) {
+        let oQuery = HKObserverQuery.init(sampleType: hkType, predicate: hkPredicate) {
             
             query,results,error in
             
@@ -114,13 +109,21 @@ class ZendoController: UITableViewController  {
             else
             {
                 DispatchQueue.main.async()
-                {
-                    self.populateTable()
+                    {
+                        self.populateTable()
                 }
             }
         }
         
         healthStore.execute(oQuery)
+        
+    }
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        populateTable()
+        
     }
     
     override func didReceiveMemoryWarning() {

@@ -188,13 +188,18 @@ class Session : NSObject {
                                                quantitySamplePredicate: heartRateSDNNPredicate,
                                                options: .discreteAverage) { query, result, error in
                                                 
-                                                if(error != nil) {
-                                                    print(error.debugDescription);
+                                                if let error = error
+                                                {
+                                                    print(error.localizedDescription);
                                                 }
+                                                else
+                                                {
                                                 
-                                                if let sdnn = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
+                                                    if let sdnn = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms"))
+                                                        {
                                                     
                                                     self.heartSDNN = sdnn
+                                                }
                                                 }
         })
         
@@ -209,14 +214,18 @@ class Session : NSObject {
                                                quantitySamplePredicate: heartRatePredicate,
                                                options: .discreteAverage) { query, result, error in
                                                 
-                                                if(error != nil) {
-                                                    print(error.debugDescription);
+                                                if let error = error
+                                                {
+                                                    print(error.localizedDescription);
                                                 }
+                                                else
+                                                {
                                                 
-                                                if let heartRate = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "count/s")) {
+                                                    if let heartRate = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "count/s")) {
                                                     
                                                     self.heartRate = heartRate
                                                 }
+                                            }
                                                 
         })
         
