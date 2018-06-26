@@ -72,17 +72,6 @@ class ZendoController: UITableViewController  {
                     {
                         self.refreshControl?.isEnabled = false
                         
-                        
-                        let image = UIImage(named: "nux")
-                        let frame = self.tableView.frame //.offsetBy(dx: CGFloat(0), dy: CGFloat(-88))
-                        
-                        let nuxView = UIImageView(frame: frame)
-                        nuxView.image = image;
-                        nuxView.contentMode = .scaleAspectFit
-                        
-                        self.tableView.separatorStyle = .none
-                        self.tableView.backgroundView = nuxView
-                        
                        //self.showController("welcome-controller")
                     }
                 }
@@ -119,6 +108,16 @@ class ZendoController: UITableViewController  {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        let image = UIImage(named: "nux")
+        let frame = self.tableView.frame //.offsetBy(dx: CGFloat(0), dy: CGFloat(-88))
+        
+        let nuxView = UIImageView(frame: frame)
+        nuxView.image = image;
+        nuxView.contentMode = .scaleAspectFit
+        
+        self.tableView.separatorStyle = .none
+        self.tableView.backgroundView = nuxView
        
         populateTable()
         
