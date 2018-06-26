@@ -42,7 +42,7 @@ class ZBFHealthKit {
     
     
     class func populateCell(workout : HKWorkout, cell:UITableViewCell)  {
-        
+                
         let minutes = (workout.duration / 60).rounded()
         
         cell.textLabel?.text = "\(Int(minutes).description) min"
@@ -74,23 +74,9 @@ class ZBFHealthKit {
                                                 
                                                 DispatchQueue.main.async() {
                                                     
-                                                    if let layers = cell.imageView?.layer.sublayers {
-                                                        
-                                                        for layer in layers {
-                                                    
-                                                            if layer.name == "hrv" {
-                                                            
-                                                                layer.removeFromSuperlayer()
-                                                            
-                                                            }
-                                                        }
-                                                    }
-                                                    
                                                     let size = (cell.imageView?.image?.size)!
                                                     
                                                     cell.imageView?.image =  generateImageWithText(size: size, text: Int(value).description, fontSize: 33.0)
-                                                    
-                                                    cell.setNeedsDisplay();
                                                  
                                                     UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
                                                         

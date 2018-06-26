@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zendo/ZazenController.swift"
-            timestampString = "551599692.259642"
+            timestampString = "551669851.57929"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "54"
@@ -119,11 +119,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zendo/ZazenController.swift"
-            timestampString = "551599692.259707"
+            timestampString = "551669851.5795259"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "populateSummary()"
             landmarkType = "7">
          </BreakpointContent>
@@ -151,12 +151,76 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zendo/ZazenController.swift"
-            timestampString = "551599692.259825"
+            timestampString = "551669851.5797811"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "388"
-            endingLineNumber = "388"
-            landmarkName = "stringForValue(_:axis:)"
+            startingLineNumber = "389"
+            endingLineNumber = "389"
+            landmarkName = "populateHrvChart()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zendo/ZBFHealthKit.swift"
+            timestampString = "551669851.5799789"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "populateCell(workout:cell:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (__C.HKStatisticsQuery, Swift.Optional&lt;__C.HKStatistics&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in static Zendo.ZBFHealthKit.populateCell(workout: __C.HKWorkout, cell: __C.UITableViewCell) -&gt; ()"
+                  moduleName = "Zendo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dmp/src/zendo2/Zendo/ZBFHealthKit.swift"
+                  timestampString = "551667436.8587379"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89"
+                  offsetFromSymbolStart = "876">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (__C.HKStatisticsQuery, Swift.Optional&lt;__C.HKStatistics&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in static Zendo.ZBFHealthKit.populateCell(workout: __C.HKWorkout, cell: __C.UITableViewCell) -&gt; ()"
+                  moduleName = "Zendo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dmp/src/zendo2/Zendo/ZBFHealthKit.swift"
+                  timestampString = "551667436.860574"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89"
+                  offsetFromSymbolStart = "1980">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zendo/ZBFHealthKit.swift"
+            timestampString = "551669851.580186"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "populateCell(workout:cell:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

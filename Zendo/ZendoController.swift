@@ -12,8 +12,6 @@ import Mixpanel
 
 class ZendoController: UITableViewController  {
     
-    var nuxView: UIImageView?
-    
     var currentWorkout : HKWorkout?
     var samples = nil as [HKSample]?
     let hkType = HKObjectType.workoutType();
@@ -41,25 +39,6 @@ class ZendoController: UITableViewController  {
     
     func populateTable() {
         
-        if (self.nuxView == nil) {
-            
-            self.refreshControl?.isEnabled = false
-            let image = UIImage(named: "nux")
-            let frame = self.tableView.frame.offsetBy(dx: CGFloat(0), dy: CGFloat(-88))
-            
-            self.nuxView = UIImageView(frame: frame)
-            self.nuxView?.image = image;
-            self.nuxView?.contentMode = .scaleAspectFit
-            self.nuxView?.backgroundColor = UIColor(red: 0.89, green: 0.89, blue: 0.89, alpha: 1.0)
-            
-          //  self.view.addSubview(self.nuxView!)
-        //    self.view.bringSubview(toFront: self.nuxView!)
-            self.tableView.backgroundView = nuxView
-        
-            self.view.setNeedsDisplay()
-            
-        }
-        
         let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: false)
         
         let hkQuery = HKSampleQuery.init(sampleType: hkType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor], resultsHandler:
@@ -82,12 +61,16 @@ class ZendoController: UITableViewController  {
                     if((results?.count)! > 0)
                     {
                         
+                        self.refreshControl?.isEnabled = true
                         self.tableView.backgroundView = nil
+                        self.tableView.separatorStyle = .singleLine
                         self.tableView.reloadData();
                         
                     }
                     else
                     {
+                            self.refreshControl?.isEnabled = false
+                        
                        //self.showController("welcome-controller")
                     }
                 }
@@ -109,18 +92,30 @@ class ZendoController: UITableViewController  {
             else
             {
                 DispatchQueue.main.async()
-                    {
-                        self.populateTable()
+                {
+                    //#todo(dataflow): think the behavior of HKOQ is different on IOS12?
+                    self.tableView.reloadData()
                 }
             }
         }
         
         healthStore.execute(oQuery)
         
+        self.tableView.reloadData();
+        
     }
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        let image = UIImage(named: "nux")
+        let frame = self.tableView.frame //.offsetBy(dx: CGFloat(0), dy: CGFloat(-88))
+        
+        let nuxView = UIImageView(frame: frame)
+        nuxView.image = image;
+        nuxView.contentMode = .scaleAspectFit
+        
+        self.tableView.backgroundView = nuxView
         
         populateTable()
         
@@ -154,12 +149,8 @@ class ZendoController: UITableViewController  {
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if let count = samples?.count {
-            return count
-        } else {
-            return 0
-            
-        }
+        return samples?.count ?? 0
+        
     }
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
