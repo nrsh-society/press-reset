@@ -426,7 +426,7 @@
         <!--Welcome-->
         <scene sceneID="IU5-Lt-djM">
             <objects>
-                <viewController storyboardIdentifier="welcome-controller" title="Welcome" modalTransitionStyle="partialCurl" hidesBottomBarWhenPushed="YES" id="Zat-xg-miU" customClass="WebController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="welcome-controller" title="Welcome" hidesBottomBarWhenPushed="YES" id="Zat-xg-miU" customClass="WebController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LJM-oY-Ml1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

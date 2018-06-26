@@ -72,7 +72,16 @@ class ZendoController: UITableViewController  {
                     {
                         self.refreshControl?.isEnabled = false
                         
-                       //self.showController("welcome-controller")
+                        let defaults = UserDefaults.standard
+                        
+                        if defaults.string(forKey: "hasAppBeenLaunchedBefore") == nil
+                        {
+                            //print(" First time app launched ")
+                            defaults.set(true, forKey: "hasAppBeenLaunchedBefore")
+                            
+                           self.showController("welcome-controller")
+                            
+                        }
                     }
                 }
             }
