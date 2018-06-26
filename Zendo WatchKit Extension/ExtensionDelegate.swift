@@ -7,6 +7,7 @@
 //
 
 import WatchKit
+import HealthKit
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
@@ -45,6 +46,18 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
                 task.setTaskCompletedWithSnapshot(false)
             }
         }
+    }
+    
+    public func handle(_ workoutConfiguration: HKWorkoutConfiguration) {
+        
+        let currentSession = Session()
+        
+        currentSession.start()
+        
+        WKInterfaceDevice.current().play(WKHapticType.start)
+        
+        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: currentSession  as AnyObject)
+            , (name: "OptionsInterfaceController", context: currentSession  as AnyObject)])
     }
 
 }

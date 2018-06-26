@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         BuddyBuildSDK.setup()
         
-        applicationShouldRequestHealthAuthorization(application);
+        //applicationShouldRequestHealthAuthorization(application);
         
         CommunityDataLoader.load()
         
@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationShouldRequestHealthAuthorization(_ application: UIApplication) {
         
-        ZBFHealthKit.getPermissions();
+        ZBFHealthKit.getPermissions()
     }
 
 }

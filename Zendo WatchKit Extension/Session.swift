@@ -61,7 +61,9 @@ class Session : NSObject {
         configuration.activityType = .mindAndBody
         configuration.locationType = .unknown
         
-        do {
+        do
+        {
+        
             workoutSession = try HKWorkoutSession(configuration: configuration)
             
             //#todo: add the workout management to the wrapper too

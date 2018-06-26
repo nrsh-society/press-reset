@@ -61,15 +61,27 @@ class ZendoController: UITableViewController  {
                     if((results?.count)! > 0)
                     {
                         
-                        self.refreshControl?.isEnabled = true
                         self.tableView.backgroundView = nil
+                        self.refreshControl?.isEnabled = true
+                        
                         self.tableView.separatorStyle = .singleLine
                         self.tableView.reloadData();
                         
                     }
                     else
                     {
-                            self.refreshControl?.isEnabled = false
+                        self.refreshControl?.isEnabled = false
+                        
+                        
+                        let image = UIImage(named: "nux")
+                        let frame = self.tableView.frame //.offsetBy(dx: CGFloat(0), dy: CGFloat(-88))
+                        
+                        let nuxView = UIImageView(frame: frame)
+                        nuxView.image = image;
+                        nuxView.contentMode = .scaleAspectFit
+                        
+                        self.tableView.separatorStyle = .none
+                        self.tableView.backgroundView = nuxView
                         
                        //self.showController("welcome-controller")
                     }
@@ -79,7 +91,7 @@ class ZendoController: UITableViewController  {
         })
         
         healthStore.execute(hkQuery)
-        
+  /*
         let oQuery = HKObserverQuery.init(sampleType: hkType, predicate: hkPredicate) {
             
             query,results,error in
@@ -94,29 +106,20 @@ class ZendoController: UITableViewController  {
                 DispatchQueue.main.async()
                 {
                     //#todo(dataflow): think the behavior of HKOQ is different on IOS12?
-                    self.tableView.reloadData()
+                    //self.tableView.reloadData()
+                    //self.populateTable()
                 }
             }
         }
         
         healthStore.execute(oQuery)
-        
-        self.tableView.reloadData();
+*/
         
     }
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        let image = UIImage(named: "nux")
-        let frame = self.tableView.frame //.offsetBy(dx: CGFloat(0), dy: CGFloat(-88))
-        
-        let nuxView = UIImageView(frame: frame)
-        nuxView.image = image;
-        nuxView.contentMode = .scaleAspectFit
-        
-        self.tableView.backgroundView = nuxView
-        
+       
         populateTable()
         
     }
@@ -176,28 +179,43 @@ class ZendoController: UITableViewController  {
         sender.endRefreshing()
     }
     
-    @IBAction func onNewSession(_ sender: Any) {
+    @IBAction func onNewSession(_ sender: Any)
+    {
+        
+        ZBFHealthKit.getPermissions()
         
         let configuration = HKWorkoutConfiguration()
         configuration.activityType = .mindAndBody
         configuration.locationType = .unknown
         
-        healthStore.startWatchApp(with: configuration) { (success, error) in
-            guard success else { print (error.debugDescription); return }
+        healthStore.startWatchApp(with: configuration)
+        {
+            (success, error) in
+            
+                guard success else
+                {
+                    print (error.debugDescription)
+                    return
+                }
+        }
+        
+        let alert = UIAlertController(title: "Starting Watch App",
+                                      message: "Deep Press + Exit when complete.", preferredStyle: .actionSheet)
+        
+        let ok = UIAlertAction(title: "Done", style: .default)
+        {
+            action in
+            
+                self.populateTable()
             
         }
         
-        let alert = UIAlertController(title: "Zendo", message: "Continue on Watch", preferredStyle: .alert);
-        
-        let ok = UIAlertAction(title: "OK", style: .default) { action in }
-        
         alert.addAction(ok)
         
-        self.present(alert, animated: true, completion: {
+        self.present(alert, animated: true, completion:
+        {
             
-            self.populateTable()
-            
-        });
+        })
     }
     
     @IBAction func buddhaClick(_ sender: Any) {
