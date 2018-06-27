@@ -53,6 +53,8 @@ class Session : NSObject {
     
     static var options = Options(hapticStrength: 1)
     
+    static var current : Session?
+    
     override init() {
         
         super.init();
@@ -77,8 +79,8 @@ class Session : NSObject {
     
     func start() {
         
-        if(!self.isRunning) {
-            
+        if(!self.isRunning)
+        {
             self.startDate = Date();
             
             motionManager.startDeviceMotionUpdates();

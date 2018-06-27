@@ -211,12 +211,12 @@
                                             <constraint firstAttribute="height" constant="150" id="2gi-HN-dYp"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="al1-ow-OE9" userLabel="HR Chart" customClass="LineChartView" customModule="Charts">
+                                    <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="al1-ow-OE9" userLabel="HR Chart" customClass="LineChartView" customModule="Charts">
                                         <rect key="frame" x="2" y="334" width="371" height="150"/>
                                         <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration" label="chart"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="125" id="5Te-bL-yCd"/>
+                                            <constraint firstAttribute="height" constant="150" id="5Te-bL-yCd"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Co2-vY-L7M" customClass="LineChartView" customModule="Charts">
@@ -239,7 +239,7 @@
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Co2-vY-L7M" firstAttribute="centerX" secondItem="4rH-3f-a3N" secondAttribute="centerX" id="1Qq-Fe-aRX"/>
-                                    <constraint firstItem="Co2-vY-L7M" firstAttribute="top" secondItem="al1-ow-OE9" secondAttribute="bottom" constant="12" id="1ZZ-Yt-QPm"/>
+                                    <constraint firstItem="Co2-vY-L7M" firstAttribute="top" secondItem="al1-ow-OE9" secondAttribute="bottom" constant="-13" id="1ZZ-Yt-QPm"/>
                                     <constraint firstItem="ovP-HC-4FH" firstAttribute="topMargin" secondItem="4rH-3f-a3N" secondAttribute="topMargin" constant="10" id="5gs-Sf-09P"/>
                                     <constraint firstItem="al1-ow-OE9" firstAttribute="centerX" secondItem="4rH-3f-a3N" secondAttribute="centerX" id="8eB-KO-ulb"/>
                                     <constraint firstItem="ovP-HC-4FH" firstAttribute="centerX" secondItem="4rH-3f-a3N" secondAttribute="centerX" id="NE0-Cn-cJY"/>

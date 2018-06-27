@@ -10,7 +10,7 @@ import WatchKit
 import Foundation
 import HealthKit
 
-var _currentSession : Session?
+//var _currentSession : Session?
 
 class AppInterfaceController: WKInterfaceController {
     
@@ -26,27 +26,27 @@ class AppInterfaceController: WKInterfaceController {
     
     func startSession() {
         
-        _currentSession = Session();
+        Session.current = Session();
         
-        _currentSession?.start();
+        Session.current?.start();
         
         WKInterfaceDevice.current().play(WKHapticType.start)
         
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: _currentSession  as AnyObject)
-            , (name: "OptionsInterfaceController", context: _currentSession  as AnyObject)])
+        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context:  Session.current  as AnyObject)
+            , (name: "OptionsInterfaceController", context:  Session.current  as AnyObject)])
         
     }
     
-    override func awake(withContext context: Any?) {
+    override func awake(withContext context: Any?)
+    {
         super.awake(withContext: context)
+    }
+    
+    override func willActivate()
+    {
+        super.willActivate()
         
         ZBFHealthKit.getPermissions()
-        
-    }
-    
-    override func willActivate() {
-       
-        super.willActivate()
         
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
@@ -58,31 +58,36 @@ class AppInterfaceController: WKInterfaceController {
         
         let hkQuery = HKStatisticsQuery(quantityType: hkType,
                                         quantitySamplePredicate: hkPredicate,
-                                        options: options) {
-                                            query, result, error in
-                                            
-                                            if(error != nil) {
-                                                
-                                                print(error.debugDescription);
-                                                
-                                            } else {
-                                                
-                                                if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
-                                                    
-                                                    DispatchQueue.main.async() {
-                                                        
-                                                        if value > 0.0 {
-                                                            self.hrvLabel.setText(Int(value).description)
-                                                        }
-                                                    }
-                                                }
-                                            }
+                                        options: options)
+        {
+            query, result, error in
+            
+            if(error != nil)
+            {
+                print(error.debugDescription)
+                
+            }
+            else
+            {
+                if let value = result!.averageQuantity()?.doubleValue(
+                    for: HKUnit(from: "ms"))
+                {
+                    DispatchQueue.main.async()
+                        {
+                            if value > 0.0
+                            {
+                                self.hrvLabel.setText(Int(value).description)
+                            }
+                    }
+                }
+            }
         }
         
         ZBFHealthKit.healthStore.execute(hkQuery)
     }
     
-    override func didDeactivate() {
+    override func didDeactivate()
+    {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }

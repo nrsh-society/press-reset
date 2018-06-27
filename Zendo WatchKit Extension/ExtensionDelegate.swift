@@ -48,16 +48,20 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         }
     }
     
-    public func handle(_ workoutConfiguration: HKWorkoutConfiguration) {
+    public func handle(_ workoutConfiguration: HKWorkoutConfiguration)
+    {
+        if Session.current != nil
+        {
+            if(Session.current?.isRunning)!  { return }
+        }
         
-        let currentSession = Session()
+        Session.current = Session()
         
-        currentSession.start()
+        Session.current?.start()
         
         WKInterfaceDevice.current().play(WKHapticType.start)
         
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: currentSession  as AnyObject)
-            , (name: "OptionsInterfaceController", context: currentSession  as AnyObject)])
+        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current  as AnyObject)
+            , (name: "OptionsInterfaceController", context: Session.current  as AnyObject)])
     }
-
 }

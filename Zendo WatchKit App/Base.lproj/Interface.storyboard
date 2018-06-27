@@ -9,10 +9,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14224.4"/>
     </dependencies>
     <scenes>
-        <!--Zendo-->
+        <!--Zendō-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="AppInterfaceController" title="Zendo" backgroundImage="shobogenzo" contentMode="scaleAspectFit" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="AppInterfaceController" title="Zendō" backgroundImage="shobogenzo" contentMode="scaleAspectFit" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <label width="1" height="1" alignment="center" verticalAlignment="center" textAlignment="center" id="c3z-hl-RcP">
                             <fontDescription key="font" type="system" weight="semibold" pointSize="50"/>
@@ -38,7 +38,7 @@
         <!--Kyōsaku-->
         <scene sceneID="SLO-n2-qa9">
             <objects>
-                <controller identifier="OptionsInterfaceController" title="Kyōsaku" id="Cs8-9P-1Q0" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="OptionsInterfaceController" title="Kyōsaku" contentMode="scaleAspectFit" id="Cs8-9P-1Q0" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <group alignment="center" spacing="0.0" id="euX-5G-gdh">
                             <items>
@@ -95,14 +95,14 @@
                     </connections>
                 </notificationController>
             </objects>
-            <point key="canvasLocation" x="220" y="643"/>
+            <point key="canvasLocation" x="127" y="785"/>
         </scene>
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
             <objects>
                 <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Zendo_WatchKit_App" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="527" y="643"/>
+            <point key="canvasLocation" x="368" y="763"/>
         </scene>
     </scenes>
 </document>
