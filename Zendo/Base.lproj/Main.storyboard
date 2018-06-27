@@ -29,7 +29,7 @@
                         </textAttributes>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="t64-BZ-37H">
-                        <rect key="frame" x="0.0" y="768" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="729" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.49797028303146362" green="0.49799859523773193" blue="0.50205862522125244" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </toolbar>
@@ -49,8 +49,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lSV-J1-vOQ">
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qr0-K7-LIf">
-                                <rect key="frame" x="0.0" y="38" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <color key="barTintColor" red="0.50189149379730225" green="0.50192040205001831" blue="0.50597971677780151" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -76,11 +81,6 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lSV-J1-vOQ">
-                                <rect key="frame" x="0.0" y="82" width="375" height="730"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
                         </subviews>
                         <color key="backgroundColor" red="0.50189149379730225" green="0.50192040205001831" blue="0.50597971677780151" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.99651747940000002" green="0.58258998390000005" blue="1.6556978150000001e-05" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -97,7 +97,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nzC-N6-bhC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="300" y="-1145"/>
+            <point key="canvasLocation" x="300" y="-1145.3201970443349"/>
         </scene>
         <!--Zendo-->
         <scene sceneID="dOy-lG-oqi">
@@ -202,7 +202,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4rH-3f-a3N">
-                                <rect key="frame" x="0.0" y="106" width="375" height="672"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kaB-ww-oox" userLabel="HRV Chart" customClass="LineChartView" customModule="Charts">
                                         <rect key="frame" x="2" y="172" width="371" height="150"/>
@@ -211,8 +211,8 @@
                                             <constraint firstAttribute="height" constant="150" id="2gi-HN-dYp"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="al1-ow-OE9" userLabel="HR Chart" customClass="LineChartView" customModule="Charts">
-                                        <rect key="frame" x="2" y="334" width="371" height="125"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="al1-ow-OE9" userLabel="HR Chart" customClass="LineChartView" customModule="Charts">
+                                        <rect key="frame" x="2" y="334" width="371" height="150"/>
                                         <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration" label="chart"/>
                                         <constraints>
@@ -220,10 +220,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Co2-vY-L7M" customClass="LineChartView" customModule="Charts">
-                                        <rect key="frame" x="2" y="471" width="371" height="100"/>
+                                        <rect key="frame" x="2" y="471" width="371" height="125"/>
                                         <color key="backgroundColor" red="1" green="0.58255845309999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="1QD-fJ-wkg"/>
+                                            <constraint firstAttribute="height" constant="125" id="1QD-fJ-wkg"/>
                                         </constraints>
                                     </view>
                                     <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shobogenzo" translatesAutoresizingMaskIntoConstraints="NO" id="ovP-HC-4FH">
@@ -252,7 +252,7 @@
                                 </constraints>
                             </view>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6U-6w-qel">
-                                <rect key="frame" x="0.0" y="62" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="8GP-c1-gco"/>
                                 </constraints>
@@ -295,7 +295,7 @@
                             <constraint firstItem="4rH-3f-a3N" firstAttribute="leading" secondItem="HZN-2O-ZG8" secondAttribute="leading" id="lHC-iT-NKu"/>
                             <constraint firstItem="n6U-6w-qel" firstAttribute="leading" secondItem="HZN-2O-ZG8" secondAttribute="leading" id="nK4-Hw-H2b"/>
                             <constraint firstItem="4rH-3f-a3N" firstAttribute="leading" secondItem="HZN-2O-ZG8" secondAttribute="leading" id="tjt-PB-pRP"/>
-                            <constraint firstItem="n6U-6w-qel" firstAttribute="top" secondItem="HZN-2O-ZG8" secondAttribute="top" constant="18" id="y3D-e6-Qcr"/>
+                            <constraint firstItem="n6U-6w-qel" firstAttribute="top" secondItem="HZN-2O-ZG8" secondAttribute="top" id="y3D-e6-Qcr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HZN-2O-ZG8"/>
                     </view>
@@ -309,7 +309,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6r6-nM-AB9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="274.39999999999998" y="-472.16748768472911"/>
+            <point key="canvasLocation" x="276" y="-468"/>
         </scene>
         <!--Sangha-->
         <scene sceneID="svA-KX-stx">
@@ -320,12 +320,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Xd-px-hdi">
-                                <rect key="frame" x="0.0" y="82" width="375" height="730"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.36078431372549019" green="0.38823529411764707" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1hd-VP-Z0T">
-                                <rect key="frame" x="0.0" y="38" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="barTintColor" red="0.50178641080856323" green="0.50585794448852539" blue="0.50994640588760376" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
@@ -365,7 +365,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5lp-uJ-e3x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1033" y="-466"/>
+            <point key="canvasLocation" x="952.79999999999995" y="-468.4729064039409"/>
         </scene>
         <!--Dharma-->
         <scene sceneID="7x7-F1-S33">
@@ -376,7 +376,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMc-49-4Ju">
-                                <rect key="frame" x="0.0" y="38" width="375" height="96"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="barTintColor" red="0.50178641080856323" green="0.50585794448852539" blue="0.50994640588760376" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
@@ -402,7 +402,7 @@
                                 </items>
                             </navigationBar>
                             <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vHg-Fi-FDV">
-                                <rect key="frame" x="0.0" y="82" width="375" height="730"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.36078431372549019" green="0.38823529411764707" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
@@ -421,7 +421,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Ub-tM-6gO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="300" y="214"/>
+            <point key="canvasLocation" x="300" y="213.54679802955667"/>
         </scene>
         <!--Welcome-->
         <scene sceneID="IU5-Lt-djM">
@@ -432,7 +432,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCy-po-yQg">
-                                <rect key="frame" x="0.0" y="38" width="375" height="96"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="barTintColor" red="0.50178641079999997" green="0.50585794449999999" blue="0.50994640589999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
@@ -458,7 +458,7 @@
                                 </items>
                             </navigationBar>
                             <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zS2-gP-JSL">
-                                <rect key="frame" x="0.0" y="82" width="375" height="730"/>
+                                <rect key="frame" x="0.0" y="87" width="375" height="691"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
@@ -477,7 +477,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8nQ-W7-shc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-458" y="225"/>
+            <point key="canvasLocation" x="-458.39999999999998" y="224.6305418719212"/>
         </scene>
     </scenes>
     <resources>
