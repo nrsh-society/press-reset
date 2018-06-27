@@ -221,8 +221,11 @@ class ZendoController: UITableViewController  {
         {
             action in
             
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1) )
+            {
                 self.populateTable()
-            
+            }
+    
         }
         
         alert.addAction(ok)

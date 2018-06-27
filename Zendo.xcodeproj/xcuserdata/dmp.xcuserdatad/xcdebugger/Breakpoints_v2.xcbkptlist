@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zendo WatchKit Extension/ExtensionDelegate.swift"
-            timestampString = "551773827.717647"
+            timestampString = "551774335.625347"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "14"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zendo WatchKit Extension/Session.swift"
-            timestampString = "551773827.718116"
+            timestampString = "551774335.625411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "142"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zendo WatchKit Extension/Session.swift"
-            timestampString = "551773827.7181799"
+            timestampString = "551774335.625459"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "150"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zendo WatchKit Extension/Session.swift"
-            timestampString = "551773827.7182291"
+            timestampString = "551774335.625504"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "166"
@@ -231,13 +231,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zendo/ZendoController.swift"
-            timestampString = "551760583.096997"
+            timestampString = "551774335.625605"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "103"
             endingLineNumber = "103"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "populateTable()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -247,13 +247,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zendo/ZendoController.swift"
-            timestampString = "551760583.0974391"
+            timestampString = "551774335.625962"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "235"
+            endingLineNumber = "235"
+            landmarkName = "onNewSession(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -263,13 +263,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zendo/ZendoController.swift"
-            timestampString = "551760583.097858"
+            timestampString = "551774335.626191"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "222"
             endingLineNumber = "222"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "onNewSession(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
