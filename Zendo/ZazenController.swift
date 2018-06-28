@@ -59,10 +59,9 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                         return sample.metadata!
                     });
                     
-                    self.populateChart()
-                    self.populateSummary()
                     self.populateHrvChart()
-                    
+                    self.populateSummary()
+                    self.populateChart()
                 };
             }
             
@@ -161,7 +160,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                             
                                             DispatchQueue.main.async() {
                                                 
-                                                self.hrvImageView.image = ZBFHealthKit.generateImageWithText(size: self.hrvImageView.frame.size, text: Int(value).description, fontSize: 55.0)
+                                                self.hrvImageView.image = ZBFHealthKit.generateImageWithText(size: self.hrvImageView.frame.size, text: Int(value).description, fontSize: 33.0)
                                                 
                                                 self.hrvImageView.setNeedsDisplay()
                                                 
@@ -187,9 +186,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     
     func getChartData(key: String, scale: Double) -> LineChartData {
         
-        var sum = 0.0
         var entries = [ChartDataEntry]()
-        var avgEntries = [ChartDataEntry]()
         var communityEntries = [ChartDataEntry]()
         
         for(index, sample) in samples.enumerated() {
@@ -204,13 +201,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                     let value = y * scale
                     
                     entries.append(ChartDataEntry(x: x, y: value ))
-                    
-                    sum = sum + value
-                    
-                    let avg = sum / Double(entries.count)
-                    
-                    avgEntries.append(ChartDataEntry(x: x, y: avg))
-                    
+
                     communityEntries.append(getCommunityDataEntry(key: key, interval: x, scale: scale))
                 }
             }
@@ -220,15 +211,8 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
         entryDataset.drawCirclesEnabled = false
         entryDataset.drawValuesEnabled = false
-        entryDataset.setColor(UIColor.lightGray)
-        entryDataset.lineWidth = 2.0
-        
-        let avgDataset = LineChartDataSet(values: avgEntries, label: "avg")
-        
-        avgDataset.drawCirclesEnabled = false
-        avgDataset.drawValuesEnabled = false
-        avgDataset.setColor(UIColor.black)
-        avgDataset.lineWidth = 3.0
+        entryDataset.setColor(UIColor.black)
+        entryDataset.lineWidth = 3.0
         
         let communityDataset = LineChartDataSet(values: communityEntries, label: "sangha")
         
@@ -237,7 +221,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         communityDataset.setColor(UIColor.green)
         communityDataset.lineWidth = 3.0
         
-        return LineChartData(dataSets: [entryDataset, avgDataset, communityDataset])
+        return LineChartData(dataSets: [entryDataset, communityDataset])
         
     }
     
@@ -269,7 +253,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         bpmView.xAxis.avoidFirstLastClippingEnabled = true
         
         if(rate.entryCount > 0) {  bpmView.data = rate }
-        bpmView.animate(xAxisDuration: 3)
+        //bpmView.animate(xAxisDuration: 3)
         
         let motion = getChartData(key: "motion", scale: 1)
         
@@ -281,14 +265,13 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         motionChart.chartDescription?.enabled = false
         
         if(motion.entryCount > 0) { motionChart.data = motion }
-        motionChart.animate(xAxisDuration: 3)
+        //motionChart.animate(xAxisDuration: 3)
         
     }
     
     func populateHrvChart() {
         
         let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "hrv")
-        let avgset = LineChartDataSet(values: [ChartDataEntry](), label: "avg")
         
         let communityEntries = [ChartDataEntry]()
         
@@ -300,16 +283,11 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         communityDataset.lineWidth = 3.0
         
         dataset.drawCirclesEnabled = false
-        dataset.lineWidth = 2.0
-        dataset.setColor(UIColor.lightGray)
+        dataset.lineWidth = 3.0
+        dataset.setColor(UIColor.black)
         dataset.drawValuesEnabled = false
         
-        avgset.drawCirclesEnabled = false
-        avgset.lineWidth = 3.0
-        avgset.setColor(UIColor.black)
-        avgset.drawValuesEnabled = false
-        
-        self.hrvChart.data = LineChartData(dataSets: [dataset, avgset, communityDataset])
+        self.hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
         
         self.hrvChart.drawGridBackgroundEnabled = false
         
@@ -333,45 +311,38 @@ class ZazenController : UIViewController, IAxisValueFormatter {
             
             let statsCollection = results!
             
-            let quarter = Calendar.current.date(byAdding: .day, value: -90, to: self.workout.endDate)!
+            let day = Calendar.current.date(byAdding: .hour, value: -24, to: self.workout.endDate)!
             
-            var hrvsum = 0.0
-            
-            statsCollection.enumerateStatistics(from: quarter, to: self.workout.endDate) { [unowned self] statistics, stop in
+            statsCollection.enumerateStatistics(from: day, to: self.workout.endDate)
+            {
+                [unowned self] statistics, stop in
                 
                 var avgValue = 0.0
                 
-                if let avgQ = statistics.averageQuantity() {
-                    
+                if let avgQ = statistics.averageQuantity()
+                {
                     avgValue = avgQ.doubleValue(for: HKUnit(from: "ms"))
-                    
                 }
                 
                 let date = statistics.startDate
                 
-                let days = Calendar.current.dateComponents([.day], from: date, to: self.workout.endDate).day!
+                let hours = Calendar.current.dateComponents([.hour], from: date, to: self.workout.endDate).hour!
                 
-                let entry = ChartDataEntry(x: Double(-days), y: avgValue )
+                let entry = ChartDataEntry(x: Double(-hours), y: avgValue )
                 
                 self.hrvChart.data!.addEntry(entry, dataSetIndex: 0)
                 
-                let num = Double((self.hrvChart.data?.dataSets[0].entryCount)!)
+                let community = self.getCommunityDataEntry(key: "sdnn", interval: Double(-hours), scale: 1.0)
                 
-                hrvsum = hrvsum + avgValue
-                
-                let avg = ChartDataEntry(x: Double(-days), y:  hrvsum / num )
-                
-                self.hrvChart.data!.addEntry(avg, dataSetIndex: 1)
-                
-                let community = self.getCommunityDataEntry(key: "sdnn", interval: Double(-days), scale: 1.0)
-                
-                self.hrvChart.data!.addEntry(community, dataSetIndex: 2)
-                
-                DispatchQueue.main.async() {
-                    self.hrvChart.notifyDataSetChanged()
-                }
+                self.hrvChart.data!.addEntry(community, dataSetIndex: 1)
                 
             }
+            
+            DispatchQueue.main.sync() {
+                
+                self.hrvChart.notifyDataSetChanged()
+            }
+            
         }
         
         ZBFHealthKit.healthStore.execute(query)
@@ -379,7 +350,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         self.hrvChart.autoScaleMinMaxEnabled = true
         self.hrvChart.chartDescription?.enabled = false
         self.hrvChart.noDataText = "No samples"
-        self.hrvChart.animate(xAxisDuration: 3)
+       // self.hrvChart.animate(xAxisDuration: 3)
         
     }
     
