@@ -196,7 +196,7 @@
         <!--Zazen-->
         <scene sceneID="OWy-UP-yZ6">
             <objects>
-                <viewController storyboardIdentifier="zazen-controller" title="Zazen" hidesBottomBarWhenPushed="YES" id="TsE-Ce-fNs" customClass="ZazenController" customModule="Zendo" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="zazen-controller" title="Zazen" modalPresentationStyle="overCurrentContext" hidesBottomBarWhenPushed="YES" id="TsE-Ce-fNs" customClass="ZazenController" customModule="Zendo" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FTR-xS-jSK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -219,7 +219,7 @@
                                             <constraint firstAttribute="height" constant="133" id="1QD-fJ-wkg"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shobogenzo" translatesAutoresizingMaskIntoConstraints="NO" id="ovP-HC-4FH">
+                                    <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ovP-HC-4FH">
                                         <rect key="frame" x="50" y="10" width="100" height="100"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
