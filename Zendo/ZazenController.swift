@@ -259,7 +259,8 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
         communityDataset.drawCirclesEnabled = false
         communityDataset.drawValuesEnabled = false
-        communityDataset.setColor(UIColor.green)
+        
+        communityDataset.setColor(UIColor(red: 0.291, green: 0.307, blue: 0.752, alpha: 1.0))
         communityDataset.lineWidth = 3.0
         
         return LineChartData(dataSets: [entryDataset, communityDataset])
@@ -312,7 +313,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
         communityDataset.drawCirclesEnabled = false
         communityDataset.drawValuesEnabled = false
-        communityDataset.setColor(UIColor.green)
+        communityDataset.setColor(UIColor(red: 0.291, green: 0.307, blue: 0.752, alpha: 1.0))
         communityDataset.lineWidth = 3.0
         
         dataset.drawCirclesEnabled = false

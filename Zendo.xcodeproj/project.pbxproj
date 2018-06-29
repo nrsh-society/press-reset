@@ -43,6 +43,7 @@
 		BE9BFFFE2065F215007FF96A /* ZBFHealthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9BFFFC2065EE3D007FF96A /* ZBFHealthKit.swift */; };
 		BEA398F220762F4700C85A84 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA398F120762F4700C85A84 /* Media.xcassets */; };
 		BEBAE48B20E6CDB500495C65 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEBAE48720E6CDB500495C65 /* Media.xcassets */; };
+		BEBAE48D20E6DED800495C65 /* gallery.ckcomplication in Resources */ = {isa = PBXBuildFile; fileRef = BEBAE48C20E6DED800495C65 /* gallery.ckcomplication */; };
 		BECBD3A820DCB15800C682EA /* Mixpanel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BECBD3A320DCB14900C682EA /* Mixpanel.framework */; };
 		BECBD3A920DCB15800C682EA /* Mixpanel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BECBD3A320DCB14900C682EA /* Mixpanel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BEEA862F20D4A941003E1E1D /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEEA862E20D4A941003E1E1D /* Media.xcassets */; };
@@ -188,6 +189,7 @@
 		BEA398F120762F4700C85A84 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		BEABAC6A20CCDEAB0016D891 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		BEBAE48720E6CDB500495C65 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		BEBAE48C20E6DED800495C65 /* gallery.ckcomplication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = gallery.ckcomplication; sourceTree = "<group>"; };
 		BECBD39C20DCB14900C682EA /* Mixpanel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Mixpanel.xcodeproj; path = "mixpanel-swift/Mixpanel.xcodeproj"; sourceTree = "<group>"; };
 		BEEA862E20D4A941003E1E1D /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		C5EE270417BDD012045FC9FF /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -264,6 +266,7 @@
 		BE2E81EB1FF44A7B00D104AC /* Zendo */ = {
 			isa = PBXGroup;
 			children = (
+				BEBAE48C20E6DED800495C65 /* gallery.ckcomplication */,
 				BEEA862E20D4A941003E1E1D /* Media.xcassets */,
 				BE9BFFFF2065F317007FF96A /* ZBFHealthKit.swift */,
 				BE81B26D2001B85500274FA1 /* Zendo.entitlements */,
@@ -506,6 +509,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEBAE48D20E6DED800495C65 /* gallery.ckcomplication in Resources */,
 				BE2E81F71FF44A7B00D104AC /* LaunchScreen.storyboard in Resources */,
 				BEEA862F20D4A941003E1E1D /* Media.xcassets in Resources */,
 				BE2E81F21FF44A7B00D104AC /* Main.storyboard in Resources */,

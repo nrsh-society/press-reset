@@ -23,6 +23,7 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
             template.line1ImageProvider = CLKImageProvider(onePieceImage: UIImage(named: "shobogenzo")!)
             template.line2TextProvider = CLKSimpleTextProvider(text: "66")
             template.tintColor = .white
+            template.highlightLine2 = true
         
             let entry = CLKComplicationTimelineEntry(date: Date(),
                                                  complicationTemplate: template)
@@ -48,6 +49,7 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
             template.line1ImageProvider = CLKImageProvider(onePieceImage: UIImage(named: "shobogenzo")!)
             template.line2TextProvider = CLKSimpleTextProvider(text: "66")
             template.tintColor = .white
+            template.highlightLine2 = true
 
         handler(template)
         } else {
