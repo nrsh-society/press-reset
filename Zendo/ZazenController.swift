@@ -17,6 +17,9 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     public var workout : HKWorkout!
     public var samples: [[String:Any]]!
     
+    @IBOutlet weak var dateTimeLabel: UILabel!
+    @IBOutlet weak var durationLabel: UILabel!
+    
     //@IBOutlet weak var minHRLabel: UILabel!
     //@IBOutlet weak var maxHRLabel: UILabel!
     //@IBOutlet weak var minHRVLabel: UILabel!
@@ -70,6 +73,9 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         bpmView.isHidden = true
         motionChart.isHidden = true
         hrvChart.isHidden = true
+        
+        self.durationLabel.text = ""
+        self.dateTimeLabel.text = ""
         
         let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
         let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
@@ -201,6 +207,12 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                                     self.motionChart.isHidden = false
                                                     self.hrvChart.isHidden = false
                                                     
+                                                    let minutes = (self.workout.duration / 60).rounded()
+                            
+                                                    self.durationLabel.text = "\(Int(minutes).description) min"
+                                                    
+                                                    self.dateTimeLabel.text = ZBFHealthKit.format(date: self.workout.endDate)
+                                                    
                                                 }, completion: nil )
                                                 
                 
@@ -323,7 +335,6 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                                 anchorDate: yesterday,
                                                 intervalComponents: interval)
         
-        // Set the results handler
         query.initialResultsHandler = {
             
             query, results, error in
