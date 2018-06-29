@@ -45,6 +45,32 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     
     override func viewDidLoad() {
         
+        motionChart.noDataText = ""
+        bpmView.noDataText = ""
+        hrvChart.noDataText = ""
+        
+        bpmView.autoScaleMinMaxEnabled = true
+        motionChart.autoScaleMinMaxEnabled = true
+        hrvChart.autoScaleMinMaxEnabled = true
+        
+        /*
+        bpmView.data?.setDrawValues(false)
+        motionChart.data?.setDrawValues(false)
+        motionChart.data?.setDrawValues(false)
+        */
+        
+        bpmView.chartDescription?.enabled = false
+        hrvChart.chartDescription?.enabled = false
+        motionChart.chartDescription?.enabled = false
+        
+        hrvChart.drawGridBackgroundEnabled = false
+        bpmView.drawGridBackgroundEnabled = false
+        motionChart.drawGridBackgroundEnabled = false
+        
+        bpmView.isHidden = true
+        motionChart.isHidden = true
+        hrvChart.isHidden = true
+        
         let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
         let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: true)
@@ -60,8 +86,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                     });
                     
                     self.populateHrvChart()
-                    self.populateSummary()
-                    self.populateChart()
+                    
                 };
             }
             
@@ -164,13 +189,17 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                                 
                                                 self.hrvImageView.setNeedsDisplay()
                                                 
-                                                UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                                                UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
                                                     
                                                     let scale = CGAffineTransform(scaleX: 1 - CGFloat(value/100), y: 1 - CGFloat(value/100))
                                                     
                                                     self.hrvImageView.transform = scale
                                                     
                                                     self.hrvImageView.transform = CGAffineTransform.identity
+                                                    
+                                                    self.bpmView.isHidden = false
+                                                    self.motionChart.isHidden = false
+                                                    self.hrvChart.isHidden = false
                                                     
                                                 }, completion: nil )
                                                 
@@ -245,27 +274,19 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         }
         
         bpmView.xAxis.valueFormatter = self
-        bpmView.autoScaleMinMaxEnabled = true
-        bpmView.noDataText = "No samples"
-        bpmView.data?.setDrawValues(false)
-        bpmView.chartDescription?.enabled = false
-        
         bpmView.xAxis.avoidFirstLastClippingEnabled = true
         
-        if(rate.entryCount > 0) {  bpmView.data = rate }
-        //bpmView.animate(xAxisDuration: 3)
+        if(rate.entryCount > 0)
+        {
+            bpmView.data = rate
+        }
         
         let motion = getChartData(key: "motion", scale: 1)
         
         motionChart.xAxis.valueFormatter = self
         motionChart.xAxis.avoidFirstLastClippingEnabled = true
-        motionChart.autoScaleMinMaxEnabled = true
-        motionChart.noDataText = "No samples"
-        motionChart.data?.setDrawValues(false)
-        motionChart.chartDescription?.enabled = false
         
         if(motion.entryCount > 0) { motionChart.data = motion }
-        //motionChart.animate(xAxisDuration: 3)
         
     }
     
@@ -287,9 +308,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         dataset.setColor(UIColor.black)
         dataset.drawValuesEnabled = false
         
-        self.hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
-        
-        self.hrvChart.drawGridBackgroundEnabled = false
+        hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
         
         var interval = DateComponents()
         interval.day = 1
@@ -338,19 +357,18 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                 
             }
             
-            DispatchQueue.main.sync() {
+            DispatchQueue.main.async() {
                 
                 self.hrvChart.notifyDataSetChanged()
+                
+                self.populateChart()
+                
+                self.populateSummary()
             }
             
         }
         
         ZBFHealthKit.healthStore.execute(query)
-        
-        self.hrvChart.autoScaleMinMaxEnabled = true
-        self.hrvChart.chartDescription?.enabled = false
-        self.hrvChart.noDataText = "No samples"
-       // self.hrvChart.animate(xAxisDuration: 3)
         
     }
     

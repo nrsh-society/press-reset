@@ -13,7 +13,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Wwz-AK-hlf">
             <objects>
-                <navigationController modalTransitionStyle="crossDissolve" toolbarHidden="NO" hidesBarsOnSwipe="YES" hidesBarsWhenKeyboardAppears="YES" id="7Hz-Na-seI" sceneMemberID="viewController">
+                <navigationController modalTransitionStyle="crossDissolve" toolbarHidden="NO" hidesBarsWhenKeyboardAppears="YES" id="7Hz-Na-seI" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XzM-4l-pGe">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -196,7 +196,7 @@
         <!--Zazen-->
         <scene sceneID="OWy-UP-yZ6">
             <objects>
-                <viewController storyboardIdentifier="zazen-controller" title="Zazen" hidesBottomBarWhenPushed="YES" id="TsE-Ce-fNs" customClass="ZazenController" customModule="Zendo" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="zazen-controller" title="Zazen" modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="TsE-Ce-fNs" customClass="ZazenController" customModule="Zendo" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FTR-xS-jSK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -244,11 +244,11 @@
                                     <constraint firstItem="al1-ow-OE9" firstAttribute="centerX" secondItem="4rH-3f-a3N" secondAttribute="centerX" id="8eB-KO-ulb"/>
                                     <constraint firstItem="ovP-HC-4FH" firstAttribute="centerX" secondItem="4rH-3f-a3N" secondAttribute="centerX" id="NE0-Cn-cJY"/>
                                     <constraint firstItem="al1-ow-OE9" firstAttribute="top" secondItem="kaB-ww-oox" secondAttribute="bottom" constant="12" id="YA1-2U-wNe"/>
-                                    <constraint firstItem="kaB-ww-oox" firstAttribute="leading" secondItem="4rH-3f-a3N" secondAttribute="leading" constant="2" id="aPW-bm-b3M"/>
-                                    <constraint firstItem="Co2-vY-L7M" firstAttribute="leading" secondItem="4rH-3f-a3N" secondAttribute="leading" constant="2" id="hyy-Oc-V27"/>
+                                    <constraint firstItem="kaB-ww-oox" firstAttribute="leading" secondItem="4rH-3f-a3N" secondAttribute="leading" constant="10" id="aPW-bm-b3M"/>
+                                    <constraint firstItem="Co2-vY-L7M" firstAttribute="leading" secondItem="4rH-3f-a3N" secondAttribute="leading" constant="10" id="hyy-Oc-V27"/>
                                     <constraint firstItem="kaB-ww-oox" firstAttribute="centerX" secondItem="4rH-3f-a3N" secondAttribute="centerX" id="mKF-ca-pfb"/>
                                     <constraint firstItem="kaB-ww-oox" firstAttribute="top" secondItem="ovP-HC-4FH" secondAttribute="bottom" constant="12" id="u6A-HH-MW6"/>
-                                    <constraint firstItem="al1-ow-OE9" firstAttribute="leading" secondItem="4rH-3f-a3N" secondAttribute="leading" constant="2" id="uvs-FB-CYg"/>
+                                    <constraint firstItem="al1-ow-OE9" firstAttribute="leading" secondItem="4rH-3f-a3N" secondAttribute="leading" constant="10" id="uvs-FB-CYg"/>
                                 </constraints>
                             </view>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6U-6w-qel">
