@@ -20,6 +20,12 @@
 	<string>1.1</string>
 	<key>CFBundleVersion</key>
 	<string>6</string>
+	<key>CLKComplicationPrincipalClass</key>
+	<string>ZendoDataSource</string>
+	<key>CLKComplicationSupportedFamilies</key>
+	<array>
+		<string>CLKComplicationFamilyModularSmall</string>
+	</array>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>

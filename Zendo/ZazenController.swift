@@ -155,7 +155,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
         hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
-        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: workout.endDate)
+        let yesterday = Calendar.current.date(byAdding: .hour, value: -24, to: workout.endDate)!
         
         hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: workout.endDate, options: .strictEndDate)
         
@@ -323,9 +323,9 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
         
         var interval = DateComponents()
-        interval.day = 1
+        interval.hour = 1
         
-        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: workout.endDate)!
+        let yesterday = Calendar.current.date(byAdding: .hour, value: -24, to: workout.endDate)!
         
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
@@ -358,9 +358,12 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                 
                 let hours = Calendar.current.dateComponents([.hour], from: date, to: self.workout.endDate).hour!
                 
-                let entry = ChartDataEntry(x: Double(-hours), y: avgValue )
+                if(avgValue > 0 ) {
                 
-                self.hrvChart.data!.addEntry(entry, dataSetIndex: 0)
+                    let entry = ChartDataEntry(x: Double(-hours), y: avgValue )
+                
+                    self.hrvChart.data!.addEntry(entry, dataSetIndex: 0)
+                }
                 
                 let community = self.getCommunityDataEntry(key: "sdnn", interval: Double(-hours), scale: 1.0)
                 

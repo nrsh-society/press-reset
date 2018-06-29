@@ -205,7 +205,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="al1-ow-OE9" userLabel="HR Chart" customClass="LineChartView" customModule="Charts">
-                                        <rect key="frame" x="10" y="277" width="355" height="133"/>
+                                        <rect key="frame" x="10" y="278" width="355" height="133"/>
                                         <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration" label="chart"/>
                                         <constraints>
@@ -213,14 +213,14 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Co2-vY-L7M" customClass="LineChartView" customModule="Charts">
-                                        <rect key="frame" x="10" y="422" width="355" height="133"/>
+                                        <rect key="frame" x="10" y="426" width="355" height="133"/>
                                         <color key="backgroundColor" red="1" green="0.58255845309999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="133" id="1QD-fJ-wkg"/>
                                         </constraints>
                                     </view>
                                     <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ovP-HC-4FH">
-                                        <rect key="frame" x="50" y="10" width="100" height="100"/>
+                                        <rect key="frame" x="50" y="15" width="100" height="100"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="6n5-IK-a8y"/>
@@ -228,14 +228,14 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kaB-ww-oox" userLabel="HRV Chart" customClass="LineChartView" customModule="Charts">
-                                        <rect key="frame" x="10" y="132" width="355" height="133"/>
+                                        <rect key="frame" x="10" y="130" width="355" height="133"/>
                                         <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="133" id="2gi-HN-dYp"/>
+                                            <constraint firstAttribute="height" constant="133" id="oo2-xh-71P"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXt-5l-1st">
-                                        <rect key="frame" x="164" y="35" width="53.5" height="32.5"/>
+                                        <rect key="frame" x="165" y="35" width="53.5" height="32.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="27"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -249,17 +249,17 @@
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Co2-vY-L7M" firstAttribute="centerX" secondItem="4rH-3f-a3N" secondAttribute="centerX" id="1Qq-Fe-aRX"/>
-                                    <constraint firstItem="Co2-vY-L7M" firstAttribute="top" secondItem="al1-ow-OE9" secondAttribute="bottom" constant="12" id="1ZZ-Yt-QPm"/>
-                                    <constraint firstItem="ovP-HC-4FH" firstAttribute="topMargin" secondItem="4rH-3f-a3N" secondAttribute="topMargin" constant="10" id="5gs-Sf-09P"/>
+                                    <constraint firstItem="Co2-vY-L7M" firstAttribute="top" secondItem="al1-ow-OE9" secondAttribute="bottom" constant="15" id="1ZZ-Yt-QPm"/>
+                                    <constraint firstItem="ovP-HC-4FH" firstAttribute="topMargin" secondItem="4rH-3f-a3N" secondAttribute="topMargin" constant="15" id="5gs-Sf-09P"/>
                                     <constraint firstItem="al1-ow-OE9" firstAttribute="centerX" secondItem="4rH-3f-a3N" secondAttribute="centerX" id="8eB-KO-ulb"/>
                                     <constraint firstItem="mqB-dX-Xb3" firstAttribute="leading" secondItem="ovP-HC-4FH" secondAttribute="trailing" constant="15" id="E4F-Jl-wMS"/>
                                     <constraint firstItem="ovP-HC-4FH" firstAttribute="leading" secondItem="4rH-3f-a3N" secondAttribute="leading" constant="50" id="NE0-Cn-cJY"/>
-                                    <constraint firstItem="al1-ow-OE9" firstAttribute="top" secondItem="kaB-ww-oox" secondAttribute="bottom" constant="12" id="YA1-2U-wNe"/>
+                                    <constraint firstItem="al1-ow-OE9" firstAttribute="top" secondItem="kaB-ww-oox" secondAttribute="bottom" constant="15" id="YA1-2U-wNe"/>
                                     <constraint firstItem="kaB-ww-oox" firstAttribute="leading" secondItem="4rH-3f-a3N" secondAttribute="leading" constant="10" id="aPW-bm-b3M"/>
-                                    <constraint firstItem="qXt-5l-1st" firstAttribute="leading" secondItem="ovP-HC-4FH" secondAttribute="trailing" constant="14" id="c8k-QK-78f"/>
+                                    <constraint firstItem="qXt-5l-1st" firstAttribute="leading" secondItem="ovP-HC-4FH" secondAttribute="trailing" constant="15" id="c8k-QK-78f"/>
                                     <constraint firstItem="Co2-vY-L7M" firstAttribute="leading" secondItem="4rH-3f-a3N" secondAttribute="leading" constant="10" id="hyy-Oc-V27"/>
                                     <constraint firstItem="mqB-dX-Xb3" firstAttribute="top" secondItem="qXt-5l-1st" secondAttribute="bottom" id="p1K-G7-5yx"/>
-                                    <constraint firstItem="kaB-ww-oox" firstAttribute="top" secondItem="ovP-HC-4FH" secondAttribute="bottom" constant="22" id="u6A-HH-MW6"/>
+                                    <constraint firstItem="kaB-ww-oox" firstAttribute="top" secondItem="ovP-HC-4FH" secondAttribute="bottom" constant="15" id="u6A-HH-MW6"/>
                                     <constraint firstItem="al1-ow-OE9" firstAttribute="leading" secondItem="4rH-3f-a3N" secondAttribute="leading" constant="10" id="uvs-FB-CYg"/>
                                     <constraint firstItem="kaB-ww-oox" firstAttribute="centerX" secondItem="4rH-3f-a3N" secondAttribute="centerX" id="vTb-sG-M59"/>
                                     <constraint firstItem="qXt-5l-1st" firstAttribute="top" secondItem="4rH-3f-a3N" secondAttribute="topMargin" constant="27" id="wHn-sb-PYF"/>
