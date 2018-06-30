@@ -19,11 +19,22 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
     }
     
     func getNextRequestedUpdateDate(handler: @escaping (Date?) -> Void) {
+        print("getNextRequestedUpdateDate")
         handler(Date(timeIntervalSinceNow: 120))
+    }
+    
+    func requestedUpdateDidBegin() {
+        print("requestedUpdateDidBegin")
+        let server = CLKComplicationServer.sharedInstance()
+        for complication in server.activeComplications! {
+            server.reloadTimeline(for: complication)
+        }
     }
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void)
     {
+        print("getCurrentTimelineEntry")
+        
         let entry = CLKComplicationTimelineEntry(date: Date(),
                                                  complicationTemplate:
                                                     getTemplate(complication: complication))
