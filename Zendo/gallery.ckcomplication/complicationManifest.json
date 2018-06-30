@@ -1,6 +1,12 @@
 {
   "supported complication families" : {
-    "0" : "A444F01C-AC90-47E4-B4D3-BAA1542416C8.json"
+    "7" : "16AD4216-6EC4-4F79-A9E3-EF46CC197AFC.json",
+    "3" : "00F624DD-97F8-4FEA-B40B-A0724D9FA2F6.json",
+    "4" : "B4031647-5B73-4D30-AACB-D3FC432CB0D9.json",
+    "0" : "4EAD2E7E-0608-42BA-BFE9-3B97E96B4D49.json",
+    "1" : "2C617F27-5107-48B4-BE02-A117ABBE2E29.json",
+    "6" : "9A03E790-7E31-4A26-9769-1D143D0D160B.json",
+    "2" : "7193A3ED-1997-482E-91BF-EC0D50D396EA.json"
   },
   "client ID" : "tools.sunyata.Zendo.watchkit.ext"
 }

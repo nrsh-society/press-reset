@@ -18,12 +18,15 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
         handler([])
     }
     
+    func getNextRequestedUpdateDate(handler: @escaping (Date?) -> Void) {
+        handler(Date(timeIntervalSinceNow: 120))
+    }
+    
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void)
     {
-        
-        
         let entry = CLKComplicationTimelineEntry(date: Date(),
-                                                 complicationTemplate: getTemplate(complication: complication))
+                                                 complicationTemplate:
+                                                    getTemplate(complication: complication))
         handler(entry)
     }
     
@@ -81,7 +84,7 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
         case .modularSmall:
             
             let template = CLKComplicationTemplateModularSmallSimpleText()
-            template.textProvider = CLKSimpleTextProvider(text: getHrv())
+            template.textProvider = CLKSimpleTextProvider(text: "33")
             template.tintColor = .white
             
             retval = template
@@ -92,8 +95,8 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
             
             let template = CLKComplicationTemplateModularLargeTallBody()
             template.headerTextProvider = CLKSimpleTextProvider(text: "Zendo")
-            template.bodyTextProvider = CLKSimpleTextProvider(text: getHrv())
-            template.tintColor = .white
+            template.bodyTextProvider = CLKSimpleTextProvider(text: "33")
+            //template.tintColor = .white
             
             retval = template
             
@@ -102,8 +105,8 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
         case .circularSmall:
             
             let template = CLKComplicationTemplateCircularSmallSimpleText()
-            template.textProvider = CLKSimpleTextProvider(text: getHrv())
-            template.tintColor = .white
+            template.textProvider = CLKSimpleTextProvider(text: "33")
+            //template.tintColor = .white
             retval = template
             
             break
@@ -111,8 +114,8 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
         case .extraLarge:
             
             let template = CLKComplicationTemplateExtraLargeSimpleText()
-            template.textProvider = CLKSimpleTextProvider(text: getHrv())
-            template.tintColor = .white
+            template.textProvider = CLKSimpleTextProvider(text: "33")
+            //template.tintColor = .white
             retval = template
             
             break
@@ -120,7 +123,8 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
         case .utilitarianLarge:
             
             let template = CLKComplicationTemplateUtilitarianLargeFlat()
-            template.tintColor = .white
+            template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Utilitarian")!)
+            //template.tintColor = .white
             retval = template
             
             break
@@ -129,7 +133,7 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
             
             let template = CLKComplicationTemplateUtilitarianSmallSquare()
             template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Utilitarian")!)
-            template.tintColor = .white
+            //template.tintColor = .white
             retval = template
             
             break
@@ -137,8 +141,8 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
         case .utilitarianSmallFlat:
             
             let template = CLKComplicationTemplateUtilitarianSmallFlat()
-            template.textProvider = CLKSimpleTextProvider(text: getHrv())
-            template.tintColor = .white
+            template.textProvider = CLKSimpleTextProvider(text: "33")
+            //template.tintColor = .white
             retval = template
             
             break
@@ -159,6 +163,8 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
         
         func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
             
-            handler(getTemplate(complication: complication))
+            //handler(getTemplate(complication: complication))
+            
+            handler(nil)
         }
 }
