@@ -2,13 +2,13 @@
   "images" : [
     {
       "idiom" : "watch",
-      "filename" : "zendo_transparent-1.png",
+      "filename" : "Icon-Watch-16@2x.png",
       "screen-width" : "<=145",
       "scale" : "2x"
     },
     {
       "idiom" : "watch",
-      "filename" : "zendo_transparent.png",
+      "filename" : "Icon-Watch-18@2x.png",
       "screen-width" : ">145",
       "scale" : "2x"
     }
