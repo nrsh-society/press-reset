@@ -18,6 +18,7 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
         handler([])
     }
     
+    /*
     func getNextRequestedUpdateDate(handler: @escaping (Date?) -> Void) {
         print("getNextRequestedUpdateDate")
         handler(Date(timeIntervalSinceNow: 120))
@@ -29,7 +30,7 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
         for complication in server.activeComplications! {
             server.reloadTimeline(for: complication)
         }
-    }
+    }*/
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void)
     {
@@ -94,9 +95,8 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
        
         case .modularSmall:
             
-            let template = CLKComplicationTemplateModularSmallStackImage()
-            template.line1ImageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Modular")!)
-            template.line2TextProvider = CLKSimpleTextProvider(text: "33", shortText: "33")
+            let template = CLKComplicationTemplateModularSmallSimpleImage()
+            template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Modular")!)
             
             retval = template
             
@@ -115,7 +115,7 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
             
             let template = CLKComplicationTemplateExtraLargeSimpleImage()
             template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Extra Large")!)
-            
+        
             retval = template
             
             break
@@ -132,8 +132,8 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
             
         case .utilitarianSmallFlat:
             
-            let template = CLKComplicationTemplateUtilitarianSmallFlat()
-            template.textProvider = CLKSimpleTextProvider(text: "Zendo", shortText: "Zen")
+            let template = CLKComplicationTemplateUtilitarianSmallSquare()
+            template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Utilitarian")!)
             
             retval = template
             
