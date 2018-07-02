@@ -94,57 +94,38 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
        
         case .modularSmall:
             
-            let template = CLKComplicationTemplateModularSmallSimpleText()
-            template.textProvider = CLKSimpleTextProvider(text: "33")
-            template.tintColor = .white
+            let template = CLKComplicationTemplateModularSmallStackImage()
+            template.line1ImageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Modular")!)
+            template.line2TextProvider = CLKSimpleTextProvider(text: "33", shortText: "33")
             
             retval = template
             
             break
-            
-        case .modularLarge:
-            
-            let template = CLKComplicationTemplateModularLargeTallBody()
-            template.headerTextProvider = CLKSimpleTextProvider(text: "Zendo")
-            template.bodyTextProvider = CLKSimpleTextProvider(text: "33")
-            //template.tintColor = .white
-            
-            retval = template
-            
-            break
-            
+                        
         case .circularSmall:
             
-            let template = CLKComplicationTemplateCircularSmallSimpleText()
-            template.textProvider = CLKSimpleTextProvider(text: "33")
-            //template.tintColor = .white
+            let template = CLKComplicationTemplateCircularSmallSimpleImage()
+            template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Circular")!)
+            
             retval = template
             
             break
             
         case .extraLarge:
             
-            let template = CLKComplicationTemplateExtraLargeSimpleText()
-            template.textProvider = CLKSimpleTextProvider(text: "33")
-            //template.tintColor = .white
+            let template = CLKComplicationTemplateExtraLargeSimpleImage()
+            template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Extra Large")!)
+            
             retval = template
             
             break
             
-        case .utilitarianLarge:
-            
-            let template = CLKComplicationTemplateUtilitarianLargeFlat()
-            template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Utilitarian")!)
-            //template.tintColor = .white
-            retval = template
-            
-            break
             
         case .utilitarianSmall:
             
             let template = CLKComplicationTemplateUtilitarianSmallSquare()
-            template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Utilitarian")!)
-            //template.tintColor = .white
+            template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Utilitarian")!)
+            
             retval = template
             
             break
@@ -152,8 +133,8 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
         case .utilitarianSmallFlat:
             
             let template = CLKComplicationTemplateUtilitarianSmallFlat()
-            template.textProvider = CLKSimpleTextProvider(text: "33")
-            //template.tintColor = .white
+            template.textProvider = CLKSimpleTextProvider(text: "Zendo", shortText: "Zen")
+            
             retval = template
             
             break
@@ -168,14 +149,13 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
     }
     
         
-        func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void) {
+        func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void)
+        {
             handler(.showOnLockScreen)
         }
         
-        func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
-            
-            //handler(getTemplate(complication: complication))
-            
-            handler(nil)
+        func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void)
+        {
+            handler(getTemplate(complication: complication))
         }
 }

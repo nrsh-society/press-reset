@@ -37,6 +37,27 @@ class ZendoController: UITableViewController  {
         Mixpanel.mainInstance().track(event: "zendo_exit")
     }
     
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            
+            let sample = self.samples![indexPath.row]
+            
+            let workout = (sample as! HKWorkout)
+            
+            ZBFHealthKit.deleteWorkout(workout: workout)
+            
+            self.samples?.remove(at: indexPath.row)
+    
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+    
+        }
+        
+        return [delete]
+        
+    }
+    
+    
     func populateTable() {
         
         let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: false)
@@ -69,7 +90,7 @@ class ZendoController: UITableViewController  {
                     else
                     {
                         let image = UIImage(named: "nux")
-                        let frame = self.tableView.frame //.offsetBy(dx: CGFloat(0), dy: CGFloat(-88))
+                        let frame = self.tableView.frame
                         
                         let nuxView = UIImageView(frame: frame)
                         nuxView.image = image;
@@ -118,11 +139,11 @@ class ZendoController: UITableViewController  {
         
         if defaults.string(forKey: "hasAppBeenLaunchedBefore") == nil
         {
-            //print(" First time app launched ")
+            
             defaults.set(true, forKey: "hasAppBeenLaunchedBefore")
             
             let image = UIImage(named: "nux")
-            let frame = self.tableView.frame //.offsetBy(dx: CGFloat(0), dy: CGFloat(-88))
+            let frame = self.tableView.frame
             
             let nuxView = UIImageView(frame: frame)
             nuxView.image = image;

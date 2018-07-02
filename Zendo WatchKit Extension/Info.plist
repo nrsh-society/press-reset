@@ -21,14 +21,12 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>CLKComplicationPrincipalClass</key>
-	<string> $(PRODUCT_MODULE_NAME).ZendoDataSource</string>
+	<string>$(PRODUCT_MODULE_NAME).ZendoDataSource</string>
 	<key>CLKComplicationSupportedFamilies</key>
 	<array>
 		<string>CLKComplicationFamilyModularSmall</string>
-		<string>CLKComplicationFamilyModularLarge</string>
 		<string>CLKComplicationFamilyUtilitarianSmall</string>
 		<string>CLKComplicationFamilyUtilitarianSmallFlat</string>
-		<string>CLKComplicationFamilyUtilitarianLarge</string>
 		<string>CLKComplicationFamilyCircularSmall</string>
 		<string>CLKComplicationFamilyExtraLarge</string>
 	</array>

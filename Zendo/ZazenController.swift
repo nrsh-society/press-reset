@@ -255,7 +255,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         entryDataset.setColor(UIColor.black)
         entryDataset.lineWidth = 3.0
         
-        let communityDataset = LineChartDataSet(values: communityEntries, label: "sangha")
+        let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
         
         communityDataset.drawCirclesEnabled = false
         communityDataset.drawValuesEnabled = false
@@ -309,7 +309,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
         let communityEntries = [ChartDataEntry]()
         
-        let communityDataset = LineChartDataSet(values: communityEntries, label: "sangha")
+        let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
         
         communityDataset.drawCirclesEnabled = false
         communityDataset.drawValuesEnabled = false
@@ -326,7 +326,9 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         var interval = DateComponents()
         interval.hour = 1
         
-        let yesterday = Calendar.current.date(byAdding: .hour, value: -24, to: workout.endDate)!
+        let yesterday = Calendar.current.date(byAdding: .hour, value: -24, to: self.workout.endDate)!
+        
+        print(yesterday)
         
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
@@ -341,12 +343,12 @@ class ZazenController : UIViewController, IAxisValueFormatter {
             query, results, error in
             
             let statsCollection = results!
-            
-            let day = Calendar.current.date(byAdding: .hour, value: -24, to: self.workout.endDate)!
-            
-            statsCollection.enumerateStatistics(from: day, to: self.workout.endDate)
+        
+            statsCollection.enumerateStatistics(from: yesterday, to: self.workout.endDate )
             {
                 [unowned self] statistics, stop in
+                
+                print(statistics)
                 
                 var avgValue = 0.0
                 
@@ -357,16 +359,22 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                 
                 let date = statistics.startDate
                 
+                print(date)
+                
                 let hours = Calendar.current.dateComponents([.hour], from: date, to: self.workout.endDate).hour!
+                
+                print(hours)
                 
                 if(avgValue > 0 ) {
                 
-                    let entry = ChartDataEntry(x: Double(-hours), y: avgValue )
+                    let entry = ChartDataEntry(x: Double(hours), y: avgValue )
+                    
+                    print(entry)
                 
                     self.hrvChart.data!.addEntry(entry, dataSetIndex: 0)
                 }
                 
-                let community = self.getCommunityDataEntry(key: "sdnn", interval: Double(-hours), scale: 1.0)
+                let community = self.getCommunityDataEntry(key: "sdnn", interval: Double(hours), scale: 1.0)
                 
                 self.hrvChart.data!.addEntry(community, dataSetIndex: 1)
                 

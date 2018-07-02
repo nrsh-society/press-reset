@@ -2,13 +2,13 @@
   "images" : [
     {
       "idiom" : "watch",
-      "filename" : "Icon-Watch-78@2x.png",
+      "filename" : "Icon-Watch-182.png",
       "screen-width" : "<=145",
       "scale" : "2x"
     },
     {
       "idiom" : "watch",
-      "filename" : "Icon-Watch-87@2x.png",
+      "filename" : "Icon-Watch-203.png",
       "screen-width" : ">145",
       "scale" : "2x"
     }

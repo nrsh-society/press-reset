@@ -22,6 +22,8 @@ class ZBFHealthKit {
     static let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
     static let workoutType = HKObjectType.workoutType()
     
+    static let workoutPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody)
+    
     
     class func getPermissions()  {
         
@@ -185,4 +187,53 @@ class ZBFHealthKit {
         return imageWithText!
     }
     
+    class func deleteWorkout(workout: HKWorkout)
+    {
+        getSamples(workout: workout)
+        {
+            samples in
+            
+            var objects : [HKSample] = samples.map { $0 }
+            
+            objects.append(workout)
+            
+            healthStore.delete(objects)
+            {
+                (bool, error) in
+                                    
+                    if(!bool)
+                    {
+                        print(error!)
+                    }
+            }
+        }
+        
+    }
+    
+    typealias GetSamplesHandler = ([HKSample]) -> Void
+    
+    class func getSamples(workout: HKWorkout, handler: @escaping GetSamplesHandler )
+    {
+        
+        let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
+        let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
+    
+        let hkQuery = HKSampleQuery.init(sampleType: mindfulSessionType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor], resultsHandler:
+        {
+            query, results, error in
+        
+                if(error != nil )
+                {
+                    print(error!)
+                }
+                else
+                {
+                    handler(results!)
+                }
+        })
+    
+        ZBFHealthKit.healthStore.execute(hkQuery)
+        
+    }
 }
