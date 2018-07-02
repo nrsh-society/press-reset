@@ -248,7 +248,9 @@ class ZazenController : UIViewController, IAxisValueFormatter {
             }
         }
         
-        let entryDataset = LineChartDataSet(values: entries, label: key)
+        let label = (key == "heart" || key == "rate") ? "bpm" : key
+        
+        let entryDataset = LineChartDataSet(values: entries, label: label)
         
         entryDataset.drawCirclesEnabled = false
         entryDataset.drawValuesEnabled = false
@@ -328,8 +330,6 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
         let yesterday = Calendar.current.date(byAdding: .hour, value: -24, to: self.workout.endDate)!
         
-        print(yesterday)
-        
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
         let query = HKStatisticsCollectionQuery(quantityType: hkType,
@@ -343,13 +343,13 @@ class ZazenController : UIViewController, IAxisValueFormatter {
             query, results, error in
             
             let statsCollection = results!
-        
+            
+            var entries : [Double : Double] = [:]
+            
             statsCollection.enumerateStatistics(from: yesterday, to: self.workout.endDate )
             {
                 [unowned self] statistics, stop in
-                
-                print(statistics)
-                
+                                
                 var avgValue = 0.0
                 
                 if let avgQ = statistics.averageQuantity()
@@ -359,40 +359,44 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                 
                 let date = statistics.startDate
                 
-                print(date)
-                
                 let hours = Calendar.current.dateComponents([.hour], from: date, to: self.workout.endDate).hour!
                 
-                print(hours)
+                entries[Double(hours)] = avgValue
                 
-                if(avgValue > 0 ) {
-                
-                    let entry = ChartDataEntry(x: Double(hours), y: avgValue )
+            }
+            
+            let sorted = entries.sorted { $0.0 < $1.0 }
+            
+            DispatchQueue.main.async()
+            {
+                sorted.forEach
+                {
+                    (key, value) in
                     
-                    print(entry)
+                    if(value > 0 ) {
+                        
+                        let entry = ChartDataEntry(x: Double(key), y: value )
+                        
+                        print(entry)
+                        
+                        self.hrvChart.data!.addEntry(entry, dataSetIndex: 0)
+                        
+                    }
                 
-                    self.hrvChart.data!.addEntry(entry, dataSetIndex: 0)
+                    let community = self.getCommunityDataEntry(key: "sdnn", interval: Double(key), scale: 1.0)
+                
+                    self.hrvChart.data!.addEntry(community, dataSetIndex: 1)
                 }
                 
-                let community = self.getCommunityDataEntry(key: "sdnn", interval: Double(hours), scale: 1.0)
-                
-                self.hrvChart.data!.addEntry(community, dataSetIndex: 1)
-                
-            }
-            
-            DispatchQueue.main.async() {
-                
                 self.hrvChart.notifyDataSetChanged()
-                
                 self.populateChart()
-                
                 self.populateSummary()
-            }
-            
+                
+                }
         }
-        
+
         ZBFHealthKit.healthStore.execute(query)
-        
+
     }
     
     func stringForValue(_ value: Double,
