@@ -235,6 +235,8 @@ class ZendoController: UITableViewController  {
                 }
         }
         
+        Mixpanel.mainInstance().time(event: "new_session")
+        
         let alert = UIAlertController(title: "Starting Watch App",
                                       message: "Deep Press + Exit when complete.", preferredStyle: .actionSheet)
         
@@ -244,6 +246,7 @@ class ZendoController: UITableViewController  {
             
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1) )
             {
+                Mixpanel.mainInstance().track(event: "new_session")
                 self.populateTable()
             }
     
@@ -271,9 +274,13 @@ class ZendoController: UITableViewController  {
     
     func showController(_ named: String) {
         
+        Mixpanel.mainInstance().time(event: named + "_enter")
+        
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: named)
         
-        present(controller, animated: true, completion: {});
+        present(controller, animated: true, completion: {
+            Mixpanel.mainInstance().track(event: named + "_exit")
+        });
         
     }
     
