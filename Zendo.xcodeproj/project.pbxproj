@@ -16,6 +16,8 @@
 		756D884E8BA9CBA19FB37A43 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67414F738D8DE6FB16C9FEE1 /* CoreTelephony.framework */; };
 		9D71E58EE28B8772ED672785 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A40FB3C69940CC2A7D2835 /* QuartzCore.framework */; };
 		9F2DCAFBFAFD0BB491AB15EF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED375D9041CFE360443FA0F /* SystemConfiguration.framework */; };
+		BE066BD820F1EFC10008747D /* OverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE066BD720F1EFC10008747D /* OverviewController.swift */; };
+		BE066BDD20F1F3D10008747D /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE066BDC20F1F3D10008747D /* PageController.swift */; };
 		BE0A7228209C2B83009E23AA /* OptionsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */; };
 		BE24023B1FFC961A008679C4 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24023A1FFC961A008679C4 /* Session.swift */; };
 		BE24023D1FFC965F008679C4 /* SessionInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24023C1FFC965F008679C4 /* SessionInterfaceController.swift */; };
@@ -34,6 +36,9 @@
 		BE38CF612075D1D10095BB6C /* WebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38CF602075D1D10095BB6C /* WebController.swift */; };
 		BE4895AC206B0CC400B007D6 /* ZazenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4895AB206B0CC400B007D6 /* ZazenController.swift */; };
 		BE50D2F220CC3BA200FF9C54 /* CommunityDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */; };
+		BE75AEBF20F708C300311512 /* ChartColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75AEBC20F708C300311512 /* ChartColors.swift */; };
+		BE75AEC020F708C300311512 /* ChartSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75AEBD20F708C300311512 /* ChartSeries.swift */; };
+		BE75AEC120F708C300311512 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75AEBE20F708C300311512 /* Chart.swift */; };
 		BE81B26F2001B85500274FA1 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE81B26E2001B85500274FA1 /* HealthKit.framework */; };
 		BE89838F20E6BBE300F0FD63 /* ZendoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE89838E20E6BBE300F0FD63 /* ZendoDataSource.swift */; };
 		BE8BB21F1FFDCC4600B2E113 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8BB21E1FFDCC4600B2E113 /* HealthKit.framework */; };
@@ -155,6 +160,8 @@
 		6E976786A0B62DF02B6D3728 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		73956C9DFF514C25FAEB0010 /* Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		91FBDAC94D9B42088C3E7F8B /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
+		BE066BD720F1EFC10008747D /* OverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewController.swift; sourceTree = "<group>"; };
+		BE066BDC20F1F3D10008747D /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
 		BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsInterfaceController.swift; sourceTree = "<group>"; };
 		BE24023A1FFC961A008679C4 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		BE24023C1FFC965F008679C4 /* SessionInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionInterfaceController.swift; sourceTree = "<group>"; };
@@ -177,6 +184,9 @@
 		BE38CF602075D1D10095BB6C /* WebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebController.swift; sourceTree = "<group>"; };
 		BE4895AB206B0CC400B007D6 /* ZazenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZazenController.swift; sourceTree = "<group>"; };
 		BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDataLoader.swift; sourceTree = "<group>"; };
+		BE75AEBC20F708C300311512 /* ChartColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartColors.swift; sourceTree = "<group>"; };
+		BE75AEBD20F708C300311512 /* ChartSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSeries.swift; sourceTree = "<group>"; };
+		BE75AEBE20F708C300311512 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		BE81B26D2001B85500274FA1 /* Zendo.entitlements */ = {isa = PBXFileReference; explicitFileType = text.plist.entitlements; path = Zendo.entitlements; sourceTree = "<group>"; };
 		BE81B26E2001B85500274FA1 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		BE89838E20E6BBE300F0FD63 /* ZendoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZendoDataSource.swift; sourceTree = "<group>"; };
@@ -266,14 +276,19 @@
 		BE2E81EB1FF44A7B00D104AC /* Zendo */ = {
 			isa = PBXGroup;
 			children = (
+				BE75AEBE20F708C300311512 /* Chart.swift */,
+				BE75AEBC20F708C300311512 /* ChartColors.swift */,
+				BE75AEBD20F708C300311512 /* ChartSeries.swift */,
 				BEBAE48C20E6DED800495C65 /* gallery.ckcomplication */,
 				BEEA862E20D4A941003E1E1D /* Media.xcassets */,
 				BE9BFFFF2065F317007FF96A /* ZBFHealthKit.swift */,
 				BE81B26D2001B85500274FA1 /* Zendo.entitlements */,
 				BE2E81EC1FF44A7B00D104AC /* AppDelegate.swift */,
 				BE2E81F01FF44A7B00D104AC /* Main.storyboard */,
+				BE066BD720F1EFC10008747D /* OverviewController.swift */,
 				BE2E81F51FF44A7B00D104AC /* LaunchScreen.storyboard */,
 				BE2E81F81FF44A7B00D104AC /* Info.plist */,
+				BE066BDC20F1F3D10008747D /* PageController.swift */,
 				BE38CF602075D1D10095BB6C /* WebController.swift */,
 				BE4895AB206B0CC400B007D6 /* ZazenController.swift */,
 				BE2E81EE1FF44A7B00D104AC /* ZendoController.swift */,
@@ -540,12 +555,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE066BDD20F1F3D10008747D /* PageController.swift in Sources */,
 				BE38CF612075D1D10095BB6C /* WebController.swift in Sources */,
 				BE50D2F220CC3BA200FF9C54 /* CommunityDataLoader.swift in Sources */,
+				BE75AEC120F708C300311512 /* Chart.swift in Sources */,
 				BE2E81EF1FF44A7B00D104AC /* ZendoController.swift in Sources */,
 				BE9B00002065F317007FF96A /* ZBFHealthKit.swift in Sources */,
 				BE4895AC206B0CC400B007D6 /* ZazenController.swift in Sources */,
+				BE066BD820F1EFC10008747D /* OverviewController.swift in Sources */,
+				BE75AEC020F708C300311512 /* ChartSeries.swift in Sources */,
 				BE2E81ED1FF44A7B00D104AC /* AppDelegate.swift in Sources */,
+				BE75AEBF20F708C300311512 /* ChartColors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,15 +15,18 @@ class ZBFHealthKit {
     static let healthStore = HKHealthStore()
     
     static let hkReadTypes = hkShareTypes
+    
     static let hkShareTypes = Set([heartRateType, mindfulSessionType, workoutType, heartRateSDNNType])
     
     static let heartRateType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
+    
     static let heartRateSDNNType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
+    
     static let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
+    
     static let workoutType = HKObjectType.workoutType()
     
     static let workoutPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody)
-    
     
     class func getPermissions()  {
         
@@ -49,7 +52,7 @@ class ZBFHealthKit {
         
         cell.textLabel?.text = "\(Int(minutes).description) min"
         
-        cell.detailTextLabel?.text = ZBFHealthKit.format(date: workout.endDate)
+        cell.detailTextLabel?.text = ZBFHealthKit.format(workout.endDate)
         
         cell.imageView?.contentMode = .scaleAspectFit
         
@@ -142,7 +145,7 @@ class ZBFHealthKit {
         
     }
 
-    class func format(date:Date) -> String {
+    class func format(_ date: Date) -> String {
     
         let dateFormatter = DateFormatter();
         
@@ -235,5 +238,166 @@ class ZBFHealthKit {
     
         ZBFHealthKit.healthStore.execute(hkQuery)
         
+    }
+    
+    typealias GetPermissionsHandler = (_ success: Bool, _ error: Error?) -> Void
+    
+    class func requestHealthAuth(handler: @escaping GetPermissionsHandler)  {
+        
+        healthStore.handleAuthorizationForExtension
+        {
+            (success, error) in
+            
+            healthStore.requestAuthorization(
+                toShare: hkShareTypes,
+                read: hkReadTypes,
+                completion: handler)
+        }
+    }
+    
+    typealias MindfulMinutesHandler = (_ samples: [HKCategorySample], _ error: Error?) -> Void
+    
+    //#todo(debt): replace 0 with the correct swift constants
+    class func getMindfulMinutes(daysPrior: Int, handler:  @escaping MindfulMinutesHandler)
+    {
+        let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
+        
+        let hkCategoryPredicate = HKQuery.predicateForCategorySamples(with: .equalTo, value: 0)
+    
+        let end = Date()
+        
+        var interval = DateComponents()
+        
+        interval.day = 1
+        
+        let prior = Calendar.current.date(byAdding: .day, value: -(daysPrior), to: end)!
+        
+        let hkDatePredicate = HKQuery.predicateForSamples(withStart: prior, end: end, options: .strictEndDate)
+        
+        let hkPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [hkCategoryPredicate, hkDatePredicate])
+        
+        let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: true)
+        
+        let hkSampleQuery = HKSampleQuery(sampleType: hkType, predicate: hkPredicate, limit: 0, sortDescriptors: [sortDescriptor])
+        {
+            (query, samples, error) in
+            
+            handler(samples as! [HKCategorySample], error)
+        }
+        
+        healthStore.execute(hkSampleQuery)
+    }
+    
+    //#todo(debt): need to be consistent in the return of the handler functions?
+    typealias SamplesHandler = (_ samples: [Double : Double]?, _ error: Error? ) -> Void
+    
+    class func getHRVSamples(daysPrior: Int, handler: @escaping SamplesHandler)
+    {
+        var entries : [Double : Double] = [:]
+     
+        let end = Date()
+        
+        var interval = DateComponents()
+        
+        interval.day = 1
+        
+        let prior = Calendar.current.date(byAdding: .day, value: -(daysPrior), to: end)!
+        
+        let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
+        
+        let query = HKStatisticsCollectionQuery(quantityType: hkType,
+                                                quantitySamplePredicate: nil,
+                                                options: HKStatisticsOptions.discreteAverage,
+                                                anchorDate: prior,
+                                                intervalComponents: interval)
+        
+        query.initialResultsHandler = {
+            
+            query, results, error in
+            
+            if let statsCollection = results
+            {
+                statsCollection.enumerateStatistics(from: prior, to: end )
+                {
+                    statistics, stop in
+                    
+                    var avgValue = 0.0
+                    
+                    if let avgQ = statistics.averageQuantity()
+                    {
+                        avgValue = avgQ.doubleValue(for: HKUnit(from: "ms"))
+                    }
+                    
+                    let key = statistics.startDate.timeIntervalSince1970
+                    
+                    entries[key] = avgValue
+                    
+                }
+                
+                handler(entries, nil)
+            }
+            else
+            {
+                handler(nil, error)
+            }
+        }
+        
+        healthStore.execute(query)
+        
+
+    }
+    
+    class func getBPMSamples(daysPrior: Int, handler: @escaping SamplesHandler)
+    {
+        var entries : [Double : Double] = [:]
+        
+        let end = Date()
+        
+        var interval = DateComponents()
+        
+        interval.day = 1
+        
+        let prior = Calendar.current.date(byAdding: .day, value: -(daysPrior), to: end)!
+        
+        let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
+        
+        let query = HKStatisticsCollectionQuery(quantityType: hkType,
+                                                quantitySamplePredicate: nil,
+                                                options: HKStatisticsOptions.discreteAverage,
+                                                anchorDate: prior,
+                                                intervalComponents: interval)
+        
+        query.initialResultsHandler = {
+            
+            query, results, error in
+            
+            if let statsCollection = results
+            {
+                statsCollection.enumerateStatistics(from: prior, to: end )
+                {
+                    statistics, stop in
+                    
+                    var avgValue = 0.0
+                    
+                    if let avgQ = statistics.averageQuantity()
+                    {
+                        avgValue = avgQ.doubleValue(for: HKUnit(from: "count/s"))
+                    }
+                
+                    let key = statistics.startDate.timeIntervalSince1970
+                    
+                    entries[key] = (avgValue * 60.0)
+                    
+                }
+                
+                handler(entries, nil)
+            }
+            else
+            {
+                handler(nil, error)
+            }
+        }
+    
+        healthStore.execute(query)
     }
 }

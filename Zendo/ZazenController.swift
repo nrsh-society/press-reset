@@ -117,6 +117,8 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     
     func populateSummary() {
         
+    
+        
         var hkType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
         
         var hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictEndDate)
@@ -211,7 +213,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                             
                                                     self.durationLabel.text = "\(Int(minutes).description) min"
                                                     
-                                                    self.dateTimeLabel.text = ZBFHealthKit.format(date: self.workout.endDate)
+                                                    self.dateTimeLabel.text = ZBFHealthKit.format(self.workout.endDate)
                                                     
                                                 }, completion: nil )
                                                 
