@@ -16,9 +16,11 @@ class ZBFHealthKit {
     
     static let hkReadTypes = hkShareTypes
     
-    static let hkShareTypes = Set([heartRateType, mindfulSessionType, workoutType, heartRateSDNNType])
+    static let hkShareTypes = Set([heartRateType, mindfulSessionType, workoutType, heartRateSDNNType, restingBPMType])
     
     static let heartRateType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
+    
+     static let restingBPMType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.restingHeartRate)!
     
     static let heartRateSDNNType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
     
@@ -359,7 +361,7 @@ class ZBFHealthKit {
         
         let prior = Calendar.current.date(byAdding: .day, value: -(daysPrior), to: end)!
         
-        let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
+        let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.restingHeartRate)!
         
         let query = HKStatisticsCollectionQuery(quantityType: hkType,
                                                 quantitySamplePredicate: nil,

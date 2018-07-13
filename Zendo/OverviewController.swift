@@ -230,7 +230,6 @@ class OverviewController : UIViewController
                         
                         if (entry.value > 0.0)
                         {
-                            
                             bpmDataEntries.append((x: entry.key, y: entry.value))
                         }
                         
@@ -243,12 +242,8 @@ class OverviewController : UIViewController
                         
                         bpmDataSeries.area = true
                         
-                        bpmDataSeries.colors = (
-                            above: ChartColors.redColor(),
-                            below: ChartColors.greenColor(),
-                            zeroLevel: 60
-                        )
-                        
+                        bpmDataSeries.color = ChartColors.redColor()
+                    
                         self.bpmChart.add(bpmDataSeries)
                         
                         self.bpmChart.xLabelsFormatter  = { self.stringForValue($1) }
