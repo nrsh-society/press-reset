@@ -411,11 +411,6 @@
         </scene>
     </scenes>
     <resources>
-<<<<<<< HEAD
         <image name="Complication/Modular" width="26" height="26"/>
-        <image name="shobogenzo" width="1024" height="1024"/>
-=======
-        <image name="shobogenzo" width="512" height="512"/>
->>>>>>> 117cd3107095575f3c2a0212c765ca78524018c5
     </resources>
 </document>
