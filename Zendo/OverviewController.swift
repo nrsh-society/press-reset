@@ -18,6 +18,14 @@ class OverviewController : UIViewController
     
     var mmData : Dictionary<Double, Double> = [:]
     
+    @IBAction func queryChanged(_ sender: Any) {
+        
+        let segment = sender as! UISegmentedControl
+        
+        print(segment.selectedSegmentIndex)
+        
+    }
+    
     func stringForValue(_ value: Double) -> String {
         
         let date = Date(timeIntervalSince1970: value)
@@ -33,13 +41,35 @@ class OverviewController : UIViewController
         
     }
     
+    func showController(_ named: String) {
+        
+        Mixpanel.mainInstance().time(event: named + "_enter")
+        
+        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: named)
+        
+        present(controller, animated: true, completion: {
+            Mixpanel.mainInstance().track(event: named + "_exit")
+        });
+        
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
+        let defaults = UserDefaults.standard
+        
+        if defaults.string(forKey: "runonce") == nil
+        {
+            defaults.set(true, forKey: "runonce")
+            
+            self.showController("welcome-controller")
+            
+        }
+        
         ZBFHealthKit.requestHealthAuth(handler:
             {
-                (success,error) in
+                (success, error) in
                 
                 DispatchQueue.main.async()
                     {
@@ -50,11 +80,8 @@ class OverviewController : UIViewController
                             self.populateBPMChart()
                             
                             self.mmChart.topInset = 33.0
-                            self.mmChart.maxX = 3
                             self.bpmChart.topInset = 33.0
-                            self.bpmChart.maxX = 3
                             self.hrvChart.topInset = 33.0
-                            self.hrvChart.maxX = 3
                             
                             self.mmChart.highlightLineWidth = 0.0
                             self.bpmChart.highlightLineWidth = 0.0
@@ -74,7 +101,6 @@ class OverviewController : UIViewController
                             self.view.bringSubview(toFront: hkView)
                         }
                 }
-                
         })
     }
     

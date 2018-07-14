@@ -15,7 +15,7 @@ import Mixpanel
 class ZazenController : UIViewController, IAxisValueFormatter {
     
     public var workout : HKWorkout!
-    public var samples: [[String:Any]]!
+    var samples: [[String:Any]]!
     
     @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
@@ -110,14 +110,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         present(vc, animated: true, completion: nil)
     }
     
-    
-    @IBAction func done(_ sender: Any) {
-        self.dismiss(animated: true) {}
-    }
-    
     func populateSummary() {
-        
-    
         
         var hkType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
         

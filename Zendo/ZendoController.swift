@@ -131,31 +131,26 @@ class ZendoController: UITableViewController  {
 */
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if  segue.identifier == "showDetail",
+            let destination = segue.destination as? ZazenController,
+            let idx = tableView.indexPathForSelectedRow?.row
+        {
+            
+            let sample = samples![idx];
+            
+            currentWorkout = (sample as! HKWorkout);
+            
+            destination.workout = currentWorkout
+        }
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        let defaults = UserDefaults.standard
-        
-        if defaults.string(forKey: "hasAppBeenLaunchedBefore") == nil
-        {
-            
-            defaults.set(true, forKey: "hasAppBeenLaunchedBefore")
-            
-            let image = UIImage(named: "nux")
-            let frame = self.tableView.frame
-            
-            let nuxView = UIImageView(frame: frame)
-            nuxView.image = image;
-            nuxView.contentMode = .scaleAspectFit
-            
-            self.tableView.separatorStyle = .none
-            self.tableView.backgroundView = nuxView
-            
-            self.showController("welcome-controller")
-            
-        }
-        
+                
         populateTable()
         
     }
@@ -165,7 +160,8 @@ class ZendoController: UITableViewController  {
     }
     
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+       
+        /*
         let sample = samples![indexPath.row];
         
         currentWorkout = (sample as! HKWorkout);
@@ -175,6 +171,7 @@ class ZendoController: UITableViewController  {
         details.workout = currentWorkout
         
         present(details, animated: true, completion: {});
+        */
         
     }
     

@@ -26,8 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         BuddyBuildSDK.setup()
         
-        //applicationShouldRequestHealthAuthorization(application);
-        
         CommunityDataLoader.load()
         
         return true
