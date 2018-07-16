@@ -257,61 +257,135 @@ class ZBFHealthKit {
         }
     }
     
-    typealias MindfulMinutesHandler = (_ samples: [HKCategorySample], _ error: Error?) -> Void
+    //#todo(debt): need to be consistent in the return of the handler functions?
+    typealias SamplesHandler = (_ samples: [Double : Double]?, _ error: Error? ) -> Void
     
-    //#todo(debt): replace 0 with the correct swift constants
-    class func getMindfulMinutes(daysPrior: Int, handler:  @escaping MindfulMinutesHandler)
+    class func getMindfulMinutes(interval: Calendar.Component, value: Int, handler:  @escaping SamplesHandler)
     {
         let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         
         let hkCategoryPredicate = HKQuery.predicateForCategorySamples(with: .equalTo, value: 0)
-    
+        
         let end = Date()
         
-        var interval = DateComponents()
+        let prior = Calendar.current.date(byAdding: interval, value: -(value), to: end)!
         
-        interval.day = 1
-        
-        let prior = Calendar.current.date(byAdding: .day, value: -(daysPrior), to: end)!
-        
-        let hkDatePredicate = HKQuery.predicateForSamples(withStart: prior, end: end, options: .strictEndDate)
+        let hkDatePredicate = HKQuery.predicateForSamples(withStart: prior, end: end, options: .strictStartDate)
         
         let hkPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [hkCategoryPredicate, hkDatePredicate])
         
         let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: true)
         
-        let hkSampleQuery = HKSampleQuery(sampleType: hkType, predicate: hkPredicate, limit: 0, sortDescriptors: [sortDescriptor])
+        let hkSampleQuery = HKSampleQuery(sampleType: hkType, predicate: hkPredicate, limit: 0,
+                                          sortDescriptors: [sortDescriptor])
         {
             (query, samples, error) in
             
-            handler(samples as! [HKCategorySample], error)
+            var entries : [Double : Double] = [:]
+            
+            if let samples = samples
+            {
+                samples.forEach(
+                    {
+                        (sample) in
+                        
+                        let startDate = sample.startDate
+                        
+                        let calendar = Calendar.current
+                        
+                        let components = calendar.dateComponents(in: calendar.timeZone, from: startDate)
+                        
+                        let endDate = sample.endDate
+                        
+                        let delta = DateInterval(start: startDate, end: endDate)
+                        
+                        var date = Date()
+                        
+                        switch interval
+                        {
+                        case .hour:
+                            date = Calendar.current.date(bySettingHour: components.hour!, minute: 0, second: 0, of: startDate)!
+                            break
+                            
+                        case .day:
+                            date = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: startDate)!
+                            break
+                            
+                        case .month:
+                            let components = Calendar.current.dateComponents([.year, .month], from: startDate)
+                            date = Calendar.current.date(from: components)!
+                            
+                            break
+                            
+                        case .year:
+                            let components = Calendar.current.dateComponents([.year], from: startDate)
+                            date = Calendar.current.date(from: components)!
+                            break
+                            
+                        default:
+                            date = Calendar.current.date(bySettingHour: components.hour!, minute: 0, second: 0, of: startDate)!
+                            break
+                        }
+                        
+                        let key = date.timeIntervalSince1970
+                        
+                        if let existingValue = entries[key]
+                        {
+                            entries[key] = existingValue + delta.duration
+                        }
+                        else
+                        {
+                            entries[key] = delta.duration
+                        }
+                })
+            }
+                
+            handler(entries, error)
         }
         
         healthStore.execute(hkSampleQuery)
     }
     
-    //#todo(debt): need to be consistent in the return of the handler functions?
-    typealias SamplesHandler = (_ samples: [Double : Double]?, _ error: Error? ) -> Void
-    
-    class func getHRVSamples(daysPrior: Int, handler: @escaping SamplesHandler)
+    class func getHRVSamples(interval: Calendar.Component, value: Int, handler: @escaping SamplesHandler)
     {
         var entries : [Double : Double] = [:]
-     
+        
         let end = Date()
         
-        var interval = DateComponents()
+        var components = DateComponents()
         
-        interval.day = 1
+        switch interval
+        {
+            case .hour:
+                components.hour = 4
+                break
+            
+            case .day:
+                components.day = 1
+                break
+            
+            case .month:
+                components.day = 7
+                break
+            
+            case .year:
+                components.month = 1
+                break
+            
+            default:
+                components.day = 1
+                break
+        }
         
-        let prior = Calendar.current.date(byAdding: .day, value: -(daysPrior), to: end)!
+        let prior = Calendar.current.date(byAdding: interval, value: -(value), to: end)!
         
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
-        
+    
         let query = HKStatisticsCollectionQuery(quantityType: hkType,
                                                 quantitySamplePredicate: nil,
                                                 options: HKStatisticsOptions.discreteAverage,
                                                 anchorDate: prior,
-                                                intervalComponents: interval)
+                                                intervalComponents: components)
         
         query.initialResultsHandler = {
             
@@ -345,21 +419,40 @@ class ZBFHealthKit {
         }
         
         healthStore.execute(query)
-        
-
     }
-    
-    class func getBPMSamples(daysPrior: Int, handler: @escaping SamplesHandler)
+        
+    class func getBPMSamples(interval: Calendar.Component, value: Int, handler: @escaping SamplesHandler)
     {
         var entries : [Double : Double] = [:]
         
         let end = Date()
         
-        var interval = DateComponents()
+        var components = DateComponents()
         
-        interval.day = 1
+        switch interval
+        {
+        case .hour:
+            components.hour = 4
+            break
+            
+        case .day:
+            components.day = 1
+            break
+            
+        case .month:
+            components.day = 7
+            break
+            
+        case .year:
+            components.month = 1
+            break
+            
+        default:
+            components.day = 1
+            break
+        }
         
-        let prior = Calendar.current.date(byAdding: .day, value: -(daysPrior), to: end)!
+        let prior = Calendar.current.date(byAdding: interval, value: -(value), to: end)!
         
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.restingHeartRate)!
         
@@ -367,11 +460,13 @@ class ZBFHealthKit {
                                                 quantitySamplePredicate: nil,
                                                 options: HKStatisticsOptions.discreteAverage,
                                                 anchorDate: prior,
-                                                intervalComponents: interval)
+                                                intervalComponents: components)
         
         query.initialResultsHandler = {
             
             query, results, error in
+            
+            
             
             if let statsCollection = results
             {

@@ -22,18 +22,67 @@ class OverviewController : UIViewController
         
         let segment = sender as! UISegmentedControl
         
-        print(segment.selectedSegmentIndex)
+        let idx = segment.selectedSegmentIndex
         
+        print(idx)
+        
+        switch idx
+        {
+            case 0:
+                populateMMChart(.hour, 24)
+                populateHRVChart(.hour, 24)
+                populateBPMChart(.hour, 24)
+                break
+            case 1:
+                populateMMChart(.day, 7)
+                populateHRVChart(.day, 7)
+                populateBPMChart(.day, 7)
+                break
+            case 2:
+                populateMMChart(.month, 1)
+                populateHRVChart(.month, 1)
+                populateBPMChart(.month, 1)
+                break
+            case 3:
+                populateMMChart(.year, 1)
+                populateHRVChart(.year, 1)
+                populateBPMChart(.year, 1)
+                break
+            default:
+                break
+        }
     }
     
-    func stringForValue(_ value: Double) -> String {
+    func stringForValue(_ value: Double, _ interval : Calendar.Component) -> String {
         
         let date = Date(timeIntervalSince1970: value)
         
         let dateFormatter = DateFormatter();
         
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent;
-        dateFormatter.setLocalizedDateFormatFromTemplate("MM-dd")
+        
+        switch interval
+        {
+        case .hour:
+            dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm")
+            break
+            
+        case .day:
+            dateFormatter.setLocalizedDateFormatFromTemplate("MM-dd")
+            break
+            
+        case .month:
+            dateFormatter.setLocalizedDateFormatFromTemplate("MM-dd")
+            break
+            
+        case .year:
+            dateFormatter.setLocalizedDateFormatFromTemplate("MM")
+            break
+            
+        default:
+            dateFormatter.setLocalizedDateFormatFromTemplate("MM")
+            break
+        }
         
         let localDate = dateFormatter.string(from: date)
         
@@ -75,9 +124,9 @@ class OverviewController : UIViewController
                     {
                         if(success)
                         {
-                            self.populateMMChart()
-                            self.populateHRVChart()
-                            self.populateBPMChart()
+                            self.populateMMChart(.hour, 24)
+                            self.populateHRVChart(.hour, 24)
+                            self.populateBPMChart(.hour, 24)
                             
                             self.mmChart.topInset = 33.0
                             self.bpmChart.topInset = 33.0
@@ -87,6 +136,9 @@ class OverviewController : UIViewController
                             self.bpmChart.highlightLineWidth = 0.0
                             self.hrvChart.highlightLineWidth = 0.0
                             
+                            self.mmChart.xLabelsSkipLast = false
+                            self.bpmChart.xLabelsSkipLast = false
+                            self.hrvChart.xLabelsSkipLast = false
                         }
                         else
                         {
@@ -104,83 +156,39 @@ class OverviewController : UIViewController
         })
     }
     
-    func populateMMChart()
+    func populateMMChart(_ interval: Calendar.Component, _ range: Int)
     {
-        ZBFHealthKit.getMindfulMinutes(daysPrior: 7)
+        var mmDataEntries : [(x: Double, y: Double)] = [(x:Double, y: Double)]()
+        
+        self.mmChart.removeAllSeries()
+        
+        ZBFHealthKit.getMindfulMinutes(interval: interval, value: range )
         {
-            samples, error in
+            (samples, error) in
             
-            if (samples.count > 0)
+            if let entries = samples
             {
-                let start = samples.first?.startDate
-                
-                let end = samples.last?.endDate
-                
-                let calendar = Calendar.current
-                
-                let components = calendar.dateComponents( [.day], from: start!, to: end!)
-                
-                let days = components.day!
-                
-                self.mmData = Dictionary<Double, Double>(minimumCapacity: days)
-                
-                samples.forEach(
+                entries.sorted(by: <).forEach(
                     {
-                        (sample) in
+                        (entry) in
                         
-                        let keyDate = calendar.date(bySettingHour: 0, minute: 0, second: 0, of: sample.startDate)!
+                        mmDataEntries.append((x: entry.key, y: entry.value / 60))
                         
-                        let startDate = sample.startDate
-                        
-                        let endDate = sample.endDate
-                        
-                        let delta = DateInterval(start: startDate, end: endDate)
-                        
-                        let key = keyDate.timeIntervalSince1970
-                        
-                        if let existingValue = self.mmData[key]
-                        {
-                            self.mmData[key] = existingValue + delta.duration
-                        }
-                        else
-                        {
-                            self.mmData[key] = delta.duration
-                        }
-                        
-                })
-                
-                var mmDataEntries : [(x: Double, y: Double)] = [(x:Double, y: Double)]()
-                
-                self.mmData.sorted(by: <).forEach(
-                    {
-                        
-                        (key, value) in
-                        
-                        if (value > 0.0)
-                        {
-                            mmDataEntries.append((x: key, y: value / 60))
-                        }
-                        
-                        print((x: key, y: value))
+                        print("populateMMChart: \(entry)")
                         
                 })
                 
                 DispatchQueue.main.async()
                     {
-                        
                         let mmDataSeries = ChartSeries(data: mmDataEntries)
-                        
-                        mmDataSeries.area = true
-                        
-                        mmDataSeries.colors = (
-                            above: ChartColors.greenColor(),
-                            below: ChartColors.yellowColor(),
-                            zeroLevel: 30
-                        )
                         
                         self.mmChart.add(mmDataSeries)
                         
-                        self.mmChart.xLabelsFormatter  = { self.stringForValue($1) }
+                        self.mmChart.xLabelsFormatter  = {
+                        
+                        self.stringForValue($1, interval)
+                        
+                }
                         
                 }
             }
@@ -189,13 +197,16 @@ class OverviewController : UIViewController
                 print(error.debugDescription)
             }
         }
+        
     }
     
-    func populateHRVChart()
+    func populateHRVChart(_ interval: Calendar.Component, _ range: Int)
     {
-        var hrvDataEntries : [(x: Double, y: Double)] = [(x:Double, y: Double)]()
+        var hrvDataEntries  = [(x:Double, y: Double)]()
         
-        ZBFHealthKit.getHRVSamples(daysPrior: 7) {
+        self.hrvChart.removeAllSeries()
+        
+        let handler : ZBFHealthKit.SamplesHandler = {
             
             (samples, error) in
             
@@ -205,30 +216,28 @@ class OverviewController : UIViewController
                     {
                         (entry) in
                         
-                        if (entry.value > 0.0)
-                        {
-                            
+                       // if(entry.value > 0.0)
+                        //{
                             hrvDataEntries.append((x: entry.key, y: entry.value))
-                        }
-                        print("populateHRVChart: \(entry)")
                         
+                            print("populateHRVChart: \(entry)")
+                        //}
                 })
                 
                 DispatchQueue.main.async()
-                {
+                    {
                         let hrvDataSeries = ChartSeries(data: hrvDataEntries)
-                        
-                        hrvDataSeries.area = true
-                        
-                        hrvDataSeries.colors = (
-                            above: ChartColors.greenColor(),
-                            below: ChartColors.yellowColor(),
-                            zeroLevel: 40
-                        )
                         
                         self.hrvChart.add(hrvDataSeries)
                         
-                        self.hrvChart.xLabelsFormatter  = { self.stringForValue($1) }
+                        self.hrvChart.xLabelsFormatter =
+                        {
+                            
+                            self.stringForValue($1, interval)
+                            
+                        }
+                        
+                        //self.hrvChart.showXLabelsAndGrid = false
                         
                 }
             }
@@ -238,13 +247,18 @@ class OverviewController : UIViewController
             }
             
         }
+        
+        ZBFHealthKit.getHRVSamples(interval: interval, value: range, handler: handler)
+        
     }
     
-    func populateBPMChart()
+    func populateBPMChart(_ interval: Calendar.Component, _ range: Int)
     {
         var bpmDataEntries : [(x: Double, y: Double)] = [(x:Double, y: Double)]()
         
-        ZBFHealthKit.getBPMSamples(daysPrior: 7) {
+        self.bpmChart.removeAllSeries()
+        
+        ZBFHealthKit.getBPMSamples(interval: interval, value: range) {
             
             (samples, error) in
             
@@ -254,11 +268,12 @@ class OverviewController : UIViewController
                     {
                         (entry) in
                         
-                        if (entry.value > 0.0)
-                        {
-                            bpmDataEntries.append((x: entry.key, y: entry.value))
-                        }
+                        //if(entry.value > 0.0)
+                        //{
                         
+                        bpmDataEntries.append((x: entry.key, y: entry.value))
+                        //}
+                    
                         print("populateBPMChart: \(entry)")
                 })
                 
@@ -266,14 +281,14 @@ class OverviewController : UIViewController
                     {
                         let bpmDataSeries = ChartSeries(data: bpmDataEntries)
                         
-                        bpmDataSeries.area = true
-                        
-                        bpmDataSeries.color = ChartColors.redColor()
-                    
                         self.bpmChart.add(bpmDataSeries)
                         
-                        self.bpmChart.xLabelsFormatter  = { self.stringForValue($1) }
-                        
+                        self.bpmChart.xLabelsFormatter =
+                        {
+                            
+                            self.stringForValue($1, interval)
+                            
+                        }
                 }
             }
             else
@@ -284,9 +299,8 @@ class OverviewController : UIViewController
         }
     }
     
+    //#todo(debt): factor this into the zbfmodel + ui across controllers
     @IBAction func newSession(_ sender: Any) {
-        
-        ZBFHealthKit.getPermissions()
         
         let configuration = HKWorkoutConfiguration()
         configuration.activityType = .mindAndBody
