@@ -26,25 +26,26 @@ class OverviewController : UIViewController
         
         print(idx)
         
+        self.mmChart.removeAllSeries()
+        
+    
+         
+        
         switch idx
         {
             case 0:
-                populateMMChart(.hour, 24)
                 populateHRVChart(.hour, 24)
                 populateBPMChart(.hour, 24)
                 break
             case 1:
-                populateMMChart(.day, 7)
                 populateHRVChart(.day, 7)
                 populateBPMChart(.day, 7)
                 break
             case 2:
-                populateMMChart(.month, 1)
                 populateHRVChart(.month, 1)
                 populateBPMChart(.month, 1)
                 break
             case 3:
-                populateMMChart(.year, 1)
                 populateHRVChart(.year, 1)
                 populateBPMChart(.year, 1)
                 break
@@ -124,7 +125,6 @@ class OverviewController : UIViewController
                     {
                         if(success)
                         {
-                            self.populateMMChart(.hour, 24)
                             self.populateHRVChart(.hour, 24)
                             self.populateBPMChart(.hour, 24)
                             
@@ -135,10 +135,7 @@ class OverviewController : UIViewController
                             self.mmChart.highlightLineWidth = 0.0
                             self.bpmChart.highlightLineWidth = 0.0
                             self.hrvChart.highlightLineWidth = 0.0
-                            
-                            self.mmChart.xLabelsSkipLast = false
-                            self.bpmChart.xLabelsSkipLast = false
-                            self.hrvChart.xLabelsSkipLast = false
+                
                         }
                         else
                         {
@@ -156,53 +153,10 @@ class OverviewController : UIViewController
         })
     }
     
-    func populateMMChart(_ interval: Calendar.Component, _ range: Int)
-    {
-        var mmDataEntries : [(x: Double, y: Double)] = [(x:Double, y: Double)]()
-        
-        self.mmChart.removeAllSeries()
-        
-        ZBFHealthKit.getMindfulMinutes(interval: interval, value: range )
-        {
-            (samples, error) in
-            
-            if let entries = samples
-            {
-                entries.sorted(by: <).forEach(
-                    {
-                        (entry) in
-                        
-                        mmDataEntries.append((x: entry.key, y: entry.value / 60))
-                        
-                        print("populateMMChart: \(entry)")
-                        
-                })
-                
-                DispatchQueue.main.async()
-                    {
-                        let mmDataSeries = ChartSeries(data: mmDataEntries)
-                        
-                        self.mmChart.add(mmDataSeries)
-                        
-                        self.mmChart.xLabelsFormatter  = {
-                        
-                        self.stringForValue($1, interval)
-                        
-                }
-                        
-                }
-            }
-            else
-            {
-                print(error.debugDescription)
-            }
-        }
-        
-    }
-    
     func populateHRVChart(_ interval: Calendar.Component, _ range: Int)
     {
         var hrvDataEntries  = [(x:Double, y: Double)]()
+        var communityDataEntries = [(x:Double, y: Double)]()
         
         self.hrvChart.removeAllSeries()
         
@@ -210,25 +164,29 @@ class OverviewController : UIViewController
             
             (samples, error) in
             
-            if let entries = samples
+            if let samples = samples
             {
-                entries.sorted(by: <).forEach(
+                let sorted = samples.sorted(by: <)
+               
+                sorted.forEach(
                     {
                         (entry) in
-                        
-                       // if(entry.value > 0.0)
-                        //{
+
                             hrvDataEntries.append((x: entry.key, y: entry.value))
                         
+                            let value = CommunityDataLoader.get(measure: "sdnn", at: entry.key)
+                        
+                            communityDataEntries.append((x: entry.key, y: value))
+                        
                             print("populateHRVChart: \(entry)")
-                        //}
                 })
                 
                 DispatchQueue.main.async()
                     {
                         let hrvDataSeries = ChartSeries(data: hrvDataEntries)
+                        let communityDataSeries = ChartSeries(data: communityDataEntries)
                         
-                        self.hrvChart.add(hrvDataSeries)
+                        self.hrvChart.add([hrvDataSeries, communityDataSeries])
                         
                         self.hrvChart.xLabelsFormatter =
                         {
@@ -236,9 +194,65 @@ class OverviewController : UIViewController
                             self.stringForValue($1, interval)
                             
                         }
+                }
+                
+                let keys = samples.keys.sorted()
+                
+                var entries = [(x:Double, y: Double)]()
+                
+                for (i, key) in keys.enumerated()
+                {
+                    let start = Date(timeIntervalSince1970: key)
+                    
+                    let idx = i + 1
+                    let last = (i == keys.count - 1)
+                    
+                    let end = last ? Date() : Date(timeIntervalSince1970: keys[idx])
+                
+                    ZBFHealthKit.getMindfulMinutes(start: start, end: end)
+                    {
+                        samples, error in
                         
-                        //self.hrvChart.showXLabelsAndGrid = false
-                        
+                        if let samples = samples
+                        {
+                            samples.sorted(by: <).forEach(
+                                {
+                                    (entry) in
+                                    
+                                    entries.append((x: entry.key, y: entry.value / 60))
+                                    
+                                    print("populateMMChart: \(entry)")
+                                    
+                            })
+                            
+                                DispatchQueue.main.async()
+                                    {
+                                        
+                                        if (self.mmChart.series.count == 1)
+                                        {
+                                            self.mmChart.removeSeriesAt(0)
+                                        }
+                                        
+                                        entries.sort(by:<)
+                                        
+                                        let mmDataSeries = ChartSeries(data: entries)
+                                        
+                                        self.mmChart.add(mmDataSeries)
+                                            
+                                        self.mmChart.xLabelsFormatter  = {
+                                                
+                                            self.stringForValue($1, interval)
+                                                
+                                        }
+                                        
+                                }
+                            
+                            }
+                        else
+                        {
+                            print(error.debugDescription)
+                        }
+                    }
                 }
             }
             else
@@ -268,11 +282,7 @@ class OverviewController : UIViewController
                     {
                         (entry) in
                         
-                        //if(entry.value > 0.0)
-                        //{
-                        
                         bpmDataEntries.append((x: entry.key, y: entry.value))
-                        //}
                     
                         print("populateBPMChart: \(entry)")
                 })

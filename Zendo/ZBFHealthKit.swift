@@ -260,17 +260,13 @@ class ZBFHealthKit {
     //#todo(debt): need to be consistent in the return of the handler functions?
     typealias SamplesHandler = (_ samples: [Double : Double]?, _ error: Error? ) -> Void
     
-    class func getMindfulMinutes(interval: Calendar.Component, value: Int, handler:  @escaping SamplesHandler)
+    class func getMindfulMinutes(start: Date, end: Date, handler:  @escaping SamplesHandler)
     {
         let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         
         let hkCategoryPredicate = HKQuery.predicateForCategorySamples(with: .equalTo, value: 0)
         
-        let end = Date()
-        
-        let prior = Calendar.current.date(byAdding: interval, value: -(value), to: end)!
-        
-        let hkDatePredicate = HKQuery.predicateForSamples(withStart: prior, end: end, options: .strictStartDate)
+        let hkDatePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictStartDate)
         
         let hkPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [hkCategoryPredicate, hkDatePredicate])
         
@@ -291,43 +287,11 @@ class ZBFHealthKit {
                         
                         let startDate = sample.startDate
                         
-                        let calendar = Calendar.current
-                        
-                        let components = calendar.dateComponents(in: calendar.timeZone, from: startDate)
-                        
                         let endDate = sample.endDate
                         
                         let delta = DateInterval(start: startDate, end: endDate)
                         
-                        var date = Date()
-                        
-                        switch interval
-                        {
-                        case .hour:
-                            date = Calendar.current.date(bySettingHour: components.hour!, minute: 0, second: 0, of: startDate)!
-                            break
-                            
-                        case .day:
-                            date = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: startDate)!
-                            break
-                            
-                        case .month:
-                            let components = Calendar.current.dateComponents([.year, .month], from: startDate)
-                            date = Calendar.current.date(from: components)!
-                            
-                            break
-                            
-                        case .year:
-                            let components = Calendar.current.dateComponents([.year], from: startDate)
-                            date = Calendar.current.date(from: components)!
-                            break
-                            
-                        default:
-                            date = Calendar.current.date(bySettingHour: components.hour!, minute: 0, second: 0, of: startDate)!
-                            break
-                        }
-                        
-                        let key = date.timeIntervalSince1970
+                        let key = start.timeIntervalSince1970
                         
                         if let existingValue = entries[key]
                         {
