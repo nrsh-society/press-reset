@@ -89,15 +89,24 @@ class ZBFHealthKit {
                                                         
                                                         if value < 99
                                                         {
-                                                        let scale = CGAffineTransform(scaleX: 1 - CGFloat(value/100), y: 1 - CGFloat(value/100))
+                                                            let scale = CGAffineTransform(scaleX: 1 - CGFloat(value/100), y: 1 - CGFloat(value/100))
                                                         
-                                                        cell.imageView?.transform = scale
+                                                            cell.imageView?.transform = scale
                                                         }
                                                         
                                                         cell.imageView?.transform = CGAffineTransform.identity
                                                         
                                                     }, completion: nil )
                                                     
+                                                }
+                                            }
+                                            else
+                                            {
+                                                let size = (cell.imageView?.image?.size)!
+                                                
+                                                DispatchQueue.main.async()
+                                                {
+                                                    cell.imageView?.image =  generateImageWithText(size: size, text: "00", fontSize: 33.0)
                                                 }
                                             }
         }
