@@ -35,7 +35,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-    
+        
         super.viewWillAppear(animated)
         Mixpanel.mainInstance().track(event: "zazen_enter")
     }
@@ -57,10 +57,10 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         hrvChart.autoScaleMinMaxEnabled = true
         
         /*
-        bpmView.data?.setDrawValues(false)
-        motionChart.data?.setDrawValues(false)
-        motionChart.data?.setDrawValues(false)
-        */
+         bpmView.data?.setDrawValues(false)
+         motionChart.data?.setDrawValues(false)
+         motionChart.data?.setDrawValues(false)
+         */
         
         bpmView.chartDescription?.enabled = false
         hrvChart.chartDescription?.enabled = false
@@ -83,25 +83,29 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         
         let hkQuery = HKSampleQuery.init(sampleType: mindfulSessionType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor], resultsHandler: {query, results, error in
             
-            if(error != nil ) { print(error!); } else {
-                
-                DispatchQueue.main.async() {
-                    
-                    self.samples = results!.map({ (sample) -> [String:Any] in
-                        return sample.metadata!
-                    });
-                    
-                    self.populateHrvChart()
-                    
-                };
+            if let results = results
+            {
+                DispatchQueue.main.async()
+                    {
+                        
+                        self.samples =
+                            results.map({ (sample) -> [String:Any] in
+                                return sample.metadata!
+                            });
+                        
+                        self.populateHrvChart()
+                        
+                }
+            }
+            else
+            {
+                print(error.debugDescription)
             }
             
-        });
+        })
         
         ZBFHealthKit.healthStore.execute(hkQuery)
-        
     }
-    
     
     @IBAction func export(_ sender: Any)
     {
@@ -112,342 +116,278 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     
     func populateSummary() {
         
-        var hkType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
-        
-        var hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictEndDate)
-        
-        let options : HKStatisticsOptions  = [HKStatisticsOptions.discreteAverage, HKStatisticsOptions.discreteMax, HKStatisticsOptions.discreteMin]
-
-        var hkQuery = HKStatisticsQuery(quantityType: hkType,
-                                        quantitySamplePredicate: hkPredicate,
-                                        options: options) { query, result, error in
-                                            
-                                            if(error != nil) {
-                                                print(error.debugDescription);
-                                            }
-                                            
-                                            if let value = result!.minimumQuantity()?.doubleValue(for: HKUnit(from: "count/s")) {
-                                                
-                                                DispatchQueue.main.async() {
-                                                    
-                                                    //self.minHRLabel.text = String(value * 60.0)
-                                                    
-                                                }
-                                            }
-                                            
-                                            if let value = result!.maximumQuantity()?.doubleValue(for: HKUnit(from: "count/s")) {
-                                                
-                                                DispatchQueue.main.async() {
-                                                    
-                                                    //self.maxHRLabel.text = String(value * 60.0)
-                                                }
-                                            }
-                                            
-        }
-        
-        
-        ZBFHealthKit.healthStore.execute(hkQuery)
-        
-        hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
-        
-        let yesterday = Calendar.current.date(byAdding: .hour, value: -24, to: workout.endDate)!
-        
-        hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: workout.endDate, options: .strictEndDate)
-        
-        hkQuery = HKStatisticsQuery(quantityType: hkType,
-                                    quantitySamplePredicate: hkPredicate,
-                                    options: options) { query, result, error in
-                                        
-                                        if(error != nil) {
-                                            print(error.debugDescription);
-                                        }
-                                        
-                                        if let value = result!.minimumQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
-                                            
-                                            DispatchQueue.main.async() {
-                                                
-                                                //self.minHRVLabel.text = String(format: "%.1f", value)
-                                                
-                                                
-                                            }
-                                        }
-                                        
-                                        if let value = result!.maximumQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
-                                            
-                                            DispatchQueue.main.async() {
-                                                
-                                                //self.maxHRVLabel.text = String(format: "%.1f", value)
-                                                
-                                                
-                                            }
-                                        }
-                                        
-                                        if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
-                                            
-                                            DispatchQueue.main.async() {
-                                                
-                                                self.hrvImageView.image = ZBFHealthKit.generateImageWithText(size: self.hrvImageView.frame.size, text: Int(value).description, fontSize: 33.0)
-                                                
-                                                self.hrvImageView.setNeedsDisplay()
-                                                
-                                                UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-                                                    
-                                                    let scale = CGAffineTransform(scaleX: 1 - CGFloat(value/100), y: 1 - CGFloat(value/100))
-                                                    
-                                                    self.hrvImageView.transform = scale
-                                                    
-                                                    self.hrvImageView.transform = CGAffineTransform.identity
-                                                    
-                                                    self.bpmView.isHidden = false
-                                                    self.motionChart.isHidden = false
-                                                    self.hrvChart.isHidden = false
-                                                    
-                                                    let minutes = (self.workout.duration / 60).rounded()
-                            
-                                                    self.durationLabel.text = "\(Int(minutes).description) min"
-                                                    
-                                                    self.dateTimeLabel.text = ZBFHealthKit.format(self.workout.endDate)
-                                                    
-                                                }, completion: nil )
-                                                
-                
-                                            }
-                                        }
-                                        
-        }
-        
-        ZBFHealthKit.healthStore.execute(hkQuery)
-        
-    }
-    
-    func getChartData(key: String, scale: Double) -> LineChartData {
-        
-        var entries = [ChartDataEntry]()
-        var communityEntries = [ChartDataEntry]()
-        
-        for(index, sample) in samples.enumerated() {
-            
-            if let value = sample[key] as? String {
-                
-                let y = Double(value)!
-                let x = Double(index)
-                
-                if(y > 0.00) {
-                    
-                    let value = y * scale
-                    
-                    entries.append(ChartDataEntry(x: x, y: value ))
-
-                    communityEntries.append(getCommunityDataEntry(key: key, interval: x, scale: scale))
-                }
-            }
-        }
-        
-        let label = (key == "heart" || key == "rate") ? "bpm" : key
-        
-        let entryDataset = LineChartDataSet(values: entries, label: label)
-        
-        entryDataset.drawCirclesEnabled = false
-        entryDataset.drawValuesEnabled = false
-        entryDataset.setColor(UIColor.black)
-        entryDataset.lineWidth = 3.0
-        
-        let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
-        
-        communityDataset.drawCirclesEnabled = false
-        communityDataset.drawValuesEnabled = false
-        
-        communityDataset.setColor(UIColor(red: 0.291, green: 0.307, blue: 0.752, alpha: 1.0))
-        communityDataset.lineWidth = 3.0
-        
-        return LineChartData(dataSets: [entryDataset, communityDataset])
-        
-    }
-    
-    func getCommunityDataEntry(key: String, interval: Double, scale: Double) -> ChartDataEntry {
-        
-        var value = CommunityDataLoader.get(measure: key, at: interval)
-        
-        value = value * scale;
-        
-        return ChartDataEntry(x: interval, y: value)
-    }
-    
-    func populateChart() {
-        
-        var rate = getChartData(key: "heart", scale: 60)
-        
-        //#todo: support v.002 schema
-        if rate.entryCount == 0 {
-            
-            rate = getChartData(key: "rate", scale: 60)
-        }
-        
-        bpmView.xAxis.valueFormatter = self
-        bpmView.xAxis.avoidFirstLastClippingEnabled = true
-        
-        if(rate.entryCount > 0)
+        ZBFHealthKit.getHRVAverage(self.workout)
         {
-            bpmView.data = rate
-        }
-        
-        let motion = getChartData(key: "motion", scale: 1)
-        
-        motionChart.xAxis.valueFormatter = self
-        motionChart.xAxis.avoidFirstLastClippingEnabled = true
-        
-        if(motion.entryCount > 0) { motionChart.data = motion }
-        
-    }
-    
-    func populateHrvChart() {
-        
-        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "hrv")
-        
-        let communityEntries = [ChartDataEntry]()
-        
-        let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
-        
-        communityDataset.drawCirclesEnabled = false
-        communityDataset.drawValuesEnabled = false
-        communityDataset.setColor(UIColor(red: 0.291, green: 0.307, blue: 0.752, alpha: 1.0))
-        communityDataset.lineWidth = 3.0
-        
-        dataset.drawCirclesEnabled = false
-        dataset.lineWidth = 3.0
-        dataset.setColor(UIColor.black)
-        dataset.drawValuesEnabled = false
-        
-        hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
-        
-        var interval = DateComponents()
-        interval.hour = 1
-        
-        let yesterday = Calendar.current.date(byAdding: .hour, value: -24, to: self.workout.endDate)!
-        
-        let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
-        
-        let query = HKStatisticsCollectionQuery(quantityType: hkType,
-                                                quantitySamplePredicate: nil,
-                                                options: HKStatisticsOptions.discreteAverage,
-                                                anchorDate: yesterday,
-                                                intervalComponents: interval)
-        
-        query.initialResultsHandler = {
+            (results, error) in
             
-            query, results, error in
-            
-            let statsCollection = results!
-            
-            var entries : [Double : Double] = [:]
-            
-            statsCollection.enumerateStatistics(from: yesterday, to: self.workout.endDate )
+            if let results = results
             {
-                [unowned self] statistics, stop in
-                                
-                var avgValue = 0.0
+                let value = results.first!.value
                 
-                if let avgQ = statistics.averageQuantity()
-                {
-                    avgValue = avgQ.doubleValue(for: HKUnit(from: "ms"))
+                DispatchQueue.main.async()
+                    {
+                        
+                        self.hrvImageView.image = ZBFHealthKit.generateImageWithText(size: self.hrvImageView.frame.size, text: Int(value).description, fontSize: 33.0)
+                        
+                        self.hrvImageView.setNeedsDisplay()
+                        
+                        UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                            
+                            let scale = CGAffineTransform(scaleX: 1 - CGFloat(value/100), y: 1 - CGFloat(value/100))
+                            
+                            self.hrvImageView.transform = scale
+                            
+                            self.hrvImageView.transform = CGAffineTransform.identity
+                            
+                            self.bpmView.isHidden = false
+                            self.motionChart.isHidden = false
+                            self.hrvChart.isHidden = false
+                            
+                            let minutes = (self.workout.duration / 60).rounded()
+                            
+                            self.durationLabel.text = "\(Int(minutes).description) min"
+                            
+                            self.dateTimeLabel.text = ZBFHealthKit.format(self.workout.endDate)
+                            
+                        })
                 }
+            }
+            else
+            {
+                print(error.debugDescription)
+            }
+        }
+    }
+        
+        func getChartData(key: String, scale: Double) -> LineChartData {
+            
+            var entries = [ChartDataEntry]()
+            var communityEntries = [ChartDataEntry]()
+            
+            for(index, sample) in samples.enumerated() {
                 
-                let date = statistics.startDate
-                
-                let hours = Calendar.current.dateComponents([.hour], from: date, to: self.workout.endDate).hour!
-                
-                entries[Double(hours)] = avgValue
-                
+                if let value = sample[key] as? String {
+                    
+                    let y = Double(value)!
+                    let x = Double(index)
+                    
+                    if(y > 0.00) {
+                        
+                        let value = y * scale
+                        
+                        entries.append(ChartDataEntry(x: x, y: value ))
+                        
+                        communityEntries.append(getCommunityDataEntry(key: key, interval: x, scale: scale))
+                    }
+                }
             }
             
-            let sorted = entries.sorted { $0.0 < $1.0 }
+            let label = (key == "heart" || key == "rate") ? "bpm" : key
             
-            DispatchQueue.main.async()
+            let entryDataset = LineChartDataSet(values: entries, label: label)
+            
+            entryDataset.drawCirclesEnabled = false
+            entryDataset.drawValuesEnabled = false
+            entryDataset.setColor(UIColor.black)
+            entryDataset.lineWidth = 3.0
+            
+            let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
+            
+            communityDataset.drawCirclesEnabled = false
+            communityDataset.drawValuesEnabled = false
+            
+            communityDataset.setColor(UIColor(red: 0.291, green: 0.307, blue: 0.752, alpha: 1.0))
+            communityDataset.lineWidth = 3.0
+            
+            return LineChartData(dataSets: [entryDataset, communityDataset])
+            
+        }
+        
+        func getCommunityDataEntry(key: String, interval: Double, scale: Double) -> ChartDataEntry {
+            
+            var value = CommunityDataLoader.get(measure: key, at: interval)
+            
+            value = value * scale;
+            
+            return ChartDataEntry(x: interval, y: value)
+        }
+        
+        func populateChart() {
+            
+            var rate = getChartData(key: "heart", scale: 60)
+            
+            //#todo: support v.002 schema
+            if rate.entryCount == 0 {
+                
+                rate = getChartData(key: "rate", scale: 60)
+            }
+            
+            bpmView.xAxis.valueFormatter = self
+            bpmView.xAxis.avoidFirstLastClippingEnabled = true
+            
+            if(rate.entryCount > 0)
             {
-                sorted.forEach
+                bpmView.data = rate
+            }
+            
+            let motion = getChartData(key: "motion", scale: 1)
+            
+            motionChart.xAxis.valueFormatter = self
+            motionChart.xAxis.avoidFirstLastClippingEnabled = true
+            
+            if(motion.entryCount > 0) { motionChart.data = motion }
+            
+        }
+        
+        func populateHrvChart() {
+            
+            let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "hrv")
+            
+            let communityEntries = [ChartDataEntry]()
+            
+            let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
+            
+            communityDataset.drawCirclesEnabled = false
+            communityDataset.drawValuesEnabled = false
+            communityDataset.setColor(UIColor(red: 0.291, green: 0.307, blue: 0.752, alpha: 1.0))
+            communityDataset.lineWidth = 3.0
+            
+            dataset.drawCirclesEnabled = false
+            dataset.lineWidth = 3.0
+            dataset.setColor(UIColor.black)
+            dataset.drawValuesEnabled = false
+            
+            hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
+            
+            var interval = DateComponents()
+            interval.hour = 1
+            
+            let yesterday = Calendar.current.date(byAdding: .hour, value: -24, to: self.workout.endDate)!
+            
+            let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
+            
+            let query = HKStatisticsCollectionQuery(quantityType: hkType,
+                                                    quantitySamplePredicate: nil,
+                                                    options: HKStatisticsOptions.discreteAverage,
+                                                    anchorDate: yesterday,
+                                                    intervalComponents: interval)
+            
+            query.initialResultsHandler = {
+                
+                query, results, error in
+                
+                let statsCollection = results!
+                
+                var entries : [Double : Double] = [:]
+                
+                statsCollection.enumerateStatistics(from: yesterday, to: self.workout.endDate )
                 {
-                    (key, value) in
+                    [unowned self] statistics, stop in
                     
-                    if(value > 0 ) {
-                        
-                        let entry = ChartDataEntry(x: Double(key), y: value )
-                        
-                        print(entry)
-                        
-                        self.hrvChart.data!.addEntry(entry, dataSetIndex: 0)
-                        
+                    var avgValue = 0.0
+                    
+                    if let avgQ = statistics.averageQuantity()
+                    {
+                        avgValue = avgQ.doubleValue(for: HKUnit(from: "ms"))
                     }
-                
-                    let community = self.getCommunityDataEntry(key: "sdnn", interval: Double(key), scale: 1.0)
-                
-                    self.hrvChart.data!.addEntry(community, dataSetIndex: 1)
+                    
+                    let date = statistics.startDate
+                    
+                    let hours = Calendar.current.dateComponents([.hour], from: date, to: self.workout.endDate).hour!
+                    
+                    entries[Double(hours)] = avgValue
+                    
                 }
                 
-                self.hrvChart.notifyDataSetChanged()
-                self.populateChart()
-                self.populateSummary()
+                let sorted = entries.sorted { $0.0 < $1.0 }
                 
-                }
-        }
-
-        ZBFHealthKit.healthStore.execute(query)
-
-    }
-    
-    func stringForValue(_ value: Double,
-                        axis: AxisBase?) -> String {
-        
-        let label = (value / 60)
-        
-        return String(format: "%.2f", label)
-    }
-    
-    func export(samples: [[String:Any]]) -> UIActivityViewController {
-        
-        let fileName = "zazen.csv"
-        let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
-        
-        var csvText = "start, end, now, hr, sdnn, motion\n"
-        
-        for sample in samples {
+                DispatchQueue.main.async()
+                    {
+                        sorted.forEach
+                            {
+                                (key, value) in
+                                
+                                if(value > 0 ) {
+                                    
+                                    let entry = ChartDataEntry(x: Double(key), y: value )
+                                    
+                                    print(entry)
+                                    
+                                    self.hrvChart.data!.addEntry(entry, dataSetIndex: 0)
+                                    
+                                }
+                                
+                                let community = self.getCommunityDataEntry(key: "sdnn", interval: Double(key), scale: 1.0)
+                                
+                                self.hrvChart.data!.addEntry(community, dataSetIndex: 1)
+                        }
                         
-            let line : String =
-                "\(workout.startDate),"  +
-                    "\(workout.endDate)," +
-                    "\(sample["now"]!)," +
-                    "\(sample["heart"]!)," +
-                    "\(sample["sdnn"]!)," +
-            "\(sample["motion"]!)"
+                        self.hrvChart.notifyDataSetChanged()
+                        self.populateChart()
+                        self.populateSummary()
+                        
+                }
+            }
             
-            csvText += line  + "\n"
+            ZBFHealthKit.healthStore.execute(query)
+            
         }
         
-        do {
+        
+        func stringForValue(_ value: Double,
+                            axis: AxisBase?) -> String {
             
-            try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
+            let label = (value / 60)
             
-        } catch {
-            
-            print("Failed to create file")
-            print("\(error)")
+            return String(format: "%.2f", label)
         }
         
-        let vc = UIActivityViewController(activityItems: [path as Any], applicationActivities: [])
+        func export(samples: [[String:Any]]) -> UIActivityViewController {
+            
+            let fileName = "zazen.csv"
+            let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+            
+            var csvText = "start, end, now, hr, sdnn, motion\n"
+            
+            for sample in samples {
+                
+                let line : String =
+                    "\(workout.startDate),"  +
+                        "\(workout.endDate)," +
+                        "\(sample["now"]!)," +
+                        "\(sample["heart"]!)," +
+                        "\(sample["sdnn"]!)," +
+                "\(sample["motion"]!)"
+                
+                csvText += line  + "\n"
+            }
+            
+            do {
+                
+                try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
+                
+            } catch {
+                
+                print("Failed to create file")
+                print("\(error)")
+            }
+            
+            let vc = UIActivityViewController(activityItems: [path as Any], applicationActivities: [])
+            
+            vc.excludedActivityTypes = [
+                UIActivityType.assignToContact,
+                UIActivityType.saveToCameraRoll,
+                UIActivityType.postToFlickr,
+                UIActivityType.postToVimeo,
+                UIActivityType.postToTencentWeibo,
+                UIActivityType.postToTwitter,
+                UIActivityType.postToFacebook,
+                UIActivityType.openInIBooks
+            ]
+            
+            return vc
+            
+        }
         
-        vc.excludedActivityTypes = [
-            UIActivityType.assignToContact,
-            UIActivityType.saveToCameraRoll,
-            UIActivityType.postToFlickr,
-            UIActivityType.postToVimeo,
-            UIActivityType.postToTencentWeibo,
-            UIActivityType.postToTwitter,
-            UIActivityType.postToFacebook,
-            UIActivityType.openInIBooks
-        ]
         
-        return vc
-        
-    }
-    
-    
 }

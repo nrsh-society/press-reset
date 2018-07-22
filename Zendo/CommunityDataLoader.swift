@@ -38,7 +38,11 @@ class CommunityDataLoader {
         let key = measure.contains("heart") ? "hr" : measure
     
         if let communityValues = values {
-            value = communityValues[key] as! Double
+            
+            if let communityValue = communityValues[key]
+            {
+                value = communityValue as! Double
+            }
         }
         
         return value

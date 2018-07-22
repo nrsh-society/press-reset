@@ -87,9 +87,12 @@ class ZBFHealthKit {
                                                  
                                                     UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
                                                         
+                                                        if value < 99
+                                                        {
                                                         let scale = CGAffineTransform(scaleX: 1 - CGFloat(value/100), y: 1 - CGFloat(value/100))
                                                         
                                                         cell.imageView?.transform = scale
+                                                        }
                                                         
                                                         cell.imageView?.transform = CGAffineTransform.identity
                                                         
@@ -259,6 +262,85 @@ class ZBFHealthKit {
     
     //#todo(debt): need to be consistent in the return of the handler functions?
     typealias SamplesHandler = (_ samples: [Double : Double]?, _ error: Error? ) -> Void
+    
+    class func getHRVAverage(_ workout: HKWorkout, handler: @escaping SamplesHandler)
+    {
+       
+        let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
+        
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: workout.endDate)
+        
+        let hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: workout.endDate, options: .strictEndDate)
+        
+        let options : HKStatisticsOptions  = [HKStatisticsOptions.discreteAverage, HKStatisticsOptions.discreteMax, HKStatisticsOptions.discreteMin]
+        
+        let hkQuery = HKStatisticsQuery(quantityType: hkType,
+                                        quantitySamplePredicate: hkPredicate,
+                                        options: options)
+        {
+            
+            query, result, error in
+            
+            if let result = result
+            {
+                if let value = result.averageQuantity()?.doubleValue(for: HKUnit(from: "ms"))
+                {
+                    let value = [0.0 : value]
+                    handler(value, nil)
+                }
+                else
+                {
+                    handler(nil, nil)
+                }
+            }
+            else
+            {
+                handler(nil, error)
+            }
+        }
+        
+        ZBFHealthKit.healthStore.execute(hkQuery)
+    }
+    
+    class func getHRVAverage(interval: Calendar.Component, value: Int, handler: @escaping SamplesHandler)
+     {
+        let end = Date()
+        
+        let prior = Calendar.current.date(byAdding: interval, value: -(value), to: end)!
+        
+        let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
+        
+        let hkPredicate = HKQuery.predicateForSamples(withStart: prior, end: end, options: .strictEndDate)
+        
+        let options : HKStatisticsOptions  = [HKStatisticsOptions.discreteAverage, HKStatisticsOptions.discreteMax, HKStatisticsOptions.discreteMin]
+        
+        let hkQuery = HKStatisticsQuery(quantityType: hkType,
+                                        quantitySamplePredicate: hkPredicate,
+                                        options: options)
+        {
+            
+            query, result, error in
+            
+            if let result = result
+            {
+                if let value = result.averageQuantity()?.doubleValue(for: HKUnit(from: "ms"))
+                {
+                    let value = [0.0 : value]
+                    handler(value, nil)
+                }
+                else
+                {
+                    handler(nil, nil)
+                }
+            }
+            else
+            {
+                handler(nil, error)
+            }
+        }
+        
+        ZBFHealthKit.healthStore.execute(hkQuery)
+    }
     
     class func getMindfulMinutes(start: Date, end: Date, handler:  @escaping SamplesHandler)
     {

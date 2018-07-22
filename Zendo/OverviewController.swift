@@ -9,16 +9,23 @@
 import Foundation
 import HealthKit
 import Mixpanel
+import Charts
 
-class OverviewController : UIViewController
+class OverviewController : UIViewController, IAxisValueFormatter
 {
-    @IBOutlet weak var mmChart: Chart!
-    @IBOutlet weak var hrvChart: Chart!
-    @IBOutlet weak var bpmChart: Chart!
+    var mmCache : [Calendar.Component : [Double : Double]] = [:]
+    var durationCache : [Calendar.Component : Double] = [:]
+    var hrvData : [Double : Double] = [:]
     
-    var mmData : Dictionary<Double, Double> = [:]
+    var currentInterval : Calendar.Component = .hour
     
-    @IBAction func queryChanged(_ sender: Any) {
+    @IBOutlet weak var hrvChart: LineChartView!
+    @IBOutlet weak var hrvImage: UIImageView!
+    @IBOutlet weak var durationTitle: UILabel!
+    @IBOutlet weak var datetimeTitle: UILabel!
+    
+    @IBAction func queryChanged(_ sender: Any)
+    {
         
         let segment = sender as! UISegmentedControl
         
@@ -26,32 +33,46 @@ class OverviewController : UIViewController
         
         print(idx)
         
-        self.mmChart.removeAllSeries()
-        
-    
-         
-        
         switch idx
         {
             case 0:
-                populateHRVChart(.hour, 24)
-                populateBPMChart(.hour, 24)
+                self.currentInterval = .hour
+                populateHRVImage(.hour, 24)
+                populateCharts(.hour, 24)
+                populateDatetimeSpan(.hour, 24)
+                populateDurationAvg(.hour, 24)
                 break
             case 1:
-                populateHRVChart(.day, 7)
-                populateBPMChart(.day, 7)
+                self.currentInterval = .day
+                populateHRVImage(.day, 7)
+                populateCharts(.day, 7)
+                populateDatetimeSpan(.day, 7)
+                populateDurationAvg(.day, 7)
                 break
             case 2:
-                populateHRVChart(.month, 1)
-                populateBPMChart(.month, 1)
+                self.currentInterval = .month
+                populateHRVImage(.month, 1)
+                populateCharts(.month, 1)
+                populateDatetimeSpan(.month, 1)
+                populateDurationAvg(.month, 1)
                 break
             case 3:
-                populateHRVChart(.year, 1)
-                populateBPMChart(.year, 1)
+                self.currentInterval = .year
+                populateHRVImage(.year, 1)
+                populateCharts(.year, 1)
+                populateDatetimeSpan(.year, 1)
+                populateDurationAvg(.year, 1)
                 break
             default:
                 break
         }
+    }
+    
+    
+    func stringForValue(_ value: Double,
+                        axis: AxisBase?) -> String {
+        
+        return stringForValue(value, self.currentInterval)
     }
     
     func stringForValue(_ value: Double, _ interval : Calendar.Component) -> String {
@@ -125,17 +146,11 @@ class OverviewController : UIViewController
                     {
                         if(success)
                         {
-                            self.populateHRVChart(.hour, 24)
-                            self.populateBPMChart(.hour, 24)
-                            
-                            self.mmChart.topInset = 33.0
-                            self.bpmChart.topInset = 33.0
-                            self.hrvChart.topInset = 33.0
-                            
-                            self.mmChart.highlightLineWidth = 0.0
-                            self.bpmChart.highlightLineWidth = 0.0
-                            self.hrvChart.highlightLineWidth = 0.0
-                
+                            self.currentInterval = .hour
+                            self.populateHRVImage(.hour, 24)
+                            self.populateCharts(.hour, 24)
+                            self.populateDatetimeSpan(.hour, 24)
+                            self.populateDurationAvg(.hour, 24)
                         }
                         else
                         {
@@ -153,12 +168,32 @@ class OverviewController : UIViewController
         })
     }
     
-    func populateHRVChart(_ interval: Calendar.Component, _ range: Int)
+    func populateCharts(_ interval: Calendar.Component, _ range: Int)
     {
-        var hrvDataEntries  = [(x:Double, y: Double)]()
-        var communityDataEntries = [(x:Double, y: Double)]()
         
-        self.hrvChart.removeAllSeries()
+        hrvChart.drawGridBackgroundEnabled = false
+        hrvChart.chartDescription?.enabled = false
+        hrvChart.autoScaleMinMaxEnabled = true
+        hrvChart.noDataText = ""
+        hrvChart.xAxis.valueFormatter = self
+        
+        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "hrv")
+        
+        let communityEntries = [ChartDataEntry]()
+        
+        let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
+        
+        communityDataset.drawCirclesEnabled = false
+        communityDataset.drawValuesEnabled = false
+        communityDataset.setColor(UIColor(red: 0.291, green: 0.307, blue: 0.752, alpha: 1.0))
+        communityDataset.lineWidth = 3.0
+        
+        dataset.drawCirclesEnabled = false
+        dataset.lineWidth = 3.0
+        dataset.setColor(UIColor.black)
+        dataset.drawValuesEnabled = false
+        
+        hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
         
         let handler : ZBFHealthKit.SamplesHandler = {
             
@@ -171,143 +206,219 @@ class OverviewController : UIViewController
                 sorted.forEach(
                     {
                         (entry) in
+                        
+                        if(entry.value > 0.0)
+                        {
+                        self.hrvChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value ), dataSetIndex: 0)
 
-                            hrvDataEntries.append((x: entry.key, y: entry.value))
+                        let community = self.getCommunityDataEntry(key: "sdnn", interval: entry.key, scale: 1.0)
                         
-                            let value = CommunityDataLoader.get(measure: "sdnn", at: entry.key)
+                        self.hrvChart.data!.addEntry(community, dataSetIndex: 1)
                         
-                            communityDataEntries.append((x: entry.key, y: value))
+                        print("populateHRVChart: \(entry)")
+                        }
                         
-                            print("populateHRVChart: \(entry)")
                 })
                 
                 DispatchQueue.main.async()
-                    {
-                        let hrvDataSeries = ChartSeries(data: hrvDataEntries)
-                        let communityDataSeries = ChartSeries(data: communityDataEntries)
-                        
-                        self.hrvChart.add([hrvDataSeries, communityDataSeries])
-                        
-                        self.hrvChart.xLabelsFormatter =
-                        {
-                            
-                            self.stringForValue($1, interval)
-                            
-                        }
-                }
-                
-                let keys = samples.keys.sorted()
-                
-                var entries = [(x:Double, y: Double)]()
-                
-                for (i, key) in keys.enumerated()
                 {
-                    let start = Date(timeIntervalSince1970: key)
-                    
-                    let idx = i + 1
-                    let last = (i == keys.count - 1)
-                    
-                    let end = last ? Date() : Date(timeIntervalSince1970: keys[idx])
-                
-                    ZBFHealthKit.getMindfulMinutes(start: start, end: end)
-                    {
-                        samples, error in
-                        
-                        if let samples = samples
-                        {
-                            samples.sorted(by: <).forEach(
-                                {
-                                    (entry) in
-                                    
-                                    entries.append((x: entry.key, y: entry.value / 60))
-                                    
-                                    print("populateMMChart: \(entry)")
-                                    
-                            })
-                            
-                                DispatchQueue.main.async()
-                                    {
-                                        
-                                        if (self.mmChart.series.count == 1)
-                                        {
-                                            self.mmChart.removeSeriesAt(0)
-                                        }
-                                        
-                                        entries.sort(by:<)
-                                        
-                                        let mmDataSeries = ChartSeries(data: entries)
-                                        
-                                        self.mmChart.add(mmDataSeries)
-                                            
-                                        self.mmChart.xLabelsFormatter  = {
-                                                
-                                            self.stringForValue($1, interval)
-                                                
-                                        }
-                                        
-                                }
-                            
-                            }
-                        else
-                        {
-                            print(error.debugDescription)
-                        }
-                    }
+                    self.hrvChart.notifyDataSetChanged()
                 }
+                
             }
             else
             {
                 print(error.debugDescription)
             }
-            
+                
         }
         
         ZBFHealthKit.getHRVSamples(interval: interval, value: range, handler: handler)
         
     }
     
-    func populateBPMChart(_ interval: Calendar.Component, _ range: Int)
+    func getCommunityDataEntry(key: String, interval: Double, scale: Double) -> ChartDataEntry {
+        
+        var value = CommunityDataLoader.get(measure: key, at: interval)
+        
+        value = value * scale;
+        
+        return ChartDataEntry(x: interval, y: value)
+    }
+    
+    func populateHRVImage(_ interval: Calendar.Component, _ range: Int)
     {
-        var bpmDataEntries : [(x: Double, y: Double)] = [(x:Double, y: Double)]()
-        
-        self.bpmChart.removeAllSeries()
-        
-        ZBFHealthKit.getBPMSamples(interval: interval, value: range) {
+        ZBFHealthKit.getHRVAverage(interval: interval, value: range)
+        {
+            (results, error) in
             
-            (samples, error) in
-            
-            if let entries = samples
+            if let results = results
             {
-                entries.sorted(by: <).forEach(
-                    {
-                        (entry) in
-                        
-                        bpmDataEntries.append((x: entry.key, y: entry.value))
-                    
-                        print("populateBPMChart: \(entry)")
-                })
+                let value = results.first!.value
                 
                 DispatchQueue.main.async()
-                    {
-                        let bpmDataSeries = ChartSeries(data: bpmDataEntries)
+                {
+                    self.hrvImage.image = ZBFHealthKit.generateImageWithText(size: self.hrvImage.frame.size, text: Int(value).description, fontSize: 33.0)
                         
-                        self.bpmChart.add(bpmDataSeries)
+                        self.hrvImage.setNeedsDisplay()
+                    
+                    UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
                         
-                        self.bpmChart.xLabelsFormatter =
+                        let scale = CGAffineTransform(scaleX: 1 - CGFloat(value/100), y: 1 - CGFloat(value/100))
+                        
+                        self.hrvImage.transform = scale
+                        
+                        self.hrvImage.transform = CGAffineTransform.identity
+                        
+                        
+                    })
+                    
+                }
+            }}
+    }
+    
+    func populateDatetimeSpan(_ interval: Calendar.Component, _ range: Int)
+    {
+        let end = Date()
+        let prior = Calendar.current.date(byAdding: interval, value: -(range), to: end)!
+        
+        let dateFormatter = DateFormatter();
+        
+        dateFormatter.timeZone = TimeZone.autoupdatingCurrent;
+        dateFormatter.setLocalizedDateFormatFromTemplate("YYYY-MM-dd")
+        
+        let priorText = dateFormatter.string(from: prior)
+        let endText = dateFormatter.string(from: end)
+        
+        self.datetimeTitle.text = "\(priorText) - \(endText)"
+        
+    }
+    
+    func populateDurationAvg(_ interval: Calendar.Component, _ range: Int)
+    {
+        
+        if let cacheValue = durationCache[interval]
+        {
+            self.durationTitle.text = "\(Int(cacheValue)) min"
+        }
+        else
+        {
+            
+            self.durationTitle.text = "Loading..."
+    
+            let end = Date()
+            let prior = Calendar.current.date(byAdding: interval, value: -(range), to: end)!
+            
+            let dateInterval = DateInterval(start: prior, end: end)
+            
+            let days = (dateInterval.duration / 60 / 60 / 24)
+            
+            ZBFHealthKit.getMindfulMinutes(start: prior, end: end)
+            {
+                (samples, error) in
+                
+                if let samples = samples
+                {
+                    var sum = 0.0
+                    
+                    samples.forEach({
+                        
+                        entry in
+                        
+                        sum = sum + entry.value
+                        
+                    })
+                    
+                    let avg = (sum / 60) / days
+                    
+                    DispatchQueue.main.async()
                         {
-                            
-                            self.stringForValue($1, interval)
-                            
-                        }
+                            self.durationTitle.text = "\(Int(avg)) min"
+                    }
+                    
+                    self.durationCache[interval] = avg
+                }
+                else
+                {
+                    print(error.debugDescription)
                 }
             }
-            else
-            {
-                print(error.debugDescription)
-            }
-            
         }
     }
+    
+    /*
+    func populateMMChart(dateIntervals:[Double])
+    {
+        
+        mmChart.drawGridBackgroundEnabled = false
+        mmChart.chartDescription?.enabled = false
+        mmChart.autoScaleMinMaxEnabled = true
+        mmChart.noDataText = ""
+        mmChart.xAxis.valueFormatter = self
+        
+        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "mindful ms")
+        
+        let communityEntries = [ChartDataEntry]()
+        
+        let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
+        
+        communityDataset.drawCirclesEnabled = false
+        communityDataset.drawValuesEnabled = false
+        communityDataset.setColor(UIColor(red: 0.291, green: 0.307, blue: 0.752, alpha: 1.0))
+        communityDataset.lineWidth = 3.0
+        
+        dataset.drawCirclesEnabled = false
+        dataset.lineWidth = 3.0
+        dataset.setColor(UIColor.black)
+        dataset.drawValuesEnabled = false
+        
+        mmChart.data = LineChartData(dataSets: [dataset, communityDataset])
+        
+        let values = dateIntervals.sorted()
+        
+        for (i, key) in values.enumerated()
+        {
+            let start = Date(timeIntervalSince1970: key)
+         
+            let idx = i + 1
+            let last = (i == values.count - 1)
+         
+            let end = last ? Date() : Date(timeIntervalSince1970: values[idx])
+            
+            let days = DateInterval(start:start, end: end).duration / 60 / 60 / 24
+            
+            ZBFHealthKit.getMindfulMinutes(start: start, end: end)
+            {
+                (samples, error) in
+                
+                if let samples = samples
+                {
+                    var avg = 0.0
+                    
+                    if(samples.count > 1)
+                    {
+                        avg = (samples[samples.keys.first!]! / 60) / days
+                    }
+                    
+                    DispatchQueue.main.async()
+                    {
+                        self.mmChart.data!.addEntry(ChartDataEntry(x: start.timeIntervalSince1970, y: avg), dataSetIndex: 0)
+                        
+                        self.mmChart.notifyDataSetChanged()
+                    }
+                    
+                }
+                else
+                {
+                    print(error.debugDescription)
+                }
+            }
+         
+        }
+        
+    }
+ 
+ */
     
     //#todo(debt): factor this into the zbfmodel + ui across controllers
     @IBAction func newSession(_ sender: Any) {
@@ -352,4 +463,5 @@ class OverviewController : UIViewController
                 
         })
     }
+    
 }
