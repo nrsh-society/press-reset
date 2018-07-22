@@ -149,7 +149,6 @@ class OverviewController : UIViewController, IAxisValueFormatter
                             self.populateHRVImage(.hour, 24)
                             self.populateCharts(.hour, 24)
                             self.populateDatetimeSpan(.hour, 24)
-                            //self.populateDurationAvg(.hour, 24)
                         }
                         else
                         {
@@ -176,7 +175,11 @@ class OverviewController : UIViewController, IAxisValueFormatter
         hrvChart.noDataText = ""
         hrvChart.xAxis.valueFormatter = self
         
-        hrvChart.borderColor = .clear
+        hrvChart.xAxis.drawGridLinesEnabled = false
+        hrvChart.xAxis.drawAxisLineEnabled = false
+        hrvChart.rightAxis.drawAxisLineEnabled = false
+        hrvChart.leftAxis.drawAxisLineEnabled = false
+        
         
         let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "hrv")
         
@@ -357,8 +360,10 @@ class OverviewController : UIViewController, IAxisValueFormatter
         
         self.durationTitle.text = "Loading..."
         
-        mmChart.borderColor = .clear
-        mmChart.drawBordersEnabled = false
+        mmChart.xAxis.drawGridLinesEnabled = false
+        mmChart.xAxis.drawAxisLineEnabled = false
+        mmChart.rightAxis.drawAxisLineEnabled = false
+        mmChart.leftAxis.drawAxisLineEnabled = false
         
         mmChart.drawGridBackgroundEnabled = false
         mmChart.chartDescription?.enabled = false
