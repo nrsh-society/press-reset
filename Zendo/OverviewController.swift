@@ -13,12 +13,11 @@ import Charts
 
 class OverviewController : UIViewController, IAxisValueFormatter
 {
-    var mmCache : [Calendar.Component : [Double : Double]] = [:]
+
     var durationCache : [Calendar.Component : Double] = [:]
-    var hrvData : [Double : Double] = [:]
-    
     var currentInterval : Calendar.Component = .hour
     
+    @IBOutlet weak var mmChart: LineChartView!
     @IBOutlet weak var hrvChart: LineChartView!
     @IBOutlet weak var hrvImage: UIImageView!
     @IBOutlet weak var durationTitle: UILabel!
@@ -40,28 +39,28 @@ class OverviewController : UIViewController, IAxisValueFormatter
                 populateHRVImage(.hour, 24)
                 populateCharts(.hour, 24)
                 populateDatetimeSpan(.hour, 24)
-                populateDurationAvg(.hour, 24)
+                //populateDurationAvg(.hour, 24)
                 break
             case 1:
                 self.currentInterval = .day
                 populateHRVImage(.day, 7)
                 populateCharts(.day, 7)
                 populateDatetimeSpan(.day, 7)
-                populateDurationAvg(.day, 7)
+                //populateDurationAvg(.day, 7)
                 break
             case 2:
                 self.currentInterval = .month
                 populateHRVImage(.month, 1)
                 populateCharts(.month, 1)
                 populateDatetimeSpan(.month, 1)
-                populateDurationAvg(.month, 1)
+                //populateDurationAvg(.month, 1)
                 break
             case 3:
                 self.currentInterval = .year
                 populateHRVImage(.year, 1)
                 populateCharts(.year, 1)
                 populateDatetimeSpan(.year, 1)
-                populateDurationAvg(.year, 1)
+                //populateDurationAvg(.year, 1)
                 break
             default:
                 break
@@ -150,7 +149,7 @@ class OverviewController : UIViewController, IAxisValueFormatter
                             self.populateHRVImage(.hour, 24)
                             self.populateCharts(.hour, 24)
                             self.populateDatetimeSpan(.hour, 24)
-                            self.populateDurationAvg(.hour, 24)
+                            //self.populateDurationAvg(.hour, 24)
                         }
                         else
                         {
@@ -177,6 +176,8 @@ class OverviewController : UIViewController, IAxisValueFormatter
         hrvChart.noDataText = ""
         hrvChart.xAxis.valueFormatter = self
         
+        hrvChart.borderColor = .clear
+        
         let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "hrv")
         
         let communityEntries = [ChartDataEntry]()
@@ -192,6 +193,7 @@ class OverviewController : UIViewController, IAxisValueFormatter
         dataset.lineWidth = 3.0
         dataset.setColor(UIColor.black)
         dataset.drawValuesEnabled = false
+
         
         hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
         
@@ -199,36 +201,40 @@ class OverviewController : UIViewController, IAxisValueFormatter
             
             (samples, error) in
             
+             var dateIntervals = [Double]()
+            
             if let samples = samples
             {
-                let sorted = samples.sorted(by: <)
                
-                sorted.forEach(
+                
+                samples.sorted(by: <).forEach(
                     {
                         (entry) in
                         
-                        if(entry.value > 0.0)
-                        {
-                        self.hrvChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value ), dataSetIndex: 0)
+                            self.hrvChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value ), dataSetIndex: 0)
 
-                        let community = self.getCommunityDataEntry(key: "sdnn", interval: entry.key, scale: 1.0)
+                            let community = self.getCommunityDataEntry(key: "sdnn", interval: entry.key, scale: 1.0)
                         
-                        self.hrvChart.data!.addEntry(community, dataSetIndex: 1)
+                            self.hrvChart.data!.addEntry(community, dataSetIndex: 1)
                         
-                        print("populateHRVChart: \(entry)")
-                        }
+                            print("populateHRVChart: \(entry)")
                         
+                        dateIntervals.append(entry.key)
                 })
-                
-                DispatchQueue.main.async()
-                {
-                    self.hrvChart.notifyDataSetChanged()
-                }
                 
             }
             else
             {
+                self.hrvChart.noDataText = "No HRV date"
                 print(error.debugDescription)
+            }
+            
+            DispatchQueue.main.async()
+                {
+                    self.hrvChart.notifyDataSetChanged()
+                    
+                    //@todo: this approach to getting dateIntervals fails when there is no HRV
+                    self.populateMMChart(dateIntervals: dateIntervals)
             }
                 
         }
@@ -270,7 +276,6 @@ class OverviewController : UIViewController, IAxisValueFormatter
                         
                         self.hrvImage.transform = CGAffineTransform.identity
                         
-                        
                     })
                     
                 }
@@ -303,7 +308,6 @@ class OverviewController : UIViewController, IAxisValueFormatter
         }
         else
         {
-            
             self.durationTitle.text = "Loading..."
     
             let end = Date()
@@ -332,8 +336,8 @@ class OverviewController : UIViewController, IAxisValueFormatter
                     let avg = (sum / 60) / days
                     
                     DispatchQueue.main.async()
-                        {
-                            self.durationTitle.text = "\(Int(avg)) min"
+                    {
+                        self.durationTitle.text = "\(Int(avg)) min"
                     }
                     
                     self.durationCache[interval] = avg
@@ -346,9 +350,15 @@ class OverviewController : UIViewController, IAxisValueFormatter
         }
     }
     
-    /*
     func populateMMChart(dateIntervals:[Double])
     {
+        
+        var mmData : [Double : Double] = [:]
+        
+        self.durationTitle.text = "Loading..."
+        
+        mmChart.borderColor = .clear
+        mmChart.drawBordersEnabled = false
         
         mmChart.drawGridBackgroundEnabled = false
         mmChart.chartDescription?.enabled = false
@@ -356,7 +366,7 @@ class OverviewController : UIViewController, IAxisValueFormatter
         mmChart.noDataText = ""
         mmChart.xAxis.valueFormatter = self
         
-        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "mindful ms")
+        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "mindful mins")
         
         let communityEntries = [ChartDataEntry]()
         
@@ -395,19 +405,46 @@ class OverviewController : UIViewController, IAxisValueFormatter
                 {
                     var avg = 0.0
                     
-                    if(samples.count > 1)
+                    if(samples.count > 0)
                     {
                         avg = (samples[samples.keys.first!]! / 60) / days
                     }
                     
-                    DispatchQueue.main.async()
-                    {
-                        self.mmChart.data!.addEntry(ChartDataEntry(x: start.timeIntervalSince1970, y: avg), dataSetIndex: 0)
-                        
-                        self.mmChart.notifyDataSetChanged()
-                    }
-                    
+                    mmData[start.timeIntervalSince1970] = avg
                 }
+                
+                if(mmData.count == dateIntervals.count)
+                {
+                    var movingAvg = 0.0
+                    
+                    
+                    mmData.sorted(by: <).forEach({
+                        
+                        (entry) in
+                        
+                        movingAvg = movingAvg + entry.value
+                        
+                        DispatchQueue.main.async()
+                            {
+                                self.mmChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
+                                
+                                let community = ChartDataEntry(x: entry.key, y: 30.0)
+                                
+                                //#todo(debt): pull in the v2 backend duration
+                                //self.getCommunityDataEntry(key: "duration", interval: entry.key, scale: 1.0)
+                                
+                                self.mmChart.data!.addEntry(community, dataSetIndex: 1)
+                                
+                                self.mmChart.notifyDataSetChanged()
+                                
+                                self.durationTitle.text = "\(Int(movingAvg) / mmData.count ) min"
+                                
+                                self.durationCache[self.currentInterval] = movingAvg / Double(mmData.count)
+                        }
+                        
+                    })
+                }
+            
                 else
                 {
                     print(error.debugDescription)
@@ -417,8 +454,7 @@ class OverviewController : UIViewController, IAxisValueFormatter
         }
         
     }
- 
- */
+
     
     //#todo(debt): factor this into the zbfmodel + ui across controllers
     @IBAction func newSession(_ sender: Any) {
