@@ -135,7 +135,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Overview" largeTitleDisplayMode="always" id="98L-6u-2Lq">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="RxD-bp-x9l">
+                        <barButtonItem key="rightBarButtonItem" title="New Session" image="watch" id="RxD-bp-x9l">
                             <connections>
                                 <action selector="newSession:" destination="vMt-hR-UFU" id="RA7-ES-jmr"/>
                             </connections>
@@ -205,7 +205,7 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="History" id="a61-4s-xIt">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="90w-8I-n8k">
+                        <barButtonItem key="rightBarButtonItem" title="New Session" image="watch" style="done" id="90w-8I-n8k">
                             <connections>
                                 <action selector="onNewSession:" destination="OgR-X5-jbh" id="nGK-H9-nVS"/>
                             </connections>
@@ -385,11 +385,11 @@
             </objects>
             <point key="canvasLocation" x="-2447.1999999999998" y="-1410.0449775112445"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--History-->
         <scene sceneID="irP-UE-39A">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NpG-kt-vUd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="history" id="3AK-3D-fq3"/>
+                    <tabBarItem key="tabBarItem" title="History" image="history" selectedImage="history" id="3AK-3D-fq3"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="zpU-Js-o0E">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
@@ -409,7 +409,7 @@
         <scene sceneID="A82-vc-Hsq">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dQQ-wO-gKW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Overview" image="Complication/Modular" id="jZ9-Xv-6H8"/>
+                    <tabBarItem key="tabBarItem" title="Overview" image="overview" selectedImage="overview" id="jZ9-Xv-6H8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="yuJ-Xz-6rT">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
@@ -427,7 +427,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Complication/Modular" width="26" height="26"/>
+        <image name="history" width="23" height="23"/>
+        <image name="overview" width="24" height="24"/>
         <image name="shobogenzo" width="1024" height="1024"/>
+        <image name="watch" width="13" height="23"/>
     </resources>
 </document>

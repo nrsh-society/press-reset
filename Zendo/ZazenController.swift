@@ -20,10 +20,6 @@ class ZazenController : UIViewController, IAxisValueFormatter {
     @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     
-    //@IBOutlet weak var minHRLabel: UILabel!
-    //@IBOutlet weak var maxHRLabel: UILabel!
-    //@IBOutlet weak var minHRVLabel: UILabel!
-    //@IBOutlet weak var maxHRVLabel: UILabel!
     @IBOutlet weak var hrvImageView: UIImageView!
     
     @IBOutlet weak var bpmView: LineChartView!
@@ -56,12 +52,6 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         motionChart.autoScaleMinMaxEnabled = true
         hrvChart.autoScaleMinMaxEnabled = true
         
-        /*
-         bpmView.data?.setDrawValues(false)
-         motionChart.data?.setDrawValues(false)
-         motionChart.data?.setDrawValues(false)
-         */
-        
         bpmView.chartDescription?.enabled = false
         hrvChart.chartDescription?.enabled = false
         motionChart.chartDescription?.enabled = false
@@ -86,12 +76,11 @@ class ZazenController : UIViewController, IAxisValueFormatter {
             if let results = results
             {
                 DispatchQueue.main.async()
-                    {
-                        
+                {
                         self.samples =
                             results.map({ (sample) -> [String:Any] in
                                 return sample.metadata!
-                            });
+                            })
                         
                         self.populateHrvChart()
                         
