@@ -20,7 +20,7 @@ class ZBFHealthKit {
     
     static let heartRateType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
     
-     static let restingBPMType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.restingHeartRate)!
+    static let restingBPMType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.restingHeartRate)!
     
     static let heartRateSDNNType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
     
@@ -48,8 +48,8 @@ class ZBFHealthKit {
     }
     
     
-    class func populateCell(workout : HKWorkout, cell:UITableViewCell)  {
-                
+    class func populateCell(workout: HKWorkout, cell: UITableViewCell) {
+        
         let minutes = (workout.duration / 60).rounded()
         
         cell.textLabel?.text = "\(Int(minutes).description) min"
@@ -84,13 +84,13 @@ class ZBFHealthKit {
                                                     let size = (cell.imageView?.image?.size)!
                                                     
                                                     cell.imageView?.image =  generateImageWithText(size: size, text: Int(value).description, fontSize: 33.0)
-                                                 
+                                                    
                                                     UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
                                                         
                                                         if value < 99
                                                         {
                                                             let scale = CGAffineTransform(scaleX: 1 - CGFloat(value/100), y: 1 - CGFloat(value/100))
-                                                        
+                                                            
                                                             cell.imageView?.transform = scale
                                                         }
                                                         
@@ -105,8 +105,8 @@ class ZBFHealthKit {
                                                 let size = (cell.imageView?.image?.size)!
                                                 
                                                 DispatchQueue.main.async()
-                                                {
-                                                    cell.imageView?.image =  generateImageWithText(size: size, text: "00", fontSize: 33.0)
+                                                    {
+                                                        cell.imageView?.image =  generateImageWithText(size: size, text: "00", fontSize: 33.0)
                                                 }
                                             }
         }
@@ -130,7 +130,7 @@ class ZBFHealthKit {
         let retval : UIImage! = UIGraphicsGetImageFromCurrentImageContext();
         
         UIGraphicsEndImageContext();
-    
+        
         return retval!
         
     }
@@ -158,16 +158,16 @@ class ZBFHealthKit {
         return samples
         
     }
-
-    class func format(_ date: Date) -> String {
     
+    class func format(_ date: Date) -> String {
+        
         let dateFormatter = DateFormatter();
         
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent;
         dateFormatter.setLocalizedDateFormatFromTemplate("YYYY-MM-dd")
-    
+        
         let localDate = dateFormatter.string(from: date)
-    
+        
         dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm")
         
         let localTime = dateFormatter.string(from: date)
@@ -204,24 +204,16 @@ class ZBFHealthKit {
         return imageWithText!
     }
     
-    class func deleteWorkout(workout: HKWorkout)
-    {
-        getSamples(workout: workout)
-        {
-            samples in
-            
-            var objects : [HKSample] = samples.map { $0 }
+    class func deleteWorkout(workout: HKWorkout) {
+        getSamples(workout: workout) { samples in
+            var objects: [HKSample] = samples.map { $0 }
             
             objects.append(workout)
             
-            healthStore.delete(objects)
-            {
-                (bool, error) in
-                                    
-                    if(!bool)
-                    {
-                        print(error!)
-                    }
+            healthStore.delete(objects) { bool, error in
+                if !bool {
+                    print(error!)
+                }
             }
         }
         
@@ -235,21 +227,21 @@ class ZBFHealthKit {
         let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
         let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
-    
+        
         let hkQuery = HKSampleQuery.init(sampleType: mindfulSessionType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor], resultsHandler:
         {
             query, results, error in
-        
-                if(error != nil )
-                {
-                    print(error!)
-                }
-                else
-                {
-                    handler(results!)
-                }
+            
+            if(error != nil )
+            {
+                print(error!)
+            }
+            else
+            {
+                handler(results!)
+            }
         })
-    
+        
         ZBFHealthKit.healthStore.execute(hkQuery)
         
     }
@@ -259,13 +251,13 @@ class ZBFHealthKit {
     class func requestHealthAuth(handler: @escaping GetPermissionsHandler)  {
         
         healthStore.handleAuthorizationForExtension
-        {
-            (success, error) in
-            
-            healthStore.requestAuthorization(
-                toShare: hkShareTypes,
-                read: hkReadTypes,
-                completion: handler)
+            {
+                (success, error) in
+                
+                healthStore.requestAuthorization(
+                    toShare: hkShareTypes,
+                    read: hkReadTypes,
+                    completion: handler)
         }
     }
     
@@ -274,7 +266,7 @@ class ZBFHealthKit {
     
     class func getHRVAverage(_ workout: HKWorkout, handler: @escaping SamplesHandler)
     {
-       
+        
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: workout.endDate)
@@ -312,7 +304,7 @@ class ZBFHealthKit {
     }
     
     class func getHRVAverage(interval: Calendar.Component, value: Int, handler: @escaping SamplesHandler)
-     {
+    {
         let end = Date()
         
         let prior = Calendar.current.date(byAdding: interval, value: -(value), to: end)!
@@ -394,7 +386,7 @@ class ZBFHealthKit {
                         }
                 })
             }
-                
+            
             handler(entries, error)
         }
         
@@ -411,31 +403,31 @@ class ZBFHealthKit {
         
         switch interval
         {
-            case .hour:
-                components.hour = 4
-                break
+        case .hour:
+            components.hour = 4
+            break
             
-            case .day:
-                components.day = 1
-                break
+        case .day:
+            components.day = 1
+            break
             
-            case .month:
-                components.day = 7
-                break
+        case .month:
+            components.day = 7
+            break
             
-            case .year:
-                components.month = 1
-                break
+        case .year:
+            components.month = 1
+            break
             
-            default:
-                components.day = 1
-                break
+        default:
+            components.day = 1
+            break
         }
         
         let prior = Calendar.current.date(byAdding: interval, value: -(value), to: end)!
         
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
-    
+        
         let query = HKStatisticsCollectionQuery(quantityType: hkType,
                                                 quantitySamplePredicate: nil,
                                                 options: HKStatisticsOptions.discreteAverage,
@@ -475,7 +467,7 @@ class ZBFHealthKit {
         
         healthStore.execute(query)
     }
-        
+    
     class func getBPMSamples(interval: Calendar.Component, value: Int, handler: @escaping SamplesHandler)
     {
         var entries : [Double : Double] = [:]
@@ -535,7 +527,7 @@ class ZBFHealthKit {
                     {
                         avgValue = avgQ.doubleValue(for: HKUnit(from: "count/s"))
                     }
-                
+                    
                     let key = statistics.startDate.timeIntervalSince1970
                     
                     entries[key] = (avgValue * 60.0)
@@ -549,7 +541,7 @@ class ZBFHealthKit {
                 handler(nil, error)
             }
         }
-    
+        
         healthStore.execute(query)
     }
 }

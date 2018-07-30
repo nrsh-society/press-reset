@@ -15,18 +15,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-   
-        return UIInterfaceOrientationMask.portrait
-    }
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         Mixpanel.initialize(token: "73167d0429d8da0c05c6707e832cbb46")
-        
         BuddyBuildSDK.setup()
-        
         CommunityDataLoader.load()
+        
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+       
+       // UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Bold", size: 17)!, NSAttributedString.Key.foregroundColor : UIColor.white]
+        
+//        [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor yellowColor] }
+//            forState:UIControlStateNormal];
+//        [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }
+//            forState:UIControlStateSelected];
+        
+        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor : UIColor.black], for: .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor : UIColor.lightGray], for: .normal)
+        UITabBar.appearance().tintColor = UIColor.black
         
         return true
     }
@@ -60,6 +70,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationShouldRequestHealthAuthorization(_ application: UIApplication) {
         
         ZBFHealthKit.getPermissions()
+    }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
     }
 
 }

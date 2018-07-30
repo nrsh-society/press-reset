@@ -11,34 +11,30 @@ import HealthKit
 
 class ZendoDataSource: NSObject, CLKComplicationDataSource
 {
-    var currentHrv : Double = 0.0
+    var currentHrv = 0.0
     
-    func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void)
-    {
+    func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
         handler([])
     }
     
     /*
-    func getNextRequestedUpdateDate(handler: @escaping (Date?) -> Void) {
-        print("getNextRequestedUpdateDate")
-        handler(Date(timeIntervalSinceNow: 120))
-    }
+     func getNextRequestedUpdateDate(handler: @escaping (Date?) -> Void) {
+     print("getNextRequestedUpdateDate")
+     handler(Date(timeIntervalSinceNow: 120))
+     }
+     
+     func requestedUpdateDidBegin() {
+     print("requestedUpdateDidBegin")
+     let server = CLKComplicationServer.sharedInstance()
+     for complication in server.activeComplications! {
+     server.reloadTimeline(for: complication)
+     }
+     }*/
     
-    func requestedUpdateDidBegin() {
-        print("requestedUpdateDidBegin")
-        let server = CLKComplicationServer.sharedInstance()
-        for complication in server.activeComplications! {
-            server.reloadTimeline(for: complication)
-        }
-    }*/
-    
-    func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void)
-    {
+    func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
         print("getCurrentTimelineEntry")
         
-        let entry = CLKComplicationTimelineEntry(date: Date(),
-                                                 complicationTemplate:
-                                                    getTemplate(complication: complication))
+        let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: getTemplate(complication: complication))
         handler(entry)
     }
     
@@ -54,108 +50,70 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
         
         let hkQuery = HKStatisticsQuery(quantityType: hkType,
                                         quantitySamplePredicate: hkPredicate,
-                                        options: options)
-        {
-            query, result, error in
-            
-            if(error != nil)
-            {
-                print(error.debugDescription)
-                
-            }
-            else
-            {
-                if let value = result!.averageQuantity()?.doubleValue(
-                    for: HKUnit(from: "ms"))
-                {
-                    DispatchQueue.main.async()
-                        {
-                            if value > 0.0
-                            {
-                                self.currentHrv = value
-                            }
-                    }
-                }
-            }
+                                        options: options) { query, result, error in
+                                            
+                                            if error != nil {
+                                                print(error.debugDescription)
+                                            } else {
+                                                if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
+                                                    
+                                                    DispatchQueue.main.async() {
+                                                        if value > 0.0 {
+                                                            self.currentHrv = value
+                                                        }
+                                                    }
+                                                }
+                                            }
         }
         
         ZBFHealthKit.healthStore.execute(hkQuery)
         
         return Int(self.currentHrv).description
-        
     }
     
     
-    func getTemplate (complication: CLKComplication) -> CLKComplicationTemplate
-    {
-        var retval : CLKComplicationTemplate? = nil
+    func getTemplate (complication: CLKComplication) -> CLKComplicationTemplate {
+        var retval: CLKComplicationTemplate!
         
-        switch complication.family
-        {
-       
+        switch complication.family {
         case .modularSmall:
-            
             let template = CLKComplicationTemplateModularSmallSimpleImage()
             template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Modular")!)
             
             retval = template
-            
-            break
-                        
         case .circularSmall:
-            
             let template = CLKComplicationTemplateCircularSmallSimpleImage()
             template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Circular")!)
             
             retval = template
-            
-            break
-            
         case .extraLarge:
-            
             let template = CLKComplicationTemplateExtraLargeSimpleImage()
             template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Extra Large")!)
-        
+            
             retval = template
-            
-            break
-            
-            
         case .utilitarianSmall:
-            
             let template = CLKComplicationTemplateUtilitarianSmallSquare()
             template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Utilitarian")!)
             
             retval = template
-            
-            break
-            
         case .utilitarianSmallFlat:
-            
-            let template = CLKComplicationTemplateUtilitarianSmallSquare()
+            let template = CLKComplicationTemplateUtilitarianSmallFlat()
             template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Utilitarian")!)
-            
+            template.textProvider = CLKSimpleTextProvider(text: "Zondo")
             retval = template
-            
-            break
-            
-        default:
-            
-            break
-            
+        default: break
         }
-    
-        return retval!
+        
+        return retval
     }
     
-        
-        func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void)
-        {
-            handler(.showOnLockScreen)
-        }
-        
-        func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void)
-        {
-            handler(getTemplate(complication: complication))
-        }
+    
+    func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void) {
+        handler(.showOnLockScreen)
+    }
+    
+    func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
+        handler(getTemplate(complication: complication))
+    }
+    
 }

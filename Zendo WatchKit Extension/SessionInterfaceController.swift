@@ -48,7 +48,6 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     }
     
     @IBAction func onDonePress() {
-        
         _session.end();
         
         WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: _session  as AnyObject)
@@ -56,27 +55,20 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     }
     
     override func awake(withContext context: Any?) {
-        
         super.awake(withContext: context)
         
-        if(context != nil) {
-        
+        if context != nil {
             _session = context as? Session
-            
             _session.delegate = self
-            
             timeElapsedLabel.setText("00")
-            
         }
     }
 
     override func willActivate() {
-        
         super.willActivate()
     }
     
     override func didDeactivate() {
-    
         super.didDeactivate()
 
     }

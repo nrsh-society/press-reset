@@ -15,13 +15,13 @@ import CoreFoundation
 protocol SessionDelegate {
     
     //fired everytime the session interface should be updated
-    func sessionTick(startDate: Date);
+    func sessionTick(startDate: Date)
 }
 
 struct Rotation  {
-    var pitch : Double = 0.0
-    var roll : Double = 0.0
-    var yaw : Double = 0.0
+    var pitch: Double = 0.0
+    var roll: Double = 0.0
+    var yaw: Double = 0.0
 }
 
 struct Options {
@@ -29,48 +29,44 @@ struct Options {
     var hapticStrength = 1
 }
 
-class Session : NSObject {
+class Session: NSObject {
     
-    var startDate : Date?
-    var endDate : Date?
+    var startDate: Date?
+    var endDate: Date?
     var lastSample = Date()
-    var workoutSession : HKWorkoutSession?
-    var isRunning : Bool! = false
-    var delegate : SessionDelegate! = nil
+    var workoutSession: HKWorkoutSession?
+    var isRunning = false
+    var delegate: SessionDelegate! = nil
     var rotation = Rotation(pitch: 0.0, roll: 0.0, yaw: 0.0)
-    var motion : Double = 0.0
-    var heartRate : Double = 0.0
-    var heartSDNN : Double = 0.0
+    var motion = 0.0
+    var heartRate = 0.0
+    var heartSDNN = 0.0
     
-    private var _sampleTimer : Timer?;
-    private var _notifyTimer : Timer?;
+    private var _sampleTimer: Timer?
+    private var _notifyTimer: Timer?
     
-    private let _healthStore = HKHealthStore();
+    private let _healthStore = HKHealthStore()
     private let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
-    private let hkworkT = HKObjectType.workoutType();
-    private var samples = [HKCategorySample]();
-    private let motionManager = CMMotionManager();
+    private let hkworkT = HKObjectType.workoutType()
+    private var samples = [HKCategorySample]()
+    private let motionManager = CMMotionManager()
     
     static var options = Options(hapticStrength: 1)
     
-    static var current : Session?
+    static var current: Session?
     
     override init() {
-        
         super.init();
         
         let configuration = HKWorkoutConfiguration()
         configuration.activityType = .mindAndBody
         configuration.locationType = .unknown
         
-        do
-        {
-        
+        do {
             workoutSession = try HKWorkoutSession(configuration: configuration)
             
             //#todo: add the workout management to the wrapper too
             ZBFHealthKit.getPermissions()
-            
         } catch let error as NSError {
             //$todo: clean up all error handling
             fatalError("*** Unable to create the workout session: \(error.localizedDescription) ***")
@@ -79,20 +75,18 @@ class Session : NSObject {
     
     func start() {
         
-        if(!self.isRunning)
-        {
-            self.startDate = Date();
+        if !self.isRunning {
+            self.startDate = Date()
             
-            motionManager.startDeviceMotionUpdates();
+            motionManager.startDeviceMotionUpdates()
             
-            _healthStore.start(workoutSession!);
+            _healthStore.start(workoutSession!)
             
             WKInterfaceDevice.current().play(.start)
             
-            createTimers();
+            createTimers()
             
-            self.isRunning = true;
-            
+            self.isRunning = true
         } else {
             print("called start on running session")
         }
@@ -100,9 +94,9 @@ class Session : NSObject {
     
     func end() {
         
-        if(!self.isRunning) {
-            print("called end on unrunning session");
-            return;
+        if !self.isRunning {
+            print("called end on unrunning session")
+            return
         }
         
         motionManager.stopDeviceMotionUpdates()
@@ -111,25 +105,22 @@ class Session : NSObject {
         
         _healthStore.end(workoutSession!)
         
-        self.endDate = Date();
+        self.endDate = Date()
         
-        let workout = HKWorkout(activityType: HKWorkoutActivityType.mindAndBody,
-                                start: self.startDate!, end: self.endDate!)
+        let workout = HKWorkout(activityType: HKWorkoutActivityType.mindAndBody, start: self.startDate!, end: self.endDate!)
         
         _healthStore.save([workout]) { success, error in
             
-            if(error != nil) {
+            if error != nil {
                 print(error.debugDescription);
             }
             
-            self._healthStore.add(self.samples, to: workout) {
-                (success, error) in
+            self._healthStore.add(self.samples, to: workout) { success, error in
                 
-                if(error != nil) {
+                if error != nil {
                     print(error.debugDescription);
                 }
             }
-            
         }
         
         invalidate();
@@ -137,29 +128,24 @@ class Session : NSObject {
     }
     
     func createTimers() {
-        
         _sampleTimer = Timer.scheduledTimer(timeInterval: 1, target:self, selector: #selector(Session.sample), userInfo: nil, repeats: true)
         
         _notifyTimer = Timer.scheduledTimer(timeInterval: 60, target:self, selector: #selector(Session.notify), userInfo: nil, repeats: true)
-        
     }
     
     @objc public func notify()  {
         
         self.delegate.sessionTick(startDate: self.startDate!);
         
-        if(Session.options.hapticStrength > 0) {
+        if Session.options.hapticStrength > 0 {
             
             Thread.detachNewThread {
-                
                 for _ in 1...Session.options.hapticStrength {
-                    
                     DispatchQueue.main.sync {
                         WKInterfaceDevice.current().play(.success)
                     }
                     
                     Thread.sleep(forTimeInterval: 1)
-                    
                 }
             }
         }
@@ -167,13 +153,10 @@ class Session : NSObject {
     
     @objc public func sample()  {
         
-        
         if let deviceMotion = self.motionManager.deviceMotion {
-            
             self.rotation.pitch = deviceMotion.rotationRate.x
             self.rotation.roll = deviceMotion.rotationRate.y
             self.rotation.yaw = deviceMotion.rotationRate.z
-            
         }
         
         self.motion = abs(self.rotation.pitch) + abs(self.rotation.roll) + abs(self.rotation.yaw)
@@ -189,21 +172,14 @@ class Session : NSObject {
         let heartRateSDNNPredicate: NSPredicate? = HKQuery.predicateForSamples(withStart: yesterday, end: Date(), options: .strictEndDate)
         
         _healthStore.execute(HKStatisticsQuery(quantityType: heartRateSDNNType,
-                                               quantitySamplePredicate: heartRateSDNNPredicate,
-                                               options: .discreteAverage) { query, result, error in
+                                               quantitySamplePredicate: heartRateSDNNPredicate, options: .discreteAverage) { query, result, error in
                                                 
-                                                if let error = error
-                                                {
+                                                if let error = error {
                                                     print(error.localizedDescription);
-                                                }
-                                                else
-                                                {
-                                                
-                                                    if let sdnn = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms"))
-                                                        {
-                                                    
-                                                    self.heartSDNN = sdnn
-                                                }
+                                                } else {
+                                                    if let sdnn = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")){
+                                                        self.heartSDNN = sdnn
+                                                    }
                                                 }
         })
         
@@ -218,40 +194,31 @@ class Session : NSObject {
                                                quantitySamplePredicate: heartRatePredicate,
                                                options: .discreteAverage) { query, result, error in
                                                 
-                                                if let error = error
-                                                {
+                                                if let error = error {
                                                     print(error.localizedDescription);
-                                                }
-                                                else
-                                                {
-                                                
+                                                } else {
                                                     if let heartRate = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "count/s")) {
-                                                    
-                                                    self.heartRate = heartRate
+                                                        
+                                                        self.heartRate = heartRate
+                                                    }
                                                 }
-                                            }
-                                                
         })
         
         
-        let metadata = ["now": Date().description,
-                        "motion": motion.description,
-                        "sdnn": heartSDNN.description,
-                        "heart": heartRate.description,
-                        "pitch" : self.rotation.pitch.description,
-                        "roll" : self.rotation.roll.description,
-                        "yaw": self.rotation.yaw.description
-            ] as [String: String]
-        
-        let values = metadata as [String: Any]
+        let metadata: [String: Any] = ["now": Date().description,
+                                       "motion": motion.description,
+                                       "sdnn": heartSDNN.description,
+                                       "heart": heartRate.description,
+                                       "pitch" : self.rotation.pitch.description,
+                                       "roll" : self.rotation.roll.description,
+                                       "yaw": self.rotation.yaw.description
+        ]
         
         //#todo: should this be another lighterweight sample type?
-        let sample = HKCategorySample(type: self.hkType, value: 0, start: self.lastSample, end: Date(), metadata: values )
+        let sample = HKCategorySample(type: self.hkType, value: 0, start: self.lastSample, end: Date(), metadata: metadata)
         
-        self._healthStore.save([sample]) { _,_ in
-            
+        self._healthStore.save([sample]) { _, _ in
             self.samples.append(sample);
-            
         }
         
         lastSample = Date();
@@ -279,10 +246,8 @@ class Session : NSObject {
     }
     
     func invalidate() {
-        
-        _sampleTimer!.invalidate();
-        _notifyTimer!.invalidate();
-        self.isRunning = false;
-        
+        _sampleTimer!.invalidate()
+        _notifyTimer!.invalidate()
+        self.isRunning = false
     }
 }
