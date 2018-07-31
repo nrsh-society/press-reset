@@ -21,22 +21,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BuddyBuildSDK.setup()
         CommunityDataLoader.load()
         
+        UINavigationBar.appearance().barTintColor = UIColor.zenDarkGreen
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-       
-       // UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Bold", size: 17)!, NSAttributedString.Key.foregroundColor : UIColor.white]
+        UINavigationBar.appearance().titleTextAttributes = [.font: UIFont.zendo(font: .antennaMedium, size: 24.0), .foregroundColor: UIColor.white]
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont.zendo(font: .antennaMedium, size: 24.0), .foregroundColor: UIColor.white]
         
-//        [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor yellowColor] }
-//            forState:UIControlStateNormal];
-//        [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }
-//            forState:UIControlStateSelected];
+        UIBarButtonItem.appearance().setTitleTextAttributes([.font: UIFont.zendo(font: .antennaRegular, size: 14.0), .foregroundColor: UIColor.white], for: .normal)
         
-        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor : UIColor.black], for: .selected)
-        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor : UIColor.lightGray], for: .normal)
-        UITabBar.appearance().tintColor = UIColor.black
+        
+        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: UIColor.zenDarkGreen], for: .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: UIColor.zenLightGreen], for: .normal)
+        
+        UITabBar.appearance().tintColor = UIColor.zenDarkGreen
         
         return true
     }

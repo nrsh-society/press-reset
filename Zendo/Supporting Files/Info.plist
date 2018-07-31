@@ -60,5 +60,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Antenna-ExtraLight.otf</string>
+		<string>Antenna-Light.otf</string>
+		<string>Antenna-Medium.otf</string>
+		<string>Antenna-Regular.otf</string>
+	</array>
 </dict>
 </plist>

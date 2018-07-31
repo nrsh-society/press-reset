@@ -99,7 +99,7 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
         case .utilitarianSmallFlat:
             let template = CLKComplicationTemplateUtilitarianSmallFlat()
             template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Utilitarian")!)
-            template.textProvider = CLKSimpleTextProvider(text: "Zondo")
+            template.textProvider = CLKSimpleTextProvider(text: "Zendo")
             retval = template
         default: break
         }

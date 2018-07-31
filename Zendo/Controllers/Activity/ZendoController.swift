@@ -10,10 +10,13 @@ import UIKit
 import HealthKit
 import Mixpanel
 
-class ZendoController: UITableViewController  {
+class ZendoController: UITableViewController {
+    
+    //segue
+    private let showDetailSegue = "showDetail"
     
     var currentWorkout: HKWorkout?
-    var samples: [HKSample]?
+    var samples = [HKSample]()
     let hkType = HKObjectType.workoutType()
     let healthStore = ZBFHealthKit.healthStore
     //let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
@@ -38,10 +41,10 @@ class ZendoController: UITableViewController  {
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { action, indexPath in
-            let workout = self.samples![indexPath.row] as! HKWorkout
+            let workout = self.samples[indexPath.row] as! HKWorkout
             ZBFHealthKit.deleteWorkout(workout: workout)
             
-            self.samples?.remove(at: indexPath.row)
+            self.samples.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         
@@ -52,75 +55,75 @@ class ZendoController: UITableViewController  {
     func populateTable() {
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
         
-        let hkQuery = HKSampleQuery.init(sampleType: hkType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor], resultsHandler: { query,results,error in
-            
-            if let error = error {
-                print(error)
-            } else {
-                DispatchQueue.main.async() {
-                    self.samples = results
-                    
-                    Mixpanel.mainInstance().track(event: "zendo_session_load",
-                        properties: ["session_count" : self.samples!.count ])
-                    
-                    if((results?.count)! > 0) {
-                        self.tableView.backgroundView = nil
-                        self.tableView.separatorStyle = .singleLine
-                        self.tableView.reloadData();
-                    } else {
-                        let image = UIImage(named: "nux")
-                        let frame = self.tableView.frame
-                        
-                        let nuxView = UIImageView(frame: frame)
-                        nuxView.image = image;
-                        nuxView.contentMode = .scaleAspectFit
-                        
-                        self.tableView.separatorStyle = .none
-                        self.tableView.backgroundView = nuxView
-                    }
-                }
-            }
-            
+        let hkQuery = HKSampleQuery.init(sampleType: hkType, predicate: hkPredicate,
+                                         limit: HealthKit.HKObjectQueryNoLimit,
+                                         sortDescriptors: [sortDescriptor],
+                                         resultsHandler: { query, results, error in
+                                            
+                                            if let error = error {
+                                                print(error)
+                                            } else {
+                                                DispatchQueue.main.async() {
+                                                    self.samples = results!
+                                                    
+                                                    Mixpanel.mainInstance().track(event: "zendo_session_load",
+                                                                                  properties: ["session_count" : self.samples.count ])
+                                                    
+                                                    if((results?.count)! > 0) {
+                                                        self.tableView.backgroundView = nil
+                                                        self.tableView.separatorStyle = .singleLine
+                                                        self.tableView.reloadData();
+                                                    } else {
+                                                        let image = UIImage(named: "nux")
+                                                        let frame = self.tableView.frame
+                                                        
+                                                        let nuxView = UIImageView(frame: frame)
+                                                        nuxView.image = image;
+                                                        nuxView.contentMode = .scaleAspectFit
+                                                        
+                                                        self.tableView.separatorStyle = .none
+                                                        self.tableView.backgroundView = nuxView
+                                                    }
+                                                }
+                                            }
+                                            
         })
         
         healthStore.execute(hkQuery)
-  /*
-        let oQuery = HKObserverQuery.init(sampleType: hkType, predicate: hkPredicate) {
-            
-            query,results,error in
-            
-            if(error != nil )
-            {
-                print(error!)
-                
-            }
-            else
-            {
-                DispatchQueue.main.async()
-                {
-                    //#todo(dataflow): think the behavior of HKOQ is different on IOS12?
-                    //self.tableView.reloadData()
-                    //self.populateTable()
-                }
-            }
-        }
-        
-        healthStore.execute(oQuery)
-*/
+        /*
+         let oQuery = HKObserverQuery.init(sampleType: hkType, predicate: hkPredicate) {
+         
+         query,results,error in
+         
+         if(error != nil )
+         {
+         print(error!)
+         
+         }
+         else
+         {
+         DispatchQueue.main.async()
+         {
+         //#todo(dataflow): think the behavior of HKOQ is different on IOS12?
+         //self.tableView.reloadData()
+         //self.populateTable()
+         }
+         }
+         }
+         
+         healthStore.execute(oQuery)
+         */
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if  segue.identifier == "showDetail",
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == showDetailSegue,
             let destination = segue.destination as? ZazenController,
-            let idx = tableView.indexPathForSelectedRow?.row
-        {
+            let idx = tableView.indexPathForSelectedRow?.row {
             
-            let sample = samples![idx];
+            let sample = samples[idx]
             
-            currentWorkout = (sample as! HKWorkout);
-            
+            currentWorkout = (sample as! HKWorkout)
             destination.workout = currentWorkout
         }
     }
@@ -129,9 +132,12 @@ class ZendoController: UITableViewController  {
         super.viewDidLoad()
                 
         populateTable()
+        
+        tableView.estimatedRowHeight = 60.0
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
-    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        
         /*
         let sample = samples![indexPath.row];
@@ -147,30 +153,21 @@ class ZendoController: UITableViewController  {
         
     }
     
-    public override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        let sample = samples![indexPath.row];
-        currentWorkout = (sample as! HKWorkout);
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        let sample = samples[indexPath.row]
+        currentWorkout = (sample as! HKWorkout)
     }
     
     
-    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return samples?.count ?? 0
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return samples.count
     }
     
-    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ZendoTableViewCell.reuseIdentifierCell, for: indexPath) as! ZendoTableViewCell
+        cell.workout = (samples[indexPath.row] as! HKWorkout)
         
-        let key = "zendoCell";
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: key, for: indexPath);
-        
-        let sample = samples![indexPath.row];
-        
-        let workout = (sample as! HKWorkout);
-        
-        ZBFHealthKit.populateCell(workout: workout, cell: cell);
-        
-        return cell;
-        
+        return cell
     }
     
     @IBAction func onReload(_ sender: UIRefreshControl) {

@@ -8,7 +8,6 @@
 
 import UIKit
 import HealthKit
-import Foundation
 
 class ZBFHealthKit {
     
@@ -61,56 +60,56 @@ class ZBFHealthKit {
         cell.imageView?.image = getImage(workout: workout)
         
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
-        
+
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: workout.endDate)
-        
+
         let hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: workout.endDate, options: .strictEndDate)
-        
+
         let options : HKStatisticsOptions  = HKStatisticsOptions.discreteAverage
         
         let hkQuery = HKStatisticsQuery(quantityType: hkType,
                                         quantitySamplePredicate: hkPredicate,
                                         options: options) {
                                             query, result, error in
-                                            
+
                                             if(error != nil) {
                                                 print(error.debugDescription);
                                             }
-                                            
+
                                             if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
-                                                
+
                                                 DispatchQueue.main.async() {
-                                                    
+
                                                     let size = (cell.imageView?.image?.size)!
-                                                    
+
                                                     cell.imageView?.image =  generateImageWithText(size: size, text: Int(value).description, fontSize: 33.0)
-                                                    
+
                                                     UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-                                                        
+
                                                         if value < 99
                                                         {
                                                             let scale = CGAffineTransform(scaleX: 1 - CGFloat(value/100), y: 1 - CGFloat(value/100))
-                                                            
+
                                                             cell.imageView?.transform = scale
                                                         }
-                                                        
+
                                                         cell.imageView?.transform = CGAffineTransform.identity
-                                                        
+
                                                     }, completion: nil )
-                                                    
+
                                                 }
                                             }
                                             else
                                             {
                                                 let size = (cell.imageView?.image?.size)!
-                                                
+
                                                 DispatchQueue.main.async()
                                                     {
                                                         cell.imageView?.image =  generateImageWithText(size: size, text: "00", fontSize: 33.0)
                                                 }
                                             }
         }
-        
+
         ZBFHealthKit.healthStore.execute(hkQuery)
         
     }
