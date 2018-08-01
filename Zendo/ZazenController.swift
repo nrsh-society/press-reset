@@ -109,10 +109,13 @@ class ZazenController : UIViewController, IAxisValueFormatter {
         {
             (results, error) in
             
+            var value = 0.0
+            
             if let results = results
             {
-                let value = results.first!.value
-                
+                value = results.first!.value
+            }
+            
                 DispatchQueue.main.async()
                     {
                         
@@ -140,11 +143,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                             
                         })
                 }
-            }
-            else
-            {
-                print(error.debugDescription)
-            }
+
         }
     }
         
@@ -292,8 +291,7 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                 
                 DispatchQueue.main.async()
                     {
-                        sorted.forEach
-                            {
+                        sorted.forEach {
                                 (key, value) in
                                 
                                 if(value > 0 ) {
@@ -305,9 +303,9 @@ class ZazenController : UIViewController, IAxisValueFormatter {
                                     self.hrvChart.data!.addEntry(entry, dataSetIndex: 0)
                                     
                                 }
-                                
+                            
                                 let community = self.getCommunityDataEntry(key: "sdnn", interval: Double(key), scale: 1.0)
-                                
+                            
                                 self.hrvChart.data!.addEntry(community, dataSetIndex: 1)
                         }
                         
