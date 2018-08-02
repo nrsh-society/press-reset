@@ -14,9 +14,14 @@ extension UIColor {
         return UIColor(red: 0.28, green: 0.55, blue: 0.47, alpha: 1.0)
     }
     
+    static var zenVeryDarkGreen: UIColor { //#0F2521
+        return UIColor(red: 0.06, green: 0.15, blue: 0.13, alpha: 1.0)
+    }
+    
     static var zenLightGreen: UIColor { //#95AFA5
         return UIColor(red: 0.58, green: 0.69, blue: 0.65, alpha: 1.0)
     }
+
     
     static var zenLightGray: UIColor { //#879397
         return UIColor(red: 0.53, green: 0.58, blue: 0.59, alpha: 1.0)
@@ -28,6 +33,10 @@ extension UIColor {
     
     static var zenGray: UIColor { //#899599
         return UIColor(red: 0.54, green: 0.58, blue: 0.60, alpha: 1.0)
+    }
+    
+    static var zenRed: UIColor { //#EE755E
+        return UIColor(red:0.93, green:0.46, blue:0.37, alpha:1.0)
     }
     
     

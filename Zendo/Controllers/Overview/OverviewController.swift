@@ -16,6 +16,16 @@ class OverviewController: UIViewController, IAxisValueFormatter {
     var durationCache: [Calendar.Component: Double] = [:]
     var currentInterval: Calendar.Component = .hour
     
+    @IBOutlet weak var mmChartView: UIView! {
+        didSet {
+            mmChartView.setShadowView()
+        }
+    }
+    @IBOutlet weak var hrvChartView: UIView! {
+        didSet{
+            hrvChartView.setShadowView()
+        }
+    }
     @IBOutlet weak var mmChart: LineChartView!
     @IBOutlet weak var hrvChart: LineChartView!
     @IBOutlet weak var hrvImage: UIImageView!
@@ -102,6 +112,45 @@ class OverviewController: UIViewController, IAxisValueFormatter {
             showController("welcome-controller")
         }
         
+        let zendoFont = UIFont.zendo(font: .antennaRegular, size: 10.0)
+        let arrayLineChart = [mmChart, hrvChart]
+        
+        for lineChart in arrayLineChart {
+            lineChart?.noDataText = ""
+            lineChart?.autoScaleMinMaxEnabled = true
+            lineChart?.chartDescription?.enabled = false
+            lineChart?.drawGridBackgroundEnabled = false
+            lineChart?.pinchZoomEnabled = false
+            
+            let xAxis = lineChart?.xAxis
+            xAxis?.drawGridLinesEnabled = false
+            xAxis?.drawAxisLineEnabled = false
+            xAxis?.labelPosition = .bottom
+            xAxis?.labelTextColor = UIColor.zenGray
+            xAxis?.labelFont = zendoFont
+            
+            let rightAxis = lineChart?.rightAxis
+            rightAxis?.drawAxisLineEnabled = false
+            rightAxis?.labelTextColor = UIColor.zenGray
+            rightAxis?.labelPosition = .insideChart
+            rightAxis?.labelFont = zendoFont
+            rightAxis?.yOffset = -10.0
+            
+            let leftAxis = lineChart?.leftAxis
+            leftAxis?.drawAxisLineEnabled = false
+            leftAxis?.gridColor = UIColor.zenLightGray
+            leftAxis?.drawLabelsEnabled = false
+            
+            lineChart?.setViewPortOffsets(left: 5, top: 0, right: 0, bottom: 45)
+            lineChart?.highlightPerTapEnabled = false
+            lineChart?.highlightPerDragEnabled = false
+            lineChart?.doubleTapToZoomEnabled = false
+            
+            lineChart?.legend.textColor = UIColor(red: 0.05, green:0.2, blue: 0.15, alpha: 1)
+            lineChart?.legend.font = UIFont.zendo(font: .antennaRegular, size: 10.0)
+            lineChart?.legend.form = .circle
+        }
+        
         ZBFHealthKit.requestHealthAuth(handler: {
             (success, error) in
             
@@ -147,13 +196,28 @@ class OverviewController: UIViewController, IAxisValueFormatter {
         
         communityDataset.drawCirclesEnabled = false
         communityDataset.drawValuesEnabled = false
-        communityDataset.setColor(UIColor(red: 0.291, green: 0.307, blue: 0.752, alpha: 1.0))
-        communityDataset.lineWidth = 3.0
         
-        dataset.drawCirclesEnabled = false
-        dataset.lineWidth = 3.0
-        dataset.setColor(UIColor.black)
+        communityDataset.setColor(UIColor.zenRed)
+        communityDataset.lineWidth = 1.5
+        communityDataset.lineDashLengths = [10, 3]
+        
         dataset.drawValuesEnabled = false
+        dataset.setColor(UIColor.zenDarkGreen)
+        dataset.lineWidth = 1.5
+        
+        dataset.drawCirclesEnabled = true
+        dataset.setCircleColor(UIColor.zenDarkGreen)
+        dataset.circleRadius = 3
+        
+        // 00 - 0%
+        // 80 - 50%
+        let gradientColors = [ChartColorTemplates.colorFromString("#00277A69").cgColor,
+                              ChartColorTemplates.colorFromString("#80277A69").cgColor]
+        let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
+        
+        dataset.fillAlpha = 1
+        dataset.fill = Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
+        dataset.drawFilledEnabled = true
         
         
         hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
@@ -286,7 +350,7 @@ class OverviewController: UIViewController, IAxisValueFormatter {
         mmChart.noDataText = ""
         mmChart.xAxis.valueFormatter = self
         
-        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "mindful mins")
+        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "mins")
         
         let communityEntries = [ChartDataEntry]()
         
@@ -294,13 +358,28 @@ class OverviewController: UIViewController, IAxisValueFormatter {
         
         communityDataset.drawCirclesEnabled = false
         communityDataset.drawValuesEnabled = false
-        communityDataset.setColor(UIColor(red: 0.291, green: 0.307, blue: 0.752, alpha: 1.0))
-        communityDataset.lineWidth = 3.0
         
-        dataset.drawCirclesEnabled = false
-        dataset.lineWidth = 3.0
-        dataset.setColor(UIColor.black)
+        communityDataset.setColor(UIColor.zenRed)
+        communityDataset.lineWidth = 1.5
+        communityDataset.lineDashLengths = [10, 3]
+        
         dataset.drawValuesEnabled = false
+        dataset.setColor(UIColor.zenDarkGreen)
+        dataset.lineWidth = 1.5
+        
+        dataset.drawCirclesEnabled = true
+        dataset.setCircleColor(UIColor.zenDarkGreen)
+        dataset.circleRadius = 3
+        
+        // 00 - 0%
+        // 80 - 50%
+        let gradientColors = [ChartColorTemplates.colorFromString("#00277A69").cgColor,
+                              ChartColorTemplates.colorFromString("#80277A69").cgColor]
+        let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
+        
+        dataset.fillAlpha = 1
+        dataset.fill = Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
+        dataset.drawFilledEnabled = true
         
         mmChart.data = LineChartData(dataSets: [dataset, communityDataset])
         

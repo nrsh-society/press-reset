@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		128D0BB92111D30900A4D757 /* UIDevice+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128D0BB82111D30900A4D757 /* UIDevice+Size.swift */; };
+		12CE364E211302A900EF0196 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE364D211302A900EF0196 /* UIView.swift */; };
+		12CE3652211327D300EF0196 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE3651211327D300EF0196 /* TabBarController.swift */; };
+		12CE365421132A7100EF0196 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE365321132A7100EF0196 /* UIImage.swift */; };
 		12E2A19E21106E4500E0E911 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E2A19D21106E4500E0E911 /* TimeInterval.swift */; };
 		12E2A1A7211073D600E0E911 /* Antenna-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E2A1A3211073D600E0E911 /* Antenna-ExtraLight.otf */; };
 		12E2A1A8211073D600E0E911 /* Antenna-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E2A1A4211073D600E0E911 /* Antenna-Medium.otf */; };
@@ -116,6 +120,10 @@
 
 /* Begin PBXFileReference section */
 		06C02D6D9410AEB7C6216CED /* Pods-Zendo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zendo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zendo/Pods-Zendo.release.xcconfig"; sourceTree = "<group>"; };
+		128D0BB82111D30900A4D757 /* UIDevice+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Size.swift"; sourceTree = "<group>"; };
+		12CE364D211302A900EF0196 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		12CE3651211327D300EF0196 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		12CE365321132A7100EF0196 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		12E2A19D21106E4500E0E911 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		12E2A1A3211073D600E0E911 /* Antenna-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Antenna-ExtraLight.otf"; sourceTree = "<group>"; };
 		12E2A1A4211073D600E0E911 /* Antenna-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Antenna-Medium.otf"; sourceTree = "<group>"; };
@@ -209,6 +217,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12CE365521132AB000EF0196 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				12CE3651211327D300EF0196 /* TabBarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		12CE365621132AC500EF0196 /* Overview */ = {
+			isa = PBXGroup;
+			children = (
+				BE066BD720F1EFC10008747D /* OverviewController.swift */,
+			);
+			path = Overview;
+			sourceTree = "<group>";
+		};
 		12E2A1A2211073B900E0E911 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +255,8 @@
 		12E2A1B3211077B400E0E911 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				12CE365521132AB000EF0196 /* TabBar */,
+				12CE365621132AC500EF0196 /* Overview */,
 				12FFCAE2210F6DA8007E2480 /* Activity */,
 			);
 			path = Controllers;
@@ -260,11 +286,14 @@
 		12FFCAE3210F7D6D007E2480 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				128D0BB82111D30900A4D757 /* UIDevice+Size.swift */,
 				12FFCAE4210F7DDD007E2480 /* Cell+ReuseIdentifier.swift */,
 				12FFCAE6210F7E40007E2480 /* Date.swift */,
 				12E2A19D21106E4500E0E911 /* TimeInterval.swift */,
 				12E2A1B421107A9400E0E911 /* UIFont.swift */,
 				12E2A1B621107CE400E0E911 /* UIColor+Zendo.swift */,
+				12CE364D211302A900EF0196 /* UIView.swift */,
+				12CE365321132A7100EF0196 /* UIImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -314,7 +343,6 @@
 				BE75AEBC20F708C300311512 /* ChartColors.swift */,
 				BE75AEBD20F708C300311512 /* ChartSeries.swift */,
 				BE9BFFFF2065F317007FF96A /* ZBFHealthKit.swift */,
-				BE066BD720F1EFC10008747D /* OverviewController.swift */,
 				BE066BDC20F1F3D10008747D /* PageController.swift */,
 				BE38CF602075D1D10095BB6C /* WebController.swift */,
 				BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */,
@@ -570,8 +598,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12CE364E211302A900EF0196 /* UIView.swift in Sources */,
+				12CE365421132A7100EF0196 /* UIImage.swift in Sources */,
 				BE066BDD20F1F3D10008747D /* PageController.swift in Sources */,
+				128D0BB92111D30900A4D757 /* UIDevice+Size.swift in Sources */,
 				12E2A1B521107A9400E0E911 /* UIFont.swift in Sources */,
+				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
 				12E2A19E21106E4500E0E911 /* TimeInterval.swift in Sources */,
 				BE38CF612075D1D10095BB6C /* WebController.swift in Sources */,
 				12FFCAE1210F6DA0007E2480 /* ZendoTableViewCell.swift in Sources */,
@@ -770,7 +802,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6N25VDH5A9;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
@@ -793,7 +825,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6N25VDH5A9;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
@@ -816,7 +848,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6N25VDH5A9;
+				DEVELOPMENT_TEAM = "";
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -840,7 +872,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6N25VDH5A9;
+				DEVELOPMENT_TEAM = "";
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -866,7 +898,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6N25VDH5A9;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -894,7 +926,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6N25VDH5A9;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
