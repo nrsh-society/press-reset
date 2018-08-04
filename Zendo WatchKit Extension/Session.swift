@@ -48,7 +48,7 @@ class Session: NSObject {
     private let _healthStore = HKHealthStore()
     private let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
     private let hkworkT = HKObjectType.workoutType()
-    private var samples = [HKSample]()
+    private var samples = [HKCategorySample]()
     private let motionManager = CMMotionManager()
     
     static var options = Options(hapticStrength: 1)
@@ -109,11 +109,7 @@ class Session: NSObject {
         
         let workout = HKWorkout(activityType: HKWorkoutActivityType.mindAndBody, start: self.startDate!, end: self.endDate!)
         
-        var sampleSet : [HKSample] = Array(self.samples)
-        
-        sampleSet.append(workout)
-        
-        _healthStore.save(sampleSet) { success, error in
+        _healthStore.save([workout]) { success, error in
             
             if error != nil {
                 print(error.debugDescription);
@@ -221,10 +217,32 @@ class Session: NSObject {
         //#todo: should this be another lighterweight sample type?
         let sample = HKCategorySample(type: self.hkType, value: 0, start: self.lastSample, end: Date(), metadata: metadata)
         
-        self.samples.append(sample)
+        self._healthStore.save([sample]) { _, _ in
+            self.samples.append(sample);
+        }
         
         lastSample = Date();
-    
+        
+        /*      #todo: post dataset to server to drive av
+         do {
+         
+         let json = try JSONSerialization.data(withJSONObject: metadata, options: []).description
+         
+         let serviceURL = URL(string:"https://zendo-v1.firebaseio.com/zazen")!
+         var request = URLRequest(url: serviceURL)
+         request.httpMethod = "POST"
+         
+         let config = URLSessionConfiguration()
+         config.allowsCellularAccess = true;
+         
+         let session = URLSession(configuration: config)
+         let task = session.uploadTask(with: request, from: json.data(using: .utf8)!)
+         
+         task.resume()
+         
+         } catch {}
+         
+         */
     }
     
     func invalidate() {
