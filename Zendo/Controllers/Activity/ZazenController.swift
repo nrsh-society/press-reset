@@ -73,7 +73,12 @@ class ZazenController: UIViewController, IAxisValueFormatter {
         
         navigationController?.navigationBar.shadowImage = UIImage()
         
-        let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
+        //#todo(bug): watchos 5, beta 5 introduced a bug that causes this query not to work now
+        //so we are switching to a date range
+        //let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
+        
+        let hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictStartDate)
+        
         let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: true)
         
