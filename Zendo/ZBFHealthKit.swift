@@ -312,7 +312,7 @@ class ZBFHealthKit {
         ZBFHealthKit.healthStore.execute(hkQuery)
     }
     
-    class func getMindfulMinutes(start: Date, end: Date, handler:  @escaping SamplesHandler) {
+    class func getMindfulMinutes(start: Date, end: Date, handler: @escaping SamplesHandler) {
         let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         
         let hkCategoryPredicate = HKQuery.predicateForCategorySamples(with: .equalTo, value: 0)
@@ -321,14 +321,14 @@ class ZBFHealthKit {
         
         let hkPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [hkCategoryPredicate, hkDatePredicate])
         
-        let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
         
         let hkSampleQuery = HKSampleQuery(sampleType: hkType,
                                           predicate: hkPredicate,
                                           limit: 0,
                                           sortDescriptors: [sortDescriptor]) { query, samples, error in
-            
-            var entries = [Double: Double]()
+                                            
+                                            var entries = [Double: Double]()
                                             
                                             if let samples = samples {
                                                 samples.forEach( { sample in
@@ -348,8 +348,8 @@ class ZBFHealthKit {
                                                     }
                                                 })
                                             }
-            
-            handler(entries, error)
+                                            
+                                            handler(entries, error)
         }
         
         healthStore.execute(hkSampleQuery)

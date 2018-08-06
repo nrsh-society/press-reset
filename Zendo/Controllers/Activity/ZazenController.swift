@@ -57,7 +57,7 @@ class ZazenTableViewCell: UITableViewCell {
     //    }
 }
 
-class ZazenController: UIViewController, IAxisValueFormatter {
+class ZazenController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -74,7 +74,7 @@ class ZazenController: UIViewController, IAxisValueFormatter {
         
         let gradient = CAGradientLayer()
         gradient.frame = view.bounds
-        gradient.locations = [0.0, 0.23]
+        gradient.locations = [0.0, 0.25]
         gradient.colors = [
             UIColor.zenDarkGreen.cgColor,
             UIColor.zenWhite.cgColor
@@ -117,7 +117,6 @@ class ZazenController: UIViewController, IAxisValueFormatter {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
 
         Mixpanel.mainInstance().track(event: "zazen_enter")
     }
@@ -167,6 +166,7 @@ class ZazenController: UIViewController, IAxisValueFormatter {
         var entries = [ChartDataEntry]()
         var communityEntries = [ChartDataEntry]()
         
+        
         for (index, sample) in samples.enumerated() {
             
             if let value = sample[lineChartKey.rawValue] as? String {
@@ -174,11 +174,14 @@ class ZazenController: UIViewController, IAxisValueFormatter {
                 let y = Double(value)!
                 let x = Double(index).rounded()
                 
+                
                 if y > 0.00 {
                     let value = y * scale
                     
-                    entries.append(ChartDataEntry(x: x, y: value))
-                    communityEntries.append(getCommunityDataEntry(key: lineChartKey.rawValue, interval: x, scale: scale))
+                    let time = workout.startDate.addingTimeInterval(x).timeIntervalSince1970
+                    
+                    entries.append(ChartDataEntry(x: time, y: value))
+                    communityEntries.append(getCommunityDataEntry(key: lineChartKey.rawValue, interval: time, scale: scale))
                 }
             }
         }
@@ -347,15 +350,6 @@ class ZazenController: UIViewController, IAxisValueFormatter {
     //
     //    }
     
-    
-    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        var valueStr = String(format: "%.2f", (value / 60))
-        if valueStr.hasSuffix(".00") {
-            valueStr = String(format: "%.0f", (value / 60))
-        }
-        return valueStr
-    }
-    
     func export(samples: [[String: Any]]) -> UIActivityViewController {
         
         let fileName = "zazen.csv"
@@ -474,3 +468,25 @@ extension ZazenController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 }
+
+
+extension ZazenController: IAxisValueFormatter {
+    
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        return stringForValue(value)
+    }
+
+    func stringForValue(_ value: Double) -> String {
+        let date = Date(timeIntervalSince1970: value)
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+        dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm")
+
+        let localDate = dateFormatter.string(from: date)
+
+        return localDate.description
+    }
+    
+}
+

@@ -11,7 +11,7 @@ import HealthKit
 import Mixpanel
 import Charts
 
-class OverviewController: UIViewController, IAxisValueFormatter {
+class OverviewController: UIViewController {
     
     var durationCache: [Calendar.Component: Double] = [:]
     var currentInterval: Calendar.Component = .hour
@@ -66,30 +66,6 @@ class OverviewController: UIViewController, IAxisValueFormatter {
         //populateDurationAvg(.year, 1)
         default:break
         }
-    }
-    
-    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        return stringForValue(value, self.currentInterval)
-    }
-    
-    func stringForValue(_ value: Double, _ interval : Calendar.Component) -> String {
-        let date = Date(timeIntervalSince1970: value)
-        
-        let dateFormatter = DateFormatter();
-        
-        dateFormatter.timeZone = TimeZone.autoupdatingCurrent;
-        
-        switch interval {
-        case .hour: dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm")
-        case .day: dateFormatter.setLocalizedDateFormatFromTemplate("MM-dd")
-        case .month: dateFormatter.setLocalizedDateFormatFromTemplate("MM-dd")
-        case .year: dateFormatter.setLocalizedDateFormatFromTemplate("MM")
-        default: dateFormatter.setLocalizedDateFormatFromTemplate("MM")
-        }
-        
-        let localDate = dateFormatter.string(from: date)
-        
-        return localDate.description
     }
     
     func showController(_ named: String) {
@@ -151,8 +127,7 @@ class OverviewController: UIViewController, IAxisValueFormatter {
             lineChart?.legend.form = .circle
         }
         
-        ZBFHealthKit.requestHealthAuth(handler: {
-            (success, error) in
+        ZBFHealthKit.requestHealthAuth(handler: { success, error in
             
             DispatchQueue.main.async() {
                 if success {
@@ -182,13 +157,14 @@ class OverviewController: UIViewController, IAxisValueFormatter {
         hrvChart.autoScaleMinMaxEnabled = true
         hrvChart.noDataText = ""
         hrvChart.xAxis.valueFormatter = self
+        print(hrvChart.scaleY)
         
         hrvChart.xAxis.drawGridLinesEnabled = false
         hrvChart.xAxis.drawAxisLineEnabled = false
         hrvChart.rightAxis.drawAxisLineEnabled = false
         hrvChart.leftAxis.drawAxisLineEnabled = false
         
-        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "hrv")
+        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "bpm")
         
         let communityEntries = [ChartDataEntry]()
         
@@ -335,7 +311,9 @@ class OverviewController: UIViewController, IAxisValueFormatter {
     
     func populateMMChart(dateIntervals: [Double]) {
         
-        var mmData: [Double: Double] = [:]
+        var mmData = [Double: Double]()
+        
+        var entryKey = 0.0
         
         durationTitle.text = "Loading..."
         
@@ -343,7 +321,7 @@ class OverviewController: UIViewController, IAxisValueFormatter {
         mmChart.xAxis.drawAxisLineEnabled = false
         mmChart.rightAxis.drawAxisLineEnabled = false
         mmChart.leftAxis.drawAxisLineEnabled = false
-        
+      
         mmChart.drawGridBackgroundEnabled = false
         mmChart.chartDescription?.enabled = false
         mmChart.autoScaleMinMaxEnabled = true
@@ -385,7 +363,7 @@ class OverviewController: UIViewController, IAxisValueFormatter {
         
         let values = dateIntervals.sorted()
         
-        for (i, key) in values.enumerated(){
+        for (i, key) in values.enumerated() {
             let start = Date(timeIntervalSince1970: key)
             
             let idx = i + 1
@@ -415,15 +393,21 @@ class OverviewController: UIViewController, IAxisValueFormatter {
                         movingAvg = movingAvg + entry.value
                         
                         DispatchQueue.main.async() {
-                            self.mmChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
                             
-                            let community = ChartDataEntry(x: entry.key, y: 30.0)
-                            
+                            if entryKey <= entry.key {
+                                self.mmChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
+                                
+                                let community = ChartDataEntry(x: entry.key, y: 30.0)
+                                self.mmChart.data!.addEntry(community, dataSetIndex: 1)
+                                self.mmChart.notifyDataSetChanged()
+                                
+                                entryKey = entry.key
+                                
+                            }
+                                                        
                             //#todo(debt): pull in the v2 backend duration
                             //self.getCommunityDataEntry(key: "duration", interval: entry.key, scale: 1.0)
                             
-                            self.mmChart.data!.addEntry(community, dataSetIndex: 1)
-                            self.mmChart.notifyDataSetChanged()
                             self.durationTitle.text = "\(Int(movingAvg) / mmData.count ) min"
                             self.durationCache[self.currentInterval] = movingAvg / Double(mmData.count)
                         }
@@ -463,6 +447,34 @@ class OverviewController: UIViewController, IAxisValueFormatter {
         alert.addAction(ok)
         
         present(alert, animated: true)
+    }
+    
+}
+
+extension OverviewController: IAxisValueFormatter {
+    
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        return stringForValue(value, self.currentInterval)
+    }
+    
+    func stringForValue(_ value: Double, _ interval: Calendar.Component) -> String {
+        let date = Date(timeIntervalSince1970: value)
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.timeZone = TimeZone.autoupdatingCurrent;
+        
+        switch interval {
+        case .hour: dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm")
+        case .day: dateFormatter.setLocalizedDateFormatFromTemplate("MM-dd")
+        case .month: dateFormatter.setLocalizedDateFormatFromTemplate("MM-dd")
+        case .year: dateFormatter.setLocalizedDateFormatFromTemplate("MM")
+        default: dateFormatter.setLocalizedDateFormatFromTemplate("MM")
+        }
+        
+        let localDate = dateFormatter.string(from: date)
+        
+        return localDate.description
     }
     
 }

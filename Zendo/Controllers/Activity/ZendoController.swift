@@ -105,14 +105,14 @@ class ZendoController: UITableViewController {
                                                         date = "Today, " + sample.endDate.toZendoHeaderDayString
                                                     }
                                                     
-                                                    if self.samplesDictionary[date] == nil {
+                                                    if var sampleDic = self.samplesDictionary[date] {
+                                                        sampleDic.append(sample)
+                                                        self.samplesDictionary[date] = sampleDic
+                                                    } else {
                                                         self.samplesDictionary[date] = [sample]
                                                         self.samplesDate.append(date)
-                                                    } else {
-                                                        var samplesArr = self.samplesDictionary[date]
-                                                        samplesArr!.append(sample)
-                                                        self.samplesDictionary[date] = samplesArr
                                                     }
+                                                    
                                                 }
                                                 
                                                 
