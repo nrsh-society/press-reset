@@ -68,8 +68,19 @@ class ZazenController: UIViewController, IAxisValueFormatter {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.backgroundColor = UIColor.clear
         tableView.estimatedRowHeight = 1000.0
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        let gradient = CAGradientLayer()
+        gradient.frame = view.bounds
+        gradient.locations = [0.0, 0.23]
+        gradient.colors = [
+            UIColor.zenDarkGreen.cgColor,
+            UIColor.zenWhite.cgColor
+        ]
+        view.layer.insertSublayer(gradient, at: 0)
+        view.backgroundColor = UIColor.zenWhite
         
         navigationController?.navigationBar.shadowImage = UIImage()
         
@@ -101,7 +112,24 @@ class ZazenController: UIViewController, IAxisValueFormatter {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+
         Mixpanel.mainInstance().track(event: "zazen_enter")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+
+//        let gradient = CAGradientLayer()
+//
+//        gradient.startPoint = CGPoint(x: 0.5, y: -0.005)
+//        gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+//
+//        gradient.frame = view.bounds
+//        gradient.colors = [UIColor.zenDarkGreen.cgColor, UIColor.red.cgColor]
+//        view.layer.insertSublayer(gradient, at: 0)
+//        view.backgroundColor = UIColor.red
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -369,20 +397,9 @@ class ZazenController: UIViewController, IAxisValueFormatter {
     
 }
 
-extension ZazenController: UITableViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y < 0.0 {
-            tableView.backgroundColor = UIColor.zenDarkGreen
-        } else {
-            tableView.backgroundColor = UIColor.clear
-        }
-    }
-    
-}
 
-extension ZazenController: UITableViewDataSource {
-    
+extension ZazenController: UITableViewDataSource, UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: HeaderZazenTableViewCell.reuseIdentifierCell) as! HeaderZazenTableViewCell
         

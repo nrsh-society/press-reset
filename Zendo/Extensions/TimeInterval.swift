@@ -9,6 +9,7 @@
 import Foundation
 
 extension TimeInterval {
+    
     private var milliseconds: Int {
         return Int((truncatingRemainder(dividingBy: 1)) * 1000)
     }

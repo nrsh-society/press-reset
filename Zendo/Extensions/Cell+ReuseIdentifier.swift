@@ -9,13 +9,13 @@
 import UIKit
 
 extension UITableViewCell {
-    static var reuseIdentifierCell : String{
+    static var reuseIdentifierCell: String{
         return String(describing: classForCoder())
     }
 }
 
 extension UICollectionReusableView {
-    static var reuseIdentifierCell : String{
+    static var reuseIdentifierCell: String{
         return String(describing: classForCoder())
     }
 }

@@ -227,7 +227,7 @@ class OverviewController: UIViewController, IAxisValueFormatter {
             
             if let samples = samples {
                 samples.sorted(by: <).forEach( { entry in
-                    self.hrvChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value ), dataSetIndex: 0)
+                    self.hrvChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
                     
                     let community = self.getCommunityDataEntry(key: "sdnn", interval: entry.key, scale: 1.0)
                     
