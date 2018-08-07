@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.3.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Antenna-Regular.otf">
+            <string>Antenna-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZenInfoView" customModule="Zendo" customModuleProvider="target">
+            <connections>
+                <outlet property="image" destination="Kfq-nj-ira" id="h9S-Vh-htD"/>
+                <outlet property="title" destination="MmX-wO-8Mh" id="I0j-w8-wqX"/>
+                <outlet property="topTitle" destination="bFZ-4J-47r" id="l4T-Zi-bYj"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2fO-eB-zfL">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="87"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFZ-4J-47r">
+                    <rect key="frame" x="24" y="16" width="278" height="14.5"/>
+                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MmX-wO-8Mh" userLabel="Duration">
+                    <rect key="frame" x="24" y="39.5" width="278" height="24"/>
+                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="24"/>
+                    <color key="textColor" red="0.058823529409999999" green="0.1450980392" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kfq-nj-ira">
+                    <rect key="frame" x="312" y="23.5" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="QV1-av-pWZ"/>
+                        <constraint firstAttribute="width" secondItem="Kfq-nj-ira" secondAttribute="height" multiplier="1:1" id="n4d-RJ-j1E"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="bFZ-4J-47r" firstAttribute="leading" secondItem="2fO-eB-zfL" secondAttribute="leading" constant="24" id="1Jo-gZ-COt"/>
+                <constraint firstItem="MmX-wO-8Mh" firstAttribute="leading" secondItem="2fO-eB-zfL" secondAttribute="leading" constant="24" id="4ss-zz-Tus"/>
+                <constraint firstItem="bFZ-4J-47r" firstAttribute="top" secondItem="2fO-eB-zfL" secondAttribute="top" constant="16" id="GNr-3R-b2W"/>
+                <constraint firstItem="Kfq-nj-ira" firstAttribute="leading" secondItem="bFZ-4J-47r" secondAttribute="trailing" constant="10" id="Ls7-xL-oT4"/>
+                <constraint firstItem="MmX-wO-8Mh" firstAttribute="top" secondItem="bFZ-4J-47r" secondAttribute="bottom" constant="9" id="M1g-AA-uxX"/>
+                <constraint firstAttribute="trailing" secondItem="Kfq-nj-ira" secondAttribute="trailing" constant="23" id="hEK-uE-KQh"/>
+                <constraint firstItem="Kfq-nj-ira" firstAttribute="leading" secondItem="MmX-wO-8Mh" secondAttribute="trailing" constant="10" id="idb-Z4-atq"/>
+                <constraint firstItem="Kfq-nj-ira" firstAttribute="centerY" secondItem="2fO-eB-zfL" secondAttribute="centerY" id="t9p-Ww-byv"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="uQb-8M-O5G"/>
+            <point key="canvasLocation" x="440.80000000000001" y="-195.6521739130435"/>
+        </view>
+    </objects>
+</document>

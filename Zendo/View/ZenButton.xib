@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.3.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Antenna-Medium.otf">
+            <string>Antenna-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
+            <connections>
+                <outlet property="bottomView" destination="rQY-6L-0BG" id="ud8-Sc-0aP"/>
+                <outlet property="button" destination="HnY-Uu-eDq" id="meo-3e-TEN"/>
+                <outlet property="title" destination="bzp-dH-et5" id="tea-ov-PKG"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="252" height="67"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzp-dH-et5">
+                    <rect key="frame" x="0.0" y="0.0" width="252" height="62"/>
+                    <fontDescription key="fontDescription" name="Antenna-Medium" family="Antenna" pointSize="17"/>
+                    <color key="textColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rQY-6L-0BG">
+                    <rect key="frame" x="0.0" y="62" width="189" height="5"/>
+                    <color key="backgroundColor" red="0.20784313725490194" green="0.49411764705882355" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="5" id="dRX-gV-HYK"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HnY-Uu-eDq">
+                    <rect key="frame" x="0.0" y="0.0" width="252" height="67"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="rQY-6L-0BG" firstAttribute="top" secondItem="bzp-dH-et5" secondAttribute="bottom" id="7FA-i7-aeG"/>
+                <constraint firstItem="HnY-Uu-eDq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="95P-32-5hb"/>
+                <constraint firstItem="HnY-Uu-eDq" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="NE8-6c-1Bw"/>
+                <constraint firstItem="rQY-6L-0BG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="fRl-65-asd"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bzp-dH-et5" secondAttribute="trailing" id="geb-Qc-6Xp"/>
+                <constraint firstItem="bzp-dH-et5" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="i1r-Uo-z3Z"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="HnY-Uu-eDq" secondAttribute="bottom" id="k6A-4v-II9"/>
+                <constraint firstAttribute="bottom" secondItem="rQY-6L-0BG" secondAttribute="bottom" id="wwC-Gg-mAH"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="HnY-Uu-eDq" secondAttribute="trailing" id="xvq-7i-Sou"/>
+                <constraint firstItem="rQY-6L-0BG" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.75" id="ygx-If-CQ5"/>
+                <constraint firstItem="bzp-dH-et5" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="zT0-0e-7dB"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="40" y="-94.002998500749626"/>
+        </view>
+    </objects>
+</document>

@@ -355,14 +355,14 @@ class ZBFHealthKit {
         healthStore.execute(hkSampleQuery)
     }
     
-    class func getHRVSamples(interval: Calendar.Component, value: Int, handler: @escaping SamplesHandler) {
+    class func getHRVSamples(currentInterval: CurrentInterval, handler: @escaping SamplesHandler) {
         var entries = [Double: Double]()
         
         let end = Date()
         
         var components = DateComponents()
         
-        switch interval {
+        switch currentInterval.interval {
         case .hour:
             components.hour = 4
         case .day:
@@ -375,7 +375,7 @@ class ZBFHealthKit {
             components.day = 1
         }
         
-        let prior = Calendar.current.date(byAdding: interval, value: -(value), to: end)!
+        let prior = Calendar.current.date(byAdding: currentInterval.interval, value: -(currentInterval.range), to: end)!
         
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         

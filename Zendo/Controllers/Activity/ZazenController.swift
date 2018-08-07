@@ -24,14 +24,14 @@ class HeaderZazenTableViewCell: UITableViewCell {
 }
 
 class ZazenTableViewCell: UITableViewCell {
-    @IBOutlet weak var durationView: UIView! {
+    @IBOutlet weak var durationView: ZenInfoView! {
         didSet {
-            durationView.setShadowView()
+            durationView.zenInfoViewType = .totalMins
         }
     }
-    @IBOutlet weak var hrvView: UIView! {
+    @IBOutlet weak var hrvView: ZenInfoView! {
         didSet {
-            hrvView.setShadowView()
+            hrvView.zenInfoViewType = .hrvAverage
         }
     }
     @IBOutlet weak var bpmChartView: UIView! {
@@ -44,8 +44,6 @@ class ZazenTableViewCell: UITableViewCell {
             motionChartView.setShadowView()
         }
     }
-    @IBOutlet weak var durationLabel: UILabel!
-    @IBOutlet weak var hrvLabel: UILabel!
     
     @IBOutlet weak var bpmChart: LineChartView!
     @IBOutlet weak var motionChart: LineChartView!
@@ -55,6 +53,51 @@ class ZazenTableViewCell: UITableViewCell {
     //            hrvChartView.setShadowView()
     //        }
     //    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let zendoFont = UIFont.zendo(font: .antennaRegular, size: 10.0)
+        
+        let arrayLineChart = [bpmChart, motionChart]
+        
+        for lineChart in arrayLineChart {
+            lineChart?.noDataText = ""
+            lineChart?.autoScaleMinMaxEnabled = true
+            lineChart?.chartDescription?.enabled = false
+            lineChart?.drawGridBackgroundEnabled = false
+            lineChart?.pinchZoomEnabled = false
+            
+            let xAxis = lineChart?.xAxis
+            xAxis?.drawGridLinesEnabled = false
+            xAxis?.drawAxisLineEnabled = false
+            xAxis?.labelPosition = .bottom
+            xAxis?.labelTextColor = UIColor.zenGray
+            xAxis?.labelFont = zendoFont
+            
+            let rightAxis = lineChart?.rightAxis
+            rightAxis?.drawAxisLineEnabled = false
+            rightAxis?.labelTextColor = UIColor.zenGray
+            rightAxis?.labelPosition = .insideChart
+            rightAxis?.labelFont = zendoFont
+            rightAxis?.yOffset = -10.0
+            
+            let leftAxis = lineChart?.leftAxis
+            leftAxis?.drawAxisLineEnabled = false
+            leftAxis?.gridColor = UIColor.zenLightGray
+            leftAxis?.drawLabelsEnabled = false
+            
+            lineChart?.setViewPortOffsets(left: 5, top: 0, right: 0, bottom: 45)
+            lineChart?.highlightPerTapEnabled = false
+            lineChart?.highlightPerDragEnabled = false
+            lineChart?.doubleTapToZoomEnabled = false
+            
+            lineChart?.legend.textColor = UIColor(red: 0.05, green:0.2, blue: 0.15, alpha: 1)
+            lineChart?.legend.font = UIFont.zendo(font: .antennaRegular, size: 10.0)
+            lineChart?.legend.form = .circle
+        }
+    }
+    
 }
 
 class ZazenController: UIViewController {
@@ -153,7 +196,7 @@ class ZazenController: UIViewController {
                 let value = results.first!.value
                 
                 DispatchQueue.main.async() {
-                    cell.hrvLabel.text = Int(value).description + "ms"
+                    cell.hrvView.title.text = Int(value).description + "ms"
                 }
             } else {
                 print(error.debugDescription)
@@ -199,10 +242,6 @@ class ZazenController: UIViewController {
         
         switch lineChartKey {
         case .motion:
-            entryDataset.drawCirclesEnabled = true
-            entryDataset.setCircleColor(UIColor.zenDarkGreen)
-            entryDataset.circleRadius = 3
-            
             // 00 - 0%
             // 80 - 50%
             let gradientColors = [ChartColorTemplates.colorFromString("#00277A69").cgColor,
@@ -415,52 +454,11 @@ extension ZazenController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ZazenTableViewCell.reuseIdentifierCell, for: indexPath) as! ZazenTableViewCell
         
-        cell.durationLabel.text = workout.duration.stringZendoTime
-        
-        let zendoFont = UIFont.zendo(font: .antennaRegular, size: 10.0)
-        
-        let arrayLineChart = [cell.bpmChart, cell.motionChart]
+        cell.durationView.title.text = workout.duration.stringZendoTime
         
         cell.bpmChartView.isHidden = true
         cell.motionChartView.isHidden = true
         //        hrvChartView.isHidden = true
-        
-        for lineChart in arrayLineChart {
-            lineChart?.noDataText = ""
-            lineChart?.autoScaleMinMaxEnabled = true
-            lineChart?.chartDescription?.enabled = false
-            lineChart?.drawGridBackgroundEnabled = false
-            lineChart?.pinchZoomEnabled = false
-            
-            let xAxis = lineChart?.xAxis
-            xAxis?.drawGridLinesEnabled = false
-            xAxis?.drawAxisLineEnabled = false
-            xAxis?.labelPosition = .bottom
-            xAxis?.labelTextColor = UIColor.zenGray
-            xAxis?.labelFont = zendoFont
-            
-            let rightAxis = lineChart?.rightAxis
-            rightAxis?.drawAxisLineEnabled = false
-            rightAxis?.labelTextColor = UIColor.zenGray
-            rightAxis?.labelPosition = .insideChart
-            rightAxis?.labelFont = zendoFont
-            rightAxis?.yOffset = -10.0
-            
-            let leftAxis = lineChart?.leftAxis
-            leftAxis?.drawAxisLineEnabled = false
-            leftAxis?.gridColor = UIColor.zenLightGray
-            leftAxis?.drawLabelsEnabled = false
-            
-            lineChart?.setViewPortOffsets(left: 5, top: 0, right: 0, bottom: 45)
-            lineChart?.highlightPerTapEnabled = false
-            lineChart?.highlightPerDragEnabled = false
-            lineChart?.doubleTapToZoomEnabled = false
-            
-            lineChart?.legend.textColor = UIColor(red: 0.05, green:0.2, blue: 0.15, alpha: 1)
-            lineChart?.legend.font = UIFont.zendo(font: .antennaRegular, size: 10.0)
-            lineChart?.legend.form = .circle
-        }
-        
         
         populateChart(cell: cell)
         populateSummary(cell: cell)
