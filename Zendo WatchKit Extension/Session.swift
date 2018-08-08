@@ -11,6 +11,7 @@ import HealthKit
 import Foundation
 import CoreMotion
 import CoreFoundation
+import WatchConnectivity
 
 protocol SessionDelegate {
     
@@ -29,7 +30,7 @@ struct Options {
     var hapticStrength = 1
 }
 
-class Session: NSObject {
+class Session: NSObject, SessionCommands {
     
     var startDate: Date?
     var endDate: Date?
@@ -112,13 +113,18 @@ class Session: NSObject {
         _healthStore.save([workout]) { success, error in
             
             if error != nil {
-                print(error.debugDescription);
+                print(error.debugDescription)
             }
             
             self._healthStore.add(self.samples, to: workout) { success, error in
                 
+                self.sendMessage(["watch": "reload"], replyHandler: { (replyMessage) in
+                }, errorHandler: { (error) in
+                    print(error.localizedDescription)
+                })
+                
                 if error != nil {
-                    print(error.debugDescription);
+                    print(error.debugDescription)
                 }
             }
         }

@@ -15,30 +15,16 @@ class WelcomeController: UIViewController {
     @IBOutlet weak var topStackView: NSLayoutConstraint!
     @IBOutlet var labels: [UILabel]!
     @IBOutlet weak var zenButton: ZenButton!
+    var isDismiss = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         zenButton.action = {
-            
-            ZBFHealthKit.requestHealthAuth(handler: { success, error in
-                DispatchQueue.main.async() {
-                    if success {
-                        Settings.isRunOnce = true
-                        self.dismiss(animated: true)
-                    } else {
-                        let image = UIImage(named: "healthkit")
-                        let frame = self.view.frame
-                        
-                        let hkView = UIImageView(frame: frame)
-                        hkView.image = image;
-                        hkView.contentMode = .scaleAspectFit
-                        
-                        self.view.addSubview(hkView)
-                        self.view.bringSubview(toFront: hkView)
-                    }
-                }
-            })
+            self.isDismiss = true
+            Settings.isRunOnce = true
+            let vc = HealthKitViewController.loadFromStoryboard()
+            self.present(vc, animated: true)
         }
         
         if UIDevice.small {
@@ -48,6 +34,13 @@ class WelcomeController: UIViewController {
             }
         }
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if isDismiss {
+            self.dismiss(animated: true)
+        }
     }
     
     static func loadFromStoryboard() -> WelcomeController {

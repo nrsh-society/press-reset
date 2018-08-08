@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		121F25FE211B367D00C1CC96 /* SessionCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F25FD211B367D00C1CC96 /* SessionCommands.swift */; };
+		121F2600211B372300C1CC96 /* SessionDelegater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F25FF211B372300C1CC96 /* SessionDelegater.swift */; };
+		121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F2604211B3D9C00C1CC96 /* Notification+Name.swift */; };
+		121F260A211B499300C1CC96 /* HealthKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F2609211B499300C1CC96 /* HealthKitViewController.swift */; };
 		12477F222119A27700D8AE83 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12477F212119A27700D8AE83 /* Settings.swift */; };
 		128D0BB92111D30900A4D757 /* UIDevice+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128D0BB82111D30900A4D757 /* UIDevice+Size.swift */; };
 		12C1A7282119B74B00EEFF4F /* ZenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C1A7272119B74B00EEFF4F /* ZenButton.swift */; };
@@ -127,6 +131,10 @@
 
 /* Begin PBXFileReference section */
 		06C02D6D9410AEB7C6216CED /* Pods-Zendo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zendo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zendo/Pods-Zendo.release.xcconfig"; sourceTree = "<group>"; };
+		121F25FD211B367D00C1CC96 /* SessionCommands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCommands.swift; sourceTree = "<group>"; };
+		121F25FF211B372300C1CC96 /* SessionDelegater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDelegater.swift; sourceTree = "<group>"; };
+		121F2604211B3D9C00C1CC96 /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
+		121F2609211B499300C1CC96 /* HealthKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitViewController.swift; sourceTree = "<group>"; };
 		12477F212119A27700D8AE83 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		128D0BB82111D30900A4D757 /* UIDevice+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Size.swift"; sourceTree = "<group>"; };
 		12C1A7272119B74B00EEFF4F /* ZenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenButton.swift; sourceTree = "<group>"; };
@@ -259,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				BE38CF602075D1D10095BB6C /* WelcomeController.swift */,
+				121F2609211B499300C1CC96 /* HealthKitViewController.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -354,6 +363,7 @@
 				12CE364D211302A900EF0196 /* UIView.swift */,
 				12CE365321132A7100EF0196 /* UIImage.swift */,
 				12C1A72B2119B78900EEFF4F /* UIView+Nib.swift */,
+				121F2604211B3D9C00C1CC96 /* Notification+Name.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -426,6 +436,8 @@
 		BE2E820E1FF44A7B00D104AC /* Zendo WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				121F25FF211B372300C1CC96 /* SessionDelegater.swift */,
+				121F25FD211B367D00C1CC96 /* SessionCommands.swift */,
 				BEBAE48720E6CDB500495C65 /* Media.xcassets */,
 				BE9BFFFC2065EE3D007FF96A /* ZBFHealthKit.swift */,
 				BE8BB2201FFDCC4700B2E113 /* Zendo WatchKit Extension.entitlements */,
@@ -673,6 +685,7 @@
 				BE38CF612075D1D10095BB6C /* WelcomeController.swift in Sources */,
 				12477F222119A27700D8AE83 /* Settings.swift in Sources */,
 				12FFCAE1210F6DA0007E2480 /* ZendoTableViewCell.swift in Sources */,
+				121F260A211B499300C1CC96 /* HealthKitViewController.swift in Sources */,
 				BE50D2F220CC3BA200FF9C54 /* CommunityDataLoader.swift in Sources */,
 				12E2A1B721107CE400E0E911 /* UIColor+Zendo.swift in Sources */,
 				12FFCAE5210F7DDD007E2480 /* Cell+ReuseIdentifier.swift in Sources */,
@@ -686,6 +699,7 @@
 				BE75AEC020F708C300311512 /* ChartSeries.swift in Sources */,
 				BE2E81ED1FF44A7B00D104AC /* AppDelegate.swift in Sources */,
 				BE75AEBF20F708C300311512 /* ChartColors.swift in Sources */,
+				121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */,
 				12C1A72C2119B78900EEFF4F /* UIView+Nib.swift in Sources */,
 				12E2A1B22110774000E0E911 /* ConstraintFont.swift in Sources */,
 			);
@@ -697,7 +711,9 @@
 			files = (
 				BE24023B1FFC961A008679C4 /* Session.swift in Sources */,
 				BE9BFFFE2065F215007FF96A /* ZBFHealthKit.swift in Sources */,
+				121F2600211B372300C1CC96 /* SessionDelegater.swift in Sources */,
 				BE2E82141FF44A7B00D104AC /* NotificationController.swift in Sources */,
+				121F25FE211B367D00C1CC96 /* SessionCommands.swift in Sources */,
 				BE89838F20E6BBE300F0FD63 /* ZendoDataSource.swift in Sources */,
 				BE2E82121FF44A7B00D104AC /* ExtensionDelegate.swift in Sources */,
 				BE24023D1FFC965F008679C4 /* SessionInterfaceController.swift in Sources */,

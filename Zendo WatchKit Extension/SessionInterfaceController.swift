@@ -10,11 +10,12 @@
 import WatchKit
 import Foundation
 import HealthKit
+import WatchConnectivity
 
 class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     
-    var _timer: Timer!
-    var _session: Session!;
+    var timer: Timer!
+    var session: Session!
     
     @IBOutlet var timeElapsedLabel: WKInterfaceLabel!
     
@@ -48,18 +49,19 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     }
     
     @IBAction func onDonePress() {
-        _session.end();
+        session.end()
         
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: _session  as AnyObject)
-            , (name: "OptionsInterfaceController", context: _session  as AnyObject)])
+        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session  as AnyObject), (name: "OptionsInterfaceController", context: session  as AnyObject)])
+        
+        
     }
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
         if context != nil {
-            _session = context as? Session
-            _session.delegate = self
+            session = context as? Session
+            session.delegate = self
             timeElapsedLabel.setText("00")
         }
     }

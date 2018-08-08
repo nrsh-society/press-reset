@@ -8,8 +8,19 @@
 
 import WatchKit
 import HealthKit
+import WatchConnectivity
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate {
+class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands {
+    
+    private lazy var sessionDelegater: SessionDelegater = {
+        return SessionDelegater()
+    }()
+        
+    override init() {
+        super.init()
+        WCSession.default.delegate = sessionDelegater
+        WCSession.default.activate()
+    }
 
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
@@ -48,11 +59,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         }
     }
     
-    public func handle(_ workoutConfiguration: HKWorkoutConfiguration)
-    {
-        if Session.current != nil
-        {
-            if(Session.current?.isRunning)!  { return }
+    public func handle(_ workoutConfiguration: HKWorkoutConfiguration) {
+        if Session.current != nil && (Session.current?.isRunning)! {
+            return
         }
         
         Session.current = Session()
@@ -61,7 +70,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         
         WKInterfaceDevice.current().play(WKHapticType.start)
         
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current  as AnyObject)
-            , (name: "OptionsInterfaceController", context: Session.current  as AnyObject)])
+        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject), (name: "OptionsInterfaceController", context: Session.current as AnyObject)])
     }
 }

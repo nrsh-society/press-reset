@@ -10,7 +10,13 @@ import UIKit
 import Charts
 
 class HeaderOverviewTableViewCell: UITableViewCell {
-     @IBOutlet weak var dateTimeTitle: UILabel!
+    @IBOutlet weak var dateTimeTitle: UILabel!
+    @IBOutlet var buttons: [UIButton]!
+    @IBAction func actionButton(_ sender: UIButton) {
+        action?(sender.tag)
+    }
+    
+    var action: ((_ tag: Int)->())?
 }
 
 class OverviewTableViewCell: UITableViewCell {

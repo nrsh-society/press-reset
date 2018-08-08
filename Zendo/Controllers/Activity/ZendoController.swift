@@ -9,12 +9,15 @@
 import UIKit
 import HealthKit
 import Mixpanel
+import WatchConnectivity
 
 class ZendoController: UITableViewController {
     
     //segue
     private let showDetailSegue = "showDetail"
-        
+    //cell
+    private let firstSession = "firstSession"
+    
     var currentWorkout: HKWorkout?
     var samples = [HKSample]()
     var samplesDate = [String]()
@@ -24,12 +27,19 @@ class ZendoController: UITableViewController {
     let healthStore = ZBFHealthKit.healthStore
     //let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
     let hkPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody)
-    
+    var session: WCSession!
+    var isShowFirstSession = false
     
     let url = URL(string: "http://zenbf.org/zendo")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if WCSession.isSupported() {
+            session = WCSession.default
+            session.delegate = self
+            session.activate()
+        }
         
         refreshControl = UIRefreshControl()
         refreshControl?.tintColor = UIColor.white
@@ -121,20 +131,8 @@ class ZendoController: UITableViewController {
                                                     Mixpanel.mainInstance().track(event: "zendo_session_load",
                                                                                   properties: ["session_count": self.samples.count ])
                                                     
-                                                    if (results?.count)! > 0 {
-                                                        self.tableView.backgroundView = nil
-                                                        self.tableView.reloadData()
-                                                    } else {
-                                                        let image = UIImage(named: "nux")
-                                                        let frame = self.tableView.frame
-                                                        
-                                                        let nuxView = UIImageView(frame: frame)
-                                                        nuxView.image = image;
-                                                        nuxView.contentMode = .scaleAspectFit
-                                                        
-                                                        self.tableView.separatorStyle = .none
-                                                        self.tableView.backgroundView = nuxView
-                                                    }
+                                                    self.isShowFirstSession = self.samplesDate.isEmpty
+                                                    self.tableView.reloadData()
                                                     self.refreshControl?.endRefreshing()
                                                 }
                                             }
@@ -186,29 +184,41 @@ class ZendoController: UITableViewController {
     //    }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 33.0
+        return  isShowFirstSession ? 0.0 : 33.0
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if isShowFirstSession {
+            return nil
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: HeaderZendoTableViewCell.reuseIdentifierCell) as! HeaderZendoTableViewCell
-        
         cell.dateLabel.text = samplesDate[section]
-        
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if isShowFirstSession {
+            return tableView.bounds.height + 50
+        }
+        return UITableViewAutomaticDimension
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return samplesDate.count
+        return isShowFirstSession ? 1 : samplesDate.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (samplesDictionary[samplesDate[section]]?.count)!
+        return isShowFirstSession ? 1 : (samplesDictionary[samplesDate[section]]?.count)!
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if isShowFirstSession {
+            let cell = tableView.dequeueReusableCell(withIdentifier: firstSession, for: indexPath)
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: ZendoTableViewCell.reuseIdentifierCell, for: indexPath) as! ZendoTableViewCell
         cell.workout = (samplesDictionary[samplesDate[indexPath.section]]![indexPath.row] as! HKWorkout)
-        
         return cell
     }
     
@@ -353,5 +363,31 @@ class ZendoController: UITableViewController {
     //        HKHealthStore().execute(hkQuery)
     //
     //    }
+    
+}
+
+extension ZendoController: WCSessionDelegate {
+    
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        print("sessionDidBecomeInactive")
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        print("sessionDidDeactivate")
+    }
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("Session activation did complete \(activationState.rawValue)")
+    }
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
+        
+        if (message["watch"] as! String) == "reload" {
+            DispatchQueue.main.async {
+                self.populateTable()
+                NotificationCenter.default.post(name: .reloadOverview, object: nil)
+            }
+        }
+    }
     
 }
