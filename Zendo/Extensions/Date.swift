@@ -15,6 +15,7 @@ let zendoDetailMonthFormat = "MMMM d"
 let zendoDetailTimeFormat = "h:mma"
 let zendoHeaderFormat = "EEEE, MMMM d"
 let zendoHeaderDayFormat = "MMMM d"
+let zendoHeaderYearFormat = "MMMM d yyyy"
 
 extension Date {
     
@@ -52,6 +53,14 @@ extension Date {
         let res = formatter.string(from: self)
         return res
     }
+    
+    var toZendoHeaderYearString: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = zendoHeaderYearFormat
+        let res = formatter.string(from: self)
+        return res
+    }
+    
     
 }
 

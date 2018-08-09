@@ -16,7 +16,7 @@ enum CurrentInterval: Int {
     case day = 1
     case month = 2
     case year = 3
-   // case all = 4
+    case all = 4
     
     var interval: Calendar.Component {
         switch self {
@@ -24,6 +24,7 @@ enum CurrentInterval: Int {
         case .day: return .day
         case .month: return .month
         case .year: return .year
+        case .all: return .day
         }
     }
     
@@ -33,6 +34,7 @@ enum CurrentInterval: Int {
         case .day: return 7
         case .month: return 1
         case .year: return 1
+        case .all: return 7
         }
     }
     
@@ -42,24 +44,14 @@ class OverviewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var durationCache = [Calendar.Component: Double]()
     var currentInterval: CurrentInterval = .hour
+    var minDate = Date()
+    
+    let hkPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody)
+    let hkType = HKObjectType.workoutType()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if !Settings.isRunOnce {
-            showWelcomeController()
-        } else {
-            for type in ZBFHealthKit.hkShareTypes  {
-                if ZBFHealthKit.healthStore.authorizationStatus(for: type) != .sharingAuthorized {
-                    ZBFHealthKit.requestHealthAuth(handler: { success, error in
-
-                    })
-                    break
-                }
-            }
-        }
         
         tableView.backgroundColor = UIColor.clear
         tableView.estimatedRowHeight = 1000.0
@@ -83,18 +75,51 @@ class OverviewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        Mixpanel.mainInstance().time(event: "overview_enter")
+        tableView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        Mixpanel.mainInstance().time(event: "overview_exit")
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self, name: .reloadOverview, object: nil)
     }
     
-    func showWelcomeController() {
-        Mixpanel.mainInstance().time(event: "welcome-controller_enter")
+    func getSamples() {
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
         
-        let controller = WelcomeController.loadFromStoryboard()
+        let hkQuery = HKSampleQuery.init(sampleType: hkType,
+                                         predicate: hkPredicate,
+                                         limit: HealthKit.HKObjectQueryNoLimit,
+                                         sortDescriptors: [sortDescriptor],
+                                         resultsHandler: { query, results, error in
+                                            
+                                            if let error = error {
+                                                print(error)
+                                            } else {
+                                                
+                                                for sample in results! {
+                                                    if sample.startDate < self.minDate {
+                                                        self.minDate = sample.startDate
+                                                    }
+                                                }
+                                                
+                                                
+                                                DispatchQueue.main.async() {
+                                                    self.tableView.reloadData()
+                                                }
+                                            }
+                                            
+        })
         
-        present(controller, animated: true, completion: {
-            Mixpanel.mainInstance().track(event: "welcome-controller_exit")
-        });
+        ZBFHealthKit.healthStore.execute(hkQuery)
     }
     
     func populateCharts(_ cell: OverviewTableViewCell, _ currentInterval: CurrentInterval) {
@@ -136,8 +161,10 @@ class OverviewController: UIViewController {
         
         // 00 - 0%
         // 80 - 50%
-        let gradientColors = [ChartColorTemplates.colorFromString("#00277A69").cgColor,
-                              ChartColorTemplates.colorFromString("#80277A69").cgColor]
+        let gradientColors = [
+            ChartColorTemplates.colorFromString("#00277A69").cgColor,
+            ChartColorTemplates.colorFromString("#80277A69").cgColor
+        ]
         let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
         
         dataset.fillAlpha = 1
@@ -175,12 +202,19 @@ class OverviewController: UIViewController {
             }
         }
         
-        ZBFHealthKit.getHRVSamples(currentInterval: currentInterval, handler: handler)
+        var proirDate: Date!
+        if currentInterval == .all {
+            proirDate = minDate
+        } else {
+            proirDate = Calendar.current.date(byAdding: currentInterval.interval, value: -(currentInterval.range), to: Date())!
+        }
+        
+        ZBFHealthKit.getHRVSamples(currentInterval: currentInterval, prior: proirDate, handler: handler)
     }
     
     func getCommunityDataEntry(key: String, interval: Double, scale: Double) -> ChartDataEntry {
         var value = CommunityDataLoader.get(measure: key, at: interval)
-        value = value * scale;
+        value = value * scale
         
         return ChartDataEntry(x: interval, y: value)
     }
@@ -200,17 +234,21 @@ class OverviewController: UIViewController {
     
     func populateDatetimeSpan(_ cell: HeaderOverviewTableViewCell, _ currentInterval: CurrentInterval) {
         let end = Date()
-        let prior = Calendar.current.date(byAdding: currentInterval.interval, value: -(currentInterval.range), to: end)!
         
-        let dateFormatter = DateFormatter();
+        var prior: Date!
+        if currentInterval == .all {
+            prior = minDate
+        } else {
+            prior = Calendar.current.date(byAdding: currentInterval.interval, value: -(currentInterval.range), to: end)!
+        }
         
-        dateFormatter.timeZone = TimeZone.autoupdatingCurrent;
-        dateFormatter.setLocalizedDateFormatFromTemplate("YYYY-MM-dd")
-        
-        let priorText = dateFormatter.string(from: prior)
-        let endText = dateFormatter.string(from: end)
-        
-        cell.dateTimeTitle.text = "\(priorText) - \(endText)"
+        switch currentInterval {
+        case .year, .all:
+           
+            cell.dateTimeTitle.text = prior.toZendoHeaderYearString + " - " + end.toZendoHeaderYearString
+        default:
+            cell.dateTimeTitle.text = prior.toZendoHeaderDayString + " - " + end.toZendoHeaderDayString
+        }
     }
     
     func populateDurationTotal(_ cell: OverviewTableViewCell, _ currentInterval: CurrentInterval) {
@@ -218,7 +256,13 @@ class OverviewController: UIViewController {
         cell.durationView.title.text = "0sec"
         
         let end = Date()
-        let prior = Calendar.current.date(byAdding: currentInterval.interval, value: -(currentInterval.range), to: end)!
+        
+        var prior: Date!
+        if currentInterval == .all {
+            prior = minDate
+        } else {
+            prior = Calendar.current.date(byAdding: currentInterval.interval, value: -(currentInterval.range), to: end)!
+        }
         
         ZBFHealthKit.getMindfulMinutes(start: prior, end: end) { samples, error in
             if let samples = samples {
@@ -241,17 +285,15 @@ class OverviewController: UIViewController {
     
     func populateMMChart(cell: OverviewTableViewCell, dateIntervals: [Double]) {
         
-//        var mmData = [Double: Double]()
-//        
-//        var entryKey = 0.0
+        var mmData = [Double: Double]()
         
-    //    cell.durationView.title.text = "Loading..."
+        var entryKey = 0.0
         
         cell.mmChart.xAxis.drawGridLinesEnabled = false
         cell.mmChart.xAxis.drawAxisLineEnabled = false
         cell.mmChart.rightAxis.drawAxisLineEnabled = false
         cell.mmChart.leftAxis.drawAxisLineEnabled = false
-      
+        
         cell.mmChart.drawGridBackgroundEnabled = false
         cell.mmChart.chartDescription?.enabled = false
         cell.mmChart.autoScaleMinMaxEnabled = true
@@ -271,7 +313,6 @@ class OverviewController: UIViewController {
         communityDataset.lineWidth = 1.5
         communityDataset.lineDashLengths = [10, 3]
         
-       // dataset.drawIconsEnabled = true
         dataset.drawValuesEnabled = false
         dataset.setColor(UIColor.zenDarkGreen)
         dataset.lineWidth = 1.5
@@ -279,7 +320,7 @@ class OverviewController: UIViewController {
         dataset.drawCirclesEnabled = true
         dataset.setCircleColor(UIColor.zenDarkGreen)
         dataset.circleRadius = 4
-
+        
         dataset.drawCircleHoleEnabled = true
         dataset.circleHoleRadius = 3
         
@@ -295,63 +336,63 @@ class OverviewController: UIViewController {
         
         cell.mmChart.data = LineChartData(dataSets: [dataset, communityDataset])
         
-//        let values = dateIntervals.sorted()
+        let values = dateIntervals.sorted()
         
-//        var movingTotal = 0.0
+        var movingTotal = 0.0
         
-//        for (i, key) in values.enumerated() {
-//            let start = Date(timeIntervalSince1970: key)
-//
-//            let idx = i + 1
-//            let last = (i == values.count - 1)
-//
-//            let end = last ? Date() : Date(timeIntervalSince1970: values[idx])
-//
-//            let days = DateInterval(start:start, end: end).duration / 60 / 60 / 24
-//
-//            ZBFHealthKit.getMindfulMinutes(start: start, end: end) { samples, error in
-//
-//                if let samples = samples {
-//                    var avg = 0.0
-//
-//                    if samples.count > 0 {
-//                        avg = (samples[samples.keys.first!]! / 60) / days
-//                    }
-//
-//                    mmData[start.timeIntervalSince1970] = avg
-//                }
-//
-//                if mmData.count == dateIntervals.count {
-//
-//                    mmData.sorted(by: <).forEach { entry in
-//
-//                        movingTotal += entry.value
-//
-//                        DispatchQueue.main.async() {
-//
-//                            if entryKey <= entry.key {
-//                                cell.mmChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
-//
-//                                let community = ChartDataEntry(x: entry.key, y: 30.0)
-//                                cell.mmChart.data!.addEntry(community, dataSetIndex: 1)
-//                                cell.mmChart.notifyDataSetChanged()
-//
-//                                entryKey = entry.key
-//
-//                            }
-//
-//                            //#todo(debt): pull in the v2 backend duration
-//                            //self.getCommunityDataEntry(key: "duration", interval: entry.key, scale: 1.0)
-//
-//                           // cell.durationView.title.text = movingTotal.stringZendoTime
-//                            self.durationCache[self.currentInterval.interval] = movingTotal / Double(mmData.count)
-//                        }
-//                    }
-//                } else {
-//                    print(error.debugDescription)
-//                }
-//            }
-//        }
+        for (i, key) in values.enumerated() {
+            let start = Date(timeIntervalSince1970: key)
+            
+            let idx = i + 1
+            let last = (i == values.count - 1)
+            
+            let end = last ? Date() : Date(timeIntervalSince1970: values[idx])
+            
+            let days = DateInterval(start:start, end: end).duration / 60 / 60 / 24
+            
+            ZBFHealthKit.getMindfulMinutes(start: start, end: end) { samples, error in
+                
+                if let samples = samples {
+                    var avg = 0.0
+                    
+                    if samples.count > 0 {
+                        avg = (samples[samples.keys.first!]! / 60) / days
+                    }
+                    
+                    mmData[start.timeIntervalSince1970] = avg
+                }
+                
+                if mmData.count == dateIntervals.count {
+                    
+                    mmData.sorted(by: <).forEach { entry in
+                        
+                        movingTotal += entry.value
+                        
+                        DispatchQueue.main.async() {
+                            
+                            if entryKey <= entry.key {
+                                cell.mmChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
+                                
+                                let community = ChartDataEntry(x: entry.key, y: 30.0)
+                                cell.mmChart.data!.addEntry(community, dataSetIndex: 1)
+                                cell.mmChart.notifyDataSetChanged()
+                                
+                                entryKey = entry.key
+                                
+                            }
+                            
+                            //#todo(debt): pull in the v2 backend duration
+                            //self.getCommunityDataEntry(key: "duration", interval: entry.key, scale: 1.0)
+                            
+                            // cell.durationView.title.text = movingTotal.stringZendoTime
+                            //                            self.durationCache[self.currentInterval.interval] = movingTotal / Double(mmData.count)
+                        }
+                    }
+                } else {
+                    print(error.debugDescription)
+                }
+            }
+        }
     }
     
     //#todo(debt): factor this into the zbfmodel + ui across controllers
@@ -374,9 +415,9 @@ class OverviewController: UIViewController {
         let alert = UIAlertController(title: "Starting Watch App", message: "Deep Press + Exit when complete.", preferredStyle: .actionSheet)
         
         let ok = UIAlertAction(title: "Done", style: .default) { action in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1) ) {
-                Mixpanel.mainInstance().track(event: "new_session")
-            }
+//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1) ) {
+//                Mixpanel.mainInstance().track(event: "new_session")
+//            }
         }
         
         alert.addAction(ok)
@@ -427,7 +468,13 @@ extension OverviewController: UITableViewDataSource {
         }
         cell.action = { tag in
             self.currentInterval = CurrentInterval(rawValue: tag)!
-            self.tableView.reloadData()
+            
+            if self.currentInterval == .all {
+                self.getSamples()
+            } else {
+                self.tableView.reloadData()
+            }
+            
         }
         return cell
     }

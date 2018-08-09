@@ -9,16 +9,21 @@
 import UIKit
 import Foundation
 import HealthKit
+import Mixpanel
 
 class WelcomeController: UIViewController {
     
+    @IBOutlet weak var imageHeight: NSLayoutConstraint!
     @IBOutlet weak var topStackView: NSLayoutConstraint!
-    @IBOutlet var labels: [UILabel]!
     @IBOutlet weak var zenButton: ZenButton!
+    @IBOutlet var labels: [UILabel]!
+    
     var isDismiss = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Mixpanel.mainInstance().time(event: "welcome-controller_enter")
         
         zenButton.action = {
             self.isDismiss = true
@@ -28,6 +33,7 @@ class WelcomeController: UIViewController {
         }
         
         if UIDevice.small {
+            imageHeight.constant = 280
             topStackView.constant = 20
             for label in labels {
                 label.font = UIFont.zendo(font: .antennaRegular, size: label.font.pointSize - 2)
@@ -39,6 +45,7 @@ class WelcomeController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if isDismiss {
+            Mixpanel.mainInstance().track(event: "welcome-controller_exit")
             self.dismiss(animated: true)
         }
     }

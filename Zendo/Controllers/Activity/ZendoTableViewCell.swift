@@ -9,6 +9,23 @@
 import UIKit
 import HealthKit
 
+class FirstSessionTableViewCell: UITableViewCell {
+    @IBOutlet weak var bottomLabel: UILabel! {
+        didSet {
+            if UIDevice.small {
+                bottomLabel.font = UIFont.zendo(font: .antennaRegular, size: bottomLabel.font.pointSize - 2)
+            }
+        }
+    }
+    @IBOutlet weak var imageHeight: NSLayoutConstraint! {
+        didSet {
+            if UIDevice.small {
+                imageHeight.constant = 290.0
+            }
+        }
+    }
+}
+
 class HeaderZendoTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
 }

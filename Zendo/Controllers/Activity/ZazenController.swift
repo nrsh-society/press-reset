@@ -134,19 +134,16 @@ class ZazenController: UIViewController {
         let hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictStartDate)
         
         let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
-        let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
         
         let hkQuery = HKSampleQuery.init(sampleType: mindfulSessionType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor], resultsHandler: { query, results, error in
             
             if let results = results {
                 DispatchQueue.main.async() {
                     self.samples = results.map { sample -> [String: Any] in
-                        return sample.metadata!
+                        return sample.metadata ?? [:]
                     }
                     
-                    
-                    //                        self.populateChart()
-                    //                        self.populateSummary()
                     self.tableView.reloadData()
                 }
             } else {

@@ -22,6 +22,8 @@
 		12CE3652211327D300EF0196 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE3651211327D300EF0196 /* TabBarController.swift */; };
 		12CE365421132A7100EF0196 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE365321132A7100EF0196 /* UIImage.swift */; };
 		12D3BB34211A00B40081CAE2 /* OverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D3BB33211A00B40081CAE2 /* OverviewTableViewCell.swift */; };
+		12E189BC211C6387004EADE9 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E189BB211C6387004EADE9 /* UIViewController.swift */; };
+		12E189C1211C64AB004EADE9 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E189C0211C64AB004EADE9 /* UIApplication.swift */; };
 		12E2A19E21106E4500E0E911 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E2A19D21106E4500E0E911 /* TimeInterval.swift */; };
 		12E2A1A7211073D600E0E911 /* Antenna-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E2A1A3211073D600E0E911 /* Antenna-ExtraLight.otf */; };
 		12E2A1A8211073D600E0E911 /* Antenna-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E2A1A4211073D600E0E911 /* Antenna-Medium.otf */; };
@@ -146,6 +148,8 @@
 		12CE3651211327D300EF0196 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		12CE365321132A7100EF0196 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		12D3BB33211A00B40081CAE2 /* OverviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewTableViewCell.swift; sourceTree = "<group>"; };
+		12E189BB211C6387004EADE9 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		12E189C0211C64AB004EADE9 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		12E2A19D21106E4500E0E911 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		12E2A1A3211073D600E0E911 /* Antenna-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Antenna-ExtraLight.otf"; sourceTree = "<group>"; };
 		12E2A1A4211073D600E0E911 /* Antenna-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Antenna-Medium.otf"; sourceTree = "<group>"; };
@@ -364,6 +368,8 @@
 				12CE365321132A7100EF0196 /* UIImage.swift */,
 				12C1A72B2119B78900EEFF4F /* UIView+Nib.swift */,
 				121F2604211B3D9C00C1CC96 /* Notification+Name.swift */,
+				12E189BB211C6387004EADE9 /* UIViewController.swift */,
+				12E189C0211C64AB004EADE9 /* UIApplication.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -682,11 +688,13 @@
 				12E2A1B521107A9400E0E911 /* UIFont.swift in Sources */,
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
 				12E2A19E21106E4500E0E911 /* TimeInterval.swift in Sources */,
+				12E189C1211C64AB004EADE9 /* UIApplication.swift in Sources */,
 				BE38CF612075D1D10095BB6C /* WelcomeController.swift in Sources */,
 				12477F222119A27700D8AE83 /* Settings.swift in Sources */,
 				12FFCAE1210F6DA0007E2480 /* ZendoTableViewCell.swift in Sources */,
 				121F260A211B499300C1CC96 /* HealthKitViewController.swift in Sources */,
 				BE50D2F220CC3BA200FF9C54 /* CommunityDataLoader.swift in Sources */,
+				12E189BC211C6387004EADE9 /* UIViewController.swift in Sources */,
 				12E2A1B721107CE400E0E911 /* UIColor+Zendo.swift in Sources */,
 				12FFCAE5210F7DDD007E2480 /* Cell+ReuseIdentifier.swift in Sources */,
 				BE75AEC120F708C300311512 /* Chart.swift in Sources */,

@@ -7,15 +7,21 @@
 //
 
 import UIKit
+import Mixpanel
 
 class HealthKitViewController: UIViewController {
     
+    @IBOutlet weak var image: UIImageView!
     @IBOutlet var labels: [UILabel]!
     @IBOutlet weak var heightImage: NSLayoutConstraint!
     @IBOutlet weak var zenButton: ZenButton!
     
+    var isFailed = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Mixpanel.mainInstance().time(event: isFailed ? "healthKit_failed-connect_enter" : "healthKit-connect_enter")
         
         if UIDevice.small {
             for label in labels {
@@ -27,15 +33,50 @@ class HealthKitViewController: UIViewController {
             heightImage.isActive = false
         }
         
-        zenButton.action = {
-            ZBFHealthKit.requestHealthAuth(handler: { success, error in
-                DispatchQueue.main.async() {
-                    print(success)
-                    if success {
-                        self.dismiss(animated: true)
-                    }
+        if isFailed {
+            for label in labels {
+                switch label.tag {
+                case 0: label.text = "health app"
+                case 1: label.text = "sync failed"
+                case 2:
+                    let text =
+                    """
+                    In order to provide you with the most opitmial experience we need to be able to connect to your health app.
+
+                    1. Go to Health app.
+                    2. Tap on the Source Tab.
+                    3. Locate and Tap on Zendō
+                    4. Tap on Turn All Categories On.
+                    """
+                    let attributedString = NSMutableAttributedString(string: text)
+                    let paragraphStyle = NSMutableParagraphStyle()
+                    paragraphStyle.lineHeightMultiple = 1.43
+                    
+                    attributedString.addAttribute(.paragraphStyle, value:paragraphStyle, range: NSMakeRange(0, attributedString.length))
+                    
+                    label.attributedText = attributedString
+                default: break
                 }
-            })
+            }
+            image.image = UIImage(named: "connectFailed")
+            zenButton.title.text = "Go to Health App"
+        }
+        
+        zenButton.action = {
+            if self.isFailed {
+                UIApplication.shared.open(URL(string: "x-apple-health://")!)
+                Mixpanel.mainInstance().time(event: "healthKit_failed-connect_exit" )
+                self.dismiss(animated: true)
+            } else {
+                ZBFHealthKit.requestHealthAuth(handler: { success, error in
+                    DispatchQueue.main.async() {
+                        if success {
+                            Mixpanel.mainInstance().time(event: "healthKit-connect_exit" )
+                            self.dismiss(animated: true)
+                        }
+                    }
+                })
+            }
         }
     }
     
@@ -43,15 +84,4 @@ class HealthKitViewController: UIViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HealthKitViewController") as! HealthKitViewController
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

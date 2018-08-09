@@ -355,14 +355,14 @@ class ZBFHealthKit {
         healthStore.execute(hkSampleQuery)
     }
     
-    class func getHRVSamples(currentInterval: CurrentInterval, handler: @escaping SamplesHandler) {
+    class func getHRVSamples(currentInterval: CurrentInterval, prior: Date, handler: @escaping SamplesHandler) {
         var entries = [Double: Double]()
         
         let end = Date()
         
         var components = DateComponents()
         
-        switch currentInterval.interval {
+        switch currentInterval {
         case .hour:
             components.hour = 4
         case .day:
@@ -371,11 +371,10 @@ class ZBFHealthKit {
             components.day = 7
         case .year:
             components.month = 1
-        default:
-            components.day = 1
+        case .all:
+            components.day = 7
         }
         
-        let prior = Calendar.current.date(byAdding: currentInterval.interval, value: -(currentInterval.range), to: end)!
         
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
@@ -397,6 +396,7 @@ class ZBFHealthKit {
                     }
                     
                     let key = statistics.startDate.timeIntervalSince1970
+                    print(statistics.startDate)
                     entries[key] = avgValue
                     
                 }

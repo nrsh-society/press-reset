@@ -15,8 +15,6 @@ class ZendoController: UITableViewController {
     
     //segue
     private let showDetailSegue = "showDetail"
-    //cell
-    private let firstSession = "firstSession"
     
     var currentWorkout: HKWorkout?
     var samples = [HKSample]()
@@ -29,6 +27,7 @@ class ZendoController: UITableViewController {
     let hkPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody)
     var session: WCSession!
     var isShowFirstSession = false
+    
     
     let url = URL(string: "http://zenbf.org/zendo")!
     
@@ -54,11 +53,13 @@ class ZendoController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         Mixpanel.mainInstance().track(event: "zendo_enter")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         Mixpanel.mainInstance().track(event: "zendo_exit")
     }
     
@@ -198,7 +199,7 @@ class ZendoController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if isShowFirstSession {
-            return tableView.bounds.height + 50
+            return tableView.bounds.height
         }
         return UITableViewAutomaticDimension
     }
@@ -213,7 +214,7 @@ class ZendoController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if isShowFirstSession {
-            let cell = tableView.dequeueReusableCell(withIdentifier: firstSession, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: FirstSessionTableViewCell.reuseIdentifierCell, for: indexPath) as! FirstSessionTableViewCell
             return cell
         }
         
@@ -235,25 +236,30 @@ class ZendoController: UITableViewController {
         
         healthStore.startWatchApp(with: configuration) { success, error in
             guard success else {
-                print (error.debugDescription)
+                let alert = UIAlertController(title: "Error", message: (error?.localizedDescription)!, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                    self.checkHealthKit()
+                })
+                self.present(alert, animated: true)
                 return
             }
-        }
-        
-        Mixpanel.mainInstance().time(event: "new_session")
-        
-        let alert = UIAlertController(title: "Starting Watch App",
-                                      message: "Deep Press + Exit when complete.", preferredStyle: .actionSheet)
-        
-        let ok = UIAlertAction(title: "Done", style: .default) { action in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1) ) {
-                Mixpanel.mainInstance().track(event: "new_session")
-                self.populateTable()
+            
+            Mixpanel.mainInstance().time(event: "new_session")
+            
+            let alert = UIAlertController(title: "Starting Watch App",
+                                          message: "Deep Press + Exit when complete.", preferredStyle: .actionSheet)
+            
+            let ok = UIAlertAction(title: "Done", style: .default) { action in
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1) ) {
+                    Mixpanel.mainInstance().track(event: "new_session")
+                }
             }
+            
+            alert.addAction(ok)
+            self.present(alert, animated: true)
         }
         
-        alert.addAction(ok)
-        present(alert, animated: true)
+        
     }
     
     //    @IBAction func buddhaClick(_ sender: Any) {
