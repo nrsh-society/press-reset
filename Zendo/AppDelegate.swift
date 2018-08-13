@@ -55,16 +55,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
-         //#todo
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         if let vc = window?.topViewController {
             if let tabVc = vc as? UITabBarController,
                 let selectedVc = tabVc.selectedViewController {
-                selectedVc.checkHealthKit()
+                if !vc.isKind(of: HealthKitViewController.self) {
+                    selectedVc.checkHealthKit()
+                }
             } else {
-                vc.checkHealthKit()
+                if !vc.isKind(of: HealthKitViewController.self) {
+                    vc.checkHealthKit()
+                }
             }
         }
     }
@@ -74,7 +77,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationShouldRequestHealthAuthorization(_ application: UIApplication) {
-        
         ZBFHealthKit.getPermissions()
     }
     

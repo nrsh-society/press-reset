@@ -135,7 +135,7 @@ class OverviewController: UIViewController {
         cell.hrvChart.rightAxis.drawAxisLineEnabled = false
         cell.hrvChart.leftAxis.drawAxisLineEnabled = false
         
-        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "bpm")
+        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "ms")
         
         let communityEntries = [ChartDataEntry]()
         
@@ -171,7 +171,7 @@ class OverviewController: UIViewController {
         dataset.fill = Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
         dataset.drawFilledEnabled = true
         
-        
+        cell.hrvChart.data?.clearValues()
         cell.hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
         
         let handler: ZBFHealthKit.SamplesHandler = { samples, error in
@@ -334,6 +334,7 @@ class OverviewController: UIViewController {
         dataset.fill = Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
         dataset.drawFilledEnabled = true
         
+        cell.mmChart.data?.clearValues()
         cell.mmChart.data = LineChartData(dataSets: [dataset, communityDataset])
         
         let values = dateIntervals.sorted()
