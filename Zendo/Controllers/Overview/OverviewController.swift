@@ -124,6 +124,8 @@ class OverviewController: UIViewController {
     
     func populateCharts(_ cell: OverviewTableViewCell, _ currentInterval: CurrentInterval) {
         
+        cell.isHiddenHRV = true
+        
         cell.hrvChart.drawGridBackgroundEnabled = false
         cell.hrvChart.chartDescription?.enabled = false
         cell.hrvChart.autoScaleMinMaxEnabled = true
@@ -176,7 +178,6 @@ class OverviewController: UIViewController {
         
         let handler: ZBFHealthKit.SamplesHandler = { samples, error in
             var dateIntervals = [Double]()
-            
             if let samples = samples {
                 samples.sorted(by: <).forEach( { entry in
                     cell.hrvChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
@@ -195,6 +196,7 @@ class OverviewController: UIViewController {
             }
             
             DispatchQueue.main.async() {
+                cell.isHiddenHRV = false
                 cell.hrvChart.notifyDataSetChanged()
                 
                 //@todo: this approach to getting dateIntervals fails when there is no HRV
@@ -220,14 +222,15 @@ class OverviewController: UIViewController {
     }
     
     func populateHRV(_ cell: OverviewTableViewCell, _  currentInterval: CurrentInterval) {
-        cell.hrvView.title.text = "0ms"
+        
+        cell.hrvView.setTitle("")
         ZBFHealthKit.getHRVAverage(interval: currentInterval.interval, value: currentInterval.range) { results, error in
             
             if let results = results {
                 let value = results.first!.value
                 
                 DispatchQueue.main.async() {
-                    cell.hrvView.title.text = Int(value).description + "ms"
+                    cell.hrvView.setTitle(Int(value).description + "ms")
                 }
             }}
     }
@@ -253,8 +256,7 @@ class OverviewController: UIViewController {
     
     func populateDurationTotal(_ cell: OverviewTableViewCell, _ currentInterval: CurrentInterval) {
         
-        cell.durationView.title.text = "0sec"
-        
+        cell.durationView.setTitle("")
         let end = Date()
         
         var prior: Date!
@@ -274,7 +276,7 @@ class OverviewController: UIViewController {
                 
                 
                 DispatchQueue.main.async() {
-                    cell.durationView.title.text = sum.stringZendoTime
+                    cell.durationView.setTitle(sum.stringZendoTime)
                 }
                 
             } else {
@@ -284,6 +286,8 @@ class OverviewController: UIViewController {
     }
     
     func populateMMChart(cell: OverviewTableViewCell, dateIntervals: [Double]) {
+        
+        cell.isHiddenMM = true
         
         var mmData = [Double: Double]()
         
@@ -388,6 +392,7 @@ class OverviewController: UIViewController {
                             // cell.durationView.title.text = movingTotal.stringZendoTime
                             //                            self.durationCache[self.currentInterval.interval] = movingTotal / Double(mmData.count)
                         }
+                        cell.isHiddenMM = false
                     }
                 } else {
                     print(error.debugDescription)

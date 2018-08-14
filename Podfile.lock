@@ -6,23 +6,29 @@ PODS:
   - Mixpanel-swift (2.4.2):
     - Mixpanel-swift/Complete (= 2.4.2)
   - Mixpanel-swift/Complete (2.4.2)
+  - NVActivityIndicatorView (4.2.1):
+    - NVActivityIndicatorView/Presenter (= 4.2.1)
+  - NVActivityIndicatorView/Presenter (4.2.1)
 
 DEPENDENCIES:
   - BuddyBuildSDK (~> 1.0.17)
   - Charts (~> 3.1.1)
   - Mixpanel-swift (~> 2.4.2)
+  - NVActivityIndicatorView (~> 4.2.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - BuddyBuildSDK
     - Charts
     - Mixpanel-swift
+    - NVActivityIndicatorView
 
 SPEC CHECKSUMS:
   BuddyBuildSDK: 8ae12ee721098b356a961ea7dce70ae55f93a7d2
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
   Mixpanel-swift: 63de6f5a14468b8d65e0d62ae250714455e17407
+  NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
 
-PODFILE CHECKSUM: 5251362627d5cca36c763874c5329c61231c8e93
+PODFILE CHECKSUM: 4cbb4ea27afc2a45f05818d2d1846c24892e96cb
 
 COCOAPODS: 1.5.3

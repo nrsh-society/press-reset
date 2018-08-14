@@ -8,6 +8,7 @@
 
 import UIKit
 import Charts
+import NVActivityIndicatorView
 
 
 class HeaderOverviewTableViewCell: UITableViewCell {
@@ -32,7 +33,9 @@ class OverviewTableViewCell: UITableViewCell {
             hrvView.zenInfoViewType = .hrvAverage
         }
     }
+    @IBOutlet weak var mmDots: NVActivityIndicatorView!
     @IBOutlet weak var mmChart: LineChartView!
+    @IBOutlet weak var hrvDots: NVActivityIndicatorView!
     @IBOutlet weak var hrvChart: LineChartView!
     @IBOutlet weak var mmChartView: UIView! {
         didSet {
@@ -42,6 +45,22 @@ class OverviewTableViewCell: UITableViewCell {
     @IBOutlet weak var hrvChartView: UIView! {
         didSet{
             hrvChartView.setShadowView()
+        }
+    }
+    
+    var isHiddenHRV: Bool! {
+        didSet {
+            isHiddenHRV ? hrvDots.startAnimating() : hrvDots.stopAnimating()
+            hrvDots.isHidden = !isHiddenHRV
+            hrvChart.isHidden = isHiddenHRV
+        }
+    }
+    
+    var isHiddenMM: Bool! {
+        didSet {
+            isHiddenMM ? mmDots.startAnimating() : mmDots.stopAnimating()
+            mmDots.isHidden = !isHiddenMM
+            mmChart.isHidden = isHiddenMM
         }
     }
     

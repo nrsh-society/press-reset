@@ -17,6 +17,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZenInfoView" customModule="Zendo" customModuleProvider="target">
             <connections>
+                <outlet property="dots" destination="J1t-Uz-19u" id="kYD-5e-TpQ"/>
                 <outlet property="image" destination="Kfq-nj-ira" id="h9S-Vh-htD"/>
                 <outlet property="title" destination="MmX-wO-8Mh" id="I0j-w8-wqX"/>
                 <outlet property="topTitle" destination="bFZ-4J-47r" id="l4T-Zi-bYj"/>
@@ -32,12 +33,6 @@
                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MmX-wO-8Mh" userLabel="Duration">
-                    <rect key="frame" x="24" y="39.5" width="278" height="24"/>
-                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="24"/>
-                    <color key="textColor" red="0.058823529409999999" green="0.1450980392" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kfq-nj-ira">
                     <rect key="frame" x="312" y="23.5" width="40" height="40"/>
                     <constraints>
@@ -45,16 +40,44 @@
                         <constraint firstAttribute="width" secondItem="Kfq-nj-ira" secondAttribute="height" multiplier="1:1" id="n4d-RJ-j1E"/>
                     </constraints>
                 </imageView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Fb2-nF-WJH">
+                    <rect key="frame" x="24" y="39.5" width="278" height="30"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J1t-Uz-19u" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                            <rect key="frame" x="0.0" y="0.0" width="35" height="30"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="Fnm-EK-nbG"/>
+                                <constraint firstAttribute="width" constant="35" id="M3k-9g-rbA"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballPulse"/>
+                                <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                    <color key="value" red="0.7803921568627451" green="0.82745098039215681" blue="0.81176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="padding">
+                                    <real key="value" value="32"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <label hidden="YES" opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MmX-wO-8Mh" userLabel="Duration">
+                            <rect key="frame" x="0.0" y="0.0" width="53.5" height="0.0"/>
+                            <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="24"/>
+                            <color key="textColor" red="0.058823529409999999" green="0.1450980392" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="bFZ-4J-47r" firstAttribute="leading" secondItem="2fO-eB-zfL" secondAttribute="leading" constant="24" id="1Jo-gZ-COt"/>
-                <constraint firstItem="MmX-wO-8Mh" firstAttribute="leading" secondItem="2fO-eB-zfL" secondAttribute="leading" constant="24" id="4ss-zz-Tus"/>
+                <constraint firstItem="Kfq-nj-ira" firstAttribute="leading" secondItem="Fb2-nF-WJH" secondAttribute="trailing" constant="10" id="DZc-3U-8vl"/>
                 <constraint firstItem="bFZ-4J-47r" firstAttribute="top" secondItem="2fO-eB-zfL" secondAttribute="top" constant="16" id="GNr-3R-b2W"/>
                 <constraint firstItem="Kfq-nj-ira" firstAttribute="leading" secondItem="bFZ-4J-47r" secondAttribute="trailing" constant="10" id="Ls7-xL-oT4"/>
-                <constraint firstItem="MmX-wO-8Mh" firstAttribute="top" secondItem="bFZ-4J-47r" secondAttribute="bottom" constant="9" id="M1g-AA-uxX"/>
+                <constraint firstItem="Fb2-nF-WJH" firstAttribute="top" secondItem="bFZ-4J-47r" secondAttribute="bottom" constant="9" id="UY4-HZ-Rie"/>
+                <constraint firstItem="Fb2-nF-WJH" firstAttribute="leading" secondItem="uQb-8M-O5G" secondAttribute="leading" constant="24" id="bkT-hT-fb1"/>
                 <constraint firstAttribute="trailing" secondItem="Kfq-nj-ira" secondAttribute="trailing" constant="23" id="hEK-uE-KQh"/>
-                <constraint firstItem="Kfq-nj-ira" firstAttribute="leading" secondItem="MmX-wO-8Mh" secondAttribute="trailing" constant="10" id="idb-Z4-atq"/>
                 <constraint firstItem="Kfq-nj-ira" firstAttribute="centerY" secondItem="2fO-eB-zfL" secondAttribute="centerY" id="t9p-Ww-byv"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>

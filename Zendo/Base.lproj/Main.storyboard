@@ -41,12 +41,12 @@
             <objects>
                 <tableViewController storyboardIdentifier="Zazen" title="Zazen" id="OgR-X5-jbh" customClass="ZendoController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3Qe-6i-7b8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="589"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="777"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="0.92156862745098034" green="0.94117647058823528" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="6zs-LL-Hh2">
-                            <rect key="frame" x="0.0" y="553" width="375" height="0.0"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="6zs-LL-Hh2">
+                            <rect key="frame" x="0.0" y="611" width="375" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
@@ -157,11 +157,11 @@
                                     <outlet property="dateLabel" destination="tRP-u1-KuN" id="AyM-ZP-FUT"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FirstSessionTableViewCell" rowHeight="422" id="D3T-KK-cLt" customClass="FirstSessionTableViewCell" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="131" width="375" height="422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FirstSessionTableViewCell" rowHeight="480" id="D3T-KK-cLt" customClass="FirstSessionTableViewCell" customModule="Zendo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="131" width="375" height="480"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D3T-KK-cLt" id="cVa-X4-jIO">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="421.66666666666669"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="479.66666666666669"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="firstSession" translatesAutoresizingMaskIntoConstraints="NO" id="Psk-Mn-lDv">
@@ -172,7 +172,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5J-CS-i6v">
-                                            <rect key="frame" x="32" y="326.33333333333331" width="311" height="80.333333333333314"/>
+                                            <rect key="frame" x="32" y="344" width="311" height="80.333333333333314"/>
                                             <attributedString key="attributedText">
                                                 <fragment>
                                                     <string key="content">Start a session directly from your phone or on your watch. Zendo works great with Headspace, Calm, meditation podcast, or self-guided meditations.</string>
@@ -212,9 +212,10 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="1Dw-Id-VTy" firstAttribute="leading" secondItem="wLl-ap-4N7" secondAttribute="trailing" constant="10" id="5xl-Wh-eiM"/>
-                                        <constraint firstAttribute="bottom" secondItem="P5J-CS-i6v" secondAttribute="bottom" constant="15" id="7gl-c6-O1F"/>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="P5J-CS-i6v" secondAttribute="bottom" constant="15" id="7gl-c6-O1F"/>
                                         <constraint firstItem="Psk-Mn-lDv" firstAttribute="leading" secondItem="cVa-X4-jIO" secondAttribute="leading" id="McE-03-nH0"/>
                                         <constraint firstAttribute="trailing" secondItem="P5J-CS-i6v" secondAttribute="trailing" constant="32" id="NkF-OW-7fl"/>
+                                        <constraint firstItem="P5J-CS-i6v" firstAttribute="top" secondItem="Psk-Mn-lDv" secondAttribute="bottom" constant="5" id="XId-T7-4jA"/>
                                         <constraint firstItem="Psk-Mn-lDv" firstAttribute="top" secondItem="wLl-ap-4N7" secondAttribute="bottom" constant="-103" id="b8Q-4A-T6U"/>
                                         <constraint firstItem="P5J-CS-i6v" firstAttribute="leading" secondItem="cVa-X4-jIO" secondAttribute="leading" constant="32" id="chG-LM-ZbA"/>
                                         <constraint firstItem="Psk-Mn-lDv" firstAttribute="top" secondItem="cVa-X4-jIO" secondAttribute="top" constant="20" id="nU2-6t-wr6"/>
@@ -243,6 +244,8 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="1000"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qxR-ML-0u6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -332,7 +335,7 @@
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dkk-o2-Zfm" userLabel="HR Chart" customClass="LineChartView" customModule="Charts">
                                                                     <rect key="frame" x="0.0" y="70" width="304" height="160"/>
-                                                                    <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <accessibility key="accessibilityConfiguration" label="chart"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="160" id="sWj-Vw-YMM"/>
@@ -368,7 +371,7 @@
                                                                 </label>
                                                                 <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJ9-RO-1mV" customClass="LineChartView" customModule="Charts">
                                                                     <rect key="frame" x="0.0" y="70" width="304" height="160"/>
-                                                                    <color key="backgroundColor" red="1" green="0.58255845309999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="160" id="UBK-KK-fib"/>
                                                                     </constraints>
@@ -744,7 +747,7 @@
                                 <view key="tableFooterView" contentMode="scaleToFill" id="EgG-QL-Qld">
                                     <rect key="frame" x="0.0" y="918" width="414" height="1"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HeaderOverviewTableViewCell" rowHeight="90" id="ZRr-Is-SZE" customClass="HeaderOverviewTableViewCell" customModule="Zendo" customModuleProvider="target">
@@ -758,11 +761,8 @@
                                                     <rect key="frame" x="33" y="11" width="348" height="25"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFY-cb-h07">
-                                                            <rect key="frame" x="0.0" y="0.0" width="36" height="25"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="30" height="25"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="36" id="Wj4-NZ-H32"/>
-                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                             <state key="normal" title="1D">
                                                                 <color key="titleColor" red="0.050980392159999999" green="0.1960784314" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
@@ -772,7 +772,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5U-pb-9u0">
-                                                            <rect key="frame" x="78.666666666666671" y="0.0" width="36" height="25"/>
+                                                            <rect key="frame" x="79.666666666666671" y="0.0" width="30" height="25"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                             <state key="normal" title="1W">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -782,7 +782,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rxw-rZ-4yl">
-                                                            <rect key="frame" x="157.66666666666666" y="0.0" width="36" height="25"/>
+                                                            <rect key="frame" x="159" y="0.0" width="30" height="25"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                             <state key="normal" title="1M">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -792,7 +792,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1L-io-blG">
-                                                            <rect key="frame" x="236.33333333333331" y="0.0" width="36" height="25"/>
+                                                            <rect key="frame" x="238.66666666666669" y="0.0" width="30" height="25"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                             <state key="normal" title="1Y">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -874,59 +874,106 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TjF-D0-abB">
                                                             <rect key="frame" x="0.0" y="249.66666666666669" width="398" height="240"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="heart rate variability over time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADY-wW-Zv1">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hrv over time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADY-wW-Zv1">
                                                                     <rect key="frame" x="24" y="24" width="350" height="14.666666666666664"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="14.666666666666664" id="kt1-AO-x0I"/>
+                                                                    </constraints>
                                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qEY-O4-vG6" userLabel="HRVChart" customClass="LineChartView" customModule="Charts">
+                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8SF-6g-VLG">
                                                                     <rect key="frame" x="0.0" y="70" width="398" height="160"/>
-                                                                    <color key="backgroundColor" red="0.92146831750000002" green="0.92162626979999995" blue="0.92145836349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <subviews>
+                                                                        <view hidden="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qEY-O4-vG6" userLabel="HRVChart" customClass="LineChartView" customModule="Charts">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="0.0"/>
+                                                                            <color key="backgroundColor" red="0.92146831750000002" green="0.92162626979999995" blue="0.92145836349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        </view>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kjp-Hi-ebQ" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                                                            <rect key="frame" x="181.66666666666666" y="0.0" width="35" height="160"/>
+                                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="35" id="E12-9u-PTN"/>
+                                                                            </constraints>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballPulse"/>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                                                    <color key="value" red="0.78039215689999997" green="0.82745098039999998" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="padding">
+                                                                                    <real key="value" value="32"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                        </view>
+                                                                    </subviews>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="160" id="AUc-fb-hnn"/>
+                                                                        <constraint firstItem="qEY-O4-vG6" firstAttribute="width" secondItem="8SF-6g-VLG" secondAttribute="width" id="Jqb-qx-M79"/>
+                                                                        <constraint firstAttribute="height" constant="160" id="XPH-sT-ob1"/>
                                                                     </constraints>
-                                                                </view>
+                                                                </stackView>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" secondItem="ADY-wW-Zv1" secondAttribute="trailing" constant="24" id="9EJ-U8-pjI"/>
-                                                                <constraint firstItem="qEY-O4-vG6" firstAttribute="top" secondItem="ADY-wW-Zv1" secondAttribute="bottom" constant="31.5" id="BBA-XH-Rkk"/>
-                                                                <constraint firstAttribute="trailing" secondItem="qEY-O4-vG6" secondAttribute="trailing" id="EGC-KK-3IW"/>
-                                                                <constraint firstItem="qEY-O4-vG6" firstAttribute="leading" secondItem="TjF-D0-abB" secondAttribute="leading" id="GGi-42-8oS"/>
+                                                                <constraint firstAttribute="trailing" secondItem="8SF-6g-VLG" secondAttribute="trailing" id="DSf-bH-RjO"/>
+                                                                <constraint firstAttribute="bottom" secondItem="8SF-6g-VLG" secondAttribute="bottom" constant="10" id="OR5-CG-jNW"/>
                                                                 <constraint firstAttribute="height" constant="240" id="Tw5-9B-My7"/>
                                                                 <constraint firstItem="ADY-wW-Zv1" firstAttribute="leading" secondItem="TjF-D0-abB" secondAttribute="leading" constant="24" id="ccu-kI-1EL"/>
+                                                                <constraint firstItem="8SF-6g-VLG" firstAttribute="top" secondItem="ADY-wW-Zv1" secondAttribute="bottom" constant="31.333333333333336" id="jub-4c-gIK"/>
                                                                 <constraint firstItem="ADY-wW-Zv1" firstAttribute="top" secondItem="TjF-D0-abB" secondAttribute="top" constant="24" id="l6f-6N-UNJ"/>
-                                                                <constraint firstAttribute="bottom" secondItem="qEY-O4-vG6" secondAttribute="bottom" constant="10" id="sEv-Qo-W4I"/>
+                                                                <constraint firstItem="8SF-6g-VLG" firstAttribute="leading" secondItem="TjF-D0-abB" secondAttribute="leading" id="yFN-4K-Ijn"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2kQ-KV-U9Y">
                                                             <rect key="frame" x="0.0" y="527.66666666666663" width="398" height="240"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mindful mins over time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1tu-3a-xRZ">
-                                                                    <rect key="frame" x="24" y="24" width="350" height="14.666666666666664"/>
+                                                                    <rect key="frame" x="24" y="24" width="350" height="14.333333333333336"/>
                                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="50X-kS-Zcc" userLabel="MMChart" customClass="LineChartView" customModule="Charts">
+                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bga-qX-QE1">
                                                                     <rect key="frame" x="0.0" y="70" width="398" height="160"/>
-                                                                    <color key="backgroundColor" red="0.92146831750000002" green="0.92162626979999995" blue="0.92145836349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <subviews>
+                                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="50X-kS-Zcc" userLabel="MMChart" customClass="LineChartView" customModule="Charts">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="0.0"/>
+                                                                            <color key="backgroundColor" red="0.92146831750000002" green="0.92162626979999995" blue="0.92145836349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        </view>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qq0-gB-Vcl" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                                                            <rect key="frame" x="181.66666666666666" y="0.0" width="35" height="160"/>
+                                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="35" id="njN-D5-vMO"/>
+                                                                            </constraints>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballPulse"/>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                                                    <color key="value" red="0.78039215689999997" green="0.82745098039999998" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="padding">
+                                                                                    <real key="value" value="32"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                        </view>
+                                                                    </subviews>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="160" id="udr-78-xJV"/>
+                                                                        <constraint firstAttribute="height" constant="160" id="ILL-X6-U7q"/>
+                                                                        <constraint firstItem="50X-kS-Zcc" firstAttribute="width" secondItem="bga-qX-QE1" secondAttribute="width" id="ovv-GI-rtG"/>
                                                                     </constraints>
-                                                                </view>
+                                                                </stackView>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstItem="1tu-3a-xRZ" firstAttribute="leading" secondItem="2kQ-KV-U9Y" secondAttribute="leading" constant="24" id="0hg-xh-9TC"/>
                                                                 <constraint firstItem="1tu-3a-xRZ" firstAttribute="top" secondItem="2kQ-KV-U9Y" secondAttribute="top" constant="24" id="3NV-qA-Sp3"/>
                                                                 <constraint firstAttribute="trailing" secondItem="1tu-3a-xRZ" secondAttribute="trailing" constant="24" id="EeT-7D-NWd"/>
-                                                                <constraint firstItem="50X-kS-Zcc" firstAttribute="leading" secondItem="2kQ-KV-U9Y" secondAttribute="leading" id="Lih-QY-NUa"/>
-                                                                <constraint firstAttribute="bottom" secondItem="50X-kS-Zcc" secondAttribute="bottom" constant="10" id="Rqc-2t-DGP"/>
+                                                                <constraint firstItem="bga-qX-QE1" firstAttribute="leading" secondItem="2kQ-KV-U9Y" secondAttribute="leading" id="QRy-2r-uyL"/>
+                                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="bga-qX-QE1" secondAttribute="bottom" constant="10" id="RdU-jq-gwN"/>
                                                                 <constraint firstAttribute="height" constant="240" id="TdK-QV-UGo"/>
-                                                                <constraint firstAttribute="trailing" secondItem="50X-kS-Zcc" secondAttribute="trailing" id="cqh-c5-8U8"/>
-                                                                <constraint firstItem="50X-kS-Zcc" firstAttribute="top" secondItem="1tu-3a-xRZ" secondAttribute="bottom" constant="31.5" id="s66-wv-spG"/>
+                                                                <constraint firstAttribute="trailing" secondItem="bga-qX-QE1" secondAttribute="trailing" id="qHm-7B-vgp"/>
+                                                                <constraint firstItem="bga-qX-QE1" firstAttribute="top" secondItem="1tu-3a-xRZ" secondAttribute="bottom" constant="31.670000000000002" id="xtr-li-cRR"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
@@ -946,9 +993,11 @@
                                             <outlet property="durationView" destination="S5G-Jy-bEC" id="AX0-vU-12a"/>
                                             <outlet property="hrvChart" destination="qEY-O4-vG6" id="skO-YL-23y"/>
                                             <outlet property="hrvChartView" destination="TjF-D0-abB" id="Bvg-WQ-jPi"/>
+                                            <outlet property="hrvDots" destination="Kjp-Hi-ebQ" id="UMo-wB-uTL"/>
                                             <outlet property="hrvView" destination="krg-bZ-Jep" id="wQx-EN-Hvg"/>
                                             <outlet property="mmChart" destination="50X-kS-Zcc" id="Swv-R2-ta4"/>
                                             <outlet property="mmChartView" destination="2kQ-KV-U9Y" id="tLI-In-kTj"/>
+                                            <outlet property="mmDots" destination="qq0-gB-Vcl" id="S72-OU-KuJ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

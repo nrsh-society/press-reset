@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 enum ZenInfoViewType: String {
     case hrvAverage = "hrv average"
@@ -25,8 +26,22 @@ enum ZenInfoViewType: String {
     @IBOutlet weak var topTitle: UILabel!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var dots: NVActivityIndicatorView!
     
     var zenInfoViewType: ZenInfoViewType?
+    
+    func setTitle(_ text: String) {
+        if text.isEmpty {
+            title.isHidden = true
+            dots.isHidden = false
+            dots.startAnimating()
+        } else {
+            dots.stopAnimating()
+            title.text = text
+            title.isHidden = false
+            dots.isHidden = true
+        }
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()
