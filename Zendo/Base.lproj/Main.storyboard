@@ -268,7 +268,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderZazenTableViewCell" rowHeight="30" id="txs-gQ-tMi" customClass="HeaderZazenTableViewCell" customModule="Zendo" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderZazenTableViewCell" rowHeight="30" id="txs-gQ-tMi" customClass="HeaderZazenTableViewCell" customModule="Zendo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="txs-gQ-tMi" id="dpa-zo-n64">
@@ -276,10 +276,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lun-TT-wts">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="265" height="30"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDs-Ef-Znt">
-                                                            <rect key="frame" x="18" y="0.0" width="284" height="14.666666666666666"/>
+                                                            <rect key="frame" x="18" y="0.0" width="229" height="14.666666666666666"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -306,7 +306,7 @@
                                             <outlet property="timeView" destination="Lun-TT-wts" id="7dS-l8-eFB"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ZazenTableViewCell" rowHeight="800" id="A1r-As-wRg" customClass="ZazenTableViewCell" customModule="Zendo" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ZazenTableViewCell" rowHeight="800" id="A1r-As-wRg" customClass="ZazenTableViewCell" customModule="Zendo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="58" width="320" height="800"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A1r-As-wRg" id="NMX-4c-NiT">
@@ -314,27 +314,27 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ekh-GF-ILb">
-                                                    <rect key="frame" x="8" y="16" width="304" height="768"/>
+                                                    <rect key="frame" x="8" y="16" width="249" height="768"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IZi-QW-Bsu" customClass="ZenInfoView" customModule="Zendo" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="304" height="87"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="249" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="87" id="UO5-Dq-KcB"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6sU-lg-LHu" customClass="ZenInfoView" customModule="Zendo" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="125" width="304" height="87"/>
+                                                            <rect key="frame" x="0.0" y="125" width="249" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="87" id="OXh-6l-P5S"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OQr-rq-wbn">
-                                                            <rect key="frame" x="0.0" y="250" width="304" height="240"/>
+                                                            <rect key="frame" x="0.0" y="250" width="249" height="240"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dkk-o2-Zfm" userLabel="HR Chart" customClass="LineChartView" customModule="Charts">
-                                                                    <rect key="frame" x="0.0" y="70" width="304" height="160"/>
+                                                                    <rect key="frame" x="0.0" y="70" width="249" height="160"/>
                                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <accessibility key="accessibilityConfiguration" label="chart"/>
                                                                     <constraints>
@@ -342,7 +342,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="heart rate over time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B0b-Z5-WBJ">
-                                                                    <rect key="frame" x="24" y="24" width="256" height="14.666666666666664"/>
+                                                                    <rect key="frame" x="24" y="24" width="201" height="14.666666666666664"/>
                                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -361,16 +361,16 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pW3-Ma-MLB">
-                                                            <rect key="frame" x="0.0" y="528" width="304" height="240"/>
+                                                            <rect key="frame" x="0.0" y="528" width="249" height="240"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="movement over time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VbQ-PJ-CqG">
-                                                                    <rect key="frame" x="24" y="24" width="256" height="14.666666666666664"/>
+                                                                    <rect key="frame" x="24" y="24" width="201" height="14.666666666666664"/>
                                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJ9-RO-1mV" customClass="LineChartView" customModule="Charts">
-                                                                    <rect key="frame" x="0.0" y="70" width="304" height="160"/>
+                                                                    <rect key="frame" x="0.0" y="70" width="249" height="160"/>
                                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="160" id="UBK-KK-fib"/>
@@ -549,16 +549,49 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="titleButton" value="Next"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sgc-8S-UZw">
+                                <rect key="frame" x="35" y="607" width="299" height="81"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Welcome! Zend">
+                                        <attributes>
+                                            <color key="NSColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="14" name="Antenna-Regular"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="ō">
+                                        <attributes>
+                                            <color key="NSColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="14" name="LucidaGrande"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content"> is designed to accompany your meditation practice. Use your watch to record your session and view your Heart Rate Variability (HRV), a measure empirically correlated to a sense of well-being and positive health outcomes.</string>
+                                        <attributes>
+                                            <color key="NSColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="14" name="Antenna-Regular"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="jae-tp-FsZ" firstAttribute="top" secondItem="CXj-sz-1cY" secondAttribute="bottom" constant="-30" id="1Vw-HR-eGZ"/>
                             <constraint firstItem="4RK-cn-RQd" firstAttribute="leading" secondItem="Xf9-SG-J5R" secondAttribute="leading" constant="41" id="2dk-Qz-hZD"/>
                             <constraint firstItem="CXj-sz-1cY" firstAttribute="leading" secondItem="Xf9-SG-J5R" secondAttribute="leading" constant="41" id="4PM-6u-fei"/>
+                            <constraint firstItem="yQ8-ky-LSd" firstAttribute="top" secondItem="sgc-8S-UZw" secondAttribute="bottom" constant="8" id="6FF-Tx-UuU"/>
                             <constraint firstItem="Xf9-SG-J5R" firstAttribute="bottom" secondItem="yQ8-ky-LSd" secondAttribute="bottom" constant="37" id="B2G-r0-0Cn"/>
                             <constraint firstItem="CXj-sz-1cY" firstAttribute="top" secondItem="Xf9-SG-J5R" secondAttribute="top" constant="40" id="Ggl-6H-HnE"/>
                             <constraint firstItem="jae-tp-FsZ" firstAttribute="leading" secondItem="Xf9-SG-J5R" secondAttribute="leading" id="QTg-AM-uTf"/>
                             <constraint firstItem="4RK-cn-RQd" firstAttribute="top" secondItem="jae-tp-FsZ" secondAttribute="bottom" constant="12" id="QuK-bZ-hVX"/>
+                            <constraint firstItem="sgc-8S-UZw" firstAttribute="top" secondItem="4RK-cn-RQd" secondAttribute="bottom" constant="8.3333333333332575" id="T3E-gs-5eP"/>
+                            <constraint firstItem="Xf9-SG-J5R" firstAttribute="trailing" secondItem="sgc-8S-UZw" secondAttribute="trailing" constant="41" id="ZiD-GX-wG4"/>
+                            <constraint firstItem="sgc-8S-UZw" firstAttribute="leading" secondItem="Xf9-SG-J5R" secondAttribute="leading" constant="35" id="g5b-Z1-teo"/>
                             <constraint firstItem="yQ8-ky-LSd" firstAttribute="width" secondItem="LJM-oY-Ml1" secondAttribute="width" multiplier="0.5" id="gH7-0U-tLM"/>
                             <constraint firstItem="Xf9-SG-J5R" firstAttribute="trailing" secondItem="4RK-cn-RQd" secondAttribute="trailing" constant="43" id="hYC-vS-0DU"/>
                             <constraint firstItem="Xf9-SG-J5R" firstAttribute="trailing" secondItem="yQ8-ky-LSd" secondAttribute="trailing" id="wi0-fc-cmV"/>
@@ -580,7 +613,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8nQ-W7-shc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3252" y="-1403"/>
+            <point key="canvasLocation" x="-3252" y="-1403.2019704433499"/>
         </scene>
         <!--Health Kit View Controller-->
         <scene sceneID="ox8-A3-TLw">
@@ -750,7 +783,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HeaderOverviewTableViewCell" rowHeight="90" id="ZRr-Is-SZE" customClass="HeaderOverviewTableViewCell" customModule="Zendo" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HeaderOverviewTableViewCell" rowHeight="90" id="ZRr-Is-SZE" customClass="HeaderOverviewTableViewCell" customModule="Zendo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZRr-Is-SZE" id="BBG-zI-F5s">
@@ -758,7 +791,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="GxP-AN-ReR">
-                                                    <rect key="frame" x="33" y="11" width="348" height="25"/>
+                                                    <rect key="frame" x="33" y="11" width="387" height="25"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFY-cb-h07">
                                                             <rect key="frame" x="0.0" y="0.0" width="30" height="25"/>
@@ -772,7 +805,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5U-pb-9u0">
-                                                            <rect key="frame" x="79.666666666666671" y="0.0" width="30" height="25"/>
+                                                            <rect key="frame" x="89.333333333333329" y="0.0" width="30" height="25"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                             <state key="normal" title="1W">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -782,7 +815,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rxw-rZ-4yl">
-                                                            <rect key="frame" x="159" y="0.0" width="30" height="25"/>
+                                                            <rect key="frame" x="178.66666666666666" y="0.0" width="30" height="25"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                             <state key="normal" title="1M">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -792,7 +825,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1L-io-blG">
-                                                            <rect key="frame" x="238.66666666666669" y="0.0" width="30" height="25"/>
+                                                            <rect key="frame" x="267.66666666666669" y="0.0" width="30" height="25"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                             <state key="normal" title="1Y">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -802,7 +835,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V1l-HA-fbH">
-                                                            <rect key="frame" x="318" y="0.0" width="30" height="25"/>
+                                                            <rect key="frame" x="357" y="0.0" width="30" height="25"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                             <state key="normal" title="All">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -820,7 +853,7 @@
                                                     </constraints>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEV-YG-qch">
-                                                    <rect key="frame" x="33" y="55" width="348" height="15.666666666666671"/>
+                                                    <rect key="frame" x="33" y="55" width="387" height="15.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -847,7 +880,7 @@
                                             <outletCollection property="buttons" destination="V1l-HA-fbH" collectionClass="NSMutableArray" id="CD1-4r-932"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="OverviewTableViewCell" rowHeight="800" id="AuI-Fn-Mvz" customClass="OverviewTableViewCell" customModule="Zendo" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="OverviewTableViewCell" rowHeight="800" id="AuI-Fn-Mvz" customClass="OverviewTableViewCell" customModule="Zendo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="118" width="414" height="800"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AuI-Fn-Mvz" id="nbU-Cl-gFA">
@@ -855,27 +888,27 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="S7i-H9-E3O">
-                                                    <rect key="frame" x="8" y="16" width="398" height="767.66666666666663"/>
+                                                    <rect key="frame" x="8" y="16" width="437" height="767.66666666666663"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="krg-bZ-Jep" customClass="ZenInfoView" customModule="Zendo" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="87"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="437" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="87" id="3Ww-9J-gHm"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5G-Jy-bEC" customClass="ZenInfoView" customModule="Zendo" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="125" width="398" height="87"/>
+                                                            <rect key="frame" x="0.0" y="125" width="437" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="87" id="jGv-gt-Pqw"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TjF-D0-abB">
-                                                            <rect key="frame" x="0.0" y="249.66666666666669" width="398" height="240"/>
+                                                            <rect key="frame" x="0.0" y="249.66666666666669" width="437" height="240"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hrv over time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADY-wW-Zv1">
-                                                                    <rect key="frame" x="24" y="24" width="350" height="14.666666666666664"/>
+                                                                    <rect key="frame" x="24" y="24" width="389" height="14.666666666666664"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="14.666666666666664" id="kt1-AO-x0I"/>
                                                                     </constraints>
@@ -884,14 +917,14 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8SF-6g-VLG">
-                                                                    <rect key="frame" x="0.0" y="70" width="398" height="160"/>
+                                                                    <rect key="frame" x="0.0" y="70" width="437" height="160"/>
                                                                     <subviews>
                                                                         <view hidden="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qEY-O4-vG6" userLabel="HRVChart" customClass="LineChartView" customModule="Charts">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="0.0"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="437" height="0.0"/>
                                                                             <color key="backgroundColor" red="0.92146831750000002" green="0.92162626979999995" blue="0.92145836349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </view>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kjp-Hi-ebQ" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                                                            <rect key="frame" x="181.66666666666666" y="0.0" width="35" height="160"/>
+                                                                            <rect key="frame" x="201" y="0.0" width="35" height="160"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="35" id="E12-9u-PTN"/>
@@ -926,23 +959,23 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2kQ-KV-U9Y">
-                                                            <rect key="frame" x="0.0" y="527.66666666666663" width="398" height="240"/>
+                                                            <rect key="frame" x="0.0" y="527.66666666666663" width="437" height="240"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mindful mins over time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1tu-3a-xRZ">
-                                                                    <rect key="frame" x="24" y="24" width="350" height="14.333333333333336"/>
+                                                                    <rect key="frame" x="24" y="24" width="389" height="14.333333333333336"/>
                                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bga-qX-QE1">
-                                                                    <rect key="frame" x="0.0" y="70" width="398" height="160"/>
+                                                                    <rect key="frame" x="0.0" y="70" width="437" height="160"/>
                                                                     <subviews>
                                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="50X-kS-Zcc" userLabel="MMChart" customClass="LineChartView" customModule="Charts">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="0.0"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="437" height="0.0"/>
                                                                             <color key="backgroundColor" red="0.92146831750000002" green="0.92162626979999995" blue="0.92145836349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </view>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qq0-gB-Vcl" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                                                            <rect key="frame" x="181.66666666666666" y="0.0" width="35" height="160"/>
+                                                                            <rect key="frame" x="201" y="0.0" width="35" height="160"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="35" id="njN-D5-vMO"/>
