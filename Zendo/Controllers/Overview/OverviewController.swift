@@ -124,7 +124,9 @@ class OverviewController: UIViewController {
     
     func populateCharts(_ cell: OverviewTableViewCell, _ currentInterval: CurrentInterval) {
         
-        cell.isHiddenHRV = true
+        DispatchQueue.main.async() {
+            cell.isHiddenHRV = true
+        }
         
         cell.hrvChart.drawGridBackgroundEnabled = false
         cell.hrvChart.chartDescription?.enabled = false
@@ -287,8 +289,9 @@ class OverviewController: UIViewController {
     
     func populateMMChart(cell: OverviewTableViewCell, dateIntervals: [Double]) {
         
-        cell.isHiddenMM = true
-        
+        DispatchQueue.main.async() {
+            cell.isHiddenMM = true
+        }
         var mmData = [Double: Double]()
         
         var entryKey = 0.0
@@ -392,7 +395,9 @@ class OverviewController: UIViewController {
                             // cell.durationView.title.text = movingTotal.stringZendoTime
                             //                            self.durationCache[self.currentInterval.interval] = movingTotal / Double(mmData.count)
                         }
-                        cell.isHiddenMM = false
+                        DispatchQueue.main.async() {
+                            cell.isHiddenMM = false
+                        }
                     }
                 } else {
                     print(error.debugDescription)

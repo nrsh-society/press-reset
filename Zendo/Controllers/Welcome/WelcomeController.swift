@@ -32,12 +32,20 @@ class WelcomeController: UIViewController {
             self.present(vc, animated: true)
         }
         
+        for label in labels {
+            label.font = UIFont.zendo(font: .antennaRegular, size: label.font.pointSize - (UIDevice.small ? 2 : 0))
+            let attributedString = NSMutableAttributedString(string: label.text ?? "")
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineHeightMultiple = 1.43
+            
+            attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
+            
+            label.attributedText = attributedString
+        }
+        
         if UIDevice.small {
             imageHeight.constant = 280
             topStackView.constant = 20
-            for label in labels {
-                label.font = UIFont.zendo(font: .antennaRegular, size: label.font.pointSize - 2)
-            }
         }
         
     }
