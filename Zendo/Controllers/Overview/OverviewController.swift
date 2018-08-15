@@ -75,9 +75,9 @@ class OverviewController: UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("viewDidAppear")
         Mixpanel.mainInstance().time(event: "overview_enter")
         tableView.reloadData()
     }
@@ -175,10 +175,9 @@ class OverviewController: UIViewController {
         dataset.fill = Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
         dataset.drawFilledEnabled = true
         
-        cell.hrvChart.data?.clearValues()
-        cell.hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
-        
         let handler: ZBFHealthKit.SamplesHandler = { samples, error in
+            cell.hrvChart.data?.clearValues()
+            cell.hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
             var dateIntervals = [Double]()
             if let samples = samples {
                 samples.sorted(by: <).forEach( { entry in
@@ -249,41 +248,9 @@ class OverviewController: UIViewController {
         
         switch currentInterval {
         case .year, .all:
-           
             cell.dateTimeTitle.text = prior.toZendoHeaderYearString + " - " + end.toZendoHeaderYearString
         default:
             cell.dateTimeTitle.text = prior.toZendoHeaderDayString + " - " + end.toZendoHeaderDayString
-        }
-    }
-    
-    func populateDurationTotal(_ cell: OverviewTableViewCell, _ currentInterval: CurrentInterval) {
-        
-        cell.durationView.setTitle("")
-        let end = Date()
-        
-        var prior: Date!
-        if currentInterval == .all {
-            prior = minDate
-        } else {
-            prior = Calendar.current.date(byAdding: currentInterval.interval, value: -(currentInterval.range), to: end)!
-        }
-        
-        ZBFHealthKit.getMindfulMinutes(start: prior, end: end) { samples, error in
-            if let samples = samples {
-                var sum = 0.0
-                
-                samples.forEach { entry in
-                    sum = sum + entry.value
-                }
-                
-                
-                DispatchQueue.main.async() {
-                    cell.durationView.setTitle(sum.stringZendoTime)
-                }
-                
-            } else {
-                print(error.debugDescription)
-            }
         }
     }
     
@@ -341,12 +308,10 @@ class OverviewController: UIViewController {
         dataset.fill = Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
         dataset.drawFilledEnabled = true
         
-        cell.mmChart.data?.clearValues()
-        cell.mmChart.data = LineChartData(dataSets: [dataset, communityDataset])
         
         let values = dateIntervals.sorted()
         
-        var movingTotal = 0.0
+       
         
         for (i, key) in values.enumerated() {
             let start = Date(timeIntervalSince1970: key)
@@ -359,7 +324,10 @@ class OverviewController: UIViewController {
             let days = DateInterval(start:start, end: end).duration / 60 / 60 / 24
             
             ZBFHealthKit.getMindfulMinutes(start: start, end: end) { samples, error in
-                
+                DispatchQueue.main.async() {
+                    cell.mmChart.data?.clearValues()
+                    cell.mmChart.data = LineChartData(dataSets: [dataset, communityDataset])
+                }
                 if let samples = samples {
                     var avg = 0.0
                     
@@ -371,10 +339,10 @@ class OverviewController: UIViewController {
                 }
                 
                 if mmData.count == dateIntervals.count {
-                    
+                     var movingAvg = 0.0
                     mmData.sorted(by: <).forEach { entry in
                         
-                        movingTotal += entry.value
+                        movingAvg += entry.value
                         
                         DispatchQueue.main.async() {
                             
@@ -389,14 +357,16 @@ class OverviewController: UIViewController {
                                 
                             }
                             
+                            let avg = movingAvg / Double(mmData.count)
+                            cell.durationView.setTitle(avg.stringZendoTime)
+                            
+                            cell.isHiddenMM = false
+                            
                             //#todo(debt): pull in the v2 backend duration
                             //self.getCommunityDataEntry(key: "duration", interval: entry.key, scale: 1.0)
                             
                             // cell.durationView.title.text = movingTotal.stringZendoTime
                             //                            self.durationCache[self.currentInterval.interval] = movingTotal / Double(mmData.count)
-                        }
-                        DispatchQueue.main.async() {
-                            cell.isHiddenMM = false
                         }
                     }
                 } else {
@@ -499,7 +469,6 @@ extension OverviewController: UITableViewDataSource {
         
         populateHRV(cell, currentInterval)
         populateCharts(cell, currentInterval)
-        populateDurationTotal(cell, currentInterval)
         
         return cell
     }

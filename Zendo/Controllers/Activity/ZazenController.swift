@@ -187,13 +187,15 @@ class ZazenController: UIViewController {
     }
     
     func populateSummary(cell: ZazenTableViewCell) {
+        cell.hrvView.setTitle("")
         ZBFHealthKit.getHRVAverage(workout) { results, error in
             
             if let results = results {
                 let value = results.first!.value
                 
                 DispatchQueue.main.async() {
-                    cell.hrvView.title.text = Int(value).description + "ms"
+                    cell.hrvView.setTitle(Int(value).description + "ms")
+                    
                 }
             } else {
                 print(error.debugDescription)
@@ -451,7 +453,7 @@ extension ZazenController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ZazenTableViewCell.reuseIdentifierCell, for: indexPath) as! ZazenTableViewCell
         
-        cell.durationView.title.text = workout.duration.stringZendoTime
+        cell.durationView.setTitle(workout.duration.stringZendoTime)
         
         cell.bpmChartView.isHidden = true
         cell.motionChartView.isHidden = true

@@ -296,17 +296,17 @@ class ZBFHealthKit {
         let hkQuery = HKStatisticsQuery(quantityType: hkType,
                                         quantitySamplePredicate: hkPredicate,
                                         options: options) { query, result, error in
-            
-            if let result = result {
-                if let value = result.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
-                    let value = [0.0 : value]
-                    handler(value, nil)
-                } else {
-                    handler(nil, nil)
-                }
-            } else {
-                handler(nil, error)
-            }
+                                            
+                                            if let result = result {
+                                                if let value = result.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
+                                                    let value = [0.0 : value]
+                                                    handler(value, nil)
+                                                } else {
+                                                    handler(nil, nil)
+                                                }
+                                            } else {
+                                                handler(nil, error)
+                                            }
         }
         
         ZBFHealthKit.healthStore.execute(hkQuery)
@@ -372,7 +372,21 @@ class ZBFHealthKit {
         case .year:
             components.month = 1
         case .all:
-            components.day = 7
+           
+            let component = Calendar.current.dateComponents([.day], from: prior, to: end)
+
+            if component.day! >= 1 && component.day! <= 2 {
+                components.hour = 4
+            } else if component.day! <= 7 {
+                components.hour = 12
+            } else if component.day! > 7 && component.day! <= 31 {
+                components.day = 1
+            } else if component.day! > 31 && component.day! <= 90{
+                components.weekOfYear = 1
+            }else {
+                components.month = 1
+            }
+            
         }
         
         
@@ -380,7 +394,7 @@ class ZBFHealthKit {
         
         let query = HKStatisticsCollectionQuery(quantityType: hkType,
                                                 quantitySamplePredicate: nil,
-                                                options: HKStatisticsOptions.discreteAverage,
+                                                options: .discreteAverage,
                                                 anchorDate: prior,
                                                 intervalComponents: components)
         
@@ -395,9 +409,52 @@ class ZBFHealthKit {
                         avgValue = avgQ.doubleValue(for: HKUnit(from: "ms"))
                     }
                     
-                    let key = statistics.startDate.timeIntervalSince1970
-                    print(statistics.startDate)
-                    entries[key] = avgValue
+                    let currentInterval = statistics.endDate.addingTimeInterval(-statistics.startDate.timeIntervalSince1970)
+                    if avgValue == 0.0 && statistics.startDate.addingTimeInterval(currentInterval.timeIntervalSince1970) > Date() {
+                        var components = DateComponents()
+                        var min = Calendar.current.component(.minute, from: Date().addingTimeInterval(statistics.startDate.timeIntervalSince1970))
+                        
+                        if min <= 0 {
+                            min = 1
+                        }
+                        
+                        components.minute = min
+                        let query2 = HKStatisticsCollectionQuery(quantityType: hkType,
+                                                                quantitySamplePredicate: nil,
+                                                                options: .discreteAverage,
+                                                                anchorDate: statistics.startDate,
+                                                                intervalComponents: components)
+                        
+                        query2.initialResultsHandler = { query, results, error in
+                            
+                            if let statsCollection = results {
+                                statsCollection.enumerateStatistics(from: statistics.startDate, to: Date()) { statistics, stop in
+                                    
+                                    var avgValue = 0.0
+                                    
+                                    print(statistics.startDate)
+                                    if let avgQ = statistics.averageQuantity() {
+                                        avgValue = avgQ.doubleValue(for: HKUnit(from: "ms"))
+                                    }
+                                    
+                                    let key = statistics.startDate.timeIntervalSince1970
+                                    print(avgValue)
+                                    print(statistics.startDate)
+                                    entries[key] = avgValue
+                                    
+                                }
+                            }
+                        }
+                        
+                        healthStore.execute(query2)
+                        
+                    } else {
+                        let key = statistics.startDate.timeIntervalSince1970
+                        print(avgValue)
+                        print(statistics.startDate)
+                        entries[key] = avgValue
+                    }
+                    
                     
                 }
                 

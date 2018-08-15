@@ -172,10 +172,24 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5J-CS-i6v">
-                                            <rect key="frame" x="32" y="344" width="311" height="80.333333333333314"/>
+                                            <rect key="frame" x="32" y="344" width="311" height="103.66666666666669"/>
                                             <attributedString key="attributedText">
                                                 <fragment>
-                                                    <string key="content">Start a session directly from your phone or on your watch. Zendo works great with Headspace, Calm, meditation podcast, or self-guided meditations.</string>
+                                                    <string key="content">Start a session directly from your phone  by pressing the watch icon above. Or start a session on your watch by deep pressing the icon. Zend</string>
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="14" name="Antenna-Regular"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.4299999999999999" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment content="ō">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="14" name="LucidaGrande"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.4299999999999999" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment content=" works great with Headspace, Calm, podcast, or self-guided meditations.">
                                                     <attributes>
                                                         <color key="NSColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <font key="NSFont" size="14" name="Antenna-Regular"/>

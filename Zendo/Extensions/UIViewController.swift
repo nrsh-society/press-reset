@@ -12,8 +12,12 @@ import Mixpanel
 extension UIViewController {
     
     func showWelcomeController() {
-        let controller = WelcomeController.loadFromStoryboard()
-        present(controller, animated: true)
+        if let vc = UIApplication.shared.keyWindow?.topViewController {
+            if !vc.isKind(of: WelcomeController.self) {
+                let controller = WelcomeController.loadFromStoryboard()
+                present(controller, animated: true)
+            }
+        }
     }
     
     func showHealthKitController(isFailed: Bool) {
@@ -22,18 +26,41 @@ extension UIViewController {
         present(controller, animated: true)
     }
     
-    func checkHealthKit() {
+    func updateOverview() {
+        NotificationCenter.default.post(name: .reloadOverview, object: nil)
+    }
+    
+    func checkHealthKit(isShow: Bool) {
         if !Settings.isRunOnce {
             showWelcomeController()
         } else {
-            for type in ZBFHealthKit.hkShareTypes  {
+            for (index, type) in ZBFHealthKit.hkShareTypes.enumerated()  {
                 switch ZBFHealthKit.healthStore.authorizationStatus(for: type) {
-                case .notDetermined: showHealthKitController(isFailed: false)
-                case .sharingDenied: showHealthKitController(isFailed: true)
-                case .sharingAuthorized: break
+                case .notDetermined:
+                    if isShow {
+                        showHealthKitController(isFailed: false)
+                    }
+                    return
+                case .sharingDenied:
+                    if isShow {
+                        showHealthKitController(isFailed: true)
+                    }
+                    return
+                case .sharingAuthorized:
+                    if index == ZBFHealthKit.hkShareTypes.count - 1 {
+                        if let vc = UIApplication.shared.keyWindow?.topViewController {
+                            if vc.isKind(of: HealthKitViewController.self) || vc.isKind(of: WelcomeController.self) {
+                                vc.dismiss(animated: true)
+                            }
+                        }
+                        updateOverview()
+                    }
                 }
-                break
             }
+            
+            
+            
+            
         }
     }
     

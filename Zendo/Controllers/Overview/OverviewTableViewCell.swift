@@ -25,7 +25,7 @@ class OverviewTableViewCell: UITableViewCell {
     
     @IBOutlet weak var durationView: ZenInfoView! {
         didSet {
-            durationView.zenInfoViewType = .totalMins
+            durationView.zenInfoViewType = .averageMins
         }
     }
     @IBOutlet weak var hrvView: ZenInfoView! {

@@ -238,7 +238,7 @@ class ZendoController: UITableViewController {
             guard success else {
                 let alert = UIAlertController(title: "Error", message: (error?.localizedDescription)!, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
-                    self.checkHealthKit()
+                    self.checkHealthKit(isShow: true)
                 })
                 self.present(alert, animated: true)
                 return

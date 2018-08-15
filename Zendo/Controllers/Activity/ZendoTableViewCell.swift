@@ -23,7 +23,7 @@ class FirstSessionTableViewCell: UITableViewCell {
     @IBOutlet weak var imageHeight: NSLayoutConstraint! {
         didSet {
             if UIDevice.small {
-                imageHeight.constant = 290.0
+                imageHeight.constant = 255.0
             }
         }
     }
