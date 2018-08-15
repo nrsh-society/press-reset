@@ -12,9 +12,12 @@ import HealthKit
 class FirstSessionTableViewCell: UITableViewCell {
     @IBOutlet weak var bottomLabel: UILabel! {
         didSet {
-            if UIDevice.small {
-                bottomLabel.font = UIFont.zendo(font: .antennaRegular, size: bottomLabel.font.pointSize - 2)
-            }
+            bottomLabel.font = UIFont.zendo(font: .antennaRegular, size: bottomLabel.font.pointSize - (UIDevice.small ? 2 : 0))
+            let attributedString = NSMutableAttributedString(string: bottomLabel.text ?? "")
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineHeightMultiple = 1.43
+            
+            attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
         }
     }
     @IBOutlet weak var imageHeight: NSLayoutConstraint! {

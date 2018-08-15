@@ -34,13 +34,15 @@ class WelcomeController: UIViewController {
         
         for label in labels {
             label.font = UIFont.zendo(font: .antennaRegular, size: label.font.pointSize - (UIDevice.small ? 2 : 0))
-            let attributedString = NSMutableAttributedString(string: label.text ?? "")
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineHeightMultiple = 1.43
-            
-            attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
-            
-            label.attributedText = attributedString
+            if label.tag == 2 {
+                let attributedString = NSMutableAttributedString(string: label.text ?? "")
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.lineHeightMultiple = 1.43
+                
+                attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
+                
+                label.attributedText = attributedString
+            }
         }
         
         if UIDevice.small {
