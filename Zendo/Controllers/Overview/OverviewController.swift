@@ -133,6 +133,7 @@ class OverviewController: UIViewController {
         let xaxis = XAxis()
         xaxis.valueFormatter = formato
         
+        cell.hrvChart.highlightValues([])
         cell.hrvChart.drawGridBackgroundEnabled = false
         cell.hrvChart.chartDescription?.enabled = false
         cell.hrvChart.autoScaleMinMaxEnabled = true
@@ -142,8 +143,6 @@ class OverviewController: UIViewController {
         cell.hrvChart.xAxis.drawAxisLineEnabled = false
         cell.hrvChart.rightAxis.drawAxisLineEnabled = false
         cell.hrvChart.leftAxis.drawAxisLineEnabled = false
-        
-        
         
         let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "ms")
         
@@ -284,6 +283,7 @@ class OverviewController: UIViewController {
         let xaxis = XAxis()
         xaxis.valueFormatter = formato
         
+        cell.mmChart.highlightValues([])
         cell.mmChart.xAxis.drawGridLinesEnabled = false
         cell.mmChart.xAxis.drawAxisLineEnabled = false
         cell.mmChart.rightAxis.drawAxisLineEnabled = false
@@ -366,7 +366,7 @@ class OverviewController: UIViewController {
                 for var entry in sam {
                     movingTotal += entry.value
                     
-                    entry.value = entry.value / 60.0
+                    entry.value = (entry.value / 60.0).rounded()
                     
                     DispatchQueue.main.async() {
                         cell.mmChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
@@ -378,6 +378,7 @@ class OverviewController: UIViewController {
                 DispatchQueue.main.async() {
                     cell.mmChart.data!.highlightEnabled = true
                     cell.mmChart.notifyDataSetChanged()
+                    cell.mmChart.setNeedsDisplay()
                     cell.mmChart.xAxis.valueFormatter = xaxis.valueFormatter
                     cell.isHiddenMM = false
                     

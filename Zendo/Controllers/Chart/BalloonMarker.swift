@@ -184,7 +184,12 @@ open class BalloonMarker: MarkerImage
     
     open func setLabel(_ newLabel: String)
     {
-        label = newLabel
+        if let value = Double(newLabel) {
+            label = String(format: "%.0f", value)
+        } else {
+            label = newLabel
+        }
+        
         
         _drawAttributes.removeAll()
         _drawAttributes[.font] = self.font
