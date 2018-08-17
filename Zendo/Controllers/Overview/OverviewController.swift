@@ -111,7 +111,6 @@ class OverviewController: UIViewController {
                                                     }
                                                 }
                                                 
-                                                
                                                 DispatchQueue.main.async() {
                                                     self.tableView.reloadData()
                                                 }
@@ -126,18 +125,25 @@ class OverviewController: UIViewController {
         
         DispatchQueue.main.async() {
             cell.isHiddenHRV = true
+            cell.durationView.setTitle("")
         }
+        
+        let formato = MMChartFormatter()
+        formato.currentInterval = currentInterval
+        let xaxis = XAxis()
+        xaxis.valueFormatter = formato
         
         cell.hrvChart.drawGridBackgroundEnabled = false
         cell.hrvChart.chartDescription?.enabled = false
         cell.hrvChart.autoScaleMinMaxEnabled = true
         cell.hrvChart.noDataText = ""
-        cell.hrvChart.xAxis.valueFormatter = self
         
         cell.hrvChart.xAxis.drawGridLinesEnabled = false
         cell.hrvChart.xAxis.drawAxisLineEnabled = false
         cell.hrvChart.rightAxis.drawAxisLineEnabled = false
         cell.hrvChart.leftAxis.drawAxisLineEnabled = false
+        
+        
         
         let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "ms")
         
@@ -162,6 +168,8 @@ class OverviewController: UIViewController {
         
         dataset.drawCircleHoleEnabled = true
         dataset.circleHoleRadius = 3
+        
+        dataset.highlightEnabled = true
         
         // 00 - 0%
         // 80 - 50%
@@ -197,29 +205,44 @@ class OverviewController: UIViewController {
             }
             
             DispatchQueue.main.async() {
-                cell.isHiddenHRV = false
+                cell.hrvChart.data!.highlightEnabled = true
                 cell.hrvChart.notifyDataSetChanged()
+                cell.hrvChart.xAxis.valueFormatter = xaxis.valueFormatter
+                cell.isHiddenHRV = false
                 
                 //@todo: this approach to getting dateIntervals fails when there is no HRV
-                self.populateMMChart(cell: cell, dateIntervals: dateIntervals)
+                self.populateMMChart(cell: cell)
             }
         }
         
-        var proirDate: Date!
-        if currentInterval == .all {
-            proirDate = minDate
-        } else {
-            proirDate = Calendar.current.date(byAdding: currentInterval.interval, value: -(currentInterval.range), to: Date())!
+        var start = Date()
+        var end = Date()
+        
+        switch currentInterval {
+        case .hour:
+            start = Date().startOfDay
+            end = Date().endOfDay
+        case .day:
+            start = Date().startOfWeek
+            end = Date().endOfWeek
+        case .month:
+            start = Date().startOfMonth
+            end = Date().endOfMonth
+        case .year:
+            start = Date().startOfYear
+            end = Date().endOfYear
+        case .all:
+            break
         }
         
-        ZBFHealthKit.getHRVSamples(currentInterval: currentInterval, prior: proirDate, handler: handler)
+        ZBFHealthKit.getHRVSamples(start: start, end: end, currentInterval: currentInterval, handler: handler)
     }
     
     func getCommunityDataEntry(key: String, interval: Double, scale: Double) -> ChartDataEntry {
         var value = CommunityDataLoader.get(measure: key, at: interval)
         value = value * scale
         
-        return ChartDataEntry(x: interval, y: value)
+        return ChartDataEntry(x: interval, y: value.rounded())
     }
     
     func populateHRV(_ cell: OverviewTableViewCell, _  currentInterval: CurrentInterval) {
@@ -237,31 +260,29 @@ class OverviewController: UIViewController {
     }
     
     func populateDatetimeSpan(_ cell: HeaderOverviewTableViewCell, _ currentInterval: CurrentInterval) {
-        let end = Date()
-        
-        var prior: Date!
-        if currentInterval == .all {
-            prior = minDate
-        } else {
-            prior = Calendar.current.date(byAdding: currentInterval.interval, value: -(currentInterval.range), to: end)!
-        }
-        
+    
         switch currentInterval {
-        case .year, .all:
-            cell.dateTimeTitle.text = prior.toZendoHeaderYearString + " - " + end.toZendoHeaderYearString
-        default:
-            cell.dateTimeTitle.text = prior.toZendoHeaderDayString + " - " + end.toZendoHeaderDayString
+        case .hour:
+            cell.dateTimeTitle.text = Date().startOfDay.toZendoHeaderDayString
+        case .day:
+            cell.dateTimeTitle.text = Date().startOfWeek.toZendoHeaderDayString + " - " + Date().endOfWeek.toZendoHeaderDayString
+        case .month:
+            cell.dateTimeTitle.text = Date().startOfMonth.toZendoHeaderMonthYearString
+        case .year:
+            cell.dateTimeTitle.text = Date().startOfYear.toZendoHeaderYearString
+        case .all: break
         }
+        
     }
     
-    func populateMMChart(cell: OverviewTableViewCell, dateIntervals: [Double]) {
+    func populateMMChart(cell: OverviewTableViewCell) {
         
-        DispatchQueue.main.async() {
-            cell.isHiddenMM = true
-        }
-        var mmData = [Double: Double]()
+        cell.isHiddenMM = true
         
-        var entryKey = 0.0
+        let formato = MMChartFormatter()
+        formato.currentInterval = currentInterval
+        let xaxis = XAxis()
+        xaxis.valueFormatter = formato
         
         cell.mmChart.xAxis.drawGridLinesEnabled = false
         cell.mmChart.xAxis.drawAxisLineEnabled = false
@@ -272,7 +293,6 @@ class OverviewController: UIViewController {
         cell.mmChart.chartDescription?.enabled = false
         cell.mmChart.autoScaleMinMaxEnabled = true
         cell.mmChart.noDataText = ""
-        cell.mmChart.xAxis.valueFormatter = self
         
         let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "mins")
         
@@ -282,6 +302,7 @@ class OverviewController: UIViewController {
         
         communityDataset.drawCirclesEnabled = false
         communityDataset.drawValuesEnabled = false
+        communityDataset.highlightEnabled = false
         
         communityDataset.setColor(UIColor.zenRed)
         communityDataset.lineWidth = 1.5
@@ -290,6 +311,7 @@ class OverviewController: UIViewController {
         dataset.drawValuesEnabled = false
         dataset.setColor(UIColor.zenDarkGreen)
         dataset.lineWidth = 1.5
+        dataset.highlightEnabled = true
         
         dataset.drawCirclesEnabled = true
         dataset.setCircleColor(UIColor.zenDarkGreen)
@@ -300,80 +322,75 @@ class OverviewController: UIViewController {
         
         // 00 - 0%
         // 80 - 50%
-        let gradientColors = [ChartColorTemplates.colorFromString("#00277A69").cgColor,
-                              ChartColorTemplates.colorFromString("#80277A69").cgColor]
+        let gradientColors = [
+            ChartColorTemplates.colorFromString("#00277A69").cgColor,
+            ChartColorTemplates.colorFromString("#80277A69").cgColor
+        ]
         let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
         
         dataset.fillAlpha = 1
-        dataset.fill = Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
+        dataset.fill = Fill(linearGradient: gradient, angle: 90)
         dataset.drawFilledEnabled = true
         
+        var start = Date()
+        var end = Date()
         
-        let values = dateIntervals.sorted()
+        switch currentInterval {
+        case .hour:
+            start = Date().startOfDay
+            end = Date().endOfDay
+        case .day:
+            start = Date().startOfWeek
+            end = Date().endOfWeek
+        case .month:
+            start = Date().startOfMonth
+            end = Date().endOfMonth
+        case .year:
+            start = Date().startOfYear
+            end = Date().endOfYear
+        case .all:
+            break
+        }
         
-       
-        
-        for (i, key) in values.enumerated() {
-            let start = Date(timeIntervalSince1970: key)
+        ZBFHealthKit.getMindfulMinutes(start: start, end: end, currentInterval: currentInterval) { samples, error in
+            DispatchQueue.main.async() {
+                cell.mmChart.data?.clearValues()
+                cell.mmChart.data = LineChartData(dataSets: [dataset, communityDataset])
+            }
+            var movingTotal = 0.0
             
-            let idx = i + 1
-            let last = (i == values.count - 1)
-            
-            let end = last ? Date() : Date(timeIntervalSince1970: values[idx])
-            
-            let days = DateInterval(start:start, end: end).duration / 60 / 60 / 24
-            
-            ZBFHealthKit.getMindfulMinutes(start: start, end: end) { samples, error in
-                DispatchQueue.main.async() {
-                    cell.mmChart.data?.clearValues()
-                    cell.mmChart.data = LineChartData(dataSets: [dataset, communityDataset])
-                }
-                if let samples = samples {
-                    var avg = 0.0
-                    
-                    if samples.count > 0 {
-                        avg = (samples[samples.keys.first!]! / 60) / days
-                    }
-                    
-                    mmData[start.timeIntervalSince1970] = avg
-                }
+            if let samples = samples {
                 
-                if mmData.count == dateIntervals.count {
-                     var movingAvg = 0.0
-                    mmData.sorted(by: <).forEach { entry in
+                let sam = samples.sorted(by: <)
+                
+                for var entry in sam {
+                    movingTotal += entry.value
+                    
+                    entry.value = entry.value / 60.0
+                    
+                    DispatchQueue.main.async() {
+                        cell.mmChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
                         
-                        movingAvg += entry.value
-                        
-                        DispatchQueue.main.async() {
-                            
-                            if entryKey <= entry.key {
-                                cell.mmChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
-                                
-                                let community = ChartDataEntry(x: entry.key, y: 30.0)
-                                cell.mmChart.data!.addEntry(community, dataSetIndex: 1)
-                                cell.mmChart.notifyDataSetChanged()
-                                
-                                entryKey = entry.key
-                                
-                            }
-                            
-                            let avg = movingAvg / Double(mmData.count)
-                            cell.durationView.setTitle(avg.stringZendoTime)
-                            
-                            cell.isHiddenMM = false
-                            
-                            //#todo(debt): pull in the v2 backend duration
-                            //self.getCommunityDataEntry(key: "duration", interval: entry.key, scale: 1.0)
-                            
-                            // cell.durationView.title.text = movingTotal.stringZendoTime
-                            //                            self.durationCache[self.currentInterval.interval] = movingTotal / Double(mmData.count)
-                        }
+                        let community = ChartDataEntry(x: entry.key, y: 30.0)
+                        cell.mmChart.data!.addEntry(community, dataSetIndex: 1)
                     }
-                } else {
-                    print(error.debugDescription)
+                }
+                DispatchQueue.main.async() {
+                    cell.mmChart.data!.highlightEnabled = true
+                    cell.mmChart.notifyDataSetChanged()
+                    cell.mmChart.xAxis.valueFormatter = xaxis.valueFormatter
+                    cell.isHiddenMM = false
+                    
+                    switch self.currentInterval {
+                    case .hour: cell.durationView.setTitle(movingTotal.stringZendoTime)
+                    default:
+                        let avg = movingTotal / Double(samples.count)
+                        cell.durationView.setTitle(avg.stringZendoTime)
+                    }
                 }
             }
         }
+        
     }
     
     //#todo(debt): factor this into the zbfmodel + ui across controllers
@@ -396,9 +413,9 @@ class OverviewController: UIViewController {
         let alert = UIAlertController(title: "Starting Watch App", message: "Deep Press + Exit when complete.", preferredStyle: .actionSheet)
         
         let ok = UIAlertAction(title: "Done", style: .default) { action in
-//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1) ) {
-//                Mixpanel.mainInstance().track(event: "new_session")
-//            }
+            //            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1) ) {
+            //                Mixpanel.mainInstance().track(event: "new_session")
+            //            }
         }
         
         alert.addAction(ok)
@@ -466,6 +483,12 @@ extension OverviewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: OverviewTableViewCell.reuseIdentifierCell, for: indexPath) as! OverviewTableViewCell
+        
+        if self.currentInterval == .hour {
+            cell.durationView.zenInfoViewType = .totalMins
+        } else {
+            cell.durationView.zenInfoViewType = .minsAverage
+        }
         
         populateHRV(cell, currentInterval)
         populateCharts(cell, currentInterval)

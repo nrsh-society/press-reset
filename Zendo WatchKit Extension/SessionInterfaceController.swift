@@ -52,8 +52,6 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         session.end()
         
         WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session  as AnyObject), (name: "OptionsInterfaceController", context: session  as AnyObject)])
-        
-        
     }
     
     override func awake(withContext context: Any?) {

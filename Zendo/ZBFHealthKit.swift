@@ -60,51 +60,51 @@ class ZBFHealthKit {
         cell.imageView?.image = getImage(workout: workout)
         
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
-
+        
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: workout.endDate)
-
+        
         let hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: workout.endDate, options: .strictEndDate)
-
+        
         let options: HKStatisticsOptions = .discreteAverage
         
         let hkQuery = HKStatisticsQuery(quantityType: hkType,
                                         quantitySamplePredicate: hkPredicate,
                                         options: options) { query, result, error in
-
+                                            
                                             if error != nil {
                                                 print(error.debugDescription);
                                             }
-
+                                            
                                             if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
-
+                                                
                                                 DispatchQueue.main.async() {
-
+                                                    
                                                     let size = (cell.imageView?.image?.size)!
-
+                                                    
                                                     cell.imageView?.image =  generateImageWithText(size: size, text: Int(value).description, fontSize: 33.0)
-
+                                                    
                                                     UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-
+                                                        
                                                         if value < 99 {
                                                             let scale = CGAffineTransform(scaleX: 1 - CGFloat(value/100), y: 1 - CGFloat(value/100))
-
+                                                            
                                                             cell.imageView?.transform = scale
                                                         }
-
+                                                        
                                                         cell.imageView?.transform = CGAffineTransform.identity
-
+                                                        
                                                     }, completion: nil )
-
+                                                    
                                                 }
                                             } else {
                                                 let size = (cell.imageView?.image?.size)!
-
+                                                
                                                 DispatchQueue.main.async() {
-                                                        cell.imageView?.image =  generateImageWithText(size: size, text: "00", fontSize: 33.0)
+                                                    cell.imageView?.image =  generateImageWithText(size: size, text: "00", fontSize: 33.0)
                                                 }
                                             }
         }
-
+        
         ZBFHealthKit.healthStore.execute(hkQuery)
         
     }
@@ -243,10 +243,10 @@ class ZBFHealthKit {
     class func requestHealthAuth(handler: @escaping GetPermissionsHandler)  {
         
         healthStore.handleAuthorizationForExtension { success, error in
-                healthStore.requestAuthorization(
-                    toShare: hkShareTypes,
-                    read: hkReadTypes,
-                    completion: handler)
+            healthStore.requestAuthorization(
+                toShare: hkShareTypes,
+                read: hkReadTypes,
+                completion: handler)
         }
     }
     
@@ -262,36 +262,6 @@ class ZBFHealthKit {
         let hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: workout.endDate, options: .strictEndDate)
         
         let options: HKStatisticsOptions  = [.discreteAverage, .discreteMax, .discreteMin]
-        
-        let hkQuery = HKStatisticsQuery(quantityType: hkType,
-                                        quantitySamplePredicate: hkPredicate,
-                                        options: options) { query, result, error in
-            
-            if let result = result {
-                if let value = result.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
-                    let value = [0.0 : value]
-                    handler(value, nil)
-                } else {
-                    handler(nil, nil)
-                }
-            } else {
-                handler(nil, error)
-            }
-        }
-        
-        ZBFHealthKit.healthStore.execute(hkQuery)
-    }
-    
-    class func getHRVAverage(interval: Calendar.Component, value: Int, handler: @escaping SamplesHandler) {
-        let end = Date()
-        
-        let prior = Calendar.current.date(byAdding: interval, value: -(value), to: end)!
-        
-        let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
-        
-        let hkPredicate = HKQuery.predicateForSamples(withStart: prior, end: end, options: .strictEndDate)
-        
-        let options : HKStatisticsOptions  = [HKStatisticsOptions.discreteAverage, HKStatisticsOptions.discreteMax, HKStatisticsOptions.discreteMin]
         
         let hkQuery = HKStatisticsQuery(quantityType: hkType,
                                         quantitySamplePredicate: hkPredicate,
@@ -312,25 +282,83 @@ class ZBFHealthKit {
         ZBFHealthKit.healthStore.execute(hkQuery)
     }
     
-    class func getMindfulMinutes(start: Date, end: Date, handler: @escaping SamplesHandler) {
+    class func getHRVAverage(interval: Calendar.Component, value: Int, handler: @escaping SamplesHandler) {
+        let end = Date()
+        
+        let prior = Calendar.current.date(byAdding: interval, value: -(value), to: end)!
+        
+        let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
+        
+        let hkPredicate = HKQuery.predicateForSamples(withStart: prior, end: end, options: .strictEndDate)
+        
+        let options: HKStatisticsOptions = [HKStatisticsOptions.discreteAverage, HKStatisticsOptions.discreteMax, HKStatisticsOptions.discreteMin]
+        
+        let hkQuery = HKStatisticsQuery(quantityType: hkType,
+                                        quantitySamplePredicate: hkPredicate,
+                                        options: options) { query, result, error in
+                                            
+                                            if let result = result {
+                                                if let value = result.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
+                                                    let value = [0.0 : value]
+                                                    handler(value, nil)
+                                                } else {
+                                                    handler(nil, nil)
+                                                }
+                                            } else {
+                                                handler(nil, error)
+                                            }
+        }
+        
+        ZBFHealthKit.healthStore.execute(hkQuery)
+    }
+    
+    class func getMindfulMinutes(start: Date, end: Date, currentInterval: CurrentInterval, handler: @escaping SamplesHandler) {
         let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         
-        let hkCategoryPredicate = HKQuery.predicateForCategorySamples(with: .equalTo, value: 0)
+        // let hkCategoryPredicate = HKQuery.predicateForCategorySamples(with: .equalTo, value: 0)
         
-        let hkDatePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictStartDate)
+        //  let hkDatePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictStartDate)
         
-        let hkPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [hkCategoryPredicate, hkDatePredicate])
+        let hkDatePredicate = HKQuery.predicateForSamples(withStart: start, end: end)
+        
+        // let hkPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [hkCategoryPredicate, hkDatePredicate])
         
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
         
         let hkSampleQuery = HKSampleQuery(sampleType: hkType,
-                                          predicate: hkPredicate,
+                                          predicate: hkDatePredicate,
                                           limit: 0,
                                           sortDescriptors: [sortDescriptor]) { query, samples, error in
                                             
                                             var entries = [Double: Double]()
                                             
                                             if let samples = samples {
+                                                
+                                                switch currentInterval {
+                                                case .hour:
+                                                    for i in 0...23 {
+                                                        entries[Double(i)] = 0.0
+                                                    }
+                                                case .day:
+                                                    for i in 1...7 {
+                                                        entries[Double(i)] = 0.0
+                                                    }
+                                                case .month:
+                                                    let calendar = Calendar.current
+                                                    let range = calendar.range(of: .day, in: .month, for: start)!
+                                                    for i in 1...range.count {
+                                                        entries[Double(i)] = 0.0
+                                                    }
+                                                case .year:
+                                                    for i in 1...12 {
+                                                        entries[Double(i)] = 0.0
+                                                    }
+                                                case .all:
+                                                    break
+                                                }
+                                                
+                                                let calender = Calendar.current
+                                                
                                                 samples.forEach( { sample in
                                                     
                                                     let startDate = sample.startDate
@@ -339,42 +367,57 @@ class ZBFHealthKit {
                                                     
                                                     let delta = DateInterval(start: startDate, end: endDate)
                                                     
-                                                    let key = start.timeIntervalSince1970
+                                                    var key = 0.0
+                                                    
+                                                    switch currentInterval {
+                                                    case .hour:
+                                                        key = Double(calender.component(.hour, from: startDate))
+                                                    case .day:
+                                                        key = Double(calender.component(.weekday, from: startDate))
+                                                    case .month:
+                                                        key = Double(calender.component(.day, from: startDate))
+                                                    case .year:
+                                                        key = Double(calender.component(.month, from: startDate))
+                                                    case .all:
+                                                        break
+                                                    }
+                                                    
                                                     
                                                     if let existingValue = entries[key] {
-                                                        entries[key] = existingValue + delta.duration
+                                                        entries[key] = existingValue.rounded() + delta.duration.rounded()
                                                     } else {
-                                                        entries[key] = delta.duration
+                                                        entries[key] = delta.duration.rounded()
                                                     }
+                                                    
                                                 })
+                                                
+                                                handler(entries, error)
+                                                
                                             }
                                             
-                                            handler(entries, error)
         }
         
         healthStore.execute(hkSampleQuery)
     }
     
-    class func getHRVSamples(currentInterval: CurrentInterval, prior: Date, handler: @escaping SamplesHandler) {
+    class func getHRVSamples(start: Date, end: Date, currentInterval: CurrentInterval, handler: @escaping SamplesHandler) {
         var entries = [Double: Double]()
-        
-        let end = Date()
         
         var components = DateComponents()
         
         switch currentInterval {
         case .hour:
-            components.hour = 4
+            components.hour = 1
         case .day:
             components.day = 1
         case .month:
-            components.day = 7
+            components.day = 1
         case .year:
             components.month = 1
         case .all:
-           
-            let component = Calendar.current.dateComponents([.day], from: prior, to: end)
-
+            
+            let component = Calendar.current.dateComponents([.day], from: start, to: end)
+            
             if component.day! >= 1 && component.day! <= 2 {
                 components.hour = 4
             } else if component.day! <= 7 {
@@ -389,19 +432,42 @@ class ZBFHealthKit {
             
         }
         
+        switch currentInterval {
+        case .hour:
+            for i in 0...23 {
+                entries[Double(i)] = 0.0
+            }
+        case .day:
+            for i in 1...7 {
+                entries[Double(i)] = 0.0
+            }
+        case .month:
+            let calendar = Calendar.current
+            let range = calendar.range(of: .day, in: .month, for: start)!
+            for i in 1...range.count {
+                entries[Double(i)] = 0.0
+            }
+        case .year:
+            for i in 1...12 {
+                entries[Double(i)] = 0.0
+            }
+        case .all:
+            break
+        }
+        
         
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
         let query = HKStatisticsCollectionQuery(quantityType: hkType,
                                                 quantitySamplePredicate: nil,
                                                 options: .discreteAverage,
-                                                anchorDate: prior,
+                                                anchorDate: start,
                                                 intervalComponents: components)
         
         query.initialResultsHandler = { query, results, error in
             
             if let statsCollection = results {
-                statsCollection.enumerateStatistics(from: prior, to: end) { statistics, stop in
+                statsCollection.enumerateStatistics(from: start, to: end) { statistics, stop in
                     
                     var avgValue = 0.0
                     
@@ -409,8 +475,9 @@ class ZBFHealthKit {
                         avgValue = avgQ.doubleValue(for: HKUnit(from: "ms"))
                     }
                     
-                    let currentInterval = statistics.endDate.addingTimeInterval(-statistics.startDate.timeIntervalSince1970)
-                    if avgValue == 0.0 && statistics.startDate.addingTimeInterval(currentInterval.timeIntervalSince1970) > Date() {
+                    let interval = statistics.endDate.addingTimeInterval(-statistics.startDate.timeIntervalSince1970)
+                    
+                    if avgValue == 0.0 && statistics.startDate.addingTimeInterval(interval.timeIntervalSince1970) > Date() {
                         var components = DateComponents()
                         var min = Calendar.current.component(.minute, from: Date().addingTimeInterval(statistics.startDate.timeIntervalSince1970))
                         
@@ -420,10 +487,10 @@ class ZBFHealthKit {
                         
                         components.minute = min
                         let query2 = HKStatisticsCollectionQuery(quantityType: hkType,
-                                                                quantitySamplePredicate: nil,
-                                                                options: .discreteAverage,
-                                                                anchorDate: statistics.startDate,
-                                                                intervalComponents: components)
+                                                                 quantitySamplePredicate: nil,
+                                                                 options: .discreteAverage,
+                                                                 anchorDate: statistics.startDate,
+                                                                 intervalComponents: components)
                         
                         query2.initialResultsHandler = { query, results, error in
                             
@@ -437,10 +504,23 @@ class ZBFHealthKit {
                                         avgValue = avgQ.doubleValue(for: HKUnit(from: "ms"))
                                     }
                                     
-                                    let key = statistics.startDate.timeIntervalSince1970
-                                    print(avgValue)
-                                    print(statistics.startDate)
-                                    entries[key] = avgValue
+                                    var key = 0.0
+                                    let calender = Calendar.current
+                                    
+                                    switch currentInterval {
+                                    case .hour:
+                                        key = Double(calender.component(.hour, from: statistics.startDate))
+                                    case .day:
+                                        key = Double(calender.component(.weekday, from: statistics.startDate))
+                                    case .month:
+                                        key = Double(calender.component(.day, from: statistics.startDate))
+                                    case .year:
+                                        key = Double(calender.component(.month, from: statistics.startDate))
+                                    case .all:
+                                        break
+                                    }
+                                    
+                                    entries[key] = avgValue.rounded()
                                     
                                 }
                             }
@@ -449,12 +529,25 @@ class ZBFHealthKit {
                         healthStore.execute(query2)
                         
                     } else {
-                        let key = statistics.startDate.timeIntervalSince1970
-                        print(avgValue)
-                        print(statistics.startDate)
-                        entries[key] = avgValue
+                        
+                        var key = 0.0
+                        let calender = Calendar.current
+                        
+                        switch currentInterval {
+                        case .hour:
+                            key = Double(calender.component(.hour, from: statistics.startDate))
+                        case .day:
+                            key = Double(calender.component(.weekday, from: statistics.startDate))
+                        case .month:
+                            key = Double(calender.component(.day, from: statistics.startDate))
+                        case .year:
+                            key = Double(calender.component(.month, from: statistics.startDate))
+                        case .all:
+                            break
+                        }
+                        
+                        entries[key] = avgValue.rounded()
                     }
-                    
                     
                 }
                 
@@ -467,8 +560,7 @@ class ZBFHealthKit {
         healthStore.execute(query)
     }
     
-    class func getBPMSamples(interval: Calendar.Component, value: Int, handler: @escaping SamplesHandler)
-    {
+    class func getBPMSamples(interval: Calendar.Component, value: Int, handler: @escaping SamplesHandler) {
         var entries = [Double: Double]()
         
         let end = Date()

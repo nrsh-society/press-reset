@@ -228,7 +228,6 @@ class ZendoController: UITableViewController {
     }
     
     @IBAction func onNewSession(_ sender: Any){
-        ZBFHealthKit.getPermissions()
         
         let configuration = HKWorkoutConfiguration()
         configuration.activityType = .mindAndBody

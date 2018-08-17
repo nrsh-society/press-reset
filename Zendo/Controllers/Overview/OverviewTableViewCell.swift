@@ -25,7 +25,7 @@ class OverviewTableViewCell: UITableViewCell {
     
     @IBOutlet weak var durationView: ZenInfoView! {
         didSet {
-            durationView.zenInfoViewType = .averageMins
+            durationView.zenInfoViewType = .totalMins
         }
     }
     @IBOutlet weak var hrvView: ZenInfoView! {
@@ -96,7 +96,7 @@ class OverviewTableViewCell: UITableViewCell {
             leftAxis?.gridColor = UIColor.zenLightGray
             leftAxis?.drawLabelsEnabled = false
             
-            lineChart?.setViewPortOffsets(left: 5, top: 0, right: 0, bottom: 45)
+            lineChart?.setViewPortOffsets(left: 10, top: 10, right: 10, bottom: 45)
             lineChart?.highlightPerTapEnabled = false
             lineChart?.highlightPerDragEnabled = false
             lineChart?.doubleTapToZoomEnabled = false
@@ -104,6 +104,16 @@ class OverviewTableViewCell: UITableViewCell {
             lineChart?.legend.textColor = UIColor(red: 0.05, green:0.2, blue: 0.15, alpha: 1)
             lineChart?.legend.font = UIFont.zendo(font: .antennaRegular, size: 10.0)
             lineChart?.legend.form = .circle
+            
+            lineChart?.highlightPerTapEnabled = true
+            
+            let marker = BalloonMarker(color: UIColor(white: 180/255, alpha: 1),
+                                       font: .systemFont(ofSize: 12),
+                                       textColor: .white,
+                                       insets: UIEdgeInsets(top: 8, left: 8, bottom: 20, right: 8))
+            marker.chartView = lineChart
+            marker.minimumSize = CGSize(width: 80, height: 40)
+            lineChart?.marker = marker
         }
         
     }

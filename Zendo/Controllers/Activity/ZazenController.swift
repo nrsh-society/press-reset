@@ -87,7 +87,7 @@ class ZazenTableViewCell: UITableViewCell {
             leftAxis?.gridColor = UIColor.zenLightGray
             leftAxis?.drawLabelsEnabled = false
             
-            lineChart?.setViewPortOffsets(left: 5, top: 0, right: 0, bottom: 45)
+            lineChart?.setViewPortOffsets(left: 10, top: 10, right: 10, bottom: 45)
             lineChart?.highlightPerTapEnabled = false
             lineChart?.highlightPerDragEnabled = false
             lineChart?.doubleTapToZoomEnabled = false
@@ -127,53 +127,65 @@ class ZazenController: UIViewController {
         
         navigationController?.navigationBar.shadowImage = UIImage()
         
-        //#todo(bug): watchos 5, beta 5 introduced a bug that causes this query not to work now
-        //so we are switching to a date range
-        //let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
         
-        let hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictStartDate)
-        
-        let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
-        
-        let hkQuery = HKSampleQuery.init(sampleType: mindfulSessionType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor], resultsHandler: { query, results, error in
+        if let metadata = workout.metadata {
+            let timeArray = (metadata[MetadataType.time.rawValue] as! String).components(separatedBy: "/")
+            let nowArray = (metadata[MetadataType.now.rawValue] as! String).components(separatedBy: "/")
+            let motionArray = (metadata[MetadataType.motion.rawValue] as! String).components(separatedBy: "/")
+            let sdnnArray = (metadata[MetadataType.sdnn.rawValue] as! String).components(separatedBy: "/")
+            let heartArray = (metadata[MetadataType.heart.rawValue] as! String).components(separatedBy: "/")
+            let pitchArray = (metadata[MetadataType.pitch.rawValue] as! String).components(separatedBy: "/")
+            let rollArray = (metadata[MetadataType.roll.rawValue] as! String).components(separatedBy: "/")
+            let yawArray = (metadata[MetadataType.yaw.rawValue] as! String).components(separatedBy: "/")
             
-            if let results = results {
-                DispatchQueue.main.async() {
-                    self.samples = results.map { sample -> [String: Any] in
-                        return sample.metadata ?? [:]
-                    }
-                    
-                    self.tableView.reloadData()
-                }
-            } else {
-                print(error.debugDescription)
+            for (index, _) in timeArray.enumerated() {
+                samples.append([
+                    MetadataType.time.rawValue: timeArray[index],
+                    MetadataType.now.rawValue: nowArray[index],
+                    MetadataType.motion.rawValue: motionArray[index],
+                    MetadataType.sdnn.rawValue: sdnnArray[index],
+                    MetadataType.heart.rawValue: heartArray[index],
+                    MetadataType.pitch.rawValue: pitchArray[index],
+                    MetadataType.roll.rawValue: rollArray[index],
+                    MetadataType.yaw.rawValue: yawArray[index]
+                    ])
             }
             
-        })
+        } else {
+            //#todo(bug): watchos 5, beta 5 introduced a bug that causes this query not to work now
+            //so we are switching to a date range
+            //let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
+            let hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictStartDate)
+            
+            
+            let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
+            let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
+            
+            let hkQuery = HKSampleQuery.init(sampleType: mindfulSessionType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor], resultsHandler: { query, results, error in
+                
+                if let results = results {
+                    DispatchQueue.main.async() {
+                        self.samples = results.map { sample -> [String: Any] in
+                            return sample.metadata ?? [:]
+                        }
+                        
+                        self.tableView.reloadData()
+                    }
+                } else {
+                    print(error.debugDescription)
+                }
+                
+            })
+            
+            ZBFHealthKit.healthStore.execute(hkQuery)
+        }
         
-        ZBFHealthKit.healthStore.execute(hkQuery)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        Mixpanel.mainInstance().track(event: "zazen_enter")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
-
-//        let gradient = CAGradientLayer()
-//
-//        gradient.startPoint = CGPoint(x: 0.5, y: -0.005)
-//        gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
-//
-//        gradient.frame = view.bounds
-//        gradient.colors = [UIColor.zenDarkGreen.cgColor, UIColor.red.cgColor]
-//        view.layer.insertSublayer(gradient, at: 0)
-//        view.backgroundColor = UIColor.red
+        Mixpanel.mainInstance().track(event: "zazen_enter")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -436,7 +448,7 @@ class ZazenController: UIViewController {
 
 
 extension ZazenController: UITableViewDataSource, UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: HeaderZazenTableViewCell.reuseIdentifierCell) as! HeaderZazenTableViewCell
         
@@ -472,16 +484,16 @@ extension ZazenController: IAxisValueFormatter {
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         return stringForValue(value)
     }
-
+    
     func stringForValue(_ value: Double) -> String {
         let date = Date(timeIntervalSince1970: value)
-
+        
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm")
-
+        
         let localDate = dateFormatter.string(from: date)
-
+        
         return localDate.description
     }
     

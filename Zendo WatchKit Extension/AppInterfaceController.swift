@@ -18,78 +18,64 @@ class AppInterfaceController: WKInterfaceController {
     
     @IBAction func start() {
         
-        NSLog("start press");
+        NSLog("start press")
         
-        startSession();
+        startSession()
         
     }
     
     func startSession() {
         
-        Session.current = Session();
+        Session.current = Session()
         
-        Session.current?.start();
+        Session.current?.start()
         
         WKInterfaceDevice.current().play(WKHapticType.start)
         
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context:  Session.current  as AnyObject)
-            , (name: "OptionsInterfaceController", context:  Session.current  as AnyObject)])
+        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context:  Session.current  as AnyObject), (name: "OptionsInterfaceController", context: Session.current  as AnyObject)])
         
     }
     
-    override func awake(withContext context: Any?)
-    {
+    override func awake(withContext context: Any?){
         super.awake(withContext: context)
     }
     
-    override func willActivate()
-    {
+    override func willActivate(){
         super.willActivate()
         
         ZBFHealthKit.getPermissions()
         
-        let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
+        let hkType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
         
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
         
         let hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: Date(), options: .strictEndDate)
         
-        let options : HKStatisticsOptions  = HKStatisticsOptions.discreteAverage
+        let options = HKStatisticsOptions.discreteAverage
         
         let hkQuery = HKStatisticsQuery(quantityType: hkType,
                                         quantitySamplePredicate: hkPredicate,
-                                        options: options)
-        {
-            query, result, error in
-            
-            if(error != nil)
-            {
-                print(error.debugDescription)
-                
-            }
-            else
-            {
-                if let value = result!.averageQuantity()?.doubleValue(
-                    for: HKUnit(from: "ms"))
-                {
-                    DispatchQueue.main.async()
-                        {
-                            if value > 0.0
-                            {
-                                self.hrvLabel.setText(Int(value).description)
-                            }
-                    }
-                }
-            }
+                                        options: options) { query, result, error in
+                                            
+                                            if error != nil {
+                                                print(error.debugDescription)
+                                            } else {
+                                                if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
+                                                    DispatchQueue.main.async() {
+                                                        if value > 0.0 {
+                                                            self.hrvLabel.setText(Int(value).description)
+                                                        }
+                                                    }
+                                                }
+                                            }
         }
         
         ZBFHealthKit.healthStore.execute(hkQuery)
     }
     
-    override func didDeactivate()
-    {
-        // This method is called when watch view controller is no longer visible
+    override func didDeactivate() {
         super.didDeactivate()
+        // This method is called when watch view controller is no longer visible
     }
     
 }

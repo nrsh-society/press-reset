@@ -12,13 +12,13 @@ import NVActivityIndicatorView
 enum ZenInfoViewType: String {
     case hrvAverage = "hrv average"
     case totalMins = "total mins"
-    case averageMins = "average mins"
+    case minsAverage = "mins average"
     
     var image: UIImage {
         switch self {
         case .hrvAverage: return UIImage(named: "hrv")!
         case .totalMins: return UIImage(named: "time")!
-        case .averageMins: return UIImage(named: "time")!
+        case .minsAverage: return UIImage(named: "time")!
         }
     }
 }
@@ -30,7 +30,14 @@ enum ZenInfoViewType: String {
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var dots: NVActivityIndicatorView!
     
-    var zenInfoViewType: ZenInfoViewType?
+    var zenInfoViewType: ZenInfoViewType? {
+        didSet {
+            if let type = zenInfoViewType {
+                image.image = type.image
+                topTitle.text = type.rawValue
+            }
+        }
+    }
     
     func setTitle(_ text: String) {
         if text.isEmpty {
