@@ -33,7 +33,10 @@
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
-		<dict/>
+		<dict>
+			<key>WKAppBundleIdentifier</key>
+			<string>tools.sunyata.Zendo.watchkit</string>
+		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
