@@ -26,15 +26,16 @@ extension TimeInterval {
         return Int(self) / 3600
     }
     
-    var stringTime: String {
+    var stringZendoTimeMMChart: String {
+        let hrs = "h"
+        let mins = "m"
+    
         if hours != 0 {
-            return "\(hours)h \(minutes)m \(seconds)s"
+            return hours.description + hrs + " " + minutes.description + mins
         } else if minutes != 0 {
-            return "\(minutes)m \(seconds)s"
-        } else if milliseconds != 0 {
-            return "\(seconds)s \(milliseconds)ms"
+            return minutes.description + mins
         } else {
-            return "\(seconds)s"
+            return seconds.description + "s"
         }
     }
     

@@ -282,14 +282,11 @@ class ZBFHealthKit {
         ZBFHealthKit.healthStore.execute(hkQuery)
     }
     
-    class func getHRVAverage(interval: Calendar.Component, value: Int, handler: @escaping SamplesHandler) {
-        let end = Date()
+    class func getHRVAverage(start: Date, end: Date, handler: @escaping SamplesHandler) {
         
-        let prior = Calendar.current.date(byAdding: interval, value: -(value), to: end)!
+        let hkType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
-        let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
-        
-        let hkPredicate = HKQuery.predicateForSamples(withStart: prior, end: end, options: .strictEndDate)
+        let hkPredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictEndDate)
         
         let options: HKStatisticsOptions = [HKStatisticsOptions.discreteAverage, HKStatisticsOptions.discreteMax, HKStatisticsOptions.discreteMin]
         
@@ -331,6 +328,7 @@ class ZBFHealthKit {
                                           sortDescriptors: [sortDescriptor]) { query, samples, error in
                                             
                                             var entries = [Double: Double]()
+                                            var entriesDaysMonth = [Double: [Double]]()
                                             
                                             if let samples = samples {
                                                 
@@ -368,6 +366,7 @@ class ZBFHealthKit {
                                                     let delta = DateInterval(start: startDate, end: endDate)
                                                     
                                                     var key = 0.0
+                                                    var keyDay = 0.0
                                                     
                                                     switch currentInterval {
                                                     case .hour:
@@ -377,19 +376,42 @@ class ZBFHealthKit {
                                                     case .month:
                                                         key = Double(calender.component(.day, from: startDate))
                                                     case .year:
+                                                        keyDay = Double(calender.component(.day, from: startDate))
                                                         key = Double(calender.component(.month, from: startDate))
+                                                        
+                                                        if var existingValue = entriesDaysMonth[key] {
+                                                            existingValue.append(keyDay)
+                                                            entriesDaysMonth[key] = existingValue
+                                                        } else {
+                                                            entriesDaysMonth[key] = [keyDay]
+                                                        }
+                                                        
                                                     case .all:
                                                         break
                                                     }
                                                     
-                                                    
                                                     if let existingValue = entries[key] {
-                                                        entries[key] = existingValue.rounded() + delta.duration.rounded()
+                                                        entries[key] = existingValue + delta.duration
                                                     } else {
-                                                        entries[key] = delta.duration.rounded()
+                                                        entries[key] = delta.duration
                                                     }
                                                     
                                                 })
+                                                
+                                                
+                                                
+                                                if currentInterval == .year {
+                                                    for i in entriesDaysMonth {
+                                                        entriesDaysMonth[i.key] = i.value.removingDuplicates()
+                                                    }
+                                                    
+                                                    for i in entries {
+                                                        if entries[i.key] != 0.0 {
+                                                            entries[i.key] = (entries[i.key]! / Double(entriesDaysMonth[i.key]!.count))
+                                                        }
+                                                    }
+                                                    
+                                                }
                                                 
                                                 handler(entries, error)
                                                 
@@ -415,22 +437,8 @@ class ZBFHealthKit {
         case .year:
             components.month = 1
         case .all:
-            
-            let component = Calendar.current.dateComponents([.day], from: start, to: end)
-            
-            if component.day! >= 1 && component.day! <= 2 {
-                components.hour = 4
-            } else if component.day! <= 7 {
-                components.hour = 12
-            } else if component.day! > 7 && component.day! <= 31 {
-                components.day = 1
-            } else if component.day! > 31 && component.day! <= 90{
-                components.weekOfYear = 1
-            }else {
-                components.month = 1
-            }
-            
-        }
+            break
+        }        
         
         switch currentInterval {
         case .hour:
@@ -475,79 +483,82 @@ class ZBFHealthKit {
                         avgValue = avgQ.doubleValue(for: HKUnit(from: "ms"))
                     }
                     
-                    let interval = statistics.endDate.addingTimeInterval(-statistics.startDate.timeIntervalSince1970)
+                    //                    let interval = statistics.endDate.addingTimeInterval(-statistics.startDate.timeIntervalSince1970)
                     
-                    if avgValue == 0.0 && statistics.startDate.addingTimeInterval(interval.timeIntervalSince1970) > Date() {
-                        var components = DateComponents()
-                        var min = Calendar.current.component(.minute, from: Date().addingTimeInterval(statistics.startDate.timeIntervalSince1970))
-                        
-                        if min <= 0 {
-                            min = 1
-                        }
-                        
-                        components.minute = min
-                        let query2 = HKStatisticsCollectionQuery(quantityType: hkType,
-                                                                 quantitySamplePredicate: nil,
-                                                                 options: .discreteAverage,
-                                                                 anchorDate: statistics.startDate,
-                                                                 intervalComponents: components)
-                        
-                        query2.initialResultsHandler = { query, results, error in
-                            
-                            if let statsCollection = results {
-                                statsCollection.enumerateStatistics(from: statistics.startDate, to: Date()) { statistics, stop in
-                                    
-                                    var avgValue = 0.0
-                                    
-                                    print(statistics.startDate)
-                                    if let avgQ = statistics.averageQuantity() {
-                                        avgValue = avgQ.doubleValue(for: HKUnit(from: "ms"))
-                                    }
-                                    
-                                    var key = 0.0
-                                    let calender = Calendar.current
-                                    
-                                    switch currentInterval {
-                                    case .hour:
-                                        key = Double(calender.component(.hour, from: statistics.startDate))
-                                    case .day:
-                                        key = Double(calender.component(.weekday, from: statistics.startDate))
-                                    case .month:
-                                        key = Double(calender.component(.day, from: statistics.startDate))
-                                    case .year:
-                                        key = Double(calender.component(.month, from: statistics.startDate))
-                                    case .all:
-                                        break
-                                    }
-                                    
-                                    entries[key] = avgValue.rounded()
-                                    
-                                }
-                            }
-                        }
-                        
-                        healthStore.execute(query2)
-                        
-                    } else {
-                        
-                        var key = 0.0
-                        let calender = Calendar.current
-                        
-                        switch currentInterval {
-                        case .hour:
-                            key = Double(calender.component(.hour, from: statistics.startDate))
-                        case .day:
-                            key = Double(calender.component(.weekday, from: statistics.startDate))
-                        case .month:
-                            key = Double(calender.component(.day, from: statistics.startDate))
-                        case .year:
-                            key = Double(calender.component(.month, from: statistics.startDate))
-                        case .all:
-                            break
-                        }
-                        
-                        entries[key] = avgValue.rounded()
+                    //                    if avgValue == 0.0 && statistics.startDate.addingTimeInterval(interval.timeIntervalSince1970) > Date() {
+                    //                        var components = DateComponents()
+                    //                        var min = Calendar.current.component(.minute, from: Date().addingTimeInterval(statistics.startDate.timeIntervalSince1970))
+                    //
+                    //                        if min <= 0 {
+                    //                            min = 1
+                    //                        }
+                    //
+                    //                        components.minute = min
+                    //                        let query2 = HKStatisticsCollectionQuery(quantityType: hkType,
+                    //                                                                 quantitySamplePredicate: nil,
+                    //                                                                 options: .discreteAverage,
+                    //                                                                 anchorDate: statistics.startDate,
+                    //                                                                 intervalComponents: components)
+                    //
+                    //                        query2.initialResultsHandler = { query, results, error in
+                    //
+                    //                            if let statsCollection = results {
+                    //                                statsCollection.enumerateStatistics(from: statistics.startDate, to: Date()) { statistics, stop in
+                    //
+                    //                                    var avgValue = 0.0
+                    //
+                    //                                    print(statistics.startDate)
+                    //                                    if let avgQ = statistics.averageQuantity() {
+                    //                                        avgValue = avgQ.doubleValue(for: HKUnit(from: "ms"))
+                    //                                    }
+                    //
+                    //                                    var key = 0.0
+                    //                                    let calender = Calendar.current
+                    //
+                    //                                    switch currentInterval {
+                    //                                    case .hour:
+                    //                                        key = Double(calender.component(.hour, from: statistics.startDate))
+                    //                                    case .day:
+                    //                                        key = Double(calender.component(.weekday, from: statistics.startDate))
+                    //                                    case .month:
+                    //                                        key = Double(calender.component(.day, from: statistics.startDate))
+                    //                                    case .year:
+                    //                                        key = Double(calender.component(.month, from: statistics.startDate))
+                    //                                    case .all:
+                    //                                        break
+                    //                                    }
+                    //
+                    //                                    entries[key] = avgValue.rounded()
+                    //
+                    //                                }
+                    //                            }
+                    //                        }
+                    //
+                    //                        healthStore.execute(query2)
+                    //
+                    //                    } else {
+                    
+                    print(statistics.startDate)
+                    print(statistics.endDate)
+                    
+                    var key = 0.0
+                    let calender = Calendar.current
+                    
+                    switch currentInterval {
+                    case .hour:
+                        key = Double(calender.component(.hour, from: statistics.startDate))
+                    case .day:
+                        key = Double(calender.component(.weekday, from: statistics.startDate))
+                    case .month:
+                        key = Double(calender.component(.day, from: statistics.startDate))
+                    case .year:
+                        key = Double(calender.component(.month, from: statistics.startDate))
+                    case .all:
+                        break
                     }
+                    
+                    entries[key] = avgValue.rounded()
+                    //                    }
                     
                 }
                 
@@ -559,6 +570,7 @@ class ZBFHealthKit {
         
         healthStore.execute(query)
     }
+    
     
     class func getBPMSamples(interval: Calendar.Component, value: Int, handler: @escaping SamplesHandler) {
         var entries = [Double: Double]()
@@ -615,3 +627,5 @@ class ZBFHealthKit {
         healthStore.execute(query)
     }
 }
+
+

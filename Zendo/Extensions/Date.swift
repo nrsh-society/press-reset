@@ -152,6 +152,17 @@ extension Date {
         return calender
     }
     
+    
+    func toLocalTime() -> Date {
+        
+        let timeZone = TimeZone.current
+        
+        let seconds = Double(timeZone.secondsFromGMT(for: self))
+        
+        let localDate = Date(timeInterval: seconds, since: self)
+        return localDate
+    }
+    
 }
 
 //extension String {

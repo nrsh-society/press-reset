@@ -45,13 +45,16 @@ class OverviewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var currentInterval: CurrentInterval = .hour
-    var minDate = Date()
     
     let hkPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody)
     let hkType = HKObjectType.workoutType()
+    var start = Date()
+    var end = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setDate()
         
         tableView.backgroundColor = UIColor.clear
         tableView.estimatedRowHeight = 1000.0
@@ -77,7 +80,7 @@ class OverviewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("viewDidAppear")
+        
         Mixpanel.mainInstance().time(event: "overview_enter")
         tableView.reloadData()
     }
@@ -90,35 +93,6 @@ class OverviewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: .reloadOverview, object: nil)
-    }
-    
-    func getSamples() {
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
-        
-        let hkQuery = HKSampleQuery.init(sampleType: hkType,
-                                         predicate: hkPredicate,
-                                         limit: HealthKit.HKObjectQueryNoLimit,
-                                         sortDescriptors: [sortDescriptor],
-                                         resultsHandler: { query, results, error in
-                                            
-                                            if let error = error {
-                                                print(error)
-                                            } else {
-                                                
-                                                for sample in results! {
-                                                    if sample.startDate < self.minDate {
-                                                        self.minDate = sample.startDate
-                                                    }
-                                                }
-                                                
-                                                DispatchQueue.main.async() {
-                                                    self.tableView.reloadData()
-                                                }
-                                            }
-                                            
-        })
-        
-        ZBFHealthKit.healthStore.execute(hkQuery)
     }
     
     func populateCharts(_ cell: OverviewTableViewCell, _ currentInterval: CurrentInterval) {
@@ -185,10 +159,12 @@ class OverviewController: UIViewController {
         let handler: ZBFHealthKit.SamplesHandler = { samples, error in
             cell.hrvChart.data?.clearValues()
             cell.hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
-            var dateIntervals = [Double]()
             if let samples = samples {
                 samples.sorted(by: <).forEach( { entry in
-                    cell.hrvChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
+                    
+                    if entry.value > 0.0 {
+                        cell.hrvChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
+                    }
                     
                     let community = self.getCommunityDataEntry(key: "sdnn", interval: entry.key, scale: 1.0)
                     
@@ -196,7 +172,6 @@ class OverviewController: UIViewController {
                     
                     print("populateHRVChart: \(entry)")
                     
-                    dateIntervals.append(entry.key)
                 })
             } else {
                 cell.hrvChart.noDataText = "No HRV date"
@@ -209,29 +184,8 @@ class OverviewController: UIViewController {
                 cell.hrvChart.xAxis.valueFormatter = xaxis.valueFormatter
                 cell.isHiddenHRV = false
                 
-                //@todo: this approach to getting dateIntervals fails when there is no HRV
                 self.populateMMChart(cell: cell)
             }
-        }
-        
-        var start = Date()
-        var end = Date()
-        
-        switch currentInterval {
-        case .hour:
-            start = Date().startOfDay
-            end = Date().endOfDay
-        case .day:
-            start = Date().startOfWeek
-            end = Date().endOfWeek
-        case .month:
-            start = Date().startOfMonth
-            end = Date().endOfMonth
-        case .year:
-            start = Date().startOfYear
-            end = Date().endOfYear
-        case .all:
-            break
         }
         
         ZBFHealthKit.getHRVSamples(start: start, end: end, currentInterval: currentInterval, handler: handler)
@@ -244,31 +198,31 @@ class OverviewController: UIViewController {
         return ChartDataEntry(x: interval, y: value.rounded())
     }
     
-    func populateHRV(_ cell: OverviewTableViewCell, _  currentInterval: CurrentInterval) {
-        
+    func populateHRV(_ cell: OverviewTableViewCell, _ currentInterval: CurrentInterval) {
         cell.hrvView.setTitle("")
-        ZBFHealthKit.getHRVAverage(interval: currentInterval.interval, value: currentInterval.range) { results, error in
-            
+        
+        ZBFHealthKit.getHRVAverage(start: start, end: end) { (results, error) in
             if let results = results {
                 let value = results.first!.value
                 
                 DispatchQueue.main.async() {
-                    cell.hrvView.setTitle(Int(value).description + "ms")
+                    cell.hrvView.setTitle(Int(value.rounded()).description + "ms")
                 }
-            }}
+            }
+        }
     }
     
     func populateDatetimeSpan(_ cell: HeaderOverviewTableViewCell, _ currentInterval: CurrentInterval) {
-    
+        let date = Date().toLocalTime()
         switch currentInterval {
         case .hour:
-            cell.dateTimeTitle.text = Date().startOfDay.toZendoHeaderDayString
+            cell.dateTimeTitle.text = date.startOfDay.toZendoHeaderDayString
         case .day:
-            cell.dateTimeTitle.text = Date().startOfWeek.toZendoHeaderDayString + " - " + Date().endOfWeek.toZendoHeaderDayString
+            cell.dateTimeTitle.text = date.startOfWeek.toZendoHeaderDayString + " - " + date.endOfWeek.toZendoHeaderDayString
         case .month:
-            cell.dateTimeTitle.text = Date().startOfMonth.toZendoHeaderMonthYearString
+            cell.dateTimeTitle.text = date.startOfMonth.toZendoHeaderMonthYearString
         case .year:
-            cell.dateTimeTitle.text = Date().startOfYear.toZendoHeaderYearString
+            cell.dateTimeTitle.text = date.startOfYear.toZendoHeaderYearString
         case .all: break
         }
         
@@ -283,6 +237,10 @@ class OverviewController: UIViewController {
         let xaxis = XAxis()
         xaxis.valueFormatter = formato
         
+        let formatoValue = MMChartValueFormatter()
+        let xaxisValue = XAxis()
+        xaxisValue.valueFormatter = formatoValue
+       
         cell.mmChart.highlightValues([])
         cell.mmChart.xAxis.drawGridLinesEnabled = false
         cell.mmChart.xAxis.drawAxisLineEnabled = false
@@ -332,45 +290,31 @@ class OverviewController: UIViewController {
         dataset.fill = Fill(linearGradient: gradient, angle: 90)
         dataset.drawFilledEnabled = true
         
-        var start = Date()
-        var end = Date()
-        
-        switch currentInterval {
-        case .hour:
-            start = Date().startOfDay
-            end = Date().endOfDay
-        case .day:
-            start = Date().startOfWeek
-            end = Date().endOfWeek
-        case .month:
-            start = Date().startOfMonth
-            end = Date().endOfMonth
-        case .year:
-            start = Date().startOfYear
-            end = Date().endOfYear
-        case .all:
-            break
-        }
-        
         ZBFHealthKit.getMindfulMinutes(start: start, end: end, currentInterval: currentInterval) { samples, error in
             DispatchQueue.main.async() {
                 cell.mmChart.data?.clearValues()
                 cell.mmChart.data = LineChartData(dataSets: [dataset, communityDataset])
             }
             var movingTotal = 0.0
+            var movingTotalCount = 0.0
             
             if let samples = samples {
                 
                 let sam = samples.sorted(by: <)
                 
                 for var entry in sam {
+                    
                     movingTotal += entry.value
                     
+                    if entry.value > 0.0 {
+                        movingTotalCount += 1
+                    }
                     entry.value = (entry.value / 60.0).rounded()
                     
                     DispatchQueue.main.async() {
-                        cell.mmChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
-                        
+                        if entry.value > 0.0 {
+                            cell.mmChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
+                        }
                         let community = ChartDataEntry(x: entry.key, y: 30.0)
                         cell.mmChart.data!.addEntry(community, dataSetIndex: 1)
                     }
@@ -380,13 +324,18 @@ class OverviewController: UIViewController {
                     cell.mmChart.notifyDataSetChanged()
                     cell.mmChart.setNeedsDisplay()
                     cell.mmChart.xAxis.valueFormatter = xaxis.valueFormatter
+                    cell.mmChart.rightAxis.valueFormatter = xaxisValue.valueFormatter
                     cell.isHiddenMM = false
                     
                     switch self.currentInterval {
                     case .hour: cell.durationView.setTitle(movingTotal.stringZendoTime)
                     default:
-                        let avg = movingTotal / Double(samples.count)
-                        cell.durationView.setTitle(avg.stringZendoTime)
+                        let avg = movingTotal / movingTotalCount
+                        if avg.isNaN {
+                            cell.durationView.setTitle(0.0.stringZendoTime)
+                        } else {
+                            cell.durationView.setTitle(avg.stringZendoTime)
+                        }
                     }
                 }
             }
@@ -422,6 +371,29 @@ class OverviewController: UIViewController {
         alert.addAction(ok)
         
         present(alert, animated: true)
+    }
+    
+    func setDate() {
+        let date = Date().toLocalTime()
+        
+        switch self.currentInterval {
+        case .hour:
+            self.start = date.startOfDay
+            self.end = date.endOfDay
+        case .day:
+            self.start = date.startOfWeek
+            self.end = date.endOfWeek
+        case .month:
+            self.start = date.startOfMonth
+            self.end = date.endOfMonth
+        case .year:
+            self.start = date.startOfYear
+            self.end = date.endOfYear
+        case .all:
+            break
+        }
+        
+        
     }
     
 }
@@ -468,11 +440,10 @@ extension OverviewController: UITableViewDataSource {
         cell.action = { tag in
             self.currentInterval = CurrentInterval(rawValue: tag)!
             
-            if self.currentInterval == .all {
-                self.getSamples()
-            } else {
-                self.tableView.reloadData()
-            }
+            self.setDate()
+            
+            self.tableView.reloadData()
+
             
         }
         return cell

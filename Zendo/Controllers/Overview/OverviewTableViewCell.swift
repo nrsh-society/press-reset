@@ -70,7 +70,7 @@ class OverviewTableViewCell: UITableViewCell {
         let zendoFont = UIFont.zendo(font: .antennaRegular, size: 10.0)
         let arrayLineChart = [mmChart, hrvChart]
         
-        for lineChart in arrayLineChart {
+        for (index, lineChart) in arrayLineChart.enumerated() {
             lineChart?.noDataText = ""
             lineChart?.autoScaleMinMaxEnabled = true
             lineChart?.chartDescription?.enabled = false
@@ -110,7 +110,8 @@ class OverviewTableViewCell: UITableViewCell {
             let marker = BalloonMarker(color: UIColor.zenDarkGreen,
                                        font: UIFont.zendo(font: .antennaRegular, size: 12),
                                        textColor: .white,
-                                       insets: UIEdgeInsets(top: 8, left: 8, bottom: 20, right: 8))
+                                       insets: UIEdgeInsets(top: 8, left: 8, bottom: 20, right: 8),
+                                       chartType: index == 0 ? .mm : .hrv)
             marker.chartView = lineChart
             marker.minimumSize = CGSize(width: 80, height: 40)
             lineChart?.marker = marker

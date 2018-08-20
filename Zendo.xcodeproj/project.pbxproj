@@ -24,6 +24,7 @@
 		12CE3652211327D300EF0196 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE3651211327D300EF0196 /* TabBarController.swift */; };
 		12CE365421132A7100EF0196 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE365321132A7100EF0196 /* UIImage.swift */; };
 		12D3BB34211A00B40081CAE2 /* OverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D3BB33211A00B40081CAE2 /* OverviewTableViewCell.swift */; };
+		12DAE77C212B1A1200D28DD7 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DAE77B212B1A1200D28DD7 /* Array.swift */; };
 		12E189BC211C6387004EADE9 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E189BB211C6387004EADE9 /* UIViewController.swift */; };
 		12E189C1211C64AB004EADE9 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E189C0211C64AB004EADE9 /* UIApplication.swift */; };
 		12E2A19E21106E4500E0E911 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E2A19D21106E4500E0E911 /* TimeInterval.swift */; };
@@ -154,6 +155,7 @@
 		12CE3651211327D300EF0196 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		12CE365321132A7100EF0196 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		12D3BB33211A00B40081CAE2 /* OverviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewTableViewCell.swift; sourceTree = "<group>"; };
+		12DAE77B212B1A1200D28DD7 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		12E189BB211C6387004EADE9 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		12E189C0211C64AB004EADE9 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		12E2A19D21106E4500E0E911 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 				121F2604211B3D9C00C1CC96 /* Notification+Name.swift */,
 				12E189BB211C6387004EADE9 /* UIViewController.swift */,
 				12E189C0211C64AB004EADE9 /* UIApplication.swift */,
+				12DAE77B212B1A1200D28DD7 /* Array.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -715,6 +718,7 @@
 				12477F222119A27700D8AE83 /* Settings.swift in Sources */,
 				12FFCAE1210F6DA0007E2480 /* ZendoTableViewCell.swift in Sources */,
 				121F260A211B499300C1CC96 /* HealthKitViewController.swift in Sources */,
+				12DAE77C212B1A1200D28DD7 /* Array.swift in Sources */,
 				BE50D2F220CC3BA200FF9C54 /* CommunityDataLoader.swift in Sources */,
 				12E189BC211C6387004EADE9 /* UIViewController.swift in Sources */,
 				12E2A1B721107CE400E0E911 /* UIColor+Zendo.swift in Sources */,
@@ -919,7 +923,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
@@ -942,7 +946,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;

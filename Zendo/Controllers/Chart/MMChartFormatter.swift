@@ -35,3 +35,11 @@ public class MMChartFormatter: NSObject, IAxisValueFormatter {
         return String(format: "%.0f", value)
     }
 }
+
+public class MMChartValueFormatter: NSObject, IAxisValueFormatter {
+    
+    public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        return (value * 60.0).stringZendoTimeMMChart
+    }
+    
+}

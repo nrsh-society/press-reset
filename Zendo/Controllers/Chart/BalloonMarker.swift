@@ -9,6 +9,10 @@
 import UIKit
 import Charts
 
+public enum ChartType {
+    case hrv, mm
+}
+
 open class BalloonMarker: MarkerImage
 {
     open var color: UIColor
@@ -17,18 +21,20 @@ open class BalloonMarker: MarkerImage
     open var textColor: UIColor
     open var insets: UIEdgeInsets
     open var minimumSize = CGSize()
+    open var chartType: ChartType
     
     fileprivate var label: String?
     fileprivate var _labelSize: CGSize = CGSize()
     fileprivate var _paragraphStyle: NSMutableParagraphStyle?
-    fileprivate var _drawAttributes = [NSAttributedStringKey : AnyObject]()
+    fileprivate var _drawAttributes = [NSAttributedStringKey: AnyObject]()
     
-    public init(color: UIColor, font: UIFont, textColor: UIColor, insets: UIEdgeInsets)
+    public init(color: UIColor, font: UIFont, textColor: UIColor, insets: UIEdgeInsets, chartType: ChartType)
     {
         self.color = color
         self.font = font
         self.textColor = textColor
         self.insets = insets
+        self.chartType = chartType
         
         _paragraphStyle = NSParagraphStyle.default.mutableCopy() as? NSMutableParagraphStyle
         _paragraphStyle?.alignment = .center
@@ -184,12 +190,20 @@ open class BalloonMarker: MarkerImage
     
     open func setLabel(_ newLabel: String)
     {
-        if let value = Double(newLabel) {
-            label = String(format: "%.0f", value)
-        } else {
-            label = newLabel
-        }
-        
+        switch chartType {
+        case .hrv:
+            if let value = Double(newLabel) {
+                label = String(format: "%.0f", value)
+            } else {
+                label = newLabel
+            }
+        case .mm:
+            if let value = Double(newLabel) {
+                label = (value * 60).stringZendoTimeMMChart
+            } else {
+                label = newLabel
+            }
+        }        
         
         _drawAttributes.removeAll()
         _drawAttributes[.font] = self.font
