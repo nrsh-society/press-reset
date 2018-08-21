@@ -16,7 +16,6 @@ enum CurrentInterval: Int {
     case day = 1
     case month = 2
     case year = 3
-    case all = 4
     
     var interval: Calendar.Component {
         switch self {
@@ -24,7 +23,6 @@ enum CurrentInterval: Int {
         case .day: return .day
         case .month: return .month
         case .year: return .year
-        case .all: return .day
         }
     }
     
@@ -34,7 +32,6 @@ enum CurrentInterval: Int {
         case .day: return 7
         case .month: return 1
         case .year: return 1
-        case .all: return 7
         }
     }
     
@@ -170,8 +167,6 @@ class OverviewController: UIViewController {
                     
                     cell.hrvChart.data!.addEntry(community, dataSetIndex: 1)
                     
-                    print("populateHRVChart: \(entry)")
-                    
                 })
             } else {
                 cell.hrvChart.noDataText = "No HRV date"
@@ -223,7 +218,6 @@ class OverviewController: UIViewController {
             cell.dateTimeTitle.text = date.startOfMonth.toZendoHeaderMonthYearString
         case .year:
             cell.dateTimeTitle.text = date.startOfYear.toZendoHeaderYearString
-        case .all: break
         }
         
     }
@@ -389,11 +383,8 @@ class OverviewController: UIViewController {
         case .year:
             self.start = date.startOfYear
             self.end = date.endOfYear
-        case .all:
-            break
         }
-        
-        
+
     }
     
 }

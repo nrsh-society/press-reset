@@ -12,7 +12,7 @@
         <!--Zendō-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="AppInterfaceController" title="Zendō" contentMode="scaleAspectFit" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="AppInterfaceController" title="Zendō" backgroundImage="shobogenzo" contentMode="scaleAspectFit" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <label width="1" height="1" alignment="center" verticalAlignment="center" textAlignment="center" id="c3z-hl-RcP">
                             <fontDescription key="font" type="system" weight="semibold" pointSize="50"/>

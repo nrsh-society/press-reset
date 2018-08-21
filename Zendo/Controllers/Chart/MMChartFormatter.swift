@@ -29,7 +29,6 @@ public class MMChartFormatter: NSObject, IAxisValueFormatter {
             if value >= 1 && value <= 12 {
                 return months[Int(value - 1)]
             }
-        case .all: return String(format: "%.0f", value)
         }
         
         return String(format: "%.0f", value)
