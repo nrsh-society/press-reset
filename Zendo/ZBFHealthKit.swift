@@ -312,49 +312,49 @@ class ZBFHealthKit {
     class func getMindfulMinutes(start: Date, end: Date, currentInterval: CurrentInterval, handler: @escaping SamplesHandler) {
         let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         
-        // let hkCategoryPredicate = HKQuery.predicateForCategorySamples(with: .equalTo, value: 0)
+        let timeZone = TimeZone.current
         
-        //  let hkDatePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictStartDate)
+        let seconds = Double(timeZone.secondsFromGMT(for: start))
+        let newStart = Date(timeInterval: -seconds, since: start)
+        let newEnd = Date(timeInterval: -seconds, since: end)
         
-        let hkDatePredicate = HKQuery.predicateForSamples(withStart: start, end: end)
-        
-        // let hkPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [hkCategoryPredicate, hkDatePredicate])
+        let hkDatePredicate = HKQuery.predicateForSamples(withStart: newStart, end: newEnd, options: .strictStartDate)
         
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
         
         let hkSampleQuery = HKSampleQuery(sampleType: hkType,
                                           predicate: hkDatePredicate,
-                                          limit: 0,
+                                          limit: HKObjectQueryNoLimit,
                                           sortDescriptors: [sortDescriptor]) { query, samples, error in
                                             
                                             var entries = [Double: Double]()
                                             var entriesDaysMonth = [Double: [Double]]()
                                             
-                                            if let samples = samples {
-                                                
-                                                switch currentInterval {
-                                                case .hour:
-                                                    for i in 0...23 {
-                                                        entries[Double(i)] = 0.0
-                                                    }
-                                                case .day:
-                                                    for i in 1...7 {
-                                                        entries[Double(i)] = 0.0
-                                                    }
-                                                case .month:
-                                                    let calendar = Calendar.current
-                                                    let range = calendar.range(of: .day, in: .month, for: start)!
-                                                    for i in 1...range.count {
-                                                        entries[Double(i)] = 0.0
-                                                    }
-                                                case .year:
-                                                    for i in 1...12 {
-                                                        entries[Double(i)] = 0.0
-                                                    }
+                                            switch currentInterval {
+                                            case .hour:
+                                                for i in 0...23 {
+                                                    entries[Double(i)] = 0.0
                                                 }
+                                            case .day:
+                                                for i in 1...7 {
+                                                    entries[Double(i)] = 0.0
+                                                }
+                                            case .month:
+                                                let calendar = Calendar.current
+                                                let range = calendar.range(of: .day, in: .month, for: start)!
+                                                for i in 1...range.count {
+                                                    entries[Double(i)] = 0.0
+                                                }
+                                            case .year:
+                                                for i in 1...12 {
+                                                    entries[Double(i)] = 0.0
+                                                }
+                                            }
+                                            
+                                            if let samples = samples/*, !samples.isEmpty*/ {
                                                 
-                                                var calender = Calendar.current
-                                                calender.timeZone = TimeZone(abbreviation: "UTC")!
+                                                let calender = Calendar.current
+                                                //    calender.timeZone = TimeZone(abbreviation: "UTC")!
                                                 
                                                 samples.forEach( { sample in
                                                     
@@ -409,6 +409,8 @@ class ZBFHealthKit {
                                                 
                                                 handler(entries, error)
                                                 
+                                            } else {
+                                                handler(entries, error)
                                             }
                                             
         }
@@ -417,6 +419,14 @@ class ZBFHealthKit {
     }
     
     class func getHRVSamples(start: Date, end: Date, currentInterval: CurrentInterval, handler: @escaping SamplesHandler) {
+        
+        
+        let timeZone = TimeZone.current
+        
+        let seconds = Double(timeZone.secondsFromGMT(for: start))
+        let newStart = Date(timeInterval: -seconds, since: start)
+        let newEnd = Date(timeInterval: -seconds, since: end)
+        
         var entries = [Double: Double]()
         
         var components = DateComponents()
@@ -459,13 +469,13 @@ class ZBFHealthKit {
         let query = HKStatisticsCollectionQuery(quantityType: hkType,
                                                 quantitySamplePredicate: nil,
                                                 options: .discreteAverage,
-                                                anchorDate: start,
+                                                anchorDate: newStart,
                                                 intervalComponents: components)
         
         query.initialResultsHandler = { query, results, error in
             
             if let statsCollection = results {
-                statsCollection.enumerateStatistics(from: start, to: end) { statistics, stop in
+                statsCollection.enumerateStatistics(from: newStart, to: newEnd) { statistics, stop in
                     
                     var avgValue = 0.0
                     
@@ -474,8 +484,8 @@ class ZBFHealthKit {
                     }
                     
                     var key = 0.0
-                    var calender = Calendar.current
-                    calender.timeZone = TimeZone(abbreviation: "UTC")!
+                    let calender = Calendar.current
+                   // calender.timeZone = TimeZone(abbreviation: "UTC")!
                     
                     switch currentInterval {
                     case .hour:

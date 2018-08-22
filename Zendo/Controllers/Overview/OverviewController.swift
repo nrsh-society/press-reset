@@ -92,17 +92,7 @@ class OverviewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: .reloadOverview, object: nil)
     }
     
-    func populateCharts(_ cell: OverviewTableViewCell, _ currentInterval: CurrentInterval) {
-        
-        DispatchQueue.main.async() {
-            cell.isHiddenHRV = true
-            cell.durationView.setTitle("")
-        }
-        
-        let formato = MMChartFormatter()
-        formato.currentInterval = currentInterval
-        let xaxis = XAxis()
-        xaxis.valueFormatter = formato
+    func populateCharts(_ cell: OverviewTableViewCell) {
         
         cell.hrvChart.highlightValues([])
         cell.hrvChart.drawGridBackgroundEnabled = false
@@ -114,6 +104,28 @@ class OverviewController: UIViewController {
         cell.hrvChart.xAxis.drawAxisLineEnabled = false
         cell.hrvChart.rightAxis.drawAxisLineEnabled = false
         cell.hrvChart.leftAxis.drawAxisLineEnabled = false
+        
+        var formato = MMChartFormatter()
+        
+        switch self.currentInterval {
+        case .hour:
+            cell.hrvChart.xAxis.setLabelCount(12, force: true)
+            formato = MMChartFormatterHour()
+        case .day:
+            cell.hrvChart.xAxis.setLabelCount(7, force: true)
+            formato = MMChartFormatterDay()
+        case .month:
+            cell.hrvChart.xAxis.setLabelCount(15, force: true)
+            formato = MMChartFormatterHour()
+        case .year:
+            cell.hrvChart.xAxis.setLabelCount(12, force: true)
+            formato = MMChartFormatterYear()
+        }
+        
+        let xaxis = XAxis()
+        xaxis.valueFormatter = formato
+        
+        cell.hrvChart.xAxis.valueFormatter = xaxis.valueFormatter
         
         let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "ms")
         
@@ -154,7 +166,12 @@ class OverviewController: UIViewController {
         dataset.drawFilledEnabled = true
         
         let handler: ZBFHealthKit.SamplesHandler = { samples, error in
-            cell.hrvChart.data?.clearValues()
+            DispatchQueue.main.async() {
+                cell.mmChart.clear()
+                cell.mmChart.data?.clearValues()
+                cell.isHiddenHRV = true
+            }
+            
             cell.hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
             if let samples = samples {
                 samples.sorted(by: <).forEach( { entry in
@@ -168,18 +185,14 @@ class OverviewController: UIViewController {
                     cell.hrvChart.data!.addEntry(community, dataSetIndex: 1)
                     
                 })
-            } else {
-                cell.hrvChart.noDataText = "No HRV date"
-                print(error.debugDescription)
-            }
-            
-            DispatchQueue.main.async() {
-                cell.hrvChart.data!.highlightEnabled = true
-                cell.hrvChart.notifyDataSetChanged()
-                cell.hrvChart.xAxis.valueFormatter = xaxis.valueFormatter
-                cell.isHiddenHRV = false
                 
-                self.populateMMChart(cell: cell)
+                DispatchQueue.main.async() {
+                    cell.hrvChart.data!.highlightEnabled = true
+                    cell.hrvChart.notifyDataSetChanged()
+                    cell.isHiddenHRV = false
+                    self.populateMMChart(cell: cell)
+                    
+                }
             }
         }
         
@@ -193,7 +206,7 @@ class OverviewController: UIViewController {
         return ChartDataEntry(x: interval, y: value.rounded())
     }
     
-    func populateHRV(_ cell: OverviewTableViewCell, _ currentInterval: CurrentInterval) {
+    func populateHRV(_ cell: OverviewTableViewCell) {
         cell.hrvView.setTitle("")
         
         ZBFHealthKit.getHRVAverage(start: start, end: end) { (results, error) in
@@ -219,18 +232,10 @@ class OverviewController: UIViewController {
         case .year:
             cell.dateTimeTitle.text = date.startOfYear.toZendoHeaderYearString
         }
-        
     }
     
     func populateMMChart(cell: OverviewTableViewCell) {
-        
-        cell.isHiddenMM = true
-        
-        let formato = MMChartFormatter()
-        formato.currentInterval = currentInterval
-        let xaxis = XAxis()
-        xaxis.valueFormatter = formato
-        
+
         let formatoValue = MMChartValueFormatter()
         let xaxisValue = XAxis()
         xaxisValue.valueFormatter = formatoValue
@@ -245,6 +250,8 @@ class OverviewController: UIViewController {
         cell.mmChart.chartDescription?.enabled = false
         cell.mmChart.autoScaleMinMaxEnabled = true
         cell.mmChart.noDataText = ""
+        
+        var formato = MMChartFormatter()
         
         let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "mins")
         
@@ -284,8 +291,12 @@ class OverviewController: UIViewController {
         dataset.fill = Fill(linearGradient: gradient, angle: 90)
         dataset.drawFilledEnabled = true
         
+        
         ZBFHealthKit.getMindfulMinutes(start: start, end: end, currentInterval: currentInterval) { samples, error in
             DispatchQueue.main.async() {
+                cell.isHiddenMM = true
+                cell.durationView.setTitle("")
+                cell.mmChart.clear()
                 cell.mmChart.data?.clearValues()
                 cell.mmChart.data = LineChartData(dataSets: [dataset, communityDataset])
             }
@@ -314,11 +325,30 @@ class OverviewController: UIViewController {
                     }
                 }
                 DispatchQueue.main.async() {
-                    cell.mmChart.data!.highlightEnabled = true
-                    cell.mmChart.notifyDataSetChanged()
-                    cell.mmChart.setNeedsDisplay()
+                    
+                    switch self.currentInterval {
+                    case .hour:
+                        cell.mmChart.xAxis.setLabelCount(12, force: true)
+                        formato = MMChartFormatterHour()
+                    case .day:
+                        cell.mmChart.xAxis.setLabelCount(7, force: true)
+                        formato = MMChartFormatterDay()
+                    case .month:
+                        cell.mmChart.xAxis.setLabelCount(15, force: true)
+                        formato = MMChartFormatterHour()
+                    case .year:
+                        cell.mmChart.xAxis.setLabelCount(12, force: true)
+                        formato = MMChartFormatterYear()
+                    }
+                    
+                    let xaxis = XAxis()
+                    xaxis.valueFormatter = formato
+                    
                     cell.mmChart.xAxis.valueFormatter = xaxis.valueFormatter
                     cell.mmChart.rightAxis.valueFormatter = xaxisValue.valueFormatter
+                    
+                    cell.mmChart.data!.highlightEnabled = true
+                    cell.mmChart.notifyDataSetChanged()
                     cell.isHiddenMM = false
                     
                     switch self.currentInterval {
@@ -453,8 +483,8 @@ extension OverviewController: UITableViewDataSource {
             cell.durationView.zenInfoViewType = .minsAverage
         }
         
-        populateHRV(cell, currentInterval)
-        populateCharts(cell, currentInterval)
+        populateHRV(cell)
+        populateCharts(cell)
         
         return cell
     }
