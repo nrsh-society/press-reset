@@ -50,17 +50,21 @@ class OverviewTableViewCell: UITableViewCell {
     
     var isHiddenHRV: Bool! {
         didSet {
-            isHiddenHRV ? hrvDots.startAnimating() : hrvDots.stopAnimating()
-            hrvDots.isHidden = !isHiddenHRV
-            hrvChart.isHidden = isHiddenHRV
+            if oldValue != isHiddenHRV {
+                isHiddenHRV ? hrvDots.startAnimating() : hrvDots.stopAnimating()
+                hrvDots.isHidden = !isHiddenHRV
+                hrvChart.isHidden = isHiddenHRV
+            }
         }
     }
     
     var isHiddenMM: Bool! {
         didSet {
-            isHiddenMM ? mmDots.startAnimating() : mmDots.stopAnimating()
-            mmDots.isHidden = !isHiddenMM
-            mmChart.isHidden = isHiddenMM
+            if oldValue != isHiddenMM {
+                isHiddenMM ? mmDots.startAnimating() : mmDots.stopAnimating()
+                mmDots.isHidden = !isHiddenMM
+                mmChart.isHidden = isHiddenMM
+            }
         }
     }
     

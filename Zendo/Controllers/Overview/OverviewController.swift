@@ -94,6 +94,18 @@ class OverviewController: UIViewController {
     
     func populateCharts(_ cell: OverviewTableViewCell) {
         
+        DispatchQueue.main.async() {
+            cell.isHiddenHRV = true
+            cell.hrvChart.clear()
+            cell.hrvChart.data?.clearValues()
+            
+            cell.isHiddenMM = true
+            cell.mmChart.clear()
+            cell.mmChart.data?.clearValues()
+            
+            cell.durationView.setTitle("")
+        }
+        
         cell.hrvChart.highlightValues([])
         cell.hrvChart.drawGridBackgroundEnabled = false
         cell.hrvChart.chartDescription?.enabled = false
@@ -145,9 +157,9 @@ class OverviewController: UIViewController {
         
         let handler: ZBFHealthKit.SamplesHandler = { samples, error in
             DispatchQueue.main.async() {
+                cell.isHiddenHRV = true
                 cell.hrvChart.clear()
                 cell.hrvChart.data?.clearValues()
-                cell.isHiddenHRV = true
                 cell.hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
             }
             
@@ -210,8 +222,7 @@ class OverviewController: UIViewController {
         cell.hrvView.setTitle("")
         
         ZBFHealthKit.getHRVAverage(start: start, end: end) { (results, error) in
-            if let results = results {
-                let value = results.first!.value
+            if let value = results?.first?.value {
                 
                 DispatchQueue.main.async() {
                     cell.hrvView.setTitle(Int(value.rounded()).description + "ms")
@@ -235,7 +246,7 @@ class OverviewController: UIViewController {
     }
     
     func populateMMChart(cell: OverviewTableViewCell) {
-       
+
         cell.mmChart.highlightValues([])
         cell.mmChart.xAxis.drawGridLinesEnabled = false
         cell.mmChart.xAxis.drawAxisLineEnabled = false

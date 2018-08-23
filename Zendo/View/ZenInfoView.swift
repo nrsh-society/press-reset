@@ -40,11 +40,11 @@ enum ZenInfoViewType: String {
     }
     
     func setTitle(_ text: String) {
-        if text.isEmpty {
+        if text.isEmpty && !dots.isAnimating {
             title.isHidden = true
             dots.isHidden = false
             dots.startAnimating()
-        } else {
+        } else if !text.isEmpty && dots.isAnimating {
             dots.stopAnimating()
             title.text = text
             title.isHidden = false
