@@ -27,6 +27,7 @@ class ZazenTableViewCell: UITableViewCell {
     @IBOutlet weak var durationView: ZenInfoView! {
         didSet {
             durationView.zenInfoViewType = .totalMins
+            durationView.setTitle("")
         }
     }
     @IBOutlet weak var hrvView: ZenInfoView! {
@@ -202,9 +203,7 @@ class ZazenController: UIViewController {
         cell.hrvView.setTitle("")
         ZBFHealthKit.getHRVAverage(workout) { results, error in
             
-            if let results = results {
-                let value = results.first!.value
-                
+            if let value = results?.first?.value {
                 DispatchQueue.main.async() {
                     cell.hrvView.setTitle(Int(value).description + "ms")
                     
@@ -253,10 +252,10 @@ class ZazenController: UIViewController {
         
         switch lineChartKey {
         case .motion:
-            // 00 - 0%
-            // 80 - 50%
-            let gradientColors = [ChartColorTemplates.colorFromString("#00277A69").cgColor,
-                                  ChartColorTemplates.colorFromString("#80277A69").cgColor]
+            let gradientColors = [
+                ChartColorTemplates.colorFromString("#00277A69").cgColor,  // 00 - 0%
+                ChartColorTemplates.colorFromString("#80277A69").cgColor   // 80 - 50%
+            ]
             let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
             
             entryDataset.fillAlpha = 1

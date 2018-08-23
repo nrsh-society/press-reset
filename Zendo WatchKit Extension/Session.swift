@@ -109,31 +109,30 @@ class Session: NSObject, SessionCommands {
         
         
         self.endDate = Date()
-        print(metadataWork)
-       // let workout = HKWorkout(activityType: .mindAndBody, start: self.startDate!, end: self.endDate!)
+        
+        // let workout = HKWorkout(activityType: .mindAndBody, start: self.startDate!, end: self.endDate!)
         let workout = HKWorkout(activityType: .mindAndBody, start: self.startDate!, end: self.endDate!, workoutEvents: nil, totalEnergyBurned: nil, totalDistance: nil, totalSwimmingStrokeCount: nil, device: nil, metadata: metadataWork)
         
         let mindfulType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         let mindfullSample = HKCategorySample(type:mindfulType, value: 0, start: self.startDate!, end: self.endDate!)
-        healthStore.save([workout, mindfullSample]) { success, error in
+        
+        healthStore.save([workout]) { success, error in
             
             guard error == nil else {
                 print(error.debugDescription)
                 return
             }
             
-//            self.healthStore.add(self.samples, to: workout) { success, error in
-
+            self.healthStore.add([mindfullSample], to: workout, completion: { (success, error) in
+                
                 self.sendMessage(["watch": "reload"], replyHandler: { (replyMessage) in
-
+                    
                 }, errorHandler: { (error) in
                     print(error.localizedDescription)
                 })
-
-                if error != nil {
-                    print(error.debugDescription)
-                }
-//            }
+                
+            })
+            
         }
         
         invalidate()
@@ -165,28 +164,28 @@ class Session: NSObject, SessionCommands {
     }
     
     @objc func sample()  {
-
+        
         if let deviceMotion = self.motionManager.deviceMotion {
             self.rotation.pitch = deviceMotion.rotationRate.x
             self.rotation.roll = deviceMotion.rotationRate.y
             self.rotation.yaw = deviceMotion.rotationRate.z
         }
-
+        
         self.motion = abs(self.rotation.pitch) + abs(self.rotation.roll) + abs(self.rotation.yaw)
-
+        
         self.motion = self.motion / 3
-
+        
         self.motion = Double(round(100*self.motion)/100)
-
+        
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-
+        
         let heartRateSDNNType = HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
-
+        
         let heartRateSDNNPredicate: NSPredicate? = HKQuery.predicateForSamples(withStart: yesterday, end: Date(), options: .strictEndDate)
-
+        
         healthStore.execute(HKStatisticsQuery(quantityType: heartRateSDNNType,
-                                               quantitySamplePredicate: heartRateSDNNPredicate, options: .discreteAverage) { query, result, error in
-
+                                              quantitySamplePredicate: heartRateSDNNPredicate, options: .discreteAverage) { query, result, error in
+                                                
                                                 if let error = error {
                                                     print(error.localizedDescription);
                                                 } else {
@@ -195,28 +194,28 @@ class Session: NSObject, SessionCommands {
                                                     }
                                                 }
         })
-
+        
         let heartRateType =
             HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
-
-
+        
+        
         let heartRatePredicate: NSPredicate? = HKQuery.predicateForSamples(withStart: self.startDate, end: Date(), options: .strictEndDate)
-
-
+        
+        
         healthStore.execute(HKStatisticsQuery(quantityType: heartRateType,
-                                               quantitySamplePredicate: heartRatePredicate,
-                                               options: .discreteAverage) { query, result, error in
-
+                                              quantitySamplePredicate: heartRatePredicate,
+                                              options: .discreteAverage) { query, result, error in
+                                                
                                                 if let error = error {
                                                     print(error.localizedDescription);
                                                 } else {
                                                     if let heartRate = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "count/s")) {
-
+                                                        
                                                         self.heartRate = heartRate
                                                     }
                                                 }
         })
-
+        
         
         let metadata: [String: Any] = [
             MetadataType.time.rawValue: Date().timeIntervalSince1970.description,
@@ -238,35 +237,35 @@ class Session: NSObject, SessionCommands {
         
         
         
-    
+        
         //#todo: should this be another lighterweight sample type?
-//        let sample = HKCategorySample(type: hkTypee, value: 0, start: self.lastSample, end: Date(), metadata: metadata)
-
-//        self.healthStore.save([sample]) { _, _ in
-           // self.samples.append(sample)
-//        }
-
-       // lastSample = Date()
-
+        //        let sample = HKCategorySample(type: hkTypee, value: 0, start: self.lastSample, end: Date(), metadata: metadata)
+        
+        //        self.healthStore.save([sample]) { _, _ in
+        // self.samples.append(sample)
+        //        }
+        
+        // lastSample = Date()
+        
         /*      #todo: post dataset to server to drive av
          do {
-
+         
          let json = try JSONSerialization.data(withJSONObject: metadata, options: []).description
-
+         
          let serviceURL = URL(string:"https://zendo-v1.firebaseio.com/zazen")!
          var request = URLRequest(url: serviceURL)
          request.httpMethod = "POST"
-
+         
          let config = URLSessionConfiguration()
          config.allowsCellularAccess = true;
-
+         
          let session = URLSession(configuration: config)
          let task = session.uploadTask(with: request, from: json.data(using: .utf8)!)
-
+         
          task.resume()
-
+         
          } catch {}
-
+         
          */
     }
     

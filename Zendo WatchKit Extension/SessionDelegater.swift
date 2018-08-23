@@ -9,7 +9,7 @@
 import UIKit
 import WatchConnectivity
 
-class SessionDelegater: NSObject, WCSessionDelegate, SessionCommands{
+class SessionDelegater: NSObject, WCSessionDelegate, SessionCommands {
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         print("Session activation did complete")

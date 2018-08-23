@@ -93,51 +93,50 @@ class ZendoController: UITableViewController {
     func populateTable() {
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
         
-        let hkQuery = HKSampleQuery.init(sampleType: hkType,
-                                         predicate: hkPredicate,
-                                         limit: HealthKit.HKObjectQueryNoLimit,
-                                         sortDescriptors: [sortDescriptor],
-                                         resultsHandler: { query, results, error in
+        let hkQuery = HKSampleQuery(sampleType: hkType,
+                                    predicate: hkPredicate,
+                                    limit: HKObjectQueryNoLimit,
+                                    sortDescriptors: [sortDescriptor],
+                                    resultsHandler: { query, results, error in
+                                        
+                                        if let error = error {
+                                            print(error)
+                                        } else {
                                             
-                                            if let error = error {
-                                                print(error)
-                                            } else {
-                                                
-                                                self.samplesDictionary = [:]
-                                                self.samplesDate = []
-                                                
-                                                self.samples = results!
-                                                
-                                                let calendar = Calendar.current
-                                                
-                                                for sample in self.samples {
-                                                    var date = sample.endDate.toZendoHeaderString
-                                                    if calendar.isDateInToday(sample.endDate) {
-                                                        date = "Today, " + sample.endDate.toZendoHeaderDayString
-                                                    }
-                                                    
-                                                    if var sampleDic = self.samplesDictionary[date] {
-                                                        sampleDic.append(sample)
-                                                        self.samplesDictionary[date] = sampleDic
-                                                    } else {
-                                                        self.samplesDictionary[date] = [sample]
-                                                        self.samplesDate.append(date)
-                                                    }
-                                                    
+                                            self.samplesDictionary = [:]
+                                            self.samplesDate = []
+                                            
+                                            self.samples = results!
+                                            
+                                            let calendar = Calendar.current
+                                            
+                                            for sample in self.samples {
+                                                var date = sample.endDate.toZendoHeaderString
+                                                if calendar.isDateInToday(sample.endDate) {
+                                                    date = "Today, " + sample.endDate.toZendoHeaderDayString
                                                 }
                                                 
-                                                
-                                                DispatchQueue.main.async() {
-                                                    
-                                                    Mixpanel.mainInstance().track(event: "zendo_session_load",
-                                                                                  properties: ["session_count": self.samples.count ])
-                                                    
-                                                    self.isShowFirstSession = self.samplesDate.isEmpty
-                                                    self.tableView.reloadData()
-                                                    self.refreshControl?.endRefreshing()
+                                                if var sampleDic = self.samplesDictionary[date] {
+                                                    sampleDic.append(sample)
+                                                    self.samplesDictionary[date] = sampleDic
+                                                } else {
+                                                    self.samplesDictionary[date] = [sample]
+                                                    self.samplesDate.append(date)
                                                 }
+                                                
                                             }
                                             
+                                            
+                                            DispatchQueue.main.async() {
+                                                Mixpanel.mainInstance().track(event: "zendo_session_load",
+                                                                              properties: ["session_count": self.samples.count])
+                                                
+                                                self.isShowFirstSession = self.samplesDate.isEmpty
+                                                self.tableView.reloadData()
+                                                self.refreshControl?.endRefreshing()
+                                            }
+                                        }
+                                        
         })
         
         healthStore.execute(hkQuery)
