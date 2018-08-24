@@ -19,7 +19,7 @@ extension TimeInterval {
     }
     
     private var minutes: Int {
-        return (Int(self) / 60 ) % 60
+        return (Int(self) / 60) % 60
     }
     
     private var hours: Int {
@@ -40,23 +40,31 @@ extension TimeInterval {
     }
     
     var stringZendoTime: String {
-        var hrs = "hrs"
-        var mins = "mins"
+        var hrsStr = "hrs"
+        var minsStr = "mins"
+        var mins = minutes
+        var hrs = hours
         
-        if hours == 1 {
-            hrs = "hr"
+        if seconds >= 30 {
+            mins += 1
+            if mins == 60 {
+                hrs += 1
+                mins = 0
+            }
         }
         
-        if minutes == 1 {
-            mins = "min"
+        if hrs == 1 {
+            hrsStr = "hr"
         }
         
-        if hours != 0 {
-            return hours.description + hrs + " " + minutes.description + mins
-        } else if minutes != 0 {
-            return minutes.description + mins
+        if mins == 1 || mins == 0{
+            minsStr = "min"
+        }
+        
+        if hrs != 0 {
+            return hrs.description + hrsStr + " " + mins.description + minsStr
         } else {
-            return seconds.description + "sec"
+            return mins.description + minsStr
         }
     }
 }
