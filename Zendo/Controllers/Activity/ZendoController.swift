@@ -108,7 +108,8 @@ class ZendoController: UITableViewController {
                                             
                                             self.samples = results!
                                             
-                                            let calendar = Calendar.current
+                                            var calendar = Calendar.current
+                                            calendar.timeZone = TimeZone.autoupdatingCurrent
                                             
                                             for sample in self.samples {
                                                 var date = sample.endDate.toZendoHeaderString
@@ -123,7 +124,6 @@ class ZendoController: UITableViewController {
                                                     self.samplesDictionary[date] = [sample]
                                                     self.samplesDate.append(date)
                                                 }
-                                                
                                             }
                                             
                                             
