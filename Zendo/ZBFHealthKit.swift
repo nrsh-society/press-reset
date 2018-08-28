@@ -15,11 +15,9 @@ class ZBFHealthKit {
     
     static let hkReadTypes = hkShareTypes
     
-    static let hkShareTypes = Set([heartRateType, mindfulSessionType, workoutType, heartRateSDNNType, restingBPMType])
+    static let hkShareTypes = Set([heartRateType, mindfulSessionType, workoutType, heartRateSDNNType])
     
     static let heartRateType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
-    
-    static let restingBPMType = HKObjectType.quantityType(forIdentifier: .restingHeartRate)!
     
     static let heartRateSDNNType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
     

@@ -254,7 +254,9 @@ class ZendoController: UITableViewController {
             }
             
             alert.addAction(ok)
-            self.present(alert, animated: true)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true)
+            }
         }
         
         
