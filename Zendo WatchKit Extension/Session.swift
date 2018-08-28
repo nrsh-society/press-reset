@@ -116,7 +116,7 @@ class Session: NSObject, SessionCommands {
         let mindfulType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         let mindfullSample = HKCategorySample(type:mindfulType, value: 0, start: self.startDate!, end: self.endDate!)
         
-        healthStore.save([workout]) { success, error in
+        healthStore.save([workout, mindfullSample]) { success, error in
             
             guard error == nil else {
                 print(error.debugDescription)
