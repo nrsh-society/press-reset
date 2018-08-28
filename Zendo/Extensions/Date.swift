@@ -51,7 +51,7 @@ extension Date {
     
     var toZendoHeaderDayString: String {
         let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(abbreviation: "UTC")!
+        formatter.timeZone = TimeZone.autoupdatingCurrent //TimeZone(abbreviation: "UTC")!
         formatter.dateFormat = zendoHeaderDayFormat
         let res = formatter.string(from: self)
         return res
@@ -59,7 +59,7 @@ extension Date {
     
     var toZendoHeaderMonthYearString: String {
         let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(abbreviation: "UTC")!
+        formatter.timeZone = TimeZone.autoupdatingCurrent //TimeZone(abbreviation: "UTC")!
         formatter.dateFormat = zendoHeaderMonthYearFormat
         let res = formatter.string(from: self)
         return res
@@ -67,7 +67,7 @@ extension Date {
     
     var toZendoHeaderYearString: String {
         let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(abbreviation: "UTC")!
+        formatter.timeZone = TimeZone.autoupdatingCurrent //TimeZone(abbreviation: "UTC")!
         formatter.dateFormat = zendoHeaderYearFormat
         let res = formatter.string(from: self)
         return res
@@ -82,14 +82,14 @@ extension Date {
     
     var startOfWeek: Date {
         var gregorian = Calendar(identifier: .gregorian)
-        gregorian.timeZone = TimeZone(abbreviation: "UTC")!
+        gregorian.timeZone = TimeZone.autoupdatingCurrent //TimeZone(abbreviation: "UTC")!
         let components = gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)
         return gregorian.date(from: components)!
     }
     
     var endOfWeek: Date {
         var gregorian = Calendar(identifier: .gregorian)
-        gregorian.timeZone = TimeZone(abbreviation: "UTC")!
+        gregorian.timeZone = TimeZone.autoupdatingCurrent //TimeZone(abbreviation: "UTC")!
         let components = gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)
         let endWeek = gregorian.date(byAdding: .day, value: 7, to: gregorian.date(from: components)!)!
         var componentsEnd = gregorian.dateComponents([.second], from: endWeek)
@@ -148,7 +148,7 @@ extension Date {
     
     private var calender: Calendar {
         var calender = Calendar.current
-        calender.timeZone = TimeZone(abbreviation: "UTC")!
+        calender.timeZone = TimeZone.autoupdatingCurrent //TimeZone(abbreviation: "UTC")!
         return calender
     }
     
