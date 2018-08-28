@@ -312,11 +312,11 @@ class ZBFHealthKit {
     class func getMindfulMinutes(start: Date, end: Date, currentInterval: CurrentInterval, handler: @escaping SamplesHandler) {
         let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         
-        let timeZone = TimeZone.current
+        //let timeZone = TimeZone.current
         
-        let seconds = Double(timeZone.secondsFromGMT(for: start))
-        let newStart = Date(timeInterval: -seconds, since: start)
-        let newEnd = Date(timeInterval: -seconds, since: end)
+        //let seconds = Double(timeZone.secondsFromGMT(for: start))
+        let newStart = start //Date(timeInterval: -seconds, since: start)
+        let newEnd = end //Date(timeInterval: -seconds, since: end)
         
         let hkDatePredicate = HKQuery.predicateForSamples(withStart: newStart, end: newEnd, options: .strictStartDate)
         
@@ -421,11 +421,11 @@ class ZBFHealthKit {
     class func getHRVSamples(start: Date, end: Date, currentInterval: CurrentInterval, handler: @escaping SamplesHandler) {
         
         
-        let timeZone = TimeZone.current
+        //let timeZone = TimeZone.current
         
-        let seconds = Double(timeZone.secondsFromGMT(for: start))
-        let newStart = Date(timeInterval: -seconds, since: start)
-        let newEnd = Date(timeInterval: -seconds, since: end)
+        //let seconds = Double(timeZone.secondsFromGMT(for: start))
+        let newStart = start //Date(timeInterval: -seconds, since: start)
+        let newEnd = end //Date(timeInterval: -seconds, since: end)
         
         var entries = [Double: Double]()
         

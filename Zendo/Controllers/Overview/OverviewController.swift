@@ -407,7 +407,7 @@ class OverviewController: UIViewController {
     }
     
     func setDate() {
-        let date = Date().toLocalTime()
+        let date = Date()//.toLocalTime()
         
         switch self.currentInterval {
         case .hour:
