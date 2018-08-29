@@ -15,11 +15,9 @@ class ZBFHealthKit {
     
     static let hkReadTypes = hkShareTypes
     
-    static let hkShareTypes = Set([heartRateType, mindfulSessionType, workoutType, heartRateSDNNType, restingBPMType])
+    static let hkShareTypes = Set([heartRateType, mindfulSessionType, workoutType, heartRateSDNNType])
     
     static let heartRateType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
-    
-    static let restingBPMType = HKObjectType.quantityType(forIdentifier: .restingHeartRate)!
     
     static let heartRateSDNNType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
     
@@ -129,31 +127,6 @@ class ZBFHealthKit {
         
     }
     
-    class func getSamples(workout: HKWorkout) -> [HKCategorySample] {
-        
-        let samples = [HKCategorySample]()
-        
-        let hkPredicate = HKQuery.predicateForObjects(from: workout)
-        let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
-        
-        let hkQuery = HKSampleQuery.init(sampleType: mindfulSessionType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: nil, resultsHandler: {query,results,error in
-            
-            if error != nil {
-                print(error!)
-            } else {
-                DispatchQueue.main.sync() {
-                    
-                }
-            }
-            
-        })
-        
-        healthStore.execute(hkQuery)
-        
-        return samples
-        
-    }
-    
     class func format(_ date: Date) -> String {
         
         let dateFormatter = DateFormatter()
@@ -217,7 +190,8 @@ class ZBFHealthKit {
     
     class func getSamples(workout: HKWorkout, handler: @escaping GetSamplesHandler ) {
         
-        let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
+        //let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
+        let hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictStartDate)
         let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
         
@@ -312,13 +286,7 @@ class ZBFHealthKit {
     class func getMindfulMinutes(start: Date, end: Date, currentInterval: CurrentInterval, handler: @escaping SamplesHandler) {
         let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         
-        let timeZone = TimeZone.current
-        
-        let seconds = Double(timeZone.secondsFromGMT(for: start))
-        let newStart = Date(timeInterval: -seconds, since: start)
-        let newEnd = Date(timeInterval: -seconds, since: end)
-        
-        let hkDatePredicate = HKQuery.predicateForSamples(withStart: newStart, end: newEnd, options: .strictStartDate)
+        let hkDatePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictStartDate)
         
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
         
@@ -354,7 +322,6 @@ class ZBFHealthKit {
                                             if let samples = samples/*, !samples.isEmpty*/ {
                                                 
                                                 let calender = Calendar.current
-                                                //    calender.timeZone = TimeZone(abbreviation: "UTC")!
                                                 
                                                 samples.forEach( { sample in
                                                     
@@ -420,13 +387,6 @@ class ZBFHealthKit {
     
     class func getHRVSamples(start: Date, end: Date, currentInterval: CurrentInterval, handler: @escaping SamplesHandler) {
         
-        
-        let timeZone = TimeZone.current
-        
-        let seconds = Double(timeZone.secondsFromGMT(for: start))
-        let newStart = Date(timeInterval: -seconds, since: start)
-        let newEnd = Date(timeInterval: -seconds, since: end)
-        
         var entries = [Double: Double]()
         
         var components = DateComponents()
@@ -469,13 +429,13 @@ class ZBFHealthKit {
         let query = HKStatisticsCollectionQuery(quantityType: hkType,
                                                 quantitySamplePredicate: nil,
                                                 options: .discreteAverage,
-                                                anchorDate: newStart,
+                                                anchorDate: start,
                                                 intervalComponents: components)
         
         query.initialResultsHandler = { query, results, error in
             
             if let statsCollection = results {
-                statsCollection.enumerateStatistics(from: newStart, to: newEnd) { statistics, stop in
+                statsCollection.enumerateStatistics(from: start, to: end) { statistics, stop in
                     
                     var avgValue = 0.0
                     
@@ -485,7 +445,6 @@ class ZBFHealthKit {
                     
                     var key = 0.0
                     let calender = Calendar.current
-                   // calender.timeZone = TimeZone(abbreviation: "UTC")!
                     
                     switch currentInterval {
                     case .hour:

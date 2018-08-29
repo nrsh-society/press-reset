@@ -232,7 +232,7 @@ class OverviewController: UIViewController {
     }
     
     func populateDatetimeSpan(_ cell: HeaderOverviewTableViewCell, _ currentInterval: CurrentInterval) {
-        let date = Date().toLocalTime()
+        let date = Date()
         switch currentInterval {
         case .hour:
             cell.dateTimeTitle.text = date.startOfDay.toZendoHeaderDayString
@@ -407,7 +407,7 @@ class OverviewController: UIViewController {
     }
     
     func setDate() {
-        let date = Date().toLocalTime()
+        let date = Date()
         
         switch self.currentInterval {
         case .hour:
@@ -423,7 +423,7 @@ class OverviewController: UIViewController {
             self.start = date.startOfYear
             self.end = date.endOfYear
         }
-
+        
     }
     
 }
