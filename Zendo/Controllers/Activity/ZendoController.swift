@@ -178,11 +178,6 @@ class ZendoController: UITableViewController {
         }
     }
     
-    //    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-    //        let sample = samples[indexPath.row]
-    //        currentWorkout = (sample as! HKWorkout)
-    //    }
-    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return  isShowFirstSession ? 0.0 : 33.0
     }
@@ -238,137 +233,29 @@ class ZendoController: UITableViewController {
                 alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
                     self.checkHealthKit(isShow: true)
                 })
-                self.present(alert, animated: true)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true)
+                }
                 return
             }
-            
-            Mixpanel.mainInstance().time(event: "new_session")
             
             let alert = UIAlertController(title: "Starting Watch App",
                                           message: "Deep Press + Exit when complete.", preferredStyle: .actionSheet)
             
-            let ok = UIAlertAction(title: "Done", style: .default) { action in
+            let ok = UIAlertAction(title: "OK", style: .default) { action in
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1) ) {
                     Mixpanel.mainInstance().track(event: "new_session")
                 }
             }
             
             alert.addAction(ok)
-            DispatchQueue.main.async {
+            
+            DispatchQueue.main.async
+            {
                 self.present(alert, animated: true)
             }
         }
-        
-        
     }
-    
-    //    @IBAction func buddhaClick(_ sender: Any) {
-    //        showController("buddha-controller")
-    //    }
-    //
-    //    @IBAction func sanghaClick(_ sender: Any) {
-    //        showController("sangha-controller")
-    //    }
-    //
-    //    @IBAction func dharmaClick(_ sender: Any) {
-    //        showController("dharma-controller")
-    //    }
-    //
-    //    func showController(_ named: String) {
-    //        Mixpanel.mainInstance().time(event: named + "_enter")
-    //
-    //        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: named)
-    //
-    //        present(controller, animated: true) {
-    //            Mixpanel.mainInstance().track(event: named + "_exit")
-    //        }
-    //    }
-    
-    //    @IBAction func actionClick(_ sender: Any) {
-    //
-    //        #if DEBUG
-    //
-    //        //self.exportAll() #todo: make this change the attachment when in debug mode
-    //
-    //        #endif
-    //
-    //        let vc = UIActivityViewController(activityItems: [url as Any], applicationActivities: [])
-    //
-    //        vc.excludedActivityTypes = [
-    //            UIActivityType.assignToContact,
-    //            UIActivityType.saveToCameraRoll,
-    //            UIActivityType.postToFlickr,
-    //            UIActivityType.postToVimeo,
-    //            UIActivityType.postToTencentWeibo,
-    //            UIActivityType.postToTwitter,
-    //            UIActivityType.postToFacebook,
-    //            UIActivityType.openInIBooks
-    //        ]
-    //
-    //        present(vc, animated: true, completion: nil)
-    //
-    //    }
-    //
-    //    func exportAll() {
-    //
-    //        var samples = [[String: Any]]()
-    //
-    //        let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
-    //        let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
-    //
-    //        let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: false)
-    //
-    //
-    //        let hkQuery = HKSampleQuery.init(sampleType: mindfulSessionType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor], resultsHandler: {query, results, error in
-    //
-    //            if error != nil  {
-    //                print(error!)
-    //            } else {
-    //                DispatchQueue.main.sync() {
-    //                    samples = results!.map { dictionary in
-    //                        var dict: [String: String] = [:]
-    //                        dictionary.metadata!.forEach { (key, value) in dict[key] = "\(value)" }
-    //                        return dict
-    //                    }
-    //
-    //                    let fileName = "zendo.json"
-    //                    let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
-    //
-    //                    let outputStream = OutputStream(url: path!, append: false)
-    //
-    //                    outputStream?.open()
-    //
-    //                    JSONSerialization.writeJSONObject(
-    //                        samples,
-    //                        to: outputStream!,
-    //                        options: JSONSerialization.WritingOptions.prettyPrinted,
-    //                        error: nil)
-    //
-    //                    outputStream?.close()
-    //
-    //                    let vc = UIActivityViewController(activityItems: [path as Any], applicationActivities: [])
-    //
-    //                    vc.excludedActivityTypes = [
-    //                        .assignToContact,
-    //                        .saveToCameraRoll,
-    //                        .postToFlickr,
-    //                        .postToVimeo,
-    //                        .postToTencentWeibo,
-    //                        .postToTwitter,
-    //                        .postToFacebook,
-    //                        .openInIBooks
-    //                    ]
-    //
-    //                    self.present(vc, animated: true, completion: nil)
-    //
-    //                }
-    //            }
-    //
-    //        })
-    //
-    //        HKHealthStore().execute(hkQuery)
-    //
-    //    }
     
 }
 

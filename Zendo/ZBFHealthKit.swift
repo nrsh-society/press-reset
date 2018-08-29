@@ -127,31 +127,6 @@ class ZBFHealthKit {
         
     }
     
-    class func getSamples(workout: HKWorkout) -> [HKCategorySample] {
-        
-        let samples = [HKCategorySample]()
-        
-        let hkPredicate = HKQuery.predicateForObjects(from: workout)
-        let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
-        
-        let hkQuery = HKSampleQuery.init(sampleType: mindfulSessionType, predicate: hkPredicate, limit: HealthKit.HKObjectQueryNoLimit, sortDescriptors: nil, resultsHandler: {query,results,error in
-            
-            if error != nil {
-                print(error!)
-            } else {
-                DispatchQueue.main.sync() {
-                    
-                }
-            }
-            
-        })
-        
-        healthStore.execute(hkQuery)
-        
-        return samples
-        
-    }
-    
     class func format(_ date: Date) -> String {
         
         let dateFormatter = DateFormatter()
@@ -215,7 +190,8 @@ class ZBFHealthKit {
     
     class func getSamples(workout: HKWorkout, handler: @escaping GetSamplesHandler ) {
         
-        let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
+        //let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
+        let hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictStartDate)
         let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
         
