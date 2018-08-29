@@ -51,7 +51,7 @@ extension Date {
     
     var toZendoHeaderDayString: String {
         let formatter = DateFormatter()
-        formatter.timeZone = TimeZone.autoupdatingCurrent //TimeZone(abbreviation: "UTC")!
+        formatter.timeZone = TimeZone.UTC
         formatter.dateFormat = zendoHeaderDayFormat
         let res = formatter.string(from: self)
         return res
@@ -59,7 +59,7 @@ extension Date {
     
     var toZendoHeaderMonthYearString: String {
         let formatter = DateFormatter()
-        formatter.timeZone = TimeZone.autoupdatingCurrent //TimeZone(abbreviation: "UTC")!
+        formatter.timeZone = TimeZone.UTC
         formatter.dateFormat = zendoHeaderMonthYearFormat
         let res = formatter.string(from: self)
         return res
@@ -67,49 +67,28 @@ extension Date {
     
     var toZendoHeaderYearString: String {
         let formatter = DateFormatter()
-        formatter.timeZone = TimeZone.autoupdatingCurrent //TimeZone(abbreviation: "UTC")!
+        formatter.timeZone = TimeZone.UTC
         formatter.dateFormat = zendoHeaderYearFormat
         let res = formatter.string(from: self)
         return res
     }
     
-//    var startOfWeek: Date? {
-//        var gregorian = Calendar(identifier: .gregorian)
-//        gregorian.timeZone = TimeZone(abbreviation: "UTC")!
-//        guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
-//        return gregorian.date(byAdding: .day, value: 1, to: sunday)
-//    }
-    
     var startOfWeek: Date {
         var gregorian = Calendar(identifier: .gregorian)
-        gregorian.timeZone = TimeZone.autoupdatingCurrent //TimeZone(abbreviation: "UTC")!
+        gregorian.timeZone = TimeZone.UTC
         let components = gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)
         return gregorian.date(from: components)!
     }
     
     var endOfWeek: Date {
         var gregorian = Calendar(identifier: .gregorian)
-        gregorian.timeZone = TimeZone.autoupdatingCurrent //TimeZone(abbreviation: "UTC")!
+        gregorian.timeZone = TimeZone.UTC
         let components = gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)
         let endWeek = gregorian.date(byAdding: .day, value: 7, to: gregorian.date(from: components)!)!
         var componentsEnd = gregorian.dateComponents([.second], from: endWeek)
         componentsEnd.minute = -1
         return calender.date(byAdding: componentsEnd, to: endWeek)!
     }
-//
-//    var endOfWeek: Date? {
-//        var gregorian = Calendar.current
-//        gregorian.timeZone = TimeZone(abbreviation: "UTC")!
-//        guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
-//        return gregorian.date(byAdding: .day, value: 7, to: sunday)
-//    }
-    
-//    var endOfWeek: Date? {
-//        var gregorian = Calendar.current
-//        gregorian.timeZone = TimeZone(abbreviation: "UTC")!
-//        guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
-//        return gregorian.date(byAdding: .day, value: 7, to: sunday)
-//    }
     
     var startOfDay: Date {
         return calender.startOfDay(for: self)
@@ -148,13 +127,11 @@ extension Date {
     
     private var calender: Calendar {
         var calender = Calendar.current
-        calender.timeZone = TimeZone.autoupdatingCurrent //TimeZone(abbreviation: "UTC")!
+        calender.timeZone = TimeZone.UTC
         return calender
     }
     
-    
     func toLocalTime() -> Date {
-        
         let timeZone = TimeZone.current
         
         let seconds = Double(timeZone.secondsFromGMT(for: self))
@@ -165,13 +142,3 @@ extension Date {
     
 }
 
-//extension String {
-//
-//    var dateFromZendoEndString: Date? {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = zendoEndFormat
-//        let res = formatter.date(from: self)
-//        return res
-//    }
-//
-//}

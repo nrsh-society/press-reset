@@ -27,6 +27,8 @@ class ZendoController: UITableViewController {
     let hkPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody)
     var session: WCSession!
     var isShowFirstSession = false
+    var isAutoUpdate = false
+    var autoUpdateCount = 0
     
     
     let url = URL(string: "http://zenbf.org/zendo")!
@@ -105,14 +107,15 @@ class ZendoController: UITableViewController {
                                             
                                             self.samplesDictionary = [:]
                                             self.samplesDate = []
+                                                                                        
                                             
                                             self.samples = results!
-                                            
                                             var calendar = Calendar.current
-                                            calendar.timeZone = TimeZone.autoupdatingCurrent
+                                            calendar.timeZone = TimeZone.UTC
                                             
                                             for sample in self.samples {
                                                 var date = sample.endDate.toZendoHeaderString
+                                                
                                                 if calendar.isDateInToday(sample.endDate) {
                                                     date = "Today, " + sample.endDate.toZendoHeaderDayString
                                                 }
@@ -126,14 +129,18 @@ class ZendoController: UITableViewController {
                                                 }
                                             }
                                             
-                                            
                                             DispatchQueue.main.async() {
-                                                Mixpanel.mainInstance().track(event: "zendo_session_load",
-                                                                              properties: ["session_count": self.samples.count])
-                                                
-                                                self.isShowFirstSession = self.samplesDate.isEmpty
-                                                self.tableView.reloadData()
-                                                self.refreshControl?.endRefreshing()
+                                                if self.isAutoUpdate {
+                                                    if self.autoUpdateCount == self.samples.count {
+                                                        self.populateTable()
+                                                    } else {
+                                                        self.isAutoUpdate = false
+                                                        self.reload()
+                                                    }
+                                                } else {
+                                                    self.isAutoUpdate = false
+                                                    self.reload()
+                                                }
                                             }
                                         }
                                         
@@ -166,6 +173,15 @@ class ZendoController: UITableViewController {
         
     }
     
+    func reload() {
+        Mixpanel.mainInstance().track(event: "zendo_session_load",
+                                      properties: ["session_count": self.samples.count])
+        
+        self.isShowFirstSession = self.samplesDate.isEmpty
+        self.tableView.reloadData()
+        self.refreshControl?.endRefreshing()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showDetailSegue,
             let destination = segue.destination as? ZazenController,
@@ -177,11 +193,6 @@ class ZendoController: UITableViewController {
             destination.workout = currentWorkout
         }
     }
-    
-    //    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-    //        let sample = samples[indexPath.row]
-    //        currentWorkout = (sample as! HKWorkout)
-    //    }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return  isShowFirstSession ? 0.0 : 33.0
@@ -387,10 +398,14 @@ extension ZendoController: WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
         
         if (message["watch"] as! String) == "reload" {
+            
             DispatchQueue.main.async {
+                self.isAutoUpdate = true
+                self.autoUpdateCount = self.samples.count
                 self.populateTable()
                 NotificationCenter.default.post(name: .reloadOverview, object: nil)
             }
+            
         }
     }
     

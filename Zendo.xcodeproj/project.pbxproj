@@ -20,6 +20,7 @@
 		12C1A72C2119B78900EEFF4F /* UIView+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C1A72B2119B78900EEFF4F /* UIView+Nib.swift */; };
 		12C1A72E2119C27C00EEFF4F /* ZenInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C1A72D2119C27C00EEFF4F /* ZenInfoView.swift */; };
 		12C1A7302119C28700EEFF4F /* ZenInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12C1A72F2119C28700EEFF4F /* ZenInfoView.xib */; };
+		12CBA45E213549560066F671 /* TimeZone+UTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CBA45D213549560066F671 /* TimeZone+UTC.swift */; };
 		12CE364E211302A900EF0196 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE364D211302A900EF0196 /* UIView.swift */; };
 		12CE3652211327D300EF0196 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE3651211327D300EF0196 /* TabBarController.swift */; };
 		12CE365421132A7100EF0196 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE365321132A7100EF0196 /* UIImage.swift */; };
@@ -151,6 +152,7 @@
 		12C1A72B2119B78900EEFF4F /* UIView+Nib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Nib.swift"; sourceTree = "<group>"; };
 		12C1A72D2119C27C00EEFF4F /* ZenInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenInfoView.swift; sourceTree = "<group>"; };
 		12C1A72F2119C28700EEFF4F /* ZenInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZenInfoView.xib; sourceTree = "<group>"; };
+		12CBA45D213549560066F671 /* TimeZone+UTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+UTC.swift"; sourceTree = "<group>"; };
 		12CE364D211302A900EF0196 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		12CE3651211327D300EF0196 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		12CE365321132A7100EF0196 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 				12E189BB211C6387004EADE9 /* UIViewController.swift */,
 				12E189C0211C64AB004EADE9 /* UIApplication.swift */,
 				12DAE77B212B1A1200D28DD7 /* Array.swift */,
+				12CBA45D213549560066F671 /* TimeZone+UTC.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -709,6 +712,7 @@
 				12C1A7282119B74B00EEFF4F /* ZenButton.swift in Sources */,
 				128D0BB92111D30900A4D757 /* UIDevice+Size.swift in Sources */,
 				1280DD632125DCB100F3DFC1 /* MMChartFormatter.swift in Sources */,
+				12CBA45E213549560066F671 /* TimeZone+UTC.swift in Sources */,
 				1246C422212725140011F5D3 /* BalloonMarker.swift in Sources */,
 				12E2A1B521107A9400E0E911 /* UIFont.swift in Sources */,
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
