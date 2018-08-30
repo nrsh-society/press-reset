@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Mixpanel
 
 class CommunityViewController: UIViewController {
     
@@ -117,6 +118,9 @@ class CommunityViewController: UIViewController {
             Settings.isRunOnce = true
             Settings.fullName = fullName.textField.text
             Settings.email = email.textField.text
+            if let name = Settings.fullName, let email = Settings.email {
+                Mixpanel.mainInstance().createAlias(name, distinctId: email)
+            }
             
             view.endEditing(true)
             dismiss(animated: true) {

@@ -73,6 +73,10 @@ class OverviewController: UIViewController {
             self.tableView.reloadData()
         }
         
+        if let name = Settings.fullName, let email = Settings.email {
+            Mixpanel.mainInstance().createAlias(name, distinctId: email)
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
