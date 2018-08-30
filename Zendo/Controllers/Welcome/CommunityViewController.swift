@@ -11,6 +11,9 @@ import Mixpanel
 
 class CommunityViewController: UIViewController {
     
+    @IBOutlet weak var topSpace: NSLayoutConstraint!
+    @IBOutlet weak var topSpaceTextField: NSLayoutConstraint!
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var nextBottomSpace: NSLayoutConstraint!
     @IBOutlet weak var nextButton: ZenButton! {
         didSet {
@@ -34,6 +37,13 @@ class CommunityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if UIDevice.small {
+            topSpace.constant = 20.0
+            topSpaceTextField.constant = 15.0
+            stackView.spacing = 20.0
+            nextBottomSpace.constant = 20.0
+        }
+        
         for label in labels {
             label.font = UIFont.zendo(font: .antennaRegular, size: label.font.pointSize - (UIDevice.small ? 2 : 0))
             if label.tag == 2 {
@@ -51,8 +61,8 @@ class CommunityViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
-
-
+        
+        
         nextButton.action = {
             self.next()
         }
@@ -97,7 +107,7 @@ class CommunityViewController: UIViewController {
         } else if !(email.textField.text?.isEmail())! {
             isHiddenNextButton(true)
         } else {
-           isHiddenNextButton(false)
+            isHiddenNextButton(false)
         }
     }
     
@@ -138,11 +148,11 @@ class CommunityViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
-
+    
 }
 
 extension CommunityViewController: UITextFieldDelegate {
-        
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.tag == ZenTextFieldType.fullName.rawValue {
             email.textField.becomeFirstResponder()
