@@ -20,6 +20,10 @@
 		12C1A72C2119B78900EEFF4F /* UIView+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C1A72B2119B78900EEFF4F /* UIView+Nib.swift */; };
 		12C1A72E2119C27C00EEFF4F /* ZenInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C1A72D2119C27C00EEFF4F /* ZenInfoView.swift */; };
 		12C1A7302119C28700EEFF4F /* ZenInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12C1A72F2119C28700EEFF4F /* ZenInfoView.xib */; };
+		12C2C27D2137F7E80039C7A0 /* ZenTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2C27C2137F7E80039C7A0 /* ZenTextField.swift */; };
+		12C2C27F2137F7F70039C7A0 /* ZenTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12C2C27E2137F7F70039C7A0 /* ZenTextField.xib */; };
+		12C2C2812137FCA90039C7A0 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2C2802137FCA90039C7A0 /* CommunityViewController.swift */; };
+		12C2C286213802760039C7A0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2C285213802760039C7A0 /* String.swift */; };
 		12CBA45E213549560066F671 /* TimeZone+UTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CBA45D213549560066F671 /* TimeZone+UTC.swift */; };
 		12CE364E211302A900EF0196 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE364D211302A900EF0196 /* UIView.swift */; };
 		12CE3652211327D300EF0196 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE3651211327D300EF0196 /* TabBarController.swift */; };
@@ -152,6 +156,10 @@
 		12C1A72B2119B78900EEFF4F /* UIView+Nib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Nib.swift"; sourceTree = "<group>"; };
 		12C1A72D2119C27C00EEFF4F /* ZenInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenInfoView.swift; sourceTree = "<group>"; };
 		12C1A72F2119C28700EEFF4F /* ZenInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZenInfoView.xib; sourceTree = "<group>"; };
+		12C2C27C2137F7E80039C7A0 /* ZenTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenTextField.swift; sourceTree = "<group>"; };
+		12C2C27E2137F7F70039C7A0 /* ZenTextField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZenTextField.xib; sourceTree = "<group>"; };
+		12C2C2802137FCA90039C7A0 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
+		12C2C285213802760039C7A0 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		12CBA45D213549560066F671 /* TimeZone+UTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+UTC.swift"; sourceTree = "<group>"; };
 		12CE364D211302A900EF0196 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		12CE3651211327D300EF0196 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -282,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				BE38CF602075D1D10095BB6C /* WelcomeController.swift */,
+				12C2C2802137FCA90039C7A0 /* CommunityViewController.swift */,
 				121F2609211B499300C1CC96 /* HealthKitViewController.swift */,
 			);
 			path = Welcome;
@@ -303,6 +312,8 @@
 				12C1A7292119B75900EEFF4F /* ZenButton.xib */,
 				12C1A72D2119C27C00EEFF4F /* ZenInfoView.swift */,
 				12C1A72F2119C28700EEFF4F /* ZenInfoView.xib */,
+				12C2C27C2137F7E80039C7A0 /* ZenTextField.swift */,
+				12C2C27E2137F7F70039C7A0 /* ZenTextField.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -394,6 +405,7 @@
 				12E189C0211C64AB004EADE9 /* UIApplication.swift */,
 				12DAE77B212B1A1200D28DD7 /* Array.swift */,
 				12CBA45D213549560066F671 /* TimeZone+UTC.swift */,
+				12C2C285213802760039C7A0 /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -632,6 +644,7 @@
 				BE2E81F71FF44A7B00D104AC /* LaunchScreen.storyboard in Resources */,
 				BEEA862F20D4A941003E1E1D /* Assets.xcassets in Resources */,
 				12E2A1A8211073D600E0E911 /* Antenna-Medium.otf in Resources */,
+				12C2C27F2137F7F70039C7A0 /* ZenTextField.xib in Resources */,
 				12E2A1AA211073D700E0E911 /* Antenna-Regular.otf in Resources */,
 				12C1A7302119C28700EEFF4F /* ZenInfoView.xib in Resources */,
 				BE2E81F21FF44A7B00D104AC /* Main.storyboard in Resources */,
@@ -706,6 +719,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12CE364E211302A900EF0196 /* UIView.swift in Sources */,
+				12C2C27D2137F7E80039C7A0 /* ZenTextField.swift in Sources */,
 				12D3BB34211A00B40081CAE2 /* OverviewTableViewCell.swift in Sources */,
 				12CE365421132A7100EF0196 /* UIImage.swift in Sources */,
 				BE066BDD20F1F3D10008747D /* PageController.swift in Sources */,
@@ -728,8 +742,10 @@
 				12E2A1B721107CE400E0E911 /* UIColor+Zendo.swift in Sources */,
 				12FFCAE5210F7DDD007E2480 /* Cell+ReuseIdentifier.swift in Sources */,
 				BE75AEC120F708C300311512 /* Chart.swift in Sources */,
+				12C2C2812137FCA90039C7A0 /* CommunityViewController.swift in Sources */,
 				BE2E81EF1FF44A7B00D104AC /* ZendoController.swift in Sources */,
 				12C1A72E2119C27C00EEFF4F /* ZenInfoView.swift in Sources */,
+				12C2C286213802760039C7A0 /* String.swift in Sources */,
 				BE9B00002065F317007FF96A /* ZBFHealthKit.swift in Sources */,
 				BE4895AC206B0CC400B007D6 /* ZazenController.swift in Sources */,
 				12FFCAE7210F7E40007E2480 /* Date.swift in Sources */,

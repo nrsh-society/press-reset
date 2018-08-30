@@ -18,18 +18,18 @@ class WelcomeController: UIViewController {
     @IBOutlet weak var zenButton: ZenButton!
     @IBOutlet var labels: [UILabel]!
     
-    var isDismiss = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         Mixpanel.mainInstance().time(event: "welcome-controller_enter")
         
         zenButton.action = {
-            self.isDismiss = true
-            Settings.isRunOnce = true
-            let vc = HealthKitViewController.loadFromStoryboard()
-            self.present(vc, animated: true)
+            self.dismiss(animated: true, completion: {
+                if let vc = UIApplication.shared.keyWindow?.topViewController {
+                    let community = CommunityViewController.loadFromStoryboard()
+                    vc.present(community, animated: true)
+                }
+            })
         }
         
         for label in labels {
@@ -54,10 +54,8 @@ class WelcomeController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if isDismiss {
-            Mixpanel.mainInstance().track(event: "welcome-controller_exit")
-            self.dismiss(animated: true)
-        }
+        
+        Mixpanel.mainInstance().track(event: "welcome-controller_exit")
     }
     
     static func loadFromStoryboard() -> WelcomeController {

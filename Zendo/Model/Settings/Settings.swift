@@ -22,5 +22,25 @@ class Settings  {
             return defaults.bool(forKey: "runonce")
         }
     }
+    
+    static var fullName: String? {
+        set {
+            defaults.set(newValue, forKey: "fullName")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.string(forKey: "fullName")
+        }
+    }
+    
+    static var email: String? {
+        set {
+            defaults.set(newValue, forKey: "email")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.string(forKey: "email")
+        }
+    }
 
 }

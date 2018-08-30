@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.3.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Nz-z1-oTd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.13.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Nz-z1-oTd">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.9"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -573,7 +573,97 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8nQ-W7-shc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3252" y="-1403.2019704433499"/>
+            <point key="canvasLocation" x="-4012" y="-1403"/>
+        </scene>
+        <!--Community View Controller-->
+        <scene sceneID="5T6-K5-oSo">
+            <objects>
+                <viewController storyboardIdentifier="CommunityViewController" hidesBottomBarWhenPushed="YES" id="FOx-Oj-Aa3" customClass="CommunityViewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gr2-6O-C2R">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n8Z-dv-fhB" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
+                                <rect key="frame" x="187.66666666666663" y="696" width="187.33333333333337" height="45"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="OpT-fT-VwG"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="titleButton" value="Next"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gFT-zA-ERl">
+                                <rect key="frame" x="41" y="104" width="293" height="113.66666666666669"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="join our" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVx-Jo-CSq">
+                                        <rect key="frame" x="0.0" y="0.0" width="109.33333333333333" height="30"/>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="community." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e29-hP-oad">
+                                        <rect key="frame" x="0.0" y="40" width="175.66666666666666" height="30"/>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                        <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum we’re working together to understand the impact on HRV " lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xua-QO-A7Q">
+                                        <rect key="frame" x="0.0" y="80" width="256.33333333333331" height="33.666666666666657"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="j4b-yy-xhs">
+                                <rect key="frame" x="41" y="244.66666666666663" width="334" height="135"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAN-ji-17l" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="334" height="48"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="Ca3-zK-vvh"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mN8-Qu-Loh" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="87.000000000000028" width="334" height="48"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="Cib-CH-TjC"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="dGQ-zL-A4P" firstAttribute="bottom" secondItem="n8Z-dv-fhB" secondAttribute="bottom" constant="37" id="7pk-aw-dT1"/>
+                            <constraint firstItem="j4b-yy-xhs" firstAttribute="leading" secondItem="dGQ-zL-A4P" secondAttribute="leading" constant="41" id="D66-x7-Itd"/>
+                            <constraint firstItem="n8Z-dv-fhB" firstAttribute="width" secondItem="gr2-6O-C2R" secondAttribute="width" multiplier="0.5" id="JgB-65-4ex"/>
+                            <constraint firstAttribute="trailing" secondItem="gFT-zA-ERl" secondAttribute="trailing" constant="41" id="PrJ-VQ-jcc"/>
+                            <constraint firstItem="dGQ-zL-A4P" firstAttribute="trailing" secondItem="n8Z-dv-fhB" secondAttribute="trailing" id="QMr-tr-897"/>
+                            <constraint firstItem="j4b-yy-xhs" firstAttribute="top" secondItem="gFT-zA-ERl" secondAttribute="bottom" constant="27" id="e4l-5i-CXC"/>
+                            <constraint firstItem="dGQ-zL-A4P" firstAttribute="trailing" secondItem="j4b-yy-xhs" secondAttribute="trailing" id="mAM-nw-oAc"/>
+                            <constraint firstItem="gFT-zA-ERl" firstAttribute="leading" secondItem="dGQ-zL-A4P" secondAttribute="leading" constant="41" id="ook-Tl-vXJ"/>
+                            <constraint firstItem="gFT-zA-ERl" firstAttribute="top" secondItem="dGQ-zL-A4P" secondAttribute="top" constant="60" id="wOs-pP-v6B"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dGQ-zL-A4P"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <connections>
+                        <outlet property="email" destination="mN8-Qu-Loh" id="XiD-uX-ScQ"/>
+                        <outlet property="fullName" destination="oAN-ji-17l" id="PXr-91-A3n"/>
+                        <outlet property="nextBottomSpace" destination="7pk-aw-dT1" id="hlH-E9-IIo"/>
+                        <outlet property="nextButton" destination="n8Z-dv-fhB" id="P8j-Qx-Ycs"/>
+                        <outletCollection property="labels" destination="xua-QO-A7Q" collectionClass="NSMutableArray" id="bgw-M2-zrL"/>
+                        <outletCollection property="labels" destination="e29-hP-oad" collectionClass="NSMutableArray" id="10C-dT-Bde"/>
+                        <outletCollection property="labels" destination="YVx-Jo-CSq" collectionClass="NSMutableArray" id="r0H-UG-p6L"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D9f-cy-vpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3255.1999999999998" y="-1403.2019704433499"/>
         </scene>
         <!--Health Kit View Controller-->
         <scene sceneID="ox8-A3-TLw">

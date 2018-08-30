@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.13.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.9"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Antenna-Regular.otf">
+            <string>Antenna-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
+            <connections>
+                <outlet property="textField" destination="BtS-GR-lHI" id="91Q-wp-B43"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="347" height="110"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="mjx-da-iXW">
+                    <rect key="frame" x="0.0" y="0.0" width="347" height="110"/>
+                    <subviews>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BtS-GR-lHI" customClass="TextFieldPlaceHolder" customModule="Zendo" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="347" height="104"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" red="0.058823529411764705" green="0.14509803921568626" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
+                            <connections>
+                                <action selector="editingChanged:" destination="-1" eventType="editingChanged" id="69o-eb-RJa"/>
+                            </connections>
+                        </textField>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z0B-L9-WoW">
+                            <rect key="frame" x="0.0" y="109" width="347" height="1"/>
+                            <color key="backgroundColor" red="0.7803921568627451" green="0.82745098039215681" blue="0.81176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="hG5-OX-NZr"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="mjx-da-iXW" secondAttribute="trailing" id="0hx-HY-8wn"/>
+                <constraint firstItem="mjx-da-iXW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="55Y-Tx-RGA"/>
+                <constraint firstItem="mjx-da-iXW" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Zeb-Sd-YKr"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="mjx-da-iXW" secondAttribute="bottom" id="uvo-pJ-Nl4"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-200.80000000000001" y="-110.64467766116942"/>
+        </view>
+    </objects>
+</document>

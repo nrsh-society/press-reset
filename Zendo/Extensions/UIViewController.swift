@@ -11,6 +11,15 @@ import Mixpanel
 
 extension UIViewController {
     
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     func showWelcomeController() {
         if let vc = UIApplication.shared.keyWindow?.topViewController {
             if !vc.isKind(of: WelcomeController.self) {
@@ -32,7 +41,11 @@ extension UIViewController {
     
     func checkHealthKit(isShow: Bool) {
         if !Settings.isRunOnce {
-            showWelcomeController()
+            if let vc = UIApplication.shared.keyWindow?.topViewController {
+                if !vc.isKind(of: CommunityViewController.self) {
+                    showWelcomeController()
+                }
+            }
         } else {
             for (index, type) in ZBFHealthKit.hkShareTypes.enumerated()  {
                 switch ZBFHealthKit.healthStore.authorizationStatus(for: type) {
