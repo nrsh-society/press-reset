@@ -13,20 +13,20 @@ import CoreMotion
 import CoreFoundation
 import WatchConnectivity
 
-protocol SessionDelegate {
-    
-    //fired everytime the session interface should be updated
+protocol SessionDelegate
+{
     func sessionTick(startDate: Date)
 }
 
-struct Rotation  {
+struct Rotation
+{
     var pitch: Double = 0.0
     var roll: Double = 0.0
     var yaw: Double = 0.0
 }
 
-struct Options {
-    
+struct Options
+{
     var hapticStrength = 1
 }
 
@@ -41,6 +41,7 @@ class Session: NSObject, SessionCommands {
     var motion = 0.0
     var heartRate = 0.0
     var heartSDNN = 0.0
+    var heartRateSamples = [Double]()
     
     private var sampleTimer: Timer?
     private var notifyTimer: Timer?
@@ -75,9 +76,10 @@ class Session: NSObject, SessionCommands {
         }
     }
     
-    func start() {
-        
-        if !self.isRunning {
+    func start()
+    {
+        if (!self.isRunning)
+        {
             self.startDate = Date()
             
             motionManager.startDeviceMotionUpdates()
@@ -89,7 +91,10 @@ class Session: NSObject, SessionCommands {
             createTimers()
             
             self.isRunning = true
-        } else {
+            
+        }
+        else
+        {
             print("called start on running session")
         }
     }
@@ -101,29 +106,38 @@ class Session: NSObject, SessionCommands {
             return
         }
         
+        sample()
+        
         motionManager.stopDeviceMotionUpdates()
         
         WKInterfaceDevice.current().play(.stop)
         
         healthStore.end(workoutSession!)
         
-        
         self.endDate = Date()
         
-        // let workout = HKWorkout(activityType: .mindAndBody, start: self.startDate!, end: self.endDate!)
         let workout = HKWorkout(activityType: .mindAndBody, start: self.startDate!, end: self.endDate!, workoutEvents: nil, totalEnergyBurned: nil, totalDistance: nil, totalSwimmingStrokeCount: nil, device: nil, metadata: metadataWork)
         
         let mindfulType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
+        
         let mindfullSample = HKCategorySample(type:mindfulType, value: 0, start: self.startDate!, end: self.endDate!)
         
-        healthStore.save([workout, mindfullSample]) { success, error in
+        let hrvType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)
+        
+        let hrvUnit = HKUnit(from: "ms")
+        
+        let quantityType = HKQuantity(unit: hrvUnit, doubleValue: self.heartSDNN)
+        
+        let hrvSample = HKQuantitySample(type: hrvType!, quantity: quantityType, start: self.startDate!, end: self.endDate!)
+        
+        healthStore.save([workout, mindfullSample, hrvSample]) { success, error in
             
             guard error == nil else {
                 print(error.debugDescription)
                 return
             }
             
-            self.healthStore.add([mindfullSample], to: workout, completion: { (success, error) in
+            self.healthStore.add([mindfullSample, hrvSample], to: workout, completion: { (success, error) in
                 
                 self.sendMessage(["watch": "reload"], replyHandler: { (replyMessage) in
                     
@@ -136,13 +150,67 @@ class Session: NSObject, SessionCommands {
         }
         
         invalidate()
-        
     }
     
+    typealias HKQueryUpdateHandler = ((HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Swift.Void)
+    
+    private func process(samples: [HKQuantitySample])
+    {
+        samples.forEach { process(sample: $0) }
+    }
+    
+    private func process(sample: HKQuantitySample)
+    {
+        self.heartRate = sample.quantity.doubleValue(for: HKUnit(from: "count/s"))
+        
+        heartRateSamples.append(self.heartRate)
+        
+        self.sample()
+    }
+
     func createTimers() {
-        sampleTimer = Timer.scheduledTimer(timeInterval: 1, target:self, selector: #selector(Session.sample), userInfo: nil, repeats: true)
         
         notifyTimer = Timer.scheduledTimer(timeInterval: 60, target:self, selector: #selector(Session.notify), userInfo: nil, repeats: true)
+        
+        let quantityType = HKObjectType.quantityType(forIdentifier: .heartRate)!
+        
+        let datePredicate = HKQuery.predicateForSamples(withStart: Date(), end: nil, options: .strictStartDate)
+        
+        let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
+        
+        let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[datePredicate, devicePredicate])
+        
+        let updateHandler: HKQueryUpdateHandler = { query, samples, deletedObjects, queryAnchor, error in
+            if let quantitySamples = samples as? [HKQuantitySample] {
+                self.process(samples: quantitySamples)
+            }
+        }
+        let query = HKAnchoredObjectQuery(type: quantityType,
+                                          predicate: queryPredicate,
+                                          anchor: nil,
+                                          limit: HKObjectQueryNoLimit,
+                                          resultsHandler: updateHandler)
+        
+        query.updateHandler = updateHandler
+        
+        
+        healthStore.execute(query)
+
+    }
+    
+    func standardDeviation(_ arr : [Double]) -> Double
+    {
+        let rrIntervals = arr.map { (beat) -> Double in
+            return 1000 / beat
+        }
+        
+        let length = Double(rrIntervals.count)
+        
+        let avg = rrIntervals.reduce(0, +) / length
+        
+        let sumOfSquaredAvgDiff = rrIntervals.map { pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
+        
+        return sqrt(sumOfSquaredAvgDiff / length)
     }
     
     @objc func notify()  {
@@ -177,45 +245,10 @@ class Session: NSObject, SessionCommands {
         
         self.motion = Double(round(100*self.motion)/100)
         
-        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-        
-        let heartRateSDNNType = HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
-        
-        let heartRateSDNNPredicate: NSPredicate? = HKQuery.predicateForSamples(withStart: yesterday, end: Date(), options: .strictEndDate)
-        
-        healthStore.execute(HKStatisticsQuery(quantityType: heartRateSDNNType,
-                                              quantitySamplePredicate: heartRateSDNNPredicate, options: .discreteAverage) { query, result, error in
-                                                
-                                                if let error = error {
-                                                    print(error.localizedDescription);
-                                                } else {
-                                                    if let sdnn = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")){
-                                                        self.heartSDNN = sdnn
-                                                    }
-                                                }
-        })
-        
-        let heartRateType =
-            HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
-        
-        
-        let heartRatePredicate: NSPredicate? = HKQuery.predicateForSamples(withStart: self.startDate, end: Date(), options: .strictEndDate)
-        
-        
-        healthStore.execute(HKStatisticsQuery(quantityType: heartRateType,
-                                              quantitySamplePredicate: heartRatePredicate,
-                                              options: .discreteAverage) { query, result, error in
-                                                
-                                                if let error = error {
-                                                    print(error.localizedDescription);
-                                                } else {
-                                                    if let heartRate = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "count/s")) {
-                                                        
-                                                        self.heartRate = heartRate
-                                                    }
-                                                }
-        })
-        
+        if(self.heartRateSamples.count > 2)
+        {
+            self.heartSDNN = standardDeviation(self.heartRateSamples)
+        }
         
         let metadata: [String: Any] = [
             MetadataType.time.rawValue: Date().timeIntervalSince1970.description,
@@ -233,44 +266,11 @@ class Session: NSObject, SessionCommands {
         for type in metadataTypeArray {
             metadataWork[type.rawValue] = ((metadataWork[type.rawValue] as? String) ?? "") + empty + (metadata[type.rawValue] as! String)
         }
-        
-        
-        
-        
-        
-        //#todo: should this be another lighterweight sample type?
-        //        let sample = HKCategorySample(type: hkTypee, value: 0, start: self.lastSample, end: Date(), metadata: metadata)
-        
-        //        self.healthStore.save([sample]) { _, _ in
-        // self.samples.append(sample)
-        //        }
-        
-        // lastSample = Date()
-        
-        /*      #todo: post dataset to server to drive av
-         do {
-         
-         let json = try JSONSerialization.data(withJSONObject: metadata, options: []).description
-         
-         let serviceURL = URL(string:"https://zendo-v1.firebaseio.com/zazen")!
-         var request = URLRequest(url: serviceURL)
-         request.httpMethod = "POST"
-         
-         let config = URLSessionConfiguration()
-         config.allowsCellularAccess = true;
-         
-         let session = URLSession(configuration: config)
-         let task = session.uploadTask(with: request, from: json.data(using: .utf8)!)
-         
-         task.resume()
-         
-         } catch {}
-         
-         */
+    
     }
     
-    func invalidate() {
-        sampleTimer!.invalidate()
+    func invalidate()
+    {
         notifyTimer!.invalidate()
         self.isRunning = false
     }

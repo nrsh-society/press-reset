@@ -79,27 +79,28 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
         case .modularSmall:
             let template = CLKComplicationTemplateModularSmallSimpleImage()
             template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Modular")!)
-            
+            template.tintColor = UIColor.zenLightGreen
             retval = template
         case .circularSmall:
             let template = CLKComplicationTemplateCircularSmallSimpleImage()
             template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Circular")!)
-            
+            template.tintColor = UIColor.zenLightGreen
             retval = template
         case .extraLarge:
             let template = CLKComplicationTemplateExtraLargeSimpleImage()
             template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Extra Large")!)
-            
+            template.tintColor = UIColor.zenLightGreen
             retval = template
         case .utilitarianSmall:
             let template = CLKComplicationTemplateUtilitarianSmallSquare()
             template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Utilitarian")!)
-            
+            template.tintColor = UIColor.zenLightGreen
             retval = template
         case .utilitarianSmallFlat:
             let template = CLKComplicationTemplateUtilitarianSmallFlat()
             template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Utilitarian")!)
             template.textProvider = CLKSimpleTextProvider(text: "Zendo")
+            template.tintColor = UIColor.zenLightGreen
             retval = template
         default: break
         }
@@ -114,6 +115,18 @@ class ZendoDataSource: NSObject, CLKComplicationDataSource
     
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
         handler(getTemplate(complication: complication))
+    }
+    
+}
+
+extension UIColor {
+    
+    static var zenDarkGreen: UIColor { //#478C78
+        return UIColor(red: 0.28, green: 0.55, blue: 0.47, alpha: 1.0)
+    }
+    
+    static var zenLightGreen: UIColor { //#95AFA5
+        return UIColor(red: 0.58, green: 0.69, blue: 0.65, alpha: 1.0)
     }
     
 }
