@@ -34,14 +34,17 @@ class CommunityViewController: UIViewController {
     }
     @IBOutlet var labels: [UILabel]!
     
+    var bottomSpaceNext: CGFloat = 37.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if UIDevice.small {
+            bottomSpaceNext = 20.0
             topSpace.constant = 20.0
             topSpaceTextField.constant = 15.0
             stackView.spacing = 20.0
-            nextBottomSpace.constant = 20.0
+            nextBottomSpace.constant = bottomSpaceNext
         }
         
         for label in labels {
@@ -83,19 +86,27 @@ class CommunityViewController: UIViewController {
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            nextBottomSpace.constant += keyboardSize.height
-            UIView.animate(withDuration: 0.3) {
-                self.view.layoutIfNeeded()
+            
+            if nextBottomSpace.constant == bottomSpaceNext {
+                nextBottomSpace.constant += keyboardSize.height
+                UIView.animate(withDuration: 0.3) {
+                    self.view.layoutIfNeeded()
+                }
             }
+            
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            nextBottomSpace.constant -= keyboardSize.height
-            UIView.animate(withDuration: 0.3) {
-                self.view.layoutIfNeeded()
+            
+            if nextBottomSpace.constant > bottomSpaceNext {
+                nextBottomSpace.constant -= keyboardSize.height
+                UIView.animate(withDuration: 0.3) {
+                    self.view.layoutIfNeeded()
+                }
             }
+            
         }
     }
     
@@ -112,8 +123,10 @@ class CommunityViewController: UIViewController {
     }
     
     func isHiddenNextButton(_ isHidden: Bool) {
-        UIView.animate(withDuration: 0.3) {
-            self.nextButton.alpha = isHidden ? 0.0 : 1.0
+        if (nextButton.alpha == 0.0 && !isHidden || nextButton.alpha == 1.0 && isHidden) {
+            UIView.animate(withDuration: 0.3) {
+                self.nextButton.alpha = isHidden ? 0.0 : 1.0
+            }
         }
     }
     
