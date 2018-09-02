@@ -45,7 +45,7 @@ class Session: NSObject, SessionCommands {
     
     private var sampleTimer: Timer?
     private var notifyTimer: Timer?
-    
+
     private let healthStore = HKHealthStore()
     private let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
     private let hkworkT = HKObjectType.workoutType()
@@ -116,28 +116,44 @@ class Session: NSObject, SessionCommands {
         
         self.endDate = Date()
         
+        var healthKitSamples: [HKSample] = []
+        
         let workout = HKWorkout(activityType: .mindAndBody, start: self.startDate!, end: self.endDate!, workoutEvents: nil, totalEnergyBurned: nil, totalDistance: nil, totalSwimmingStrokeCount: nil, device: nil, metadata: metadataWork)
         
         let mindfulType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         
-        let mindfullSample = HKCategorySample(type:mindfulType, value: 0, start: self.startDate!, end: self.endDate!)
+        let mindfulSample = HKCategorySample(type:mindfulType, value: 0, start: self.startDate!, end: self.endDate!)
         
-        let hrvType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)
+        healthKitSamples.append(mindfulSample)
         
-        let hrvUnit = HKUnit(from: "ms")
+        if(self.heartRateSamples.count >= 100)
+        {
+            let hrvType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)
         
-        let quantityType = HKQuantity(unit: hrvUnit, doubleValue: self.heartSDNN)
+            let hrvUnit = HKUnit(from: "ms")
         
-        let hrvSample = HKQuantitySample(type: hrvType!, quantity: quantityType, start: self.startDate!, end: self.endDate!)
+            let quantityType = HKQuantity(unit: hrvUnit, doubleValue: self.heartSDNN)
         
-        healthStore.save([workout, mindfullSample, hrvSample]) { success, error in
+            let hrvSample = HKQuantitySample(type: hrvType!, quantity: quantityType, start: self.startDate!, end: self.endDate!)
+            
+            healthKitSamples.append(hrvSample)
+            
+        }
+        
+        var allSamples : [HKSample] = healthKitSamples.map({$0})
+        
+        allSamples.append(workout)
+        
+        healthStore.save(allSamples)
+        {
+            success, error in
             
             guard error == nil else {
                 print(error.debugDescription)
                 return
             }
             
-            self.healthStore.add([mindfullSample, hrvSample], to: workout, completion: { (success, error) in
+            self.healthStore.add(healthKitSamples, to: workout, completion: { (success, error) in
                 
                 self.sendMessage(["watch": "reload"], replyHandler: { (replyMessage) in
                     
@@ -185,6 +201,8 @@ class Session: NSObject, SessionCommands {
                 self.process(samples: quantitySamples)
             }
         }
+        
+        
         let query = HKAnchoredObjectQuery(type: quantityType,
                                           predicate: queryPredicate,
                                           anchor: nil,
@@ -193,9 +211,7 @@ class Session: NSObject, SessionCommands {
         
         query.updateHandler = updateHandler
         
-        
         healthStore.execute(query)
-
     }
     
     func standardDeviation(_ arr : [Double]) -> Double

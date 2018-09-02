@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14313.3.2" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14306.4" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.1"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14278.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14237"/>
     </dependencies>
     <scenes>
         <!--Zendō-->
@@ -35,18 +35,22 @@
             </objects>
             <point key="canvasLocation" x="103" y="141"/>
         </scene>
-        <!--Kyōsaku-->
+        <!--Options-->
         <scene sceneID="SLO-n2-qa9">
             <objects>
-                <controller identifier="OptionsInterfaceController" title="Kyōsaku" contentMode="scaleAspectFit" id="Cs8-9P-1Q0" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="OptionsInterfaceController" title="Options" contentMode="scaleAspectFit" id="Cs8-9P-1Q0" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <group alignment="center" spacing="0.0" id="euX-5G-gdh">
+                        <group alignment="center" layout="vertical" spacing="0.0" id="euX-5G-gdh">
                             <items>
-                                <slider alignment="center" verticalAlignment="center" continuous="YES" value="1" maximum="3" steps="3" id="AWO-T6-lMh">
+                                <label alignment="left" text="Haptic" id="Cvf-ku-YxT"/>
+                                <slider alignment="center" continuous="YES" value="1" maximum="3" steps="3" id="AWO-T6-lMh">
                                     <connections>
                                         <action selector="KyosakChanged:" destination="Cs8-9P-1Q0" id="06D-WF-yeF"/>
                                     </connections>
                                 </slider>
+                                <label alignment="left" verticalAlignment="bottom" text="HR Monitor" id="yT9-3v-uyI"/>
+                                <switch width="1" alignment="left" verticalAlignment="bottom" title="Bluetooth" id="5mx-VV-erU"/>
+                                <label alignment="center" verticalAlignment="bottom" id="5SR-Jc-J1K"/>
                             </items>
                             <edgeInsets key="margins" left="0.0" right="0.0" top="7" bottom="0.0"/>
                         </group>
