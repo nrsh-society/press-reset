@@ -141,8 +141,11 @@ class CommunityViewController: UIViewController {
             Settings.isRunOnce = true
             Settings.fullName = fullName.textField.text
             Settings.email = email.textField.text
+            
             if let name = Settings.fullName, let email = Settings.email {
-                Mixpanel.mainInstance().createAlias(name, distinctId: email)
+                Mixpanel.mainInstance().createAlias(email, distinctId: email)
+                Mixpanel.mainInstance().people.set(properties: ["$name": name])
+                Mixpanel.mainInstance().people.set(properties: ["$email": email])
             }
             
             view.endEditing(true)
