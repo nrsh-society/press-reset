@@ -75,6 +75,7 @@ class ZazenTableViewCell: UITableViewCell {
             xAxis?.labelPosition = .bottom
             xAxis?.labelTextColor = UIColor.zenGray
             xAxis?.labelFont = zendoFont
+            xAxis?.drawLabelsEnabled = false //remove until we fix up the timestamps
             
             let rightAxis = lineChart?.rightAxis
             rightAxis?.drawAxisLineEnabled = false
