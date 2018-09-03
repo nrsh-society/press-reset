@@ -173,24 +173,37 @@ class ZBFHealthKit {
         return imageWithText!
     }
     
-    class func deleteWorkout(workout: HKWorkout) {
-        getSamples(workout: workout) { samples in
+    class func deleteWorkout(workout: HKWorkout)
+    {
+        getMindfulSamples(workout: workout)
+        {
+            samples in
+            
             var objects: [HKSample] = samples.map { $0 }
             
-            objects.append(workout)
+            getHrvSamples(workout: workout)
+            {
+                    hrvSamples in
+                
+                    objects.append(contentsOf: hrvSamples)
             
-            healthStore.delete(objects) { bool, error in
-                if !bool {
-                    print(error!)
-                }
+                    objects.append(workout)
+                
+                    healthStore.delete(objects)
+                    {
+                        bool, error in
+                    
+                        if !bool {
+                            print(error!)
+                        }
+                    }
             }
         }
-        
     }
     
     typealias GetSamplesHandler = ([HKSample]) -> Void
     
-    class func getSamples(workout: HKWorkout, handler: @escaping GetSamplesHandler ) {
+    class func getMindfulSamples(workout: HKWorkout, handler: @escaping GetSamplesHandler ) {
         
         //let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
         let hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictStartDate)
@@ -198,6 +211,30 @@ class ZBFHealthKit {
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
         
         let hkQuery = HKSampleQuery.init(sampleType: mindfulSessionType,
+                                         predicate: hkPredicate,
+                                         limit: HealthKit.HKObjectQueryNoLimit,
+                                         sortDescriptors: [sortDescriptor],
+                                         resultsHandler: { query, results, error in
+                                            
+                                            if error != nil {
+                                                print(error!)
+                                            } else {
+                                                handler(results!)
+                                            }
+        })
+        
+        ZBFHealthKit.healthStore.execute(hkQuery)
+        
+    }
+    
+    class func getHrvSamples(workout: HKWorkout, handler: @escaping GetSamplesHandler ) {
+        
+        //let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
+        let hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictStartDate)
+        let hrvType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
+        
+        let hkQuery = HKSampleQuery.init(sampleType: hrvType,
                                          predicate: hkPredicate,
                                          limit: HealthKit.HKObjectQueryNoLimit,
                                          sortDescriptors: [sortDescriptor],
