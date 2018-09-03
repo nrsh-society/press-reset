@@ -47,7 +47,9 @@ class AppInterfaceController: WKInterfaceController {
         
         let hkType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
         
-        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+        let yesterday = Calendar.autoupdatingCurrent.startOfDay(for: Date())
+    
+        //Calendar.current.date(byAdding: .day, value: -1, to: Date())
         
         let hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: Date(), options: .strictEndDate)
         

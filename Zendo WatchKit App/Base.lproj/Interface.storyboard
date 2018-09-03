@@ -14,7 +14,7 @@
             <objects>
                 <controller identifier="AppInterfaceController" title="Zendō" backgroundImage="shobogenzo" contentMode="scaleAspectFit" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <label width="1" height="1" alignment="center" verticalAlignment="center" textAlignment="center" id="c3z-hl-RcP">
+                        <label width="1" height="1" alignment="center" verticalAlignment="center" text="00" textAlignment="center" id="c3z-hl-RcP">
                             <fontDescription key="font" type="system" weight="semibold" pointSize="50"/>
                         </label>
                     </items>
@@ -49,11 +49,19 @@
                                     </connections>
                                 </slider>
                                 <label alignment="center" verticalAlignment="bottom" text="HR Monitor" id="5SR-Jc-J1K"/>
-                                <switch width="1" alignment="left" verticalAlignment="bottom" title="Bluetooth" id="5mx-VV-erU"/>
+                                <switch width="1" alignment="left" verticalAlignment="bottom" title="Bluetooth" id="5mx-VV-erU">
+                                    <connections>
+                                        <action selector="bluetoothChanged:" destination="Cs8-9P-1Q0" id="N4x-Xv-8b6"/>
+                                    </connections>
+                                </switch>
+                                <label alignment="center" verticalAlignment="bottom" id="3dM-HJ-XI3"/>
                             </items>
                             <edgeInsets key="margins" left="0.0" right="0.0" top="7" bottom="0.0"/>
                         </group>
                     </items>
+                    <connections>
+                        <outlet property="bluetoothStatus" destination="3dM-HJ-XI3" id="HOE-ag-f1w"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="375" y="141"/>

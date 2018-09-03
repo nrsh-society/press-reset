@@ -11,9 +11,23 @@ import Foundation
 
 class OptionsInterfaceController : WKInterfaceController {
     
-    @IBAction func KyosakChanged(_ value: Float) {
-        
+    @IBOutlet var bluetoothStatus: WKInterfaceLabel!
+    
+    @IBAction func KyosakChanged(_ value: Float)
+    {
         Session.options.hapticStrength = Int(value.rounded())
+    }
+    
+    @IBAction func bluetoothChanged(_ value: Bool)
+    {
+        if(value)
+        {
+            bluetoothStatus.setText("Coming soon")
+        }
+        else
+        {
+            bluetoothStatus.setText("")
+        }
     }
     
 }

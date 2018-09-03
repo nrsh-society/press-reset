@@ -46,7 +46,8 @@ class ZendoTableViewCell: UITableViewCell {
             
             let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
             
-            let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: workout.endDate)
+            let yesterday = Calendar.autoupdatingCurrent.startOfDay(for: workout.endDate)
+               // Calendar.current.date(byAdding: .day, value: -1, to: workout.endDate)
             
             let hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: workout.endDate, options: .strictEndDate)
             
