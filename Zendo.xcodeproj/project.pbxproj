@@ -49,6 +49,7 @@
 		BE066BD820F1EFC10008747D /* OverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE066BD720F1EFC10008747D /* OverviewController.swift */; };
 		BE066BDD20F1F3D10008747D /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE066BDC20F1F3D10008747D /* PageController.swift */; };
 		BE0A7228209C2B83009E23AA /* OptionsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */; };
+		BE0B4EB2213E05AF006C3773 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B4EB1213E05AF006C3773 /* BluetoothManager.swift */; };
 		BE24023B1FFC961A008679C4 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24023A1FFC961A008679C4 /* Session.swift */; };
 		BE24023D1FFC965F008679C4 /* SessionInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24023C1FFC965F008679C4 /* SessionInterfaceController.swift */; };
 		BE2E81ED1FF44A7B00D104AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E81EC1FF44A7B00D104AC /* AppDelegate.swift */; };
@@ -190,6 +191,7 @@
 		BE066BD720F1EFC10008747D /* OverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewController.swift; sourceTree = "<group>"; };
 		BE066BDC20F1F3D10008747D /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
 		BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsInterfaceController.swift; sourceTree = "<group>"; };
+		BE0B4EB1213E05AF006C3773 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		BE24023A1FFC961A008679C4 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		BE24023C1FFC965F008679C4 /* SessionInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionInterfaceController.swift; sourceTree = "<group>"; };
 		BE2E81E91FF44A7B00D104AC /* Zendo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zendo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -484,14 +486,15 @@
 				BE9BFFFC2065EE3D007FF96A /* ZBFHealthKit.swift */,
 				BE8BB2201FFDCC4700B2E113 /* Zendo WatchKit Extension.entitlements */,
 				BE24023C1FFC965F008679C4 /* SessionInterfaceController.swift */,
+				BE2E82131FF44A7B00D104AC /* NotificationController.swift */,
 				BE24023A1FFC961A008679C4 /* Session.swift */,
 				BE2E820F1FF44A7B00D104AC /* AppInterfaceController.swift */,
 				BE2E82111FF44A7B00D104AC /* ExtensionDelegate.swift */,
-				BE2E82131FF44A7B00D104AC /* NotificationController.swift */,
 				BE2E82171FF44A7B00D104AC /* Info.plist */,
 				BE2E82181FF44A7B00D104AC /* PushNotificationPayload.apns */,
 				BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */,
 				BE89838E20E6BBE300F0FD63 /* ZendoDataSource.swift */,
+				BE0B4EB1213E05AF006C3773 /* BluetoothManager.swift */,
 			);
 			path = "Zendo WatchKit Extension";
 			sourceTree = "<group>";
@@ -774,6 +777,7 @@
 				BE2E82121FF44A7B00D104AC /* ExtensionDelegate.swift in Sources */,
 				BE24023D1FFC965F008679C4 /* SessionInterfaceController.swift in Sources */,
 				BE0A7228209C2B83009E23AA /* OptionsInterfaceController.swift in Sources */,
+				BE0B4EB2213E05AF006C3773 /* BluetoothManager.swift in Sources */,
 				BE2E82101FF44A7B00D104AC /* AppInterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -943,7 +947,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
@@ -966,7 +970,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
@@ -989,7 +993,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1013,7 +1017,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1039,7 +1043,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1067,7 +1071,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
