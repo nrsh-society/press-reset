@@ -210,6 +210,10 @@ class ZazenController: UIViewController {
                     
                 }
             } else {
+                DispatchQueue.main.async() {
+                    cell.hrvView.setTitle("0ms")
+                    
+                }
                 print(error.debugDescription)
             }
         }

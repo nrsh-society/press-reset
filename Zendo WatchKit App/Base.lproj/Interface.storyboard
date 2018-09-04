@@ -61,6 +61,8 @@
                     </items>
                     <connections>
                         <outlet property="bluetoothStatus" destination="3dM-HJ-XI3" id="HOE-ag-f1w"/>
+                        <outlet property="bluetoothToogle" destination="5mx-VV-erU" id="OfF-h1-Z4G"/>
+                        <outlet property="hapticSetting" destination="AWO-T6-lMh" id="A58-hT-k8o"/>
                     </connections>
                 </controller>
             </objects>

@@ -30,8 +30,8 @@ struct Options
     var hapticStrength = 1
 }
 
-class Session: NSObject, SessionCommands {
-    
+class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
+   
     var startDate: Date?
     var endDate: Date?
     var workoutSession: HKWorkoutSession?
@@ -55,6 +55,7 @@ class Session: NSObject, SessionCommands {
     var metadataWork = [String: Any]()
     
     static var options = Options(hapticStrength: 1)
+    static var bluetoothManager : BluetoothManager?
     
     static var current: Session?
     
@@ -188,35 +189,59 @@ class Session: NSObject, SessionCommands {
         
         notifyTimer = Timer.scheduledTimer(timeInterval: 60, target:self, selector: #selector(Session.notify), userInfo: nil, repeats: true)
         
-        let quantityType = HKObjectType.quantityType(forIdentifier: .heartRate)!
-        
-        let datePredicate = HKQuery.predicateForSamples(withStart: Date(), end: nil, options: .strictStartDate)
-        
-        let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
-        
-        let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[datePredicate, devicePredicate])
-        
-        let updateHandler: HKQueryUpdateHandler = { query, samples, deletedObjects, queryAnchor, error in
-            if let quantitySamples = samples as? [HKQuantitySample] {
-                self.process(samples: quantitySamples)
-            }
+        if let bluetooth = Session.bluetoothManager
+        {
+            bluetooth.dataDelegate = self
         }
+        else
+        {
+            let quantityType = HKObjectType.quantityType(forIdentifier: .heartRate)!
+            
+            let datePredicate = HKQuery.predicateForSamples(withStart: Date(), end: nil, options: .strictStartDate)
+            
+            let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
+            
+            let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[datePredicate, devicePredicate])
+            
+            let updateHandler: HKQueryUpdateHandler = { query, samples, deletedObjects, queryAnchor, error in
+                if let quantitySamples = samples as? [HKQuantitySample] {
+                    self.process(samples: quantitySamples)
+                }
+            }
+            
+            
+            let query = HKAnchoredObjectQuery(type: quantityType,
+                                              predicate: queryPredicate,
+                                              anchor: nil,
+                                              limit: HKObjectQueryNoLimit,
+                                              resultsHandler: updateHandler)
+            
+            query.updateHandler = updateHandler
+            
+            healthStore.execute(query)
+        }
+    }
+    
+    func rrIntervalUpdated(_ rr: Int) {
         
+        let bps = 1000 / Double(rr)
         
-        let query = HKAnchoredObjectQuery(type: quantityType,
-                                          predicate: queryPredicate,
-                                          anchor: nil,
-                                          limit: HKObjectQueryNoLimit,
-                                          resultsHandler: updateHandler)
+        if(bps != Double.infinity && bps != Double.nan)
+        {
+            self.heartRate = Double(bps)
+
+            heartRateSamples.append(self.heartRate)
         
-        query.updateHandler = updateHandler
-        
-        healthStore.execute(query)
+            self.sample()
+        }
     }
     
     func standardDeviation(_ arr : [Double]) -> Double
     {
-        let rrIntervals = arr.map { (beat) -> Double in
+        let rrIntervals = arr.map
+        {
+            (beat) -> Double in
+            
             return 1000 / beat
         }
         
@@ -224,9 +249,11 @@ class Session: NSObject, SessionCommands {
         
         let avg = rrIntervals.reduce(0, +) / length
         
-        let sumOfSquaredAvgDiff = rrIntervals.map { pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
+        let sumOfSquaredAvgDiff = rrIntervals.map
+            {pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
         
         return sqrt(sumOfSquaredAvgDiff / length)
+        
     }
     
     @objc func notify()  {
