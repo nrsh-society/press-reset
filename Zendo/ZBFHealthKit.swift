@@ -270,11 +270,11 @@ class ZBFHealthKit {
         
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
-        let yesterday = Calendar.autoupdatingCurrent.startOfDay(for: workout.endDate)
+        //let yesterday = Calendar.autoupdatingCurrent.startOfDay(for: workout.endDate)
         
         //let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: workout.endDate)
         
-        let hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: workout.endDate, options: .strictEndDate)
+        let hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictStartDate)
         
         let options: HKStatisticsOptions  = [.discreteAverage, .discreteMax, .discreteMin]
         
@@ -301,7 +301,7 @@ class ZBFHealthKit {
         
         let hkType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         
-        let hkPredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictEndDate)
+        let hkPredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictStartDate)
         
         let options: HKStatisticsOptions = [HKStatisticsOptions.discreteAverage, HKStatisticsOptions.discreteMax, HKStatisticsOptions.discreteMin]
         

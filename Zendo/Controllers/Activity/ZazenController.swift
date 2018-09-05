@@ -32,7 +32,7 @@ class ZazenTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var hrvView: ZenInfoView! {
         didSet {
-            hrvView.zenInfoViewType = .hrvAverage
+            hrvView.zenInfoViewType = .totalHrv
         }
     }
     @IBOutlet weak var bpmChartView: UIView! {
@@ -206,12 +206,19 @@ class ZazenController: UIViewController {
             
             if let value = results?.first?.value {
                 DispatchQueue.main.async() {
-                    cell.hrvView.setTitle(Int(value).description + "ms")
                     
+                    if(value > 0)
+                    {
+                        cell.hrvView.setTitle(Int(value).description + "ms")
+                    }
+                    else
+                    {
+                        cell.hrvView.setTitle("--")
+                    }
                 }
             } else {
                 DispatchQueue.main.async() {
-                    cell.hrvView.setTitle("0ms")
+                    cell.hrvView.setTitle("--")
                     
                 }
                 print(error.debugDescription)

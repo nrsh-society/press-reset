@@ -58,6 +58,7 @@ class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
                 self.manager = nil
                 self.queue = nil
                 self.isRunning = false
+                self.updateStatus("")
             }
         }
     }
@@ -85,7 +86,7 @@ class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
                 status = "Bluetooth Off"
             
             case .poweredOn:
-                status = "Bluetooth On"
+                status = "Scanning"
                 manager?.scanForPeripherals(withServices: [BLE_Heart_Rate_Service_CBUUID])
         }
         
@@ -104,7 +105,6 @@ class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber)
     {
-        
         decodePeripheralState(peripheralState: peripheral.state)
         
         peripheralHeartRateMonitor = peripheral
@@ -233,7 +233,6 @@ class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
         
         return retval
     }
-    
 }
 
 protocol BluetoothManagerStatusDelegate

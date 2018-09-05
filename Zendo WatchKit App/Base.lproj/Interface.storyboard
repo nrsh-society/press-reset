@@ -14,7 +14,7 @@
             <objects>
                 <controller identifier="AppInterfaceController" title="Zendō" backgroundImage="shobogenzo" contentMode="scaleAspectFit" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <label width="1" height="1" alignment="center" verticalAlignment="center" text="00" textAlignment="center" id="c3z-hl-RcP">
+                        <label width="1" height="1" alignment="center" verticalAlignment="center" text="--" textAlignment="center" id="c3z-hl-RcP">
                             <fontDescription key="font" type="system" weight="semibold" pointSize="50"/>
                         </label>
                     </items>

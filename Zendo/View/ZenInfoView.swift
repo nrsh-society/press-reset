@@ -13,10 +13,12 @@ enum ZenInfoViewType: String {
     case hrvAverage = "hrv average"
     case totalMins = "total mins"
     case minsAverage = "mins average"
+    case totalHrv = "hrv"
     
     var image: UIImage {
         switch self {
         case .hrvAverage: return UIImage(named: "hrv")!
+        case .totalHrv: return UIImage(named: "hrv")!
         case .totalMins: return UIImage(named: "time")!
         case .minsAverage: return UIImage(named: "time")!
         }

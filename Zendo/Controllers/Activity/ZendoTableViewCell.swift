@@ -46,10 +46,10 @@ class ZendoTableViewCell: UITableViewCell {
             
             let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
             
-            let yesterday = Calendar.autoupdatingCurrent.startOfDay(for: workout.endDate)
+            //let yesterday = Calendar.autoupdatingCurrent.startOfDay(for: workout.endDate)
                // Calendar.current.date(byAdding: .day, value: -1, to: workout.endDate)
             
-            let hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: workout.endDate, options: .strictEndDate)
+            let hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictStartDate)
             
             let hkQuery = HKStatisticsQuery(quantityType: hkType,
                                             quantitySamplePredicate: hkPredicate,
@@ -59,13 +59,22 @@ class ZendoTableViewCell: UITableViewCell {
                                                     print(error.debugDescription)
                                                 }
                                                 
-                                                if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
-                                                    DispatchQueue.main.async() {
-                                                        self.pulseLabel.text = Int(value).description + "ms"
+                                                if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms"))
+                                                {
+                                                    DispatchQueue.main.async()
+                                                    {
+                                                        if (value > 0)
+                                                        {
+                                                            self.pulseLabel.text = Int(value).description + "ms"
+                                                        }
+                                                        else
+                                                        {
+                                                            self.pulseLabel.text = " ----- "
+                                                        }
                                                     }
                                                 } else {
                                                     DispatchQueue.main.async() {
-                                                        self.pulseLabel.text = "0ms"
+                                                        self.pulseLabel.text = " ----- "
                                                     }
                                                 }
             }
