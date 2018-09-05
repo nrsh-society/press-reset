@@ -35,8 +35,7 @@ class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
         if(!isRunning)
         {
             isRunning = true
-            queue = DispatchQueue(label: "tools.sunyata.zendo")
-            manager = CBCentralManager(delegate: self, queue: queue)
+            manager = CBCentralManager(delegate: self, queue: DispatchQueue(label: "tools.sunyata.zendo"))
         }
     }
     
@@ -44,6 +43,8 @@ class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
     {
         if(isRunning)
         {
+            self.updateStatus("")
+            
             if let manager = self.manager
             {
                 if(manager.isScanning)
@@ -56,10 +57,9 @@ class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
                 }
                 
                 self.manager = nil
-                self.queue = nil
-                self.isRunning = false
-                self.updateStatus("")
             }
+            
+            self.isRunning = false
         }
     }
     

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.13.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Nz-z1-oTd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14306.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Nz-z1-oTd">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.9"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14278.2"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -175,23 +175,23 @@
                                             <rect key="frame" x="32" y="344" width="311" height="103.66666666666669"/>
                                             <attributedString key="attributedText">
                                                 <fragment>
-                                                    <string key="content">Start a session directly from your phone  by pressing the watch icon above. Or start a session on your watch by deep pressing the icon. Zend</string>
+                                                    <string key="content">Start a session directly from your phone by pressing the watch icon above or start on your watch by deep pressing the icon. Zend</string>
                                                     <attributes>
-                                                        <color key="NSColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="14" name="Antenna-Regular"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.4299999999999999" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="ō">
                                                     <attributes>
-                                                        <color key="NSColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="14" name="LucidaGrande"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.4299999999999999" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
-                                                <fragment content=" works great with Headspace, Calm, podcast, or self-guided meditations.">
+                                                <fragment content=" works great with Headspace, Calm or other self-guided meditations.">
                                                     <attributes>
-                                                        <color key="NSColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="14" name="Antenna-Regular"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.4299999999999999" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
@@ -509,16 +509,16 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="CXj-sz-1cY">
-                                <rect key="frame" x="41" y="84" width="263.66666666666669" height="70"/>
+                                <rect key="frame" x="41" y="84" width="174" height="70"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="meditation. " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t48-QA-eQY">
-                                        <rect key="frame" x="0.0" y="0.0" width="178" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="data-driven" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t48-QA-eQY">
+                                        <rect key="frame" x="0.0" y="0.0" width="174" height="30"/>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="track your journey" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r1l-kg-9Be">
-                                        <rect key="frame" x="0.0" y="40" width="263.66666666666669" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="meditation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r1l-kg-9Be">
+                                        <rect key="frame" x="0.0" y="40" width="164" height="30"/>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                         <color key="textColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -526,9 +526,11 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4RK-cn-RQd">
-                                <rect key="frame" x="41" y="455" width="291" height="100.33333333333337"/>
-                                <string key="text">Welcome! Zendō is designed to accompany your meditation practice. Use your watch to record your session and view your Heart Rate Variability (HRV), a measure empirically correlated to a sense of well-being and positive health outcomes.</string>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                <rect key="frame" x="41" y="451" width="291" height="98.333333333333371"/>
+                                <string key="text">Practice. Observe. Learn.
+
+Use your Apple Watch to record your meditation and view your Heart Rate Variability (HRV), a measure empirically correlated to a sense of well-being and positive health outcomes.</string>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                 <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -551,7 +553,7 @@
                             <constraint firstItem="Xf9-SG-J5R" firstAttribute="bottom" secondItem="yQ8-ky-LSd" secondAttribute="bottom" constant="37" id="B2G-r0-0Cn"/>
                             <constraint firstItem="CXj-sz-1cY" firstAttribute="top" secondItem="Xf9-SG-J5R" secondAttribute="top" constant="40" id="Ggl-6H-HnE"/>
                             <constraint firstItem="jae-tp-FsZ" firstAttribute="leading" secondItem="Xf9-SG-J5R" secondAttribute="leading" id="QTg-AM-uTf"/>
-                            <constraint firstItem="4RK-cn-RQd" firstAttribute="top" secondItem="jae-tp-FsZ" secondAttribute="bottom" constant="12" id="QuK-bZ-hVX"/>
+                            <constraint firstItem="4RK-cn-RQd" firstAttribute="top" secondItem="jae-tp-FsZ" secondAttribute="bottom" constant="8" id="QuK-bZ-hVX"/>
                             <constraint firstItem="yQ8-ky-LSd" firstAttribute="width" secondItem="LJM-oY-Ml1" secondAttribute="width" multiplier="0.5" id="gH7-0U-tLM"/>
                             <constraint firstItem="Xf9-SG-J5R" firstAttribute="trailing" secondItem="4RK-cn-RQd" secondAttribute="trailing" constant="43" id="hYC-vS-0DU"/>
                             <constraint firstItem="Xf9-SG-J5R" firstAttribute="trailing" secondItem="yQ8-ky-LSd" secondAttribute="trailing" id="wi0-fc-cmV"/>
@@ -594,10 +596,10 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gFT-zA-ERl">
-                                <rect key="frame" x="41" y="94" width="293" height="113.66666666666669"/>
+                                <rect key="frame" x="41" y="94.000000000000014" width="293" height="136.33333333333337"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="join our" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVx-Jo-CSq">
-                                        <rect key="frame" x="0.0" y="0.0" width="109.33333333333333" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="join the" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVx-Jo-CSq">
+                                        <rect key="frame" x="0.0" y="0.0" width="109.66666666666667" height="30"/>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -608,16 +610,17 @@
                                         <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum we’re working together to understand the impact on HRV " lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xua-QO-A7Q">
-                                        <rect key="frame" x="0.0" y="80" width="256.33333333333331" height="33.666666666666657"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xua-QO-A7Q">
+                                        <rect key="frame" x="0.0" y="80" width="293" height="56.333333333333343"/>
+                                        <string key="text">We are a group of meditators from around the world working together to bring the best tools and techniques to our practice. Join us. </string>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                         <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="j4b-yy-xhs">
-                                <rect key="frame" x="41" y="234.66666666666663" width="334" height="135"/>
+                                <rect key="frame" x="41" y="257.33333333333331" width="334" height="135"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAN-ji-17l" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="334" height="48"/>
@@ -627,7 +630,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mN8-Qu-Loh" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="87.000000000000028" width="334" height="48"/>
+                                        <rect key="frame" x="0.0" y="87" width="334" height="48"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="Cib-CH-TjC"/>
@@ -680,7 +683,7 @@
                                 <rect key="frame" x="32" y="56" width="311" height="406"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3D2-S6-5aY">
-                                <rect key="frame" x="41" y="422" width="289" height="197"/>
+                                <rect key="frame" x="41" y="422" width="289" height="178.33333333333337"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="connect to" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjV-Yv-0YV">
                                         <rect key="frame" x="0.0" y="0.0" width="159" height="30"/>
@@ -688,16 +691,16 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="health app" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kKI-qz-oqU">
-                                        <rect key="frame" x="0.0" y="40" width="160.66666666666666" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="health kit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kKI-qz-oqU">
+                                        <rect key="frame" x="0.0" y="40" width="139.33333333333334" height="30"/>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                         <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RV6-Pm-tov">
-                                        <rect key="frame" x="0.0" y="80" width="289" height="117"/>
-                                        <string key="text">In order to get started we need to connect Apple Health App to sync your data with Zendō. Health App allows Zendō to measure HRV and other health indicators during meditation. It also creates a mind &amp; body workout for each meditation session. Apple Watch Series 3 or above required.</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <rect key="frame" x="0.0" y="80" width="289" height="98.333333333333314"/>
+                                        <mutableString key="text">In order to get started we need to connect Apple Health Kit to sync your data with Zendō. This allows Zendō to measure and record HRV and other health indicators during meditation. All health data remains on your devices, nothing is shared with us or anyone else.</mutableString>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                         <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
