@@ -38,9 +38,9 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     
     func statusUpdated(_ status: String)
     {
-        DispatchQueue.main.sync
+        DispatchQueue.main.async
         {
-            bluetoothStatus.setText(status)
+            self.bluetoothStatus.setText(status)
         }
     }
     

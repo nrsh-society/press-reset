@@ -32,19 +32,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
             }
         
             self.timeElapsedLabel.setText(value)
-            
-            //#todo: this seems like it is causing a crash during testing.
-            //going to comment and move to getting the tick data in the cloud for vr display.
-            /*let url = URL(string: "https://api.soundcloud.com/tracks/418761428/download?client_id=7f7f14c97e33d1209679b4f94aead3c1")!
-            
-            self.presentMediaPlayerController(with: url, options: [WKMediaPlayerControllerOptionsAutoplayKey: 1]) {
-                    didPlayToEnd, endTime, error in
-                
-                if(didPlayToEnd) { self.dismissMediaPlayerController(); }
-            }
- 
-            */
-            
+    
         }
     }
     

@@ -54,17 +54,25 @@ extension TimeInterval {
         }
         
         if hrs == 1 {
-            hrsStr = "hr"
+            hrsStr = "hr "
         }
         
         if mins == 1 || mins == 0{
-            minsStr = "min"
+            minsStr = "min "
         }
         
         if hrs != 0 {
             return hrs.description + hrsStr + " " + mins.description + minsStr
         } else {
-            return mins.description + minsStr
+            
+            if mins < 10
+            {
+                return "0\(mins)" + minsStr
+            }
+            else
+            {
+                return mins.description + minsStr
+            }
         }
     }
 }

@@ -75,7 +75,7 @@ class ZazenTableViewCell: UITableViewCell {
             xAxis?.labelPosition = .bottom
             xAxis?.labelTextColor = UIColor.zenGray
             xAxis?.labelFont = zendoFont
-            xAxis?.drawLabelsEnabled = false //remove until we fix up the timestamps
+            //xAxis?.drawLabelsEnabled = false //remove until we fix up the timestamps
             
             let rightAxis = lineChart?.rightAxis
             rightAxis?.drawAxisLineEnabled = false
@@ -231,22 +231,29 @@ class ZazenController: UIViewController {
         var entries = [ChartDataEntry]()
         var communityEntries = [ChartDataEntry]()
         
-        
         for (index, sample) in samples.enumerated() {
             
             if let value = sample[lineChartKey.rawValue] as? String {
                 
                 let y = Double(value)!
-                let x = Double(index).rounded()
-                
                 
                 if y > 0.00 {
+                    
                     let value = y * scale
                     
-                    let time = workout.startDate.addingTimeInterval(x).timeIntervalSince1970
+                    let timeInterval : TimeInterval
                     
-                    entries.append(ChartDataEntry(x: time, y: value))
-                    communityEntries.append(getCommunityDataEntry(key: lineChartKey.rawValue, interval: time, scale: scale))
+                    if let time = sample[MetadataType.time.rawValue] as? String
+                    {
+                        timeInterval = TimeInterval(time)!
+                    }
+                    else
+                    {
+                        let x = Double(index).rounded()
+                        timeInterval = workout.startDate.addingTimeInterval(x).timeIntervalSince1970
+                    }
+                    entries.append(ChartDataEntry(x: timeInterval, y: value))
+                    communityEntries.append(getCommunityDataEntry(key: lineChartKey.rawValue, interval: timeInterval, scale: scale))
                 }
             }
         }

@@ -23,15 +23,11 @@ class ZendoController: UITableViewController {
     
     let hkType = HKObjectType.workoutType()
     let healthStore = ZBFHealthKit.healthStore
-    //let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
-    let hkPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody)
+    let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
     var session: WCSession!
     var isShowFirstSession = false
     var isAutoUpdate = false
     var autoUpdateCount = 0
-    
-    
-    let url = URL(string: "http://zenbf.org/zendo")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -146,30 +142,7 @@ class ZendoController: UITableViewController {
         })
         
         healthStore.execute(hkQuery)
-        /*
-         let oQuery = HKObserverQuery.init(sampleType: hkType, predicate: hkPredicate) {
-         
-         query,results,error in
-         
-         if(error != nil )
-         {
-         print(error!)
-         
-         }
-         else
-         {
-         DispatchQueue.main.async()
-         {
-         //#todo(dataflow): think the behavior of HKOQ is different on IOS12?
-         //self.tableView.reloadData()
-         //self.populateTable()
-         }
-         }
-         }
-         
-         healthStore.execute(oQuery)
-         */
-        
+    
     }
     
     func reload() {

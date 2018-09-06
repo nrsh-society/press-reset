@@ -171,32 +171,11 @@
                                                 <constraint firstAttribute="height" constant="319" id="r4L-5Z-BFb"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5J-CS-i6v">
-                                            <rect key="frame" x="32" y="344" width="311" height="103.66666666666669"/>
-                                            <attributedString key="attributedText">
-                                                <fragment>
-                                                    <string key="content">Start a session directly from your phone by pressing the watch icon above or start on your watch by deep pressing the icon. Zend</string>
-                                                    <attributes>
-                                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                        <font key="NSFont" size="14" name="Antenna-Regular"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.4299999999999999" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                                <fragment content="ō">
-                                                    <attributes>
-                                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                        <font key="NSFont" size="14" name="LucidaGrande"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.4299999999999999" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                                <fragment content=" works great with Headspace, Calm or other self-guided meditations.">
-                                                    <attributes>
-                                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                        <font key="NSFont" size="14" name="Antenna-Regular"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.4299999999999999" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5J-CS-i6v">
+                                            <rect key="frame" x="32" y="350" width="311" height="70.333333333333314"/>
+                                            <string key="text">Start a session directly from your phone by pressing the watch icon above or start on your watch by deep pressing the icon. Zendō works great with Headspace, Calm or self-guided meditations.</string>
+                                            <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                            <color key="textColor" red="0.58431372549019611" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wLl-ap-4N7">
@@ -229,7 +208,7 @@
                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="P5J-CS-i6v" secondAttribute="bottom" constant="15" id="7gl-c6-O1F"/>
                                         <constraint firstItem="Psk-Mn-lDv" firstAttribute="leading" secondItem="cVa-X4-jIO" secondAttribute="leading" id="McE-03-nH0"/>
                                         <constraint firstAttribute="trailing" secondItem="P5J-CS-i6v" secondAttribute="trailing" constant="32" id="NkF-OW-7fl"/>
-                                        <constraint firstItem="P5J-CS-i6v" firstAttribute="top" secondItem="Psk-Mn-lDv" secondAttribute="bottom" constant="5" id="XId-T7-4jA"/>
+                                        <constraint firstItem="P5J-CS-i6v" firstAttribute="top" secondItem="Psk-Mn-lDv" secondAttribute="bottom" constant="10.999999999999943" id="XId-T7-4jA"/>
                                         <constraint firstItem="Psk-Mn-lDv" firstAttribute="top" secondItem="wLl-ap-4N7" secondAttribute="bottom" constant="-103" id="b8Q-4A-T6U"/>
                                         <constraint firstItem="P5J-CS-i6v" firstAttribute="leading" secondItem="cVa-X4-jIO" secondAttribute="leading" constant="32" id="chG-LM-ZbA"/>
                                         <constraint firstItem="Psk-Mn-lDv" firstAttribute="top" secondItem="cVa-X4-jIO" secondAttribute="top" constant="20" id="nU2-6t-wr6"/>
@@ -496,7 +475,7 @@
         <!--Welcome-->
         <scene sceneID="IU5-Lt-djM">
             <objects>
-                <viewController storyboardIdentifier="WelcomeController" title="Welcome" hidesBottomBarWhenPushed="YES" id="Zat-xg-miU" customClass="WelcomeController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WelcomeController" title="Welcome" modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="Zat-xg-miU" customClass="WelcomeController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LJM-oY-Ml1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -580,7 +559,7 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
         <!--Community View Controller-->
         <scene sceneID="5T6-K5-oSo">
             <objects>
-                <viewController storyboardIdentifier="CommunityViewController" hidesBottomBarWhenPushed="YES" id="FOx-Oj-Aa3" customClass="CommunityViewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CommunityViewController" modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="FOx-Oj-Aa3" customClass="CommunityViewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gr2-6O-C2R">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -596,7 +575,7 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gFT-zA-ERl">
-                                <rect key="frame" x="41" y="94.000000000000014" width="293" height="136.33333333333337"/>
+                                <rect key="frame" x="41" y="94" width="293" height="122.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="join the" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVx-Jo-CSq">
                                         <rect key="frame" x="0.0" y="0.0" width="109.66666666666667" height="30"/>
@@ -610,17 +589,16 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
                                         <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xua-QO-A7Q">
-                                        <rect key="frame" x="0.0" y="80" width="293" height="56.333333333333343"/>
-                                        <string key="text">We are a group of meditators from around the world working together to bring the best tools and techniques to our practice. Join us. </string>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are a group of meditators from around the world working together to bring the best tools and techniques to our practice." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xua-QO-A7Q">
+                                        <rect key="frame" x="0.0" y="80" width="293" height="42.333333333333343"/>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                         <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="j4b-yy-xhs">
-                                <rect key="frame" x="41" y="257.33333333333331" width="334" height="135"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="j4b-yy-xhs">
+                                <rect key="frame" x="41" y="223.33333333333348" width="334" height="135"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAN-ji-17l" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="334" height="48"/>
@@ -630,7 +608,7 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mN8-Qu-Loh" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="87" width="334" height="48"/>
+                                        <rect key="frame" x="0.0" y="86.999999999999972" width="334" height="48"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="Cib-CH-TjC"/>
@@ -646,7 +624,7 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
                             <constraint firstItem="n8Z-dv-fhB" firstAttribute="width" secondItem="gr2-6O-C2R" secondAttribute="width" multiplier="0.5" id="JgB-65-4ex"/>
                             <constraint firstAttribute="trailing" secondItem="gFT-zA-ERl" secondAttribute="trailing" constant="41" id="PrJ-VQ-jcc"/>
                             <constraint firstItem="dGQ-zL-A4P" firstAttribute="trailing" secondItem="n8Z-dv-fhB" secondAttribute="trailing" id="QMr-tr-897"/>
-                            <constraint firstItem="j4b-yy-xhs" firstAttribute="top" secondItem="gFT-zA-ERl" secondAttribute="bottom" constant="27" id="e4l-5i-CXC"/>
+                            <constraint firstItem="j4b-yy-xhs" firstAttribute="top" secondItem="gFT-zA-ERl" secondAttribute="bottom" constant="12.999999999999659" id="e4l-5i-CXC"/>
                             <constraint firstItem="dGQ-zL-A4P" firstAttribute="trailing" secondItem="j4b-yy-xhs" secondAttribute="trailing" id="mAM-nw-oAc"/>
                             <constraint firstItem="gFT-zA-ERl" firstAttribute="leading" secondItem="dGQ-zL-A4P" secondAttribute="leading" constant="41" id="ook-Tl-vXJ"/>
                             <constraint firstItem="gFT-zA-ERl" firstAttribute="top" secondItem="dGQ-zL-A4P" secondAttribute="top" constant="50" id="wOs-pP-v6B"/>
@@ -674,7 +652,7 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
         <!--Health Kit View Controller-->
         <scene sceneID="ox8-A3-TLw">
             <objects>
-                <viewController storyboardIdentifier="HealthKitViewController" id="gph-pp-dV7" customClass="HealthKitViewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HealthKitViewController" modalTransitionStyle="crossDissolve" id="gph-pp-dV7" customClass="HealthKitViewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="myn-d5-4EB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -699,7 +677,7 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RV6-Pm-tov">
                                         <rect key="frame" x="0.0" y="80" width="289" height="98.333333333333314"/>
-                                        <mutableString key="text">In order to get started we need to connect Apple Health Kit to sync your data with Zendō. This allows Zendō to measure and record HRV and other health indicators during meditation. All health data remains on your devices, nothing is shared with us or anyone else.</mutableString>
+                                        <string key="text">In order to get started we need to connect Apple Health Kit to sync your data with Zendō. This allows Zendō to measure and record HRV and other health indicators during meditation. All health data remains on your devices, nothing is shared with us or anyone else.</string>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                         <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
