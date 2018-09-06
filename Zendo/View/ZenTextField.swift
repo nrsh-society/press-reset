@@ -70,7 +70,7 @@ class TextFieldPlaceHolder: UITextField {
     
     
     @IBAction func editingChanged(_ sender: TextFieldPlaceHolder) {
-        editingChanged?(sender.text ?? "")
+        editingChanged?(sender.text?.trimmingCharacters(in: .whitespaces) ?? "")
     }
     
     override init(frame: CGRect) {

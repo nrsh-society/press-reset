@@ -14,8 +14,10 @@ extension String {
         let regex = try! NSRegularExpression(pattern: "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$",
                                              options: [.caseInsensitive])
         
-        return regex.firstMatch(in: self, options:[],
-                                range: NSMakeRange(0, utf16.count)) != nil
+        let trimmed = self.trimmingCharacters(in: .whitespaces)
+        
+        return regex.firstMatch(in: trimmed, options:[],
+                                range: NSMakeRange(0, trimmed.utf16.count)) != nil
     }
 
 }
