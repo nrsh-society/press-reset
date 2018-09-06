@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>3</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>7</string>
 	<key>CLKComplicationPrincipalClass</key>
 	<string>$(PRODUCT_MODULE_NAME).ZendoDataSource</string>
 	<key>CLKComplicationSupportedFamilies</key>
@@ -30,6 +30,8 @@
 		<string>CLKComplicationFamilyCircularSmall</string>
 		<string>CLKComplicationFamilyExtraLarge</string>
 	</array>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Measure heart rate variablity from external monitors</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>

@@ -225,11 +225,22 @@ class OverviewController: UIViewController {
     func populateHRV(_ cell: OverviewTableViewCell) {
         cell.hrvView.setTitle("")
         
-        ZBFHealthKit.getHRVAverage(start: start, end: end) { (results, error) in
-            if let value = results?.first?.value {
-                
-                DispatchQueue.main.async() {
+        ZBFHealthKit.getHRVAverage(start: start, end: end)
+        {
+            (results, error) in
+            
+            if let value = results?.first?.value
+            {
+                DispatchQueue.main.async()
+                {
                     cell.hrvView.setTitle(Int(value.rounded()).description + "ms")
+                }
+            }
+            else
+            {
+                DispatchQueue.main.async()
+                {
+                    cell.hrvView.setTitle("--")
                 }
             }
         }

@@ -51,28 +51,34 @@ class AppInterfaceController: WKInterfaceController {
         
         let yesterday = Calendar.autoupdatingCurrent.startOfDay(for: Date())
     
-        //Calendar.current.date(byAdding: .day, value: -1, to: Date())
-        
-        let hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: Date(), options: .strictEndDate)
+        let hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: Date(), options: .strictStartDate)
         
         let options = HKStatisticsOptions.discreteAverage
         
         let hkQuery = HKStatisticsQuery(quantityType: hkType,
                                         quantitySamplePredicate: hkPredicate,
-                                        options: options) { query, result, error in
+                                        options: options)
+            {
+                query, result, error in
                                             
-                                            if error != nil {
-                                                print(error.debugDescription)
-                                            } else {
-                                                if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
-                                                    DispatchQueue.main.async() {
-                                                        if value > 0.0 {
-                                                            self.hrvLabel.setText(Int(value).description)
-                                                        }
-                                                    }
-                                                }
-                                            }
-        }
+                    if error != nil
+                    {
+                        print(error.debugDescription)
+                    }
+                    else
+                    {
+                        if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms"))
+                        {
+                            DispatchQueue.main.async()
+                            {
+                                if value > 0.0
+                                {
+                                    self.hrvLabel.setText(Int(value.rounded()).description)
+                                }
+                            }
+                        }
+                    }
+            }
         
         ZBFHealthKit.healthStore.execute(hkQuery)
     }
