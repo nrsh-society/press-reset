@@ -89,6 +89,7 @@ class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
             
             case .poweredOff:
                 status = "Bluetooth Off"
+                self.peripheralHeartRateMonitor = nil
             
             case .poweredOn:
                 status = "Scanning"
@@ -153,6 +154,8 @@ class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?)
     {
         self.updateStatus("Disconnected")
+        
+        self.peripheralHeartRateMonitor = nil
         
         manager?.scanForPeripherals(withServices: [BLE_Heart_Rate_Service_CBUUID])
     }

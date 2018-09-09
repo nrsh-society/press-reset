@@ -233,7 +233,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         let bps = 1000 / Double(rr)
         
-        if(bps != Double.infinity && bps != Double.nan)
+        if(bps != Double.infinity && bps != Double.nan && bps > 0.33 && bps < 3.67)
         {
             self.heartRate = Double(bps)
 
