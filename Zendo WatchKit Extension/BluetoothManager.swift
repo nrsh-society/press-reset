@@ -39,6 +39,11 @@ class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
         }
     }
     
+    func isConnected() -> Bool
+    {
+        return peripheralHeartRateMonitor != nil
+    }
+    
     func end()
     {
         if(isRunning)

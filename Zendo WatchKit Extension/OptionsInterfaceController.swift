@@ -32,6 +32,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         else
         {
             Session.bluetoothManager?.end()
+            Session.bluetoothManager = nil
             bluetoothStatus.setText("")
         }
     }

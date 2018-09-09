@@ -189,37 +189,44 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         notifyTimer = Timer.scheduledTimer(timeInterval: 60, target:self, selector: #selector(Session.notify), userInfo: nil, repeats: true)
         
+        
         if let bluetooth = Session.bluetoothManager
         {
-            bluetooth.dataDelegate = self
-        }
-        else
-        {
-            let quantityType = HKObjectType.quantityType(forIdentifier: .heartRate)!
-            
-            let datePredicate = HKQuery.predicateForSamples(withStart: Date(), end: nil, options: .strictStartDate)
-            
-            let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
-            
-            let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[datePredicate, devicePredicate])
-            
-            let updateHandler: HKQueryUpdateHandler = { query, samples, deletedObjects, queryAnchor, error in
-                if let quantitySamples = samples as? [HKQuantitySample] {
-                    self.process(samples: quantitySamples)
-                }
+            if(bluetooth.isConnected())
+            {
+                bluetooth.dataDelegate = self
+                
+                return
             }
-            
-            
-            let query = HKAnchoredObjectQuery(type: quantityType,
-                                              predicate: queryPredicate,
-                                              anchor: nil,
-                                              limit: HKObjectQueryNoLimit,
-                                              resultsHandler: updateHandler)
-            
-            query.updateHandler = updateHandler
-            
-            healthStore.execute(query)
         }
+        
+        let quantityType = HKObjectType.quantityType(forIdentifier: .heartRate)!
+            
+        let datePredicate = HKQuery.predicateForSamples(withStart: Date(), end: nil, options: .strictStartDate)
+            
+        let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
+        
+        let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[datePredicate, devicePredicate])
+        
+        let updateHandler: HKQueryUpdateHandler =
+            { query, samples, deletedObjects, queryAnchor, error in
+            
+                if let quantitySamples = samples as? [HKQuantitySample] {
+                self.process(samples: quantitySamples)
+            }
+        }
+        
+        
+        let query = HKAnchoredObjectQuery(type: quantityType,
+                                          predicate: queryPredicate,
+                                          anchor: nil,
+                                          limit: HKObjectQueryNoLimit,
+                                          resultsHandler: updateHandler)
+        
+        query.updateHandler = updateHandler
+        
+        healthStore.execute(query)
+
     }
     
     func rrIntervalUpdated(_ rr: Int) {
