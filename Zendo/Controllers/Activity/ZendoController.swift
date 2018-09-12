@@ -52,13 +52,13 @@ class ZendoController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        Mixpanel.mainInstance().track(event: "zendo_enter")
+        Mixpanel.mainInstance().time(event: "activity")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        Mixpanel.mainInstance().track(event: "zendo_exit")
+        Mixpanel.mainInstance().track(event: "activity")
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -95,50 +95,66 @@ class ZendoController: UITableViewController {
                                     predicate: hkPredicate,
                                     limit: HKObjectQueryNoLimit,
                                     sortDescriptors: [sortDescriptor],
-                                    resultsHandler: { query, results, error in
+                                    resultsHandler:
+            {
+                query, results, error in
                                         
-                                        if let error = error {
-                                            print(error)
-                                        } else {
-                                            
-                                            self.samplesDictionary = [:]
-                                            self.samplesDate = []
-                                                                                        
-                                            self.samples = results!
-                                            var calendar = Calendar.current
-                                            calendar.timeZone = TimeZone.autoupdatingCurrent
-                                            
-                                            for sample in self.samples {
-                                                var date = sample.endDate.toZendoHeaderString
-                                    
-                                                if calendar.isDateInToday(sample.endDate) {
-                                                    date = "Today, " + sample.endDate.toZendoHeaderDayString
-                                                }
-                                                
-                                                if var sampleDic = self.samplesDictionary[date] {
-                                                    sampleDic.append(sample)
-                                                    self.samplesDictionary[date] = sampleDic
-                                                } else {
-                                                    self.samplesDictionary[date] = [sample]
-                                                    self.samplesDate.append(date)
-                                                }
-                                            }
-                                            
-                                            DispatchQueue.main.async() {
-                                                if self.isAutoUpdate {
-                                                    if self.autoUpdateCount == self.samples.count {
-                                                        self.populateTable()
-                                                    } else {
-                                                        self.isAutoUpdate = false
-                                                        self.reload()
-                                                    }
-                                                } else {
-                                                    self.isAutoUpdate = false
-                                                    self.reload()
-                                                }
-                                            }
-                                        }
-                                        
+                if let error = error
+                {
+                    print(error)
+                }
+                else
+                {
+                    DispatchQueue.main.async()
+                    {
+                        self.samplesDictionary = [:]
+                        self.samplesDate = []
+                        
+                        self.samples = results!
+                        var calendar = Calendar.current
+                        calendar.timeZone = TimeZone.autoupdatingCurrent
+                        
+                        for sample in self.samples
+                        {
+                        
+                            var date = sample.endDate.toZendoHeaderString
+                            
+                            if calendar.isDateInToday(sample.endDate)
+                            {
+                                date = "Today, " + sample.endDate.toZendoHeaderDayString
+                            }
+                            
+                            if var sampleDic = self.samplesDictionary[date]
+                            {
+                                sampleDic.append(sample)
+                                self.samplesDictionary[date] = sampleDic
+                            }
+                            else
+                            {
+                                self.samplesDictionary[date] = [sample]
+                                self.samplesDate.append(date)
+                            }
+                        }
+                        
+                        if self.isAutoUpdate
+                        {
+                            if self.autoUpdateCount == self.samples.count
+                            {
+                                self.populateTable()
+                            }
+                            else
+                            {
+                                self.isAutoUpdate = false
+                                self.reload()
+                            }
+                        }
+                        else
+                        {
+                            self.isAutoUpdate = false
+                            self.reload()
+                        }
+                    }
+                }
         })
         
         healthStore.execute(hkQuery)
@@ -146,7 +162,7 @@ class ZendoController: UITableViewController {
     }
     
     func reload() {
-        Mixpanel.mainInstance().track(event: "zendo_session_load",
+        Mixpanel.mainInstance().track(event: "activity_load",
                                       properties: ["session_count": self.samples.count])
         
         self.isShowFirstSession = self.samplesDate.isEmpty

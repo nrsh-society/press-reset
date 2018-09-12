@@ -21,8 +21,6 @@ class HealthKitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Mixpanel.mainInstance().time(event: isFailed ? "healthKit_failed-connect_enter" : "healthKit-connect_enter")
-        
         for label in labels {
             if label.tag == 2 {
                 label.font = UIFont.zendo(font: .antennaRegular, size: label.font.pointSize)
@@ -53,7 +51,6 @@ class HealthKitViewController: UIViewController {
         zenButton.action = {
             if self.isFailed {
                 UIApplication.shared.open(URL(string: "x-apple-health://")!)
-                Mixpanel.mainInstance().time(event: "healthKit_failed-connect_exit" )
                 self.dismiss(animated: true)
             } else {
                 ZBFHealthKit.requestHealthAuth(handler: { success, error in
@@ -67,7 +64,6 @@ class HealthKitViewController: UIViewController {
                                     self.isFailed = true
                                     self.setConnectFailed()
                                 case .sharingAuthorized:
-                                    Mixpanel.mainInstance().time(event: "healthKit-connect_exit" )
                                     self.dismiss(animated: true)
                                 }
                                 break
@@ -79,7 +75,23 @@ class HealthKitViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        Mixpanel.mainInstance().time(event: "healthkit")
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        Mixpanel.mainInstance().track(event: "healthkit")
+    }
+    
     func setConnectFailed() {
+        
+        Mixpanel.mainInstance().track(event: "healthkit_failed" )
+        
         for label in labels {
             switch label.tag {
             case 0: label.text = "health app"

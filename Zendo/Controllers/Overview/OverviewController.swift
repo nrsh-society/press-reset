@@ -76,20 +76,19 @@ class OverviewController: UIViewController {
         if let email = Settings.email {
             Mixpanel.mainInstance().identify(distinctId: email)
         }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        Mixpanel.mainInstance().time(event: "overview_enter")
+        Mixpanel.mainInstance().time(event: "overview")
         tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        Mixpanel.mainInstance().time(event: "overview_exit")
+        Mixpanel.mainInstance().track(event: "overview")
     }
     
     deinit {
@@ -390,37 +389,7 @@ class OverviewController: UIViewController {
         }
         
     }
-    
-    //#todo(debt): factor this into the zbfmodel + ui across controllers
-    @IBAction func newSession(_ sender: Any) {
-        let configuration = HKWorkoutConfiguration()
-        configuration.activityType = .mindAndBody
-        configuration.locationType = .unknown
         
-        let store = HKHealthStore()
-        
-        store.startWatchApp(with: configuration) { success, error in
-            guard success else {
-                print (error.debugDescription)
-                return
-            }
-        }
-        
-        Mixpanel.mainInstance().time(event: "new_session")
-        
-        let alert = UIAlertController(title: "Starting Watch App", message: "Deep Press + Exit when complete.", preferredStyle: .actionSheet)
-        
-        let ok = UIAlertAction(title: "Done", style: .default) { action in
-            //            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1) ) {
-            //                Mixpanel.mainInstance().track(event: "new_session")
-            //            }
-        }
-        
-        alert.addAction(ok)
-        
-        present(alert, animated: true)
-    }
-    
     func setDate() {
         let date = Date()
         

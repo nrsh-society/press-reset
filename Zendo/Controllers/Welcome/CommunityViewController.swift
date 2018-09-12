@@ -35,6 +35,18 @@ class CommunityViewController: UIViewController {
     @IBOutlet var labels: [UILabel]!
     
     var bottomSpaceNext: CGFloat = 37.0
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        Mixpanel.mainInstance().time(event: "community")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        Mixpanel.mainInstance().track(event: "community")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,7 +155,8 @@ class CommunityViewController: UIViewController {
             Settings.email = email.textField.text
             
             if let name = Settings.fullName, let email = Settings.email {
-                Mixpanel.mainInstance().createAlias(email, distinctId: email)
+                Mixpanel.mainInstance().createAlias(email, distinctId: Mixpanel.mainInstance().distinctId)
+                Mixpanel.mainInstance().identify(distinctId: email)
                 Mixpanel.mainInstance().people.set(properties: ["$name": name])
                 Mixpanel.mainInstance().people.set(properties: ["$email": email])
             }

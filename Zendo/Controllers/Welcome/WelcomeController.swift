@@ -21,8 +21,6 @@ class WelcomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Mixpanel.mainInstance().time(event: "welcome-controller_enter")
-        
         zenButton.action = {
             self.dismiss(animated: true, completion: {
                 if let vc = UIApplication.shared.keyWindow?.topViewController {
@@ -52,10 +50,16 @@ class WelcomeController: UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        Mixpanel.mainInstance().track(event: "welcome-controller_exit")
+        Mixpanel.mainInstance().time(event: "welcome")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        Mixpanel.mainInstance().track(event: "welcome")
     }
     
     static func loadFromStoryboard() -> WelcomeController {

@@ -187,12 +187,12 @@ class ZazenController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        Mixpanel.mainInstance().track(event: "zazen_enter")
+        Mixpanel.mainInstance().time(event: "detail")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Mixpanel.mainInstance().track(event: "zazen_exit")
+        Mixpanel.mainInstance().track(event: "detail")
     }
     
     @IBAction func export(_ sender: Any) {
