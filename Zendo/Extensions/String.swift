@@ -11,7 +11,7 @@ import Foundation
 extension String {
 
     func isEmail() -> Bool {
-        let regex = try! NSRegularExpression(pattern: "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$",
+        let regex = try! NSRegularExpression(pattern: "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,64}$",
                                              options: [.caseInsensitive])
         
         let trimmed = self.trimmingCharacters(in: .whitespaces)

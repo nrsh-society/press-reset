@@ -70,10 +70,6 @@ extension UIViewController {
                     }
                 }
             }
-            
-            
-            
-            
         }
     }
     
