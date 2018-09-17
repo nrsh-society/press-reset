@@ -62,7 +62,7 @@ class ZendoTableViewCell: UITableViewCell {
                                                     {
                                                         if (value > 0)
                                                         {
-                                                            self.pulseLabel.text = Int(value).description + "ms"
+                                                            self.pulseLabel.text = Int(value.rounded()).description + "ms"
                                                         }
                                                         else
                                                         {
