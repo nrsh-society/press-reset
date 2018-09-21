@@ -127,7 +127,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         healthKitSamples.append(mindfulSample)
         
-        if(self.heartRateSamples.count >= 100)
+        if(self.heartRateSamples.count > 2)
         {
             let hrvType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)
         

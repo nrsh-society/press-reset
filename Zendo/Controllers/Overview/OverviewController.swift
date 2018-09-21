@@ -85,11 +85,31 @@ class OverviewController: UIViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool)
+    {
         super.viewDidAppear(animated)
         
-        Mixpanel.mainInstance().time(event: "overview")
-        tableView.reloadData()
+        ZBFHealthKit.getWorkouts(limit: 1)
+        {
+            results in
+            
+                if results.count > 0
+                {
+                    DispatchQueue.main.async()
+                    {
+                        Mixpanel.mainInstance().time(event: "overview")
+                        self.tableView.reloadData()
+                    }
+                }
+                else
+                {
+                    DispatchQueue.main.async()
+                    {
+                        self.tabBarController?.selectedIndex = 1
+                    }
+                }
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

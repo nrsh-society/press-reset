@@ -21,9 +21,8 @@ class ZendoController: UITableViewController {
     var samplesDate = [String]()
     var samplesDictionary = [String: [HKSample]]()
     
-    let hkType = HKObjectType.workoutType()
     let healthStore = ZBFHealthKit.healthStore
-    let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
+    
     var session: WCSession!
     var isShowFirstSession = false
     var isAutoUpdate = false
@@ -79,8 +78,9 @@ class ZendoController: UITableViewController {
             }
             
             Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false, block: { (timer) in
+                self.isShowFirstSession = self.samplesDate.isEmpty
                 self.tableView.reloadData()
-            })
+            })  
             
         }
         
@@ -89,6 +89,10 @@ class ZendoController: UITableViewController {
     
     
     func populateTable() {
+        
+        let hkType = HKObjectType.workoutType()
+        let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
+        
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
         
         let hkQuery = HKSampleQuery(sampleType: hkType,
@@ -135,6 +139,8 @@ class ZendoController: UITableViewController {
                                 self.samplesDate.append(date)
                             }
                         }
+                        
+                        self.isShowFirstSession = self.samplesDate.isEmpty
                         
                         if self.isAutoUpdate
                         {

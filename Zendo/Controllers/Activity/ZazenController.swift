@@ -204,20 +204,24 @@ class ZazenController: UIViewController {
         cell.hrvView.setTitle("")
         ZBFHealthKit.getHRVAverage(workout) { results, error in
             
-            if let value = results?.first?.value {
-                DispatchQueue.main.async() {
-                    
+            if let value = results?.first?.value
+            {
+                DispatchQueue.main.async()
+                {
                     if(value > 0)
                     {
-                        cell.hrvView.setTitle(Int(value).description + "ms")
+                        cell.hrvView.setTitle(Int(value.rounded()).description + "ms")
                     }
                     else
                     {
                         cell.hrvView.setTitle("--")
                     }
                 }
-            } else {
-                DispatchQueue.main.async() {
+            }
+            else
+            {
+                DispatchQueue.main.async()
+                {
                     cell.hrvView.setTitle("--")
                     
                 }

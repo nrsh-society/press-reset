@@ -155,7 +155,7 @@ class CommunityViewController: UIViewController {
             Settings.email = email.textField.text
             
             if let name = Settings.fullName, let email = Settings.email {
-                Mixpanel.mainInstance().createAlias(email, distinctId: Mixpanel.mainInstance().distinctId)
+                //Mixpanel.mainInstance().createAlias(email, distinctId: Mixpanel.mainInstance().distinctId)
                 Mixpanel.mainInstance().identify(distinctId: email)
                 Mixpanel.mainInstance().people.set(properties: ["$name": name])
                 Mixpanel.mainInstance().people.set(properties: ["$email": email])
