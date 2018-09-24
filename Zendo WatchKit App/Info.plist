@@ -29,5 +29,12 @@
 	<string>tools.sunyata.Zendo</string>
 	<key>WKWatchKitApp</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Antenna-ExtraLight.otf</string>
+		<string>Antenna-Light.otf</string>
+		<string>Antenna-Medium.otf</string>
+		<string>Antenna-Regular.otf</string>
+	</array>
 </dict>
 </plist>

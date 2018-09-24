@@ -23,16 +23,10 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         
         DispatchQueue.main.async {
             
-            let timeElapsed = Int(abs(startDate.timeIntervalSinceNow / 60).rounded());
-            
-            var value = timeElapsed.description
-            
-            if timeElapsed < 10 {
-                value = "0\(value)"
-            }
+            let timeElapsed = abs(startDate.timeIntervalSinceNow)
         
-            self.timeElapsedLabel.setText(value)
-    
+            self.timeElapsedLabel.setText(timeElapsed.stringZendoTimeWatch)
+            
         }
     }
     
@@ -48,7 +42,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         if context != nil {
             session = context as? Session
             session.delegate = self
-            timeElapsedLabel.setText("00")
+            timeElapsedLabel.setText("00:00:00")
         }
     }
 

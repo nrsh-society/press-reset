@@ -28,6 +28,15 @@
 		12CE364E211302A900EF0196 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE364D211302A900EF0196 /* UIView.swift */; };
 		12CE3652211327D300EF0196 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE3651211327D300EF0196 /* TabBarController.swift */; };
 		12CE365421132A7100EF0196 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE365321132A7100EF0196 /* UIImage.swift */; };
+		12CE61E32158FB3A00AD8A11 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E2A19D21106E4500E0E911 /* TimeInterval.swift */; };
+		12CE61E42158FEA100AD8A11 /* Antenna-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E2A1A6211073D600E0E911 /* Antenna-Regular.otf */; };
+		12CE61E52158FEFF00AD8A11 /* Antenna-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E2A1A3211073D600E0E911 /* Antenna-ExtraLight.otf */; };
+		12CE61E62158FF0200AD8A11 /* Antenna-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E2A1A5211073D600E0E911 /* Antenna-Light.otf */; };
+		12CE61E72158FF0300AD8A11 /* Antenna-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E2A1A5211073D600E0E911 /* Antenna-Light.otf */; };
+		12CE61E82158FF0700AD8A11 /* Antenna-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E2A1A3211073D600E0E911 /* Antenna-ExtraLight.otf */; };
+		12CE61E92158FF0900AD8A11 /* Antenna-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E2A1A4211073D600E0E911 /* Antenna-Medium.otf */; };
+		12CE61EA2158FF0A00AD8A11 /* Antenna-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E2A1A4211073D600E0E911 /* Antenna-Medium.otf */; };
+		12CE61EB2158FF0D00AD8A11 /* Antenna-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E2A1A6211073D600E0E911 /* Antenna-Regular.otf */; };
 		12D3BB34211A00B40081CAE2 /* OverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D3BB33211A00B40081CAE2 /* OverviewTableViewCell.swift */; };
 		12DAE77C212B1A1200D28DD7 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DAE77B212B1A1200D28DD7 /* Array.swift */; };
 		12E189BC211C6387004EADE9 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E189BB211C6387004EADE9 /* UIViewController.swift */; };
@@ -658,8 +667,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12CE61EB2158FF0D00AD8A11 /* Antenna-Regular.otf in Resources */,
 				BEA398F220762F4700C85A84 /* Media.xcassets in Resources */,
+				12CE61E72158FF0300AD8A11 /* Antenna-Light.otf in Resources */,
+				12CE61E92158FF0900AD8A11 /* Antenna-Medium.otf in Resources */,
 				BE2E82021FF44A7B00D104AC /* Interface.storyboard in Resources */,
+				12CE61E82158FF0700AD8A11 /* Antenna-ExtraLight.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,6 +680,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12CE61E42158FEA100AD8A11 /* Antenna-Regular.otf in Resources */,
+				12CE61E52158FEFF00AD8A11 /* Antenna-ExtraLight.otf in Resources */,
+				12CE61EA2158FF0A00AD8A11 /* Antenna-Medium.otf in Resources */,
+				12CE61E62158FF0200AD8A11 /* Antenna-Light.otf in Resources */,
 				BEBAE48B20E6CDB500495C65 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -775,6 +792,7 @@
 				BE89838F20E6BBE300F0FD63 /* ZendoDataSource.swift in Sources */,
 				12F121362125B68400F5451D /* ConstraintMetadata.swift in Sources */,
 				BE2E82121FF44A7B00D104AC /* ExtensionDelegate.swift in Sources */,
+				12CE61E32158FB3A00AD8A11 /* TimeInterval.swift in Sources */,
 				BE24023D1FFC965F008679C4 /* SessionInterfaceController.swift in Sources */,
 				BE0A7228209C2B83009E23AA /* OptionsInterfaceController.swift in Sources */,
 				BE0B4EB2213E05AF006C3773 /* BluetoothManager.swift in Sources */,

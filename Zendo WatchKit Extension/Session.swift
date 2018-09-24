@@ -45,6 +45,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     
     private var sampleTimer: Timer?
     private var notifyTimer: Timer?
+    private var notifyTimerSeconds = 0
 
     private let healthStore = HKHealthStore()
     private let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
@@ -187,7 +188,8 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
 
     func createTimers() {
         
-        notifyTimer = Timer.scheduledTimer(timeInterval: 60, target:self, selector: #selector(Session.notify), userInfo: nil, repeats: true)
+        notifyTimerSeconds = 0
+        notifyTimer = Timer.scheduledTimer(timeInterval: 1, target:self, selector: #selector(Session.notify), userInfo: nil, repeats: true)
         
         
         if let bluetooth = Session.bluetoothManager
@@ -263,11 +265,13 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
     }
     
-    @objc func notify()  {
+    @objc func notify(_ timer: Timer)  {
         
         self.delegate.sessionTick(startDate: self.startDate!);
         
-        if Session.options.hapticStrength > 0 {
+        notifyTimerSeconds += 1
+        
+        if Session.options.hapticStrength > 0 && notifyTimerSeconds % 60 == 0 {
             
             Thread.detachNewThread {
                 for _ in 1...Session.options.hapticStrength {

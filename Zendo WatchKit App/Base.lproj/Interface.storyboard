@@ -1,32 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14306.4" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14313.18" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14278.2"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14237"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14238.10"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Antenna-Regular.otf">
+            <string>Antenna-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Zendō-->
         <scene sceneID="aou-V4-d1y">
             <objects>
                 <controller identifier="AppInterfaceController" title="Zendō" backgroundImage="shobogenzo" contentMode="scaleAspectFit" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <label width="1" height="1" alignment="center" verticalAlignment="center" text="--" textAlignment="center" id="c3z-hl-RcP">
-                            <fontDescription key="font" type="system" weight="semibold" pointSize="50"/>
-                        </label>
+                        <group width="1" height="1" alignment="center" verticalAlignment="center" layout="vertical" id="obQ-Pj-vnx">
+                            <items>
+                                <label width="1" alignment="center" verticalAlignment="center" text="--" textAlignment="center" id="c3z-hl-RcP">
+                                    <fontDescription key="font" type="system" weight="semibold" pointSize="50"/>
+                                </label>
+                                <button width="1" height="40" alignment="center" verticalAlignment="bottom" alpha="0.59999999999999998" title="START" id="htN-my-V54">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" red="0.058823529409999999" green="0.1450980392" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="10"/>
+                                    <connections>
+                                        <action selector="start" destination="AgC-eL-Hgc" id="MZl-bh-JGB"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
                     </items>
-                    <menu key="menu" id="CLv-vs-SZH">
-                        <items>
-                            <menuItem title="Enter" icon="accept" id="y6z-2K-t8h" userLabel="Start">
-                                <connections>
-                                    <action selector="start" destination="AgC-eL-Hgc" id="fSW-RB-kIg"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
                     <connections>
                         <outlet property="hrvLabel" destination="c3z-hl-RcP" id="wYd-MY-4LK"/>
                         <segue destination="Cs8-9P-1Q0" kind="relationship" relationship="nextPage" id="mZF-je-AWj"/>
@@ -73,20 +81,23 @@
             <objects>
                 <controller identifier="SessionInterfaceController" title="Zazen" contentMode="scaleAspectFit" initiallyAnimated="NO" animationDuration="2" alwaysBounce="YES" id="LqQ-c8-Qbp" customClass="SessionInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <label width="136" height="120" alignment="center" verticalAlignment="center" text="100" textAlignment="center" numberOfLines="0" id="Erh-81-UMf">
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="font" type="boldSystem" pointSize="87"/>
-                        </label>
+                        <group width="1" height="1" alignment="center" verticalAlignment="center" layout="vertical" id="O58-eC-jIo">
+                            <items>
+                                <label width="1" alignment="center" verticalAlignment="center" text="00:00:00" textAlignment="center" minimumScaleFactor="0.69999999999999996" id="Erh-81-UMf">
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="36"/>
+                                </label>
+                                <button width="1" height="40" alignment="center" verticalAlignment="bottom" alpha="0.59999999999999998" title="STOP" id="D3m-dy-yPF">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" red="0.058823529409999999" green="0.1450980392" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="10"/>
+                                    <connections>
+                                        <action selector="onDonePress" destination="LqQ-c8-Qbp" id="EXr-Xo-AjM"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
                     </items>
-                    <menu key="menu" id="uaY-fT-kfg">
-                        <items>
-                            <menuItem title="Exit" icon="decline" id="x3i-XK-nhL">
-                                <connections>
-                                    <action selector="onDonePress" destination="LqQ-c8-Qbp" id="amn-9d-ZI1"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
                     <connections>
                         <outlet property="timeElapsedLabel" destination="Erh-81-UMf" id="aso-tF-EWw"/>
                     </connections>
