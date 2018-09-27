@@ -56,7 +56,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     var metadataWork = [String: Any]()
     
     static var options = Options(hapticStrength: 1)
-    static var bluetoothManager : BluetoothManager?
+    static var bluetoothManager: BluetoothManager?
     
     static var current: Session?
     
@@ -101,7 +101,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         }
     }
     
-    func end() {
+    func end(workoutEnd: @escaping (HKWorkout)->()) {
         
         if !self.isRunning {
             print("called end on unrunning session")
@@ -156,7 +156,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             }
             
             self.healthStore.add(healthKitSamples, to: workout, completion: { (success, error) in
-                
+                workoutEnd(workout)
                 self.sendMessage(["watch": "reload"], replyHandler: { (replyMessage) in
                     
                 }, errorHandler: { (error) in

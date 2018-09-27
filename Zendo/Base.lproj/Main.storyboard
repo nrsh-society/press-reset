@@ -62,7 +62,7 @@
                                             <rect key="frame" x="15" y="0.0" width="321" height="69.666666666666671"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bJS-yt-Qcq">
-                                                    <rect key="frame" x="0.0" y="21" width="128.66666666666666" height="27.666666666666671"/>
+                                                    <rect key="frame" x="0.0" y="21" width="150.66666666666666" height="27.666666666666671"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hrv" translatesAutoresizingMaskIntoConstraints="NO" id="1pM-hi-l6R">
                                                             <rect key="frame" x="0.0" y="0.0" width="28" height="27.666666666666668"/>
@@ -71,24 +71,30 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="j7q-wk-pox">
-                                                            <rect key="frame" x="33.000000000000007" y="2" width="95.666666666666686" height="24"/>
+                                                            <rect key="frame" x="33" y="2" width="85" height="24"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="85" id="Gbf-u0-ETV"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="24"/>
                                                             <color key="textColor" red="0.050980392156862744" green="0.19607843137254902" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                    </subviews>
-                                                </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ruD-Kg-FEg">
-                                                    <rect key="frame" x="138.66666666666666" y="21" width="129.99999999999997" height="27.666666666666671"/>
-                                                    <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time" translatesAutoresizingMaskIntoConstraints="NO" id="qXZ-ZI-CuF">
-                                                            <rect key="frame" x="0.0" y="0.0" width="28" height="27.666666666666668"/>
+                                                            <rect key="frame" x="123.00000000000001" y="0.0" width="27.666666666666671" height="27.666666666666668"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="qXZ-ZI-CuF" secondAttribute="height" multiplier="1:1" id="ySV-BX-8Sy"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NLa-WG-Cet">
-                                                            <rect key="frame" x="33" y="2" width="97" height="24"/>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="qXZ-ZI-CuF" firstAttribute="height" secondItem="1pM-hi-l6R" secondAttribute="height" id="YDh-dg-VxX"/>
+                                                    </constraints>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ruD-Kg-FEg">
+                                                    <rect key="frame" x="160.66666666666666" y="23" width="78.666666666666657" height="24"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2h 2m" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NLa-WG-Cet">
+                                                            <rect key="frame" x="0.0" y="0.0" width="78.666666666666671" height="24"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="24"/>
                                                             <color key="textColor" red="0.050980392156862744" green="0.19607843137254902" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -96,10 +102,10 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7C3-D8-gAe">
-                                                    <rect key="frame" x="278.66666666666669" y="29" width="42.333333333333314" height="12"/>
+                                                    <rect key="frame" x="249.33333333333329" y="29" width="71.666666666666657" height="12"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="XJV-7f-4Hg">
-                                                            <rect key="frame" x="0.0" y="0.0" width="42.333333333333336" height="12"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="71.666666666666671" height="12"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="12"/>
                                                             <color key="textColor" red="0.050980392156862744" green="0.19607843137254902" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -109,7 +115,6 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="1pM-hi-l6R" firstAttribute="height" secondItem="sht-ML-rR1" secondAttribute="height" multiplier="0.4" id="Auk-iL-SmS"/>
-                                                <constraint firstItem="qXZ-ZI-CuF" firstAttribute="height" secondItem="1pM-hi-l6R" secondAttribute="height" id="EeX-UE-12a"/>
                                                 <constraint firstAttribute="height" constant="69.666666666666671" id="cB4-XP-Sie"/>
                                             </constraints>
                                         </stackView>

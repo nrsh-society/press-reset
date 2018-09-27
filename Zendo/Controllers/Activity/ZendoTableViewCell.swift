@@ -41,7 +41,7 @@ class ZendoTableViewCell: UITableViewCell {
     
     var workout: HKWorkout! {
         didSet {
-            durationLabel?.text = workout.duration.stringZendoTime
+            durationLabel?.text = workout.duration.stringZendoTimeShort
             timeLabel.text = workout.endDate.toZendoEndString.lowercased()
             
             let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!

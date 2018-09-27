@@ -20,6 +20,13 @@
 	<string>3.03</string>
 	<key>CFBundleVersion</key>
 	<string>2</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Antenna-ExtraLight.otf</string>
+		<string>Antenna-Light.otf</string>
+		<string>Antenna-Medium.otf</string>
+		<string>Antenna-Regular.otf</string>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -29,12 +36,5 @@
 	<string>tools.sunyata.Zendo</string>
 	<key>WKWatchKitApp</key>
 	<true/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Antenna-ExtraLight.otf</string>
-		<string>Antenna-Light.otf</string>
-		<string>Antenna-Medium.otf</string>
-		<string>Antenna-Regular.otf</string>
-	</array>
 </dict>
 </plist>

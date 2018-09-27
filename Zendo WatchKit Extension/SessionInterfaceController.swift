@@ -31,9 +31,10 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     }
     
     @IBAction func onDonePress() {
-        session.end()
+        session.end() { workout in
+            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SummaryInterfaceController", context: ["session": self.session, "workout": workout] as AnyObject), (name: "OptionsInterfaceController", context: ["session": self.session, "workout": workout] as AnyObject)])
+        }
         
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session  as AnyObject), (name: "OptionsInterfaceController", context: session  as AnyObject)])
     }
     
     override func awake(withContext context: Any?) {

@@ -76,6 +76,23 @@ extension TimeInterval {
         }
     }
     
+    var stringZendoTimeShort: String {
+        let hrsStr = "h"
+        let minsStr = "m"
+        var mins = minutes
+        var hrs = hours
+        
+        if seconds >= 30 {
+            mins += 1
+            if mins == 60 {
+                hrs += 1
+                mins = 0
+            }
+        }
+        
+        return (hrs != 0 ? hrs.description + hrsStr : "") + mins.description + minsStr
+    }
+    
     var stringZendoTimeWatch: String {
         return (hours < 10 ? "0" + hours.description : hours.description) + ":" +
             (minutes < 10 ? "0" + minutes.description : minutes.description) + ":" +
