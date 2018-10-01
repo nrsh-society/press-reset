@@ -60,8 +60,8 @@ class SummaryInterfaceController: WKInterfaceController {
                         }
                     }
                     
-                    bpm.setText((Int(sum.rounded()) / heartArray.count).description)
-                    bpmRange.setText(Int(min.rounded()).description + " - " + Int(max.rounded()).description + " BPM")
+                    bpm.setText((Int(sum.rounded()) / heartArray.count).description + " bpm")
+                    bpmRange.setText(Int(min.rounded()).description + " - " + Int(max.rounded()).description + " bpm")
                 }
             }
             

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14313.18" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch38" orientation="portrait">
+    <device id="watch44" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -9,6 +9,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14238.10"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Antenna-Medium.otf">
+            <string>Antenna-Medium</string>
+        </array>
         <array key="Antenna-Regular.otf">
             <string>Antenna-Regular</string>
         </array>
@@ -17,26 +20,43 @@
         <!--Zendō-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="AppInterfaceController" title="Zendō" backgroundImage="shobogenzo" contentMode="scaleAspectFit" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="AppInterfaceController" title="Zendō" contentMode="scaleAspectFit" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <group width="1" height="1" alignment="center" verticalAlignment="center" layout="vertical" id="obQ-Pj-vnx">
+                        <group width="1" height="1" alignment="center" verticalAlignment="center" backgroundImage="shobogenzo" contentMode="scaleAspectFill" layout="vertical" spacing="0.0" id="obQ-Pj-vnx">
                             <items>
-                                <label width="1" alignment="center" verticalAlignment="center" text="--" textAlignment="center" id="c3z-hl-RcP">
-                                    <fontDescription key="font" type="system" weight="semibold" pointSize="50"/>
-                                </label>
-                                <button width="1" height="40" alignment="center" verticalAlignment="bottom" alpha="0.59999999999999998" title="START" id="htN-my-V54">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="backgroundColor" red="0.058823529409999999" green="0.1450980392" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="10"/>
-                                    <connections>
-                                        <action selector="start" destination="AgC-eL-Hgc" id="MZl-bh-JGB"/>
-                                    </connections>
-                                </button>
+                                <group width="1" height="0.59999999999999998" alignment="center" verticalAlignment="center" layout="vertical" spacing="0.0" id="PzY-zg-xK5">
+                                    <items>
+                                        <label width="1" alignment="left" text="avg hrv today" textAlignment="center" id="0cn-cP-y9u">
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="11"/>
+                                        </label>
+                                        <label width="1" alignment="center" verticalAlignment="center" text="--" textAlignment="center" id="c3z-hl-RcP">
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="36"/>
+                                        </label>
+                                        <group width="0.34999999999999998" height="22" alignment="center" verticalAlignment="bottom" radius="11" id="HWb-ut-9jP">
+                                            <items>
+                                                <button width="1" height="1" alignment="center" verticalAlignment="bottom" title="START" id="htN-my-V54">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" red="0.25098039215686274" green="0.49411764705882355" blue="0.42352941176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="7"/>
+                                                </button>
+                                            </items>
+                                        </group>
+                                    </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="10"/>
+                                </group>
                             </items>
+                            <gestureRecognizers>
+                                <tapGestureRecognizer id="WcI-xR-JTt">
+                                    <connections>
+                                        <action selector="start" destination="AgC-eL-Hgc" id="gDK-dn-ZJY"/>
+                                    </connections>
+                                </tapGestureRecognizer>
+                            </gestureRecognizers>
                         </group>
                     </items>
                     <connections>
                         <outlet property="hrvLabel" destination="c3z-hl-RcP" id="wYd-MY-4LK"/>
+                        <outlet property="mainGroup" destination="obQ-Pj-vnx" id="25j-dH-YEO"/>
                         <segue destination="Cs8-9P-1Q0" kind="relationship" relationship="nextPage" id="mZF-je-AWj"/>
                     </connections>
                 </controller>
@@ -83,19 +103,25 @@
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="center" layout="vertical" id="O58-eC-jIo">
                             <items>
-                                <label width="1" alignment="center" verticalAlignment="center" text="00:00:00" textAlignment="center" minimumScaleFactor="0.69999999999999996" id="Erh-81-UMf">
+                                <label width="1" alignment="center" verticalAlignment="center" text="00:00:00" textAlignment="center" id="Erh-81-UMf">
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="36"/>
+                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="27"/>
                                 </label>
-                                <button width="1" height="40" alignment="center" verticalAlignment="bottom" alpha="0.59999999999999998" title="STOP" id="D3m-dy-yPF">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="backgroundColor" red="0.058823529409999999" green="0.1450980392" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="10"/>
-                                    <connections>
-                                        <action selector="onDonePress" destination="LqQ-c8-Qbp" id="EXr-Xo-AjM"/>
-                                    </connections>
-                                </button>
+                                <group width="1" height="40" alignment="left" verticalAlignment="bottom" radius="20" id="Ohv-rc-zJx">
+                                    <items>
+                                        <button width="1" height="1" alignment="center" verticalAlignment="bottom" title="STOP" id="D3m-dy-yPF">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="12"/>
+                                            <connections>
+                                                <action selector="onDonePress" destination="LqQ-c8-Qbp" id="EXr-Xo-AjM"/>
+                                            </connections>
+                                        </button>
+                                    </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                </group>
                             </items>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="10"/>
                         </group>
                     </items>
                     <connections>
@@ -128,82 +154,91 @@
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="FaZ-Fg-9fM">
                             <items>
-                                <group width="1" height="100" alignment="left" layout="vertical" spacing="0.0" id="XyF-tX-iex">
+                                <group width="1" alignment="left" layout="vertical" spacing="0.0" id="XyF-tX-iex">
                                     <items>
-                                        <imageView width="45" height="45" alignment="left" image="Icon" contentMode="scaleAspectFill" id="JNl-bd-bLb"/>
-                                        <label height="10" alignment="left" id="bdX-zK-bri"/>
-                                        <label alignment="left" text="TOTAL TIME" id="xTn-g7-2g6">
+                                        <label alignment="left" text="total time" id="xTn-g7-2g6">
                                             <fontDescription key="font" type="system" pointSize="12"/>
                                         </label>
-                                        <timer alignment="left" id="vss-pe-7sR">
-                                            <fontDescription key="font" type="system" pointSize="21"/>
-                                        </timer>
+                                        <group width="1" alignment="left" id="LNQ-l8-hIJ">
+                                            <items>
+                                                <timer alignment="left" verticalAlignment="center" id="vss-pe-7sR">
+                                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="24"/>
+                                                </timer>
+                                                <imageView width="25" height="25" alignment="right" verticalAlignment="center" image="time" contentMode="scaleAspectFit" id="7qh-Ge-kIo">
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </imageView>
+                                            </items>
+                                            <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="0.0"/>
+                                        </group>
                                     </items>
-                                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="10"/>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="5"/>
                                 </group>
-                                <separator alignment="left" id="ogi-Ql-cDR">
-                                    <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <separator alignment="center" verticalAlignment="center" id="ogi-Ql-cDR">
+                                    <color key="color" red="0.30196078431372547" green="0.3529411764705882" blue="0.33725490196078434" alpha="1" colorSpace="calibratedRGB"/>
                                 </separator>
-                                <group width="1" height="60" alignment="center" verticalAlignment="center" layout="vertical" spacing="0.0" id="X66-wc-Xms">
+                                <group width="1" alignment="center" verticalAlignment="center" layout="vertical" spacing="0.0" id="X66-wc-Xms">
                                     <items>
-                                        <label alignment="left" verticalAlignment="center" text="HRV" id="hGy-gU-yJ5">
-                                            <fontDescription key="font" type="system" pointSize="14"/>
+                                        <label alignment="left" verticalAlignment="center" text="hrv" id="hGy-gU-yJ5">
+                                            <fontDescription key="font" type="system" pointSize="12"/>
                                         </label>
                                         <group width="1" alignment="left" verticalAlignment="bottom" id="Vzg-T3-rJS">
                                             <items>
-                                                <label height="25" alignment="left" verticalAlignment="bottom" text="0ms" id="GLu-3s-woe">
-                                                    <color key="textColor" red="0.20784313730000001" green="0.4941176471" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="font" type="system" pointSize="25"/>
+                                                <label height="25" alignment="left" verticalAlignment="center" text="0ms" id="GLu-3s-woe">
+                                                    <color key="textColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="24"/>
                                                 </label>
-                                                <imageView width="25" height="25" alignment="right" image="hrv" contentMode="scaleAspectFit" id="IVo-nx-G7r"/>
+                                                <imageView width="25" height="25" alignment="right" verticalAlignment="center" image="hrv" contentMode="scaleAspectFit" id="IVo-nx-G7r"/>
                                             </items>
+                                            <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="0.0"/>
                                         </group>
                                     </items>
-                                    <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="10"/>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="5" bottom="5"/>
                                 </group>
-                                <separator alignment="left" verticalAlignment="center" id="RMl-NN-7T6">
-                                    <color key="color" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <separator alignment="center" verticalAlignment="center" id="kKK-1G-lla">
+                                    <color key="color" red="0.30196078430000001" green="0.35294117650000001" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </separator>
-                                <group width="1" height="95" alignment="center" verticalAlignment="center" layout="vertical" spacing="0.0" id="Fom-DV-BSm">
+                                <group width="1" alignment="center" verticalAlignment="center" layout="vertical" spacing="0.0" id="Fom-DV-BSm">
                                     <items>
-                                        <label alignment="left" text="AVG HEART RATE" id="oHb-cI-l9e">
-                                            <fontDescription key="font" type="system" pointSize="11"/>
+                                        <label alignment="left" text="avg heart rate" id="oHb-cI-l9e">
+                                            <fontDescription key="font" type="system" pointSize="12"/>
                                         </label>
                                         <group width="1" alignment="left" id="FbY-wR-4h9">
                                             <items>
-                                                <label alignment="left" verticalAlignment="bottom" text="74" id="ceG-3B-e0b">
-                                                    <color key="textColor" red="0.96470588239999999" green="0.1058823529" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="font" type="system" pointSize="20"/>
+                                                <label alignment="left" verticalAlignment="bottom" text="74 bpm" id="ceG-3B-e0b">
+                                                    <color key="textColor" red="0.93333333333333335" green="0.45882352941176469" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="font" type="system" pointSize="24"/>
                                                 </label>
-                                                <label alignment="left" verticalAlignment="bottom" text="BPM" id="kSn-Fb-Osj">
-                                                    <color key="textColor" red="0.96470588239999999" green="0.1058823529" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="font" type="system" pointSize="16"/>
-                                                </label>
-                                                <imageView width="25" height="25" alignment="right" image="heartRate" contentMode="scaleAspectFit" id="Nm4-CU-bJ5"/>
+                                                <imageView width="25" height="25" alignment="right" image="like" contentMode="scaleAspectFit" id="Nm4-CU-bJ5"/>
                                             </items>
+                                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="10"/>
                                         </group>
-                                        <label alignment="left" verticalAlignment="bottom" text="RANGE" id="TcC-w2-9xg">
-                                            <color key="textColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <label alignment="left" verticalAlignment="bottom" text="range" id="TcC-w2-9xg">
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="font" type="system" pointSize="12"/>
                                         </label>
                                         <label alignment="left" verticalAlignment="bottom" text="40 - 40 BPM" id="dzD-VC-bdl">
-                                            <color key="textColor" red="0.96470588239999999" green="0.1058823529" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="font" type="system" pointSize="13"/>
+                                            <color key="textColor" red="0.93333333333333335" green="0.45882352941176469" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" type="system" pointSize="16"/>
                                         </label>
                                     </items>
-                                    <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="10"/>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="5" bottom="5"/>
                                 </group>
-                                <separator alignment="left" verticalAlignment="center" id="Xox-x0-vH3">
-                                    <color key="color" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <separator alignment="center" verticalAlignment="center" id="OyV-41-y0t">
+                                    <color key="color" red="0.30196078430000001" green="0.35294117650000001" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </separator>
                                 <group width="1" alignment="center" verticalAlignment="center" id="o2i-Vw-dwD">
                                     <items>
-                                        <button width="1" alignment="left" title="Done" id="bER-r7-rWo">
-                                            <color key="backgroundColor" red="0.058823529409999999" green="0.1450980392" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
-                                            <connections>
-                                                <action selector="onDonePress" destination="Mk4-5F-50h" id="fb6-uo-yZi"/>
-                                            </connections>
-                                        </button>
+                                        <group width="1" height="40" alignment="left" radius="20" id="6Ir-Uh-eQg">
+                                            <items>
+                                                <button width="1" height="1" alignment="left" title="DONE" id="bER-r7-rWo">
+                                                    <color key="backgroundColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="12"/>
+                                                    <connections>
+                                                        <action selector="onDonePress" destination="Mk4-5F-50h" id="fb6-uo-yZi"/>
+                                                    </connections>
+                                                </button>
+                                            </items>
+                                        </group>
                                     </items>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="10"/>
                                 </group>

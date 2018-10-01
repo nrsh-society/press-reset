@@ -15,6 +15,8 @@ import HealthKit
 class AppInterfaceController: WKInterfaceController {
     
     @IBOutlet var hrvLabel: WKInterfaceLabel!
+    @IBOutlet var mainGroup: WKInterfaceGroup!
+    
     
     @IBAction func start() {
         
@@ -36,9 +38,10 @@ class AppInterfaceController: WKInterfaceController {
         
     }
     
-    override func awake(withContext context: Any?)
-    {
+    override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        
+        
     }
     
     override func willActivate()
@@ -73,7 +76,7 @@ class AppInterfaceController: WKInterfaceController {
                             {
                                 if value > 0.0
                                 {
-                                    self.hrvLabel.setText(Int(value.rounded()).description)
+                                    self.hrvLabel.setText(Int(value.rounded()).description + "ms")
                                 }
                             }
                         }
