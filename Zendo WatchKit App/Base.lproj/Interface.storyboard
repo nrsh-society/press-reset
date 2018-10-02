@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14313.18" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14460.15" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch44" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14238.10"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.9"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14460.9"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="Antenna-Medium.otf">
@@ -22,7 +22,7 @@
             <objects>
                 <controller identifier="AppInterfaceController" title="Zendō" contentMode="scaleAspectFit" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <group width="1" height="1" alignment="center" verticalAlignment="center" backgroundImage="shobogenzo" contentMode="scaleAspectFill" layout="vertical" spacing="0.0" id="obQ-Pj-vnx">
+                        <group width="1" height="1" alignment="center" verticalAlignment="center" backgroundImage="shobogenzo" contentMode="scaleAspectFill" layout="vertical" id="obQ-Pj-vnx">
                             <items>
                                 <group width="1" height="0.59999999999999998" alignment="center" verticalAlignment="center" layout="vertical" spacing="0.0" id="PzY-zg-xK5">
                                     <items>
@@ -103,7 +103,7 @@
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="center" layout="vertical" id="O58-eC-jIo">
                             <items>
-                                <label width="1" alignment="center" verticalAlignment="center" text="00:00:00" textAlignment="center" id="Erh-81-UMf">
+                                <label width="1" alignment="center" verticalAlignment="center" text="00:00" textAlignment="center" id="Erh-81-UMf">
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="27"/>
                                 </label>
@@ -183,7 +183,7 @@
                                         </label>
                                         <group width="1" alignment="left" verticalAlignment="bottom" id="Vzg-T3-rJS">
                                             <items>
-                                                <label height="25" alignment="left" verticalAlignment="center" text="0ms" id="GLu-3s-woe">
+                                                <label height="25" alignment="left" verticalAlignment="center" text="--" id="GLu-3s-woe">
                                                     <color key="textColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="24"/>
                                                 </label>
@@ -204,7 +204,7 @@
                                         </label>
                                         <group width="1" alignment="left" id="FbY-wR-4h9">
                                             <items>
-                                                <label alignment="left" verticalAlignment="bottom" text="74 bpm" id="ceG-3B-e0b">
+                                                <label alignment="left" verticalAlignment="bottom" text="--" id="ceG-3B-e0b">
                                                     <color key="textColor" red="0.93333333333333335" green="0.45882352941176469" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="font" type="system" pointSize="24"/>
                                                 </label>
@@ -216,7 +216,7 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="font" type="system" pointSize="12"/>
                                         </label>
-                                        <label alignment="left" verticalAlignment="bottom" text="40 - 40 BPM" id="dzD-VC-bdl">
+                                        <label alignment="left" verticalAlignment="bottom" text="--" id="dzD-VC-bdl">
                                             <color key="textColor" red="0.93333333333333335" green="0.45882352941176469" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="font" type="system" pointSize="16"/>
                                         </label>

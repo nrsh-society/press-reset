@@ -40,10 +40,10 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        if context != nil {
-            session = context as? Session
+        if let context = context as? Session {
+            session = context
             session.delegate = self
-            timeElapsedLabel.setText("00:00:00")
+            timeElapsedLabel.setText("00:00")
         }
     }
 

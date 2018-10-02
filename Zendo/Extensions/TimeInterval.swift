@@ -94,7 +94,7 @@ extension TimeInterval {
     }
     
     var stringZendoTimeWatch: String {
-        return (hours < 10 ? "0" + hours.description : hours.description) + ":" +
+        return (hours <= 0 ? "" : hours.description + ":")  +
             (minutes < 10 ? "0" + minutes.description : minutes.description) + ":" +
             (seconds < 10 ? "0" + seconds.description : seconds.description)
     }
