@@ -11,6 +11,7 @@ import WatchKit
 import Foundation
 import HealthKit
 import WatchConnectivity
+import Mixpanel
 
 class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     
@@ -33,6 +34,8 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     @IBAction func onDonePress() {
         session.end() { workout in
             DispatchQueue.main.async() {
+                Mixpanel.sharedInstance()?.track("stop_session")
+                
                 WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SummaryInterfaceController", context: ["session": self.session, "workout": workout] as AnyObject)])
             }
         }
@@ -40,6 +43,8 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        
+        Mixpanel.sharedInstance()?.track("zazen_screen")
         
         if let context = context as? Session {
             session = context

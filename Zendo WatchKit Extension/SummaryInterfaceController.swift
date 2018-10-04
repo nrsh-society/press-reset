@@ -9,6 +9,7 @@
 import UIKit
 import WatchKit
 import HealthKit
+import Mixpanel
 
 
 class SummaryInterfaceController: WKInterfaceController {
@@ -22,6 +23,8 @@ class SummaryInterfaceController: WKInterfaceController {
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        
+        Mixpanel.sharedInstance()?.track("summary_screen")
         
         if let array = context as? [String: Any], let session = array["session"] as? Session, let workout = array["workout"] as? HKWorkout {
             totalTime.setDate(session.startDate!)
@@ -65,13 +68,15 @@ class SummaryInterfaceController: WKInterfaceController {
                 }
             }
             
-            
         }
         
     }
     
     @IBAction func onDonePress() {
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session  as AnyObject), (name: "OptionsInterfaceController", context: session  as AnyObject)])
+        
+        Mixpanel.sharedInstance()?.track("done_session")
+        
+        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session as AnyObject), (name: "OptionsInterfaceController", context: session as AnyObject)])
     }
 
 }

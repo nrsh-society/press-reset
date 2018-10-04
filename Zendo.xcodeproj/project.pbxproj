@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D53E8CB86D55DEC3ABD3EED /* Pods_Zendo_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A68E6B7BCA076B4161502D /* Pods_Zendo_WatchKit_Extension.framework */; };
 		121F25FE211B367D00C1CC96 /* SessionCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F25FD211B367D00C1CC96 /* SessionCommands.swift */; };
 		121F2600211B372300C1CC96 /* SessionDelegater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F25FF211B372300C1CC96 /* SessionDelegater.swift */; };
 		121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F2604211B3D9C00C1CC96 /* Notification+Name.swift */; };
@@ -200,6 +201,7 @@
 		6E976786A0B62DF02B6D3728 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		73956C9DFF514C25FAEB0010 /* Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		91FBDAC94D9B42088C3E7F8B /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
+		9BD6CE514120A3F5874E8C15 /* Pods-Zendo WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zendo WatchKit Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		BE066BD720F1EFC10008747D /* OverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewController.swift; sourceTree = "<group>"; };
 		BE066BDC20F1F3D10008747D /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
 		BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsInterfaceController.swift; sourceTree = "<group>"; };
@@ -244,7 +246,9 @@
 		C86368BD68AC54656999A5EB /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		CA85D12F03B88975AECB0609 /* Pods_Zendo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zendo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE470C27D2A61BA1066BBB3D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		DA956F3DF3D7E53620DCB219 /* Pods-Zendo WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zendo WatchKit Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 		DFDDFAA04BC9FE80FF7116C1 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		E5A68E6B7BCA076B4161502D /* Pods_Zendo_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zendo_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +274,7 @@
 			files = (
 				BE9B00042065FF6B007FF96A /* CoreMotion.framework in Frameworks */,
 				BE8BB21F1FFDCC4600B2E113 /* HealthKit.framework in Frameworks */,
+				0D53E8CB86D55DEC3ABD3EED /* Pods_Zendo_WatchKit_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +434,8 @@
 			children = (
 				1F5D94E96E8B881577F65C40 /* Pods-Zendo.debug.xcconfig */,
 				06C02D6D9410AEB7C6216CED /* Pods-Zendo.release.xcconfig */,
+				9BD6CE514120A3F5874E8C15 /* Pods-Zendo WatchKit Extension.debug.xcconfig */,
+				DA956F3DF3D7E53620DCB219 /* Pods-Zendo WatchKit Extension.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -529,6 +536,7 @@
 				6E976786A0B62DF02B6D3728 /* CoreMedia.framework */,
 				C86368BD68AC54656999A5EB /* CoreVideo.framework */,
 				CA85D12F03B88975AECB0609 /* Pods_Zendo.framework */,
+				E5A68E6B7BCA076B4161502D /* Pods_Zendo_WatchKit_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -581,9 +589,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BE2E821B1FF44A7B00D104AC /* Build configuration list for PBXNativeTarget "Zendo WatchKit Extension" */;
 			buildPhases = (
+				3C1F746DCB363754C1EA1C72 /* [CP] Check Pods Manifest.lock */,
 				BE2E82061FF44A7B00D104AC /* Sources */,
 				BE2E82071FF44A7B00D104AC /* Frameworks */,
 				BE2E82081FF44A7B00D104AC /* Resources */,
+				A7567F584E4455489B5298E4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -719,7 +729,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Zendo/Pods-Zendo-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Zendo/Pods-Zendo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/Mixpanel-swift/Mixpanel.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
@@ -732,7 +742,51 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zendo/Pods-Zendo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Zendo/Pods-Zendo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3C1F746DCB363754C1EA1C72 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Zendo WatchKit Extension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7567F584E4455489B5298E4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Mixpanel/Mixpanel.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -965,6 +1019,7 @@
 		};
 		BE2E821C1FF44A7B00D104AC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BD6CE514120A3F5874E8C15 /* Pods-Zendo WatchKit Extension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Zendo WatchKit Extension/Zendo WatchKit Extension.entitlements";
@@ -988,6 +1043,7 @@
 		};
 		BE2E821D1FF44A7B00D104AC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA956F3DF3D7E53620DCB219 /* Pods-Zendo WatchKit Extension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Zendo WatchKit Extension/Zendo WatchKit Extension.entitlements";

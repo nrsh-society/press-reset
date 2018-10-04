@@ -11,8 +11,8 @@ import NVActivityIndicatorView
 
 enum ZenInfoViewType: String {
     case hrvAverage = "hrv average"
-    case totalMins = "total mins"
-    case minsAverage = "mins average"
+    case totalMins = "total time"
+    case minsAverage = "avg time"
     case totalHrv = "hrv"
     
     var image: UIImage {

@@ -205,7 +205,7 @@ class ZendoController: UITableViewController {
         if isShowFirstSession {
             return tableView.bounds.height
         }
-        return UITableViewAutomaticDimension
+        return 70.0
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

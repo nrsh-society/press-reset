@@ -406,9 +406,9 @@ class OverviewController: UIViewController {
                     default:
                         let avg = movingTotal / movingTotalCount
                         if avg.isNaN {
-                            cell.durationView.setTitle(0.0.stringZendoTime)
+                            cell.durationView.setTitle(0.0.stringZendoTimeWatch)
                         } else {
-                            cell.durationView.setTitle(avg.stringZendoTime)
+                            cell.durationView.setTitle(avg.stringZendoTimeWatch)
                         }
                     }
                 }

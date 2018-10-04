@@ -9,6 +9,7 @@
 import WatchKit
 import Foundation
 import HealthKit
+import Mixpanel
 
 //var _currentSession : Session?
 
@@ -28,20 +29,22 @@ class AppInterfaceController: WKInterfaceController {
     
     func startSession() {
         
+        Mixpanel.sharedInstance()?.track("start_session")
+        
         Session.current = Session()
         
         Session.current?.start()
         
         WKInterfaceDevice.current().play(WKHapticType.start)
         
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context:  Session.current  as AnyObject), (name: "OptionsInterfaceController", context: Session.current  as AnyObject)])
+        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context:  Session.current  as AnyObject)])
         
     }
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        
+        Mixpanel.sharedInstance()?.track("zendo_screen")
     }
     
     override func willActivate()

@@ -9,6 +9,7 @@
 import WatchKit
 import HealthKit
 import WatchConnectivity
+import Mixpanel
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands {
     
@@ -23,6 +24,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands {
     }
 
     func applicationDidFinishLaunching() {
+        
+        Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
+        
         // Perform any final initialization of your application.
     }
 
