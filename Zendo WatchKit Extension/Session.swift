@@ -275,7 +275,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             Thread.detachNewThread {
                 for _ in 1...Session.options.hapticStrength {
-                    DispatchQueue.main.sync {
+                    DispatchQueue.main.async {
                         WKInterfaceDevice.current().play(.success)
                     }
                     

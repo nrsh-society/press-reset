@@ -20,20 +20,20 @@
         <!--Zendō-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="AppInterfaceController" title="Zendō" contentMode="scaleAspectFit" alwaysBounce="YES" fullBounds="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="AppInterfaceController" title="Zendō" contentMode="scaleAspectFit" fullBounds="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="center" backgroundImage="shobogenzo" contentMode="scaleAspectFit" layout="vertical" id="obQ-Pj-vnx">
                             <items>
-                                <group width="1" height="0.59999999999999998" alignment="center" verticalAlignment="center" layout="vertical" spacing="15" id="PzY-zg-xK5">
+                                <group width="1" height="0.59999999999999998" alignment="center" verticalAlignment="center" layout="vertical" spacing="3" id="PzY-zg-xK5">
                                     <items>
                                         <label width="1" alignment="center" verticalAlignment="center" text="108 ms" textAlignment="center" id="c3z-hl-RcP">
-                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="25"/>
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                         </label>
                                         <label width="1" alignment="center" verticalAlignment="center" text="avg hrv today" textAlignment="center" id="0cn-cP-y9u">
-                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="11"/>
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="12"/>
                                         </label>
                                     </items>
-                                    <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="10"/>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="28" bottom="10"/>
                                 </group>
                             </items>
                             <gestureRecognizers>
@@ -57,9 +57,9 @@
         <!--Options-->
         <scene sceneID="SLO-n2-qa9">
             <objects>
-                <controller identifier="OptionsInterfaceController" title="Options" contentMode="scaleAspectFit" id="Cs8-9P-1Q0" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="OptionsInterfaceController" title="Options" contentMode="scaleAspectFit" fullBounds="YES" id="Cs8-9P-1Q0" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <group alignment="center" layout="vertical" id="euX-5G-gdh">
+                        <group alignment="center" contentMode="scaleAspectFit" layout="vertical" id="euX-5G-gdh">
                             <items>
                                 <label alignment="center" text="Haptic" id="Cvf-ku-YxT">
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
@@ -82,7 +82,7 @@
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                 </label>
                             </items>
-                            <edgeInsets key="margins" left="0.0" right="0.0" top="7" bottom="0.0"/>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="25" bottom="0.0"/>
                         </group>
                     </items>
                     <connections>
@@ -97,13 +97,13 @@
         <!--Zazen-->
         <scene sceneID="PLM-Hm-Vur">
             <objects>
-                <controller identifier="SessionInterfaceController" title="Zazen" fullBounds="YES" id="ni9-qQ-E13" customClass="SessionInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="SessionInterfaceController" title="Zazen" contentMode="scaleAspectFit" fullBounds="YES" id="ni9-qQ-E13" customClass="SessionInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <group width="1" height="1" alignment="center" verticalAlignment="bottom" layout="vertical" spacing="0.0" id="tim-Rb-wsC">
+                        <group width="1" height="1" alignment="center" verticalAlignment="bottom" contentMode="scaleAspectFit" layout="vertical" spacing="0.0" id="tim-Rb-wsC">
                             <items>
                                 <label width="1" alignment="center" verticalAlignment="center" text="00:00" textAlignment="center" minimumScaleFactor="0.69999999999999996" id="Ur6-FC-Vdd">
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="35"/>
+                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="42"/>
                                 </label>
                                 <group width="1" height="34" alignment="center" verticalAlignment="bottom" radius="17" id="RsQ-Pf-uyT">
                                     <items>

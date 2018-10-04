@@ -29,7 +29,7 @@ class AppInterfaceController: WKInterfaceController {
     
     func startSession() {
         
-        Mixpanel.sharedInstance()?.track("start_session")
+        Mixpanel.sharedInstance()?.track("watch_new_session")
         
         Session.current = Session()
         
@@ -43,13 +43,14 @@ class AppInterfaceController: WKInterfaceController {
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        
-        Mixpanel.sharedInstance()?.track("zendo_screen")
     }
     
     override func willActivate()
     {
+
         super.willActivate()
+        
+        Mixpanel.sharedInstance()?.timeEvent("watch_overview")
         
         ZBFHealthKit.getPermissions()
         
@@ -91,6 +92,8 @@ class AppInterfaceController: WKInterfaceController {
     
     override func didDeactivate() {
         super.didDeactivate()
+        
+        Mixpanel.sharedInstance()?.track("watch_overview")
     }
     
 }

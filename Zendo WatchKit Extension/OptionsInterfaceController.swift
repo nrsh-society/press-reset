@@ -8,6 +8,7 @@
 
 import WatchKit
 import Foundation
+import Mixpanel
 
 class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatusDelegate
 {
@@ -49,6 +50,8 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     {
         super.willActivate()
         
+        Mixpanel.sharedInstance()?.timeEvent("watch_options")
+        
         if let bluetooth = Session.bluetoothManager
         {   self.bluetoothToogle.setOn(bluetooth.isRunning)
             Session.bluetoothManager?.statusDelegate = self
@@ -61,6 +64,8 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     override func didDeactivate()
     {
         super.didDeactivate()
+        
+        Mixpanel.sharedInstance()?.track("watch_options")
     }
     
 }

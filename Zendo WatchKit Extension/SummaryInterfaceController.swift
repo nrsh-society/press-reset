@@ -24,7 +24,7 @@ class SummaryInterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        Mixpanel.sharedInstance()?.track("summary_screen")
+        Mixpanel.sharedInstance()?.timeEvent("watch_summary")
         
         if let array = context as? [String: Any], let session = array["session"] as? Session, let workout = array["workout"] as? HKWorkout {
             totalTime.setDate(session.startDate!)
@@ -74,7 +74,7 @@ class SummaryInterfaceController: WKInterfaceController {
     
     @IBAction func onDonePress() {
         
-        Mixpanel.sharedInstance()?.track("done_session")
+        Mixpanel.sharedInstance()?.track("watch_summary")
         
         WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session as AnyObject), (name: "OptionsInterfaceController", context: session as AnyObject)])
     }
