@@ -487,7 +487,7 @@ extension ZazenController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ZazenTableViewCell.reuseIdentifierCell, for: indexPath) as! ZazenTableViewCell
         
-        cell.durationView.setTitle(workout.duration.stringZendoTime)
+        cell.durationView.setTitle(workout.duration.stringZendoTimeWatch)
         
         cell.bpmChartView.isHidden = true
         cell.motionChartView.isHidden = true

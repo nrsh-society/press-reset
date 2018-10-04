@@ -402,7 +402,7 @@ class OverviewController: UIViewController {
                     cell.isHiddenMM = false
                     
                     switch self.currentInterval {
-                    case .hour: cell.durationView.setTitle(movingTotal.stringZendoTime)
+                    case .hour: cell.durationView.setTitle(movingTotal.stringZendoTimeWatch)
                     default:
                         let avg = movingTotal / movingTotalCount
                         if avg.isNaN {

@@ -33,7 +33,7 @@
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="12"/>
                                         </label>
                                     </items>
-                                    <edgeInsets key="margins" left="0.0" right="0.0" top="28" bottom="10"/>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="11" bottom="10"/>
                                 </group>
                             </items>
                             <gestureRecognizers>
@@ -82,7 +82,7 @@
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                 </label>
                             </items>
-                            <edgeInsets key="margins" left="0.0" right="0.0" top="25" bottom="0.0"/>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="33" bottom="0.0"/>
                         </group>
                     </items>
                     <connections>
