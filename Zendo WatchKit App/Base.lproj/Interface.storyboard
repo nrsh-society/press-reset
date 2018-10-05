@@ -27,7 +27,7 @@
                                 <group width="1" height="0.59999999999999998" alignment="center" verticalAlignment="center" layout="vertical" spacing="3" id="PzY-zg-xK5">
                                     <items>
                                         <label width="1" alignment="center" verticalAlignment="center" text="108 ms" textAlignment="center" id="c3z-hl-RcP">
-                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="25"/>
                                         </label>
                                         <label width="1" alignment="center" verticalAlignment="center" text="avg hrv today" textAlignment="center" id="0cn-cP-y9u">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="12"/>
@@ -105,9 +105,9 @@
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="42"/>
                                 </label>
-                                <group width="1" height="34" alignment="center" verticalAlignment="bottom" radius="17" id="RsQ-Pf-uyT">
+                                <group width="1" height="40" alignment="center" verticalAlignment="bottom" radius="17" id="RsQ-Pf-uyT">
                                     <items>
-                                        <button width="1" height="1" alignment="center" verticalAlignment="center" title="STOP" id="0Xz-Lc-S1Z">
+                                        <button width="1" height="100" alignment="center" verticalAlignment="center" title="STOP" id="0Xz-Lc-S1Z">
                                             <color key="backgroundColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="10"/>
                                             <connections>
@@ -180,7 +180,7 @@
                                         </label>
                                         <group width="1" alignment="left" verticalAlignment="bottom" id="Vzg-T3-rJS">
                                             <items>
-                                                <label height="25" alignment="left" verticalAlignment="center" text="--" id="GLu-3s-woe">
+                                                <label height="25" alignment="left" verticalAlignment="center" text="Loading." textAlignment="left" id="GLu-3s-woe">
                                                     <color key="textColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="24"/>
                                                 </label>
@@ -222,9 +222,9 @@
                                 </group>
                                 <group width="1" alignment="center" verticalAlignment="bottom" id="o2i-Vw-dwD">
                                     <items>
-                                        <group width="1" height="34" alignment="center" verticalAlignment="center" radius="17" id="6Ir-Uh-eQg">
+                                        <group width="1" height="40" alignment="center" verticalAlignment="center" radius="17" id="6Ir-Uh-eQg">
                                             <items>
-                                                <button width="1" height="1" alignment="center" verticalAlignment="center" title="DONE" id="bER-r7-rWo">
+                                                <button width="1" height="1" heightAdjustment="13" alignment="center" verticalAlignment="center" title="DONE" id="bER-r7-rWo">
                                                     <color key="backgroundColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="10"/>
                                                     <connections>
