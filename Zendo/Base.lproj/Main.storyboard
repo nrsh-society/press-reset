@@ -70,7 +70,7 @@
                                                                 <constraint firstAttribute="width" secondItem="1pM-hi-l6R" secondAttribute="height" multiplier="1:1" id="id3-nm-ly2"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="j7q-wk-pox">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-----" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="j7q-wk-pox">
                                                             <rect key="frame" x="33" y="2" width="85" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="85" id="Gbf-u0-ETV"/>

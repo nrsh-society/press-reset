@@ -109,7 +109,7 @@
                                     <items>
                                         <button width="1" height="100" alignment="center" verticalAlignment="center" title="STOP" id="0Xz-Lc-S1Z">
                                             <color key="backgroundColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                            <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="10"/>
+                                            <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
                                             <connections>
                                                 <action selector="onDonePress" destination="ni9-qQ-E13" id="P7N-Qm-XnX"/>
                                             </connections>
@@ -226,7 +226,7 @@
                                             <items>
                                                 <button width="1" height="1" heightAdjustment="13" alignment="center" verticalAlignment="center" title="DONE" id="bER-r7-rWo">
                                                     <color key="backgroundColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="10"/>
+                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
                                                     <connections>
                                                         <action selector="onDonePress" destination="Mk4-5F-50h" id="fb6-uo-yZi"/>
                                                     </connections>
