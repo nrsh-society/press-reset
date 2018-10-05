@@ -29,6 +29,7 @@ class SummaryInterfaceController: WKInterfaceController {
         if let array = context as? [String: Any], let session = array["session"] as? Session, let workout = array["workout"] as? HKWorkout {
             totalTime.setDate(session.startDate!)
             
+            /*
             ZBFHealthKit.getHRVAverage(workout) { results, error in
                 DispatchQueue.main.async() {
                     if let value = results?.first?.value, value > 0 {
@@ -37,6 +38,12 @@ class SummaryInterfaceController: WKInterfaceController {
                         self.hrv.setText("--")
                     }
                 }
+            }*/
+            
+            if session.heartSDNN > 0 {
+                self.hrv.setText(Int(session.heartSDNN.rounded()).description + "ms")
+            } else {
+                self.hrv.setText("--")
             }
             
             if let metadata = workout.metadata {

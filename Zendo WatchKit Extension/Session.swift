@@ -40,7 +40,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     var rotation = Rotation(pitch: 0.0, roll: 0.0, yaw: 0.0)
     var motion = 0.0
     var heartRate = 0.0
-    var heartSDNN = 0.0
+    public var heartSDNN = 0.0
     var heartRateSamples = [Double]()
     
     private var sampleTimer: Timer?
