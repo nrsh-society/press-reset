@@ -17,9 +17,9 @@
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.1</string>
+	<string>3.5</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>2</string>
 	<key>CLKComplicationPrincipalClass</key>
 	<string>$(PRODUCT_MODULE_NAME).ZendoDataSource</string>
 	<key>CLKComplicationSupportedFamilies</key>
