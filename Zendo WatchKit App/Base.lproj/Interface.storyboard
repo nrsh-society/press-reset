@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14313.18" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch44" orientation="portrait">
+    <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -20,7 +20,7 @@
         <!--Zendō-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="AppInterfaceController" title="Zendō" contentMode="scaleAspectFit" fullBounds="YES" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="AppInterfaceController" title="Zendō" contentMode="scaleAspectFit" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="center" backgroundImage="shobogenzo" contentMode="scaleAspectFit" layout="vertical" id="obQ-Pj-vnx">
                             <items>
@@ -57,12 +57,12 @@
         <!--Options-->
         <scene sceneID="SLO-n2-qa9">
             <objects>
-                <controller identifier="OptionsInterfaceController" title="Options" contentMode="scaleAspectFit" fullBounds="YES" id="Cs8-9P-1Q0" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="OptionsInterfaceController" title="Options" contentMode="scaleAspectFit" id="Cs8-9P-1Q0" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <group alignment="center" contentMode="scaleAspectFit" layout="vertical" id="euX-5G-gdh">
+                        <group alignment="center" verticalAlignment="center" layout="vertical" spacing="4" id="euX-5G-gdh">
                             <items>
                                 <label alignment="center" text="Haptic" id="Cvf-ku-YxT">
-                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
+                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="13"/>
                                 </label>
                                 <slider alignment="center" continuous="YES" value="1" maximum="3" steps="3" id="AWO-T6-lMh">
                                     <connections>
@@ -70,7 +70,7 @@
                                     </connections>
                                 </slider>
                                 <label alignment="center" verticalAlignment="bottom" text="HR Monitor" id="5SR-Jc-J1K">
-                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
+                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="13"/>
                                 </label>
                                 <switch alignment="left" verticalAlignment="bottom" title="Bluetooth" id="5mx-VV-erU">
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
@@ -79,10 +79,9 @@
                                     </connections>
                                 </switch>
                                 <label alignment="center" verticalAlignment="bottom" id="3dM-HJ-XI3">
-                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
+                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="13"/>
                                 </label>
                             </items>
-                            <edgeInsets key="margins" left="0.0" right="0.0" top="21" bottom="0.0"/>
                         </group>
                     </items>
                     <connections>
@@ -97,7 +96,7 @@
         <!--Zazen-->
         <scene sceneID="PLM-Hm-Vur">
             <objects>
-                <controller identifier="SessionInterfaceController" title="Zazen" contentMode="scaleAspectFit" fullBounds="YES" id="ni9-qQ-E13" customClass="SessionInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="SessionInterfaceController" title="Zazen" contentMode="scaleAspectFit" id="ni9-qQ-E13" customClass="SessionInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="bottom" contentMode="scaleAspectFit" layout="vertical" spacing="0.0" id="tim-Rb-wsC">
                             <items>
