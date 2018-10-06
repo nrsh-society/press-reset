@@ -277,6 +277,7 @@ class OverviewController: UIViewController {
                     cell.hrvChart.xAxis.valueFormatter = xaxis.valueFormatter
                 
                     cell.hrvChart.data!.highlightEnabled = true
+                    self.hrvData?.notifyDataChanged()
                     cell.hrvChart.notifyDataSetChanged()
                     cell.hrvChart.fitScreen()
                     cell.isHiddenHRV = false
@@ -416,6 +417,7 @@ class OverviewController: UIViewController {
                     cell.mmChart.rightAxis.valueFormatter = xaxisValue.valueFormatter
                     
                     cell.mmChart.data!.highlightEnabled = true
+                    self.mmData?.notifyDataChanged()
                     cell.mmChart.notifyDataSetChanged()
                     cell.mmChart.fitScreen()
                     cell.isHiddenMM = false
