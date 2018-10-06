@@ -674,15 +674,15 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="health kit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kKI-qz-oqU">
-                                        <rect key="frame" x="0.0" y="40" width="139.33333333333334" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="health app" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kKI-qz-oqU">
+                                        <rect key="frame" x="0.0" y="40" width="160.66666666666666" height="30"/>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                         <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RV6-Pm-tov">
                                         <rect key="frame" x="0.0" y="80" width="289" height="98.333333333333314"/>
-                                        <string key="text">In order to get started we need to connect Apple Health Kit to sync your data with Zendō. This allows Zendō to measure and record HRV and other health indicators during meditation. All health data remains on your devices, nothing is shared with us or anyone else.</string>
+                                        <mutableString key="text">In order to get started we need to connect Apple Health app to sync your data with Zendō. This allows Zendō to measure and record HRV and other health indicators during meditation. All health data remains on your devices, nothing is shared with us or anyone else.</mutableString>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                         <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
