@@ -250,7 +250,7 @@ class ZendoController: UITableViewController {
             }
             
             let alert = UIAlertController(title: "Starting Watch App",
-                                          message: "Deep Press + Exit when complete.", preferredStyle: .actionSheet)
+                                          message: "Press Stop on Watch App when complete.", preferredStyle: .actionSheet)
             
             let ok = UIAlertAction(title: "OK", style: .default) { action in
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1) ) {
