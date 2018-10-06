@@ -47,6 +47,8 @@ class OverviewController: UIViewController {
     let hkType = HKObjectType.workoutType()
     var start = Date()
     var end = Date()
+    var hrvData : LineChartData? = nil
+    var mmData : LineChartData? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +85,9 @@ class OverviewController: UIViewController {
                 Mixpanel.mainInstance().people.set(properties: ["$name": name])
             }
         }
+        
+        initHRVData()
+        initMMData()
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -122,36 +127,10 @@ class OverviewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: .reloadOverview, object: nil)
     }
     
-    func populateCharts(_ cell: OverviewTableViewCell) {
-        
-        DispatchQueue.main.async() {
-            cell.isHiddenHRV = true
-            cell.hrvChart.clear()
-            cell.hrvChart.data?.clearValues()
-            
-            cell.isHiddenMM = true
-            cell.mmChart.clear()
-            cell.mmChart.data?.clearValues()
-            
-            cell.durationView.setTitle("")
-        }
-        
-        cell.hrvChart.highlightValues([])
-        cell.hrvChart.drawGridBackgroundEnabled = false
-        cell.hrvChart.chartDescription?.enabled = false
-        cell.hrvChart.autoScaleMinMaxEnabled = true
-        cell.hrvChart.noDataText = ""
-        
-        cell.hrvChart.xAxis.drawGridLinesEnabled = false
-        cell.hrvChart.xAxis.drawAxisLineEnabled = false
-        cell.hrvChart.rightAxis.drawAxisLineEnabled = false
-        cell.hrvChart.leftAxis.drawAxisLineEnabled = false
-        
+    func initHRVData()
+    {
         let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "ms")
-        
-        let communityEntries = [ChartDataEntry]()
-        
-        let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
+        let communityDataset = LineChartDataSet(values: [ChartDataEntry](), label: "community")
         
         communityDataset.drawCirclesEnabled = false
         communityDataset.drawValuesEnabled = false
@@ -185,28 +164,96 @@ class OverviewController: UIViewController {
         dataset.fill = Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
         dataset.drawFilledEnabled = true
         
+        self.hrvData = LineChartData(dataSets: [dataset, communityDataset])
+        
+    }
+    
+    func initMMData()
+    {
+        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "mins")
+        let communityDataset = LineChartDataSet(values: [ChartDataEntry](), label: "community")
+        
+        communityDataset.drawCirclesEnabled = false
+        communityDataset.drawValuesEnabled = false
+        communityDataset.highlightEnabled = false
+        
+        communityDataset.setColor(UIColor.zenRed)
+        communityDataset.lineWidth = 1.5
+        communityDataset.lineDashLengths = [10, 3]
+        
+        dataset.drawValuesEnabled = false
+        dataset.setColor(UIColor.zenDarkGreen)
+        dataset.lineWidth = 1.5
+        dataset.highlightEnabled = true
+        
+        dataset.drawCirclesEnabled = true
+        dataset.setCircleColor(UIColor.zenDarkGreen)
+        dataset.circleRadius = 4
+        
+        dataset.drawCircleHoleEnabled = true
+        dataset.circleHoleRadius = 3
+        
+        // 00 - 0%
+        // 80 - 50%
+        let gradientColors = [
+            ChartColorTemplates.colorFromString("#00277A69").cgColor,
+            ChartColorTemplates.colorFromString("#80277A69").cgColor
+        ]
+        let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
+        
+        dataset.fillAlpha = 1
+        dataset.fill = Fill(linearGradient: gradient, angle: 90)
+        dataset.drawFilledEnabled = true
+        
+        self.mmData = LineChartData(dataSets: [dataset, communityDataset])
+        
+    }
+    
+    func populateCharts(_ cell: OverviewTableViewCell) {
+        
+        cell.isHiddenHRV = true
+        cell.isHiddenMM = true
+        
+        cell.durationView.setTitle("")
+        
+        cell.hrvChart.highlightValues([])
+        cell.hrvChart.drawGridBackgroundEnabled = false
+        cell.hrvChart.chartDescription?.enabled = false
+        cell.hrvChart.autoScaleMinMaxEnabled = true
+        cell.hrvChart.noDataText = ""
+        
+        cell.hrvChart.xAxis.drawGridLinesEnabled = false
+        cell.hrvChart.xAxis.drawAxisLineEnabled = false
+        cell.hrvChart.rightAxis.drawAxisLineEnabled = false
+        cell.hrvChart.leftAxis.drawAxisLineEnabled = false
+        
         let handler: ZBFHealthKit.SamplesHandler = { samples, error in
-            DispatchQueue.main.async() {
-                cell.isHiddenHRV = true
-                cell.hrvChart.clear()
-                cell.hrvChart.data?.clearValues()
-                cell.hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
-            }
             
+            DispatchQueue.main.async()
+            {
+                
+                let dataset = self.hrvData?.getDataSetByIndex(0)!
+                let communityDataset = self.hrvData?.getDataSetByIndex(1)!
+                dataset?.clear()
+                communityDataset?.clear()
+                
+                if cell.hrvChart.data == nil
+                {
+                    cell.hrvChart.data = self.hrvData
+                }
+                
             if let samples = samples {
-                DispatchQueue.main.async() {
+                
                     samples.sorted(by: <).forEach( { entry in
                         
                         if entry.value > 0.0 {
-                            cell.hrvChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
+                            dataset?.addEntry(ChartDataEntry(x: entry.key, y: entry.value))
                         }
                         
-                        let community = self.getCommunityDataEntry(key: "sdnn", interval: entry.key, scale: 1.0)
-                        
-                        cell.hrvChart.data!.addEntry(community, dataSetIndex: 1)
-                        
-                    })
+                        communityDataset?.addEntry(self.getCommunityDataEntry(key: "sdnn", interval: entry.key, scale: 1.0))
                     
+                    })
+                
                     var formato = MMChartFormatter()
                     
                     switch self.currentInterval {
@@ -228,9 +275,10 @@ class OverviewController: UIViewController {
                     xaxis.valueFormatter = formato
                     
                     cell.hrvChart.xAxis.valueFormatter = xaxis.valueFormatter
-                    
+                
                     cell.hrvChart.data!.highlightEnabled = true
                     cell.hrvChart.notifyDataSetChanged()
+                    cell.hrvChart.fitScreen()
                     cell.isHiddenHRV = false
                     self.populateMMChart(cell: cell)
                     
@@ -299,53 +347,24 @@ class OverviewController: UIViewController {
         cell.mmChart.autoScaleMinMaxEnabled = true
         cell.mmChart.noDataText = ""
         
-        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "mins")
-        
-        let communityEntries = [ChartDataEntry]()
-        
-        let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
-        
-        communityDataset.drawCirclesEnabled = false
-        communityDataset.drawValuesEnabled = false
-        communityDataset.highlightEnabled = false
-        
-        communityDataset.setColor(UIColor.zenRed)
-        communityDataset.lineWidth = 1.5
-        communityDataset.lineDashLengths = [10, 3]
-        
-        dataset.drawValuesEnabled = false
-        dataset.setColor(UIColor.zenDarkGreen)
-        dataset.lineWidth = 1.5
-        dataset.highlightEnabled = true
-        
-        dataset.drawCirclesEnabled = true
-        dataset.setCircleColor(UIColor.zenDarkGreen)
-        dataset.circleRadius = 4
-        
-        dataset.drawCircleHoleEnabled = true
-        dataset.circleHoleRadius = 3
-        
-        // 00 - 0%
-        // 80 - 50%
-        let gradientColors = [
-            ChartColorTemplates.colorFromString("#00277A69").cgColor,
-            ChartColorTemplates.colorFromString("#80277A69").cgColor
-        ]
-        let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
-        
-        dataset.fillAlpha = 1
-        dataset.fill = Fill(linearGradient: gradient, angle: 90)
-        dataset.drawFilledEnabled = true
         
         
         ZBFHealthKit.getMindfulMinutes(start: start, end: end, currentInterval: currentInterval) { samples, error in
             DispatchQueue.main.async() {
+                
+                let dataset = self.mmData?.getDataSetByIndex(0)!
+                let communityDataset = self.mmData?.getDataSetByIndex(1)!
+                dataset?.clear()
+                communityDataset?.clear()
+                
+                if cell.mmChart.data == nil
+                {
+                    cell.mmChart.data = self.mmData
+                }
+                
                 cell.isHiddenMM = true
                 cell.durationView.setTitle("")
-                cell.mmChart.clear()
-                cell.mmChart.data?.clearValues()
-                cell.mmChart.data = LineChartData(dataSets: [dataset, communityDataset])
-            }
+
             var movingTotal = 0.0
             var movingTotalCount = 0.0
             
@@ -362,15 +381,14 @@ class OverviewController: UIViewController {
                     }
                     entry.value = (entry.value / 60.0).rounded()
                     
-                    DispatchQueue.main.async() {
                         if entry.value > 0.0 {
-                            cell.mmChart.data!.addEntry(ChartDataEntry(x: entry.key, y: entry.value), dataSetIndex: 0)
+                            dataset?.addEntry(ChartDataEntry(x: entry.key, y: entry.value))
                         }
                         let community = ChartDataEntry(x: entry.key, y: 30.0)
-                        cell.mmChart.data!.addEntry(community, dataSetIndex: 1)
+                        communityDataset?.addEntry(community)
                     }
                 }
-                DispatchQueue.main.async() {
+                
                     var formato = MMChartFormatter()
                     let formatoValue = MMChartValueFormatter()
                     let xaxisValue = XAxis()
@@ -399,6 +417,7 @@ class OverviewController: UIViewController {
                     
                     cell.mmChart.data!.highlightEnabled = true
                     cell.mmChart.notifyDataSetChanged()
+                    cell.mmChart.fitScreen()
                     cell.isHiddenMM = false
                     
                     switch self.currentInterval {
@@ -413,8 +432,6 @@ class OverviewController: UIViewController {
                     }
                 }
             }
-        }
-        
     }
         
     func setDate() {
