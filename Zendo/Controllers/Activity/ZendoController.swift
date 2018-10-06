@@ -249,8 +249,8 @@ class ZendoController: UITableViewController {
                 return
             }
             
-            let alert = UIAlertController(title: "Starting Watch App",
-                                          message: "Press Stop on Watch App when complete.", preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: "Starting Watch app",
+                                          message: "Press Stop on Watch app when complete.", preferredStyle: .actionSheet)
             
             let ok = UIAlertAction(title: "OK", style: .default) { action in
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1) ) {
