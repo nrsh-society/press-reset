@@ -86,34 +86,46 @@ class OverviewController: UIViewController {
             }
         }
         
+        ZBFHealthKit.getWorkouts(limit: 1) { [weak self] results in
+            
+            if results.count == 0 {
+                DispatchQueue.main.async() {
+                    self?.tabBarController?.selectedIndex = 1
+                }
+            }
+            
+        }
+        
         initHRVData()
         initMMData()
     }
     
-    override func viewDidAppear(_ animated: Bool)
-    {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        ZBFHealthKit.getWorkouts(limit: 1)
-        {
-            results in
-            
-                if results.count > 0
-                {
-                    DispatchQueue.main.async()
-                    {
-                        Mixpanel.mainInstance().time(event: "overview")
-                        self.tableView.reloadData()
-                    }
-                }
-                else
-                {
-                    DispatchQueue.main.async()
-                    {
-                        self.tabBarController?.selectedIndex = 1
-                    }
-                }
-        }
+        Mixpanel.mainInstance().time(event: "overview")
+        self.tableView.reloadData()
+        
+//        ZBFHealthKit.getWorkouts(limit: 1)
+//        {
+//            results in
+//
+//                if results.count > 0
+//                {
+//                    DispatchQueue.main.async()
+//                    {
+//                        Mixpanel.mainInstance().time(event: "overview")
+//                        self.tableView.reloadData()
+//                    }
+//                }
+//                else
+//                {
+//                    DispatchQueue.main.async()
+//                    {
+//                        self.tabBarController?.selectedIndex = 1
+//                    }
+//                }
+//        }
         
     }
     

@@ -14,7 +14,7 @@ PODS:
 DEPENDENCIES:
   - BuddyBuildSDK (~> 1.0.17)
   - Charts (~> 3.1.1)
-  - Mixpanel
+  - Mixpanel (~> 3.3.3)
   - Mixpanel-swift (~> 2.4.2)
   - NVActivityIndicatorView (~> 4.2.1)
 
@@ -33,6 +33,6 @@ SPEC CHECKSUMS:
   Mixpanel-swift: 63de6f5a14468b8d65e0d62ae250714455e17407
   NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
 
-PODFILE CHECKSUM: 45403a3d369f45b1114b5503841f7430c32a106b
+PODFILE CHECKSUM: 49fa5bc1dd7875e2bf1e422220cc685e21e45a70
 
 COCOAPODS: 1.6.0.beta.1

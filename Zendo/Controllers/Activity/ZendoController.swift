@@ -285,16 +285,25 @@ extension ZendoController: WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
         
-        if (message["watch"] as! String) == "reload" {
+        if let message = message as? [String: String] {
             
-            DispatchQueue.main.async {
-                self.isAutoUpdate = true
-                self.autoUpdateCount = self.samples.count
-                self.populateTable()
-                NotificationCenter.default.post(name: .reloadOverview, object: nil)
+            if message["watch"] == "reload" {
+                
+                DispatchQueue.main.async {
+                    self.isAutoUpdate = true
+                    self.autoUpdateCount = self.samples.count
+                    self.populateTable()
+                    NotificationCenter.default.post(name: .reloadOverview, object: nil)
+                }
+                
+            } else if message["watch"] == "mixpanel" {
+                
+                if let email = Settings.email, let name = Settings.fullName {
+                    replyHandler(["email": email, "name": name])
+                }
             }
-            
         }
+        
     }
     
 }

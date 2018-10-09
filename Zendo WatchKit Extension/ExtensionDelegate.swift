@@ -27,6 +27,30 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands {
         
         Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
         
+        sendMessage(["watch": "mixpanel"], replyHandler: { reply in
+            if let reply = reply as? [String: String],
+                let email = reply["email"],
+                let name = reply["name"] {
+                Mixpanel.sharedInstance()?.identify(email)
+                Mixpanel.sharedInstance()?.people.set(["$email": email])
+                Mixpanel.sharedInstance()?.people.set(["$name": name])
+            }
+        }, errorHandler: { (error) in
+            print(error.localizedDescription)
+        })
+        
+        
+//        if let email = Settings.email
+//        {
+//            Mixpanel.mainInstance().identify(distinctId: email)
+//            Mixpanel.mainInstance().people.set(properties: ["$email": email])
+//
+//            if let name = Settings.fullName
+//            {
+//                Mixpanel.mainInstance().people.set(properties: ["$name": name])
+//            }
+//        }
+        
         // Perform any final initialization of your application.
     }
 
