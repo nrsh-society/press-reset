@@ -1,8 +1,23 @@
 PODS:
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
   - BuddyBuildSDK (1.0.17)
   - Charts (3.1.1):
     - Charts/Core (= 3.1.1)
   - Charts/Core (3.1.1)
+  - FacebookSDK (4.36.0):
+    - Bolts (~> 1.7)
+    - FacebookSDK/CoreKit (= 4.36.0)
+    - FacebookSDK/MarketingKit (= 4.36.0)
+  - FacebookSDK/CoreKit (4.36.0):
+    - Bolts (~> 1.7)
+  - FacebookSDK/MarketingKit (4.36.0):
+    - Bolts (~> 1.7)
+    - FacebookSDK/CoreKit
   - Mixpanel (3.3.3)
   - Mixpanel-swift (2.4.2):
     - Mixpanel-swift/Complete (= 2.4.2)
@@ -14,25 +29,30 @@ PODS:
 DEPENDENCIES:
   - BuddyBuildSDK (~> 1.0.17)
   - Charts (~> 3.1.1)
+  - FacebookSDK
   - Mixpanel (~> 3.3.3)
   - Mixpanel-swift (~> 2.4.2)
   - NVActivityIndicatorView (~> 4.2.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Bolts
     - BuddyBuildSDK
     - Charts
+    - FacebookSDK
     - Mixpanel
     - Mixpanel-swift
     - NVActivityIndicatorView
 
 SPEC CHECKSUMS:
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BuddyBuildSDK: 8ae12ee721098b356a961ea7dce70ae55f93a7d2
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
+  FacebookSDK: 583a561b37e4ce9a4a0f189332630f6c48b491ef
   Mixpanel: 3c3925c27f7a321d5978319a72f53f8f0885afc5
   Mixpanel-swift: 63de6f5a14468b8d65e0d62ae250714455e17407
   NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
 
-PODFILE CHECKSUM: 49fa5bc1dd7875e2bf1e422220cc685e21e45a70
+PODFILE CHECKSUM: 6eee6434b6d630bc52a504e9c4aedb1830deb576
 
 COCOAPODS: 1.6.0.beta.1

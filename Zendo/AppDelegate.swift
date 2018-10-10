@@ -9,7 +9,7 @@
 import UIKit
 import HealthKit
 import Mixpanel
-//import FBSDKCoreKit
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-//        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         Mixpanel.initialize(token: "73167d0429d8da0c05c6707e832cbb46")
         BuddyBuildSDK.setup()
@@ -41,9 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-//    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-//        return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
-//    }
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+    }
     
     func applicationWillResignActive(_ application: UIApplication) {
         //#todo

@@ -6,7 +6,7 @@ target 'Zendo' do
     pod 'Mixpanel-swift', '~> 2.4.2'
     pod 'BuddyBuildSDK', '~> 1.0.17'
     pod 'NVActivityIndicatorView', '~> 4.2.1'
-#    pod 'FacebookSDK' 
+    pod 'FacebookSDK' 
 end
 
 
