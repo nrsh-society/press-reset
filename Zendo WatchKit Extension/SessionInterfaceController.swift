@@ -15,19 +15,26 @@ import Mixpanel
 
 class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     
+    @IBOutlet var commandImage: WKInterfaceImage!
+    @IBOutlet var heartRateLabel: WKInterfaceLabel!
     var timer: Timer!
     var session: Session!
+    var heartBeats = [Int()]
     
     @IBOutlet var timeElapsedLabel: WKInterfaceLabel!
     
-     func sessionTick(startDate: Date) {
-        
-        DispatchQueue.main.async {
-            
+    func sessionTick(startDate: Date, message: String?)
+    {
+        DispatchQueue.main.async
+        {
             let timeElapsed = abs(startDate.timeIntervalSinceNow)
         
             self.timeElapsedLabel.setText(timeElapsed.stringZendoTimeWatch)
             
+            if let message = message
+            {
+                self.heartRateLabel.setText(message)
+            }
         }
     }
     

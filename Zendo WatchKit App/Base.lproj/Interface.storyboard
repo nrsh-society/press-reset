@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14313.18" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch38" orientation="portrait">
+    <device id="watch44" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -100,6 +100,9 @@
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="bottom" contentMode="scaleAspectFit" layout="vertical" spacing="0.0" id="tim-Rb-wsC">
                             <items>
+                                <label width="1" height="43" alignment="center" textAlignment="center" id="edt-RR-Jqa">
+                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="17"/>
+                                </label>
                                 <label width="1" alignment="center" verticalAlignment="center" text="00:00" textAlignment="center" minimumScaleFactor="0.69999999999999996" id="Ur6-FC-Vdd">
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="42"/>
@@ -121,6 +124,7 @@
                         </group>
                     </items>
                     <connections>
+                        <outlet property="heartRateLabel" destination="edt-RR-Jqa" id="mMg-tX-ZpV"/>
                         <outlet property="timeElapsedLabel" destination="Ur6-FC-Vdd" id="Dao-4m-ETd"/>
                     </connections>
                 </controller>

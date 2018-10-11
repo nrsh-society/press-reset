@@ -15,7 +15,7 @@ import WatchConnectivity
 
 protocol SessionDelegate
 {
-    func sessionTick(startDate: Date)
+    func sessionTick(startDate: Date, message : String?)
 }
 
 struct Rotation
@@ -42,6 +42,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     var heartRate = 0.0
     public var heartSDNN = 0.0
     var heartRateSamples = [Double]()
+    var rangeSample = [Double]()
     
     private var sampleTimer: Timer?
     private var notifyTimer: Timer?
@@ -265,24 +266,48 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
     }
     
-    @objc func notify(_ timer: Timer)  {
+    @objc func notify(_ timer: Timer)
+    {
+        var haptic = WKHapticType.success
+        var message : String? = nil
         
-        self.delegate.sessionTick(startDate: self.startDate!);
+        rangeSample.append(self.heartRate)
         
         notifyTimerSeconds += 1
         
-        if Session.options.hapticStrength > 0 && notifyTimerSeconds % 60 == 0 {
-            
-            Thread.detachNewThread {
-                for _ in 1...Session.options.hapticStrength {
-                    DispatchQueue.main.async {
-                        WKInterfaceDevice.current().play(.success)
-                    }
-                    
-                    Thread.sleep(forTimeInterval: 1)
+        if notifyTimerSeconds % 60 == 0
+        {
+            if(rangeSample.count > 10)
+            {
+                let range = Int((self.rangeSample.max()! - self.rangeSample.min()!) * 60.0.rounded())
+                
+                switch range
+                {
+                    case 0...5:
+                        haptic = WKHapticType.retry
+                        message = "Breathe deeper"
+                    default:
+                        message = ""
                 }
             }
+            
+            if Session.options.hapticStrength > 0
+            {
+                Thread.detachNewThread {
+                    for _ in 1...Session.options.hapticStrength {
+                        DispatchQueue.main.async {
+                            WKInterfaceDevice.current().play(haptic)
+                        }
+                        
+                        Thread.sleep(forTimeInterval: 1)
+                    }
+                }
+            }
+            
+            rangeSample.removeAll()
         }
+        
+        self.delegate.sessionTick(startDate: self.startDate!, message: message)
     }
     
     @objc func sample()  {
