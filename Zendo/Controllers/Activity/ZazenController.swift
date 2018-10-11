@@ -109,6 +109,10 @@ class ZazenController: UIViewController {
     var workout: HKWorkout!
     var samples = [[String: Any]]()
     
+    lazy var share: Double = {
+        let duration = workout.endDate.timeIntervalSince1970 - workout.startDate.timeIntervalSince1970
+        return duration / Double(samples.count)
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -245,17 +249,19 @@ class ZazenController: UIViewController {
                     
                     let value = y * scale
                     
-                    let timeInterval : TimeInterval
+                    let timeInterval: TimeInterval
                     
                     if let time = sample[MetadataType.time.rawValue] as? String
                     {
-                        timeInterval = TimeInterval(time)!
+                        timeInterval = TimeInterval(time)! - workout.startDate.timeIntervalSince1970
                     }
                     else
                     {
                         let x = Double(index).rounded()
-                        timeInterval = workout.startDate.addingTimeInterval(x).timeIntervalSince1970
+                        timeInterval = share * x
+                        
                     }
+                    
                     entries.append(ChartDataEntry(x: timeInterval, y: value))
                     communityEntries.append(getCommunityDataEntry(key: lineChartKey.rawValue, interval: timeInterval, scale: scale))
                 }
@@ -270,8 +276,6 @@ class ZazenController: UIViewController {
         entryDataset.drawValuesEnabled = false
         entryDataset.setColor(UIColor.zenDarkGreen)
         entryDataset.lineWidth = 1.5
-        
-        
         
         switch lineChartKey {
         case .motion:
@@ -502,22 +506,10 @@ extension ZazenController: UITableViewDataSource, UITableViewDelegate {
 
 
 extension ZazenController: IAxisValueFormatter {
-    
+
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        return stringForValue(value)
+        return value.stringZendoTimeWatch
     }
-    
-    func stringForValue(_ value: Double) -> String {
-        let date = Date(timeIntervalSince1970: value)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-        dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm")
-        
-        let localDate = dateFormatter.string(from: date)
-        
-        return localDate.description
-    }
-    
+
 }
 
