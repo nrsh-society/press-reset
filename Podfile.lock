@@ -9,15 +9,11 @@ PODS:
   - Charts (3.1.1):
     - Charts/Core (= 3.1.1)
   - Charts/Core (3.1.1)
-  - FacebookSDK (4.36.0):
+  - FacebookCore (0.3.3):
+    - Bolts (~> 1.9)
+    - FBSDKCoreKit (~> 4.36)
+  - FBSDKCoreKit (4.36.0):
     - Bolts (~> 1.7)
-    - FacebookSDK/CoreKit (= 4.36.0)
-    - FacebookSDK/MarketingKit (= 4.36.0)
-  - FacebookSDK/CoreKit (4.36.0):
-    - Bolts (~> 1.7)
-  - FacebookSDK/MarketingKit (4.36.0):
-    - Bolts (~> 1.7)
-    - FacebookSDK/CoreKit
   - Mixpanel (3.3.3)
   - Mixpanel-swift (2.4.2):
     - Mixpanel-swift/Complete (= 2.4.2)
@@ -29,7 +25,7 @@ PODS:
 DEPENDENCIES:
   - BuddyBuildSDK (~> 1.0.17)
   - Charts (~> 3.1.1)
-  - FacebookSDK
+  - FacebookCore
   - Mixpanel (~> 3.3.3)
   - Mixpanel-swift (~> 2.4.2)
   - NVActivityIndicatorView (~> 4.2.1)
@@ -39,7 +35,8 @@ SPEC REPOS:
     - Bolts
     - BuddyBuildSDK
     - Charts
-    - FacebookSDK
+    - FacebookCore
+    - FBSDKCoreKit
     - Mixpanel
     - Mixpanel-swift
     - NVActivityIndicatorView
@@ -48,11 +45,12 @@ SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BuddyBuildSDK: 8ae12ee721098b356a961ea7dce70ae55f93a7d2
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
-  FacebookSDK: 583a561b37e4ce9a4a0f189332630f6c48b491ef
+  FacebookCore: 9ecbe48cfd37c91a93add7f8cec2b4a2c50a1eec
+  FBSDKCoreKit: 3b8e6570eedb443f9fc4af196a7bf39f18e3a3d8
   Mixpanel: 3c3925c27f7a321d5978319a72f53f8f0885afc5
   Mixpanel-swift: 63de6f5a14468b8d65e0d62ae250714455e17407
   NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
 
-PODFILE CHECKSUM: 6eee6434b6d630bc52a504e9c4aedb1830deb576
+PODFILE CHECKSUM: c6785cd8e3b1bed0581fa846856857e7ad8645ac
 
 COCOAPODS: 1.6.0.beta.1
