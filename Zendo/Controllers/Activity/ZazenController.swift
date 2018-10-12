@@ -75,7 +75,10 @@ class ZazenTableViewCell: UITableViewCell {
             xAxis?.labelPosition = .bottom
             xAxis?.labelTextColor = UIColor.zenGray
             xAxis?.labelFont = zendoFont
-            //xAxis?.drawLabelsEnabled = false //remove until we fix up the timestamps
+            lineChart?.layoutIfNeeded()
+            let count = Int((lineChart?.frame.size.width ?? 300 / 51.2).rounded())
+            xAxis?.setLabelCount(count, force: true)
+        
             
             let rightAxis = lineChart?.rightAxis
             rightAxis?.drawAxisLineEnabled = false

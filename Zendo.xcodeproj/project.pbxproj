@@ -14,6 +14,7 @@
 		121F260A211B499300C1CC96 /* HealthKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F2609211B499300C1CC96 /* HealthKitViewController.swift */; };
 		1246C422212725140011F5D3 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246C421212725140011F5D3 /* BalloonMarker.swift */; };
 		12477F222119A27700D8AE83 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12477F212119A27700D8AE83 /* Settings.swift */; };
+		126544AE2170B44D00CA8F0B /* NavigationControllerWelcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126544AD2170B44D00CA8F0B /* NavigationControllerWelcome.swift */; };
 		1277A526215CF3F800B15CE6 /* SummaryInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1277A525215CF3F800B15CE6 /* SummaryInterfaceController.swift */; };
 		1277A527215D227C00B15CE6 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE6210F7E40007E2480 /* Date.swift */; };
 		1280DD632125DCB100F3DFC1 /* MMChartFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280DD622125DCB100F3DFC1 /* MMChartFormatter.swift */; };
@@ -162,6 +163,7 @@
 		121F2609211B499300C1CC96 /* HealthKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitViewController.swift; sourceTree = "<group>"; };
 		1246C421212725140011F5D3 /* BalloonMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		12477F212119A27700D8AE83 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		126544AD2170B44D00CA8F0B /* NavigationControllerWelcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerWelcome.swift; sourceTree = "<group>"; };
 		1277A525215CF3F800B15CE6 /* SummaryInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInterfaceController.swift; sourceTree = "<group>"; };
 		1280DD622125DCB100F3DFC1 /* MMChartFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMChartFormatter.swift; sourceTree = "<group>"; };
 		128D0BB82111D30900A4D757 /* UIDevice+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Size.swift"; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 		12477F232119A41600D8AE83 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
+				126544AD2170B44D00CA8F0B /* NavigationControllerWelcome.swift */,
 				BE38CF602075D1D10095BB6C /* WelcomeController.swift */,
 				12C2C2802137FCA90039C7A0 /* CommunityViewController.swift */,
 				121F2609211B499300C1CC96 /* HealthKitViewController.swift */,
@@ -814,6 +817,7 @@
 				1246C422212725140011F5D3 /* BalloonMarker.swift in Sources */,
 				12E2A1B521107A9400E0E911 /* UIFont.swift in Sources */,
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
+				126544AE2170B44D00CA8F0B /* NavigationControllerWelcome.swift in Sources */,
 				12E2A19E21106E4500E0E911 /* TimeInterval.swift in Sources */,
 				12E189C1211C64AB004EADE9 /* UIApplication.swift in Sources */,
 				BE38CF612075D1D10095BB6C /* WelcomeController.swift in Sources */,

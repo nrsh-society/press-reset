@@ -21,13 +21,11 @@ class WelcomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
         zenButton.action = {
-            self.dismiss(animated: true, completion: {
-                if let vc = UIApplication.shared.keyWindow?.topViewController {
-                    let community = CommunityViewController.loadFromStoryboard()
-                    vc.present(community, animated: true)
-                }
-            })
+            let community = CommunityViewController.loadFromStoryboard()
+            self.navigationController?.pushViewController(community, animated: true)
         }
         
         for label in labels {

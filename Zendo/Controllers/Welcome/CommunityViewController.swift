@@ -162,13 +162,8 @@ class CommunityViewController: UIViewController {
             }
             
             view.endEditing(true)
-            dismiss(animated: true) {
-                if let vc = UIApplication.shared.keyWindow?.topViewController {
-                    let healthKit = HealthKitViewController.loadFromStoryboard()
-                    vc.present(healthKit, animated: true)
-                }
-            }
-            
+            let healthKit = HealthKitViewController.loadFromStoryboard()
+            self.navigationController?.pushViewController(healthKit, animated: true)
         }
     }
     

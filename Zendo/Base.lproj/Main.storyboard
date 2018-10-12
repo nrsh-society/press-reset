@@ -477,6 +477,22 @@
             </objects>
             <point key="canvasLocation" x="341" y="-1242"/>
         </scene>
+        <!--Navigation Controller Welcome-->
+        <scene sceneID="4bq-fE-EeM">
+            <objects>
+                <navigationController storyboardIdentifier="NavigationControllerWelcome" id="KDa-Fk-7Af" customClass="NavigationControllerWelcome" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VZa-kL-ul3">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Zat-xg-miU" kind="relationship" relationship="rootViewController" id="aC8-Oj-yIB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hSV-e8-VP1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4842" y="-1403"/>
+        </scene>
         <!--Welcome-->
         <scene sceneID="IU5-Lt-djM">
             <objects>
@@ -545,6 +561,8 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
                         <viewLayoutGuide key="safeArea" id="Xf9-SG-J5R"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="3Gh-2W-uh6"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="Url" value="http://sunyata.tools/welcome"/>
                     </userDefinedRuntimeAttributes>
@@ -682,7 +700,7 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RV6-Pm-tov">
                                         <rect key="frame" x="0.0" y="80" width="289" height="98.333333333333314"/>
-                                        <mutableString key="text">In order to get started we need to connect Apple Health app to sync your data with Zendō. This allows Zendō to measure and record HRV and other health indicators during meditation. All health data remains on your devices, nothing is shared with us or anyone else.</mutableString>
+                                        <string key="text">In order to get started we need to connect Apple Health app to sync your data with Zendō. This allows Zendō to measure and record HRV and other health indicators during meditation. All health data remains on your devices, nothing is shared with us or anyone else.</string>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                         <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>

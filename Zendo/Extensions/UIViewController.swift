@@ -22,8 +22,8 @@ extension UIViewController {
     
     func showWelcomeController() {
         if let vc = UIApplication.shared.keyWindow?.topViewController {
-            if !vc.isKind(of: WelcomeController.self) {
-                let controller = WelcomeController.loadFromStoryboard()
+            if !vc.isKind(of: NavigationControllerWelcome.self) {
+                let controller = NavigationControllerWelcome.loadFromStoryboard()
                 present(controller, animated: true)
             }
         }
@@ -42,7 +42,7 @@ extension UIViewController {
     func checkHealthKit(isShow: Bool) {
         if !Settings.isRunOnce {
             if let vc = UIApplication.shared.keyWindow?.topViewController {
-                if !vc.isKind(of: CommunityViewController.self) {
+                if !vc.isKind(of: CommunityViewController.self) && isShow {
                     showWelcomeController()
                 }
             }
@@ -62,7 +62,7 @@ extension UIViewController {
                 case .sharingAuthorized:
                     if index == ZBFHealthKit.hkShareTypes.count - 1 {
                         if let vc = UIApplication.shared.keyWindow?.topViewController {
-                            if vc.isKind(of: HealthKitViewController.self) || vc.isKind(of: WelcomeController.self) {
+                            if vc.isKind(of: HealthKitViewController.self) || vc.isKind(of: NavigationControllerWelcome.self) {
                                 vc.dismiss(animated: true)
                             }
                         }

@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let tabVc = vc as? UITabBarController, let selectedVc = tabVc.selectedViewController {
                 selectedVc.checkHealthKit(isShow: true)
             } else {
-                vc.checkHealthKit(isShow: !vc.isKind(of: HealthKitViewController.self) && !vc.isKind(of: WelcomeController.self))
+                vc.checkHealthKit(isShow: !vc.isKind(of: HealthKitViewController.self) && !vc.isKind(of: NavigationControllerWelcome.self))
             }
         }
     }
