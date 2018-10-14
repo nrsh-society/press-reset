@@ -42,7 +42,8 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     var heartRate = 0.0
     public var heartSDNN = 0.0
     var heartRateSamples = [Double]()
-    var rangeSample = [Double]()
+    var heartRateRangeSamples = [Double]()
+    var movementRangeSamples = [Double]()
     
     private var sampleTimer: Timer?
     private var notifyTimer: Timer?
@@ -271,15 +272,16 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         var haptic = WKHapticType.success
         var message : String? = nil
         
-        rangeSample.append(self.heartRate)
+        heartRateRangeSamples.append(self.heartRate)
+        movementRangeSamples.append(self.motion)
         
         notifyTimerSeconds += 1
         
         if notifyTimerSeconds % 60 == 0
         {
-            if(rangeSample.count > 10)
+            if(heartRateRangeSamples.count > 10)
             {
-                let range = Int((self.rangeSample.max()! - self.rangeSample.min()!) * 60.0.rounded())
+                let range = Int((self.heartRateRangeSamples.max()! - self.heartRateRangeSamples.min()!) * 60.0.rounded())
                 
                 switch range
                 {
@@ -288,6 +290,17 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                         message = "Breathe deeper"
                     default:
                         message = ""
+                }
+            }
+            
+            if(movementRangeSamples.count > 10)
+            {
+                let range = (self.movementRangeSamples.max()! - self.movementRangeSamples.min()!)
+                
+                if(range >= 0.10)
+                {
+                    haptic = WKHapticType.retry
+                    message = "Stop moving"
                 }
             }
             
@@ -304,7 +317,8 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                 }
             }
             
-            rangeSample.removeAll()
+            heartRateRangeSamples.removeAll()
+            movementRangeSamples.removeAll()
         }
         
         self.delegate.sessionTick(startDate: self.startDate!, message: message)
