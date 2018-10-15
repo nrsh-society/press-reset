@@ -293,7 +293,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                 }
             }
             
-            if(movementRangeSamples.count > 10)
+            if(movementRangeSamples.count > 10 && notifyTimerSeconds > 60)
             {
                 let range = (self.movementRangeSamples.max()! - self.movementRangeSamples.min()!)
                 
