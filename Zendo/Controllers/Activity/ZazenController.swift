@@ -76,7 +76,7 @@ class ZazenTableViewCell: UITableViewCell {
             xAxis?.labelTextColor = UIColor.zenGray
             xAxis?.labelFont = zendoFont
             lineChart?.layoutIfNeeded()
-            let count = Int((lineChart?.frame.size.width ?? 300 / 51.2).rounded())
+            let count = Int(((lineChart?.frame.size.width ?? 300) / 51.2).rounded())
             xAxis?.setLabelCount(count, force: true)
         
             

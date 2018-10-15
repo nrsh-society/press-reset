@@ -42,13 +42,15 @@ class OverviewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var currentInterval: CurrentInterval = .hour
-    
+    var isStartOverview = false
+
     let hkPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody)
     let hkType = HKObjectType.workoutType()
     var start = Date()
     var end = Date()
     var hrvData : LineChartData? = nil
     var mmData : LineChartData? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,18 +88,29 @@ class OverviewController: UIViewController {
             }
         }
         
-        ZBFHealthKit.getWorkouts(limit: 1) { [weak self] results in
-            
-            if results.count == 0 {
-                DispatchQueue.main.async() {
-                    self?.tabBarController?.selectedIndex = 1
-                }
-            }
-            
-        }
+        
         
         initHRVData()
         initMMData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if !self.isStartOverview {
+            
+            ZBFHealthKit.getWorkouts(limit: 1) { [weak self] results in
+                
+                if results.count == 0 {
+                    DispatchQueue.main.async() {
+                        self?.tabBarController?.selectedIndex = 1
+                        self?.isStartOverview = true
+                    }
+                }
+                
+            }
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
