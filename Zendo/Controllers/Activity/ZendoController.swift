@@ -23,19 +23,12 @@ class ZendoController: UITableViewController {
     
     let healthStore = ZBFHealthKit.healthStore
     
-    var session: WCSession!
     var isShowFirstSession = false
     var isAutoUpdate = false
     var autoUpdateCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if WCSession.isSupported() {
-            session = WCSession.default
-            session.delegate = self
-            session.activate()
-        }
         
         refreshControl = UIRefreshControl()
         refreshControl?.tintColor = UIColor.white
@@ -46,6 +39,10 @@ class ZendoController: UITableViewController {
         
         tableView.estimatedRowHeight = 60.0
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadActivity), name: .reloadActivity, object: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +55,10 @@ class ZendoController: UITableViewController {
         super.viewWillDisappear(animated)
         
         Mixpanel.mainInstance().track(event: "activity")
+    }
+    
+    deinit {
+         NotificationCenter.default.removeObserver(self, name: .reloadActivity, object: nil)
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -227,6 +228,12 @@ class ZendoController: UITableViewController {
         return cell
     }
     
+    @objc func reloadActivity() {
+        self.isAutoUpdate = true
+        self.autoUpdateCount = self.samples.count
+        self.populateTable()
+    }
+    
     @objc func onReload(_ sender: UIRefreshControl) {
         self.populateTable()
     }
@@ -265,45 +272,6 @@ class ZendoController: UITableViewController {
                 self.present(alert, animated: true)
             }
         }
-    }
-    
-}
-
-extension ZendoController: WCSessionDelegate {
-    
-    func sessionDidBecomeInactive(_ session: WCSession) {
-        print("sessionDidBecomeInactive")
-    }
-    
-    func sessionDidDeactivate(_ session: WCSession) {
-        print("sessionDidDeactivate")
-    }
-    
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        print("Session activation did complete \(activationState.rawValue)")
-    }
-    
-    func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
-        
-        if let message = message as? [String: String] {
-            
-            if message["watch"] == "reload" {
-                
-                DispatchQueue.main.async {
-                    self.isAutoUpdate = true
-                    self.autoUpdateCount = self.samples.count
-                    self.populateTable()
-                    NotificationCenter.default.post(name: .reloadOverview, object: nil)
-                }
-                
-            } else if message["watch"] == "mixpanel" {
-                
-                if let email = Settings.email, let name = Settings.fullName {
-                    replyHandler(["email": email, "name": name])
-                }
-            }
-        }
-        
     }
     
 }

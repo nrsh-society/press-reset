@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BuddyBuildSDK.setup()
         CommunityDataLoader.load()
         
+        WatchSessionManager.sharedManager.startSession()
+        
         UINavigationBar.appearance().barTintColor = UIColor.zenDarkGreen
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().isTranslucent = false

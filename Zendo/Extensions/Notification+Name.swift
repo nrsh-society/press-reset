@@ -10,4 +10,5 @@ import Foundation
 
 extension Notification.Name {
     static let reloadOverview = Notification.Name("reloadOverview")
+    static let reloadActivity = Notification.Name("reloadActivity")
 }
