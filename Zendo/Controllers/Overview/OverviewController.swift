@@ -51,9 +51,14 @@ class OverviewController: UIViewController {
     var hrvData : LineChartData? = nil
     var mmData : LineChartData? = nil
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setNeedsStatusBarAppearanceUpdate()
         
         setDate()
         

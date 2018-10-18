@@ -18,6 +18,17 @@
 		126544AE2170B44D00CA8F0B /* NavigationControllerWelcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126544AD2170B44D00CA8F0B /* NavigationControllerWelcome.swift */; };
 		1277A526215CF3F800B15CE6 /* SummaryInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1277A525215CF3F800B15CE6 /* SummaryInterfaceController.swift */; };
 		1277A527215D227C00B15CE6 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE6210F7E40007E2480 /* Date.swift */; };
+		127C3E2921788FD300B332EB /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 127C3E2821788FD300B332EB /* Discover.storyboard */; };
+		127C3E2B2178939C00B332EB /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C3E2A2178939C00B332EB /* DiscoverViewController.swift */; };
+		127C3E342178993100B332EB /* DiscoverCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C3E322178993100B332EB /* DiscoverCollectionViewCell.swift */; };
+		127C3E352178993100B332EB /* DiscoverCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 127C3E332178993100B332EB /* DiscoverCollectionViewCell.xib */; };
+		127C3E3721789FD800B332EB /* CALayer+Corners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C3E3621789FD800B332EB /* CALayer+Corners.swift */; };
+		127C3E392178B37C00B332EB /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C3E382178B37C00B332EB /* VideoViewController.swift */; };
+		127C3E3B2178B44700B332EB /* Mount.MOV in Resources */ = {isa = PBXBuildFile; fileRef = 127C3E3A2178B44700B332EB /* Mount.MOV */; };
+		127C3E3D2178CEFC00B332EB /* Mount2.MOV in Resources */ = {isa = PBXBuildFile; fileRef = 127C3E3C2178CEFC00B332EB /* Mount2.MOV */; };
+		127C3E3F2178CF0E00B332EB /* Sea.MOV in Resources */ = {isa = PBXBuildFile; fileRef = 127C3E3E2178CF0E00B332EB /* Sea.MOV */; };
+		127C3E412178DAF500B332EB /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C3E402178DAF500B332EB /* LoadingView.swift */; };
+		127C3E432178DB1100B332EB /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 127C3E422178DB1100B332EB /* LoadingView.xib */; };
 		1280DD632125DCB100F3DFC1 /* MMChartFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280DD622125DCB100F3DFC1 /* MMChartFormatter.swift */; };
 		128D0BB92111D30900A4D757 /* UIDevice+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128D0BB82111D30900A4D757 /* UIDevice+Size.swift */; };
 		12C1A7282119B74B00EEFF4F /* ZenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C1A7272119B74B00EEFF4F /* ZenButton.swift */; };
@@ -168,6 +179,17 @@
 		12477F212119A27700D8AE83 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		126544AD2170B44D00CA8F0B /* NavigationControllerWelcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerWelcome.swift; sourceTree = "<group>"; };
 		1277A525215CF3F800B15CE6 /* SummaryInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInterfaceController.swift; sourceTree = "<group>"; };
+		127C3E2821788FD300B332EB /* Discover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Discover.storyboard; sourceTree = "<group>"; };
+		127C3E2A2178939C00B332EB /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
+		127C3E322178993100B332EB /* DiscoverCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverCollectionViewCell.swift; sourceTree = "<group>"; };
+		127C3E332178993100B332EB /* DiscoverCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoverCollectionViewCell.xib; sourceTree = "<group>"; };
+		127C3E3621789FD800B332EB /* CALayer+Corners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Corners.swift"; sourceTree = "<group>"; };
+		127C3E382178B37C00B332EB /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		127C3E3A2178B44700B332EB /* Mount.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = Mount.MOV; sourceTree = "<group>"; };
+		127C3E3C2178CEFC00B332EB /* Mount2.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = Mount2.MOV; sourceTree = "<group>"; };
+		127C3E3E2178CF0E00B332EB /* Sea.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = Sea.MOV; sourceTree = "<group>"; };
+		127C3E402178DAF500B332EB /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		127C3E422178DB1100B332EB /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		1280DD622125DCB100F3DFC1 /* MMChartFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMChartFormatter.swift; sourceTree = "<group>"; };
 		128D0BB82111D30900A4D757 /* UIDevice+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Size.swift"; sourceTree = "<group>"; };
 		12C1A7272119B74B00EEFF4F /* ZenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenButton.swift; sourceTree = "<group>"; };
@@ -322,6 +344,36 @@
 			path = Welcome;
 			sourceTree = "<group>";
 		};
+		127C3E2721788F9900B332EB /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				127C3E2821788FD300B332EB /* Discover.storyboard */,
+				127C3E2A2178939C00B332EB /* DiscoverViewController.swift */,
+				127C3E382178B37C00B332EB /* VideoViewController.swift */,
+				127C3E3A2178B44700B332EB /* Mount.MOV */,
+				127C3E3C2178CEFC00B332EB /* Mount2.MOV */,
+				127C3E3E2178CF0E00B332EB /* Sea.MOV */,
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		127C3E2C217898DA00B332EB /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				127C3E2D217898E000B332EB /* DiscoverCollectionViewCell */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		127C3E2D217898E000B332EB /* DiscoverCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				127C3E322178993100B332EB /* DiscoverCollectionViewCell.swift */,
+				127C3E332178993100B332EB /* DiscoverCollectionViewCell.xib */,
+			);
+			path = DiscoverCollectionViewCell;
+			sourceTree = "<group>";
+		};
 		1280DD612125DC9700F3DFC1 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
@@ -334,12 +386,15 @@
 		12C1A7262119B70100EEFF4F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				127C3E2C217898DA00B332EB /* Cell */,
 				12C1A7272119B74B00EEFF4F /* ZenButton.swift */,
 				12C1A7292119B75900EEFF4F /* ZenButton.xib */,
 				12C1A72D2119C27C00EEFF4F /* ZenInfoView.swift */,
 				12C1A72F2119C28700EEFF4F /* ZenInfoView.xib */,
 				12C2C27C2137F7E80039C7A0 /* ZenTextField.swift */,
 				12C2C27E2137F7F70039C7A0 /* ZenTextField.xib */,
+				127C3E402178DAF500B332EB /* LoadingView.swift */,
+				127C3E422178DB1100B332EB /* LoadingView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -397,6 +452,7 @@
 				12477F232119A41600D8AE83 /* Welcome */,
 				12CE365521132AB000EF0196 /* TabBar */,
 				12CE365621132AC500EF0196 /* Overview */,
+				127C3E2721788F9900B332EB /* Discover */,
 				12FFCAE2210F6DA8007E2480 /* Activity */,
 			);
 			path = Controllers;
@@ -441,6 +497,7 @@
 				12DAE77B212B1A1200D28DD7 /* Array.swift */,
 				12CBA45D213549560066F671 /* TimeZone+UTC.swift */,
 				12C2C285213802760039C7A0 /* String.swift */,
+				127C3E3621789FD800B332EB /* CALayer+Corners.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -680,15 +737,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				127C3E3B2178B44700B332EB /* Mount.MOV in Resources */,
 				12E2A1A9211073D700E0E911 /* Antenna-Light.otf in Resources */,
 				12C1A72A2119B75900EEFF4F /* ZenButton.xib in Resources */,
 				12E2A1A7211073D600E0E911 /* Antenna-ExtraLight.otf in Resources */,
 				BEBAE48D20E6DED800495C65 /* gallery.ckcomplication in Resources */,
 				BE2E81F71FF44A7B00D104AC /* LaunchScreen.storyboard in Resources */,
+				127C3E2921788FD300B332EB /* Discover.storyboard in Resources */,
 				BEEA862F20D4A941003E1E1D /* Assets.xcassets in Resources */,
+				127C3E3D2178CEFC00B332EB /* Mount2.MOV in Resources */,
+				127C3E3F2178CF0E00B332EB /* Sea.MOV in Resources */,
 				12E2A1A8211073D600E0E911 /* Antenna-Medium.otf in Resources */,
+				127C3E432178DB1100B332EB /* LoadingView.xib in Resources */,
 				12C2C27F2137F7F70039C7A0 /* ZenTextField.xib in Resources */,
 				12E2A1AA211073D700E0E911 /* Antenna-Regular.otf in Resources */,
+				127C3E352178993100B332EB /* DiscoverCollectionViewCell.xib in Resources */,
 				12C1A7302119C28700EEFF4F /* ZenInfoView.xib in Resources */,
 				BE2E81F21FF44A7B00D104AC /* Main.storyboard in Resources */,
 			);
@@ -823,11 +886,13 @@
 				12C2C27D2137F7E80039C7A0 /* ZenTextField.swift in Sources */,
 				12D3BB34211A00B40081CAE2 /* OverviewTableViewCell.swift in Sources */,
 				12CE365421132A7100EF0196 /* UIImage.swift in Sources */,
+				127C3E3721789FD800B332EB /* CALayer+Corners.swift in Sources */,
 				BE066BDD20F1F3D10008747D /* PageController.swift in Sources */,
 				12C1A7282119B74B00EEFF4F /* ZenButton.swift in Sources */,
 				128D0BB92111D30900A4D757 /* UIDevice+Size.swift in Sources */,
 				1280DD632125DCB100F3DFC1 /* MMChartFormatter.swift in Sources */,
 				12CBA45E213549560066F671 /* TimeZone+UTC.swift in Sources */,
+				127C3E2B2178939C00B332EB /* DiscoverViewController.swift in Sources */,
 				1246C422212725140011F5D3 /* BalloonMarker.swift in Sources */,
 				12E2A1B521107A9400E0E911 /* UIFont.swift in Sources */,
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
@@ -855,11 +920,14 @@
 				BE066BD820F1EFC10008747D /* OverviewController.swift in Sources */,
 				12F121352125B67D00F5451D /* ConstraintMetadata.swift in Sources */,
 				BE75AEC020F708C300311512 /* ChartSeries.swift in Sources */,
+				127C3E392178B37C00B332EB /* VideoViewController.swift in Sources */,
+				127C3E342178993100B332EB /* DiscoverCollectionViewCell.swift in Sources */,
 				BE2E81ED1FF44A7B00D104AC /* AppDelegate.swift in Sources */,
 				BE75AEBF20F708C300311512 /* ChartColors.swift in Sources */,
 				121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */,
 				12C1A72C2119B78900EEFF4F /* UIView+Nib.swift in Sources */,
 				12E2A1B22110774000E0E911 /* ConstraintFont.swift in Sources */,
+				127C3E412178DAF500B332EB /* LoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1052,10 +1120,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1076,10 +1144,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1099,11 +1167,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1123,11 +1191,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1149,7 +1217,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1157,7 +1225,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1177,7 +1245,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1185,7 +1253,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

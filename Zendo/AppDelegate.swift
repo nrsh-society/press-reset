@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         WatchSessionManager.sharedManager.startSession()
         
+        UINavigationBar.appearance().barStyle = .black
         UINavigationBar.appearance().barTintColor = UIColor.zenDarkGreen
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().isTranslucent = false
@@ -39,6 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: UIColor.zenLightGreen], for: .normal)
         
         UITabBar.appearance().tintColor = UIColor.zenDarkGreen
+        UITabBar.appearance().shadowImage = UIImage()
+        UITabBar.appearance().backgroundImage = UIImage()
+        
         
         return true
     }

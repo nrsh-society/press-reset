@@ -30,6 +30,7 @@
                     <connections>
                         <segue destination="dQQ-wO-gKW" kind="relationship" relationship="viewControllers" id="Vn3-Bl-8fK"/>
                         <segue destination="NpG-kt-vUd" kind="relationship" relationship="viewControllers" id="UdI-sM-D8m"/>
+                        <segue destination="JMk-Ob-UTQ" kind="relationship" relationship="viewControllers" id="Xhm-2I-o62"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pAZ-Ik-ThF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -481,7 +482,7 @@
         <scene sceneID="4bq-fE-EeM">
             <objects>
                 <navigationController storyboardIdentifier="NavigationControllerWelcome" id="KDa-Fk-7Af" customClass="NavigationControllerWelcome" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VZa-kL-ul3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="VZa-kL-ul3">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -752,7 +753,7 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NpG-kt-vUd" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Activity" image="history" selectedImage="history" id="3AK-3D-fq3"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="zpU-Js-o0E">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" largeTitles="YES" id="zpU-Js-o0E">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.77638524770736694" green="0.77651971578598022" blue="0.77637678384780884" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -766,18 +767,31 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
             </objects>
             <point key="canvasLocation" x="-1467" y="-1241"/>
         </scene>
+        <!--Discover-->
+        <scene sceneID="g6j-vf-B1T">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Discover" referencedIdentifier="Discover" id="JMk-Ob-UTQ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Discover" image="history" selectedImage="history" id="o6P-gv-gto"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xcg-lX-7hT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1505" y="-735"/>
+        </scene>
         <!--Overview-->
         <scene sceneID="A82-vc-Hsq">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dQQ-wO-gKW" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Overview" image="overview" selectedImage="overview" id="jZ9-Xv-6H8"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="yuJ-Xz-6rT">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" largeTitles="YES" id="yuJ-Xz-6rT">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.70972543954849243" green="0.70984917879104614" blue="0.70971763134002686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lQM-2X-MjJ">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="y4I-bb-DEZ" kind="relationship" relationship="rootViewController" id="XrC-db-9U0"/>
                     </connections>
