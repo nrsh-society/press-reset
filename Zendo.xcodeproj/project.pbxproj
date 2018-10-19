@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0D53E8CB86D55DEC3ABD3EED /* Pods_Zendo_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A68E6B7BCA076B4161502D /* Pods_Zendo_WatchKit_Extension.framework */; };
+		12013EB72179D4FD00F46B93 /* DiscoverVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12013EB62179D4FD00F46B93 /* DiscoverVideo.swift */; };
 		121F25FE211B367D00C1CC96 /* SessionCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F25FD211B367D00C1CC96 /* SessionCommands.swift */; };
 		121F2600211B372300C1CC96 /* SessionDelegater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F25FF211B372300C1CC96 /* SessionDelegater.swift */; };
 		121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F2604211B3D9C00C1CC96 /* Notification+Name.swift */; };
@@ -170,6 +171,7 @@
 
 /* Begin PBXFileReference section */
 		06C02D6D9410AEB7C6216CED /* Pods-Zendo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zendo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zendo/Pods-Zendo.release.xcconfig"; sourceTree = "<group>"; };
+		12013EB62179D4FD00F46B93 /* DiscoverVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverVideo.swift; sourceTree = "<group>"; };
 		121F25FD211B367D00C1CC96 /* SessionCommands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCommands.swift; sourceTree = "<group>"; };
 		121F25FF211B372300C1CC96 /* SessionDelegater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDelegater.swift; sourceTree = "<group>"; };
 		121F2604211B3D9C00C1CC96 /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 			isa = PBXGroup;
 			children = (
 				127C3E2C217898DA00B332EB /* Cell */,
+				12013EB62179D4FD00F46B93 /* DiscoverVideo.swift */,
 				12C1A7272119B74B00EEFF4F /* ZenButton.swift */,
 				12C1A7292119B75900EEFF4F /* ZenButton.xib */,
 				12C1A72D2119C27C00EEFF4F /* ZenInfoView.swift */,
@@ -814,6 +817,7 @@
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/Mixpanel-swift/Mixpanel.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 			);
@@ -823,6 +827,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 			);
@@ -910,6 +915,7 @@
 				12E2A1B721107CE400E0E911 /* UIColor+Zendo.swift in Sources */,
 				12FFCAE5210F7DDD007E2480 /* Cell+ReuseIdentifier.swift in Sources */,
 				BE75AEC120F708C300311512 /* Chart.swift in Sources */,
+				12013EB72179D4FD00F46B93 /* DiscoverVideo.swift in Sources */,
 				12C2C2812137FCA90039C7A0 /* CommunityViewController.swift in Sources */,
 				BE2E81EF1FF44A7B00D104AC /* ZendoController.swift in Sources */,
 				12C1A72E2119C27C00EEFF4F /* ZenInfoView.swift in Sources */,

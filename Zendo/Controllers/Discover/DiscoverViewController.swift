@@ -6,67 +6,17 @@
 //  Copyright © 2018 zenbf. All rights reserved.
 //
 
-import AVFoundation
 import UIKit
-
-class DiscoverVideo: UIView {
-    var player: AVPlayer?
-    
-    func createBackground(name: String, type: String) {
-        guard let path = Bundle.main.path(forResource: name, ofType: type) else { return }
-        
-        player = AVPlayer(url: URL(fileURLWithPath: path))
-        player?.actionAtItemEnd = AVPlayerActionAtItemEnd.none;
-        let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.frame = self.frame
-        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        layer.insertSublayer(playerLayer, at: 0)
-        player?.seek(to: kCMTimeZero)
-        player?.play()
-    }
-    
-    func replaceVideo(name: String, type: String) {
-        guard let path = Bundle.main.path(forResource: name, ofType: type), player != nil  else { return }
-
-        player?.replaceCurrentItem(with: AVPlayerItem(url: URL(fileURLWithPath: path)))
-    }
-    
-    func screenshot() -> UIImage? {
-        guard let time = player?.currentItem?.currentTime() else {
-            return nil
-        }
-        
-        return screenshotCMTime(cmTime: time)
-    }
-    
-    private func screenshotCMTime(cmTime: CMTime) -> UIImage? {
-        guard let player = player , let asset = player.currentItem?.asset, var timePicture = player.currentItem?.currentTime()  else {
-            return nil
-        }
-        let imageGenerator = AVAssetImageGenerator(asset: asset)
-        
-        imageGenerator.appliesPreferredTrackTransform = true
-        imageGenerator.requestedTimeToleranceAfter = kCMTimeZero
-        imageGenerator.requestedTimeToleranceBefore = kCMTimeZero
-        
-        let ref = try? imageGenerator.copyCGImage(at: cmTime, actualTime: &timePicture)
-        
-        if let ref = ref {
-            return UIImage(cgImage: ref)
-        }
-        return nil
-        
-    }
-    
-}
+import Hero
+import AVFoundation
 
 class DiscoverViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
     let space: CGFloat = 9
+    let showVideo = "showVideo"
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,15 +27,15 @@ class DiscoverViewController: UIViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+//         guard let vc = segue.destination as? VideoViewController else { return }
+        
+        
     }
-    */
+    
 
 }
 
@@ -98,16 +48,17 @@ extension DiscoverViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiscoverCollectionViewCell.reuseIdentifierCell, for: indexPath) as! DiscoverCollectionViewCell
-        
-        
+        cell.hero.id = "cellImage" + indexPath.row.description
         return cell
-        
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "showVideo", sender: self)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {        
+        let vc = VideoViewController.loadFromStoryboard()
+        vc.idAnim = "cellImage" + indexPath.row.description
+        vc.hero.isEnabled = true
+        present(vc, animated: true, completion: nil)
+
     }
     
 }
@@ -129,5 +80,4 @@ extension DiscoverViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: space, left: space, bottom: space, right: space)
     }
 
-    
 }

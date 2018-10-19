@@ -14,7 +14,7 @@
         <scene sceneID="Ime-Zv-U1n">
             <objects>
                 <navigationController storyboardIdentifier="Discover" id="bCZ-lE-zvU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Discover" image="history" selectedImage="history" id="4qd-LU-3nj"/>
+                    <tabBarItem key="tabBarItem" title="Discover" image="discover" selectedImage="discover" id="4qd-LU-3nj"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" largeTitles="YES" id="tB7-NX-orU">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -64,7 +64,6 @@
                     <navigationItem key="navigationItem" title="Discover" id="1WB-04-bbZ"/>
                     <connections>
                         <outlet property="collectionView" destination="5mX-wP-Mak" id="GfC-9l-iGS"/>
-                        <segue destination="rqT-iW-Cyw" kind="presentation" identifier="showVideo" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="aZT-ks-z4a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NCe-zG-nR2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -74,7 +73,7 @@
         <!--Video View Controller-->
         <scene sceneID="urz-rv-vEc">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="rqT-iW-Cyw" customClass="VideoViewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VideoViewController" hidesBottomBarWhenPushed="YES" id="rqT-iW-Cyw" customClass="VideoViewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MY4-5U-O3H">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -82,7 +81,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TL7-bc-9TJ" customClass="DiscoverVideo" customModule="Zendo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1X-R2-hU7">
+                                    <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1X-R2-hU7">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ull-KX-f86">
@@ -147,6 +146,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="history" width="23" height="23"/>
+        <image name="discover" width="20" height="20"/>
     </resources>
 </document>

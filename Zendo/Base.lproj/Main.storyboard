@@ -771,7 +771,7 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
         <scene sceneID="g6j-vf-B1T">
             <objects>
                 <viewControllerPlaceholder storyboardName="Discover" referencedIdentifier="Discover" id="JMk-Ob-UTQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Discover" image="history" selectedImage="history" id="o6P-gv-gto"/>
+                    <tabBarItem key="tabBarItem" title="Discover" image="discover" selectedImage="discover" id="o6P-gv-gto"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xcg-lX-7hT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1087,6 +1087,7 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
     <resources>
         <image name="arrow" width="75" height="61"/>
         <image name="connectToHealthkit" width="311" height="340"/>
+        <image name="discover" width="20" height="20"/>
         <image name="firstSession" width="248" height="319"/>
         <image name="history" width="23" height="23"/>
         <image name="hrv" width="39" height="35"/>

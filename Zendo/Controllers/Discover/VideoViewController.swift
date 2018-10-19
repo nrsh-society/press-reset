@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVFoundation
+import Hero
 
 enum PlayerStatus: Float {
     case pause = 0.0
@@ -15,10 +17,12 @@ enum PlayerStatus: Float {
 
 class VideoViewController: UIViewController {
     
+    var panGR: UIPanGestureRecognizer!
+    
+    var idAnim = ""
     @IBOutlet weak var loadStackView: UIStackView!
     @IBOutlet weak var rightView: UIView! {
         didSet {
-
             rightView.backgroundColor = .clear
         }
     }
@@ -32,18 +36,42 @@ class VideoViewController: UIViewController {
             centerView.backgroundColor = .clear
         }
     }
-    @IBOutlet weak var video: DiscoverVideo!
+    @IBOutlet weak var video: DiscoverVideo! {
+        didSet {
+            video.hero.id = idAnim
+        }
+    }
     
     var count = 3
-    var curent = 1
+    var curent = 0
     
     var timer: Timer?
+    
+    var avArray = [AVPlayer]()
+    var avArrayItem = [AVPlayerItem]()
+    var names = ["Mount", "Mount2", "Sea"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for _ in 0..<count {
+//        video.addBackground()
+        
+        panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
+                video.addGestureRecognizer(panGR)
+        
+    
+        for i in 0..<count {
             loadStackView.addArrangedSubview(LoadingView())
+            
+            guard let path = Bundle.main.path(forResource: names[i], ofType: "MOV") else { return }
+            
+            let player = AVPlayer(url: URL(fileURLWithPath: path))
+            player.actionAtItemEnd = .none
+            player.play()
+            player.pause()
+            avArray.append(player)
+            let item = AVPlayerItem(url: URL(fileURLWithPath: path))
+            avArrayItem.append(item)
         }
         
         startVideo()
@@ -56,16 +84,12 @@ class VideoViewController: UIViewController {
                 if currentTime >= duration {
                     self.tapRight()
                 } else {
-                    if let view = self.loadStackView.arrangedSubviews[self.curent - 1] as? LoadingView {
+                    if let view = self.loadStackView.arrangedSubviews[self.curent] as? LoadingView {
                         view.setCurent(currentTime / duration)
                     }
                 }
             }
         })
-        
-        let gr = UISwipeGestureRecognizer(target: self, action: #selector(dismissVideo))
-        gr.direction = .down
-        video.addGestureRecognizer(gr)
         
         let grLeft = UITapGestureRecognizer(target: self, action: #selector(tapLeft))
         leftView.addGestureRecognizer(grLeft)
@@ -79,20 +103,81 @@ class VideoViewController: UIViewController {
         modalPresentationCapturesStatusBarAppearance = true
     }
     
+    static func loadFromStoryboard() -> VideoViewController {
+        return UIStoryboard(name: "Discover", bundle: nil).instantiateViewController(withIdentifier: "VideoViewController") as! VideoViewController
+    }
+    
+    @objc func pan() {
+        let translation = panGR.translation(in: nil)
+        let progress = translation.y / view.bounds.height
+        switch panGR.state {
+        case .began:
+            hero.dismissViewController()
+        case .changed:
+            Hero.shared.update(progress)
+            let currentPos = CGPoint(x: translation.x + view.center.x, y: translation.y + view.center.y)
+            Hero.shared.apply(modifiers: [.position(currentPos)], to: video)
+        default:
+            if progress + panGR.velocity(in: nil).y / view.bounds.height > 0.3 {
+                Hero.shared.finish()
+            } else {
+                Hero.shared.cancel()
+            }
+        }
+    }
+
+    
     func nameVideo() -> String{
         switch curent {
-        case 1: return "Mount"
-        case 2: return "Mount2"
-        case 3: return "Sea"
+        case 0: return "Mount"
+        case 1: return "Mount2"
+        case 2: return "Sea"
         default: return ""
         }
     }
     
     func startVideo() {
+        print(curent)
+
         if video.player == nil {
-            video.createBackground(name: nameVideo(), type: "MOV")
+            video.createBackground(playernew: avArray[curent])
+            video.play()
+//            video.createBackground(playernew: avArray[curent + 1])
         } else {
-            video.replaceVideo(name: nameVideo(), type: "MOV")
+            video.replaceVideo(item: avArrayItem[curent], playernew: avArray[curent])
+
+//            video.createBackground(playernew: avArray[curent])
+            
+//            guard let path = Bundle.main.path(forResource: "Mount2", ofType: "MOV") else { return }
+//
+//            let player = AVPlayer(url: URL(fileURLWithPath: path))
+//            player.actionAtItemEnd = .none
+//            video.replaceVideo(playernew: player)
+//            video.play()
+//            video.player!.pause()
+//            video.player = nil
+//            video.player!.
+//            video.player = avArray[curent]
+//            video.player!.seek(to: kCMTimeZero)
+//            video.player!.currentItem!.seek(to: kCMTimeZero) { (seek) in
+//
+//            }
+//            video.player!.play()
+            
+//            video.replaceVideo(item: avArrayItem[curent])
+//            if curent < count - 1{
+//                video.createBackground(playernew: avArray[curent + 1])
+//            }
+//            if video.isOne {
+//                video.playerLayer?.removeFromSuperlayer()
+//                video.playTwo()
+//                video.createBackground(playernew: avArray[curent])
+//            } else {
+//                video.playerLayerTwo?.removeFromSuperlayer()
+//                video.play()
+//                video.createBackgroundTwo(playernew: avArray[curent])
+//            }
+            
         }
     }
 
@@ -100,17 +185,17 @@ class VideoViewController: UIViewController {
     @objc func tapLeft() {
         print("tapLeft")
         
-        if let image = video.screenshot() {
-            video.backgroundColor = UIColor(patternImage: image)
-        }
+//        if let image = video.screenshot() {
+//            video.backgroundColor = UIColor(patternImage: image)
+//        }
         
-        if let view = loadStackView.arrangedSubviews[curent - 1] as? LoadingView {
+        if let view = loadStackView.arrangedSubviews[curent] as? LoadingView {
             view.setStart()
         }
         
-        if curent > 1 {
+        if curent > 0 {
             curent -= 1
-            if let view = loadStackView.arrangedSubviews[curent - 1] as? LoadingView {
+            if let view = loadStackView.arrangedSubviews[curent] as? LoadingView {
                 view.setStart()
             }
             startVideo()
@@ -120,19 +205,19 @@ class VideoViewController: UIViewController {
     @objc func tapRight() {
         print("tapRight")
         
-        if let image = video.screenshot() {
-            video.backgroundColor = UIColor(patternImage: image)
-        }
+//        if let image = video.screenshot() {
+//            video.backgroundColor = UIColor(patternImage: image)
+//        }
         
         
-        if let view = loadStackView.arrangedSubviews[curent - 1] as? LoadingView {
+        if let view = loadStackView.arrangedSubviews[curent] as? LoadingView {
             view.setEnd()
         }
 
-        if curent < count {
+        if curent < count - 1 {
             curent += 1
             startVideo()
-        } else if curent == count {
+        } else if curent == count - 1 {
             dismissVideo()
         }
     }
@@ -151,12 +236,6 @@ class VideoViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        //        setNeedsStatusBarAppearanceUpdate()
-    }
-    
     @objc func dismissVideo() {
         timer?.invalidate()
         dismiss(animated: true)
@@ -165,8 +244,6 @@ class VideoViewController: UIViewController {
     override var prefersStatusBarHidden: Bool{
         return true
     }
-    
-    
     
     
     /*
@@ -178,5 +255,26 @@ class VideoViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
+    
+}
+
+extension UIView {
+    
+    func addBackground() {
+        // screen width and height:
+        let width = UIScreen.main.bounds.size.width
+        let height = UIScreen.main.bounds.size.height
+        
+        let imageViewBackground = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: width, height: height))
+        imageViewBackground.image = UIImage(named: "welcome")
+        
+        // you can change the content mode:
+        imageViewBackground.contentMode = UIViewContentMode.scaleAspectFill
+        
+        //        self.addSubview(imageViewBackground)
+        //        self.sendSubview(toBack: imageViewBackground)
+        
+        layer.insertSublayer(imageViewBackground.layer, at: 0)
+    }
     
 }
