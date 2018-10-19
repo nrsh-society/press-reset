@@ -29,6 +29,7 @@
 		12C2C27F2137F7F70039C7A0 /* ZenTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12C2C27E2137F7F70039C7A0 /* ZenTextField.xib */; };
 		12C2C2812137FCA90039C7A0 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2C2802137FCA90039C7A0 /* CommunityViewController.swift */; };
 		12C2C286213802760039C7A0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2C285213802760039C7A0 /* String.swift */; };
+		12C85D662176168C00329B53 /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C85D652176168B00329B53 /* WatchSessionManager.swift */; };
 		12CBA45E213549560066F671 /* TimeZone+UTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CBA45D213549560066F671 /* TimeZone+UTC.swift */; };
 		12CE364E211302A900EF0196 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE364D211302A900EF0196 /* UIView.swift */; };
 		12CE3652211327D300EF0196 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE3651211327D300EF0196 /* TabBarController.swift */; };
@@ -178,6 +179,7 @@
 		12C2C27E2137F7F70039C7A0 /* ZenTextField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZenTextField.xib; sourceTree = "<group>"; };
 		12C2C2802137FCA90039C7A0 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
 		12C2C285213802760039C7A0 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		12C85D652176168B00329B53 /* WatchSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSessionManager.swift; sourceTree = "<group>"; };
 		12CBA45D213549560066F671 /* TimeZone+UTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+UTC.swift"; sourceTree = "<group>"; };
 		12CE364D211302A900EF0196 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		12CE3651211327D300EF0196 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -342,6 +344,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		12C85D642176167700329B53 /* Watch */ = {
+			isa = PBXGroup;
+			children = (
+				12C85D652176168B00329B53 /* WatchSessionManager.swift */,
+			);
+			path = Watch;
+			sourceTree = "<group>";
+		};
 		12CE365521132AB000EF0196 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -382,6 +392,7 @@
 		12E2A1B3211077B400E0E911 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				12C85D642176167700329B53 /* Watch */,
 				1280DD612125DC9700F3DFC1 /* Chart */,
 				12477F232119A41600D8AE83 /* Welcome */,
 				12CE365521132AB000EF0196 /* TabBar */,
@@ -828,6 +839,7 @@
 				12FFCAE1210F6DA0007E2480 /* ZendoTableViewCell.swift in Sources */,
 				121F260A211B499300C1CC96 /* HealthKitViewController.swift in Sources */,
 				12DAE77C212B1A1200D28DD7 /* Array.swift in Sources */,
+				12C85D662176168C00329B53 /* WatchSessionManager.swift in Sources */,
 				BE50D2F220CC3BA200FF9C54 /* CommunityDataLoader.swift in Sources */,
 				12E189BC211C6387004EADE9 /* UIViewController.swift in Sources */,
 				12E2A1B721107CE400E0E911 /* UIColor+Zendo.swift in Sources */,
