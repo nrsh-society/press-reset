@@ -29,25 +29,18 @@ class LoadingView: UIView {
     
     func setCurent(_ alpha: Double) {
         DispatchQueue.main.async {
-            
-//            self.loadViewWidth.constant = self.bounds.width * CGFloat(alpha)
-            
-            if !alpha.isNaN {
-                UIView.animate(withDuration: 1) {
+            if !alpha.isNaN && !alpha.isInfinite {
+                UIView.animate(withDuration: 1.3) {
                     self.loadView.frame.size.width = self.bounds.width * CGFloat(alpha)
-                    //                self.layoutIfNeeded()
                 }
             }
-                       
+            
         }
     }
     
     func setEnd() {
         DispatchQueue.main.async {
-//            self.loadViewWidth.constant = self.bounds.width
-            
             self.loadView.frame.size.width = self.bounds.width
-            
         }
     }
     

@@ -19,7 +19,6 @@ class VideoViewController: UIViewController {
     
     var panGR: UIPanGestureRecognizer!
     
-    var idAnim = ""
     @IBOutlet weak var loadStackView: UIStackView!
     @IBOutlet weak var rightView: UIView! {
         didSet {
@@ -36,60 +35,87 @@ class VideoViewController: UIViewController {
             centerView.backgroundColor = .clear
         }
     }
-    @IBOutlet weak var video: DiscoverVideo! {
+    @IBOutlet weak var video: UIView! {
         didSet {
-            video.hero.id = idAnim
+            video.hero.id = idHero
         }
     }
     
-    var count = 3
+    var idHero = ""
     var curent = 0
+    var previous: Int?
     
-    var timer: Timer?
+    var playerLayers = [AVPlayerLayer]()
     
-    var avArray = [AVPlayer]()
-    var avArrayItem = [AVPlayerItem]()
-    var names = ["Mount", "Mount2", "Sea"]
+    var playerLayerCurrent: AVPlayerLayer {
+        return playerLayers[curent]
+    }
+    
+    var playerLayerPrevious: AVPlayerLayer? {
+        return previous == nil ? nil : playerLayers[previous!]
+    }
+    
+//    var names = [
+//        "https://s3-us-west-2.amazonaws.com/media.zendo.tools/1st_tutorial_iphone-8.m3u8",
+//        "https://s3-us-west-2.amazonaws.com/media.zendo.tools/2nd_tutorial_iphone-8.m3u8",
+//        "https://s3-us-west-2.amazonaws.com/media.zendo.tools/3rd_tutorial_iphone-8.m3u8",
+//        "https://s3-us-west-2.amazonaws.com/media.zendo.tools/4th_tutorial_iphone-8.m3u8",
+//        "https://s3-us-west-2.amazonaws.com/media.zendo.tools/5th_tutorial_iphone-8.m3u8"
+//    ]
+    var names = [
+        "Mount",
+        "Mount2",
+        "Sea"
+    ]
+    
+    var playerObserver: Any?
+    var story: Story?
+    
+    let interval = CMTime(seconds: 1.0, preferredTimescale: 1)
+    //        let interval = CMTime(seconds: 1.0, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+    
+    let mainQueue = DispatchQueue.main
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        video.addBackground()
-        
         panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
-                video.addGestureRecognizer(panGR)
+        video.addGestureRecognizer(panGR)
         
-    
-        for i in 0..<count {
-            loadStackView.addArrangedSubview(LoadingView())
+        if let story = story, let thumbnailUrl = story.thumbnailUrl {
+            UIImage.imageFromUrl(urlString: thumbnailUrl) { image in
+                DispatchQueue.main.async {
+                    self.video.backgroundColor = UIColor(patternImage: image)
+                }
+            }
+        }
+        
+        for i in 0..<names.count {
             
             guard let path = Bundle.main.path(forResource: names[i], ofType: "MOV") else { return }
             
-            let player = AVPlayer(url: URL(fileURLWithPath: path))
+            let url = URL(fileURLWithPath: path)
+//                        if let url = URL(string: names[i]) {
+            
+            
+            let player = AVPlayer(url: url)
             player.actionAtItemEnd = .none
             player.play()
             player.pause()
-            avArray.append(player)
-            let item = AVPlayerItem(url: URL(fileURLWithPath: path))
-            avArrayItem.append(item)
+            
+            let playerLayer = AVPlayerLayer(player: player)
+            playerLayer.frame = UIScreen.main.bounds
+            playerLayer.videoGravity = .resizeAspectFill
+            
+            playerLayers.append(playerLayer)
+            
+            loadStackView.addArrangedSubview(LoadingView())
+            
+            //            }
+            
         }
         
         startVideo()
-
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { (timer) in
-            if let currentItem = self.video.player?.currentItem {
-                let duration = currentItem.duration.seconds
-                let currentTime = currentItem.currentTime().seconds
-
-                if currentTime >= duration {
-                    self.tapRight()
-                } else {
-                    if let view = self.loadStackView.arrangedSubviews[self.curent] as? LoadingView {
-                        view.setCurent(currentTime / duration)
-                    }
-                }
-            }
-        })
         
         let grLeft = UITapGestureRecognizer(target: self, action: #selector(tapLeft))
         leftView.addGestureRecognizer(grLeft)
@@ -101,6 +127,59 @@ class VideoViewController: UIViewController {
         centerView.addGestureRecognizer(grCenter)
         
         modalPresentationCapturesStatusBarAppearance = true
+        
+    }
+    
+    override var prefersStatusBarHidden: Bool{
+        return true
+    }
+    
+    func startVideo() {
+        
+        setBackground()
+        
+        if let previous = playerLayerPrevious, let observer = self.playerObserver  {
+            previous.player?.pause()
+            previous.player?.removeTimeObserver(observer)
+            previous.removeFromSuperlayer()
+            playerObserver = nil
+        }
+        
+        video.layer.insertSublayer(playerLayerCurrent, at: 1)
+        playerLayerCurrent.player?.seek(to: kCMTimeZero)
+        playerLayerCurrent.player?.play()
+        
+        playerObserver = playerLayerCurrent.player?.addPeriodicTimeObserver(forInterval: interval, queue: mainQueue) { time in
+            
+            let duration = Float(time.timescale / 100000000)
+            let currentTime = Float(CMTimeGetSeconds(time))
+            
+//            print("currentTime - " + currentTime.description)
+//            print("duration - " + duration.description)
+            
+            if currentTime >= duration && duration > 0.0 {
+                self.tapRight()
+                return
+            } else {
+                if let view = self.loadStackView.arrangedSubviews[self.curent] as? LoadingView {
+                    let t = Double(currentTime) / Double(duration)
+//                    print("t - "  + t.description)
+//                    print("---------")
+                    view.setCurent(t)
+                }
+            }
+            
+            //            let r = currentTime - lastSecond
+            //            print("r - " + r.description)
+//            let status = PlayerStatus(rawValue: self.video.player!.rate)!
+//            print(status)
+            //            if r < 1.0 && duration > 0.0 && lastSecond > 0.0{
+            //                self.tapRight()
+            //            }
+            
+            //            lastCurrentTime = Double(currentTime)
+            
+        }
     }
     
     static func loadFromStoryboard() -> VideoViewController {
@@ -119,113 +198,66 @@ class VideoViewController: UIViewController {
             Hero.shared.apply(modifiers: [.position(currentPos)], to: video)
         default:
             if progress + panGR.velocity(in: nil).y / view.bounds.height > 0.3 {
+                removeObserver()
                 Hero.shared.finish()
             } else {
                 Hero.shared.cancel()
             }
         }
     }
-
     
-    func nameVideo() -> String{
-        switch curent {
-        case 0: return "Mount"
-        case 1: return "Mount2"
-        case 2: return "Sea"
-        default: return ""
-        }
-    }
     
-    func startVideo() {
-        print(curent)
-
-        if video.player == nil {
-            video.createBackground(playernew: avArray[curent])
-            video.play()
-//            video.createBackground(playernew: avArray[curent + 1])
-        } else {
-            video.replaceVideo(item: avArrayItem[curent], playernew: avArray[curent])
-
-//            video.createBackground(playernew: avArray[curent])
-            
-//            guard let path = Bundle.main.path(forResource: "Mount2", ofType: "MOV") else { return }
-//
-//            let player = AVPlayer(url: URL(fileURLWithPath: path))
-//            player.actionAtItemEnd = .none
-//            video.replaceVideo(playernew: player)
-//            video.play()
-//            video.player!.pause()
-//            video.player = nil
-//            video.player!.
-//            video.player = avArray[curent]
-//            video.player!.seek(to: kCMTimeZero)
-//            video.player!.currentItem!.seek(to: kCMTimeZero) { (seek) in
-//
-//            }
-//            video.player!.play()
-            
-//            video.replaceVideo(item: avArrayItem[curent])
-//            if curent < count - 1{
-//                video.createBackground(playernew: avArray[curent + 1])
-//            }
-//            if video.isOne {
-//                video.playerLayer?.removeFromSuperlayer()
-//                video.playTwo()
-//                video.createBackground(playernew: avArray[curent])
-//            } else {
-//                video.playerLayerTwo?.removeFromSuperlayer()
-//                video.play()
-//                video.createBackgroundTwo(playernew: avArray[curent])
-//            }
-            
-        }
-    }
-
     
     @objc func tapLeft() {
         print("tapLeft")
-        
-//        if let image = video.screenshot() {
-//            video.backgroundColor = UIColor(patternImage: image)
-//        }
         
         if let view = loadStackView.arrangedSubviews[curent] as? LoadingView {
             view.setStart()
         }
         
         if curent > 0 {
+            previous = curent
             curent -= 1
             if let view = loadStackView.arrangedSubviews[curent] as? LoadingView {
                 view.setStart()
             }
             startVideo()
         }
+        
     }
     
     @objc func tapRight() {
         print("tapRight")
         
-//        if let image = video.screenshot() {
-//            video.backgroundColor = UIColor(patternImage: image)
-//        }
-        
-        
         if let view = loadStackView.arrangedSubviews[curent] as? LoadingView {
             view.setEnd()
         }
-
-        if curent < count - 1 {
+        
+        if curent < names.count - 1 {
+            previous = curent
             curent += 1
             startVideo()
-        } else if curent == count - 1 {
+        } else if curent == names.count - 1 {
             dismissVideo()
+        }
+        
+    }
+    
+    func setBackground() {
+        if let story = story, let thumbnailUrl = story.content[curent].thumbnailUrl {
+            UIImage.imageFromUrl(urlString: thumbnailUrl) { image in
+                DispatchQueue.main.async {
+                    self.video.backgroundColor = UIColor(patternImage: image)
+                    
+                }
+            }
         }
     }
     
     @objc func tapCenter() {
         print("tapCenter")
         
-        if let player = video.player, let status = PlayerStatus(rawValue: player.rate) {
+        if let player = playerLayerCurrent.player, let status = PlayerStatus(rawValue: player.rate) {
             switch status {
             case .pause:
                 player.play()
@@ -237,44 +269,16 @@ class VideoViewController: UIViewController {
     }
     
     @objc func dismissVideo() {
-        timer?.invalidate()
+        removeObserver()
         dismiss(animated: true)
     }
     
-    override var prefersStatusBarHidden: Bool{
-        return true
-    }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
-}
-
-extension UIView {
-    
-    func addBackground() {
-        // screen width and height:
-        let width = UIScreen.main.bounds.size.width
-        let height = UIScreen.main.bounds.size.height
-        
-        let imageViewBackground = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: width, height: height))
-        imageViewBackground.image = UIImage(named: "welcome")
-        
-        // you can change the content mode:
-        imageViewBackground.contentMode = UIViewContentMode.scaleAspectFill
-        
-        //        self.addSubview(imageViewBackground)
-        //        self.sendSubview(toBack: imageViewBackground)
-        
-        layer.insertSublayer(imageViewBackground.layer, at: 0)
+    func removeObserver() {
+        if let observer = self.playerObserver {
+            playerLayerCurrent.player?.pause()
+            playerLayerCurrent.player?.removeTimeObserver(observer)
+            playerObserver = nil
+        }
     }
     
 }

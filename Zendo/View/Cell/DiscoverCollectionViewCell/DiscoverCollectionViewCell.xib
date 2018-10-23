@@ -24,7 +24,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="156" height="172"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="welcome" translatesAutoresizingMaskIntoConstraints="NO" id="IuV-0u-Hcg">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IuV-0u-Hcg">
                         <rect key="frame" x="0.0" y="0.0" width="156" height="172"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
@@ -55,7 +55,4 @@
             <point key="canvasLocation" x="222.40000000000001" y="201.49925037481262"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="welcome" width="248" height="319"/>
-    </resources>
 </document>

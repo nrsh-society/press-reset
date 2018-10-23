@@ -13,6 +13,15 @@ class DiscoverCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var discoverImageView: UIImageView!
     
+    var story: Story! {
+        didSet {
+            titleLabel.text = story.title
+            if let thumbnailUrl = story.thumbnailUrl {
+                discoverImageView.imageFromUrl(urlString: thumbnailUrl)
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -21,10 +30,13 @@ class DiscoverCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        shadowView()
+        if let _ = story.thumbnailUrl {
+            shadowView()
+        }
         
         discoverImageView.layer.cornerRadius = 10.0
         discoverImageView.layer.masksToBounds = true
     }
+    
 
 }

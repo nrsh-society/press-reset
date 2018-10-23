@@ -8,6 +8,7 @@ target 'Zendo' do
     pod 'NVActivityIndicatorView', '~> 4.2.1'
     pod 'FacebookCore'
     pod 'Hero'
+    pod 'SwiftyJSON', '~> 4.0'
 end
 
 
