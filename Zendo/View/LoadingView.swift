@@ -11,7 +11,6 @@ import UIKit
 class LoadingView: UIView {
     
     @IBOutlet weak var loadView: UIView!
-//    @IBOutlet weak var loadViewWidth: NSLayoutConstraint!
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -21,8 +20,6 @@ class LoadingView: UIView {
     
     func setStart() {
         DispatchQueue.main.async {
-//            self.loadViewWidth.constant = 1
-            
               self.loadView.frame.size.width = 0
         }
     }
@@ -30,7 +27,7 @@ class LoadingView: UIView {
     func setCurent(_ alpha: Double) {
         DispatchQueue.main.async {
             if !alpha.isNaN && !alpha.isInfinite {
-                UIView.animate(withDuration: 1.3) {
+                UIView.animate(withDuration: 1.0) {
                     self.loadView.frame.size.width = self.bounds.width * CGFloat(alpha)
                 }
             }

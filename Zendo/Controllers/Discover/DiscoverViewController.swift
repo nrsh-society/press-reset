@@ -49,10 +49,8 @@ class DiscoverViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var refreshControl = UIRefreshControl()
-
     
     let space: CGFloat = 9
-    let showVideo = "showVideo"
     
     var storedOffsets = [Int: CGFloat]()
     var discover: Discover?
@@ -85,7 +83,7 @@ class DiscoverViewController: UIViewController {
     
     func startConnection() {
         let urlPath: String = "http://media.zendo.tools/discover.json"
-        
+                
         URLSession.shared.dataTask(with: URL(string: urlPath)!) { data, response, error -> Void in
             
             if let data = data, error == nil {
@@ -171,6 +169,7 @@ extension DiscoverViewController: UICollectionViewDataSource {
         let vc = VideoViewController.loadFromStoryboard()
         vc.idHero = "cellImage" + indexPath.row.description
         vc.hero.isEnabled = true
+        vc.story = sections[collectionView.tag].stories[indexPath.row]
         present(vc, animated: true, completion: nil)
     }
     

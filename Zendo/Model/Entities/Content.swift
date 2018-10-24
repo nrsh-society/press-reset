@@ -12,7 +12,7 @@ import SwiftyJSON
 class Content {
     
     var thumbnailUrl: String!
-    var content: String!
+    var content: String?
     
     public init(_ json: JSON)  {
         

@@ -17,7 +17,10 @@ class DiscoverCollectionViewCell: UICollectionViewCell {
         didSet {
             titleLabel.text = story.title
             if let thumbnailUrl = story.thumbnailUrl {
-                discoverImageView.imageFromUrl(urlString: thumbnailUrl)
+                discoverImageView.imageFromUrl(urlString: thumbnailUrl) { _ in
+                    self.layoutIfNeeded()
+                    self.shadowView()
+                }
             }
         }
     }
@@ -29,10 +32,6 @@ class DiscoverCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        if let _ = story.thumbnailUrl {
-            shadowView()
-        }
         
         discoverImageView.layer.cornerRadius = 10.0
         discoverImageView.layer.masksToBounds = true

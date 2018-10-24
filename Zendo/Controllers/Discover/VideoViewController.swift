@@ -20,6 +20,11 @@ class VideoViewController: UIViewController {
     var panGR: UIPanGestureRecognizer!
     
     @IBOutlet weak var loadStackView: UIStackView!
+    @IBOutlet weak var activity: UIActivityIndicatorView! {
+        didSet {
+            activity.color = UIColor.zenDarkGreen
+        }
+    }
     @IBOutlet weak var rightView: UIView! {
         didSet {
             rightView.backgroundColor = .clear
@@ -55,25 +60,10 @@ class VideoViewController: UIViewController {
         return previous == nil ? nil : playerLayers[previous!]
     }
     
-//    var names = [
-//        "https://s3-us-west-2.amazonaws.com/media.zendo.tools/1st_tutorial_iphone-8.m3u8",
-//        "https://s3-us-west-2.amazonaws.com/media.zendo.tools/2nd_tutorial_iphone-8.m3u8",
-//        "https://s3-us-west-2.amazonaws.com/media.zendo.tools/3rd_tutorial_iphone-8.m3u8",
-//        "https://s3-us-west-2.amazonaws.com/media.zendo.tools/4th_tutorial_iphone-8.m3u8",
-//        "https://s3-us-west-2.amazonaws.com/media.zendo.tools/5th_tutorial_iphone-8.m3u8"
-//    ]
-    var names = [
-        "Mount",
-        "Mount2",
-        "Sea"
-    ]
-    
     var playerObserver: Any?
-    var story: Story?
+    var story: Story!
     
-    let interval = CMTime(seconds: 1.0, preferredTimescale: 1)
-    //        let interval = CMTime(seconds: 1.0, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
-    
+    let interval = CMTime(seconds: 0.01, preferredTimescale: 1000)
     let mainQueue = DispatchQueue.main
     
     override func viewDidLoad() {
@@ -82,36 +72,36 @@ class VideoViewController: UIViewController {
         panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
         video.addGestureRecognizer(panGR)
         
-        if let story = story, let thumbnailUrl = story.thumbnailUrl {
-            UIImage.imageFromUrl(urlString: thumbnailUrl) { image in
-                DispatchQueue.main.async {
-                    self.video.backgroundColor = UIColor(patternImage: image)
+        if let story = story {
+            
+            if  let thumbnailUrl = story.thumbnailUrl {
+                UIImage.imageFromUrl(urlString: thumbnailUrl) { image in
+                    DispatchQueue.main.async {
+                        self.video.addBackground(image: image)
+                    }
                 }
             }
-        }
-        
-        for i in 0..<names.count {
             
-            guard let path = Bundle.main.path(forResource: names[i], ofType: "MOV") else { return }
-            
-            let url = URL(fileURLWithPath: path)
-//                        if let url = URL(string: names[i]) {
-            
-            
-            let player = AVPlayer(url: url)
-            player.actionAtItemEnd = .none
-            player.play()
-            player.pause()
-            
-            let playerLayer = AVPlayerLayer(player: player)
-            playerLayer.frame = UIScreen.main.bounds
-            playerLayer.videoGravity = .resizeAspectFill
-            
-            playerLayers.append(playerLayer)
-            
-            loadStackView.addArrangedSubview(LoadingView())
-            
-            //            }
+            for (index, content) in story.content.enumerated() {
+                
+                if let urlContent = content.content, let url = URL(string: urlContent), index <= 1 {
+                    
+                    let player = AVPlayer(url: url)
+                    player.actionAtItemEnd = .none
+                    player.play()
+                    player.pause()
+                    
+                    let playerLayer = AVPlayerLayer(player: player)
+                    playerLayer.frame = UIScreen.main.bounds
+                    playerLayer.videoGravity = .resizeAspectFill
+                    
+                    playerLayers.append(playerLayer)
+                    
+                }
+                
+                loadStackView.addArrangedSubview(LoadingView())
+
+            }
             
         }
         
@@ -128,6 +118,10 @@ class VideoViewController: UIViewController {
         
         modalPresentationCapturesStatusBarAppearance = true
         
+    }
+    
+    static func loadFromStoryboard() -> VideoViewController {
+        return UIStoryboard(name: "Discover", bundle: nil).instantiateViewController(withIdentifier: "VideoViewController") as! VideoViewController
     }
     
     override var prefersStatusBarHidden: Bool{
@@ -149,41 +143,31 @@ class VideoViewController: UIViewController {
         playerLayerCurrent.player?.seek(to: kCMTimeZero)
         playerLayerCurrent.player?.play()
         
+        activity.startAnimating()
+                
         playerObserver = playerLayerCurrent.player?.addPeriodicTimeObserver(forInterval: interval, queue: mainQueue) { time in
             
-            let duration = Float(time.timescale / 100000000)
-            let currentTime = Float(CMTimeGetSeconds(time))
+            let duration = self.playerLayerCurrent.player!.currentItem!.duration
+            let limit = CMTime(seconds: 1.0, preferredTimescale: 1000)
+            let maxTime = duration - limit
+
+            let currentTime = self.playerLayerCurrent.player!.currentTime()
             
-//            print("currentTime - " + currentTime.description)
-//            print("duration - " + duration.description)
+            if currentTime.seconds > 0.0 && self.activity.isAnimating {
+                self.activity.stopAnimating()
+            }
             
-            if currentTime >= duration && duration > 0.0 {
+            if currentTime >= maxTime {
                 self.tapRight()
                 return
             } else {
                 if let view = self.loadStackView.arrangedSubviews[self.curent] as? LoadingView {
-                    let t = Double(currentTime) / Double(duration)
-//                    print("t - "  + t.description)
-//                    print("---------")
-                    view.setCurent(t)
+                    let a = currentTime.seconds / duration.seconds
+                    view.setCurent(a)
                 }
             }
             
-            //            let r = currentTime - lastSecond
-            //            print("r - " + r.description)
-//            let status = PlayerStatus(rawValue: self.video.player!.rate)!
-//            print(status)
-            //            if r < 1.0 && duration > 0.0 && lastSecond > 0.0{
-            //                self.tapRight()
-            //            }
-            
-            //            lastCurrentTime = Double(currentTime)
-            
         }
-    }
-    
-    static func loadFromStoryboard() -> VideoViewController {
-        return UIStoryboard(name: "Discover", bundle: nil).instantiateViewController(withIdentifier: "VideoViewController") as! VideoViewController
     }
     
     @objc func pan() {
@@ -206,11 +190,7 @@ class VideoViewController: UIViewController {
         }
     }
     
-    
-    
     @objc func tapLeft() {
-        print("tapLeft")
-        
         if let view = loadStackView.arrangedSubviews[curent] as? LoadingView {
             view.setStart()
         }
@@ -223,21 +203,38 @@ class VideoViewController: UIViewController {
             }
             startVideo()
         }
-        
     }
     
     @objc func tapRight() {
-        print("tapRight")
-        
+
         if let view = loadStackView.arrangedSubviews[curent] as? LoadingView {
             view.setEnd()
         }
         
-        if curent < names.count - 1 {
+        if curent < story.content.count - 1 {
             previous = curent
             curent += 1
             startVideo()
-        } else if curent == names.count - 1 {
+            
+            let isIndexValid = playerLayers.indices.contains(curent + 1)
+            
+            if !isIndexValid && (curent + 1) <= story.content.count - 1,
+                let urlContent = story.content[curent + 1].content,
+                let url = URL(string: urlContent){
+                
+                let player = AVPlayer(url: url)
+                player.actionAtItemEnd = .none
+                player.play()
+                player.pause()
+                
+                let playerLayer = AVPlayerLayer(player: player)
+                playerLayer.frame = UIScreen.main.bounds
+                playerLayer.videoGravity = .resizeAspectFill
+                
+                playerLayers.append(playerLayer)
+            }
+            
+        } else if curent == story.content.count - 1 {
             dismissVideo()
         }
         
@@ -247,16 +244,13 @@ class VideoViewController: UIViewController {
         if let story = story, let thumbnailUrl = story.content[curent].thumbnailUrl {
             UIImage.imageFromUrl(urlString: thumbnailUrl) { image in
                 DispatchQueue.main.async {
-                    self.video.backgroundColor = UIColor(patternImage: image)
-                    
+                    self.video.addBackground(image: image)
                 }
             }
         }
     }
     
     @objc func tapCenter() {
-        print("tapCenter")
-        
         if let player = playerLayerCurrent.player, let status = PlayerStatus(rawValue: player.rate) {
             switch status {
             case .pause:
@@ -265,7 +259,6 @@ class VideoViewController: UIViewController {
                 player.pause()
             }
         }
-        
     }
     
     @objc func dismissVideo() {

@@ -10,13 +10,15 @@ import UIKit
 
 extension UIImageView {
     
-    func imageFromUrl(urlString: String) {
+    func imageFromUrl(urlString: String, completed: ((UIImage?)->())? = nil) {
         if let url = URL(string: urlString) {
             
             URLSession.shared.dataTask(with: url) { data, response, error -> Void in
                 if let imageData = data {
                     DispatchQueue.main.async {
-                        self.image = UIImage(data: imageData)
+                        let i = UIImage(data: imageData)
+                        completed?(i)
+                        self.image = i
                     }
                 }
                 }.resume()
@@ -38,6 +40,25 @@ extension UIImage {
                 }.resume()
             
         }
+    }
+    
+}
+
+extension UIView {
+    
+    func addBackground(image: UIImage) {
+        let width = UIScreen.main.bounds.size.width
+        let height = UIScreen.main.bounds.size.height
+        
+        let imageViewBackground = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: width, height: height))
+        imageViewBackground.image = image
+        
+        imageViewBackground.contentMode = UIViewContentMode.scaleAspectFill
+        
+        //        self.addSubview(imageViewBackground)
+        //        self.sendSubview(toBack: imageViewBackground)
+        
+        layer.insertSublayer(imageViewBackground.layer, at: 0)
     }
     
 }
