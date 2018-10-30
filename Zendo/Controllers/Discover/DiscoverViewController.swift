@@ -10,6 +10,9 @@ import UIKit
 import Hero
 import AVFoundation
 import SwiftyJSON
+import HealthKit
+import Mixpanel
+
 
 class DiscoverTableViewCell: UITableViewCell {
     
@@ -46,10 +49,12 @@ class DiscoverTableViewCell: UITableViewCell {
 
 class DiscoverViewController: UIViewController {
     
+    
     @IBOutlet weak var tableView: UITableView!
     
     var refreshControl = UIRefreshControl()
     
+    let healthStore = ZBFHealthKit.healthStore
     let space: CGFloat = 9
     
     var storedOffsets = [Int: CGFloat]()
@@ -66,6 +71,42 @@ class DiscoverViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(onReload), for: .valueChanged)
         tableView.refreshControl = refreshControl
        
+    }
+    
+    @IBAction func onNewSession(_ sender: Any){
+        
+        let configuration = HKWorkoutConfiguration()
+        configuration.activityType = .mindAndBody
+        configuration.locationType = .unknown
+        
+        healthStore.startWatchApp(with: configuration) { success, error in
+            guard success else {
+                let alert = UIAlertController(title: "Error", message: (error?.localizedDescription)!, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                    self.checkHealthKit(isShow: true)
+                })
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true)
+                }
+                return
+            }
+            
+            let alert = UIAlertController(title: "Starting Watch app",
+                                          message: "Press Stop on Watch app when complete.", preferredStyle: .actionSheet)
+            
+            let ok = UIAlertAction(title: "OK", style: .default) { action in
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1) ) {
+                    Mixpanel.mainInstance().track(event: "new_session")
+                }
+            }
+            
+            alert.addAction(ok)
+            
+            DispatchQueue.main.async
+                {
+                    self.present(alert, animated: true)
+            }
+        }
     }
     
     @objc func onReload(_ sender: UIRefreshControl) {

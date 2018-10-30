@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Nz-z1-oTd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.30.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Nz-z1-oTd">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.19.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -28,9 +28,9 @@
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
+                        <segue destination="JMk-Ob-UTQ" kind="relationship" relationship="viewControllers" id="Xhm-2I-o62"/>
                         <segue destination="dQQ-wO-gKW" kind="relationship" relationship="viewControllers" id="Vn3-Bl-8fK"/>
                         <segue destination="NpG-kt-vUd" kind="relationship" relationship="viewControllers" id="UdI-sM-D8m"/>
-                        <segue destination="JMk-Ob-UTQ" kind="relationship" relationship="viewControllers" id="Xhm-2I-o62"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pAZ-Ik-ThF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -777,11 +777,11 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
             </objects>
             <point key="canvasLocation" x="-1505" y="-735"/>
         </scene>
-        <!--Overview-->
+        <!--Stats-->
         <scene sceneID="A82-vc-Hsq">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dQQ-wO-gKW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Overview" image="overview" selectedImage="overview" id="jZ9-Xv-6H8"/>
+                    <tabBarItem key="tabBarItem" title="Stats" image="overview" selectedImage="overview" id="jZ9-Xv-6H8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" largeTitles="YES" id="yuJ-Xz-6rT">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
@@ -800,7 +800,7 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
             </objects>
             <point key="canvasLocation" x="-1466.4000000000001" y="-255.02248875562222"/>
         </scene>
-        <!--Overview-->
+        <!--Stats-->
         <scene sceneID="QGL-GW-IDO">
             <objects>
                 <viewController storyboardIdentifier="Overview" id="y4I-bb-DEZ" customClass="OverviewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
@@ -1072,7 +1072,13 @@ Use your Apple Watch to record your meditation and view your Heart Rate Variabil
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JLv-6G-LTB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Overview" id="aBi-9f-bIj"/>
+                    <navigationItem key="navigationItem" title="Stats" id="aBi-9f-bIj">
+                        <barButtonItem key="rightBarButtonItem" title="New Session" image="watch" style="done" id="0jC-fu-UI7">
+                            <connections>
+                                <action selector="onNewSession:" destination="y4I-bb-DEZ" id="prH-qE-wBl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="414" height="1100"/>
                     <connections>

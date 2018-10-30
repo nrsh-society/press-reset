@@ -13,12 +13,32 @@ import Hero
 enum PlayerStatus: Float {
     case pause = 0.0
     case play = 1.0
+    
+    var image: UIImage? {
+        switch self {
+        case .pause: return UIImage(named: "icnPause")
+        case .play: return UIImage(named: "icnPlay")
+        }
+    }
 }
 
 class VideoViewController: UIViewController {
     
     var panGR: UIPanGestureRecognizer!
     
+    @IBOutlet weak var pauseView: UIView! {
+        didSet {
+            pauseView.alpha = 0.0
+            pauseView.layoutIfNeeded()
+            pauseView.layer.cornerRadius = pauseView.frame.height / 2.0
+        }
+    }
+    @IBOutlet weak var pauseImage: UIImageView! {
+        didSet{
+            pauseImage.image = PlayerStatus.pause.image
+        }
+    }
+    @IBOutlet weak var pauseLabel: UILabel!
     @IBOutlet weak var loadStackView: UIStackView!
     @IBOutlet weak var activity: UIActivityIndicatorView! {
         didSet {
@@ -62,12 +82,16 @@ class VideoViewController: UIViewController {
     
     var playerObserver: Any?
     var story: Story!
+    var timer: Timer?
     
     let interval = CMTime(seconds: 0.01, preferredTimescale: 1000)
     let mainQueue = DispatchQueue.main
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let gr = UITapGestureRecognizer(target: self, action: #selector(pauseViewAction))
+        pauseView.addGestureRecognizer(gr)
         
         panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
         video.addGestureRecognizer(panGR)
@@ -163,6 +187,7 @@ class VideoViewController: UIViewController {
             } else {
                 if let view = self.loadStackView.arrangedSubviews[self.curent] as? LoadingView {
                     let a = currentTime.seconds / duration.seconds
+                    self.pauseLabel.text = currentTime.seconds.stringZendoTimeWatch
                     view.setCurent(a)
                 }
             }
@@ -252,11 +277,59 @@ class VideoViewController: UIViewController {
     
     @objc func tapCenter() {
         if let player = playerLayerCurrent.player, let status = PlayerStatus(rawValue: player.rate) {
+            
+            if pauseView.isHidden {
+                self.pauseView.isHidden = false
+                UIView.animate(withDuration: 0.3) {
+                    self.pauseView.alpha = 1.0
+                }
+            } else {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.pauseView.alpha = 0.0
+                }, completion: { (bool) in
+                    self.pauseView.isHidden = true
+                })
+            }
+            
+            timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { (timer) in
+                if status == .play {
+                    UIView.animate(withDuration: 0.3, animations: {
+                        self.pauseView.alpha = 0.0
+                    }, completion: { (bool) in
+                        self.pauseView.isHidden = true
+                    })
+                }
+            })
+            
+        }
+        
+    }
+    
+    @objc func pauseViewAction() {
+        if let player = playerLayerCurrent.player, let status = PlayerStatus(rawValue: player.rate) {
             switch status {
             case .pause:
                 player.play()
+                
+                leftView.isHidden = false
+                rightView.isHidden = false
+                
+                pauseImage.image = PlayerStatus.pause.image
+                
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.pauseView.alpha = 0.0
+                }, completion: { (bool) in
+                    self.pauseView.isHidden = true
+                })
             case .play:
                 player.pause()
+                
+                pauseImage.image = PlayerStatus.play.image
+                
+                leftView.isHidden = true
+                rightView.isHidden = true
+                
+                timer?.invalidate()
             }
         }
     }

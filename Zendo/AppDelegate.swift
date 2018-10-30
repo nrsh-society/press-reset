@@ -93,5 +93,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UIInterfaceOrientationMask.portrait
     }
 
+    
 }
 

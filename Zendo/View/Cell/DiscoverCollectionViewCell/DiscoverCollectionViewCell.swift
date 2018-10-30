@@ -17,12 +17,44 @@ class DiscoverCollectionViewCell: UICollectionViewCell {
         didSet {
             titleLabel.text = story.title
             if let thumbnailUrl = story.thumbnailUrl {
+                
                 discoverImageView.imageFromUrl(urlString: thumbnailUrl) { _ in
                     self.layoutIfNeeded()
-                    self.shadowView()
+                    self.addGradientLayer()
                 }
             }
         }
+    }
+    
+    func addGradientLayer() {
+        
+        var isAdd = true
+        
+        if let sublayers = discoverImageView.layer.sublayers {
+            for i in 0..<sublayers.count {
+                let imageLayer = sublayers[i]
+                
+                if imageLayer is CAGradientLayer {
+                    isAdd = false
+                }
+            }
+        }
+        
+        
+        if isAdd {
+            let gradient = CAGradientLayer()
+            gradient.frame = bounds
+            gradient.colors = [UIColor(red: 0.24, green: 0.29, blue: 0.28, alpha: 0.5).cgColor,
+                               UIColor(red: 0.93, green: 0.93, blue: 0.93, alpha: 0).cgColor]
+            gradient.locations = [0, 1]
+            gradient.cornerRadius = 10.0
+            gradient.masksToBounds = true
+            gradient.startPoint = CGPoint(x: 0.5, y: 1.0)
+            gradient.endPoint = CGPoint(x: 0.5, y: 0.5)
+            
+            discoverImageView.layer.addSublayer(gradient)
+        }
+        
     }
     
     override func awakeFromNib() {
