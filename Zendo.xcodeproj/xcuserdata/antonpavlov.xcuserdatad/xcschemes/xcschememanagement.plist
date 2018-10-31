@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>15</integer>
 		</dict>
+		<key>Zendo WatchKit App (Complication).xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
 		<key>Zendo WatchKit App (Glance).xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -19,12 +24,27 @@
 			<key>orderHint</key>
 			<integer>14</integer>
 		</dict>
+		<key>Zendo WatchKit App (Notification).xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
 		<key>Zendo WatchKit App.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>13</integer>
 		</dict>
+		<key>Zendo WatchKit App.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
 		<key>Zendo.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
+		</dict>
+		<key>Zendo.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>12</integer>

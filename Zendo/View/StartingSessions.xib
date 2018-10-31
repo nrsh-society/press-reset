@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.30.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.19.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Antenna-Light.otf">
+            <string>Antenna-Light</string>
+        </array>
+        <array key="Antenna-Regular.otf">
+            <string>Antenna-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StartingSessions" customModule="Zendo" customModuleProvider="target">
+            <connections>
+                <outlet property="animationView" destination="IRa-Dn-RhV" id="3IV-B7-ys0"/>
+                <outlet property="cancelButton" destination="Ayy-aE-CFp" id="5jO-Uf-Hos"/>
+                <outlet property="countLabel" destination="eNH-g6-rxG" id="VPQ-CA-KDl"/>
+                <outlet property="startingSessionLabel" destination="36d-5z-IDT" id="kNI-6r-aHd"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="331"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ayy-aE-CFp" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
+                    <rect key="frame" x="112.5" y="261" width="150" height="48"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="w4N-9P-8de"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="starting session on your Apple Watch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36d-5z-IDT">
+                    <rect key="frame" x="10" y="24" width="355" height="37"/>
+                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                    <color key="textColor" red="0.058823529411764705" green="0.14509803921568626" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IRa-Dn-RhV">
+                    <rect key="frame" x="97.5" y="76" width="180" height="180"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eNH-g6-rxG">
+                            <rect key="frame" x="80" y="75" width="20" height="30"/>
+                            <fontDescription key="fontDescription" name="Antenna-Light" family="Antenna" pointSize="30"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="eNH-g6-rxG" firstAttribute="centerX" secondItem="IRa-Dn-RhV" secondAttribute="centerX" id="mX3-bP-2Ow"/>
+                        <constraint firstAttribute="width" secondItem="IRa-Dn-RhV" secondAttribute="height" multiplier="1:1" id="qge-FY-r3i"/>
+                        <constraint firstItem="eNH-g6-rxG" firstAttribute="centerY" secondItem="IRa-Dn-RhV" secondAttribute="centerY" id="ssK-UR-Qu6"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Ayy-aE-CFp" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.4" id="Blt-gh-KnX"/>
+                <constraint firstItem="IRa-Dn-RhV" firstAttribute="width" secondItem="Ayy-aE-CFp" secondAttribute="width" multiplier="1.2" id="Cba-AS-1xx"/>
+                <constraint firstItem="IRa-Dn-RhV" firstAttribute="top" secondItem="36d-5z-IDT" secondAttribute="bottom" constant="15" id="CqN-Ig-tEM"/>
+                <constraint firstItem="36d-5z-IDT" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="Kch-CK-RfF"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Ayy-aE-CFp" secondAttribute="bottom" constant="22" id="MdL-J6-uix"/>
+                <constraint firstItem="IRa-Dn-RhV" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Mo1-J1-KK2"/>
+                <constraint firstItem="Ayy-aE-CFp" firstAttribute="top" secondItem="IRa-Dn-RhV" secondAttribute="bottom" constant="5" id="Od9-Kr-LdT"/>
+                <constraint firstItem="36d-5z-IDT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="24" id="RwY-KS-szl"/>
+                <constraint firstItem="Ayy-aE-CFp" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="d80-ma-7sW"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="36d-5z-IDT" secondAttribute="trailing" constant="10" id="ipW-xn-NpX"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="53.600000000000001" y="199.25037481259372"/>
+        </view>
+    </objects>
+</document>

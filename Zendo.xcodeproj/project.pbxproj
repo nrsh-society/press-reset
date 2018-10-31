@@ -106,6 +106,10 @@
 		BEBAE48B20E6CDB500495C65 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEBAE48720E6CDB500495C65 /* Media.xcassets */; };
 		BEBAE48D20E6DED800495C65 /* gallery.ckcomplication in Resources */ = {isa = PBXBuildFile; fileRef = BEBAE48C20E6DED800495C65 /* gallery.ckcomplication */; };
 		BEEA862F20D4A941003E1E1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEEA862E20D4A941003E1E1D /* Assets.xcassets */; };
+		DFE3B16E2189A3DF008830CD /* StartingSessions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE3B16D2189A3DF008830CD /* StartingSessions.swift */; };
+		DFE3B1702189A3FA008830CD /* StartingSessions.xib in Resources */ = {isa = PBXBuildFile; fileRef = DFE3B16F2189A3FA008830CD /* StartingSessions.xib */; };
+		DFE3B1742189A6E5008830CD /* animationStartingSession.json in Resources */ = {isa = PBXBuildFile; fileRef = DFE3B1732189A6E5008830CD /* animationStartingSession.json */; };
+		DFE3B1762189C377008830CD /* StartingSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE3B1752189C377008830CD /* StartingSessionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -280,6 +284,10 @@
 		CE470C27D2A61BA1066BBB3D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		DA956F3DF3D7E53620DCB219 /* Pods-Zendo WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zendo WatchKit Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 		DFDDFAA04BC9FE80FF7116C1 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		DFE3B16D2189A3DF008830CD /* StartingSessions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingSessions.swift; sourceTree = "<group>"; };
+		DFE3B16F2189A3FA008830CD /* StartingSessions.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StartingSessions.xib; sourceTree = "<group>"; };
+		DFE3B1732189A6E5008830CD /* animationStartingSession.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animationStartingSession.json; sourceTree = "<group>"; };
+		DFE3B1752189C377008830CD /* StartingSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingSessionViewController.swift; sourceTree = "<group>"; };
 		E5A68E6B7BCA076B4161502D /* Pods_Zendo_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zendo_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -400,6 +408,8 @@
 				12C2C27E2137F7F70039C7A0 /* ZenTextField.xib */,
 				127C3E402178DAF500B332EB /* LoadingView.swift */,
 				127C3E422178DB1100B332EB /* LoadingView.xib */,
+				DFE3B16D2189A3DF008830CD /* StartingSessions.swift */,
+				DFE3B16F2189A3FA008830CD /* StartingSessions.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -408,6 +418,7 @@
 			isa = PBXGroup;
 			children = (
 				12C85D652176168B00329B53 /* WatchSessionManager.swift */,
+				DFE3B1752189C377008830CD /* StartingSessionViewController.swift */,
 			);
 			path = Watch;
 			sourceTree = "<group>";
@@ -470,6 +481,7 @@
 				BE2E81F51FF44A7B00D104AC /* LaunchScreen.storyboard */,
 				BEBAE48C20E6DED800495C65 /* gallery.ckcomplication */,
 				BEEA862E20D4A941003E1E1D /* Assets.xcassets */,
+				DFE3B1732189A6E5008830CD /* animationStartingSession.json */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -750,9 +762,11 @@
 				12C1A72A2119B75900EEFF4F /* ZenButton.xib in Resources */,
 				12E2A1A7211073D600E0E911 /* Antenna-ExtraLight.otf in Resources */,
 				BEBAE48D20E6DED800495C65 /* gallery.ckcomplication in Resources */,
+				DFE3B1702189A3FA008830CD /* StartingSessions.xib in Resources */,
 				BE2E81F71FF44A7B00D104AC /* LaunchScreen.storyboard in Resources */,
 				127C3E2921788FD300B332EB /* Discover.storyboard in Resources */,
 				BEEA862F20D4A941003E1E1D /* Assets.xcassets in Resources */,
+				DFE3B1742189A6E5008830CD /* animationStartingSession.json in Resources */,
 				12E2A1A8211073D600E0E911 /* Antenna-Medium.otf in Resources */,
 				127C3E432178DB1100B332EB /* LoadingView.xib in Resources */,
 				12C2C27F2137F7F70039C7A0 /* ZenTextField.xib in Resources */,
@@ -815,7 +829,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Zendo/Pods-Zendo-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-Zendo/Pods-Zendo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
@@ -824,6 +838,7 @@
 				"${BUILT_PRODUCTS_DIR}/Mixpanel-swift/Mixpanel.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -835,10 +850,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Zendo/Pods-Zendo-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zendo/Pods-Zendo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3C1F746DCB363754C1EA1C72 /* [CP] Check Pods Manifest.lock */ = {
@@ -871,7 +887,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Mixpanel/Mixpanel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -882,7 +898,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -907,11 +923,13 @@
 				127C3E2B2178939C00B332EB /* DiscoverViewController.swift in Sources */,
 				1246C422212725140011F5D3 /* BalloonMarker.swift in Sources */,
 				12E2A1B521107A9400E0E911 /* UIFont.swift in Sources */,
+				DFE3B1762189C377008830CD /* StartingSessionViewController.swift in Sources */,
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
 				12A7E25A217F4A5A00E38018 /* UIImageView.swift in Sources */,
 				126544AE2170B44D00CA8F0B /* NavigationControllerWelcome.swift in Sources */,
 				12E2A19E21106E4500E0E911 /* TimeInterval.swift in Sources */,
 				12E189C1211C64AB004EADE9 /* UIApplication.swift in Sources */,
+				DFE3B16E2189A3DF008830CD /* StartingSessions.swift in Sources */,
 				BE38CF612075D1D10095BB6C /* WelcomeController.swift in Sources */,
 				12477F222119A27700D8AE83 /* Settings.swift in Sources */,
 				12FFCAE1210F6DA0007E2480 /* ZendoTableViewCell.swift in Sources */,

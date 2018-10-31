@@ -9,16 +9,17 @@ PODS:
   - Charts (3.1.1):
     - Charts/Core (= 3.1.1)
   - Charts/Core (3.1.1)
-  - FacebookCore (0.3.3):
+  - FacebookCore (0.5.0):
     - Bolts (~> 1.9)
-    - FBSDKCoreKit (~> 4.36)
-  - FBSDKCoreKit (4.36.0):
-    - Bolts (~> 1.7)
-  - Hero (1.3.1)
-  - Mixpanel (3.3.3)
-  - Mixpanel-swift (2.4.2):
-    - Mixpanel-swift/Complete (= 2.4.2)
-  - Mixpanel-swift/Complete (2.4.2)
+    - FBSDKCoreKit (~> 4.37)
+  - FBSDKCoreKit (4.38.0):
+    - Bolts (~> 1.9)
+  - Hero (1.4.0)
+  - lottie-ios (2.5.2)
+  - Mixpanel (3.3.6)
+  - Mixpanel-swift (2.4.5):
+    - Mixpanel-swift/Complete (= 2.4.5)
+  - Mixpanel-swift/Complete (2.4.5)
   - NVActivityIndicatorView (4.2.1):
     - NVActivityIndicatorView/Presenter (= 4.2.1)
   - NVActivityIndicatorView/Presenter (4.2.1)
@@ -29,6 +30,7 @@ DEPENDENCIES:
   - Charts (~> 3.1.1)
   - FacebookCore
   - Hero
+  - lottie-ios
   - Mixpanel (~> 3.3.3)
   - Mixpanel-swift (~> 2.4.2)
   - NVActivityIndicatorView (~> 4.2.1)
@@ -42,6 +44,7 @@ SPEC REPOS:
     - FacebookCore
     - FBSDKCoreKit
     - Hero
+    - lottie-ios
     - Mixpanel
     - Mixpanel-swift
     - NVActivityIndicatorView
@@ -51,14 +54,15 @@ SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BuddyBuildSDK: 8ae12ee721098b356a961ea7dce70ae55f93a7d2
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
-  FacebookCore: 9ecbe48cfd37c91a93add7f8cec2b4a2c50a1eec
-  FBSDKCoreKit: 3b8e6570eedb443f9fc4af196a7bf39f18e3a3d8
-  Hero: 1c3c625ba05856f305d29f5c270f8766c5ff2df7
-  Mixpanel: 3c3925c27f7a321d5978319a72f53f8f0885afc5
-  Mixpanel-swift: 63de6f5a14468b8d65e0d62ae250714455e17407
+  FacebookCore: 74288d0add931d361b1596beae787ab72c438249
+  FBSDKCoreKit: 2ab7fdbf600dc6b628ba7a49aa29d357a7b4c74e
+  Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
+  lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
+  Mixpanel: 801ed99810d6bfc80762f91d472ad95c15e45f37
+  Mixpanel-swift: a9ed3dd197d8f2837920cec6be1acdb51d07b31a
   NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 9265a36573224ffe9218b4ff63bbde5db896c208
+PODFILE CHECKSUM: 8b170e2739a26dc6bc399c7f7341ac97a6c27921
 
-COCOAPODS: 1.6.0.beta.1
+COCOAPODS: 1.5.3

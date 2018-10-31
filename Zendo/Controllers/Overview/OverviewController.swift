@@ -158,40 +158,11 @@ class OverviewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: .reloadOverview, object: nil)
     }
     
-    @IBAction func onNewSession(_ sender: Any){
-        
-        let configuration = HKWorkoutConfiguration()
-        configuration.activityType = .mindAndBody
-        configuration.locationType = .unknown
-        
-        healthStore.startWatchApp(with: configuration) { success, error in
-            guard success else {
-                let alert = UIAlertController(title: "Error", message: (error?.localizedDescription)!, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
-                    self.checkHealthKit(isShow: true)
-                })
-                DispatchQueue.main.async {
-                    self.present(alert, animated: true)
-                }
-                return
-            }
-            
-            let alert = UIAlertController(title: "Starting Watch app",
-                                          message: "Press Stop on Watch app when complete.", preferredStyle: .actionSheet)
-            
-            let ok = UIAlertAction(title: "OK", style: .default) { action in
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1) ) {
-                    Mixpanel.mainInstance().track(event: "new_session")
-                }
-            }
-            
-            alert.addAction(ok)
-            
-            DispatchQueue.main.async
-                {
-                    self.present(alert, animated: true)
-            }
-        }
+    @IBAction func onNewSession(_ sender: Any) {
+        let startingSessions = StartingSessionViewController()
+        startingSessions.modalPresentationStyle = .overFullScreen
+        startingSessions.modalTransitionStyle = .crossDissolve
+        present(startingSessions, animated: true, completion: nil)
     }
     
     func initHRVData()

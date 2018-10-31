@@ -9,6 +9,7 @@ target 'Zendo' do
     pod 'FacebookCore'
     pod 'Hero'
     pod 'SwiftyJSON', '~> 4.0'
+    pod 'lottie-ios'
 end
 
 

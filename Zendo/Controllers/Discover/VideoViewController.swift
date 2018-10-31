@@ -283,13 +283,14 @@ class VideoViewController: UIViewController {
                 UIView.animate(withDuration: 0.3) {
                     self.pauseView.alpha = 1.0
                 }
-            } else {
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.pauseView.alpha = 0.0
-                }, completion: { (bool) in
-                    self.pauseView.isHidden = true
-                })
             }
+//            else {
+//                UIView.animate(withDuration: 0.3, animations: {
+//                    self.pauseView.alpha = 0.0
+//                }, completion: { (bool) in
+//                    self.pauseView.isHidden = true
+//                })
+//            }
             
             timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { (timer) in
                 if status == .play {
