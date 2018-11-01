@@ -299,11 +299,11 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         {
             if(heartRateRangeSamples.count > 10)
             {
-                let range = Int((self.heartRateRangeSamples.max()! - self.heartRateRangeSamples.min()!) * 60.0.rounded())
+                let range = Int(((self.heartRateRangeSamples.max()! - self.heartRateRangeSamples.min()!) * 60.0).rounded())
                 
                 switch range
                 {
-                    case 0...4:
+                    case 0...3:
                         haptic = WKHapticType.retry
                         message = "Breathe deeper"
                     default:
