@@ -19,7 +19,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     
     @IBAction func KyosakChanged(_ value: Float)
     {
-        Session.options.hapticStrength = Int(value.rounded())
+        Session.options.hapticStrength = Int(value)
     }
     
     @IBAction func bluetoothChanged(_ value: Bool)

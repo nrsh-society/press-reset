@@ -27,7 +27,25 @@ struct Rotation
 
 struct Options
 {
-    var hapticStrength = 1
+    var hapticStrength : Int
+    {
+        get
+        {
+            if let value = UserDefaults.standard.object(forKey: "hapticStrength")
+            {
+                return value as! Int
+            }
+            else
+            {
+                return 1
+            }
+        }
+        
+        set
+        {
+            UserDefaults.standard.set(newValue, forKey: "hapticStrength")
+        }
+    }
 }
 
 class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
@@ -57,7 +75,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     
     var metadataWork = [String: Any]()
     
-    static var options = Options(hapticStrength: 1)
+    static var options = Options()
     static var bluetoothManager: BluetoothManager?
     
     static var current: Session?
@@ -281,11 +299,11 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         {
             if(heartRateRangeSamples.count > 10)
             {
-                let range = Int((self.heartRateRangeSamples.max()! - self.heartRateRangeSamples.min()!) * 60.0.rounded())
+                let range = Int(((self.heartRateRangeSamples.max()! - self.heartRateRangeSamples.min()!) * 60.0).rounded())
                 
                 switch range
                 {
-                    case 0...5:
+                    case 0...3:
                         haptic = WKHapticType.retry
                         message = "Breathe deeper"
                     default:
@@ -297,18 +315,23 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             {
                 let range = (self.movementRangeSamples.max()! - self.movementRangeSamples.min()!)
                 
-                if(range >= 0.10)
+                if(range > 0.15)
                 {
                     haptic = WKHapticType.retry
                     message = "Stop moving"
                 }
             }
             
-            if Session.options.hapticStrength > 0
+            let iterations = Int(Session.options.hapticStrength)
+            
+            if iterations > 0
             {
-                Thread.detachNewThread {
-                    for _ in 1...Session.options.hapticStrength {
-                        DispatchQueue.main.async {
+                Thread.detachNewThread
+                {
+                    for _ in 1...iterations
+                    {
+                        DispatchQueue.main.async
+                        {
                             WKInterfaceDevice.current().play(haptic)
                         }
                         
