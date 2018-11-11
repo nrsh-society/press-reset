@@ -6,10 +6,10 @@ target 'Zendo' do
     pod 'Mixpanel-swift', '~> 2.4.2'
     pod 'BuddyBuildSDK', '~> 1.0.17'
     pod 'NVActivityIndicatorView', '~> 4.2.1'
-    pod 'FacebookCore'
-    pod 'Hero'
+    pod 'FacebookCore', '~> 0.3.3'
+    pod 'Hero' , '~> 1.4.0'
     pod 'SwiftyJSON', '~> 4.0'
-    pod 'lottie-ios'
+    pod 'lottie-ios', '~> 2.5.2'
 end
 
 

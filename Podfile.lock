@@ -9,9 +9,9 @@ PODS:
   - Charts (3.1.1):
     - Charts/Core (= 3.1.1)
   - Charts/Core (3.1.1)
-  - FacebookCore (0.5.0):
+  - FacebookCore (0.3.3):
     - Bolts (~> 1.9)
-    - FBSDKCoreKit (~> 4.37)
+    - FBSDKCoreKit (~> 4.36)
   - FBSDKCoreKit (4.38.1):
     - Bolts (~> 1.9)
   - Hero (1.4.0)
@@ -28,9 +28,9 @@ PODS:
 DEPENDENCIES:
   - BuddyBuildSDK (~> 1.0.17)
   - Charts (~> 3.1.1)
-  - FacebookCore
-  - Hero
-  - lottie-ios
+  - FacebookCore (~> 0.3.3)
+  - Hero (~> 1.4.0)
+  - lottie-ios (~> 2.5.2)
   - Mixpanel (~> 3.3.6)
   - Mixpanel-swift (~> 2.4.2)
   - NVActivityIndicatorView (~> 4.2.1)
@@ -54,7 +54,7 @@ SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BuddyBuildSDK: 8ae12ee721098b356a961ea7dce70ae55f93a7d2
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
-  FacebookCore: 74288d0add931d361b1596beae787ab72c438249
+  FacebookCore: 9ecbe48cfd37c91a93add7f8cec2b4a2c50a1eec
   FBSDKCoreKit: 8d47857400e2f5bdea697a80daff882e91c84ef6
   Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
   lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
@@ -63,6 +63,6 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: c4c87b3664a7263196457bb4922b3f50ae4ea68a
+PODFILE CHECKSUM: 816f284cdbf6984225d47202de6c6c558c64fd83
 
 COCOAPODS: 1.6.0.beta.1
