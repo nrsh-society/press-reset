@@ -55,9 +55,10 @@ class StartingSessions: UIView {
         cancelButton.bottomView.anchor(top: nil, bottom: nil, leading: cancelButton.leadingAnchor, trailing: cancelButton.trailingAnchor)
         
         cancelButton.title.textAlignment = .center
-        cancelButton.titleButton = "Cancel"
+        cancelButton.titleButton = "cancel"
         cancelButton.action = {
             self.hideView()
+            self.closeAction?()
         }
     }
     
@@ -71,8 +72,8 @@ class StartingSessions: UIView {
     func showView() {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(count), userInfo: nil, repeats: true)
         
-        circleAnimation.play{ (finished) in
-            self.hideView()
+        circleAnimation.play { finished in
+//            self.hideView()
         }
         
         UIView.animate(withDuration: 0.5) {
@@ -82,7 +83,6 @@ class StartingSessions: UIView {
     
     func hideView() {
         timer?.invalidate()
-        closeAction?()
         UIView.animate(withDuration: 0.3, animations: {
             self.transform = CGAffineTransform.identity
         }, completion: { (completion) in

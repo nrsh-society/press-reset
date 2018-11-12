@@ -7,7 +7,7 @@ target 'Zendo' do
     pod 'BuddyBuildSDK', '~> 1.0.17'
     pod 'NVActivityIndicatorView', '~> 4.2.1'
     pod 'FacebookCore', '~> 0.3.3'
-    pod 'Hero' , '~> 1.4.0'
+    pod 'Hero', '~> 1.4.0'
     pod 'SwiftyJSON', '~> 4.0'
     pod 'lottie-ios', '~> 2.5.2'
 end

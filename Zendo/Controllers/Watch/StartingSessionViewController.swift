@@ -9,6 +9,7 @@
 import UIKit
 import HealthKit
 import Mixpanel
+import WatchConnectivity
 
 class StartingSessionViewController: UIViewController {
     
@@ -28,14 +29,40 @@ class StartingSessionViewController: UIViewController {
             configuration.locationType = .unknown
             
             self.healthStore.startWatchApp(with: configuration) { success, error in
+                
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }
+                
                 guard success else {
-                    let alert = UIAlertController(title: "Error", message: (error?.localizedDescription)!, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
-                        self.checkHealthKit(isShow: true)
-                    })
-                    DispatchQueue.main.async {
-                        self.present(alert, animated: true)
+                    let vc = WatchSyncError.loadFromStoryboard()
+                    
+                    if error?.code == 7 {
+                        vc.errorConfiguration = .needWear
+                    } else {
+                        if WCSession.isSupported() {
+                            let session = WCSession.default
+                            
+                            if !session.isPaired {
+                                vc.errorConfiguration = .noAppleWatch
+                            } else if !WCSession.default.isWatchAppInstalled {
+                                vc.errorConfiguration = .noInstallZendo
+                            } else {
+                                let alert = UIAlertController(title: "Error", message: (error?.localizedDescription)!, preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                                    self.checkHealthKit(isShow: true)
+                                })
+                                DispatchQueue.main.async {
+                                    self.present(alert, animated: true)
+                                }
+                            }
+                        }
                     }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500) ) {
+                        UIApplication.topViewController()?.present(vc, animated: true)
+                    }
+                    
                     return
                 }
                 

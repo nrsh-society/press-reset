@@ -63,7 +63,18 @@ extension UIViewController {
                     if index == ZBFHealthKit.hkShareTypes.count - 1 {
                         if let vc = UIApplication.shared.keyWindow?.topViewController {
                             if vc.isKind(of: HealthKitViewController.self) || vc.isKind(of: NavigationControllerWelcome.self) {
-                                vc.dismiss(animated: true)
+                                
+                                if vc.isKind(of: NavigationControllerWelcome.self),
+                                    let nc = vc as? NavigationControllerWelcome,
+                                    let top = nc.topViewController,
+                                    !top.isKind(of: WatchSyncError.self) {
+                                    
+                                    vc.dismiss(animated: true)
+                                } else {
+                                    
+                                    vc.dismiss(animated: true)
+                                }
+                                
                             }
                         }
                         updateOverview()

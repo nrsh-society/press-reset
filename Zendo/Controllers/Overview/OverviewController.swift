@@ -58,7 +58,7 @@ class OverviewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setNeedsStatusBarAppearanceUpdate()
         
         setDate()
@@ -285,10 +285,10 @@ class OverviewController: UIViewController {
                     samples.sorted(by: <).forEach( { entry in
                         
                         if entry.value > 0.0 {
-                            dataset?.addEntry(ChartDataEntry(x: entry.key, y: entry.value))
+                           _ = dataset?.addEntry(ChartDataEntry(x: entry.key, y: entry.value))
                         }
                         
-                        communityDataset?.addEntry(self.getCommunityDataEntry(key: "sdnn", interval: entry.key, scale: 1.0))
+                        _ = communityDataset?.addEntry(self.getCommunityDataEntry(key: "sdnn", interval: entry.key, scale: 1.0))
                     
                     })
                 
@@ -421,10 +421,10 @@ class OverviewController: UIViewController {
                     entry.value = (entry.value / 60.0).rounded()
                     
                         if entry.value > 0.0 {
-                            dataset?.addEntry(ChartDataEntry(x: entry.key, y: entry.value))
+                            _ = dataset?.addEntry(ChartDataEntry(x: entry.key, y: entry.value))
                         }
                         let community = ChartDataEntry(x: entry.key, y: 30.0)
-                        communityDataset?.addEntry(community)
+                        _ = communityDataset?.addEntry(community)
                     }
                 }
                 

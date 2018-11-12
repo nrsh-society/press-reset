@@ -15,6 +15,8 @@
 		123E8E8721748DC900C6E2EC /* SettingsWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123E8E8621748DC900C6E2EC /* SettingsWatch.swift */; };
 		1246C422212725140011F5D3 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246C421212725140011F5D3 /* BalloonMarker.swift */; };
 		12477F222119A27700D8AE83 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12477F212119A27700D8AE83 /* Settings.swift */; };
+		124A689C2199A41400598639 /* WatchSyncError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A689B2199A41400598639 /* WatchSyncError.swift */; };
+		124A689E2199CCF800598639 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A689D2199CCF800598639 /* Error.swift */; };
 		126544AE2170B44D00CA8F0B /* NavigationControllerWelcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126544AD2170B44D00CA8F0B /* NavigationControllerWelcome.swift */; };
 		1277A526215CF3F800B15CE6 /* SummaryInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1277A525215CF3F800B15CE6 /* SummaryInterfaceController.swift */; };
 		1277A527215D227C00B15CE6 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE6210F7E40007E2480 /* Date.swift */; };
@@ -183,6 +185,8 @@
 		123E8E8621748DC900C6E2EC /* SettingsWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWatch.swift; sourceTree = "<group>"; };
 		1246C421212725140011F5D3 /* BalloonMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		12477F212119A27700D8AE83 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		124A689B2199A41400598639 /* WatchSyncError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchSyncError.swift; sourceTree = "<group>"; };
+		124A689D2199CCF800598639 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		126544AD2170B44D00CA8F0B /* NavigationControllerWelcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerWelcome.swift; sourceTree = "<group>"; };
 		1277A525215CF3F800B15CE6 /* SummaryInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInterfaceController.swift; sourceTree = "<group>"; };
 		127C3E2821788FD300B332EB /* Discover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Discover.storyboard; sourceTree = "<group>"; };
@@ -418,6 +422,7 @@
 			isa = PBXGroup;
 			children = (
 				12C85D652176168B00329B53 /* WatchSessionManager.swift */,
+				124A689B2199A41400598639 /* WatchSyncError.swift */,
 				DFE3B1752189C377008830CD /* StartingSessionViewController.swift */,
 			);
 			path = Watch;
@@ -516,6 +521,7 @@
 				12C2C285213802760039C7A0 /* String.swift */,
 				127C3E3621789FD800B332EB /* CALayer+Corners.swift */,
 				12A7E259217F4A5A00E38018 /* UIImageView.swift */,
+				124A689D2199CCF800598639 /* Error.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -911,6 +917,7 @@
 				12CE364E211302A900EF0196 /* UIView.swift in Sources */,
 				12C2C27D2137F7E80039C7A0 /* ZenTextField.swift in Sources */,
 				12D3BB34211A00B40081CAE2 /* OverviewTableViewCell.swift in Sources */,
+				124A689E2199CCF800598639 /* Error.swift in Sources */,
 				12CE365421132A7100EF0196 /* UIImage.swift in Sources */,
 				127C3E3721789FD800B332EB /* CALayer+Corners.swift in Sources */,
 				BE066BDD20F1F3D10008747D /* PageController.swift in Sources */,
@@ -941,6 +948,7 @@
 				12E2A1B721107CE400E0E911 /* UIColor+Zendo.swift in Sources */,
 				12FFCAE5210F7DDD007E2480 /* Cell+ReuseIdentifier.swift in Sources */,
 				BE75AEC120F708C300311512 /* Chart.swift in Sources */,
+				124A689C2199A41400598639 /* WatchSyncError.swift in Sources */,
 				12C2C2812137FCA90039C7A0 /* CommunityViewController.swift in Sources */,
 				12A7E258217F40F900E38018 /* Content.swift in Sources */,
 				BE2E81EF1FF44A7B00D104AC /* ZendoController.swift in Sources */,
@@ -1153,10 +1161,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1177,10 +1185,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1200,11 +1208,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1224,11 +1232,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1250,7 +1258,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1258,7 +1266,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1278,7 +1286,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1286,7 +1294,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

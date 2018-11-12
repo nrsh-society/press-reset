@@ -64,7 +64,9 @@ class HealthKitViewController: UIViewController {
                                     self.isFailed = true
                                     self.setConnectFailed()
                                 case .sharingAuthorized:
-                                    self.dismiss(animated: true)
+                                    let vc = WatchSyncError.loadFromStoryboard()
+                                    vc.errorConfiguration = .connecting
+                                    self.navigationController?.pushViewController(vc, animated: true)
                                 }
                                 break
                             }
@@ -105,13 +107,8 @@ class HealthKitViewController: UIViewController {
             3. Locate and Tap on Zendō
             4. Tap on Turn All Categories On.
             """
-            let attributedString = NSMutableAttributedString(string: label.text ?? "")
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineHeightMultiple = 1.43
             
-            attributedString.addAttribute(.paragraphStyle, value:paragraphStyle, range: NSMakeRange(0, attributedString.length))
-            
-            label.attributedText = attributedString
+            label.attributedText = setAttributedString(label.text ?? "")
             default: break
             }
         }
@@ -119,7 +116,17 @@ class HealthKitViewController: UIViewController {
         zenButton.title.text = "Go to Health App"
     }
     
-    static func loadFromStoryboard() -> HealthKitViewController {
+    func setAttributedString(_ text: String) -> NSMutableAttributedString {
+        let attributedString = NSMutableAttributedString(string: text)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.43
+        
+        attributedString.addAttribute(.paragraphStyle, value:paragraphStyle, range: NSMakeRange(0, attributedString.length))
+        
+        return attributedString
+    }
+    
+    class func loadFromStoryboard() -> HealthKitViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HealthKitViewController") as! HealthKitViewController
     }
     
