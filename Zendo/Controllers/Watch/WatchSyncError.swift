@@ -78,29 +78,6 @@ class WatchSyncError: HealthKitViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for label in labels {
-            if label.tag == 2 {
-                label.font = UIFont.zendo(font: .antennaRegular, size: label.font.pointSize)
-                let attributedString = NSMutableAttributedString(string: label.text ?? "")
-                let paragraphStyle = NSMutableParagraphStyle()
-                paragraphStyle.lineHeightMultiple = 1.43
-                
-                attributedString.addAttribute(.paragraphStyle, value:paragraphStyle, range: NSMakeRange(0, attributedString.length))
-                
-                label.attributedText = attributedString
-            }
-        }
-        
-        if UIDevice.small {
-            for label in labels {
-                label.font = UIFont.zendo(font: .antennaRegular, size: label.font.pointSize - 2)
-            }
-        }
-        
-        if UIDevice.iPhoneX {
-            heightImage.isActive = false
-        }
-        
         setScreen()
         
         zenButton.action = {

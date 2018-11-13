@@ -40,7 +40,7 @@ class HealthKitViewController: UIViewController {
             }
         }
         
-        if UIDevice.iPhoneX {
+        if UIDevice.X {
             heightImage.isActive = false
         }
         
