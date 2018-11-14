@@ -12,12 +12,12 @@ import WatchConnectivity
 
 
 enum ErrorConfiguration {
-    case connecting, settingUp, noInstallZendo, needWear, noAppleWatch
+    case connecting, success, noInstallZendo, needWear, noAppleWatch
     
     var image: UIImage? {
         switch self {
         case .connecting: return UIImage(named: "watchConnect")
-        case .settingUp: return UIImage(named: "watchConnectSuccess")
+        case .success: return UIImage(named: "watchConnectSuccess")
         case .noInstallZendo: return UIImage(named: "watchConnectInstall")
         case .needWear: return UIImage(named: "watchNotOnWrist")
         case .noAppleWatch: return UIImage(named: "watchConnectNonePaired")
@@ -27,7 +27,7 @@ enum ErrorConfiguration {
     var zenButton: (isHidden: Bool, text: String) {
         switch self {
         case .connecting: return (true, "")
-        case .settingUp: return (false, "Get Started")
+        case .success: return (false, "Get Started")
         case .noInstallZendo: return (false, "Go to Watch App")
         case .needWear: return (false, "Back")
         case .noAppleWatch: return (false, "Sync Data")
@@ -38,13 +38,13 @@ enum ErrorConfiguration {
         switch self {
         case .connecting: return [
             "connecting to",
-            "Apple Watch…",
+            "Apple Watch",
             "Checking to see if your watch is paired with your phone."
             ]
-        case .settingUp: return [
-            "setting up",
-            "apple watch",
-            "Checking to see if your watch is paired with your phone. One more moment please."
+        case .success: return [
+            "watch setup",
+            "complete",
+            "You have successfully connected to your Apple Watch. Use your watch to monitor your HRV and record meditation sessions."
             ]
         case .noInstallZendo: return [
             "install zendō",
@@ -57,10 +57,9 @@ enum ErrorConfiguration {
             """]
         case .needWear: return [
             "wear your",
-            "apple watch",
-            """
-            In order to record meditation session, you need to wear your Apple Watch.
-            """]
+            "Apple Watch",
+            "In order start a meditation session, you need to wear your Apple Watch. Wear your watch and try again."
+            ]
         case .noAppleWatch: return [
             "no Apple Watch",
             "paired to phone",
@@ -91,7 +90,7 @@ class WatchSyncError: HealthKitViewController {
                     }
                 case .noInstallZendo:
                     UIApplication.shared.open(URL(string: "itms-watch://")!)
-                case .settingUp:
+                case .success:
                     self.dismiss(animated: true)
                 case .needWear:
                     self.dismiss(animated: true)
@@ -122,7 +121,7 @@ class WatchSyncError: HealthKitViewController {
                     errorConfiguration = .noInstallZendo
                     setScreen()
                 } else {
-                    errorConfiguration = .settingUp
+                    errorConfiguration = .success
                     setScreen()
                 }
             }
