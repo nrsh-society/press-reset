@@ -90,6 +90,11 @@ class VideoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        do {
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
+            try? AVAudioSession.sharedInstance().setActive(true)
+        }
+        
         let gr = UITapGestureRecognizer(target: self, action: #selector(pauseViewAction))
         pauseView.addGestureRecognizer(gr)
         
