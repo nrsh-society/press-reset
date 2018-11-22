@@ -93,10 +93,10 @@
             </objects>
             <point key="canvasLocation" x="417" y="141"/>
         </scene>
-        <!--Sessions-->
+        <!--Session-->
         <scene sceneID="PLM-Hm-Vur">
             <objects>
-                <controller identifier="SessionInterfaceController" title="Sessions" contentMode="scaleAspectFit" id="ni9-qQ-E13" customClass="SessionInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="SessionInterfaceController" title="Session" contentMode="scaleAspectFit" id="ni9-qQ-E13" customClass="SessionInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="bottom" contentMode="scaleAspectFit" layout="vertical" spacing="0.0" id="tim-Rb-wsC">
                             <items>

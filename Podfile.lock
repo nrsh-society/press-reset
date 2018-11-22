@@ -6,6 +6,7 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
   - BuddyBuildSDK (1.0.17)
+  - Cache (5.2.0)
   - Charts (3.1.1):
     - Charts/Core (= 3.1.1)
   - Charts/Core (3.1.1)
@@ -27,6 +28,7 @@ PODS:
 
 DEPENDENCIES:
   - BuddyBuildSDK (~> 1.0.17)
+  - Cache
   - Charts (~> 3.1.1)
   - FacebookCore (~> 0.3.3)
   - Hero (~> 1.4.0)
@@ -40,6 +42,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Bolts
     - BuddyBuildSDK
+    - Cache
     - Charts
     - FacebookCore
     - FBSDKCoreKit
@@ -53,6 +56,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BuddyBuildSDK: 8ae12ee721098b356a961ea7dce70ae55f93a7d2
+  Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
   FacebookCore: 9ecbe48cfd37c91a93add7f8cec2b4a2c50a1eec
   FBSDKCoreKit: 8d47857400e2f5bdea697a80daff882e91c84ef6
@@ -63,6 +67,6 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 816f284cdbf6984225d47202de6c6c558c64fd83
+PODFILE CHECKSUM: cb4e43ca9b81fed6f3e1a8ebad5ccab3ec2dec85
 
 COCOAPODS: 1.6.0.beta.1

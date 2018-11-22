@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import Hero
+import Cache
 
 enum PlayerStatus: Float {
     case pause = 0.0
@@ -25,6 +26,13 @@ enum PlayerStatus: Float {
 class VideoViewController: UIViewController {
     
     var panGR: UIPanGestureRecognizer!
+    
+    let diskConfig = DiskConfig(name: "DiskCache")
+    let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
+    
+    lazy var storage: Cache.Storage? = {
+        return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forData())
+    }()
     
     @IBOutlet weak var pauseView: UIView! {
         didSet {
@@ -115,16 +123,17 @@ class VideoViewController: UIViewController {
                 
                 if let urlContent = content.content, let url = URL(string: urlContent), index <= 1 {
                     
-                    let player = AVPlayer(url: url)
-                    player.actionAtItemEnd = .none
-                    player.play()
-                    player.pause()
-                    
-                    let playerLayer = AVPlayerLayer(player: player)
-                    playerLayer.frame = UIScreen.main.bounds
-                    playerLayer.videoGravity = .resizeAspectFill
-                    
-                    playerLayers.append(playerLayer)
+                    play(with: url) { player in
+                        let playerLayer = AVPlayerLayer(player: player)
+                        playerLayer.frame = UIScreen.main.bounds
+                        playerLayer.videoGravity = .resizeAspectFill
+                        
+                        self.playerLayers.append(playerLayer)
+                        
+                        if index == 0 {
+                            self.startVideo()
+                        }
+                    }
                     
                 }
                 
@@ -134,7 +143,6 @@ class VideoViewController: UIViewController {
             
         }
         
-        startVideo()
         
         let grLeft = UITapGestureRecognizer(target: self, action: #selector(tapLeft))
         leftView.addGestureRecognizer(grLeft)
@@ -157,6 +165,48 @@ class VideoViewController: UIViewController {
         return true
     }
     
+    func play(with url: URL, completion: ((AVPlayer)->())? = nil) {
+//        try? storage?.removeAll()
+        storage?.async.entry(forKey: url.absoluteString, completion: { result in
+            let playerItem: AVPlayerItem
+            switch result {
+            case .error:
+                playerItem = AVPlayerItem(url: url)
+            case .value(let entry):
+                
+                if let path = entry.filePath {
+                    
+                    let configuration = URLSessionConfiguration.background(withIdentifier: "downloadIdentifier")
+                    let downloadSession = AVAssetDownloadURLSession(configuration: configuration, assetDownloadDelegate: self, delegateQueue: OperationQueue.main)
+                    let url = URL(string:path)
+                    let asset = AVURLAsset(url: url!)
+                    
+                    let downloadTask = downloadSession.makeAssetDownloadTask(asset: asset, assetTitle: "downloadedAudio", assetArtworkData: nil, options: nil)
+                    downloadTask?.resume()
+                    
+                    print((downloadTask?.urlAsset)!)
+                    
+                    playerItem = AVPlayerItem(asset: (downloadTask?.urlAsset)!)
+                    
+//                    let filepath = URL(fileURLWithPath: path)
+//                    playerItem = AVPlayerItem(url: filepath)
+                } else {
+                    playerItem = AVPlayerItem(url: url)
+                }
+                
+            }
+            
+            let player = AVPlayer(playerItem: playerItem)
+            player.actionAtItemEnd = .none
+            player.automaticallyWaitsToMinimizeStalling = false
+            player.play()
+            player.pause()
+            
+            completion?(player)
+        })
+    }
+   
+    
     func startVideo() {
         
         setBackground()
@@ -173,13 +223,13 @@ class VideoViewController: UIViewController {
         playerLayerCurrent.player?.play()
         
         activity.startAnimating()
-                
+        
         playerObserver = playerLayerCurrent.player?.addPeriodicTimeObserver(forInterval: interval, queue: mainQueue) { time in
             
             let duration = self.playerLayerCurrent.player!.currentItem!.duration
             let limit = CMTime(seconds: 1.0, preferredTimescale: 1000)
             let maxTime = duration - limit
-
+            
             let currentTime = self.playerLayerCurrent.player!.currentTime()
             
             if currentTime.seconds > 0.0 && self.activity.isAnimating {
@@ -187,6 +237,52 @@ class VideoViewController: UIViewController {
             }
             
             if currentTime >= maxTime {
+                
+               
+                
+                if let player = self.playerLayerCurrent.player!.currentItem {
+                    
+                    let url: URL? = (player.asset as? AVURLAsset)?.url
+                    
+                    URLSession.shared.dataTask(with: url!) { data, response, error -> Void in
+                        
+                        if let data = data, error == nil {
+                            do {
+                                self.storage?.async.setObject(data, forKey: url!.absoluteString, completion: { _ in })
+                            } catch {
+                                
+                            }
+                        }
+                        
+                        
+                        
+                        }.resume()
+//
+//                    guard let filename = url?.absoluteString else {
+//                        return
+//                    }
+//
+//                    let documentsDirectory = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).last!
+//
+//                    let outputURL = documentsDirectory.appendingPathComponent(filename)
+//
+//                    let exporter = AVAssetExportSession(asset: player.asset, presetName: AVAssetExportPresetHighestQuality)
+//
+//                    exporter?.outputURL = outputURL
+//                    exporter?.outputFileType = AVFileType.mov
+//
+//                    exporter?.exportAsynchronously(completionHandler: {
+//
+//                        print(exporter?.status.rawValue)
+//                        print(exporter?.error)
+//
+//                        if let video = try? Data(contentsOf: outputURL) {
+//                            self.storage?.async.setObject(video, forKey: outputURL.absoluteString, completion: { _ in })
+//                        }
+//
+//                    })
+                }
+                
                 self.tapRight()
                 return
             } else {
@@ -250,18 +346,15 @@ class VideoViewController: UIViewController {
             
             if !isIndexValid && (curent + 1) <= story.content.count - 1,
                 let urlContent = story.content[curent + 1].content,
-                let url = URL(string: urlContent){
+                let url = URL(string: urlContent) {
                 
-                let player = AVPlayer(url: url)
-                player.actionAtItemEnd = .none
-                player.play()
-                player.pause()
-                
-                let playerLayer = AVPlayerLayer(player: player)
-                playerLayer.frame = UIScreen.main.bounds
-                playerLayer.videoGravity = .resizeAspectFill
-                
-                playerLayers.append(playerLayer)
+                play(with: url) { player in
+                    let playerLayer = AVPlayerLayer(player: player)
+                    playerLayer.frame = UIScreen.main.bounds
+                    playerLayer.videoGravity = .resizeAspectFill
+                    
+                    self.playerLayers.append(playerLayer)
+                }
             }
             
         } else if curent == story.content.count - 1 {
@@ -352,5 +445,20 @@ class VideoViewController: UIViewController {
             playerObserver = nil
         }
     }
+    
+}
+
+extension VideoViewController: AVAssetDownloadDelegate {
+    
+    
+    func urlSession(_ session: URLSession, assetDownloadTask: AVAssetDownloadTask, didFinishDownloadingTo location: URL) {
+//        UserDefaults.standard.set(location.relativePath, forKey: "assetPath")
+        print("Done")
+        
+//        let
+        
+//        self.storage?.async.setObject(video, forKey: outputURL.absoluteString, completion: { _ in })
+    }
+    
     
 }
