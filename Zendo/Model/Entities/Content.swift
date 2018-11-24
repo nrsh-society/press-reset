@@ -12,7 +12,8 @@ import SwiftyJSON
 class Content {
     
     var thumbnailUrl: String!
-    var content: String?
+    var stream: String?
+    var download: String?
     
     public init(_ json: JSON)  {
         
@@ -20,8 +21,12 @@ class Content {
             self.thumbnailUrl = thumbnailUrl
         }
         
-        if let content = json["content"].string{
-            self.content = content
+        if let stream = json["stream"].string{
+            self.stream = stream
+        }
+
+        if let download = json["download"].string{
+            self.download = download
         }
     
     }
