@@ -121,7 +121,7 @@ class VideoViewController: UIViewController {
             
             for (index, content) in story.content.enumerated() {
                 
-                if let urlContent = content.content, let url = URL(string: urlContent), index <= 1 {
+                if let urlContent = content.stream, let url = URL(string: urlContent), index <= 1 {
                     
                     play(with: url) { player in
                         let playerLayer = AVPlayerLayer(player: player)
@@ -345,8 +345,22 @@ class VideoViewController: UIViewController {
             let isIndexValid = playerLayers.indices.contains(curent + 1)
             
             if !isIndexValid && (curent + 1) <= story.content.count - 1,
+<<<<<<< HEAD
                 let urlContent = story.content[curent + 1].content,
                 let url = URL(string: urlContent) {
+=======
+                let urlContent = story.content[curent + 1].stream,
+                let url = URL(string: urlContent){
+                
+                let player = AVPlayer(url: url)
+                player.actionAtItemEnd = .none
+                player.play()
+                player.pause()
+                
+                let playerLayer = AVPlayerLayer(player: player)
+                playerLayer.frame = UIScreen.main.bounds
+                playerLayer.videoGravity = .resizeAspectFill
+>>>>>>> 9c6344905d09454e9a71949614210f6521fce438
                 
                 play(with: url) { player in
                     let playerLayer = AVPlayerLayer(player: player)
