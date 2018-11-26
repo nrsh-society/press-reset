@@ -24,11 +24,14 @@ PODS:
   - NVActivityIndicatorView (4.2.1):
     - NVActivityIndicatorView/Presenter (= 4.2.1)
   - NVActivityIndicatorView/Presenter (4.2.1)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
   - SwiftyJSON (4.2.0)
 
 DEPENDENCIES:
   - BuddyBuildSDK (~> 1.0.17)
-  - Cache
+  - Cache (~> 5.2.0)
   - Charts (~> 3.1.1)
   - FacebookCore (~> 0.3.3)
   - Hero (~> 1.4.0)
@@ -36,6 +39,7 @@ DEPENDENCIES:
   - Mixpanel (~> 3.3.6)
   - Mixpanel-swift (~> 2.4.2)
   - NVActivityIndicatorView (~> 4.2.1)
+  - SDWebImage (~> 4.0)
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
@@ -51,6 +55,7 @@ SPEC REPOS:
     - Mixpanel
     - Mixpanel-swift
     - NVActivityIndicatorView
+    - SDWebImage
     - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -65,8 +70,9 @@ SPEC CHECKSUMS:
   Mixpanel: 801ed99810d6bfc80762f91d472ad95c15e45f37
   Mixpanel-swift: a9ed3dd197d8f2837920cec6be1acdb51d07b31a
   NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: cb4e43ca9b81fed6f3e1a8ebad5ccab3ec2dec85
+PODFILE CHECKSUM: 885b6e834d1e33e4932e4ab87eba4f4d553ccdeb
 
 COCOAPODS: 1.6.0.beta.1

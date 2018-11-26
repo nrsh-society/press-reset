@@ -9,10 +9,11 @@
 import UIKit
 import Mixpanel
 import WatchConnectivity
+import CoreBluetooth
 
 
 enum ErrorConfiguration {
-    case connecting, success, noInstallZendo, needWear, noAppleWatch
+    case connecting, success, noInstallZendo, needWear, noAppleWatch, unableToDetect
     
     var image: UIImage? {
         switch self {
@@ -21,6 +22,7 @@ enum ErrorConfiguration {
         case .noInstallZendo: return UIImage(named: "watchConnectInstall")
         case .needWear: return UIImage(named: "watchNotOnWrist")
         case .noAppleWatch: return UIImage(named: "watchConnectNonePaired")
+        case .unableToDetect: return UIImage(named: "watchConnect")
         }
     }
     
@@ -31,6 +33,7 @@ enum ErrorConfiguration {
         case .noInstallZendo: return (false, "Go to Watch App")
         case .needWear: return (false, "Back")
         case .noAppleWatch: return (false, "Sync Data")
+        case .unableToDetect: return (false, "Done")
         }
     }
     
@@ -54,7 +57,8 @@ enum ErrorConfiguration {
             
             1.  Go to Watch App
             2.  Locate Zendo and tap Install
-            """]
+            """
+            ]
         case .needWear: return [
             "wear your",
             "Apple Watch",
@@ -63,9 +67,13 @@ enum ErrorConfiguration {
         case .noAppleWatch: return [
             "no Apple Watch",
             "paired to phone",
-            """
-            In order to record a meditation session and track your HRV, Zendo requires a connnected Apple Watch device.
-            """]
+            "In order to record a meditation session and track your HRV, Zendo requires a connnected Apple Watch device."
+            ]
+        case .unableToDetect: return [
+            "unable to detect",
+            "Apple Watch",
+            "Sorry we could not start a session on your watch. Make sure your watch is connected to your iPhone."
+            ]
         }
     }
 }
@@ -73,6 +81,7 @@ enum ErrorConfiguration {
 class WatchSyncError: HealthKitViewController {
     
     var errorConfiguration = ErrorConfiguration.connecting
+    var isFirstCheck = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,8 +101,14 @@ class WatchSyncError: HealthKitViewController {
                     UIApplication.shared.open(URL(string: "itms-watch://")!)
                 case .success:
                     self.dismiss(animated: true)
-                case .needWear:
-                    self.dismiss(animated: true)
+                case .needWear, .unableToDetect:
+                    if self.isFirstCheck {
+                        self.errorConfiguration = .connecting
+                        self.setScreen()
+                        self.check()
+                    } else {
+                        self.dismiss(animated: true)
+                    }
                 default: break
                 }
                 
@@ -105,11 +120,23 @@ class WatchSyncError: HealthKitViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        check()
+    }
+    
+    func check() {
+        let peripheral = CBCentralManager().retrieveConnectedPeripherals(withServices: [CBUUID(string: "180A")])
+        
+        
         if let topVC = UIApplication.topViewController() as? WatchSyncError {
             
-            if topVC.errorConfiguration == .noInstallZendo && WCSession.default.isWatchAppInstalled {
+            if topVC.errorConfiguration == .noInstallZendo && WCSession.default.isWatchAppInstalled && isFirstCheck {
                 errorConfiguration = .connecting
             }
+            
+            if topVC.errorConfiguration == .unableToDetect && !peripheral.isEmpty && isFirstCheck {
+                errorConfiguration = .connecting
+            }
+            
             
             if topVC.errorConfiguration == .connecting && WCSession.isSupported() {
                 let session = WCSession.default
@@ -117,7 +144,10 @@ class WatchSyncError: HealthKitViewController {
                 if !session.isPaired {
                     errorConfiguration = .noAppleWatch
                     setScreen()
-                }else if !WCSession.default.isWatchAppInstalled {
+                } else if peripheral.isEmpty {
+                    errorConfiguration = .unableToDetect
+                    setScreen()
+                } else if !session.isWatchAppInstalled {
                     errorConfiguration = .noInstallZendo
                     setScreen()
                 } else {
@@ -126,7 +156,6 @@ class WatchSyncError: HealthKitViewController {
                 }
             }
         }
-        
     }
 
     override func viewDidAppear(_ animated: Bool) {

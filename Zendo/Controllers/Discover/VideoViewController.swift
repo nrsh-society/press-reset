@@ -111,8 +111,8 @@ class VideoViewController: UIViewController {
         
         if let story = story {
             
-            if  let thumbnailUrl = story.thumbnailUrl {
-                UIImage.imageFromUrl(urlString: thumbnailUrl) { image in
+            if  let thumbnailUrl = story.thumbnailUrl, let url = URL(string: thumbnailUrl) {
+                UIImage.setImage(from: url) { image in
                     DispatchQueue.main.async {
                         self.video.addBackground(image: image)
                     }
@@ -363,9 +363,9 @@ class VideoViewController: UIViewController {
         
     }
     
-    func setBackground() {
-        if let story = story, let thumbnailUrl = story.content[curent].thumbnailUrl {
-            UIImage.imageFromUrl(urlString: thumbnailUrl) { image in
+    func setBackground() {        
+        if let story = story, let thumbnailUrl = story.content[curent].thumbnailUrl, let url = URL(string: thumbnailUrl) {
+            UIImage.setImage(from: url) { image in
                 DispatchQueue.main.async {
                     self.video.addBackground(image: image)
                 }

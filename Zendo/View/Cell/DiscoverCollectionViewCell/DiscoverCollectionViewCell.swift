@@ -16,9 +16,8 @@ class DiscoverCollectionViewCell: UICollectionViewCell {
     var story: Story! {
         didSet {
             titleLabel.text = story.title
-            if let thumbnailUrl = story.thumbnailUrl {
-                
-                discoverImageView.imageFromUrl(urlString: thumbnailUrl) { _ in
+            if let thumbnailUrl = story.thumbnailUrl, let url = URL(string: thumbnailUrl) {
+                discoverImageView.setImage(from: url) { _, _ in
                     self.layoutIfNeeded()
                     self.addGradientLayer()
                 }

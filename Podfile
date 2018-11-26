@@ -11,6 +11,7 @@ target 'Zendo' do
     pod 'SwiftyJSON', '~> 4.0'
     pod 'lottie-ios', '~> 2.5.2'
     pod 'Cache', '~> 5.2.0'
+    pod 'SDWebImage', '~> 4.0'
 end
 
 

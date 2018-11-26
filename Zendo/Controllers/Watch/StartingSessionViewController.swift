@@ -10,6 +10,7 @@ import UIKit
 import HealthKit
 import Mixpanel
 import WatchConnectivity
+import CoreBluetooth
 
 class StartingSessionViewController: UIViewController {
     
@@ -24,44 +25,54 @@ class StartingSessionViewController: UIViewController {
         startingSessions.setLayoutConstraint(view, secondView: view)
         startingSessions.startAction = {
             
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+            }
+            
+            let vc = WatchSyncError.loadFromStoryboard()
+            
+            let peripheral = CBCentralManager().retrieveConnectedPeripherals(withServices: [CBUUID(string: "180A")])
+            
+            if WCSession.isSupported() {
+                let session = WCSession.default
+                
+                if !session.isPaired {
+                    vc.errorConfiguration = .noAppleWatch
+                    self.showWatchSyncError(vc)
+                    return
+                } else if peripheral.isEmpty {
+                    vc.errorConfiguration = .unableToDetect
+                    self.showWatchSyncError(vc)
+                    return
+                } else if !session.isWatchAppInstalled {
+                    vc.errorConfiguration = .noInstallZendo
+                    self.showWatchSyncError(vc)
+                    return
+                }
+            }
+            
             let configuration = HKWorkoutConfiguration()
             configuration.activityType = .mindAndBody
             configuration.locationType = .unknown
             
+            
             self.healthStore.startWatchApp(with: configuration) { success, error in
                 
-                DispatchQueue.main.async {
-                    self.dismiss(animated: true, completion: nil)
-                }
-                
                 guard success else {
-                    let vc = WatchSyncError.loadFromStoryboard()
                     
                     if error?.code == 7 {
                         vc.errorConfiguration = .needWear
                     } else {
-                        if WCSession.isSupported() {
-                            let session = WCSession.default
-                            
-                            if !session.isPaired {
-                                vc.errorConfiguration = .noAppleWatch
-                            } else if !WCSession.default.isWatchAppInstalled {
-                                vc.errorConfiguration = .noInstallZendo
-                            } else {
-                                let alert = UIAlertController(title: "Error", message: (error?.localizedDescription)!, preferredStyle: .alert)
-                                alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
-                                    self.checkHealthKit(isShow: true)
-                                })
-                                DispatchQueue.main.async {
-                                    self.present(alert, animated: true)
-                                }
-                            }
+                        let alert = UIAlertController(title: "Error", message: (error?.localizedDescription)!, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                            self.checkHealthKit(isShow: true)
+                        })
+                        DispatchQueue.main.async {
+                            self.present(alert, animated: true)
                         }
                     }
                     
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500) ) {
-                        UIApplication.topViewController()?.present(vc, animated: true)
-                    }
+                   self.showWatchSyncError(vc)
                     
                     return
                 }
@@ -74,6 +85,12 @@ class StartingSessionViewController: UIViewController {
         
         startingSessions.closeAction = {
             self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func showWatchSyncError(_ vc: WatchSyncError) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500) ) {
+            UIApplication.topViewController()?.present(vc, animated: true)
         }
     }
     

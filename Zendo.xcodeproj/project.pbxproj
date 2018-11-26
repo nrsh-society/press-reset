@@ -12,6 +12,7 @@
 		121F2600211B372300C1CC96 /* SessionDelegater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F25FF211B372300C1CC96 /* SessionDelegater.swift */; };
 		121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F2604211B3D9C00C1CC96 /* Notification+Name.swift */; };
 		121F260A211B499300C1CC96 /* HealthKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F2609211B499300C1CC96 /* HealthKitViewController.swift */; };
+		1223161F21A809D800413A62 /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223161E21A809D700413A62 /* UIImageView+Download.swift */; };
 		123E8E8721748DC900C6E2EC /* SettingsWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123E8E8621748DC900C6E2EC /* SettingsWatch.swift */; };
 		1243736921A30291005E91B8 /* CachingPlayerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1243736821A30291005E91B8 /* CachingPlayerItem.swift */; };
 		1246C422212725140011F5D3 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246C421212725140011F5D3 /* BalloonMarker.swift */; };
@@ -35,7 +36,6 @@
 		12A7E254217F3BCC00E38018 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7E253217F3BCC00E38018 /* Section.swift */; };
 		12A7E256217F404200E38018 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7E255217F404200E38018 /* Story.swift */; };
 		12A7E258217F40F900E38018 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7E257217F40F900E38018 /* Content.swift */; };
-		12A7E25A217F4A5A00E38018 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7E259217F4A5A00E38018 /* UIImageView.swift */; };
 		12C1A7282119B74B00EEFF4F /* ZenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C1A7272119B74B00EEFF4F /* ZenButton.swift */; };
 		12C1A72A2119B75900EEFF4F /* ZenButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12C1A7292119B75900EEFF4F /* ZenButton.xib */; };
 		12C1A72C2119B78900EEFF4F /* UIView+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C1A72B2119B78900EEFF4F /* UIView+Nib.swift */; };
@@ -183,6 +183,7 @@
 		121F25FF211B372300C1CC96 /* SessionDelegater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDelegater.swift; sourceTree = "<group>"; };
 		121F2604211B3D9C00C1CC96 /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
 		121F2609211B499300C1CC96 /* HealthKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitViewController.swift; sourceTree = "<group>"; };
+		1223161E21A809D700413A62 /* UIImageView+Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Download.swift"; sourceTree = "<group>"; };
 		123E8E8621748DC900C6E2EC /* SettingsWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWatch.swift; sourceTree = "<group>"; };
 		1243736821A30291005E91B8 /* CachingPlayerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingPlayerItem.swift; sourceTree = "<group>"; };
 		1246C421212725140011F5D3 /* BalloonMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
@@ -205,7 +206,6 @@
 		12A7E253217F3BCC00E38018 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		12A7E255217F404200E38018 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		12A7E257217F40F900E38018 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
-		12A7E259217F4A5A00E38018 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		12C1A7272119B74B00EEFF4F /* ZenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenButton.swift; sourceTree = "<group>"; };
 		12C1A7292119B75900EEFF4F /* ZenButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZenButton.xib; sourceTree = "<group>"; };
 		12C1A72B2119B78900EEFF4F /* UIView+Nib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Nib.swift"; sourceTree = "<group>"; };
@@ -507,6 +507,7 @@
 		12FFCAE3210F7D6D007E2480 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1223161E21A809D700413A62 /* UIImageView+Download.swift */,
 				128D0BB82111D30900A4D757 /* UIDevice+Size.swift */,
 				12FFCAE4210F7DDD007E2480 /* Cell+ReuseIdentifier.swift */,
 				12FFCAE6210F7E40007E2480 /* Date.swift */,
@@ -523,7 +524,6 @@
 				12CBA45D213549560066F671 /* TimeZone+UTC.swift */,
 				12C2C285213802760039C7A0 /* String.swift */,
 				127C3E3621789FD800B332EB /* CALayer+Corners.swift */,
-				12A7E259217F4A5A00E38018 /* UIImageView.swift */,
 				124A689D2199CCF800598639 /* Error.swift */,
 			);
 			path = Extensions;
@@ -847,6 +847,7 @@
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/Mixpanel-swift/Mixpanel.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
@@ -860,6 +861,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
@@ -938,7 +940,6 @@
 				12E2A1B521107A9400E0E911 /* UIFont.swift in Sources */,
 				DFE3B1762189C377008830CD /* StartingSessionViewController.swift in Sources */,
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
-				12A7E25A217F4A5A00E38018 /* UIImageView.swift in Sources */,
 				126544AE2170B44D00CA8F0B /* NavigationControllerWelcome.swift in Sources */,
 				12E2A19E21106E4500E0E911 /* TimeInterval.swift in Sources */,
 				12E189C1211C64AB004EADE9 /* UIApplication.swift in Sources */,
@@ -970,6 +971,7 @@
 				127C3E392178B37C00B332EB /* VideoViewController.swift in Sources */,
 				127C3E342178993100B332EB /* DiscoverCollectionViewCell.swift in Sources */,
 				BE2E81ED1FF44A7B00D104AC /* AppDelegate.swift in Sources */,
+				1223161F21A809D800413A62 /* UIImageView+Download.swift in Sources */,
 				BE75AEBF20F708C300311512 /* ChartColors.swift in Sources */,
 				121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */,
 				12C1A72C2119B78900EEFF4F /* UIView+Nib.swift in Sources */,

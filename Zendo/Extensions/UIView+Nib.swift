@@ -54,3 +54,24 @@ extension UIView {
     }
     
 }
+
+extension UIView {
+    
+    func addBackground(image: UIImage, isLayer: Bool = true) {
+        let width = UIScreen.main.bounds.size.width
+        let height = UIScreen.main.bounds.size.height
+        
+        let imageViewBackground = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: width, height: height))
+        imageViewBackground.image = image
+        
+        imageViewBackground.contentMode = UIViewContentMode.scaleAspectFill
+        
+        if isLayer {
+            layer.insertSublayer(imageViewBackground.layer, at: 0)
+        } else {
+            addSubview(imageViewBackground)
+            sendSubview(toBack: imageViewBackground)
+        }
+    }
+    
+}

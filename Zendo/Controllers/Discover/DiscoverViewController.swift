@@ -94,7 +94,7 @@ class DiscoverViewController: UIViewController {
     
     func startConnection() {
         
-        let urlPath: String = "http://media.zendo.tools/discover.json?v=/(Date().timeIntervalSinceNow)"
+        let urlPath: String = "http://media.zendo.tools/discover.json?v=\(Date().timeIntervalSinceNow)"
                 
         URLSession.shared.dataTask(with: URL(string: urlPath)!) { data, response, error -> Void in
             
@@ -102,7 +102,6 @@ class DiscoverViewController: UIViewController {
                 do {
                     let json = try JSON(data: data)
                     self.discover = Discover(json)
-//                    self.discover?.sections.append((self.discover?.sections[0])!)
                 } catch {
                     
                 }

@@ -66,6 +66,7 @@ class HealthKitViewController: UIViewController {
                                 case .sharingAuthorized:
                                     let vc = WatchSyncError.loadFromStoryboard()
                                     vc.errorConfiguration = .connecting
+                                    vc.isFirstCheck = true
                                     self.navigationController?.pushViewController(vc, animated: true)
                                 }
                                 break
