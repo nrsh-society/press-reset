@@ -37,20 +37,20 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>WKAppBundleIdentifier</key>
-			<string>tools.sunyata.Zendo.ios.watchkit</string>
+			<string>tools.sunyata.Zendo.watchkit</string>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
 	<key>UIBackgroundModes</key>
 	<array/>
+	<key>UIRequiresPersistentWiFi</key>
+	<true/>
 	<key>WKBackgroundModes</key>
 	<array>
 		<string>workout-processing</string>
 	</array>
 	<key>WKExtensionDelegateClassName</key>
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
-	<key>UIRequiresPersistentWiFi</key>
-	<true/>
 </dict>
 </plist>

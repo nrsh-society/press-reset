@@ -64,6 +64,7 @@ class DiscoverViewController: UIViewController {
         return discover?.sections ?? []
     }
     
+    var dataTask: URLSessionDataTask?
     
     let diskConfig = DiskConfig(name: "DiskCache")
     let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
@@ -161,9 +162,12 @@ class DiscoverViewController: UIViewController {
                             
                             try? self.storageCodable?.setObject(discover, forKey: Discover.key)
                             
+                            self.downloadVideo(newContent)
+                            
                         } else if let discover = self.discover {
                             try? self.storageCodable?.setObject(discover, forKey: Discover.key)
                         }
+                        
                     }
                     
                 } catch {
@@ -179,6 +183,45 @@ class DiscoverViewController: UIViewController {
             }.resume()
         
     }
+    
+    func downloadVideo(_ contents: [String], index: Int = 0) {
+        for (i, content) in contents.enumerated() {
+            
+            if index > i {
+                continue
+            }
+            
+            if let url = URL(string: content) {
+                
+                self.storage?.async.entry(forKey: url.absoluteString, completion: { result in
+                    
+                    switch result {
+                    case .error:
+                        var request = URLRequest(url: url)
+                        request.httpMethod = "GET"
+                        
+                        self.dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
+                            if let data = data, error == nil {
+                                self.storage?.async.setObject(data, forKey: url.absoluteString, completion: { _ in })
+                                
+                                self.downloadVideo(contents, index: i + 1)
+                            }
+                        }
+                        
+                        self.dataTask?.resume()
+                    case .value( _):
+                        self.downloadVideo(contents, index: i + 1)
+                    }
+                    
+                })
+                
+                if i == index {
+                    break
+                }
+            }
+        }
+    }
+    
     
     // MARK: - Navigation
     
@@ -246,6 +289,7 @@ extension DiscoverViewController: UICollectionViewDataSource {
         vc.idHero = "cellImage" + indexPath.row.description
         vc.hero.isEnabled = true
         vc.story = sections[collectionView.tag].stories[indexPath.row]
+        dataTask?.cancel()
         present(vc, animated: true, completion: nil)
     }
     

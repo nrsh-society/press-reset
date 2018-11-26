@@ -178,17 +178,6 @@ class VideoViewController: UIViewController {
             switch result {
             case .error:
                 playerItem = AVPlayerItem(url: urlStream)
-                
-                if let urlDownload = urlDownload {
-                    var request = URLRequest(url: urlDownload)
-                    request.httpMethod = "GET"
-                    
-                    URLSession.shared.dataTask(with: request) { data, response, error in
-                        if let data = data, error == nil {
-                            self.storage?.async.setObject(data, forKey: urlDownload.absoluteString, completion: { _ in })
-                        }
-                        }.resume()
-                }
             case .value(let entry):
                 if var path = entry.filePath {
                     if path.first == "/" {
