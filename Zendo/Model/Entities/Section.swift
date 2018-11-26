@@ -8,9 +8,10 @@
 
 import Foundation
 import SwiftyJSON
+import Cache
 
 
-class Section {
+class Section: Codable {
     
     var name: String!
     var thumbnailUrl: String?
@@ -18,11 +19,11 @@ class Section {
     
     public init(_ json: JSON)  {
         
-        if let name = json["name"].string{
+        if let name = json["name"].string {
             self.name = name
         }
         
-        if let thumbnailUrl = json["thumbnailUrl"].string{
+        if let thumbnailUrl = json["thumbnailUrl"].string {
             self.thumbnailUrl = thumbnailUrl
         }
         

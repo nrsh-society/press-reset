@@ -12,6 +12,7 @@ import AVFoundation
 import SwiftyJSON
 import HealthKit
 import Mixpanel
+import Cache
 
 
 class DiscoverTableViewCell: UITableViewCell {
@@ -28,13 +29,13 @@ class DiscoverTableViewCell: UITableViewCell {
             collectionView.contentOffset.x = newValue
         }
     }
-
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
         collectionView.register(DiscoverCollectionViewCell.nib, forCellWithReuseIdentifier: DiscoverCollectionViewCell.reuseIdentifierCell)
-
+        
     }
     
     func setCollectionViewDataSourceDelegate<D: UICollectionViewDataSource & UICollectionViewDelegate>(dataSourceDelegate: D, forRow row: Int) {
@@ -62,7 +63,19 @@ class DiscoverViewController: UIViewController {
     var sections: [Section] {
         return discover?.sections ?? []
     }
-
+    
+    
+    let diskConfig = DiskConfig(name: "DiskCache")
+    let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
+    
+    lazy var storageCodable: Cache.Storage? = {
+        return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forCodable(ofType: Discover.self))
+    }()
+    
+    lazy var storage: Cache.Storage? = {
+        return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forData())
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,22 +99,73 @@ class DiscoverViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        tableView.contentOffset = CGPoint(x: 0.0, y: -refreshControl.frame.size.height)
-//        refreshControl.beginRefreshing()
-
+        //        tableView.contentOffset = CGPoint(x: 0.0, y: -refreshControl.frame.size.height)
+        //        refreshControl.beginRefreshing()
+        
         startConnection()
     }
     
     func startConnection() {
         
         let urlPath: String = "http://media.zendo.tools/discover.json?v=\(Date().timeIntervalSinceNow)"
-                
+        
         URLSession.shared.dataTask(with: URL(string: urlPath)!) { data, response, error -> Void in
             
             if let data = data, error == nil {
                 do {
                     let json = try JSON(data: data)
                     self.discover = Discover(json)
+                    
+                    DispatchQueue.global(qos: .background).async {
+                        
+                        guard let discover = self.discover else { return }
+                        
+                        if let oldDiscover = try? self.storageCodable?.object(forKey: Discover.key) {
+                            
+                            guard let oldDiscover = oldDiscover else { return }
+                            
+                            var oldContent = [String]()
+                            var newContent = [String]()
+                            
+                            for section in oldDiscover.sections {
+                                for story in section.stories {
+                                    for content in story.content {
+                                        if let download = content.download {
+                                            oldContent.append(download)
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            for section in discover.sections {
+                                for story in section.stories {
+                                    for content in story.content {
+                                        if let download = content.download {
+                                            newContent.append(download)
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            for old in oldContent {
+                                var isRemove = true
+                                for new in newContent {
+                                    if old == new {
+                                        isRemove = false
+                                    }
+                                }
+                                if isRemove {
+                                    try? self.storage?.removeObject(forKey: old)
+                                }
+                            }
+                            
+                            try? self.storageCodable?.setObject(discover, forKey: Discover.key)
+                            
+                        } else if let discover = self.discover {
+                            try? self.storageCodable?.setObject(discover, forKey: Discover.key)
+                        }
+                    }
+                    
                 } catch {
                     
                 }
@@ -113,15 +177,16 @@ class DiscoverViewController: UIViewController {
             }
             
             }.resume()
+        
     }
     
     // MARK: - Navigation
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
     }
     
-
+    
 }
 
 extension DiscoverViewController: UITableViewDelegate {
@@ -206,5 +271,5 @@ extension DiscoverViewController: UICollectionViewDelegateFlowLayout {
         
         return UIEdgeInsets(top: space / 2, left: space + a, bottom: space / 2, right: space + a)
     }
-
+    
 }

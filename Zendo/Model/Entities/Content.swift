@@ -8,24 +8,26 @@
 
 import Foundation
 import SwiftyJSON
+import Cache
 
-class Content {
+
+class Content: Codable {
     
     var thumbnailUrl: String!
     var stream: String?
     var download: String?
     
-    public init(_ json: JSON)  {
+    public init(_ json: JSON) {
         
-        if let thumbnailUrl = json["thumbnailUrl"].string{
+        if let thumbnailUrl = json["thumbnailUrl"].string {
             self.thumbnailUrl = thumbnailUrl
         }
         
-        if let stream = json["stream"].string{
+        if let stream = json["stream"].string {
             self.stream = stream
         }
 
-        if let download = json["download"].string{
+        if let download = json["download"].string {
             self.download = download
         }
     

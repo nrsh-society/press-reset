@@ -14,7 +14,6 @@
 		121F260A211B499300C1CC96 /* HealthKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F2609211B499300C1CC96 /* HealthKitViewController.swift */; };
 		1223161F21A809D800413A62 /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223161E21A809D700413A62 /* UIImageView+Download.swift */; };
 		123E8E8721748DC900C6E2EC /* SettingsWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123E8E8621748DC900C6E2EC /* SettingsWatch.swift */; };
-		1243736921A30291005E91B8 /* CachingPlayerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1243736821A30291005E91B8 /* CachingPlayerItem.swift */; };
 		1246C422212725140011F5D3 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246C421212725140011F5D3 /* BalloonMarker.swift */; };
 		12477F222119A27700D8AE83 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12477F212119A27700D8AE83 /* Settings.swift */; };
 		124A689C2199A41400598639 /* WatchSyncError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A689B2199A41400598639 /* WatchSyncError.swift */; };
@@ -185,7 +184,6 @@
 		121F2609211B499300C1CC96 /* HealthKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitViewController.swift; sourceTree = "<group>"; };
 		1223161E21A809D700413A62 /* UIImageView+Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Download.swift"; sourceTree = "<group>"; };
 		123E8E8621748DC900C6E2EC /* SettingsWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWatch.swift; sourceTree = "<group>"; };
-		1243736821A30291005E91B8 /* CachingPlayerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingPlayerItem.swift; sourceTree = "<group>"; };
 		1246C421212725140011F5D3 /* BalloonMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		12477F212119A27700D8AE83 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		124A689B2199A41400598639 /* WatchSyncError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchSyncError.swift; sourceTree = "<group>"; };
@@ -416,7 +414,6 @@
 				127C3E422178DB1100B332EB /* LoadingView.xib */,
 				DFE3B16D2189A3DF008830CD /* StartingSessions.swift */,
 				DFE3B16F2189A3FA008830CD /* StartingSessions.xib */,
-				1243736821A30291005E91B8 /* CachingPlayerItem.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -932,7 +929,6 @@
 				128D0BB92111D30900A4D757 /* UIDevice+Size.swift in Sources */,
 				12A7E254217F3BCC00E38018 /* Section.swift in Sources */,
 				12A7E252217F3B8400E38018 /* Discover.swift in Sources */,
-				1243736921A30291005E91B8 /* CachingPlayerItem.swift in Sources */,
 				1280DD632125DCB100F3DFC1 /* MMChartFormatter.swift in Sources */,
 				12CBA45E213549560066F671 /* TimeZone+UTC.swift in Sources */,
 				127C3E2B2178939C00B332EB /* DiscoverViewController.swift in Sources */,

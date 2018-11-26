@@ -8,21 +8,22 @@
 
 import Foundation
 import SwiftyJSON
+import Cache
 
 
-class Story {
+class Story: Codable {
     
     var title: String!
     var thumbnailUrl: String?
     var content = [Content]()
     
-    public init(_ json: JSON)  {
+    public init(_ json: JSON) {
         
-        if let title = json["title"].string{
+        if let title = json["title"].string {
             self.title = title
         }
         
-        if let thumbnailUrl = json["thumbnailUrl"].string{
+        if let thumbnailUrl = json["thumbnailUrl"].string {
             self.thumbnailUrl = thumbnailUrl
         }
         

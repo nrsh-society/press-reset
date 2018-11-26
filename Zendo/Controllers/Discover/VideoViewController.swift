@@ -34,6 +34,7 @@ class VideoViewController: UIViewController {
         return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forData())
     }()
     
+    
     @IBOutlet weak var pauseView: UIView! {
         didSet {
             pauseView.alpha = 0.0
@@ -123,7 +124,13 @@ class VideoViewController: UIViewController {
                 
                 if let urlContent = content.stream, let url = URL(string: urlContent), index <= 1 {
                     
-                    play(with: url) { player in
+                    var urlDownload: URL?
+                    
+                    if let download = content.download, let url = URL(string: download) {
+                        urlDownload = url
+                    }
+                    
+                    play(with: url, urlDownload: urlDownload) { player in
                         let playerLayer = AVPlayerLayer(player: player)
                         playerLayer.frame = UIScreen.main.bounds
                         playerLayer.videoGravity = .resizeAspectFill
@@ -138,7 +145,7 @@ class VideoViewController: UIViewController {
                 }
                 
                 loadStackView.addArrangedSubview(LoadingView())
-
+                
             }
             
         }
@@ -165,35 +172,34 @@ class VideoViewController: UIViewController {
         return true
     }
     
-    func play(with url: URL, completion: ((AVPlayer)->())? = nil) {
-//        try? storage?.removeAll()
-        storage?.async.entry(forKey: url.absoluteString, completion: { result in
+    func play(with urlStream: URL, urlDownload: URL?, completion: ((AVPlayer)->())? = nil) {
+        storage?.async.entry(forKey: urlDownload!.absoluteString, completion: { result in
             let playerItem: AVPlayerItem
             switch result {
             case .error:
-                playerItem = AVPlayerItem(url: url)
-            case .value(let entry):
+                playerItem = AVPlayerItem(url: urlStream)
                 
-                if let path = entry.filePath {
+                if let urlDownload = urlDownload {
+                    var request = URLRequest(url: urlDownload)
+                    request.httpMethod = "GET"
                     
-                    let configuration = URLSessionConfiguration.background(withIdentifier: "downloadIdentifier")
-                    let downloadSession = AVAssetDownloadURLSession(configuration: configuration, assetDownloadDelegate: self, delegateQueue: OperationQueue.main)
-                    let url = URL(string:path)
-                    let asset = AVURLAsset(url: url!)
-                    
-                    let downloadTask = downloadSession.makeAssetDownloadTask(asset: asset, assetTitle: "downloadedAudio", assetArtworkData: nil, options: nil)
-                    downloadTask?.resume()
-                    
-                    print((downloadTask?.urlAsset)!)
-                    
-                    playerItem = AVPlayerItem(asset: (downloadTask?.urlAsset)!)
-                    
-//                    let filepath = URL(fileURLWithPath: path)
-//                    playerItem = AVPlayerItem(url: filepath)
-                } else {
-                    playerItem = AVPlayerItem(url: url)
+                    URLSession.shared.dataTask(with: request) { data, response, error in
+                        if let data = data, error == nil {
+                            self.storage?.async.setObject(data, forKey: urlDownload.absoluteString, completion: { _ in })
+                        }
+                        }.resume()
                 }
-                
+            case .value(let entry):
+                if var path = entry.filePath {
+                    if path.first == "/" {
+                        path.removeFirst()
+                    }
+                    
+                    let url = URL(fileURLWithPath: path)
+                    playerItem = AVPlayerItem(url: url)
+                } else {
+                    playerItem = AVPlayerItem(url: urlStream)
+                }
             }
             
             let player = AVPlayer(playerItem: playerItem)
@@ -205,7 +211,7 @@ class VideoViewController: UIViewController {
             completion?(player)
         })
     }
-   
+    
     
     func startVideo() {
         
@@ -226,6 +232,10 @@ class VideoViewController: UIViewController {
         
         playerObserver = playerLayerCurrent.player?.addPeriodicTimeObserver(forInterval: interval, queue: mainQueue) { time in
             
+            if let rate = PlayerStatus(rawValue: self.playerLayerCurrent.player!.rate), rate == .pause {
+                self.playerLayerCurrent.player?.play()
+            }
+            
             let duration = self.playerLayerCurrent.player!.currentItem!.duration
             let limit = CMTime(seconds: 1.0, preferredTimescale: 1000)
             let maxTime = duration - limit
@@ -237,52 +247,6 @@ class VideoViewController: UIViewController {
             }
             
             if currentTime >= maxTime {
-                
-               
-                
-                if let player = self.playerLayerCurrent.player!.currentItem {
-                    
-                    let url: URL? = (player.asset as? AVURLAsset)?.url
-                    
-                    URLSession.shared.dataTask(with: url!) { data, response, error -> Void in
-                        
-                        if let data = data, error == nil {
-                            do {
-                                self.storage?.async.setObject(data, forKey: url!.absoluteString, completion: { _ in })
-                            } catch {
-                                
-                            }
-                        }
-                        
-                        
-                        
-                        }.resume()
-//
-//                    guard let filename = url?.absoluteString else {
-//                        return
-//                    }
-//
-//                    let documentsDirectory = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).last!
-//
-//                    let outputURL = documentsDirectory.appendingPathComponent(filename)
-//
-//                    let exporter = AVAssetExportSession(asset: player.asset, presetName: AVAssetExportPresetHighestQuality)
-//
-//                    exporter?.outputURL = outputURL
-//                    exporter?.outputFileType = AVFileType.mov
-//
-//                    exporter?.exportAsynchronously(completionHandler: {
-//
-//                        print(exporter?.status.rawValue)
-//                        print(exporter?.error)
-//
-//                        if let video = try? Data(contentsOf: outputURL) {
-//                            self.storage?.async.setObject(video, forKey: outputURL.absoluteString, completion: { _ in })
-//                        }
-//
-//                    })
-                }
-                
                 self.tapRight()
                 return
             } else {
@@ -332,7 +296,7 @@ class VideoViewController: UIViewController {
     }
     
     @objc func tapRight() {
-
+        
         if let view = loadStackView.arrangedSubviews[curent] as? LoadingView {
             view.setEnd()
         }
@@ -345,24 +309,16 @@ class VideoViewController: UIViewController {
             let isIndexValid = playerLayers.indices.contains(curent + 1)
             
             if !isIndexValid && (curent + 1) <= story.content.count - 1,
-<<<<<<< HEAD
-                let urlContent = story.content[curent + 1].content,
-                let url = URL(string: urlContent) {
-=======
                 let urlContent = story.content[curent + 1].stream,
-                let url = URL(string: urlContent){
+                let url = URL(string: urlContent) {
                 
-                let player = AVPlayer(url: url)
-                player.actionAtItemEnd = .none
-                player.play()
-                player.pause()
+                var urlDownload: URL?
                 
-                let playerLayer = AVPlayerLayer(player: player)
-                playerLayer.frame = UIScreen.main.bounds
-                playerLayer.videoGravity = .resizeAspectFill
->>>>>>> 9c6344905d09454e9a71949614210f6521fce438
+                if let download = story.content[curent + 1].download, let url = URL(string: download) {
+                    urlDownload = url
+                }
                 
-                play(with: url) { player in
+                play(with: url, urlDownload: urlDownload) { player in
                     let playerLayer = AVPlayerLayer(player: player)
                     playerLayer.frame = UIScreen.main.bounds
                     playerLayer.videoGravity = .resizeAspectFill
@@ -396,13 +352,13 @@ class VideoViewController: UIViewController {
                     self.pauseView.alpha = 1.0
                 }
             }
-//            else {
-//                UIView.animate(withDuration: 0.3, animations: {
-//                    self.pauseView.alpha = 0.0
-//                }, completion: { (bool) in
-//                    self.pauseView.isHidden = true
-//                })
-//            }
+            //            else {
+            //                UIView.animate(withDuration: 0.3, animations: {
+            //                    self.pauseView.alpha = 0.0
+            //                }, completion: { (bool) in
+            //                    self.pauseView.isHidden = true
+            //                })
+            //            }
             
             timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { (timer) in
                 if status == .play {
@@ -462,17 +418,3 @@ class VideoViewController: UIViewController {
     
 }
 
-extension VideoViewController: AVAssetDownloadDelegate {
-    
-    
-    func urlSession(_ session: URLSession, assetDownloadTask: AVAssetDownloadTask, didFinishDownloadingTo location: URL) {
-//        UserDefaults.standard.set(location.relativePath, forKey: "assetPath")
-        print("Done")
-        
-//        let
-        
-//        self.storage?.async.setObject(video, forKey: outputURL.absoluteString, completion: { _ in })
-    }
-    
-    
-}

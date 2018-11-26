@@ -9,21 +9,24 @@
 
 import Foundation
 import SwiftyJSON
+import Cache
 
 
-public class Discover {
+class Discover: Codable {
     
     var name: String!
     var description: String!
     var sections = [Section]()
     
-    public init(_ json: JSON)  {
+    static let key = "discover"
+    
+    public init(_ json: JSON) {
         
-        if let name = json["name"].string{
+        if let name = json["name"].string {
             self.name = name
         }
         
-        if let description = json["description"].string{
+        if let description = json["description"].string {
             self.description = description
         }
         
