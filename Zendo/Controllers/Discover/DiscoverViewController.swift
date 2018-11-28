@@ -80,6 +80,8 @@ class DiscoverViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        try? storage?.removeAll()
+        
         refreshControl = UIRefreshControl()
         refreshControl.tintColor = UIColor.white
         refreshControl.addTarget(self, action: #selector(onReload), for: .valueChanged)

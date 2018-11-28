@@ -12,6 +12,7 @@ target 'Zendo' do
     pod 'lottie-ios', '~> 2.5.2'
     pod 'Cache', '~> 5.2.0'
     pod 'SDWebImage', '~> 4.0'
+#    pod 'SwiftVideoGenerator', '<= 1.1.8'
 end
 
 

@@ -35,6 +35,11 @@
 		12A7E254217F3BCC00E38018 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7E253217F3BCC00E38018 /* Section.swift */; };
 		12A7E256217F404200E38018 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7E255217F404200E38018 /* Story.swift */; };
 		12A7E258217F40F900E38018 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7E257217F40F900E38018 /* Content.swift */; };
+		12BE94BF21AEE4C6000E2B0B /* PauseImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BE94BE21AEE4C6000E2B0B /* PauseImageView.swift */; };
+		12BE94C421AF0FD9000E2B0B /* VideoGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BE94C121AF0FD9000E2B0B /* VideoGenerator.swift */; };
+		12BE94CA21AF0FF4000E2B0B /* VideoGeneratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BE94C921AF0FF4000E2B0B /* VideoGeneratorError.swift */; };
+		12BE94CE21AF1019000E2B0B /* AVAssetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BE94CC21AF1019000E2B0B /* AVAssetExtension.swift */; };
+		12BE94CF21AF1019000E2B0B /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BE94CD21AF1019000E2B0B /* ImageExtension.swift */; };
 		12C1A7282119B74B00EEFF4F /* ZenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C1A7272119B74B00EEFF4F /* ZenButton.swift */; };
 		12C1A72A2119B75900EEFF4F /* ZenButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12C1A7292119B75900EEFF4F /* ZenButton.xib */; };
 		12C1A72C2119B78900EEFF4F /* UIView+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C1A72B2119B78900EEFF4F /* UIView+Nib.swift */; };
@@ -204,6 +209,11 @@
 		12A7E253217F3BCC00E38018 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		12A7E255217F404200E38018 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		12A7E257217F40F900E38018 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
+		12BE94BE21AEE4C6000E2B0B /* PauseImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseImageView.swift; sourceTree = "<group>"; };
+		12BE94C121AF0FD9000E2B0B /* VideoGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoGenerator.swift; sourceTree = "<group>"; };
+		12BE94C921AF0FF4000E2B0B /* VideoGeneratorError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoGeneratorError.swift; sourceTree = "<group>"; };
+		12BE94CC21AF1019000E2B0B /* AVAssetExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAssetExtension.swift; sourceTree = "<group>"; };
+		12BE94CD21AF1019000E2B0B /* ImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
 		12C1A7272119B74B00EEFF4F /* ZenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenButton.swift; sourceTree = "<group>"; };
 		12C1A7292119B75900EEFF4F /* ZenButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZenButton.xib; sourceTree = "<group>"; };
 		12C1A72B2119B78900EEFF4F /* UIView+Nib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Nib.swift"; sourceTree = "<group>"; };
@@ -400,6 +410,45 @@
 			path = Chart;
 			sourceTree = "<group>";
 		};
+		128B104021AEB8E6009190B0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BE2E82171FF44A7B00D104AC /* Info.plist */,
+				BEBAE48720E6CDB500495C65 /* Media.xcassets */,
+				BE9BFFFC2065EE3D007FF96A /* ZBFHealthKit.swift */,
+				BE8BB2201FFDCC4700B2E113 /* Zendo WatchKit Extension.entitlements */,
+				BE2E82181FF44A7B00D104AC /* PushNotificationPayload.apns */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		12BE94C021AF0FB0000E2B0B /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				12BE94CB21AF1012000E2B0B /* Extensions */,
+				12BE94C821AF0FEF000E2B0B /* Error */,
+				12BE94C121AF0FD9000E2B0B /* VideoGenerator.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		12BE94C821AF0FEF000E2B0B /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				12BE94C921AF0FF4000E2B0B /* VideoGeneratorError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		12BE94CB21AF1012000E2B0B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				12BE94CC21AF1019000E2B0B /* AVAssetExtension.swift */,
+				12BE94CD21AF1019000E2B0B /* ImageExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		12C1A7262119B70100EEFF4F /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -459,6 +508,7 @@
 		12E2A1AE211076FD00E0E911 /* Additions */ = {
 			isa = PBXGroup;
 			children = (
+				12BE94C021AF0FB0000E2B0B /* Video */,
 				12E2A1B12110774000E0E911 /* ConstraintFont.swift */,
 				12F121342125B67D00F5451D /* ConstraintMetadata.swift */,
 			);
@@ -577,6 +627,7 @@
 				BE9BFFFF2065F317007FF96A /* ZBFHealthKit.swift */,
 				BE066BDC20F1F3D10008747D /* PageController.swift */,
 				BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */,
+				12BE94BE21AEE4C6000E2B0B /* PauseImageView.swift */,
 				BE81B26D2001B85500274FA1 /* Zendo.entitlements */,
 				12FFCADD210F3F03007E2480 /* Supporting Files */,
 			);
@@ -598,21 +649,17 @@
 			children = (
 				121F25FF211B372300C1CC96 /* SessionDelegater.swift */,
 				121F25FD211B367D00C1CC96 /* SessionCommands.swift */,
-				BEBAE48720E6CDB500495C65 /* Media.xcassets */,
-				BE9BFFFC2065EE3D007FF96A /* ZBFHealthKit.swift */,
-				BE8BB2201FFDCC4700B2E113 /* Zendo WatchKit Extension.entitlements */,
 				BE24023C1FFC965F008679C4 /* SessionInterfaceController.swift */,
 				BE2E82131FF44A7B00D104AC /* NotificationController.swift */,
 				BE24023A1FFC961A008679C4 /* Session.swift */,
 				BE2E820F1FF44A7B00D104AC /* AppInterfaceController.swift */,
 				BE2E82111FF44A7B00D104AC /* ExtensionDelegate.swift */,
-				BE2E82171FF44A7B00D104AC /* Info.plist */,
-				BE2E82181FF44A7B00D104AC /* PushNotificationPayload.apns */,
 				BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */,
 				BE89838E20E6BBE300F0FD63 /* ZendoDataSource.swift */,
 				BE0B4EB1213E05AF006C3773 /* BluetoothManager.swift */,
 				1277A525215CF3F800B15CE6 /* SummaryInterfaceController.swift */,
 				123E8E8621748DC900C6E2EC /* SettingsWatch.swift */,
+				128B104021AEB8E6009190B0 /* Supporting Files */,
 			);
 			path = "Zendo WatchKit Extension";
 			sourceTree = "<group>";
@@ -937,9 +984,11 @@
 				DFE3B1762189C377008830CD /* StartingSessionViewController.swift in Sources */,
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
 				126544AE2170B44D00CA8F0B /* NavigationControllerWelcome.swift in Sources */,
+				12BE94BF21AEE4C6000E2B0B /* PauseImageView.swift in Sources */,
 				12E2A19E21106E4500E0E911 /* TimeInterval.swift in Sources */,
 				12E189C1211C64AB004EADE9 /* UIApplication.swift in Sources */,
 				DFE3B16E2189A3DF008830CD /* StartingSessions.swift in Sources */,
+				12BE94CE21AF1019000E2B0B /* AVAssetExtension.swift in Sources */,
 				BE38CF612075D1D10095BB6C /* WelcomeController.swift in Sources */,
 				12477F222119A27700D8AE83 /* Settings.swift in Sources */,
 				12FFCAE1210F6DA0007E2480 /* ZendoTableViewCell.swift in Sources */,
@@ -956,14 +1005,17 @@
 				12A7E258217F40F900E38018 /* Content.swift in Sources */,
 				BE2E81EF1FF44A7B00D104AC /* ZendoController.swift in Sources */,
 				12C1A72E2119C27C00EEFF4F /* ZenInfoView.swift in Sources */,
+				12BE94C421AF0FD9000E2B0B /* VideoGenerator.swift in Sources */,
 				12C2C286213802760039C7A0 /* String.swift in Sources */,
 				BE9B00002065F317007FF96A /* ZBFHealthKit.swift in Sources */,
+				12BE94CF21AF1019000E2B0B /* ImageExtension.swift in Sources */,
 				BE4895AC206B0CC400B007D6 /* ZazenController.swift in Sources */,
 				12FFCAE7210F7E40007E2480 /* Date.swift in Sources */,
 				BE066BD820F1EFC10008747D /* OverviewController.swift in Sources */,
 				12A7E256217F404200E38018 /* Story.swift in Sources */,
 				12F121352125B67D00F5451D /* ConstraintMetadata.swift in Sources */,
 				BE75AEC020F708C300311512 /* ChartSeries.swift in Sources */,
+				12BE94CA21AF0FF4000E2B0B /* VideoGeneratorError.swift in Sources */,
 				127C3E392178B37C00B332EB /* VideoViewController.swift in Sources */,
 				127C3E342178993100B332EB /* DiscoverCollectionViewCell.swift in Sources */,
 				BE2E81ED1FF44A7B00D104AC /* AppDelegate.swift in Sources */,
@@ -1161,12 +1213,12 @@
 			baseConfigurationReference = 9BD6CE514120A3F5874E8C15 /* Pods-Zendo WatchKit Extension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_ENTITLEMENTS = "Zendo WatchKit Extension/Zendo WatchKit Extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Zendo WatchKit Extension/Supporting Files/Zendo WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "Zendo WatchKit Extension/Info.plist";
+				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -1185,12 +1237,12 @@
 			baseConfigurationReference = DA956F3DF3D7E53620DCB219 /* Pods-Zendo WatchKit Extension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_ENTITLEMENTS = "Zendo WatchKit Extension/Zendo WatchKit Extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Zendo WatchKit Extension/Supporting Files/Zendo WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "Zendo WatchKit Extension/Info.plist";
+				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";

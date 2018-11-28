@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreGraphics
 
 extension UIView {
     
@@ -57,7 +58,7 @@ extension UIView {
 
 extension UIView {
     
-    func addBackground(image: UIImage, isLayer: Bool = true) {
+    func addBackground(image: UIImage, isLayer: Bool, isReplase: Bool) {
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
         
@@ -67,7 +68,13 @@ extension UIView {
         imageViewBackground.contentMode = UIViewContentMode.scaleAspectFill
         
         if isLayer {
-            layer.insertSublayer(imageViewBackground.layer, at: 0)
+            if isReplase {
+                if let zero = layer.sublayers?[0] {
+                    layer.replaceSublayer(zero, with: imageViewBackground.layer)
+                }
+            }  else {
+                layer.insertSublayer(imageViewBackground.layer, at: 0)
+            }
         } else {
             addSubview(imageViewBackground)
             sendSubview(toBack: imageViewBackground)

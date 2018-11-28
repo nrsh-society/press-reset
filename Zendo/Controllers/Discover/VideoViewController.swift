@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import Hero
 import Cache
+//import SwiftVideoGenerator
 
 enum PlayerStatus: Float {
     case pause = 0.0
@@ -26,6 +27,7 @@ enum PlayerStatus: Float {
 class VideoViewController: UIViewController {
     
     var panGR: UIPanGestureRecognizer!
+    var playerStatus = PlayerStatus.play
     
     let diskConfig = DiskConfig(name: "DiskCache")
     let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
@@ -42,9 +44,9 @@ class VideoViewController: UIViewController {
             pauseView.layer.cornerRadius = pauseView.frame.height / 2.0
         }
     }
-    @IBOutlet weak var pauseImage: UIImageView! {
+    @IBOutlet weak var pauseImage: PauseImageView! {
         didSet{
-            pauseImage.image = PlayerStatus.pause.image
+            pauseImage.playerStatus = .pause
         }
     }
     @IBOutlet weak var pauseLabel: UILabel!
@@ -112,17 +114,17 @@ class VideoViewController: UIViewController {
         
         if let story = story {
             
-            if  let thumbnailUrl = story.thumbnailUrl, let url = URL(string: thumbnailUrl) {
+            if let thumbnailUrl = story.thumbnailUrl, let url = URL(string: thumbnailUrl) {
                 UIImage.setImage(from: url) { image in
                     DispatchQueue.main.async {
-                        self.video.addBackground(image: image)
+//                        self.video.addBackground(image: image, isLayer: true, isReplase: false)
                     }
                 }
             }
             
             for (index, content) in story.content.enumerated() {
                 
-                if let urlContent = content.stream, let url = URL(string: urlContent), index <= 1 {
+                if let urlContent = content.stream, let urlStream = URL(string: urlContent), index <= 1 {
                     
                     var urlDownload: URL?
                     
@@ -130,15 +132,17 @@ class VideoViewController: UIViewController {
                         urlDownload = url
                     }
                     
-                    play(with: url, urlDownload: urlDownload) { player in
-                        let playerLayer = AVPlayerLayer(player: player)
-                        playerLayer.frame = UIScreen.main.bounds
-                        playerLayer.videoGravity = .resizeAspectFill
-                        
-                        self.playerLayers.append(playerLayer)
-                        
-                        if index == 0 {
-                            self.startVideo()
+                    let pathExtension = urlStream.pathExtension.lowercased()
+                    
+                    if pathExtension == "png" || pathExtension == "jpg" || pathExtension == "jpeg" {
+                        startImage(urlStream, index: index)
+                    } else {
+                        play(with: urlStream, urlDownload: urlDownload) { playerLayer in
+                            self.playerLayers.append(playerLayer)
+                            
+                            if index == 0 {
+                                self.startVideo()
+                            }
                         }
                     }
                     
@@ -172,8 +176,15 @@ class VideoViewController: UIViewController {
         return true
     }
     
-    func play(with urlStream: URL, urlDownload: URL?, completion: ((AVPlayer)->())? = nil) {
-        storage?.async.entry(forKey: urlDownload!.absoluteString, completion: { result in
+    func play(with urlStream: URL, urlDownload: URL?, completion: ((AVPlayerLayer)->())? = nil) {
+        
+        var download = ""
+        
+        if let url = urlDownload {
+            download = url.absoluteString
+        }
+        
+        storage?.async.entry(forKey: download, completion: { result in
             let playerItem: AVPlayerItem
             switch result {
             case .error:
@@ -197,10 +208,42 @@ class VideoViewController: UIViewController {
             player.play()
             player.pause()
             
-            completion?(player)
+            let playerLayer = AVPlayerLayer(player: player)
+            playerLayer.frame = UIScreen.main.bounds
+            playerLayer.videoGravity = .resizeAspectFill
+            
+            completion?(playerLayer)
         })
     }
     
+    let SingleMovieFileName = "singleMovie"
+    
+    func startImage(_ url: URL, index: Int? = nil) {
+        activity.stopAnimating()
+        UIImage.setImage(from: url) { image in
+            VideoGenerator.current.fileName = self.SingleMovieFileName
+            VideoGenerator.current.shouldOptimiseImageForVideo = true
+            VideoGenerator.current.maxVideoLengthInSeconds = 5
+            VideoGenerator.current.videoDurationInSeconds = 5
+            
+            VideoGenerator.current.generate(withImages: [image], andAudios: [], andType: .single, { (progress) in
+                print(progress)
+            }, success: { (url) in
+                print(url)
+                
+                self.play(with: url, urlDownload: nil) { playerLayer in
+                    self.playerLayers.append(playerLayer)
+                    
+                    if let i = index, i == 0 {
+                        self.startVideo()
+                    }
+                }
+            }, failure: { (error) in
+                print(error)
+            })
+        }
+
+    }
     
     func startVideo() {
         
@@ -215,13 +258,19 @@ class VideoViewController: UIViewController {
         
         video.layer.insertSublayer(playerLayerCurrent, at: 1)
         playerLayerCurrent.player?.seek(to: kCMTimeZero)
+        
         playerLayerCurrent.player?.play()
         
         activity.startAnimating()
         
         playerObserver = playerLayerCurrent.player?.addPeriodicTimeObserver(forInterval: interval, queue: mainQueue) { time in
             
-            if let rate = PlayerStatus(rawValue: self.playerLayerCurrent.player!.rate), rate == .pause {
+            let url:URL? = (self.playerLayerCurrent.player?.currentItem?.asset as? AVURLAsset)?.url
+            print(url)
+            let status = PlayerStatus(rawValue: self.playerLayerCurrent.player!.rate)
+            print(status)
+            
+            if let status = PlayerStatus(rawValue: self.playerLayerCurrent.player!.rate), status == .pause && self.playerStatus == .play {
                 self.playerLayerCurrent.player?.play()
             }
             
@@ -299,7 +348,7 @@ class VideoViewController: UIViewController {
             
             if !isIndexValid && (curent + 1) <= story.content.count - 1,
                 let urlContent = story.content[curent + 1].stream,
-                let url = URL(string: urlContent) {
+                let urlStream = URL(string: urlContent) {
                 
                 var urlDownload: URL?
                 
@@ -307,13 +356,16 @@ class VideoViewController: UIViewController {
                     urlDownload = url
                 }
                 
-                play(with: url, urlDownload: urlDownload) { player in
-                    let playerLayer = AVPlayerLayer(player: player)
-                    playerLayer.frame = UIScreen.main.bounds
-                    playerLayer.videoGravity = .resizeAspectFill
-                    
-                    self.playerLayers.append(playerLayer)
+                let pathExtension = urlStream.pathExtension.lowercased()
+                
+                if pathExtension == "png" || pathExtension == "jpg" || pathExtension == "jpeg" {
+                    startImage(urlStream)
+                } else {
+                    play(with: urlStream, urlDownload: urlDownload) { playerLayer in
+                        self.playerLayers.append(playerLayer)
+                    }
                 }
+                
             }
             
         } else if curent == story.content.count - 1 {
@@ -326,7 +378,7 @@ class VideoViewController: UIViewController {
         if let story = story, let thumbnailUrl = story.content[curent].thumbnailUrl, let url = URL(string: thumbnailUrl) {
             UIImage.setImage(from: url) { image in
                 DispatchQueue.main.async {
-                    self.video.addBackground(image: image)
+//                    self.video.addBackground(image: image, isLayer: true, isReplase: true)
                 }
             }
         }
@@ -335,12 +387,20 @@ class VideoViewController: UIViewController {
     @objc func tapCenter() {
         if let player = playerLayerCurrent.player, let status = PlayerStatus(rawValue: player.rate) {
             
+            switch status {
+            case .play: pauseImage.playerStatus = .pause
+            case .pause: pauseImage.playerStatus = .play
+            }
+            
             if pauseView.isHidden {
                 self.pauseView.isHidden = false
                 UIView.animate(withDuration: 0.3) {
                     self.pauseView.alpha = 1.0
                 }
             }
+            
+            
+            
             //            else {
             //                UIView.animate(withDuration: 0.3, animations: {
             //                    self.pauseView.alpha = 0.0
@@ -368,11 +428,12 @@ class VideoViewController: UIViewController {
             switch status {
             case .pause:
                 player.play()
-                
+
                 leftView.isHidden = false
                 rightView.isHidden = false
-                
-                pauseImage.image = PlayerStatus.pause.image
+
+                playerStatus = .play
+                pauseImage.playerStatus = .pause
                 
                 UIView.animate(withDuration: 0.3, animations: {
                     self.pauseView.alpha = 0.0
@@ -381,12 +442,13 @@ class VideoViewController: UIViewController {
                 })
             case .play:
                 player.pause()
-                
-                pauseImage.image = PlayerStatus.play.image
+
+                playerStatus = .pause
+                pauseImage.playerStatus = .play
                 
                 leftView.isHidden = true
                 rightView.isHidden = true
-                
+
                 timer?.invalidate()
             }
         }
