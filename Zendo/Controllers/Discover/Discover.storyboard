@@ -168,7 +168,7 @@
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8LW-5E-dNx">
                                         <rect key="frame" x="151" y="312" width="112" height="112"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x8T-ks-p4c">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x8T-ks-p4c" customClass="PauseImageView" customModule="Zendo" customModuleProvider="target">
                                                 <rect key="frame" x="41" y="41" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="x8T-ks-p4c" secondAttribute="height" multiplier="1:1" id="FMk-7B-xGj"/>
@@ -226,7 +226,7 @@
                         <outlet property="centerView" destination="JdS-aH-jkN" id="vPR-TM-TC5"/>
                         <outlet property="leftView" destination="Ull-KX-f86" id="ZQ3-YQ-QAH"/>
                         <outlet property="loadStackView" destination="sWz-67-2hV" id="L48-Aq-KHj"/>
-                        <outlet property="pauseImage" destination="x8T-ks-p4c" id="txA-Q4-pp1"/>
+                        <outlet property="pauseImage" destination="x8T-ks-p4c" id="3IO-GC-dnZ"/>
                         <outlet property="pauseLabel" destination="Eh1-TL-I8t" id="mCN-qS-psE"/>
                         <outlet property="pauseView" destination="8LW-5E-dNx" id="wV0-Pu-QI8"/>
                         <outlet property="rightView" destination="cAK-zR-DQT" id="7z3-dk-t1n"/>
