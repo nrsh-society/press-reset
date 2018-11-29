@@ -28,7 +28,7 @@ class VideoViewController: UIViewController {
     
     var panGR: UIPanGestureRecognizer!
     var playerStatus = PlayerStatus.play
-    
+
     let diskConfig = DiskConfig(name: "DiskCache")
     let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
     
@@ -117,7 +117,7 @@ class VideoViewController: UIViewController {
             if let thumbnailUrl = story.thumbnailUrl, let url = URL(string: thumbnailUrl) {
                 UIImage.setImage(from: url) { image in
                     DispatchQueue.main.async {
-//                        self.video.addBackground(image: image, isLayer: true, isReplase: false)
+                        self.video.addBackground(image: image, isLayer: true, isReplase: false)
                     }
                 }
             }
@@ -216,21 +216,15 @@ class VideoViewController: UIViewController {
         })
     }
     
-    let SingleMovieFileName = "singleMovie"
-    
     func startImage(_ url: URL, index: Int? = nil) {
         activity.stopAnimating()
         UIImage.setImage(from: url) { image in
-            VideoGenerator.current.fileName = self.SingleMovieFileName
             VideoGenerator.current.shouldOptimiseImageForVideo = true
             VideoGenerator.current.maxVideoLengthInSeconds = 5
             VideoGenerator.current.videoDurationInSeconds = 5
             
             VideoGenerator.current.generate(withImages: [image], andAudios: [], andType: .single, { (progress) in
-                print(progress)
             }, success: { (url) in
-                print(url)
-                
                 self.play(with: url, urlDownload: nil) { playerLayer in
                     self.playerLayers.append(playerLayer)
                     
@@ -239,7 +233,6 @@ class VideoViewController: UIViewController {
                     }
                 }
             }, failure: { (error) in
-                print(error)
             })
         }
 
@@ -265,26 +258,18 @@ class VideoViewController: UIViewController {
         
         playerObserver = playerLayerCurrent.player?.addPeriodicTimeObserver(forInterval: interval, queue: mainQueue) { time in
             
-            let url:URL? = (self.playerLayerCurrent.player?.currentItem?.asset as? AVURLAsset)?.url
-            print(url)
-            let status = PlayerStatus(rawValue: self.playerLayerCurrent.player!.rate)
-            print(status)
-            
             if let status = PlayerStatus(rawValue: self.playerLayerCurrent.player!.rate), status == .pause && self.playerStatus == .play {
                 self.playerLayerCurrent.player?.play()
             }
             
             let duration = self.playerLayerCurrent.player!.currentItem!.duration
-            let limit = CMTime(seconds: 1.0, preferredTimescale: 1000)
-            let maxTime = duration - limit
-            
             let currentTime = self.playerLayerCurrent.player!.currentTime()
             
             if currentTime.seconds > 0.0 && self.activity.isAnimating {
                 self.activity.stopAnimating()
             }
             
-            if currentTime >= maxTime {
+            if currentTime >= duration {
                 self.tapRight()
                 return
             } else {
@@ -378,7 +363,7 @@ class VideoViewController: UIViewController {
         if let story = story, let thumbnailUrl = story.content[curent].thumbnailUrl, let url = URL(string: thumbnailUrl) {
             UIImage.setImage(from: url) { image in
                 DispatchQueue.main.async {
-//                    self.video.addBackground(image: image, isLayer: true, isReplase: true)
+                    self.video.addBackground(image: image, isLayer: true, isReplase: true)
                 }
             }
         }

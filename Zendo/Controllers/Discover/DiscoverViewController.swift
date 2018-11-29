@@ -58,6 +58,7 @@ class DiscoverViewController: UIViewController {
     let healthStore = ZBFHealthKit.healthStore
     let space: CGFloat = 9
     
+    var isNoInternet = false
     var storedOffsets = [Int: CGFloat]()
     var discover: Discover?
     var sections: [Section] {
@@ -81,11 +82,14 @@ class DiscoverViewController: UIViewController {
         super.viewDidLoad()
         
 //        try? storage?.removeAll()
+//        try? self.storageCodable?.removeAll()
         
         refreshControl = UIRefreshControl()
         refreshControl.tintColor = UIColor.white
         refreshControl.addTarget(self, action: #selector(onReload), for: .valueChanged)
         tableView.refreshControl = refreshControl
+        
+        tableView.register(NoInternetTableViewCell.nib, forCellReuseIdentifier: NoInternetTableViewCell.reuseIdentifierCell)
     }
     
     @IBAction func onNewSession(_ sender: Any) {
@@ -109,6 +113,7 @@ class DiscoverViewController: UIViewController {
     }
     
     func startConnection() {
+        isNoInternet = false
         
         let urlPath: String = "http://media.zendo.tools/discover.json?v=\(Date().timeIntervalSinceNow)"
         
@@ -174,6 +179,12 @@ class DiscoverViewController: UIViewController {
                     
                 } catch {
                     
+                }
+            } else if let error = error {
+                if let oldDiscover = try? self.storageCodable?.object(forKey: Discover.key) {
+                    self.discover = oldDiscover
+                } else {
+                    self.isNoInternet = error.code == -1001 || error.code == -1009
                 }
             }
             
@@ -254,19 +265,27 @@ extension DiscoverViewController: UITableViewDelegate {
 extension DiscoverViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.frame.height / 2.0
+        return isNoInternet ? tableView.frame.height : tableView.frame.height / 2.0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections.count
+        return isNoInternet ? 1 : sections.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DiscoverTableViewCell.reuseIdentifierCell, for: indexPath) as! DiscoverTableViewCell
-        cell.topLabel.text = "  " + sections[indexPath.row].name
-        cell.topLabel.isHidden = sections.count == 1
-        cell.topSpace.constant = sections.count == 1 ? 0 : 10
-        return cell
+        
+        if isNoInternet {
+            let cell = tableView.dequeueReusableCell(withIdentifier: NoInternetTableViewCell.reuseIdentifierCell, for: indexPath) as! NoInternetTableViewCell
+            
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: DiscoverTableViewCell.reuseIdentifierCell, for: indexPath) as! DiscoverTableViewCell
+            cell.topLabel.text = "  " + sections[indexPath.row].name
+            cell.topLabel.isHidden = sections.count == 1
+            cell.topSpace.constant = sections.count == 1 ? 0 : 10
+            return cell
+        }
+        
     }
     
 }
