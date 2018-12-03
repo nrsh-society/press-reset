@@ -181,8 +181,45 @@ class DiscoverViewController: UIViewController {
                     
                 }
             } else if let error = error {
-                if let oldDiscover = try? self.storageCodable?.object(forKey: Discover.key) {
-                    self.discover = oldDiscover
+                if let oldDiscover = try? self.storageCodable?.object(forKey: Discover.key), let discover = oldDiscover {
+                    
+                    var isAllLoaded = true
+                    
+                    var contents = [String]()
+                    
+                    for section in discover.sections {
+                        for story in section.stories {
+                            for content in story.content {
+                                if let download = content.download {
+                                    contents.append(download)
+                                }
+                            }
+                        }
+                    }
+                    
+                    for (index, download) in contents.enumerated() {
+                        self.storage?.async.entry(forKey: download, completion: { result in
+                            switch result {
+                            case .error:
+                                isAllLoaded = false
+                                self.setNoInternetScreen()
+                                return
+                            case .value( _):
+                                if index == contents.count - 1 {
+                                    if isAllLoaded {
+                                        self.discover = discover
+                                        DispatchQueue.main.async {
+                                            self.refreshControl.endRefreshing()
+                                            self.tableView.reloadData()
+                                        }
+                                    } else {
+                                        self.setNoInternetScreen()
+                                    }
+                                }
+                            }
+                        })
+                    }
+                    
                 } else {
                     self.isNoInternet = error.code == -1001 || error.code == -1009
                 }
@@ -195,6 +232,14 @@ class DiscoverViewController: UIViewController {
             
             }.resume()
         
+    }
+    
+    func setNoInternetScreen() {
+        self.isNoInternet = true
+        DispatchQueue.main.async {
+            self.refreshControl.endRefreshing()
+            self.tableView.reloadData()
+        }
     }
     
     func downloadVideo(_ contents: [String], index: Int = 0) {

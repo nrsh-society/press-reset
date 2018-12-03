@@ -20,12 +20,13 @@ extension UIImageView {
             imagePlaceholder = getImageWithColor(color: UIColor.clear, size: self.frame.size)
         }
         
-//        sd_setShowActivityIndicatorView(true)
+        sd_setShowActivityIndicatorView(true)
+        sd_setIndicatorStyle(.gray)
         sd_setImage(with: url, placeholderImage: imagePlaceholder, options: [.lowPriority]) { (image, error, cacheType, url) in
             if error == nil {
                 let scale = self.frame.width / (image?.size.width)!
                 let newHeight = (image?.size.height)! * scale
-                if let comp = completion{
+                if let comp = completion {
                     comp(newHeight, indexPath)
                 }
             } else {
