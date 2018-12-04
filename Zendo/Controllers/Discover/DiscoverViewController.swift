@@ -234,6 +234,23 @@ class DiscoverViewController: UIViewController {
         
     }
     
+    func getHeightCell() -> CGFloat {
+        let height = UIScreen.main.bounds.height / 3.0
+        
+        if sections.count == 1 {
+            var countStories = sections[0].stories.count
+            if countStories % 2 == 0 {
+                countStories = countStories / 2
+                return CGFloat(countStories) * height
+            } else {
+                countStories -= 1
+                countStories = countStories / 2
+                return (CGFloat(countStories) * height) + height
+            }
+        }
+        return 0.0
+    }
+    
     func setNoInternetScreen() {
         self.isNoInternet = true
         DispatchQueue.main.async {
@@ -310,7 +327,7 @@ extension DiscoverViewController: UITableViewDelegate {
 extension DiscoverViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return isNoInternet ? tableView.frame.height : tableView.frame.height / 2.0
+        return isNoInternet ? tableView.frame.height : (sections.count == 1 ? getHeightCell() : tableView.frame.height / 2.0)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -325,6 +342,17 @@ extension DiscoverViewController: UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: DiscoverTableViewCell.reuseIdentifierCell, for: indexPath) as! DiscoverTableViewCell
+            
+            if let layout = cell.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                if sections.count == 1 {
+                    layout.scrollDirection = .vertical
+                    cell.collectionView.isScrollEnabled = false
+                } else {
+                    layout.scrollDirection = .horizontal
+                    cell.collectionView.isScrollEnabled = true
+                }
+            }
+            
             cell.topLabel.text = "  " + sections[indexPath.row].name
             cell.topLabel.isHidden = sections.count == 1
             cell.topSpace.constant = sections.count == 1 ? 0 : 10
@@ -369,7 +397,7 @@ extension DiscoverViewController: UICollectionViewDelegateFlowLayout {
         
         let padding: CGFloat = space * 3
         let collectionViewSize = collectionView.frame.size.width - padding
-        let collectionViewSizeHeight = collectionView.frame.size.height - padding
+        let collectionViewSizeHeight = sections.count == 1 ? UIScreen.main.bounds.height / 3 : collectionView.frame.size.height - padding
         
         let a: CGFloat = sections.count == 1 ? 2.0 : 2.5
         return CGSize(width: (collectionViewSize/a), height: (collectionViewSizeHeight - space))
@@ -377,9 +405,9 @@ extension DiscoverViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        let a: CGFloat = sections.count == 1 ? 0 : 5
+        let a: CGFloat = sections.count == 1 ? 1 : -5
         
-        return UIEdgeInsets(top: space / 2, left: space + a, bottom: space / 2, right: space + a)
+        return UIEdgeInsets(top: space / 2, left: space - a, bottom: space / 2, right: space - a)
     }
     
 }
