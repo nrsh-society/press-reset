@@ -204,7 +204,7 @@ class VideoViewController: UIViewController {
             
             let player = AVPlayer(playerItem: playerItem)
             player.actionAtItemEnd = .none
-            player.automaticallyWaitsToMinimizeStalling = false
+            player.automaticallyWaitsToMinimizeStalling = true
             player.play()
             player.pause()
             
