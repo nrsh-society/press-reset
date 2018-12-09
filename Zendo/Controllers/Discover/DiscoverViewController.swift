@@ -169,7 +169,7 @@ class DiscoverViewController: UIViewController {
                             
                             try? self.storageCodable?.setObject(discover, forKey: Discover.key)
                             
-                            self.downloadVideo(newContent)
+                            //self.downloadVideo(newContent)
                             
                         } else if let discover = self.discover {
                             try? self.storageCodable?.setObject(discover, forKey: Discover.key)
