@@ -92,6 +92,8 @@ class DiscoverViewController: UIViewController {
         tableView.register(NoInternetTableViewCell.nib, forCellReuseIdentifier: NoInternetTableViewCell.reuseIdentifierCell)
     }
     
+//    view
+    
     @IBAction func onNewSession(_ sender: Any) {
         let startingSessions = StartingSessionViewController()
         startingSessions.modalPresentationStyle = .overFullScreen
@@ -173,6 +175,20 @@ class DiscoverViewController: UIViewController {
                             
                         } else if let discover = self.discover {
                             try? self.storageCodable?.setObject(discover, forKey: Discover.key)
+                            
+                            var contents = [String]()
+                            
+                            for section in discover.sections {
+                                for story in section.stories {
+                                    for content in story.content {
+                                        if let download = content.download {
+                                            contents.append(download)
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            self.downloadVideo(contents)
                         }
                         
                     }
@@ -378,12 +394,12 @@ extension DiscoverViewController: UICollectionViewDataSource {
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {        
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        dataTask?.cancel()
         let vc = VideoViewController.loadFromStoryboard()
         vc.idHero = "cellImage" + indexPath.row.description
         vc.hero.isEnabled = true
         vc.story = sections[collectionView.tag].stories[indexPath.row]
-        dataTask?.cancel()
         present(vc, animated: true, completion: nil)
     }
     

@@ -238,6 +238,10 @@ class VideoViewController: UIViewController {
 
     }
     
+    @objc func itemDidPlayToEndTime() {
+        tapRight()
+    }
+    
     func startVideo() {
         
         setBackground()
@@ -256,6 +260,8 @@ class VideoViewController: UIViewController {
         
         activity.startAnimating()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(itemDidPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: nil)
+        
         playerObserver = playerLayerCurrent.player?.addPeriodicTimeObserver(forInterval: interval, queue: mainQueue) { time in
             
             if let status = PlayerStatus(rawValue: self.playerLayerCurrent.player!.rate), status == .pause && self.playerStatus == .play {
@@ -269,15 +275,10 @@ class VideoViewController: UIViewController {
                 self.activity.stopAnimating()
             }
             
-            if currentTime >= duration {
-                self.tapRight()
-                return
-            } else {
-                if let view = self.loadStackView.arrangedSubviews[self.curent] as? LoadingView {
-                    let a = currentTime.seconds / duration.seconds
-                    self.pauseLabel.text = currentTime.seconds.stringZendoTimeWatch
-                    view.setCurent(a)
-                }
+            if let view = self.loadStackView.arrangedSubviews[self.curent] as? LoadingView {
+                let a = currentTime.seconds / duration.seconds
+                self.pauseLabel.text = currentTime.seconds.stringZendoTimeWatch
+                view.setCurent(a)
             }
             
         }
@@ -319,6 +320,8 @@ class VideoViewController: UIViewController {
     }
     
     @objc func tapRight() {
+        
+        NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
         
         if let view = loadStackView.arrangedSubviews[curent] as? LoadingView {
             view.setEnd()
