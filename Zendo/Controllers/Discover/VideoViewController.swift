@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import Hero
 import Cache
+import Mixpanel
 //import SwiftVideoGenerator
 
 enum PlayerStatus: Float {
@@ -168,6 +169,12 @@ class VideoViewController: UIViewController {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        Mixpanel.mainInstance().track(event: "Stories_finish_view", properties: ["story_name": story.title])
+    }
+    
     static func loadFromStoryboard() -> VideoViewController {
         return UIStoryboard(name: "Discover", bundle: nil).instantiateViewController(withIdentifier: "VideoViewController") as! VideoViewController
     }
@@ -243,6 +250,8 @@ class VideoViewController: UIViewController {
     }
     
     func startVideo() {
+        
+        Mixpanel.mainInstance().track(event: "Video_view", properties: ["video_name": "\(curent)"])
         
         setBackground()
         

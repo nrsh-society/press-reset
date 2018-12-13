@@ -108,8 +108,7 @@ class DiscoverViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //        tableView.contentOffset = CGPoint(x: 0.0, y: -refreshControl.frame.size.height)
-        //        refreshControl.beginRefreshing()
+        Mixpanel.mainInstance().track(event: "Discover_main_view")
         
         startConnection()
     }
@@ -396,10 +395,12 @@ extension DiscoverViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         dataTask?.cancel()
+        let story = sections[collectionView.tag].stories[indexPath.row]
+        Mixpanel.mainInstance().track(event: "Stories_start_view", properties: ["story_name": story.title])
         let vc = VideoViewController.loadFromStoryboard()
         vc.idHero = "cellImage" + indexPath.row.description
         vc.hero.isEnabled = true
-        vc.story = sections[collectionView.tag].stories[indexPath.row]
+        vc.story = story
         present(vc, animated: true, completion: nil)
     }
     
