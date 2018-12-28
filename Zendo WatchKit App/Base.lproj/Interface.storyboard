@@ -61,7 +61,7 @@
                     <items>
                         <group alignment="center" verticalAlignment="center" layout="vertical" spacing="4" id="euX-5G-gdh">
                             <items>
-                                <label alignment="center" text="Haptic" id="Cvf-ku-YxT">
+                                <label alignment="center" text="Vibration Level" id="Cvf-ku-YxT">
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="13"/>
                                 </label>
                                 <slider alignment="center" continuous="YES" value="1" maximum="3" steps="3" id="AWO-T6-lMh">
@@ -69,7 +69,7 @@
                                         <action selector="KyosakChanged:" destination="Cs8-9P-1Q0" id="06D-WF-yeF"/>
                                     </connections>
                                 </slider>
-                                <label alignment="center" verticalAlignment="bottom" text="HR Monitor" id="5SR-Jc-J1K">
+                                <label alignment="center" verticalAlignment="bottom" text="Heart  Monitor" id="5SR-Jc-J1K">
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="13"/>
                                 </label>
                                 <switch alignment="left" verticalAlignment="bottom" title="Bluetooth" id="5mx-VV-erU">
