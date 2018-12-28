@@ -30,9 +30,9 @@ enum ErrorConfiguration {
         switch self {
         case .connecting: return (true, "")
         case .success: return (false, "Get Started")
-        case .noInstallZendo: return (false, "Go to Watch App")
-        case .needWear: return (false, "Back")
-        case .noAppleWatch: return (false, "Sync Data")
+        case .noInstallZendo: return (false, "Done")
+        case .needWear: return (false, "Retry")
+        case .noAppleWatch: return (false, "Done")
         case .unableToDetect: return (false, "Done")
         }
     }
@@ -42,37 +42,37 @@ enum ErrorConfiguration {
         case .connecting: return [
             "connecting to",
             "Apple Watch",
-            "Checking to see if your watch is paired with your phone."
+            "Checking to see if Apple Watch is paired with iPhone."
             ]
         case .success: return [
             "watch setup",
             "complete",
-            "You have successfully connected to your Apple Watch. Use your watch to monitor your HRV and record meditation sessions."
+            "Successfully connected to Apple Watch. Use your watch to monitor your HRV and record meditation sessions."
             ]
         case .noInstallZendo: return [
             "install zendō",
             "watch app",
             """
-            Zendō Watch App needs to be installed on your Apple Watch.
+            Zendō needs to be installed on Apple Watch.
             
             1.  Go to Watch App
-            2.  Locate Zendo and tap Install
+            2.  Locate Zendō and tap Install
             """
             ]
         case .needWear: return [
             "wear your",
             "Apple Watch",
-            "In order start a meditation session, you need to wear your Apple Watch. Wear your watch and try again."
+            "In order start a meditation session, you need to wear Apple Watch. Wear your watch and try again."
             ]
         case .noAppleWatch: return [
             "no Apple Watch",
             "paired to phone",
-            "In order to record a meditation session and track your HRV, Zendo requires a connnected Apple Watch device."
+            "In order to record a meditation session and track your HRV, Zendō requires Apple Watch."
             ]
         case .unableToDetect: return [
             "unable to detect",
             "Apple Watch",
-            "Sorry we could not start a session on your watch. Make sure your watch is connected to your iPhone."
+            "Make sure Apple Watch is connected to iPhone."
             ]
         }
     }
@@ -92,13 +92,14 @@ class WatchSyncError: HealthKitViewController {
             if WCSession.isSupported() {
                 switch self.errorConfiguration {
                 case .noAppleWatch:
-                    let session = WCSession.default
+                   //let session = WCSession.default
                     
-                    if session.isPaired {
+                    //if session.isPaired {
                         self.dismiss(animated: true)
-                    }
+                    //}
                 case .noInstallZendo:
-                    UIApplication.shared.open(URL(string: "itms-watch://")!)
+                    //UIApplication.shared.open(URL(string: "itms-watch://")!)
+                    self.dismiss(animated: true)
                 case .success:
                     self.dismiss(animated: true)
                 case .needWear, .unableToDetect:
@@ -161,13 +162,33 @@ class WatchSyncError: HealthKitViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        Mixpanel.mainInstance().time(event: "WatchSyncError")
+        Mixpanel.mainInstance().time(event: "phone_watch_sync")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        Mixpanel.mainInstance().track(event: "WatchSyncError")
+        var state = ""
+        
+        switch self.errorConfiguration
+        {
+            
+            case .noAppleWatch:
+                state = "no_apple_watch"
+            case .noInstallZendo:
+                state = "no_zendo_installed"
+            case .success:
+                state = "success"
+            case .needWear:
+                state = "not_wearing"
+            case .unableToDetect:
+                state = "not_detected"
+            default: break
+        }
+        
+        let props = ["state" : state]
+        
+        Mixpanel.mainInstance().track(event: "phone_watch_sync", properties: props)
     }
     
     override class func loadFromStoryboard() -> WatchSyncError {

@@ -102,6 +102,8 @@ class VideoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Mixpanel.mainInstance().time(event: "phone_story")
+        
         do {
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
             try? AVAudioSession.sharedInstance().setActive(true)
@@ -172,7 +174,8 @@ class VideoViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        Mixpanel.mainInstance().track(event: "Stories_finish_view", properties: ["story_name": story.title])
+        Mixpanel.mainInstance().track(event: "phone_story", properties: ["name": story.title])
+        
     }
     
     static func loadFromStoryboard() -> VideoViewController {
@@ -250,8 +253,6 @@ class VideoViewController: UIViewController {
     }
     
     func startVideo() {
-        
-        Mixpanel.mainInstance().track(event: "Video_view", properties: ["video_name": "\(curent)"])
         
         setBackground()
         

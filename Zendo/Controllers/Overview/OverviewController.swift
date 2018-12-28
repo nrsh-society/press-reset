@@ -82,20 +82,7 @@ class OverviewController: UIViewController {
         NotificationCenter.default.addObserver(forName: .reloadOverview, object: nil, queue: .main) { (notification) in
             self.tableView.reloadData()
         }
-        
-        if let email = Settings.email
-        {
-            Mixpanel.mainInstance().identify(distinctId: email)
-            Mixpanel.mainInstance().people.set(properties: ["$email": email])
-            
-            if let name = Settings.fullName
-            {
-                Mixpanel.mainInstance().people.set(properties: ["$name": name])
-            }
-        }
-        
-        
-        
+                
         initHRVData()
         initMMData()
     }
