@@ -42,5 +42,15 @@ class Settings  {
             return defaults.string(forKey: "email")
         }
     }
+    
+    static var requestedNotificationPermission: Bool {
+        set {
+            defaults.set(newValue, forKey: "requestedNotificationPermission")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.bool(forKey: "requestedNotificationPermission")
+        }
+    }
 
 }

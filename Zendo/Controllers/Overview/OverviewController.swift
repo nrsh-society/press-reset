@@ -104,6 +104,11 @@ class OverviewController: UIViewController {
             }
         }
         
+        if !Settings.requestedNotificationPermission
+        {
+            self.showNotificationController()
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

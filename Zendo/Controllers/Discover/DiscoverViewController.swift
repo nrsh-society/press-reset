@@ -93,7 +93,8 @@ class DiscoverViewController: UIViewController {
         
         if let email = Settings.email
         {
-            Mixpanel.mainInstance().identify(distinctId: Mixpanel.mainInstance().distinctId)
+            Mixpanel.mainInstance().identify(distinctId: email)
+            
             Mixpanel.mainInstance().people.set(properties: ["$email": email])
             
             if let name = Settings.fullName
