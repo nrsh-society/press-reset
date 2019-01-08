@@ -11,12 +11,25 @@ import Foundation
 import HealthKit
 import Mixpanel
 import UserNotifications
+import Lottie
 
 class NotificationViewController: UIViewController
 {
+    @IBOutlet weak var enableButton: ZenButton!
+    @IBOutlet weak var skipButton: ZenButton!
+    @IBOutlet weak var animationView: UIView!
+    
+    let animation = LOTAnimationView(name: "notification")
+    
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(animated)
+        
+        skipButton.bottomView.backgroundColor = UIColor.clear
+        
+        animationView.insertSubview(animation, at: 0)
+        
+        animation.play()
         
         Mixpanel.mainInstance().time(event: "phone_notification")
         
@@ -29,6 +42,34 @@ class NotificationViewController: UIViewController
             //#todo: if notifications have already been granted
             // dimiss?
             //if notifications have been denied, show some kind of UI to ask them to turn them on?
+        }
+        
+        skipButton.action = {
+            
+            self.dismiss(animated: true) {
+                
+            }
+        }
+        
+        enableButton.action =
+        {
+            
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert])
+            {
+                granted, error in
+                
+                print("Permission granted: \(granted)")
+                
+                DispatchQueue.main.async
+                {
+                        UIApplication.shared.registerForRemoteNotifications()
+                }
+            }
+            
+            self.dismiss(animated: true) {
+                
+            }
+            
         }
         
     }
@@ -47,22 +88,4 @@ class NotificationViewController: UIViewController
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
     }
     
-    @IBAction func grantButtonAction(_ sender: Any)
-    {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert])
-        {
-                granted, error in
-            
-                print("Permission granted: \(granted)")
-                
-                DispatchQueue.main.async
-                {
-                    UIApplication.shared.registerForRemoteNotifications()
-                }
-        }
-        
-        self.dismiss(animated: true) {
-            
-        }
-    }
 }

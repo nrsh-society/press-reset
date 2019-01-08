@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Nz-z1-oTd">
-    <device id="retina5_9" orientation="portrait">
+    <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -46,7 +46,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="0.92156862745098034" green="0.94117647058823528" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="6zs-LL-Hh2">
+                        <view key="tableFooterView" contentMode="scaleToFill" id="6zs-LL-Hh2">
                             <rect key="frame" x="0.0" y="611" width="375" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -56,14 +56,14 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wm8-xC-gnJ" id="XaM-oy-Pvh">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="69.666666666666671"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="337" height="69.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="sht-ML-rR1">
-                                            <rect key="frame" x="15" y="0.0" width="321" height="69.666666666666671"/>
+                                            <rect key="frame" x="15" y="0.0" width="317" height="69.666666666666671"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bJS-yt-Qcq">
-                                                    <rect key="frame" x="0.0" y="21" width="150.66666666666666" height="28"/>
+                                                    <rect key="frame" x="0.0" y="21" width="150.66666666666666" height="27.666666666666671"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hrv" translatesAutoresizingMaskIntoConstraints="NO" id="1pM-hi-l6R">
                                                             <rect key="frame" x="0.0" y="0.0" width="28" height="27.666666666666668"/>
@@ -72,7 +72,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-----" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="j7q-wk-pox">
-                                                            <rect key="frame" x="33" y="0.0" width="85" height="28"/>
+                                                            <rect key="frame" x="33" y="2" width="85" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="85" id="Gbf-u0-ETV"/>
                                                             </constraints>
@@ -92,10 +92,10 @@
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ruD-Kg-FEg">
-                                                    <rect key="frame" x="160.66666666666666" y="21" width="74" height="28"/>
+                                                    <rect key="frame" x="160.66666666666666" y="23" width="77.666666666666657" height="24"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2h 2m" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NLa-WG-Cet">
-                                                            <rect key="frame" x="0.0" y="0.0" width="74" height="28"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="77.666666666666671" height="24"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="24"/>
                                                             <color key="textColor" red="0.050980392156862744" green="0.19607843137254902" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -103,10 +103,10 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7C3-D8-gAe">
-                                                    <rect key="frame" x="244.66666666666671" y="28" width="76.333333333333343" height="14"/>
+                                                    <rect key="frame" x="248.33333333333329" y="29" width="68.666666666666657" height="12"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="XJV-7f-4Hg">
-                                                            <rect key="frame" x="0.0" y="0.0" width="76.333333333333329" height="14"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="68.666666666666671" height="12"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="12"/>
                                                             <color key="textColor" red="0.050980392156862744" green="0.19607843137254902" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -145,7 +145,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRP-u1-KuN">
-                                            <rect key="frame" x="19.000000000000004" y="8.3333333333333339" width="34.333333333333343" height="16.333333333333329"/>
+                                            <rect key="frame" x="19" y="9.3333333333333321" width="39" height="14.333333333333332"/>
                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                             <color key="textColor" red="0.45098039215686275" green="0.46274509803921571" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -178,23 +178,23 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5J-CS-i6v">
-                                            <rect key="frame" x="32" y="350" width="311" height="81.666666666666686"/>
+                                            <rect key="frame" x="32" y="350" width="311" height="70.333333333333314"/>
                                             <string key="text">Start a session from your phone by pressing the watch icon above. Start on your watch by deep pressing the icon to enter. End a session by deep pressing on the timer to exit. Pull down to sync sessions from the watch.</string>
                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                             <color key="textColor" red="0.58431372549019611" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wLl-ap-4N7">
-                                            <rect key="frame" x="108" y="43" width="162" height="80"/>
+                                            <rect key="frame" x="93" y="53" width="177" height="70"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="record your " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zfz-4T-fgo">
-                                                    <rect key="frame" x="0.0" y="0.0" width="162" height="35"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="177" height="30"/>
                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="first session" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5wq-6y-Lmj">
-                                                    <rect key="frame" x="0.0" y="45" width="162" height="35"/>
+                                                    <rect key="frame" x="0.0" y="40" width="177" height="30"/>
                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                                     <color key="textColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -267,7 +267,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderZazenTableViewCell" rowHeight="30" id="txs-gQ-tMi" customClass="HeaderZazenTableViewCell" customModule="Zendo" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderZazenTableViewCell" rowHeight="30" id="txs-gQ-tMi" customClass="HeaderZazenTableViewCell" customModule="Zendo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="txs-gQ-tMi" id="dpa-zo-n64">
@@ -275,10 +275,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lun-TT-wts">
-                                                    <rect key="frame" x="0.0" y="0.0" width="265" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDs-Ef-Znt">
-                                                            <rect key="frame" x="18" y="0.0" width="229" height="14.666666666666666"/>
+                                                            <rect key="frame" x="18" y="0.0" width="284" height="14.666666666666666"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -305,7 +305,7 @@
                                             <outlet property="timeView" destination="Lun-TT-wts" id="7dS-l8-eFB"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ZazenTableViewCell" rowHeight="800" id="A1r-As-wRg" customClass="ZazenTableViewCell" customModule="Zendo" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ZazenTableViewCell" rowHeight="800" id="A1r-As-wRg" customClass="ZazenTableViewCell" customModule="Zendo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="58" width="320" height="800"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A1r-As-wRg" id="NMX-4c-NiT">
@@ -313,27 +313,27 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ekh-GF-ILb">
-                                                    <rect key="frame" x="8" y="16" width="249" height="768"/>
+                                                    <rect key="frame" x="8" y="16" width="304" height="768"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IZi-QW-Bsu" customClass="ZenInfoView" customModule="Zendo" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="249" height="87"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="304" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="87" id="UO5-Dq-KcB"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6sU-lg-LHu" customClass="ZenInfoView" customModule="Zendo" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="125" width="249" height="87"/>
+                                                            <rect key="frame" x="0.0" y="125" width="304" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="87" id="OXh-6l-P5S"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OQr-rq-wbn">
-                                                            <rect key="frame" x="0.0" y="250" width="249" height="240"/>
+                                                            <rect key="frame" x="0.0" y="250" width="304" height="240"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dkk-o2-Zfm" userLabel="HR Chart" customClass="LineChartView" customModule="Charts">
-                                                                    <rect key="frame" x="0.0" y="70" width="249" height="160"/>
+                                                                    <rect key="frame" x="0.0" y="70" width="304" height="160"/>
                                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <accessibility key="accessibilityConfiguration" label="chart"/>
                                                                     <constraints>
@@ -341,7 +341,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="heart rate over time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B0b-Z5-WBJ">
-                                                                    <rect key="frame" x="24" y="24" width="201" height="14.666666666666664"/>
+                                                                    <rect key="frame" x="24" y="24" width="256" height="14.666666666666664"/>
                                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -360,16 +360,16 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pW3-Ma-MLB">
-                                                            <rect key="frame" x="0.0" y="528" width="249" height="240"/>
+                                                            <rect key="frame" x="0.0" y="528" width="304" height="240"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="movement over time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VbQ-PJ-CqG">
-                                                                    <rect key="frame" x="24" y="24" width="201" height="14.666666666666664"/>
+                                                                    <rect key="frame" x="24" y="24" width="256" height="14.666666666666664"/>
                                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJ9-RO-1mV" customClass="LineChartView" customModule="Charts">
-                                                                    <rect key="frame" x="0.0" y="70" width="249" height="160"/>
+                                                                    <rect key="frame" x="0.0" y="70" width="304" height="160"/>
                                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="160" id="UBK-KK-fib"/>
@@ -483,7 +483,7 @@
             <objects>
                 <navigationController storyboardIdentifier="NavigationControllerWelcome" id="KDa-Fk-7Af" customClass="NavigationControllerWelcome" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="VZa-kL-ul3">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -499,27 +499,27 @@
             <objects>
                 <viewController storyboardIdentifier="WelcomeController" title="Welcome" modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="Zat-xg-miU" customClass="WelcomeController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LJM-oY-Ml1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="welcome" translatesAutoresizingMaskIntoConstraints="NO" id="jae-tp-FsZ">
-                                <rect key="frame" x="0.0" y="134" width="248" height="319"/>
+                                <rect key="frame" x="0.0" y="124" width="248" height="319"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="319" id="YRt-M2-suj"/>
                                     <constraint firstAttribute="width" secondItem="jae-tp-FsZ" secondAttribute="height" multiplier="248:319" id="t2P-tf-NH3"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="CXj-sz-1cY">
-                                <rect key="frame" x="41" y="84" width="187" height="80"/>
+                                <rect key="frame" x="41" y="84" width="215" height="70"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="improve your" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t48-QA-eQY">
-                                        <rect key="frame" x="0.0" y="0.0" width="175.33333333333334" height="35"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="192.66666666666666" height="30"/>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mental fitness" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r1l-kg-9Be">
-                                        <rect key="frame" x="0.0" y="45" width="187" height="35"/>
+                                        <rect key="frame" x="0.0" y="40" width="215" height="30"/>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                         <color key="textColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -527,7 +527,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4RK-cn-RQd">
-                                <rect key="frame" x="41" y="461" width="291" height="98"/>
+                                <rect key="frame" x="41" y="451" width="330" height="84.333333333333371"/>
                                 <string key="text">Practice. Observe. Learn.
 
 Use Apple Watch to record your meditation and view your Heart Rate Variability (HRV), a measure empirically correlated to a sense of well-being and positive health outcomes.</string>
@@ -536,7 +536,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yQ8-ky-LSd" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="187.66666666666663" y="696" width="187.33333333333337" height="45"/>
+                                <rect key="frame" x="207" y="780" width="207" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="3Lf-3o-gbT"/>
@@ -585,46 +585,21 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
             <objects>
                 <viewController storyboardIdentifier="NotificationViewController" id="ZNZ-FJ-18P" customClass="NotificationViewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BoB-0f-sAu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xwu-pi-H2g">
-                                <rect key="frame" x="73" y="564" width="201" height="30"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="notification" translatesAutoresizingMaskIntoConstraints="NO" id="9zU-db-erX">
+                                <rect key="frame" x="29" y="80" width="350" height="448"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="448" id="Qf2-tV-zFf"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="2sc-he-PuG">
+                                <rect key="frame" x="48" y="385" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Grant Notification Permission"/>
-                                <connections>
-                                    <action selector="grantButtonAction:" destination="ZNZ-FJ-18P" eventType="primaryActionTriggered" id="uLc-no-Apn"/>
-                                </connections>
-                            </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="2sc-he-PuG">
-                                <rect key="frame" x="32" y="77.999999999999972" width="317" height="458.33333333333331"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notification" translatesAutoresizingMaskIntoConstraints="NO" id="9zU-db-erX">
-                                        <rect key="frame" x="0.0" y="0.0" width="317" height="340"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="get" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nlV-fK-X2S">
-                                        <rect key="frame" x="0.0" y="350" width="48" height="30"/>
-                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1B-N9-wqN">
-                                        <rect key="frame" x="0.0" y="390" width="186.66666666666666" height="30"/>
-                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
-                                        <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We’ll send you weekly reminders and notifications about your progress." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="333" translatesAutoresizingMaskIntoConstraints="NO" id="OpH-SQ-Iof">
-                                        <rect key="frame" x="0.0" y="430" width="258" height="28.333333333333314"/>
-                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
-                                        <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
                             </stackView>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eRC-qy-O7k" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="24" y="659" width="187.33333333333337" height="45"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRC-qy-O7k" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
+                                <rect key="frame" x="24" y="817" width="390" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="5P6-Q1-dP4"/>
@@ -635,8 +610,14 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yyU-TB-LnH" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="203" y="659" width="187.33333333333337" height="45"/>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="We’ll send you weekly reminders and notifications about your progress." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="333" translatesAutoresizingMaskIntoConstraints="NO" id="OpH-SQ-Iof">
+                                <rect key="frame" x="47" y="531" width="258" height="56"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yyU-TB-LnH" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
+                                <rect key="frame" x="201" y="817" width="187" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="4lu-SD-PWW"/>
@@ -645,25 +626,64 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                     <userDefinedRuntimeAttribute type="string" keyPath="titleButton" value="Yes, Enable!"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1B-N9-wqN">
+                                <rect key="frame" x="48" y="498" width="187" height="30"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="get" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nlV-fK-X2S">
+                                <rect key="frame" x="48" y="455" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKV-eF-Jc4">
+                                <rect key="frame" x="179" y="266" width="56" height="364"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cKV-eF-Jc4" firstAttribute="centerY" secondItem="BoB-0f-sAu" secondAttribute="centerY" id="20S-OS-lUW"/>
+                            <constraint firstItem="9zU-db-erX" firstAttribute="top" secondItem="vK7-BF-UWn" secondAttribute="top" constant="36" id="2rd-Kx-axl"/>
+                            <constraint firstItem="yyU-TB-LnH" firstAttribute="leading" secondItem="vK7-BF-UWn" secondAttribute="leading" constant="201" id="33p-Zf-T3s"/>
+                            <constraint firstItem="cKV-eF-Jc4" firstAttribute="leading" secondItem="vK7-BF-UWn" secondAttribute="leading" constant="179" id="7hs-ae-e7C"/>
+                            <constraint firstItem="cKV-eF-Jc4" firstAttribute="top" secondItem="vK7-BF-UWn" secondAttribute="top" constant="222" id="AIx-p5-Akl"/>
+                            <constraint firstItem="cKV-eF-Jc4" firstAttribute="centerX" secondItem="BoB-0f-sAu" secondAttribute="centerX" id="MLp-r9-7Ny"/>
+                            <constraint firstItem="vK7-BF-UWn" firstAttribute="trailing" secondItem="eRC-qy-O7k" secondAttribute="trailing" id="R7c-hA-FFi"/>
+                            <constraint firstItem="eRC-qy-O7k" firstAttribute="top" secondItem="yyU-TB-LnH" secondAttribute="top" id="Ycz-Ct-JYh"/>
+                            <constraint firstItem="cKV-eF-Jc4" firstAttribute="centerX" secondItem="9zU-db-erX" secondAttribute="centerX" id="ZuW-8d-dHW"/>
+                            <constraint firstItem="vK7-BF-UWn" firstAttribute="bottom" secondItem="eRC-qy-O7k" secondAttribute="bottom" id="fIV-xC-YHr"/>
+                            <constraint firstItem="9zU-db-erX" firstAttribute="bottom" secondItem="b1B-N9-wqN" secondAttribute="bottom" id="hjg-aA-arR"/>
+                            <constraint firstItem="eRC-qy-O7k" firstAttribute="leading" secondItem="vK7-BF-UWn" secondAttribute="leading" constant="24" id="icj-v1-BxR"/>
+                            <constraint firstItem="OpH-SQ-Iof" firstAttribute="top" secondItem="9zU-db-erX" secondAttribute="bottom" constant="3" id="jps-mN-9Rs"/>
+                            <constraint firstItem="vK7-BF-UWn" firstAttribute="trailing" secondItem="yyU-TB-LnH" secondAttribute="trailing" constant="26" id="mLA-cL-zNR"/>
+                            <constraint firstItem="9zU-db-erX" firstAttribute="leading" secondItem="vK7-BF-UWn" secondAttribute="leading" constant="29" id="prQ-Fm-aDx"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vK7-BF-UWn"/>
                     </view>
+                    <connections>
+                        <outlet property="animationView" destination="cKV-eF-Jc4" id="oor-qO-1af"/>
+                        <outlet property="enableButton" destination="yyU-TB-LnH" id="Mbj-uE-vMn"/>
+                        <outlet property="skipButton" destination="eRC-qy-O7k" id="XOU-9l-H0C"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BYx-Uq-KDh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3255.1999999999998" y="-709.35960591133005"/>
+            <point key="canvasLocation" x="-3256.521739130435" y="-709.82142857142856"/>
         </scene>
         <!--Community View Controller-->
         <scene sceneID="5T6-K5-oSo">
             <objects>
                 <viewController storyboardIdentifier="CommunityViewController" modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="FOx-Oj-Aa3" customClass="CommunityViewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gr2-6O-C2R">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n8Z-dv-fhB" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="187.66666666666663" y="696" width="187.33333333333337" height="45"/>
+                                <rect key="frame" x="207" y="780" width="207" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="OpT-fT-VwG"/>
@@ -673,7 +693,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gFT-zA-ERl">
-                                <rect key="frame" x="41" y="94" width="293" height="122.33333333333331"/>
+                                <rect key="frame" x="41" y="94" width="332" height="122.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="join the" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVx-Jo-CSq">
                                         <rect key="frame" x="0.0" y="0.0" width="109.66666666666667" height="30"/>
@@ -688,7 +708,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are a group of meditators from around the world working together to bring the best tools and techniques to our practice." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xua-QO-A7Q">
-                                        <rect key="frame" x="0.0" y="80" width="293" height="42.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="80" width="320" height="42.333333333333343"/>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                         <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -696,17 +716,17 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="j4b-yy-xhs">
-                                <rect key="frame" x="41" y="223.33333333333348" width="334" height="135"/>
+                                <rect key="frame" x="41" y="223.33333333333348" width="373" height="135"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAN-ji-17l" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="334" height="48"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="373" height="48"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="Ca3-zK-vvh"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mN8-Qu-Loh" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="86.999999999999972" width="334" height="48"/>
+                                        <rect key="frame" x="0.0" y="86.999999999999972" width="373" height="48"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="Cib-CH-TjC"/>
@@ -752,14 +772,14 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
             <objects>
                 <viewController storyboardIdentifier="HealthKitViewController" modalTransitionStyle="crossDissolve" id="gph-pp-dV7" customClass="HealthKitViewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="myn-d5-4EB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="connectToHealthkit" translatesAutoresizingMaskIntoConstraints="NO" id="eWO-nn-SMc">
-                                <rect key="frame" x="32" y="56" width="311" height="406"/>
+                                <rect key="frame" x="32" y="56" width="350" height="448"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3D2-S6-5aY">
-                                <rect key="frame" x="41" y="422" width="289" height="178.33333333333337"/>
+                                <rect key="frame" x="41" y="463.99999999999994" width="328" height="164.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="connect to" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjV-Yv-0YV">
                                         <rect key="frame" x="0.0" y="0.0" width="159" height="30"/>
@@ -774,7 +794,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RV6-Pm-tov">
-                                        <rect key="frame" x="0.0" y="80" width="289" height="98.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="80" width="328" height="84.333333333333314"/>
                                         <string key="text">In order to get started we need to connect Apple Health app to sync your data with Zendō. This allows Zendō to measure and record HRV and other health indicators during meditation. All health data remains on your devices, nothing is shared with us or anyone else.</string>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                         <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -783,7 +803,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ivM-fa-1vR" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="187.66666666666663" y="696" width="187.33333333333337" height="45"/>
+                                <rect key="frame" x="207" y="780" width="207" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Rhg-5f-1Fg"/>
@@ -828,7 +848,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                     <tabBarItem key="tabBarItem" title="Activity" image="history" selectedImage="history" id="3AK-3D-fq3"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" largeTitles="YES" id="zpU-Js-o0E">
-                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.77638524770736694" green="0.77651971578598022" blue="0.77637678384780884" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -858,7 +878,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                     <tabBarItem key="tabBarItem" title="Stats" image="overview" selectedImage="overview" id="jZ9-Xv-6H8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" largeTitles="YES" id="yuJ-Xz-6rT">
-                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.70972543954849243" green="0.70984917879104614" blue="0.70971763134002686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -891,7 +911,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HeaderOverviewTableViewCell" rowHeight="90" id="ZRr-Is-SZE" customClass="HeaderOverviewTableViewCell" customModule="Zendo" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HeaderOverviewTableViewCell" rowHeight="90" id="ZRr-Is-SZE" customClass="HeaderOverviewTableViewCell" customModule="Zendo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZRr-Is-SZE" id="BBG-zI-F5s">
@@ -899,7 +919,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="GxP-AN-ReR">
-                                                    <rect key="frame" x="33" y="11" width="387" height="25"/>
+                                                    <rect key="frame" x="38" y="11" width="338" height="25"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFY-cb-h07">
                                                             <rect key="frame" x="0.0" y="0.0" width="30" height="25"/>
@@ -913,7 +933,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5U-pb-9u0">
-                                                            <rect key="frame" x="119" y="0.0" width="30" height="25"/>
+                                                            <rect key="frame" x="102.66666666666666" y="0.0" width="30" height="25"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                             <state key="normal" title="1W">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -923,7 +943,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rxw-rZ-4yl">
-                                                            <rect key="frame" x="238" y="0.0" width="30" height="25"/>
+                                                            <rect key="frame" x="205.33333333333334" y="0.0" width="30" height="25"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                             <state key="normal" title="1M">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -933,7 +953,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1L-io-blG">
-                                                            <rect key="frame" x="357" y="0.0" width="30" height="25"/>
+                                                            <rect key="frame" x="308" y="0.0" width="30" height="25"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                             <state key="normal" title="1Y">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -951,7 +971,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                                     </constraints>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEV-YG-qch">
-                                                    <rect key="frame" x="33" y="55" width="387" height="15.666666666666671"/>
+                                                    <rect key="frame" x="38" y="55" width="338" height="15.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -977,7 +997,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                             <outletCollection property="buttons" destination="K1L-io-blG" collectionClass="NSMutableArray" id="3Vv-tn-qlU"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="OverviewTableViewCell" rowHeight="800" id="AuI-Fn-Mvz" customClass="OverviewTableViewCell" customModule="Zendo" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="OverviewTableViewCell" rowHeight="800" id="AuI-Fn-Mvz" customClass="OverviewTableViewCell" customModule="Zendo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="118" width="414" height="800"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AuI-Fn-Mvz" id="nbU-Cl-gFA">
@@ -985,27 +1005,27 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="S7i-H9-E3O">
-                                                    <rect key="frame" x="8" y="16" width="437" height="767.66666666666663"/>
+                                                    <rect key="frame" x="8" y="16" width="398" height="767.66666666666663"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="krg-bZ-Jep" customClass="ZenInfoView" customModule="Zendo" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="437" height="87"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="87" id="3Ww-9J-gHm"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5G-Jy-bEC" customClass="ZenInfoView" customModule="Zendo" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="125" width="437" height="87"/>
+                                                            <rect key="frame" x="0.0" y="125" width="398" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="87" id="jGv-gt-Pqw"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TjF-D0-abB">
-                                                            <rect key="frame" x="0.0" y="249.66666666666669" width="437" height="240"/>
+                                                            <rect key="frame" x="0.0" y="249.66666666666669" width="398" height="240"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hrv over time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADY-wW-Zv1">
-                                                                    <rect key="frame" x="24" y="24" width="389" height="14.666666666666664"/>
+                                                                    <rect key="frame" x="24" y="24" width="350" height="14.666666666666664"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="14.666666666666664" id="kt1-AO-x0I"/>
                                                                     </constraints>
@@ -1014,14 +1034,14 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8SF-6g-VLG">
-                                                                    <rect key="frame" x="0.0" y="70" width="437" height="160"/>
+                                                                    <rect key="frame" x="0.0" y="70" width="398" height="160"/>
                                                                     <subviews>
                                                                         <view hidden="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qEY-O4-vG6" userLabel="HRVChart" customClass="LineChartView" customModule="Charts">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="437" height="0.0"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="0.0"/>
                                                                             <color key="backgroundColor" red="0.92146831750000002" green="0.92162626979999995" blue="0.92145836349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </view>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kjp-Hi-ebQ" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                                                            <rect key="frame" x="201" y="0.0" width="35" height="160"/>
+                                                                            <rect key="frame" x="181.66666666666666" y="0.0" width="35" height="160"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="35" id="E12-9u-PTN"/>
@@ -1056,23 +1076,23 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2kQ-KV-U9Y">
-                                                            <rect key="frame" x="0.0" y="527.66666666666663" width="437" height="240"/>
+                                                            <rect key="frame" x="0.0" y="527.66666666666663" width="398" height="240"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mindful mins over time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1tu-3a-xRZ">
-                                                                    <rect key="frame" x="24" y="24" width="389" height="14.333333333333336"/>
+                                                                    <rect key="frame" x="24" y="24" width="350" height="14.333333333333336"/>
                                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bga-qX-QE1">
-                                                                    <rect key="frame" x="0.0" y="70" width="437" height="160"/>
+                                                                    <rect key="frame" x="0.0" y="70" width="398" height="160"/>
                                                                     <subviews>
                                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="50X-kS-Zcc" userLabel="MMChart" customClass="LineChartView" customModule="Charts">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="437" height="0.0"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="0.0"/>
                                                                             <color key="backgroundColor" red="0.92146831750000002" green="0.92162626979999995" blue="0.92145836349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </view>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qq0-gB-Vcl" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                                                            <rect key="frame" x="201" y="0.0" width="35" height="160"/>
+                                                                            <rect key="frame" x="181.66666666666666" y="0.0" width="35" height="160"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="35" id="njN-D5-vMO"/>
