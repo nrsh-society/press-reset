@@ -10,6 +10,7 @@ import UIKit
 import HealthKit
 import Mixpanel
 import FBSDKCoreKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -105,12 +106,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Mixpanel.mainInstance().people.addPushDeviceToken(deviceToken)
     }
     
-    func application(
-        _ application: UIApplication,
-        didFailToRegisterForRemoteNotificationsWithError error: Error) {
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error)
+    {
         print("Failed to register: \(error)")
     }
-
     
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
+    {
+        
+        
+    }
+
 }
 
