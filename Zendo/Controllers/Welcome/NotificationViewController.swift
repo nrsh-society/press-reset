@@ -15,19 +15,30 @@ import Lottie
 
 class NotificationViewController: UIViewController
 {
-    @IBOutlet weak var enableButton: ZenButton!
-    @IBOutlet weak var skipButton: ZenButton!
-    @IBOutlet weak var animationView: UIView!
+    @IBOutlet var enableButton: ZenButton!
+    @IBOutlet var skipButton: ZenButton!
+    @IBOutlet var animationView: UIView!
     
     let animation = LOTAnimationView(name: "notification")
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        skipButton.bottomView.backgroundColor = UIColor.clear
+        
+        animation.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        animation.contentMode = .scaleAspectFill
+        animation.frame = animationView.bounds
+        //animation.center = animationView.center
+        animation.animationSpeed = 0.6
+        
+        animationView.insertSubview(animation, at: 0)
+        
+    }
     
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(animated)
-        
-        skipButton.bottomView.backgroundColor = UIColor.clear
-        
-        animationView.insertSubview(animation, at: 0)
         
         animation.play()
         

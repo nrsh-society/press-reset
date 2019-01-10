@@ -63,7 +63,7 @@
                                             <rect key="frame" x="15" y="0.0" width="317" height="69.666666666666671"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bJS-yt-Qcq">
-                                                    <rect key="frame" x="0.0" y="21" width="150.66666666666666" height="27.666666666666671"/>
+                                                    <rect key="frame" x="0.0" y="21" width="150.66666666666666" height="28"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hrv" translatesAutoresizingMaskIntoConstraints="NO" id="1pM-hi-l6R">
                                                             <rect key="frame" x="0.0" y="0.0" width="28" height="27.666666666666668"/>
@@ -72,7 +72,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-----" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="j7q-wk-pox">
-                                                            <rect key="frame" x="33" y="2" width="85" height="24"/>
+                                                            <rect key="frame" x="33" y="0.0" width="85" height="28"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="85" id="Gbf-u0-ETV"/>
                                                             </constraints>
@@ -92,10 +92,10 @@
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ruD-Kg-FEg">
-                                                    <rect key="frame" x="160.66666666666666" y="23" width="77.666666666666657" height="24"/>
+                                                    <rect key="frame" x="160.66666666666666" y="21" width="73" height="28"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2h 2m" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NLa-WG-Cet">
-                                                            <rect key="frame" x="0.0" y="0.0" width="77.666666666666671" height="24"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="73" height="28"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="24"/>
                                                             <color key="textColor" red="0.050980392156862744" green="0.19607843137254902" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -103,10 +103,10 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7C3-D8-gAe">
-                                                    <rect key="frame" x="248.33333333333329" y="29" width="68.666666666666657" height="12"/>
+                                                    <rect key="frame" x="243.66666666666671" y="28" width="73.333333333333343" height="14"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="XJV-7f-4Hg">
-                                                            <rect key="frame" x="0.0" y="0.0" width="68.666666666666671" height="12"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="73.333333333333329" height="14"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="12"/>
                                                             <color key="textColor" red="0.050980392156862744" green="0.19607843137254902" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -145,7 +145,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRP-u1-KuN">
-                                            <rect key="frame" x="19" y="9.3333333333333321" width="39" height="14.333333333333332"/>
+                                            <rect key="frame" x="19.000000000000004" y="8.3333333333333339" width="34.333333333333343" height="16.333333333333329"/>
                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                             <color key="textColor" red="0.45098039215686275" green="0.46274509803921571" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -178,23 +178,23 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5J-CS-i6v">
-                                            <rect key="frame" x="32" y="350" width="311" height="70.333333333333314"/>
+                                            <rect key="frame" x="32" y="350" width="311" height="81.666666666666686"/>
                                             <string key="text">Start a session from your phone by pressing the watch icon above. Start on your watch by deep pressing the icon to enter. End a session by deep pressing on the timer to exit. Pull down to sync sessions from the watch.</string>
                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                             <color key="textColor" red="0.58431372549019611" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wLl-ap-4N7">
-                                            <rect key="frame" x="93" y="53" width="177" height="70"/>
+                                            <rect key="frame" x="108" y="43" width="162" height="80"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="record your " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zfz-4T-fgo">
-                                                    <rect key="frame" x="0.0" y="0.0" width="177" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="162" height="35"/>
                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="first session" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5wq-6y-Lmj">
-                                                    <rect key="frame" x="0.0" y="40" width="177" height="30"/>
+                                                    <rect key="frame" x="0.0" y="45" width="162" height="35"/>
                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                                     <color key="textColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -267,7 +267,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderZazenTableViewCell" rowHeight="30" id="txs-gQ-tMi" customClass="HeaderZazenTableViewCell" customModule="Zendo" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderZazenTableViewCell" rowHeight="30" id="txs-gQ-tMi" customClass="HeaderZazenTableViewCell" customModule="Zendo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="txs-gQ-tMi" id="dpa-zo-n64">
@@ -275,10 +275,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lun-TT-wts">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="226" height="30"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDs-Ef-Znt">
-                                                            <rect key="frame" x="18" y="0.0" width="284" height="14.666666666666666"/>
+                                                            <rect key="frame" x="18" y="0.0" width="190" height="16.333333333333332"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -305,7 +305,7 @@
                                             <outlet property="timeView" destination="Lun-TT-wts" id="7dS-l8-eFB"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ZazenTableViewCell" rowHeight="800" id="A1r-As-wRg" customClass="ZazenTableViewCell" customModule="Zendo" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ZazenTableViewCell" rowHeight="800" id="A1r-As-wRg" customClass="ZazenTableViewCell" customModule="Zendo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="58" width="320" height="800"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A1r-As-wRg" id="NMX-4c-NiT">
@@ -313,27 +313,27 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ekh-GF-ILb">
-                                                    <rect key="frame" x="8" y="16" width="304" height="768"/>
+                                                    <rect key="frame" x="8" y="16" width="210" height="768"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IZi-QW-Bsu" customClass="ZenInfoView" customModule="Zendo" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="304" height="87"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="210" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="87" id="UO5-Dq-KcB"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6sU-lg-LHu" customClass="ZenInfoView" customModule="Zendo" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="125" width="304" height="87"/>
+                                                            <rect key="frame" x="0.0" y="125" width="210" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="87" id="OXh-6l-P5S"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OQr-rq-wbn">
-                                                            <rect key="frame" x="0.0" y="250" width="304" height="240"/>
+                                                            <rect key="frame" x="0.0" y="250" width="210" height="240"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dkk-o2-Zfm" userLabel="HR Chart" customClass="LineChartView" customModule="Charts">
-                                                                    <rect key="frame" x="0.0" y="70" width="304" height="160"/>
+                                                                    <rect key="frame" x="0.0" y="70" width="210" height="160"/>
                                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <accessibility key="accessibilityConfiguration" label="chart"/>
                                                                     <constraints>
@@ -341,7 +341,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="heart rate over time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B0b-Z5-WBJ">
-                                                                    <rect key="frame" x="24" y="24" width="256" height="14.666666666666664"/>
+                                                                    <rect key="frame" x="24" y="24" width="162" height="14.666666666666664"/>
                                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -360,16 +360,16 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pW3-Ma-MLB">
-                                                            <rect key="frame" x="0.0" y="528" width="304" height="240"/>
+                                                            <rect key="frame" x="0.0" y="528" width="210" height="240"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="movement over time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VbQ-PJ-CqG">
-                                                                    <rect key="frame" x="24" y="24" width="256" height="14.666666666666664"/>
+                                                                    <rect key="frame" x="24" y="24" width="162" height="14.666666666666664"/>
                                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJ9-RO-1mV" customClass="LineChartView" customModule="Charts">
-                                                                    <rect key="frame" x="0.0" y="70" width="304" height="160"/>
+                                                                    <rect key="frame" x="0.0" y="70" width="210" height="160"/>
                                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="160" id="UBK-KK-fib"/>
@@ -588,18 +588,29 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="notification" translatesAutoresizingMaskIntoConstraints="NO" id="9zU-db-erX">
-                                <rect key="frame" x="29" y="80" width="350" height="448"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="448" id="Qf2-tV-zFf"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notification" translatesAutoresizingMaskIntoConstraints="NO" id="9zU-db-erX">
+                                <rect key="frame" x="48.666666666666657" y="74" width="317" height="340"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="2sc-he-PuG">
-                                <rect key="frame" x="48" y="385" width="48" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKV-eF-Jc4">
+                                <rect key="frame" x="149" y="168" width="125" height="125"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1B-N9-wqN">
+                                <rect key="frame" x="47" y="417" width="187" height="30"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We’ll send you weekly reminders and notifications about your progress." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="333" translatesAutoresizingMaskIntoConstraints="NO" id="OpH-SQ-Iof">
+                                <rect key="frame" x="47" y="441" width="258" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="m9H-Y9-z7u"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRC-qy-O7k" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="24" y="817" width="390" height="45"/>
+                                <rect key="frame" x="47" y="745" width="115" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="5P6-Q1-dP4"/>
@@ -610,14 +621,14 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="We’ll send you weekly reminders and notifications about your progress." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="333" translatesAutoresizingMaskIntoConstraints="NO" id="OpH-SQ-Iof">
-                                <rect key="frame" x="47" y="531" width="258" height="56"/>
-                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
-                                <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="get" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nlV-fK-X2S">
+                                <rect key="frame" x="47" y="379" width="48" height="30"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yyU-TB-LnH" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="201" y="817" width="187" height="45"/>
+                                <rect key="frame" x="250" y="745" width="144" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="4lu-SD-PWW"/>
@@ -626,41 +637,29 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                     <userDefinedRuntimeAttribute type="string" keyPath="titleButton" value="Yes, Enable!"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1B-N9-wqN">
-                                <rect key="frame" x="48" y="498" width="187" height="30"/>
-                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
-                                <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="get" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nlV-fK-X2S">
-                                <rect key="frame" x="48" y="455" width="48" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKV-eF-Jc4">
-                                <rect key="frame" x="179" y="266" width="56" height="364"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="cKV-eF-Jc4" firstAttribute="centerY" secondItem="BoB-0f-sAu" secondAttribute="centerY" id="20S-OS-lUW"/>
-                            <constraint firstItem="9zU-db-erX" firstAttribute="top" secondItem="vK7-BF-UWn" secondAttribute="top" constant="36" id="2rd-Kx-axl"/>
-                            <constraint firstItem="yyU-TB-LnH" firstAttribute="leading" secondItem="vK7-BF-UWn" secondAttribute="leading" constant="201" id="33p-Zf-T3s"/>
-                            <constraint firstItem="cKV-eF-Jc4" firstAttribute="leading" secondItem="vK7-BF-UWn" secondAttribute="leading" constant="179" id="7hs-ae-e7C"/>
-                            <constraint firstItem="cKV-eF-Jc4" firstAttribute="top" secondItem="vK7-BF-UWn" secondAttribute="top" constant="222" id="AIx-p5-Akl"/>
-                            <constraint firstItem="cKV-eF-Jc4" firstAttribute="centerX" secondItem="BoB-0f-sAu" secondAttribute="centerX" id="MLp-r9-7Ny"/>
-                            <constraint firstItem="vK7-BF-UWn" firstAttribute="trailing" secondItem="eRC-qy-O7k" secondAttribute="trailing" id="R7c-hA-FFi"/>
+                            <constraint firstItem="yyU-TB-LnH" firstAttribute="leading" secondItem="vK7-BF-UWn" secondAttribute="trailing" constant="-164" id="33p-Zf-T3s"/>
+                            <constraint firstItem="b1B-N9-wqN" firstAttribute="leading" secondItem="OpH-SQ-Iof" secondAttribute="leading" id="Cne-i9-MWO"/>
+                            <constraint firstItem="9zU-db-erX" firstAttribute="top" secondItem="vK7-BF-UWn" secondAttribute="top" constant="30" id="OvX-Uz-Xi6"/>
+                            <constraint firstItem="cKV-eF-Jc4" firstAttribute="leading" secondItem="vK7-BF-UWn" secondAttribute="leading" constant="149" id="R6b-h5-pUT"/>
+                            <constraint firstItem="vK7-BF-UWn" firstAttribute="trailing" secondItem="eRC-qy-O7k" secondAttribute="trailing" constant="252" id="R7c-hA-FFi"/>
+                            <constraint firstItem="b1B-N9-wqN" firstAttribute="top" secondItem="9zU-db-erX" secondAttribute="bottom" constant="3" id="TVN-CS-CEw"/>
+                            <constraint firstItem="b1B-N9-wqN" firstAttribute="leading" secondItem="nlV-fK-X2S" secondAttribute="leading" id="UfM-XT-qZS"/>
+                            <constraint firstItem="vK7-BF-UWn" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="OpH-SQ-Iof" secondAttribute="trailing" symbolic="YES" id="Xdt-VX-YkZ"/>
                             <constraint firstItem="eRC-qy-O7k" firstAttribute="top" secondItem="yyU-TB-LnH" secondAttribute="top" id="Ycz-Ct-JYh"/>
-                            <constraint firstItem="cKV-eF-Jc4" firstAttribute="centerX" secondItem="9zU-db-erX" secondAttribute="centerX" id="ZuW-8d-dHW"/>
-                            <constraint firstItem="vK7-BF-UWn" firstAttribute="bottom" secondItem="eRC-qy-O7k" secondAttribute="bottom" id="fIV-xC-YHr"/>
-                            <constraint firstItem="9zU-db-erX" firstAttribute="bottom" secondItem="b1B-N9-wqN" secondAttribute="bottom" id="hjg-aA-arR"/>
-                            <constraint firstItem="eRC-qy-O7k" firstAttribute="leading" secondItem="vK7-BF-UWn" secondAttribute="leading" constant="24" id="icj-v1-BxR"/>
-                            <constraint firstItem="OpH-SQ-Iof" firstAttribute="top" secondItem="9zU-db-erX" secondAttribute="bottom" constant="3" id="jps-mN-9Rs"/>
-                            <constraint firstItem="vK7-BF-UWn" firstAttribute="trailing" secondItem="yyU-TB-LnH" secondAttribute="trailing" constant="26" id="mLA-cL-zNR"/>
-                            <constraint firstItem="9zU-db-erX" firstAttribute="leading" secondItem="vK7-BF-UWn" secondAttribute="leading" constant="29" id="prQ-Fm-aDx"/>
+                            <constraint firstItem="OpH-SQ-Iof" firstAttribute="leading" secondItem="vK7-BF-UWn" secondAttribute="leading" constant="47" id="a65-Ab-MoC"/>
+                            <constraint firstItem="vK7-BF-UWn" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="b1B-N9-wqN" secondAttribute="trailing" symbolic="YES" id="bSe-lt-Hya"/>
+                            <constraint firstItem="vK7-BF-UWn" firstAttribute="bottom" secondItem="eRC-qy-O7k" secondAttribute="bottom" constant="72" id="fIV-xC-YHr"/>
+                            <constraint firstItem="cKV-eF-Jc4" firstAttribute="top" secondItem="vK7-BF-UWn" secondAttribute="top" constant="124" id="i8A-LN-ees"/>
+                            <constraint firstItem="eRC-qy-O7k" firstAttribute="leading" secondItem="vK7-BF-UWn" secondAttribute="leading" constant="47" id="icj-v1-BxR"/>
+                            <constraint firstItem="9zU-db-erX" firstAttribute="centerX" secondItem="BoB-0f-sAu" secondAttribute="centerX" id="lpa-9C-NFW"/>
+                            <constraint firstItem="vK7-BF-UWn" firstAttribute="trailing" secondItem="yyU-TB-LnH" secondAttribute="trailing" constant="20" id="mLA-cL-zNR"/>
+                            <constraint firstItem="cKV-eF-Jc4" firstAttribute="centerY" secondItem="9zU-db-erX" secondAttribute="centerY" constant="-13.5" id="mdv-eY-iHb"/>
+                            <constraint firstItem="OpH-SQ-Iof" firstAttribute="top" secondItem="b1B-N9-wqN" secondAttribute="bottom" constant="-6" id="uA7-Wt-fZk"/>
+                            <constraint firstItem="b1B-N9-wqN" firstAttribute="top" secondItem="nlV-fK-X2S" secondAttribute="bottom" constant="8" id="ucE-bR-BQd"/>
+                            <constraint firstItem="cKV-eF-Jc4" firstAttribute="centerX" secondItem="9zU-db-erX" secondAttribute="centerX" constant="4.3333333333333428" id="we3-H3-JRl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vK7-BF-UWn"/>
                     </view>

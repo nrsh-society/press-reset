@@ -102,6 +102,7 @@ class DiscoverViewController: UIViewController {
                 Mixpanel.mainInstance().people.set(properties: ["$name": name])
             }
         }
+        
     }
     
 //    view
