@@ -63,9 +63,9 @@ class AppInterfaceController: WKInterfaceController {
                             {
                                 #if DEBUG
                                     Notification.hourly()
-                                #else
                                     Notification.daily()
-                                #endif
+                                 #endif
+                                    Notification.weekly()
                             }
                         }
                     }

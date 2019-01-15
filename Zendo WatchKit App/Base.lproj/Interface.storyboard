@@ -257,14 +257,16 @@
             <objects>
                 <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Zendo_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <label alignment="left" text="Label" id="U53-F1-s3O"/>
+                        <label alignment="left" text="Label" textAlignment="left" numberOfLines="2" id="U53-F1-s3O">
+                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
+                        </label>
                     </items>
                     <connections>
                         <outlet property="notificationLabel" destination="U53-F1-s3O" id="hM4-EK-baM"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="417" y="1262"/>
+            <point key="canvasLocation" x="416.86956521739125" y="1261.3392857142858"/>
         </scene>
     </scenes>
 </document>

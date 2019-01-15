@@ -8,6 +8,7 @@
 
 import Foundation
 import UserNotifications
+import WatchConnectivity
 
 /*
  At end of watch summary...
@@ -34,6 +35,11 @@ public enum NotificationType : String
 
 public class Notification
 {
+    
+    private static var sessionDelegater: SessionDelegater = {
+        return SessionDelegater()
+    }()
+    
     typealias StatusHandler = ((UNAuthorizationStatus) -> Void)
     typealias AuthHandler = ((Bool, Error?) -> Void)
     
@@ -56,17 +62,13 @@ public class Notification
         {
             granted, error in
             
+            //#todo: logging
             print("Permission granted: \(granted)")
             
-            handler(granted, error)
+            sessionDelegater.sendMessage(["watch" : "registerNotifications"],
+                                         replyHandler: nil, errorHandler: nil)
             
-            /*
-            * this has to happen on the phone
-             DispatchQueue.main.async
-                {
-                    UIApplication.shared.registerForRemoteNotifications()
-                }
-            */
+            handler(granted, error)
         }
     }
     
@@ -111,7 +113,8 @@ public class Notification
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
         
-        let request = UNNotificationRequest(identifier: NotificationType.daySummary.rawValue, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: NotificationType.daySummary.rawValue,
+                                            content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request)
         {
@@ -131,11 +134,6 @@ public class Notification
         
         content.title = "Hourly HRV Summary"
         content.categoryIdentifier = "HrvSummary"
-        
-        var date = DateComponents()
-        date.hour = 1
-   
-        //let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60 * 60, repeats: true)
         

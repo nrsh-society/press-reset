@@ -27,7 +27,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands {
         
         Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
         
-        
         if let name = SettingsWatch.fullName, let email = SettingsWatch.email
         {
             Mixpanel.sharedInstance()?.identify(email)
@@ -53,22 +52,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands {
             })
         }
         
-        
-//
-        
-        
-//        if let email = Settings.email
-//        {
-//            Mixpanel.mainInstance().identify(distinctId: email)
-//            Mixpanel.mainInstance().people.set(properties: ["$email": email])
-//
-//            if let name = Settings.fullName
-//            {
-//                Mixpanel.mainInstance().people.set(properties: ["$name": name])
-//            }
-//        }
-        
-        // Perform any final initialization of your application.
     }
 
     func applicationDidBecomeActive() {
