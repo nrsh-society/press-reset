@@ -9,7 +9,7 @@
 import UIKit
 import HealthKit
 
-class ZBFHealthKit {
+public class ZBFHealthKit {
     
     static let healthStore = HKHealthStore()
     

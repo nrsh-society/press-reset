@@ -41,8 +41,38 @@ class AppInterfaceController: WKInterfaceController {
         
     }
     
-    override func awake(withContext context: Any?) {
+    override func awake(withContext context: Any?)
+    {
         super.awake(withContext: context)
+        
+        if let session = context as? Session
+        {
+            if(!session.isRunning)
+            {
+                Notification.status()
+                {
+                    status in
+                        
+                    if(status == .notDetermined)
+                    {
+                        Notification.auth()
+                        {
+                            (granted, error) in
+                                    
+                            if(granted)
+                            {
+                                #if DEBUG
+                                    Notification.hourly()
+                                #else
+                                    Notification.daily()
+                                #endif
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
     }
     
     override func willActivate()

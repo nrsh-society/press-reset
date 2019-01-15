@@ -26,7 +26,12 @@ class SummaryInterfaceController: WKInterfaceController {
         
         Mixpanel.sharedInstance()?.timeEvent("watch_summary")
         
-        if let array = context as? [String: Any], let session = array["session"] as? Session, let workout = array["workout"] as? HKWorkout {
+        if  let array = context as? [String: Any],
+            let session = array["session"] as? Session,
+            let workout = array["workout"] as? HKWorkout
+        {
+            self.session = session;
+            
             totalTime.setDate(session.startDate!)
             
             /*

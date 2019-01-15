@@ -104,10 +104,17 @@ class OverviewController: UIViewController {
             }
         }
         
+        /*
+         * #todo: we were going to do phone notification in 4.20, but decide to do
+         * watch only notifications, but this is where we would want to run a phone
+         * notification request test.
+        
         if !Settings.requestedNotificationPermission
         {
             self.showNotificationController()
         }
+        
+        */
                 
     }
     

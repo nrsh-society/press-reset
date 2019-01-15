@@ -101,7 +101,9 @@
 		BE2E82101FF44A7B00D104AC /* AppInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E820F1FF44A7B00D104AC /* AppInterfaceController.swift */; };
 		BE2E82121FF44A7B00D104AC /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E82111FF44A7B00D104AC /* ExtensionDelegate.swift */; };
 		BE2E82141FF44A7B00D104AC /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E82131FF44A7B00D104AC /* NotificationController.swift */; };
+		BE30A47E21E4786600F8509C /* notification.json in Resources */ = {isa = PBXBuildFile; fileRef = BE30A47D21E4786600F8509C /* notification.json */; };
 		BE38CF612075D1D10095BB6C /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38CF602075D1D10095BB6C /* WelcomeController.swift */; };
+		BE3AE43621ED0ACF0019C489 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3AE43521ED0ACF0019C489 /* Notification.swift */; };
 		BE4895AC206B0CC400B007D6 /* ZazenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4895AB206B0CC400B007D6 /* ZazenController.swift */; };
 		BE50D2F220CC3BA200FF9C54 /* CommunityDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */; };
 		BE75AEBF20F708C300311512 /* ChartColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75AEBC20F708C300311512 /* ChartColors.swift */; };
@@ -117,6 +119,8 @@
 		BEBAE48B20E6CDB500495C65 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEBAE48720E6CDB500495C65 /* Media.xcassets */; };
 		BEBAE48D20E6DED800495C65 /* gallery.ckcomplication in Resources */ = {isa = PBXBuildFile; fileRef = BEBAE48C20E6DED800495C65 /* gallery.ckcomplication */; };
 		BEEA862F20D4A941003E1E1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEEA862E20D4A941003E1E1D /* Assets.xcassets */; };
+		BEF0750F21E6B0C700EE657D /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0750E21E6B0C700EE657D /* NotificationService.swift */; };
+		BEF0751321E6B0C700EE657D /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BEF0750C21E6B0C700EE657D /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DFE3B16E2189A3DF008830CD /* StartingSessions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE3B16D2189A3DF008830CD /* StartingSessions.swift */; };
 		DFE3B1702189A3FA008830CD /* StartingSessions.xib in Resources */ = {isa = PBXBuildFile; fileRef = DFE3B16F2189A3FA008830CD /* StartingSessions.xib */; };
 		DFE3B1742189A6E5008830CD /* animationStartingSession.json in Resources */ = {isa = PBXBuildFile; fileRef = DFE3B1732189A6E5008830CD /* animationStartingSession.json */; };
@@ -137,6 +141,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = BE2E82091FF44A7B00D104AC;
 			remoteInfo = "Zazen WatchKit Extension";
+		};
+		BEF0751121E6B0C700EE657D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE2E81E11FF44A7B00D104AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BEF0750B21E6B0C700EE657D;
+			remoteInfo = NotificationService;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -181,6 +192,17 @@
 			files = (
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEF0751721E6B0C700EE657D /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BEF0751321E6B0C700EE657D /* NotificationService.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -281,7 +303,9 @@
 		BE2E82131FF44A7B00D104AC /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		BE2E82171FF44A7B00D104AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE2E82181FF44A7B00D104AC /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		BE30A47D21E4786600F8509C /* notification.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notification.json; sourceTree = "<group>"; };
 		BE38CF602075D1D10095BB6C /* WelcomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeController.swift; sourceTree = "<group>"; };
+		BE3AE43521ED0ACF0019C489 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		BE4895AB206B0CC400B007D6 /* ZazenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZazenController.swift; sourceTree = "<group>"; };
 		BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDataLoader.swift; sourceTree = "<group>"; };
 		BE75AEBC20F708C300311512 /* ChartColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartColors.swift; sourceTree = "<group>"; };
@@ -300,6 +324,9 @@
 		BEBAE48720E6CDB500495C65 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		BEBAE48C20E6DED800495C65 /* gallery.ckcomplication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = gallery.ckcomplication; sourceTree = "<group>"; };
 		BEEA862E20D4A941003E1E1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BEF0750C21E6B0C700EE657D /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BEF0750E21E6B0C700EE657D /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		BEF0751021E6B0C700EE657D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C5EE270417BDD012045FC9FF /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		C86368BD68AC54656999A5EB /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		CA85D12F03B88975AECB0609 /* Pods_Zendo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zendo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -337,6 +364,13 @@
 				BE9B00042065FF6B007FF96A /* CoreMotion.framework in Frameworks */,
 				BE8BB21F1FFDCC4600B2E113 /* HealthKit.framework in Frameworks */,
 				0D53E8CB86D55DEC3ABD3EED /* Pods_Zendo_WatchKit_Extension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEF0750921E6B0C700EE657D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +585,7 @@
 		12FFCADD210F3F03007E2480 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BE30A47D21E4786600F8509C /* notification.json */,
 				BE2E81F81FF44A7B00D104AC /* Info.plist */,
 				BE2E81F51FF44A7B00D104AC /* LaunchScreen.storyboard */,
 				BEBAE48C20E6DED800495C65 /* gallery.ckcomplication */,
@@ -627,6 +662,7 @@
 				BE2E81E91FF44A7B00D104AC /* Zendo.app */,
 				BE2E81FB1FF44A7B00D104AC /* Zendo WatchKit App.app */,
 				BE2E820A1FF44A7B00D104AC /* Zendo WatchKit Extension.appex */,
+				BEF0750C21E6B0C700EE657D /* NotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -636,6 +672,7 @@
 			children = (
 				BE2E81EC1FF44A7B00D104AC /* AppDelegate.swift */,
 				BE2E81F01FF44A7B00D104AC /* Main.storyboard */,
+				BEF0750D21E6B0C700EE657D /* NotificationService */,
 				12E2A1AE211076FD00E0E911 /* Additions */,
 				12FFCAE3210F7D6D007E2480 /* Extensions */,
 				12E2A1B3211077B400E0E911 /* Controllers */,
@@ -679,6 +716,7 @@
 				BE0B4EB1213E05AF006C3773 /* BluetoothManager.swift */,
 				1277A525215CF3F800B15CE6 /* SummaryInterfaceController.swift */,
 				123E8E8621748DC900C6E2EC /* SettingsWatch.swift */,
+				BE3AE43521ED0ACF0019C489 /* Notification.swift */,
 				128B104021AEB8E6009190B0 /* Supporting Files */,
 			);
 			path = "Zendo WatchKit Extension";
@@ -706,6 +744,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BEF0750D21E6B0C700EE657D /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				BEF0750E21E6B0C700EE657D /* NotificationService.swift */,
+				BEF0751021E6B0C700EE657D /* Info.plist */,
+			);
+			path = NotificationService;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -720,11 +767,13 @@
 				BE2E82221FF44A7B00D104AC /* Embed Watch Content */,
 				BEAFCD3A20CCF0210037F38C /* Embed Frameworks */,
 				335B8A017BA333BCCD2E5519 /* [CP] Embed Pods Frameworks */,
+				BEF0751721E6B0C700EE657D /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				BE2E81FE1FF44A7B00D104AC /* PBXTargetDependency */,
+				BEF0751221E6B0C700EE657D /* PBXTargetDependency */,
 			);
 			name = Zendo;
 			productName = Zazen;
@@ -769,13 +818,30 @@
 			productReference = BE2E820A1FF44A7B00D104AC /* Zendo WatchKit Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
+		BEF0750B21E6B0C700EE657D /* NotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BEF0751421E6B0C700EE657D /* Build configuration list for PBXNativeTarget "NotificationService" */;
+			buildPhases = (
+				BEF0750821E6B0C700EE657D /* Sources */,
+				BEF0750921E6B0C700EE657D /* Frameworks */,
+				BEF0750A21E6B0C700EE657D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationService;
+			productName = NotificationService;
+			productReference = BEF0750C21E6B0C700EE657D /* NotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		BE2E81E11FF44A7B00D104AC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = zenbf;
 				TargetAttributes = {
@@ -810,6 +876,10 @@
 							};
 						};
 					};
+					BEF0750B21E6B0C700EE657D = {
+						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = BE2E81E41FF44A7B00D104AC /* Build configuration list for PBXProject "Zendo" */;
@@ -828,6 +898,7 @@
 				BE2E81E81FF44A7B00D104AC /* Zendo */,
 				BE2E81FA1FF44A7B00D104AC /* Zendo WatchKit App */,
 				BE2E82091FF44A7B00D104AC /* Zendo WatchKit Extension */,
+				BEF0750B21E6B0C700EE657D /* NotificationService */,
 			);
 		};
 /* End PBXProject section */
@@ -848,6 +919,7 @@
 				BEEA862F20D4A941003E1E1D /* Assets.xcassets in Resources */,
 				DFE3B1742189A6E5008830CD /* animationStartingSession.json in Resources */,
 				12E2A1A8211073D600E0E911 /* Antenna-Medium.otf in Resources */,
+				BE30A47E21E4786600F8509C /* notification.json in Resources */,
 				127C3E432178DB1100B332EB /* LoadingView.xib in Resources */,
 				12C2C27F2137F7F70039C7A0 /* ZenTextField.xib in Resources */,
 				12E2A1AA211073D700E0E911 /* Antenna-Regular.otf in Resources */,
@@ -880,6 +952,13 @@
 				12CE61EA2158FF0A00AD8A11 /* Antenna-Medium.otf in Resources */,
 				12CE61E62158FF0200AD8A11 /* Antenna-Light.otf in Resources */,
 				BEBAE48B20E6CDB500495C65 /* Media.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEF0750A21E6B0C700EE657D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1070,6 +1149,15 @@
 				BE0A7228209C2B83009E23AA /* OptionsInterfaceController.swift in Sources */,
 				BE0B4EB2213E05AF006C3773 /* BluetoothManager.swift in Sources */,
 				BE2E82101FF44A7B00D104AC /* AppInterfaceController.swift in Sources */,
+				BE3AE43621ED0ACF0019C489 /* Notification.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEF0750821E6B0C700EE657D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEF0750F21E6B0C700EE657D /* NotificationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1085,6 +1173,11 @@
 			isa = PBXTargetDependency;
 			target = BE2E82091FF44A7B00D104AC /* Zendo WatchKit Extension */;
 			targetProxy = BE2E820C1FF44A7B00D104AC /* PBXContainerItemProxy */;
+		};
+		BEF0751221E6B0C700EE657D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BEF0750B21E6B0C700EE657D /* NotificationService */;
+			targetProxy = BEF0751121E6B0C700EE657D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1382,6 +1475,49 @@
 			};
 			name = Release;
 		};
+		BEF0751521E6B0C700EE657D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6N25VDH5A9;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BEF0751621E6B0C700EE657D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6N25VDH5A9;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1417,6 +1553,15 @@
 			buildConfigurations = (
 				BE2E82241FF44A7B00D104AC /* Debug */,
 				BE2E82251FF44A7B00D104AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BEF0751421E6B0C700EE657D /* Build configuration list for PBXNativeTarget "NotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BEF0751521E6B0C700EE657D /* Debug */,
+				BEF0751621E6B0C700EE657D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

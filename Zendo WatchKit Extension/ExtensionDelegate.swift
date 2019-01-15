@@ -43,8 +43,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands {
                     
                     SettingsWatch.fullName = name
                     SettingsWatch.email = email
-                    
-                   Mixpanel.sharedInstance()?.createAlias(email, forDistinctID: (Mixpanel.sharedInstance()?.distinctId)!)
+                
                     Mixpanel.sharedInstance()?.identify(email)
                     Mixpanel.sharedInstance()?.people.set(["$email": email])
                     Mixpanel.sharedInstance()?.people.set(["$name": name])

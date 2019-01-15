@@ -21,7 +21,8 @@ class NotificationViewController: UIViewController
     
     let animation = LOTAnimationView(name: "notification")
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         super.viewWillAppear(animated)
         
         skipButton.bottomView.backgroundColor = UIColor.clear
@@ -29,7 +30,6 @@ class NotificationViewController: UIViewController
         animation.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         animation.contentMode = .scaleAspectFill
         animation.frame = animationView.bounds
-        //animation.center = animationView.center
         animation.animationSpeed = 0.6
         
         animationView.insertSubview(animation, at: 0)
@@ -50,14 +50,26 @@ class NotificationViewController: UIViewController
             
             print("Notification settings: \(settings)")
             
+            if(settings.authorizationStatus == .notDetermined)
+            {
+                
+            }
+            
+            if(settings.authorizationStatus == .denied)
+            {
+                //if notifications have been denied, show some kind of UI to ask them to turn them on?
+            }
+            
             //#todo: if notifications have already been granted
             // dimiss?
-            //if notifications have been denied, show some kind of UI to ask them to turn them on?
+            
         }
         
-        skipButton.action = {
+        skipButton.action =
+        {
             
-            self.dismiss(animated: true) {
+            self.dismiss(animated: true)
+            {
                 
             }
         }
@@ -73,11 +85,12 @@ class NotificationViewController: UIViewController
                 
                 DispatchQueue.main.async
                 {
-                        UIApplication.shared.registerForRemoteNotifications()
+                    UIApplication.shared.registerForRemoteNotifications()
                 }
             }
             
-            self.dismiss(animated: true) {
+            self.dismiss(animated: true)
+            {
                 
             }
             
