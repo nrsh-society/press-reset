@@ -136,7 +136,9 @@
             <objects>
                 <notificationController id="YCC-NB-fut">
                     <items>
-                        <label alignment="left" text="Alert Label" id="IdU-wH-bcW"/>
+                        <label alignment="left" text="HRV Summary" id="IdU-wH-bcW">
+                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="18"/>
+                        </label>
                     </items>
                     <notificationCategory key="notificationCategory" identifier="HrvSummary" id="JfB-70-Muf"/>
                     <connections>
@@ -257,7 +259,7 @@
             <objects>
                 <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Zendo_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <label alignment="left" text="Label" textAlignment="left" numberOfLines="2" id="U53-F1-s3O">
+                        <label alignment="left" text="HRV Summary" textAlignment="left" numberOfLines="6" id="U53-F1-s3O">
                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
                         </label>
                     </items>
@@ -266,7 +268,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="416.86956521739125" y="1261.3392857142858"/>
+            <point key="canvasLocation" x="356" y="1261"/>
         </scene>
     </scenes>
 </document>

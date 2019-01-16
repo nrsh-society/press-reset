@@ -94,10 +94,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UIInterfaceOrientationMask.portrait
     }
     
-    func application(
-        _ application: UIApplication,
-        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
-        )
+    func application(_ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
     {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()

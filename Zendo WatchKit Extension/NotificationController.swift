@@ -14,65 +14,61 @@ import UserNotifications
 class NotificationController: WKUserNotificationInterfaceController {
 
     @IBOutlet var notificationLabel: WKInterfaceLabel!
-    override init() {
-        // Initialize variables here.
+    
+    override init()
+    {
         super.init()
-        
-        // Configure interface objects here.
     }
 
     override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
+        
         super.willActivate()
     }
 
     override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
+        
         super.didDeactivate()
     }
 
     
-    override func didReceive(_ notification: UNNotification, withCompletion completionHandler: @escaping (WKUserNotificationInterfaceType) -> Swift.Void) {
-    
-        
+    override func didReceive(_ notification: UNNotification,
+                withCompletion completionHandler: @escaping (WKUserNotificationInterfaceType) -> Swift.Void)
+    {
         let now = Date()
-        let yesterday = now.addingTimeInterval(-86400)
+        let yesterday = now.addingTimeInterval(-60 * 60 * 24)
         
-        var lastNow = now.addingTimeInterval(-604800)
-        var lastYesterday = yesterday.addingTimeInterval(-604800)
+        var lastNow = now
+        var lastYesterday = yesterday
         
-        var hrv_delta = 0
-        var last_hrv = 0
-        
-        var alertText =  "Your HRV is \(hrv_delta)ms this week from \(last_hrv)ms last week."
-
+        var alertText =  "%@ : %@"
         
         switch notification.request.identifier
         {
             case NotificationType.weekSummary.rawValue:
             
-                lastNow = now.addingTimeInterval(-604800)
-                lastYesterday = yesterday.addingTimeInterval(-604800)
-            
-                alertText =  "Your HRV is \(hrv_delta)ms this week from \(last_hrv)ms last week."
-
+                lastNow = now.addingTimeInterval(-60 * 60 * 24 * 7)
+                lastYesterday = yesterday.addingTimeInterval(-60 * 60 * 24 * 7)
+                alertText =  "Your HRV is %ldms this week from %ldms last week."
             
             case NotificationType.daySummary.rawValue:
             
                 lastNow = now.addingTimeInterval(-60 * 60 * 24)
                 lastYesterday = yesterday.addingTimeInterval(-60 * 60 * 24)
-            
-                alertText =  "Your HRV is \(hrv_delta)ms today from \(last_hrv)ms yesterday."
-
+                alertText =  "Your HRV is %ldms today from %ldms yesterday."
             
             case NotificationType.hourSummary.rawValue:
             
                 lastNow = now.addingTimeInterval(-60 * 60)
                 lastYesterday = yesterday.addingTimeInterval(-60 * 60)
+                alertText =  "Your HRV is %ldms now from %ldms an hour ago."
             
-                alertText =  "Your HRV is \(hrv_delta)ms now from \(last_hrv)ms an hour ago."
+            case NotificationType.minuteSummary.rawValue:
+            
+                lastNow = now.addingTimeInterval(-60)
+                lastYesterday = yesterday.addingTimeInterval(-60 * 60)
+                alertText =  "Your HRV is %ldms now from %ldms a minute ago."
+            
 
-            
             default:
                 break
         }
@@ -88,16 +84,21 @@ class NotificationController: WKUserNotificationInterfaceController {
             {
                 (samples, error) in
                 
-                last_hrv = Int(samples![0]!)
+                let last_hrv = Int(samples![0]!)
                 
-                hrv_delta = todayHRV - last_hrv
+                let hrv_delta = Int(todayHRV - last_hrv)
                 
-                self.notificationLabel.setText(alertText)
+                alertText = String(format: alertText, [hrv_delta, last_hrv])
+                
+                DispatchQueue.main.async
+                {
+                    self.notificationLabel.setText(alertText)
+                }
+                
+                completionHandler(.custom)
             }
         }
         
-        completionHandler(.custom)
-    
     }
     
 }

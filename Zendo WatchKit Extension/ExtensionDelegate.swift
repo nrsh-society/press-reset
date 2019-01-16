@@ -17,7 +17,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands {
         return SessionDelegater()
     }()
         
-    override init() {
+    override init()
+    {
         super.init()
         WCSession.default.delegate = sessionDelegater
         WCSession.default.activate()

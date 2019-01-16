@@ -61,16 +61,34 @@ class AppInterfaceController: WKInterfaceController {
                                     
                             if(granted)
                             {
-                                #if DEBUG
-                                    Notification.hourly()
-                                    Notification.daily()
-                                 #endif
-                                    Notification.weekly()
+                                self.enableLocalNotifications()
                             }
                         }
                     }
+                    
+                    if(status == .authorized)
+                    {
+                        self.enableLocalNotifications()
+                    }
                 }
             }
+        }
+        
+    }
+    
+    func enableLocalNotifications()
+    {
+        if(!SettingsWatch.localNotications)
+        {
+            //#if DEBUG
+            // Notification.minute()
+                Notification.hourly()
+                Notification.daily()
+            //#endif
+            
+            Notification.weekly()
+            
+            SettingsWatch.localNotications = true
         }
         
     }
@@ -120,7 +138,8 @@ class AppInterfaceController: WKInterfaceController {
         ZBFHealthKit.healthStore.execute(hkQuery)
     }
     
-    override func didDeactivate() {
+    override func didDeactivate()
+    {
         super.didDeactivate()
         
         Mixpanel.sharedInstance()?.track("watch_overview")

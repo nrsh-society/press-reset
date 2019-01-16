@@ -27,7 +27,7 @@ import WatchConnectivity
 
 public enum NotificationType : String
 {
-    
+    case minuteSummary
     case hourSummary
     case daySummary
     case weekSummary
@@ -74,8 +74,6 @@ public class Notification
     
     static func weekly()
     {
-        //var seconds_per_week = 60 * 60 * 24 * 7
-        
         let content = UNMutableNotificationContent()
         
         content.title = "Weekly HRV Summary"
@@ -102,10 +100,9 @@ public class Notification
     
     static func daily()
     {
-        
         let content = UNMutableNotificationContent()
         
-        content.title = "Daily HRV Summary"
+        content.title = "HRV Summary"
         content.categoryIdentifier = "HrvSummary"
         
         var date = DateComponents()
@@ -132,12 +129,35 @@ public class Notification
         
         let content = UNMutableNotificationContent()
         
-        content.title = "Hourly HRV Summary"
+        content.title = "HRV Summary"
         content.categoryIdentifier = "HrvSummary"
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60 * 60, repeats: true)
         
         let request = UNNotificationRequest(identifier: NotificationType.hourSummary.rawValue, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request)
+        {
+            error in
+            
+            if let error = error
+            {
+                print("\(error)")
+            }
+        }
+    }
+    
+    static func minute()
+    {
+        
+        let content = UNMutableNotificationContent()
+        
+        content.title = "HRV Summary"
+        content.categoryIdentifier = "HrvSummary"
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
+        
+        let request = UNNotificationRequest(identifier: NotificationType.minuteSummary.rawValue, content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request)
         {
