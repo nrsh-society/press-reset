@@ -259,16 +259,23 @@
             <objects>
                 <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Zendo_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <label alignment="left" text="HRV Summary" textAlignment="left" numberOfLines="6" id="U53-F1-s3O">
-                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
-                        </label>
+                        <group width="1" alignment="left" id="9yC-AU-Cpy">
+                            <items>
+                                <imageView width="55" alignment="left" image="arrow" id="FL4-nU-ZT8"/>
+                                <label alignment="left" text="HRV Summary" textAlignment="left" numberOfLines="6" id="U53-F1-s3O">
+                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
+                                </label>
+                            </items>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                        </group>
                     </items>
                     <connections>
+                        <outlet property="directionImage" destination="FL4-nU-ZT8" id="E3G-EI-CmM"/>
                         <outlet property="notificationLabel" destination="U53-F1-s3O" id="hM4-EK-baM"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="356" y="1261"/>
+            <point key="canvasLocation" x="355.52173913043475" y="1266.2723214285716"/>
         </scene>
     </scenes>
 </document>

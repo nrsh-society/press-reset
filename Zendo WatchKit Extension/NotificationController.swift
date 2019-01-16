@@ -14,6 +14,7 @@ import UserNotifications
 class NotificationController: WKUserNotificationInterfaceController {
 
     @IBOutlet var notificationLabel: WKInterfaceLabel!
+    @IBOutlet var directionImage: WKInterfaceImage!
     
     override init()
     {
@@ -88,7 +89,18 @@ class NotificationController: WKUserNotificationInterfaceController {
                 
                 let hrv_delta = Int(todayHRV - last_hrv)
                 
-                alertText = String(format: alertText, [hrv_delta, last_hrv])
+                alertText = String(format: alertText, hrv_delta, last_hrv)
+                
+                var arrowImage = "equal"
+                
+                if hrv_delta < 0
+                {
+                    arrowImage = "down"
+                }
+                else if hrv_delta > 0
+                {
+                    arrowImage = "up"
+                }
                 
                 DispatchQueue.main.async
                 {
