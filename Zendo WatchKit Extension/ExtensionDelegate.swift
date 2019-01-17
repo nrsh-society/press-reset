@@ -10,8 +10,9 @@ import WatchKit
 import HealthKit
 import WatchConnectivity
 import Mixpanel
+import UserNotifications
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands {
+class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserNotificationCenterDelegate {
     
     private lazy var sessionDelegater: SessionDelegater = {
         return SessionDelegater()
@@ -52,7 +53,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands {
                 print(error.localizedDescription)
             })
         }
-        
     }
 
     func applicationDidBecomeActive() {

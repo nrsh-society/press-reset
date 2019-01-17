@@ -155,7 +155,7 @@ public class Notification
         content.title = "HRV Summary"
         content.categoryIdentifier = "HrvSummary"
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60 * 5, repeats: true)
         
         let request = UNNotificationRequest(identifier: NotificationType.minuteSummary.rawValue, content: content, trigger: trigger)
         

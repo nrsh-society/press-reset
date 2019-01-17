@@ -14,20 +14,21 @@ import UserNotifications
 class NotificationController: WKUserNotificationInterfaceController {
 
     @IBOutlet var notificationLabel: WKInterfaceLabel!
-    @IBOutlet var directionImage: WKInterfaceImage!
+    @IBOutlet var notificationTitle: WKInterfaceLabel!
     
     override init()
     {
         super.init()
     }
 
-    override func willActivate() {
+    override func willActivate()
+    {
         
         super.willActivate()
     }
 
-    override func didDeactivate() {
-        
+    override func didDeactivate()
+    {
         super.didDeactivate()
     }
 
@@ -35,13 +36,26 @@ class NotificationController: WKUserNotificationInterfaceController {
     override func didReceive(_ notification: UNNotification,
                 withCompletion completionHandler: @escaping (WKUserNotificationInterfaceType) -> Swift.Void)
     {
+        
+        let mediateAction = UNNotificationAction(identifier: "MEDIATE_ACTION",
+                                                 title: "Mediate Now",
+                                                 options: UNNotificationActionOptions.foreground)
+        
+        if #available(watchOSApplicationExtension 5.0, *) {
+            self.notificationActions.append(mediateAction)
+        } else {
+            // Fallback on earlier versions
+        }
+        
+
         let now = Date()
         let yesterday = now.addingTimeInterval(-60 * 60 * 24)
         
         var lastNow = now
         var lastYesterday = yesterday
         
-        var alertText =  "%@ : %@"
+        var alertText =  "%@ : %ld"
+        var alertTitle = "HRV Summary"
         
         switch notification.request.identifier
         {
@@ -49,26 +63,29 @@ class NotificationController: WKUserNotificationInterfaceController {
             
                 lastNow = now.addingTimeInterval(-60 * 60 * 24 * 7)
                 lastYesterday = yesterday.addingTimeInterval(-60 * 60 * 24 * 7)
-                alertText =  "Your HRV is %ldms this week from %ldms last week."
+                alertText =  "Your HRV changed %@ms from %ldms last week."
+                alertTitle = "Weekly Summary"
             
             case NotificationType.daySummary.rawValue:
             
                 lastNow = now.addingTimeInterval(-60 * 60 * 24)
                 lastYesterday = yesterday.addingTimeInterval(-60 * 60 * 24)
-                alertText =  "Your HRV is %ldms today from %ldms yesterday."
+                alertText =  "Your HRV changed %@ms from %ldms yesterday."
+                alertTitle = "Daily Summary"
             
             case NotificationType.hourSummary.rawValue:
             
                 lastNow = now.addingTimeInterval(-60 * 60)
                 lastYesterday = yesterday.addingTimeInterval(-60 * 60)
-                alertText =  "Your HRV is %ldms now from %ldms an hour ago."
+                alertText =  "Your HRV changed %@ms from %ldms an hour ago."
+                alertTitle = "Hourly Summary"
             
             case NotificationType.minuteSummary.rawValue:
             
                 lastNow = now.addingTimeInterval(-60)
-                lastYesterday = yesterday.addingTimeInterval(-60 * 60)
-                alertText =  "Your HRV is %ldms now from %ldms a minute ago."
-            
+                lastYesterday = yesterday.addingTimeInterval(-60 * 60 * 5)
+                alertText =  "Your HRV changed %@ms from %ldms 5 minutes ago."
+                alertTitle = "5min Summary"
 
             default:
                 break
@@ -89,22 +106,35 @@ class NotificationController: WKUserNotificationInterfaceController {
                 
                 let hrv_delta = Int(todayHRV - last_hrv)
                 
-                alertText = String(format: alertText, hrv_delta, last_hrv)
-                
-                var arrowImage = "equal"
+                var arrow = ""
                 
                 if hrv_delta < 0
                 {
-                    arrowImage = "down"
+                    arrow = "▾"
                 }
                 else if hrv_delta > 0
                 {
-                    arrowImage = "up"
+                    arrow = "▴"
                 }
+                
+                let hrv_delta_string = arrow + String(hrv_delta)
+                
+                alertText = String(format: alertText, hrv_delta_string, last_hrv)
                 
                 DispatchQueue.main.async
                 {
-                    self.notificationLabel.setText(alertText)
+                    
+                    self.notificationTitle.setText(alertTitle)
+                    
+                    let textString = NSMutableAttributedString(string: alertText)
+                    
+                    let textRange = NSRange(location: 0, length: textString.length)
+                    let paragraphStyle = NSMutableParagraphStyle()
+                    paragraphStyle.lineSpacing = 1.32
+                    textString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range: textRange)
+                    
+                    self.notificationLabel.setAttributedText(textString)
+
                 }
                 
                 completionHandler(.custom)
