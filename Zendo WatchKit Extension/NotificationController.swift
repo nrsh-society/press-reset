@@ -33,8 +33,7 @@ class NotificationController: WKUserNotificationInterfaceController {
     }
 
     
-    override func didReceive(_ notification: UNNotification,
-                withCompletion completionHandler: @escaping (WKUserNotificationInterfaceType) -> Swift.Void)
+    override func didReceive(_ notification: UNNotification)
     {
         
         let mediateAction = UNNotificationAction(identifier: "MEDIATE_ACTION",
@@ -46,6 +45,14 @@ class NotificationController: WKUserNotificationInterfaceController {
         } else {
             // Fallback on earlier versions
         }
+    
+    }
+    
+    override func didReceive(_ notification: UNNotification,
+                withCompletion completionHandler: @escaping (WKUserNotificationInterfaceType) -> Swift.Void)
+    {
+        
+        
         
 
         let now = Date()
