@@ -62,7 +62,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     var heartRateSamples = [Double]()
     var heartRateRangeSamples = [Double]()
     var movementRangeSamples = [Double]()
-    var heart_rate_query : HKAnchoredObjectQuery?
+    //var heart_rate_query : HKAnchoredObjectQuery?
     
     private var sampleTimer: Timer?
     private var notifyTimer: Timer?
@@ -244,15 +244,15 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             }
         }
         
-        heart_rate_query = HKAnchoredObjectQuery(type: quantityType,
+        let heart_rate_query = HKAnchoredObjectQuery(type: quantityType,
                                           predicate: queryPredicate,
                                           anchor: nil,
                                           limit: HKObjectQueryNoLimit,
                                           resultsHandler: updateHandler)
         
-        heart_rate_query?.updateHandler = updateHandler
+        heart_rate_query.updateHandler = updateHandler
         
-        healthStore.execute(heart_rate_query!)
+        healthStore.execute(heart_rate_query)
 
     }
     
@@ -404,6 +404,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     {
         notifyTimer!.invalidate()
         
+        /*
         if let query = heart_rate_query
         {
             healthStore.stop(query)
@@ -420,6 +421,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                 }
             }
         }
+        */
         
         self.isRunning = false
     }

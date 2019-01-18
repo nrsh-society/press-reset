@@ -9,6 +9,7 @@
 import WatchKit
 import Foundation
 import UserNotifications
+import Mixpanel
 
 
 class NotificationController: WKUserNotificationInterfaceController {
@@ -35,6 +36,8 @@ class NotificationController: WKUserNotificationInterfaceController {
     
     override func didReceive(_ notification: UNNotification)
     {
+        
+        Mixpanel.sharedInstance()?.track("watch_localnotification")
         
         let mediateAction = UNNotificationAction(identifier: "MEDIATE_ACTION",
                                                  title: "Mediate Now",

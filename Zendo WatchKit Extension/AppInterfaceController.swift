@@ -80,15 +80,17 @@ class AppInterfaceController: WKInterfaceController {
     {
         if(!SettingsWatch.localNotications)
         {
-            //#if DEBUG
+            #if DEBUG
                 Notification.minute()
                 Notification.hourly()
                 Notification.daily()
-            //#endif
+            #endif
             
             Notification.weekly()
             
             SettingsWatch.localNotications = true
+            
+            Mixpanel.sharedInstance()?.track("enableLocalNotifications")
         }
         
     }
