@@ -65,8 +65,21 @@ public class Notification
             //#todo: logging
             print("Permission granted: \(granted)")
             
-            sessionDelegater.sendMessage(["watch" : "registerNotifications"],
-                                         replyHandler: nil, errorHandler: nil)
+            sessionDelegater.sendMessage(
+                ["watch" : "registerNotifications"],
+                replyHandler:
+                {
+                    (replyMessage) in
+                    
+                    print(replyMessage.debugDescription)
+                                            
+                },
+                errorHandler:
+                {
+                    (error) in
+                    
+                    print(error.localizedDescription)
+                })
             
             handler(granted, error)
         }
@@ -76,7 +89,10 @@ public class Notification
     {
         let content = UNMutableNotificationContent()
         
-        content.title = "Weekly HRV Summary"
+        content.title = "Weekly Summary"
+        content.body = "Has your mental fitness improved?"
+        content.sound = UNNotificationSound.default()
+        
         content.categoryIdentifier = "HrvSummary"
         
         var date = DateComponents()
@@ -102,8 +118,11 @@ public class Notification
     {
         let content = UNMutableNotificationContent()
         
-        content.title = "HRV Summary"
+        content.title = "Daily Summary"
+        content.body = "Has your mental fitness improved?"
         content.categoryIdentifier = "HrvSummary"
+        content.sound = UNNotificationSound.default()
+        
         
         var date = DateComponents()
         date.hour = 21
@@ -129,8 +148,11 @@ public class Notification
         
         let content = UNMutableNotificationContent()
         
-        content.title = "HRV Summary"
+        content.title = "Hourly Summary"
+        content.body = "Has your mental fitness improved?"
         content.categoryIdentifier = "HrvSummary"
+        content.sound = UNNotificationSound.default()
+        
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60 * 60, repeats: true)
         
@@ -152,8 +174,10 @@ public class Notification
         
         let content = UNMutableNotificationContent()
         
-        content.title = "HRV Summary"
+        content.title = "Debug Summary"
         content.categoryIdentifier = "HrvSummary"
+        content.body = "Has your mental fitness improved?"
+        content.sound = UNNotificationSound.default()
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60 * 5, repeats: true)
         

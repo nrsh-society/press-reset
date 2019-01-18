@@ -78,6 +78,8 @@ class VideoViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var tickerLabel: UILabel!
+    
     var idHero = ""
     var curent = 0
     var previous: Int?
@@ -99,10 +101,28 @@ class VideoViewController: UIViewController {
     let interval = CMTime(seconds: 0.01, preferredTimescale: 1000)
     let mainQueue = DispatchQueue.main
     
+    @objc func sample(notification: NSNotification)
+    {
+        print(notification.object)
+        
+        DispatchQueue.main.async
+        {
+            if let sample = notification.object as? [String : String]
+            {
+                self.tickerLabel.text = sample["sdnn"]
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         Mixpanel.mainInstance().time(event: "phone_story")
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(sample),
+                                               name: NSNotification.Name("sample"),
+                                               object: nil)
         
         do {
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
@@ -173,6 +193,8 @@ class VideoViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self)
         
         Mixpanel.mainInstance().track(event: "phone_story", properties: ["name": story.title])
         

@@ -25,7 +25,7 @@ class WatchSessionManager: NSObject {
         }
         return nil
     }
-    
+
     func startSession() {
         session?.delegate = self
         session?.activate()
@@ -72,7 +72,16 @@ extension WatchSessionManager: WCSessionDelegate {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
             }
+        } else
+        {
+            if(message.first?.key == "sample")
+            {
+                print(message.first?.value)
+                
+                NotificationCenter.default.post(name: NSNotification.Name("sample"), object: message.first?.value)
+            }
         }
+        
         
     }
     

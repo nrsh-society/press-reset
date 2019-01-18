@@ -80,7 +80,12 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     
     static var current: Session?
     
-    override init() {
+    private lazy var sessionDelegater: SessionDelegater = {
+        return SessionDelegater()
+    }()
+    
+    override init()
+    {
         super.init()
         
         let configuration = HKWorkoutConfiguration()
@@ -376,6 +381,16 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             MetadataType.roll.rawValue: self.rotation.roll.description,
             MetadataType.yaw.rawValue: self.rotation.yaw.description
         ]
+        
+        sessionDelegater.sendMessage(["sample" : metadata],
+            replyHandler:
+            { (message) in
+              print(message.debugDescription)
+            },
+            errorHandler:
+            { (error) in
+                print(error)
+            })
         
         let empty = metadataWork.isEmpty ? "" : "/"
         
