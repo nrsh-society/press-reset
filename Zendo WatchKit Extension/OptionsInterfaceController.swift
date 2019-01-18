@@ -19,11 +19,15 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     
     @IBAction func KyosakChanged(_ value: Float)
     {
+        Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
+        
         Session.options.hapticStrength = Int(value)
     }
     
     @IBAction func bluetoothChanged(_ value: Bool)
     {
+        Mixpanel.sharedInstance()?.track("watch_options_bluetooth", properties: ["value": value])
+        
         if(value)
         {
             Session.bluetoothManager = BluetoothManager()

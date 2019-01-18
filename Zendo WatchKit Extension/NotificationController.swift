@@ -80,7 +80,7 @@ class NotificationController: WKUserNotificationInterfaceController {
             
         case NotificationType.minuteSummary.rawValue:
             
-            lastNow = now.addingTimeInterval(-60)
+            lastNow = now.addingTimeInterval(-60 * 60 * 5)
             lastYesterday = yesterday.addingTimeInterval(-60 * 60 * 5)
             alertText =  "Your HRV changed %@ms from %ldms 5 minutes ago."
             alertTitle = "5min Summary"
@@ -176,7 +176,7 @@ class NotificationController: WKUserNotificationInterfaceController {
             
             case NotificationType.minuteSummary.rawValue:
             
-                lastNow = now.addingTimeInterval(-60)
+                lastNow = now.addingTimeInterval(-60 * 60 * 5)
                 lastYesterday = yesterday.addingTimeInterval(-60 * 60 * 5)
                 alertText =  "Your HRV changed %@ms from %ldms 5 minutes ago."
                 alertTitle = "5min Summary"

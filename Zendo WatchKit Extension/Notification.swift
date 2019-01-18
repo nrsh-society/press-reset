@@ -58,7 +58,7 @@ public class Notification
     static func auth(handler: @escaping AuthHandler)
     {
         
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert])
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound])
         {
             granted, error in
             

@@ -107,7 +107,11 @@ class VideoViewController: UIViewController {
         {
             if let sample = notification.object as? [String : String]
             {
-                self.tickerLabel.text = sample["sdnn"]
+                let text_hrv = sample["sdnn"]!
+                let double_hrv = Double(text_hrv)!.rounded()
+                let int_hrv = Int(double_hrv)
+                
+                self.tickerLabel.text = int_hrv.description
             }
         }
     }
