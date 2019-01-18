@@ -103,8 +103,6 @@ class VideoViewController: UIViewController {
     
     @objc func sample(notification: NSNotification)
     {
-        print(notification.object)
-        
         DispatchQueue.main.async
         {
             if let sample = notification.object as? [String : String]
@@ -119,11 +117,7 @@ class VideoViewController: UIViewController {
         
         Mixpanel.mainInstance().time(event: "phone_story")
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(sample),
-                                               name: NSNotification.Name("sample"),
-                                               object: nil)
-        
+       
         do {
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
             try? AVAudioSession.sharedInstance().setActive(true)
@@ -143,6 +137,16 @@ class VideoViewController: UIViewController {
                         self.video.addBackground(image: image, isLayer: true, isReplase: false)
                     }
                 }
+                
+                if(story.title.lowercased().contains("meditation"))
+                {
+                
+                    NotificationCenter.default.addObserver(self,
+                                                       selector: #selector(sample),
+                                                       name: NSNotification.Name("sample"),
+                                                       object: nil)
+                }
+                
             }
             
             for (index, content) in story.content.enumerated() {
