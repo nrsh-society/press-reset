@@ -111,6 +111,12 @@ class VideoViewController: UIViewController {
                 let double_hrv = Double(text_hrv)!.rounded()
                 let int_hrv = Int(double_hrv)
                 
+                UIView.animate(withDuration: 0.5
+                    , animations: {
+                        
+                        self.tickerLabel.alpha = self.tickerLabel.alpha == 0.5 ? 1 : 0.5
+                })
+                
                 self.tickerLabel.text = int_hrv.description
             }
         }
@@ -121,6 +127,11 @@ class VideoViewController: UIViewController {
         
         Mixpanel.mainInstance().time(event: "phone_story")
         
+        let animation: CATransition = CATransition()
+        animation.duration = 1.0
+        animation.type = kCATransitionFade
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        self.tickerLabel.layer.add(animation, forKey: "changeTextTransition")
        
         do {
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)

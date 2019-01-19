@@ -62,7 +62,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     var heartRateSamples = [Double]()
     var heartRateRangeSamples = [Double]()
     var movementRangeSamples = [Double]()
-    //var heart_rate_query : HKAnchoredObjectQuery?
+    var heart_rate_query : HKAnchoredObjectQuery?
     
     private var sampleTimer: Timer?
     private var notifyTimer: Timer?
@@ -252,6 +252,8 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         heart_rate_query.updateHandler = updateHandler
         
+        self.heart_rate_query = heart_rate_query
+        
         healthStore.execute(heart_rate_query)
 
     }
@@ -404,11 +406,14 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     {
         notifyTimer!.invalidate()
         
-        /*
-        if let query = heart_rate_query
+        if let query = self.heart_rate_query
         {
             healthStore.stop(query)
         }
+        
+        /*
+        
+         
         else
         {
             if let bluetooth = Session.bluetoothManager

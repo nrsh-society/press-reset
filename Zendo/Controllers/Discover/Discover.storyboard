@@ -10,6 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Antenna-Medium.otf">
+            <string>Antenna-Medium</string>
+        </array>
         <array key="Antenna-Regular.otf">
             <string>Antenna-Regular</string>
         </array>
@@ -213,7 +216,7 @@
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bV0-gV-jP9">
                                 <rect key="frame" x="207" y="368" width="0.0" height="0.0"/>
-                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="33"/>
+                                <fontDescription key="fontDescription" name="Antenna-Medium" family="Antenna" pointSize="77"/>
                                 <color key="textColor" red="0.60030913350000004" green="0.67497491840000001" blue="0.6431349516" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
