@@ -81,7 +81,7 @@ class AppInterfaceController: WKInterfaceController {
         if(!SettingsWatch.localNotications)
         {
             #if DEBUG
-                Notification.minute()
+                //Notification.minute()
                 Notification.hourly()
                 Notification.daily()
             #endif
@@ -94,6 +94,7 @@ class AppInterfaceController: WKInterfaceController {
         }
         
     }
+    
     
     override func willActivate()
     {

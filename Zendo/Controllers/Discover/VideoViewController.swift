@@ -11,6 +11,9 @@ import AVFoundation
 import Hero
 import Cache
 import Mixpanel
+import Firebase
+import FirebaseDatabase
+
 //import SwiftVideoGenerator
 
 enum PlayerStatus: Float {
@@ -100,6 +103,7 @@ class VideoViewController: UIViewController {
     
     let interval = CMTime(seconds: 0.01, preferredTimescale: 1000)
     let mainQueue = DispatchQueue.main
+    var airplay = AirplayController.loadFromStoryboard()
     
     @objc func sample(notification: NSNotification)
     {
@@ -118,8 +122,39 @@ class VideoViewController: UIViewController {
                 })
                 
                 self.tickerLabel.text = int_hrv.description
+            
+                if let email = Settings.email
+                {
+                    
+                    let value = ["data" : sample, "updated" : Date().description, "title" : self.story.title ] as [String : Any]
+                    
+                    let database = Database.database().reference()
+                    
+                    let sample = database.child("samples")
+                    
+                    print(sample.debugDescription)
+                    
+                    let key = sample.child(email.replacingOccurrences(of: ".", with: "_"))
+                    
+                    print(key.debugDescription)
+                    
+                    key.setValue(value)
+                    {
+                        (error:Error?, ref:DatabaseReference) in
+                        if let error = error {
+                            print("Data could not be saved: \(error).")
+                        } else {
+                            print("Data saved successfully!")
+                        }
+                    }
+                    
+                }
+            
             }
+            
         }
+        
+        
     }
     
     override func viewDidLoad() {
@@ -254,6 +289,7 @@ class VideoViewController: UIViewController {
             }
             
             let player = AVPlayer(playerItem: playerItem)
+            
             player.actionAtItemEnd = .none
             player.automaticallyWaitsToMinimizeStalling = true
             player.play()
@@ -262,6 +298,8 @@ class VideoViewController: UIViewController {
             let playerLayer = AVPlayerLayer(player: player)
             playerLayer.frame = UIScreen.main.bounds
             playerLayer.videoGravity = .resizeAspectFill
+        
+            self.airplay.updateMedia(playerItem)
             
             completion?(playerLayer)
         })

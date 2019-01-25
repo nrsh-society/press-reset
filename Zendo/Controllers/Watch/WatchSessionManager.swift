@@ -7,6 +7,8 @@
 //
 
 import WatchConnectivity
+import Firebase
+import FirebaseDatabase
 
 
 class WatchSessionManager: NSObject {
@@ -72,13 +74,19 @@ extension WatchSessionManager: WCSessionDelegate {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
             }
-        } else
+        }
+        else
         {
             if(message.first?.key == "sample")
             {
-                print(message.first?.value)
                 
-                NotificationCenter.default.post(name: NSNotification.Name("sample"), object: message.first?.value)
+                if let sample = message.first?.value
+                {
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name("sample"),
+                                                    object: sample )
+
+                }
             }
         }
         

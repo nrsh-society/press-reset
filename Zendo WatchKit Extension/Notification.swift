@@ -96,7 +96,7 @@ public class Notification
         content.categoryIdentifier = "HrvSummary"
         
         var date = DateComponents()
-        date.day = 6
+        date.day = 7
         date.hour = 21
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)

@@ -115,9 +115,15 @@
 		BE9B00002065F317007FF96A /* ZBFHealthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9BFFFF2065F317007FF96A /* ZBFHealthKit.swift */; };
 		BE9B00042065FF6B007FF96A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9B00032065FF6B007FF96A /* CoreMotion.framework */; };
 		BE9BFFFE2065F215007FF96A /* ZBFHealthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9BFFFC2065EE3D007FF96A /* ZBFHealthKit.swift */; };
+		BE9DB33521F5680700BCE8C2 /* AirplayController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9DB33321F5680600BCE8C2 /* AirplayController.storyboard */; };
+		BE9DB33621F5680700BCE8C2 /* AirplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9DB33421F5680700BCE8C2 /* AirplayController.swift */; };
 		BEA398F220762F4700C85A84 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA398F120762F4700C85A84 /* Media.xcassets */; };
 		BEBAE48B20E6CDB500495C65 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEBAE48720E6CDB500495C65 /* Media.xcassets */; };
 		BEBAE48D20E6DED800495C65 /* gallery.ckcomplication in Resources */ = {isa = PBXBuildFile; fileRef = BEBAE48C20E6DED800495C65 /* gallery.ckcomplication */; };
+		BED56AFB21F8C0BF0027F78B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BED56AFA21F8C0BE0027F78B /* GoogleService-Info.plist */; };
+		BED56AFC21F8C0BF0027F78B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BED56AFA21F8C0BE0027F78B /* GoogleService-Info.plist */; };
+		BED56AFD21F8C0BF0027F78B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BED56AFA21F8C0BE0027F78B /* GoogleService-Info.plist */; };
+		BED56AFE21F8C0BF0027F78B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BED56AFA21F8C0BE0027F78B /* GoogleService-Info.plist */; };
 		BEEA862F20D4A941003E1E1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEEA862E20D4A941003E1E1D /* Assets.xcassets */; };
 		BEF0750F21E6B0C700EE657D /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0750E21E6B0C700EE657D /* NotificationService.swift */; };
 		BEF0751321E6B0C700EE657D /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BEF0750C21E6B0C700EE657D /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -320,9 +326,12 @@
 		BE9B00032065FF6B007FF96A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS4.2.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
 		BE9BFFFC2065EE3D007FF96A /* ZBFHealthKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZBFHealthKit.swift; sourceTree = "<group>"; };
 		BE9BFFFF2065F317007FF96A /* ZBFHealthKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZBFHealthKit.swift; sourceTree = "<group>"; };
+		BE9DB33321F5680600BCE8C2 /* AirplayController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AirplayController.storyboard; sourceTree = "<group>"; };
+		BE9DB33421F5680700BCE8C2 /* AirplayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirplayController.swift; sourceTree = "<group>"; };
 		BEA398F120762F4700C85A84 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		BEBAE48720E6CDB500495C65 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		BEBAE48C20E6DED800495C65 /* gallery.ckcomplication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = gallery.ckcomplication; sourceTree = "<group>"; };
+		BED56AFA21F8C0BE0027F78B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BEEA862E20D4A941003E1E1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BEF0750C21E6B0C700EE657D /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEF0750E21E6B0C700EE657D /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -429,6 +438,8 @@
 		127C3E2721788F9900B332EB /* Discover */ = {
 			isa = PBXGroup;
 			children = (
+				BE9DB33321F5680600BCE8C2 /* AirplayController.storyboard */,
+				BE9DB33421F5680700BCE8C2 /* AirplayController.swift */,
 				127C3E2821788FD300B332EB /* Discover.storyboard */,
 				127C3E2A2178939C00B332EB /* DiscoverViewController.swift */,
 				127C3E382178B37C00B332EB /* VideoViewController.swift */,
@@ -585,6 +596,7 @@
 		12FFCADD210F3F03007E2480 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BED56AFA21F8C0BE0027F78B /* GoogleService-Info.plist */,
 				BE30A47D21E4786600F8509C /* notification.json */,
 				BE2E81F81FF44A7B00D104AC /* Info.plist */,
 				BE2E81F51FF44A7B00D104AC /* LaunchScreen.storyboard */,
@@ -670,6 +682,7 @@
 		BE2E81EB1FF44A7B00D104AC /* Zendo */ = {
 			isa = PBXGroup;
 			children = (
+				12FFCADD210F3F03007E2480 /* Supporting Files */,
 				BE2E81EC1FF44A7B00D104AC /* AppDelegate.swift */,
 				BE2E81F01FF44A7B00D104AC /* Main.storyboard */,
 				BEF0750D21E6B0C700EE657D /* NotificationService */,
@@ -686,7 +699,6 @@
 				BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */,
 				12BE94BE21AEE4C6000E2B0B /* PauseImageView.swift */,
 				BE81B26D2001B85500274FA1 /* Zendo.entitlements */,
-				12FFCADD210F3F03007E2480 /* Supporting Files */,
 			);
 			path = Zendo;
 			sourceTree = "<group>";
@@ -917,6 +929,7 @@
 				BE2E81F71FF44A7B00D104AC /* LaunchScreen.storyboard in Resources */,
 				127C3E2921788FD300B332EB /* Discover.storyboard in Resources */,
 				BEEA862F20D4A941003E1E1D /* Assets.xcassets in Resources */,
+				BE9DB33521F5680700BCE8C2 /* AirplayController.storyboard in Resources */,
 				DFE3B1742189A6E5008830CD /* animationStartingSession.json in Resources */,
 				12E2A1A8211073D600E0E911 /* Antenna-Medium.otf in Resources */,
 				BE30A47E21E4786600F8509C /* notification.json in Resources */,
@@ -927,6 +940,7 @@
 				12584E5321AFF86D004DA557 /* animationNoInternet.json in Resources */,
 				12C1A7302119C28700EEFF4F /* ZenInfoView.xib in Resources */,
 				BE2E81F21FF44A7B00D104AC /* Main.storyboard in Resources */,
+				BED56AFB21F8C0BF0027F78B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -940,6 +954,7 @@
 				12CE61E92158FF0900AD8A11 /* Antenna-Medium.otf in Resources */,
 				BE2E82021FF44A7B00D104AC /* Interface.storyboard in Resources */,
 				12CE61E82158FF0700AD8A11 /* Antenna-ExtraLight.otf in Resources */,
+				BED56AFC21F8C0BF0027F78B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -952,6 +967,7 @@
 				12CE61EA2158FF0A00AD8A11 /* Antenna-Medium.otf in Resources */,
 				12CE61E62158FF0200AD8A11 /* Antenna-Light.otf in Resources */,
 				BEBAE48B20E6CDB500495C65 /* Media.xcassets in Resources */,
+				BED56AFD21F8C0BF0027F78B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -959,6 +975,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BED56AFE21F8C0BF0027F78B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -995,12 +1012,15 @@
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/Mixpanel-swift/Mixpanel.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1009,12 +1029,15 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1085,6 +1108,7 @@
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
 				126544AE2170B44D00CA8F0B /* NavigationControllerWelcome.swift in Sources */,
 				12BE94BF21AEE4C6000E2B0B /* PauseImageView.swift in Sources */,
+				BE9DB33621F5680700BCE8C2 /* AirplayController.swift in Sources */,
 				12E2A19E21106E4500E0E911 /* TimeInterval.swift in Sources */,
 				12E189C1211C64AB004EADE9 /* UIApplication.swift in Sources */,
 				DFE3B16E2189A3DF008830CD /* StartingSessions.swift in Sources */,

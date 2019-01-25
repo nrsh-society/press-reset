@@ -11,6 +11,7 @@ import HealthKit
 import Mixpanel
 import FBSDKCoreKit
 import UserNotifications
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,9 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Mixpanel.initialize(token: "73167d0429d8da0c05c6707e832cbb46")
         BuddyBuildSDK.setup()
+        
         CommunityDataLoader.load()
         
         WatchSessionManager.sharedManager.startSession()
+        
+        FirebaseApp.configure()
         
         UINavigationBar.appearance().barStyle = .black
         UINavigationBar.appearance().barTintColor = UIColor.zenDarkGreen
