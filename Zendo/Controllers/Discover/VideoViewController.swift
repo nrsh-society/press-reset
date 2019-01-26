@@ -82,6 +82,7 @@ class VideoViewController: UIViewController {
     }
     
     @IBOutlet weak var tickerLabel: UILabel!
+    @IBOutlet weak var partyConsole: UITextView!
     
     var idHero = ""
     var curent = 0
@@ -126,26 +127,24 @@ class VideoViewController: UIViewController {
                 if let email = Settings.email
                 {
                     
-                    let value = ["data" : sample, "updated" : Date().description, "title" : self.story.title ] as [String : Any]
+                    let value = ["data" : sample,
+                                 "updated" : Date().description,
+                                 "title" : self.story.title,
+                                 "email" : email] as [String : Any]
                     
                     let database = Database.database().reference()
                     
                     let sample = database.child("samples")
                     
-                    print(sample.debugDescription)
-                    
                     let key = sample.child(email.replacingOccurrences(of: ".", with: "_"))
-                    
-                    print(key.debugDescription)
                     
                     key.setValue(value)
                     {
-                        (error:Error?, ref:DatabaseReference) in
-                        if let error = error {
-                            print("Data could not be saved: \(error).")
-                        } else {
-                            print("Data saved successfully!")
-                        }
+                        (error, ref) in
+                            if let error = error
+                            {
+                                print("Data could not be saved: \(error).")
+                            }
                     }
                     
                 }
@@ -192,11 +191,47 @@ class VideoViewController: UIViewController {
                 {
                 
                     NotificationCenter.default.addObserver(self,
-                                                       selector: #selector(sample),
+                                                       selector: #selector(self.sample),
                                                        name: NSNotification.Name("sample"),
                                                        object: nil)
+                    
+                    
+                    let database = Database.database().reference()
+                    
+                    let sample = database.child("samples")
+                    
+                    //sample.queryOrdered(byChild: <#T##String#>)
+                    
+                    let refHandle = sample.observe(DataEventType.value, with:
+                    {
+                        (snapshot) in
+                        
+                        let samples = snapshot.value as? [String : [String : AnyObject]] ?? [:]
+                        
+                        samples.forEach({ (arg0) in
+                            
+                            let (key, value) = arg0
+                            
+                            let data = value["data"] as! [String : String]
+                            
+                            let text_hrv = data["sdnn"]!
+                            let double_hrv = Double(text_hrv)!.rounded()
+                            let int_hrv = Int(double_hrv)
+                            
+                            let  text_email = value["email"]!
+                            
+                            let entry = (text_email as! String) + ": " + int_hrv.description + "\n"
+                            
+                            DispatchQueue.main.async
+                            {
+                                self.partyConsole.text.append(entry)
+                                
+                                let lastLine = NSMakeRange(self.partyConsole.text.count - 1, 1);
+                                self.partyConsole.scrollRangeToVisible(lastLine)
+                            }
+                        })
+                    })
                 }
-                
             }
             
             for (index, content) in story.content.enumerated() {
