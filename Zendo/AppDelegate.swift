@@ -10,6 +10,8 @@ import UIKit
 import HealthKit
 import Mixpanel
 import FBSDKCoreKit
+import UserNotifications
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,9 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Mixpanel.initialize(token: "73167d0429d8da0c05c6707e832cbb46")
         BuddyBuildSDK.setup()
+        
         CommunityDataLoader.load()
         
         WatchSessionManager.sharedManager.startSession()
+        
+        FirebaseApp.configure()
         
         UINavigationBar.appearance().barStyle = .black
         UINavigationBar.appearance().barTintColor = UIColor.zenDarkGreen
@@ -92,7 +97,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.portrait
     }
-
     
+    func application(_ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
+    {
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        let token = tokenParts.joined()
+        print("Device Token: \(token)")
+        
+        Mixpanel.mainInstance().people.addPushDeviceToken(deviceToken)
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error)
+    {
+        print("Failed to register: \(error)")
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
+    {
+        
+        
+    }
+
 }
 

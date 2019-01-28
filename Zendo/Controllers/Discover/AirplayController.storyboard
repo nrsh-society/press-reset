@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Antenna-Regular.otf">
+            <string>Antenna-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Zendō Airplay-->
+        <scene sceneID="fJB-84-DsG">
+            <objects>
+                <viewController storyboardIdentifier="AirplayController" title="Zendō Airplay" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MZm-GO-rLu" customClass="AirplayController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="S1P-aP-I2z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ELu-Gs-9wc">
+                                <rect key="frame" x="187.5" y="333.5" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="78"/>
+                                <color key="textColor" red="0.58070260286331177" green="0.67527347803115845" blue="0.62352466583251953" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ELu-Gs-9wc" firstAttribute="centerX" secondItem="S1P-aP-I2z" secondAttribute="centerX" id="5hd-QM-k23"/>
+                            <constraint firstItem="ELu-Gs-9wc" firstAttribute="centerY" secondItem="S1P-aP-I2z" secondAttribute="centerY" id="LOX-Mz-v6s"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="WQU-Zo-A77"/>
+                    </view>
+                    <connections>
+                        <outlet property="tickerLabel" destination="ELu-Gs-9wc" id="BQp-Wa-Hvz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y5g-6b-Mfa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="54" y="752"/>
+        </scene>
+    </scenes>
+</document>

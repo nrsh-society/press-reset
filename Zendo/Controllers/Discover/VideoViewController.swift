@@ -11,6 +11,9 @@ import AVFoundation
 import Hero
 import Cache
 import Mixpanel
+import Firebase
+import FirebaseDatabase
+
 //import SwiftVideoGenerator
 
 enum PlayerStatus: Float {
@@ -78,6 +81,9 @@ class VideoViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var tickerLabel: UILabel!
+    @IBOutlet weak var partyConsole: UITextView!
+    
     var idHero = ""
     var curent = 0
     var previous: Int?
@@ -98,10 +104,69 @@ class VideoViewController: UIViewController {
     
     let interval = CMTime(seconds: 0.01, preferredTimescale: 1000)
     let mainQueue = DispatchQueue.main
+    var airplay = AirplayController.loadFromStoryboard()
+    
+    @objc func sample(notification: NSNotification)
+    {
+        DispatchQueue.main.async
+        {
+            if let sample = notification.object as? [String : String]
+            {
+                let text_hrv = sample["sdnn"]!
+                let double_hrv = Double(text_hrv)!.rounded()
+                let int_hrv = Int(double_hrv)
+                
+                UIView.animate(withDuration: 0.5
+                    , animations: {
+                        
+                        self.tickerLabel.alpha = self.tickerLabel.alpha == 0.5 ? 1 : 0.5
+                })
+                
+                self.tickerLabel.text = int_hrv.description
+            
+                if let email = Settings.email
+                {
+                    
+                    let value = ["data" : sample,
+                                 "updated" : Date().description,
+                                 "title" : self.story.title,
+                                 "email" : email] as [String : Any]
+                    
+                    let database = Database.database().reference()
+                    
+                    let sample = database.child("samples")
+                    
+                    let key = sample.child(email.replacingOccurrences(of: ".", with: "_"))
+                    
+                    key.setValue(value)
+                    {
+                        (error, ref) in
+                            if let error = error
+                            {
+                                print("Data could not be saved: \(error).")
+                            }
+                    }
+                    
+                }
+            
+            }
+            
+        }
+        
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Mixpanel.mainInstance().time(event: "phone_story")
+        
+        let animation: CATransition = CATransition()
+        animation.duration = 1.0
+        animation.type = kCATransitionFade
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        self.tickerLabel.layer.add(animation, forKey: "changeTextTransition")
+       
         do {
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
             try? AVAudioSession.sharedInstance().setActive(true)
@@ -120,6 +185,52 @@ class VideoViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.video.addBackground(image: image, isLayer: true, isReplase: false)
                     }
+                }
+                
+                if(story.title.lowercased().contains("meditation"))
+                {
+                
+                    NotificationCenter.default.addObserver(self,
+                                                       selector: #selector(self.sample),
+                                                       name: NSNotification.Name("sample"),
+                                                       object: nil)
+                    
+                    
+                    let database = Database.database().reference()
+                    
+                    let sample = database.child("samples")
+                    
+                    //sample.queryOrdered(byChild: <#T##String#>)
+                    
+                    let refHandle = sample.observe(DataEventType.value, with:
+                    {
+                        (snapshot) in
+                        
+                        let samples = snapshot.value as? [String : [String : AnyObject]] ?? [:]
+                        
+                        samples.forEach({ (arg0) in
+                            
+                            let (key, value) = arg0
+                            
+                            let data = value["data"] as! [String : String]
+                            
+                            let text_hrv = data["sdnn"]!
+                            let double_hrv = Double(text_hrv)!.rounded()
+                            let int_hrv = Int(double_hrv)
+                            
+                            let  text_email = value["email"]!
+                            
+                            let entry = (text_email as! String) + ": " + int_hrv.description + "\n"
+                            
+                            DispatchQueue.main.async
+                            {
+                                self.partyConsole.text.append(entry)
+                                
+                                let lastLine = NSMakeRange(self.partyConsole.text.count - 1, 1);
+                                self.partyConsole.scrollRangeToVisible(lastLine)
+                            }
+                        })
+                    })
                 }
             }
             
@@ -172,7 +283,10 @@ class VideoViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        Mixpanel.mainInstance().track(event: "Stories_finish_view", properties: ["story_name": story.title])
+        NotificationCenter.default.removeObserver(self)
+        
+        Mixpanel.mainInstance().track(event: "phone_story", properties: ["name": story.title])
+        
     }
     
     static func loadFromStoryboard() -> VideoViewController {
@@ -210,6 +324,7 @@ class VideoViewController: UIViewController {
             }
             
             let player = AVPlayer(playerItem: playerItem)
+            
             player.actionAtItemEnd = .none
             player.automaticallyWaitsToMinimizeStalling = true
             player.play()
@@ -218,6 +333,8 @@ class VideoViewController: UIViewController {
             let playerLayer = AVPlayerLayer(player: player)
             playerLayer.frame = UIScreen.main.bounds
             playerLayer.videoGravity = .resizeAspectFill
+        
+            self.airplay.updateMedia(playerItem)
             
             completion?(playerLayer)
         })
@@ -250,8 +367,6 @@ class VideoViewController: UIViewController {
     }
     
     func startVideo() {
-        
-        Mixpanel.mainInstance().track(event: "Video_view", properties: ["video_name": "\(curent)"])
         
         setBackground()
         

@@ -10,6 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Antenna-Medium.otf">
+            <string>Antenna-Medium</string>
+        </array>
         <array key="Antenna-Regular.otf">
             <string>Antenna-Regular</string>
         </array>
@@ -211,11 +214,32 @@
                                     <constraint firstAttribute="bottom" secondItem="sWz-67-2hV" secondAttribute="bottom" constant="30" id="sBd-4E-xac"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bV0-gV-jP9">
+                                <rect key="frame" x="207" y="368" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" name="Antenna-Medium" family="Antenna" pointSize="77"/>
+                                <color key="textColor" red="0.60030913350000004" green="0.67497491840000001" blue="0.6431349516" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mXV-TR-H2U">
+                                <rect key="frame" x="87" y="0.0" width="240" height="736"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="736" id="Kr3-RA-KaI"/>
+                                </constraints>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ICi-Tt-EiE" firstAttribute="trailing" secondItem="TL7-bc-9TJ" secondAttribute="trailing" id="4ba-gy-vpE"/>
+                            <constraint firstItem="bV0-gV-jP9" firstAttribute="centerY" secondItem="MY4-5U-O3H" secondAttribute="centerY" id="A6z-ia-MFZ"/>
                             <constraint firstItem="TL7-bc-9TJ" firstAttribute="top" secondItem="MY4-5U-O3H" secondAttribute="top" id="D43-lX-QyS"/>
+                            <constraint firstItem="bV0-gV-jP9" firstAttribute="centerX" secondItem="MY4-5U-O3H" secondAttribute="centerX" id="KZ3-FG-ZqI"/>
+                            <constraint firstItem="mXV-TR-H2U" firstAttribute="centerY" secondItem="bV0-gV-jP9" secondAttribute="centerY" id="UIb-CB-45g"/>
+                            <constraint firstItem="mXV-TR-H2U" firstAttribute="centerX" secondItem="bV0-gV-jP9" secondAttribute="centerX" id="caN-5e-3bN"/>
+                            <constraint firstItem="mXV-TR-H2U" firstAttribute="leading" secondItem="ICi-Tt-EiE" secondAttribute="leading" constant="87" id="e2i-Eu-dG2"/>
+                            <constraint firstItem="mXV-TR-H2U" firstAttribute="bottom" secondItem="ICi-Tt-EiE" secondAttribute="bottom" id="fVE-tY-uKS"/>
                             <constraint firstAttribute="bottom" secondItem="TL7-bc-9TJ" secondAttribute="bottom" id="mfY-ez-UeF"/>
                             <constraint firstItem="TL7-bc-9TJ" firstAttribute="leading" secondItem="ICi-Tt-EiE" secondAttribute="leading" id="uWp-Mw-lMQ"/>
                         </constraints>
@@ -226,16 +250,18 @@
                         <outlet property="centerView" destination="JdS-aH-jkN" id="vPR-TM-TC5"/>
                         <outlet property="leftView" destination="Ull-KX-f86" id="ZQ3-YQ-QAH"/>
                         <outlet property="loadStackView" destination="sWz-67-2hV" id="L48-Aq-KHj"/>
+                        <outlet property="partyConsole" destination="mXV-TR-H2U" id="grQ-Xt-ub0"/>
                         <outlet property="pauseImage" destination="x8T-ks-p4c" id="3IO-GC-dnZ"/>
                         <outlet property="pauseLabel" destination="Eh1-TL-I8t" id="mCN-qS-psE"/>
                         <outlet property="pauseView" destination="8LW-5E-dNx" id="wV0-Pu-QI8"/>
                         <outlet property="rightView" destination="cAK-zR-DQT" id="7z3-dk-t1n"/>
+                        <outlet property="tickerLabel" destination="bV0-gV-jP9" id="GKU-Wf-7dN"/>
                         <outlet property="video" destination="TL7-bc-9TJ" id="wey-bH-tmM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HWt-MA-mRU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1126" y="148"/>
+            <point key="canvasLocation" x="1124.6376811594205" y="147.55434782608697"/>
         </scene>
     </scenes>
     <resources>

@@ -41,9 +41,60 @@ class AppInterfaceController: WKInterfaceController {
         
     }
     
-    override func awake(withContext context: Any?) {
+    override func awake(withContext context: Any?)
+    {
         super.awake(withContext: context)
+        
+        if let session = context as? Session
+        {
+            if(!session.isRunning)
+            {
+                Notification.status()
+                {
+                    status in
+                        
+                    if(status == .notDetermined)
+                    {
+                        Notification.auth()
+                        {
+                            (granted, error) in
+                                    
+                            if(granted)
+                            {
+                                self.enableLocalNotifications()
+                            }
+                        }
+                    }
+                    
+                    if(status == .authorized)
+                    {
+                        self.enableLocalNotifications()
+                    }
+                }
+            }
+        }
+        
     }
+    
+    func enableLocalNotifications()
+    {
+        if(!SettingsWatch.localNotications)
+        {
+            #if DEBUG
+                //Notification.minute()
+                Notification.hourly()
+                Notification.daily()
+            #endif
+            
+            Notification.weekly()
+            
+            SettingsWatch.localNotications = true
+            
+            Mixpanel.sharedInstance()?.track("enableLocalNotifications")
+        }
+        
+    }
+    
     
     override func willActivate()
     {
@@ -90,7 +141,8 @@ class AppInterfaceController: WKInterfaceController {
         ZBFHealthKit.healthStore.execute(hkQuery)
     }
     
-    override func didDeactivate() {
+    override func didDeactivate()
+    {
         super.didDeactivate()
         
         Mixpanel.sharedInstance()?.track("watch_overview")

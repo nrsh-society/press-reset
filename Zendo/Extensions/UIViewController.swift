@@ -29,6 +29,16 @@ extension UIViewController {
         }
     }
     
+    func showNotificationController()
+    {
+        if let vc = UIApplication.shared.keyWindow?.topViewController {
+            if !vc.isKind(of: NotificationViewController.self) {
+                let controller = NotificationViewController.loadFromStoryboard()
+                present(controller, animated: true)
+            }
+        }
+    }
+    
     func showHealthKitController(isFailed: Bool) {
         let controller = HealthKitViewController.loadFromStoryboard()
         controller.isFailed = isFailed

@@ -90,6 +90,19 @@ class DiscoverViewController: UIViewController {
         tableView.refreshControl = refreshControl
         
         tableView.register(NoInternetTableViewCell.nib, forCellReuseIdentifier: NoInternetTableViewCell.reuseIdentifierCell)
+        
+        if let email = Settings.email
+        {
+            Mixpanel.mainInstance().identify(distinctId: email)
+            
+            Mixpanel.mainInstance().people.set(properties: ["$email": email])
+            
+            if let name = Settings.fullName
+            {
+                Mixpanel.mainInstance().people.set(properties: ["$name": name])
+            }
+        }
+        
     }
     
 //    view
@@ -108,15 +121,24 @@ class DiscoverViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        Mixpanel.mainInstance().track(event: "Discover_main_view")
+        Mixpanel.mainInstance().time(event: "phone_discover")
         
         startConnection()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        super.viewWillDisappear(animated)
+        
+        Mixpanel.mainInstance().track(event: "phone_discover")
     }
     
     func startConnection() {
         isNoInternet = false
         
-        let urlPath: String = "http://media.zendo.tools/discover.json?v=\(Date().timeIntervalSinceNow)"
+        //let urlPath: String = "http://media.zendo.tools/discover.json?v=\(Date().timeIntervalSinceNow)"
+        
+         let urlPath: String = "http://media.zendo.tools/discover.new.json?v=\(Date().timeIntervalSinceNow)"
         
         URLSession.shared.dataTask(with: URL(string: urlPath)!) { data, response, error -> Void in
             
@@ -396,7 +418,6 @@ extension DiscoverViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         dataTask?.cancel()
         let story = sections[collectionView.tag].stories[indexPath.row]
-        Mixpanel.mainInstance().track(event: "Stories_start_view", properties: ["story_name": story.title])
         let vc = VideoViewController.loadFromStoryboard()
         vc.idHero = "cellImage" + indexPath.row.description
         vc.hero.isEnabled = true

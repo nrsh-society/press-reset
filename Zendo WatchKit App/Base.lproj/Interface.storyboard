@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14460.31" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch44" orientation="portrait">
+    <device id="watch40" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -9,6 +9,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14460.16"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Antenna-Light.otf">
+            <string>Antenna-Light</string>
+        </array>
         <array key="Antenna-Medium.otf">
             <string>Antenna-Medium</string>
         </array>
@@ -61,7 +64,7 @@
                     <items>
                         <group alignment="center" verticalAlignment="center" layout="vertical" spacing="4" id="euX-5G-gdh">
                             <items>
-                                <label alignment="center" text="Haptic" id="Cvf-ku-YxT">
+                                <label alignment="center" text="Vibration Level" id="Cvf-ku-YxT">
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="13"/>
                                 </label>
                                 <slider alignment="center" continuous="YES" value="1" maximum="3" steps="3" id="AWO-T6-lMh">
@@ -69,7 +72,7 @@
                                         <action selector="KyosakChanged:" destination="Cs8-9P-1Q0" id="06D-WF-yeF"/>
                                     </connections>
                                 </slider>
-                                <label alignment="center" verticalAlignment="bottom" text="HR Monitor" id="5SR-Jc-J1K">
+                                <label alignment="center" verticalAlignment="bottom" text="Heart  Monitor" id="5SR-Jc-J1K">
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="13"/>
                                 </label>
                                 <switch alignment="left" verticalAlignment="bottom" title="Bluetooth" id="5mx-VV-erU">
@@ -136,9 +139,14 @@
             <objects>
                 <notificationController id="YCC-NB-fut">
                     <items>
-                        <label alignment="left" text="Alert Label" id="IdU-wH-bcW"/>
+                        <label alignment="left" text="HRV Summary" id="IdU-wH-bcW">
+                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="18"/>
+                        </label>
                     </items>
-                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <notificationCategory key="notificationCategory" identifier="HrvSummary" wantsSashBlur="YES" id="JfB-70-Muf">
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="sashColor" red="0.60030913350000004" green="0.67497491840000001" blue="0.6431349516" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </notificationCategory>
                     <connections>
                         <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
                         <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
@@ -255,9 +263,23 @@
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
             <objects>
-                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Zendo_WatchKit_App" customModuleProvider="target"/>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Zendo_WatchKit_App" customModuleProvider="target">
+                    <items>
+                        <label alignment="left" text="Weekly Summary" id="IMc-zh-QlA">
+                            <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
+                        </label>
+                        <label alignment="left" text="Your HRV this week is ▾ 11ms from last week's 50ms." textAlignment="left" numberOfLines="6" id="U53-F1-s3O">
+                            <color key="textColor" red="0.60030913352966309" green="0.67497491836547852" blue="0.6431349515914917" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <fontDescription key="font" name="Antenna-Light" family="Antenna" pointSize="15"/>
+                        </label>
+                    </items>
+                    <connections>
+                        <outlet property="notificationLabel" destination="U53-F1-s3O" id="hM4-EK-baM"/>
+                        <outlet property="notificationTitle" destination="IMc-zh-QlA" id="nF9-yu-kFH"/>
+                    </connections>
+                </controller>
             </objects>
-            <point key="canvasLocation" x="417" y="1262"/>
+            <point key="canvasLocation" x="374" y="1261"/>
         </scene>
     </scenes>
 </document>

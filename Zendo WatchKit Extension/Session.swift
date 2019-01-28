@@ -62,6 +62,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     var heartRateSamples = [Double]()
     var heartRateRangeSamples = [Double]()
     var movementRangeSamples = [Double]()
+    var heart_rate_query : HKAnchoredObjectQuery?
     
     private var sampleTimer: Timer?
     private var notifyTimer: Timer?
@@ -80,7 +81,12 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     
     static var current: Session?
     
-    override init() {
+    private lazy var sessionDelegater: SessionDelegater = {
+        return SessionDelegater()
+    }()
+    
+    override init()
+    {
         super.init()
         
         let configuration = HKWorkoutConfiguration()
@@ -238,16 +244,17 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             }
         }
         
-        
-        let query = HKAnchoredObjectQuery(type: quantityType,
+        let heart_rate_query = HKAnchoredObjectQuery(type: quantityType,
                                           predicate: queryPredicate,
                                           anchor: nil,
                                           limit: HKObjectQueryNoLimit,
                                           resultsHandler: updateHandler)
         
-        query.updateHandler = updateHandler
+        heart_rate_query.updateHandler = updateHandler
         
-        healthStore.execute(query)
+        self.heart_rate_query = heart_rate_query
+        
+        healthStore.execute(heart_rate_query)
 
     }
     
@@ -377,6 +384,16 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             MetadataType.yaw.rawValue: self.rotation.yaw.description
         ]
         
+        sessionDelegater.sendMessage(["sample" : metadata],
+            replyHandler:
+            { (message) in
+              print(message.debugDescription)
+            },
+            errorHandler:
+            { (error) in
+                print(error)
+            })
+        
         let empty = metadataWork.isEmpty ? "" : "/"
         
         for type in metadataTypeArray {
@@ -388,6 +405,29 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     func invalidate()
     {
         notifyTimer!.invalidate()
+        
+        if let query = self.heart_rate_query
+        {
+            healthStore.stop(query)
+        }
+        
+        /*
+        
+         
+        else
+        {
+            if let bluetooth = Session.bluetoothManager
+            {
+                if(bluetooth.isConnected())
+                {
+                    bluetooth.dataDelegate = nil
+                    
+                    return
+                }
+            }
+        }
+        */
+        
         self.isRunning = false
     }
 }

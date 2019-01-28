@@ -11,6 +11,17 @@ import WatchConnectivity
 
 class SessionDelegater: NSObject, WCSessionDelegate, SessionCommands {
     
+    override init()
+    {
+        super.init()
+        
+        if (WCSession.default.activationState == WCSessionActivationState.notActivated)
+        {
+            WCSession.default.delegate = self
+            WCSession.default.activate()
+        }
+    }
+    
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         print("Session activation did complete")
     }

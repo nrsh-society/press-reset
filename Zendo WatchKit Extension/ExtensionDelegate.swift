@@ -10,14 +10,16 @@ import WatchKit
 import HealthKit
 import WatchConnectivity
 import Mixpanel
+import UserNotifications
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands {
+class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserNotificationCenterDelegate {
     
     private lazy var sessionDelegater: SessionDelegater = {
         return SessionDelegater()
     }()
         
-    override init() {
+    override init()
+    {
         super.init()
         WCSession.default.delegate = sessionDelegater
         WCSession.default.activate()
@@ -27,12 +29,14 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands {
         
         Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
         
-        
-        if let name = SettingsWatch.fullName, let email = SettingsWatch.email {
+        if let name = SettingsWatch.fullName, let email = SettingsWatch.email
+        {
             Mixpanel.sharedInstance()?.identify(email)
             Mixpanel.sharedInstance()?.people.set(["$email": email])
             Mixpanel.sharedInstance()?.people.set(["$name": name])
-        } else {
+        
+        } else
+        {
             sendMessage(["watch": "mixpanel"], replyHandler: { reply in
                 if let reply = reply as? [String: String],
                     let email = reply["email"],
@@ -40,7 +44,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands {
                     
                     SettingsWatch.fullName = name
                     SettingsWatch.email = email
-                    
+                
                     Mixpanel.sharedInstance()?.identify(email)
                     Mixpanel.sharedInstance()?.people.set(["$email": email])
                     Mixpanel.sharedInstance()?.people.set(["$name": name])
@@ -49,23 +53,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands {
                 print(error.localizedDescription)
             })
         }
-        
-        
-//
-        
-        
-//        if let email = Settings.email
-//        {
-//            Mixpanel.mainInstance().identify(distinctId: email)
-//            Mixpanel.mainInstance().people.set(properties: ["$email": email])
-//
-//            if let name = Settings.fullName
-//            {
-//                Mixpanel.mainInstance().people.set(properties: ["$name": name])
-//            }
-//        }
-        
-        // Perform any final initialization of your application.
     }
 
     func applicationDidBecomeActive() {

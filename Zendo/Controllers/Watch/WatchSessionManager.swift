@@ -7,6 +7,8 @@
 //
 
 import WatchConnectivity
+import Firebase
+import FirebaseDatabase
 
 
 class WatchSessionManager: NSObject {
@@ -25,7 +27,7 @@ class WatchSessionManager: NSObject {
         }
         return nil
     }
-    
+
     func startSession() {
         session?.delegate = self
         session?.activate()
@@ -48,20 +50,46 @@ extension WatchSessionManager: WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
         
-        if let message = message as? [String: String] {
+        if let message = message as? [String: String]
+        {
             
-            if message["watch"] == "reload" {
+            if message["watch"] == "reload"
+            {
                 
                 NotificationCenter.default.post(name: .reloadActivity, object: nil)
                 NotificationCenter.default.post(name: .reloadOverview, object: nil)
                 
-            } else if message["watch"] == "mixpanel" {
+            }
+            else if message["watch"] == "mixpanel"
+            {
                 
                 if let email = Settings.email, let name = Settings.fullName {
                     replyHandler(["email": email, "name": name])
                 }
             }
+            else if message["watch"] == "registerNotifications"
+            {
+                DispatchQueue.main.async
+                {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            }
         }
+        else
+        {
+            if(message.first?.key == "sample")
+            {
+                
+                if let sample = message.first?.value
+                {
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name("sample"),
+                                                    object: sample )
+
+                }
+            }
+        }
+        
         
     }
     

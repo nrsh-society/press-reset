@@ -33,5 +33,15 @@ class SettingsWatch  {
         }
     }
     
+    static var localNotications: Bool {
+        set {
+            defaults.set(newValue, forKey: "requestedNotificationPermission")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.bool(forKey: "requestedNotificationPermission")
+        }
+    }
+    
 }
 
