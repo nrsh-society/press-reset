@@ -10,6 +10,7 @@ import WatchKit
 import Foundation
 import HealthKit
 import Mixpanel
+import UserNotifications
 
 //var _currentSession : Session?
 
@@ -63,6 +64,8 @@ class AppInterfaceController: WKInterfaceController {
                             {
                                 self.enableLocalNotifications()
                             }
+                            
+                            Mixpanel.sharedInstance()?.track("watch_notification_auth")
                         }
                     }
                     
@@ -78,20 +81,29 @@ class AppInterfaceController: WKInterfaceController {
     
     func enableLocalNotifications()
     {
-        if(!SettingsWatch.localNotications)
+        //fix bug in 4.2 notifications
+        if(SettingsWatch.localNotications)
         {
-            #if DEBUG
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        }
+        
+        
+        if(!Notification.enabled)
+        {
+            #if DEBUGcale
                 //Notification.minute()
                 Notification.hourly()
-                Notification.daily()
+            
             #endif
             
+            Notification.daily()
             Notification.weekly()
             
-            SettingsWatch.localNotications = true
+            Notification.enabled = true
             
-            Mixpanel.sharedInstance()?.track("enableLocalNotifications")
+            Mixpanel.sharedInstance()?.track("watch_notification_enabled")
         }
+        
         
     }
     
