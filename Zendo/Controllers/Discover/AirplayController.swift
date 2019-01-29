@@ -9,126 +9,113 @@
 import Foundation
 import UIKit
 import AVKit
+import Firebase
+import FirebaseDatabase
 
 class AirplayController: UIViewController {
     
     @IBOutlet weak var tickerLabel: UILabel!
+    @IBOutlet weak var partyConsole: UITextView!
     
-    var newWindow : UIWindow?
-    var url : String?
+    
     var avItem : AVPlayerItem?
+    var avLayer : AVPlayerLayer?
+    var avPlayer : AVPlayer?
     
     class func loadFromStoryboard() -> AirplayController
     {
         let storyboard =  UIStoryboard(name: "AirplayController", bundle: nil).instantiateViewController(withIdentifier: "AirplayController") as! AirplayController
         
-        storyboard.registerAsSecondScreen()
-        
         return storyboard
  
     }
     
+    func pauseMedia()
+    {
+        if let player = self.avPlayer
+        {
+            player.pause()
+        }
+    }
+    
     func updateMedia(_ item : AVPlayerItem)
     {
-        
         self.avItem = item
         
-        if let bounds = self.newWindow?.bounds
+        if let layer = self.avLayer
         {
-            let media = self.avItem?.asset
-            let item = AVPlayerItem(asset: media!)
-            let video = AVPlayer(playerItem: item)
-            let layer  = AVPlayerLayer(player: video)
-            
-            layer.frame = bounds
-            layer.videoGravity = AVLayerVideoGravity.resize
-            self.view.layer.insertSublayer(layer, at: 0)
-            
-            video.play()
+            self.avPlayer?.pause()
+            layer.removeFromSuperlayer()
         }
+        
+        let media = self.avItem?.asset
+        let item = AVPlayerItem(asset: media!)
+        self.avPlayer = AVPlayer(playerItem: item)
+        self.avLayer  = AVPlayerLayer(player: self.avPlayer)
+        
+        self.avLayer?.frame = (self.view.window?.bounds)!
+        self.avLayer?.videoGravity = AVLayerVideoGravity.resize
+        self.view.layer.insertSublayer(self.avLayer!, at: 0)
+        
+        self.avPlayer?.play()
         
     }
     
     override func viewDidDisappear(_ animated: Bool)
     {
+        super.viewDidDisappear(animated)
         
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        if let bounds = self.newWindow?.bounds
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.sample),
+                                               name: NSNotification.Name("sample"),
+                                               object: nil)
+        
+        let database = Database.database().reference()
+        
+        let sample = database.child("samples")
+        
+        let refHandle = sample.observe(DataEventType.value, with:
         {
-            let media = self.avItem?.asset
-            let item = AVPlayerItem(asset: media!)
-            let video = AVPlayer(playerItem: item)
-            let layer  = AVPlayerLayer(player: video)
+            (snapshot) in
             
-            layer.frame = bounds
-            layer.videoGravity = AVLayerVideoGravity.resize
-            self.view.layer.insertSublayer(layer, at: 0)
+            let samples = snapshot.value as? [String : [String : AnyObject]] ?? [:]
             
-            video.play()
-        }
+            samples.forEach({ (arg0) in
+                
+                let (key, value) = arg0
+                
+                let data = value["data"] as! [String : String]
+                
+                let text_hrv = data["sdnn"]!
+                let double_hrv = Double(text_hrv)!.rounded()
+                let int_hrv = Int(double_hrv)
+                
+                let  text_email = value["email"]!
+                
+                let entry = (text_email as! String) + ": " + int_hrv.description + "\n"
+                
+                DispatchQueue.main.async
+                {
+                    self.partyConsole.text.append(entry)
+                        
+                    let lastLine = NSMakeRange(self.partyConsole.text.count - 1, 1);
+                    self.partyConsole.scrollRangeToVisible(lastLine)
+                }
+            })
+        })
+        
     }
     
     func updateTicker(text: String)
     {
         self.tickerLabel.text = text
-    }
-    
-    func registerAsSecondScreen()
-    {
-        
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIScreenDidConnect,
-                                               object: nil, queue: nil)
-        {
-            (notification) in
-            
-            let newScreen = notification.object as! UIScreen
-            let screenDimensions = newScreen.bounds
-            
-            self.newWindow = UIWindow(frame: screenDimensions)
-            self.newWindow?.screen = newScreen
-            
-            self.newWindow?.rootViewController = self
-            
-            if let bounds = self.newWindow?.bounds
-            {
-                self.view.bounds = bounds
-            }
-            
-            //let view = UIScreen.main.snapshotView(afterScreenUpdates: true)
-            
-            // You must show the window explicitly.
-            self.newWindow?.isHidden = false
-            
-        }
-        
-        NotificationCenter.default.addObserver(forName:NSNotification.Name.UIScreenDidDisconnect,
-                                               object: nil, queue: nil)
-        {
-            (notification) in
-            
-            //let newScreen = notification.object as! UIScreen
-            
-            self.dismiss(animated: true, completion: nil)
-            
-             self.newWindow?.isHidden = true
-            
-             self.newWindow = nil
-            
-            
-        }
-        
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(sample),
-                                               name: NSNotification.Name("sample"),
-                                               object: nil)
-        
-       
     }
     
     @objc func sample(notification: NSNotification)
@@ -149,10 +136,34 @@ class AirplayController: UIViewController {
                         })
                         
                         ticker.text = int_hrv.description
+                        
+                        if let email = Settings.email
+                        {
+                            
+                            let value = ["data" : sample,
+                                         "updated" : Date().description,
+                                         "title" : "",
+                                         "email" : email] as [String : Any]
+                            
+                            let database = Database.database().reference()
+                            
+                            let sample = database.child("samples")
+                            
+                            let key = sample.child(email.replacingOccurrences(of: ".", with: "_"))
+                            
+                            key.setValue(value)
+                            {
+                                (error, ref) in
+                                if let error = error
+                                {
+                                    print("Data could not be saved: \(error).")
+                                }
+                            }
+                            
+                        }
                     }
             }
         }
-        
     }
     
 }

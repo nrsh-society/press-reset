@@ -9,6 +9,7 @@
 import WatchConnectivity
 import Firebase
 import FirebaseDatabase
+import FBSDKCoreKit
 
 
 class WatchSessionManager: NSObject {
@@ -48,7 +49,9 @@ extension WatchSessionManager: WCSessionDelegate {
         print("Session activation did complete \(activationState.rawValue)")
     }
     
-    func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
+    func session(_ session: WCSession, didReceiveMessage message: [String: Any],
+                 replyHandler: @escaping ([String: Any]) -> Void)
+    {
         
         if let message = message as? [String: String]
         {
@@ -63,7 +66,9 @@ extension WatchSessionManager: WCSessionDelegate {
             else if message["watch"] == "mixpanel"
             {
                 
-                if let email = Settings.email, let name = Settings.fullName {
+                if let email = Settings.email,
+                    let name = Settings.fullName
+                {
                     replyHandler(["email": email, "name": name])
                 }
             }
@@ -75,23 +80,20 @@ extension WatchSessionManager: WCSessionDelegate {
                 }
             }
         }
-        else
+        else if(message.first?.key == "sample")
         {
-            if(message.first?.key == "sample")
+            if let sample = message.first?.value
             {
-                
-                if let sample = message.first?.value
-                {
-                    
-                    NotificationCenter.default.post(name: NSNotification.Name("sample"),
-                                                    object: sample )
-
-                }
+                NotificationCenter.default.post(name: NSNotification.Name("sample"),
+                                                object: sample )
             }
         }
-        
-        
+        else if(message.first?.key == "facebook")
+        {
+            if let event = message.first?.value
+            {
+                FBSDKAppEvents.logEvent(event as? String)
+            }
+        }
     }
-    
 }
-

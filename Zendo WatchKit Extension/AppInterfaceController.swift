@@ -19,6 +19,10 @@ class AppInterfaceController: WKInterfaceController {
     @IBOutlet var hrvLabel: WKInterfaceLabel!
     @IBOutlet var mainGroup: WKInterfaceGroup!
     
+    private lazy var sessionDelegater: SessionDelegater = {
+        return SessionDelegater()
+    }()
+    
     
     @IBAction func start() {
         
@@ -87,13 +91,11 @@ class AppInterfaceController: WKInterfaceController {
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         }
         
-        
         if(!Notification.enabled)
         {
-            #if DEBUGcale
+            #if DEBUG
                 //Notification.minute()
                 Notification.hourly()
-            
             #endif
             
             Notification.daily()
@@ -103,8 +105,6 @@ class AppInterfaceController: WKInterfaceController {
             
             Mixpanel.sharedInstance()?.track("watch_notification_enabled")
         }
-        
-        
     }
     
     
@@ -114,6 +114,20 @@ class AppInterfaceController: WKInterfaceController {
         super.willActivate()
         
         Mixpanel.sharedInstance()?.timeEvent("watch_overview")
+        
+        sessionDelegater.sendMessage(["facebook" : "watch_overview"],
+            replyHandler:
+            {
+                (message) in
+                
+                print(message.debugDescription)
+            },
+            errorHandler:
+            {
+                (error) in
+                
+                print(error)
+            })
         
         ZBFHealthKit.getPermissions()
         
