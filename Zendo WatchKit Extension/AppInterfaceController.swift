@@ -10,6 +10,7 @@ import WatchKit
 import Foundation
 import HealthKit
 import Mixpanel
+import UserNotifications
 
 //var _currentSession : Session?
 
@@ -17,6 +18,10 @@ class AppInterfaceController: WKInterfaceController {
     
     @IBOutlet var hrvLabel: WKInterfaceLabel!
     @IBOutlet var mainGroup: WKInterfaceGroup!
+    
+    private lazy var sessionDelegater: SessionDelegater = {
+        return SessionDelegater()
+    }()
     
     
     @IBAction func start() {
@@ -62,6 +67,8 @@ class AppInterfaceController: WKInterfaceController {
                             {
                                 self.enableLocalNotifications()
                             }
+                            
+                            Mixpanel.sharedInstance()?.track("watch_notification_auth")
                         }
                     }
                     
@@ -78,21 +85,26 @@ class AppInterfaceController: WKInterfaceController {
     
     func enableLocalNotifications()
     {
-        if(!SettingsWatch.localNotications)
+        //fix bug in 4.2 notifications
+        if(SettingsWatch.localNotications)
+        {
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        }
+        
+        if(!Notification.enabled)
         {
             #if DEBUG
                 //Notification.minute()
                 Notification.hourly()
-                Notification.daily()
             #endif
             
+            Notification.daily()
             Notification.weekly()
             
-            SettingsWatch.localNotications = true
+            Notification.enabled = true
             
-            Mixpanel.sharedInstance()?.track("enableLocalNotifications")
+            Mixpanel.sharedInstance()?.track("watch_notification_enabled")
         }
-        
     }
     
     
@@ -102,6 +114,20 @@ class AppInterfaceController: WKInterfaceController {
         super.willActivate()
         
         Mixpanel.sharedInstance()?.timeEvent("watch_overview")
+        
+        sessionDelegater.sendMessage(["facebook" : "watch_overview"],
+            replyHandler:
+            {
+                (message) in
+                
+                print(message.debugDescription)
+            },
+            errorHandler:
+            {
+                (error) in
+                
+                print(error)
+            })
         
         ZBFHealthKit.getPermissions()
         

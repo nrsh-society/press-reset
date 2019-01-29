@@ -29,21 +29,32 @@
                                 <color key="textColor" red="0.58070260286331177" green="0.67527347803115845" blue="0.62352466583251953" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="axl-hI-xOn">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="33"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="WQU-Zo-A77" firstAttribute="bottom" secondItem="axl-hI-xOn" secondAttribute="bottom" id="4Mp-tL-8CV"/>
                             <constraint firstItem="ELu-Gs-9wc" firstAttribute="centerX" secondItem="S1P-aP-I2z" secondAttribute="centerX" id="5hd-QM-k23"/>
                             <constraint firstItem="ELu-Gs-9wc" firstAttribute="centerY" secondItem="S1P-aP-I2z" secondAttribute="centerY" id="LOX-Mz-v6s"/>
+                            <constraint firstItem="WQU-Zo-A77" firstAttribute="trailing" secondItem="axl-hI-xOn" secondAttribute="trailing" id="cMx-Om-Yaw"/>
+                            <constraint firstItem="axl-hI-xOn" firstAttribute="top" secondItem="WQU-Zo-A77" secondAttribute="top" id="ejH-B1-Y9S"/>
+                            <constraint firstItem="axl-hI-xOn" firstAttribute="leading" secondItem="WQU-Zo-A77" secondAttribute="leading" id="sfD-nM-NHi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WQU-Zo-A77"/>
                     </view>
                     <connections>
+                        <outlet property="partyConsole" destination="axl-hI-xOn" id="GmR-IN-sSA"/>
                         <outlet property="tickerLabel" destination="ELu-Gs-9wc" id="BQp-Wa-Hvz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y5g-6b-Mfa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="54" y="752"/>
+            <point key="canvasLocation" x="53.600000000000001" y="751.57421289355329"/>
         </scene>
     </scenes>
 </document>

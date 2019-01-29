@@ -103,9 +103,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
+        
         print("Device Token: \(token)")
         
-        Mixpanel.mainInstance().people.addPushDeviceToken(deviceToken)
+        
+        if let email = Settings.email
+        {
+            Mixpanel.mainInstance().identify(distinctId: email)
+            
+            Mixpanel.mainInstance().people.set(properties: ["$email": email])
+            
+            if let name = Settings.fullName
+            {
+                Mixpanel.mainInstance().people.set(properties: ["$name": name])
+            }
+            
+            Mixpanel.mainInstance().people.addPushDeviceToken(deviceToken)
+        }
+        
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error)

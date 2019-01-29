@@ -23,6 +23,10 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     
     @IBOutlet var timeElapsedLabel: WKInterfaceLabel!
     
+    private lazy var sessionDelegater: SessionDelegater = {
+        return SessionDelegater()
+    }()
+    
     func sessionTick(startDate: Date, message: String?)
     {
         DispatchQueue.main.async
@@ -48,10 +52,25 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         }
     }
     
-    override func awake(withContext context: Any?) {
+    override func awake(withContext context: Any?)
+    {
         super.awake(withContext: context)
         
         Mixpanel.sharedInstance()?.timeEvent("watch_meditation")
+        
+        sessionDelegater.sendMessage(["facebook" : "watch_meditation"],
+            replyHandler:
+            {
+                (message) in
+                
+                print(message.debugDescription)
+            },
+            errorHandler:
+            {
+                (error) in
+                
+                print(error)
+            })
         
         if let context = context as? Session {
             session = context

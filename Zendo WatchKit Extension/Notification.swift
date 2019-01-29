@@ -36,12 +36,24 @@ public enum NotificationType : String
 public class Notification
 {
     
+    static let defaults = UserDefaults.standard
+    
     private static var sessionDelegater: SessionDelegater = {
         return SessionDelegater()
     }()
     
     typealias StatusHandler = ((UNAuthorizationStatus) -> Void)
     typealias AuthHandler = ((Bool, Error?) -> Void)
+    
+    static var enabled: Bool {
+        set {
+            defaults.set(newValue, forKey: "notificationEnabled")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.bool(forKey: "notificationEnabled")
+        }
+    }
     
     static func status(handler: @escaping Notification.StatusHandler)
     {
@@ -96,8 +108,10 @@ public class Notification
         content.categoryIdentifier = "HrvSummary"
         
         var date = DateComponents()
-        date.day = 7
-        date.hour = 21
+        date.weekday = 6
+        date.hour = 12
+        date.minute = 0
+        date.second = 0
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
         
