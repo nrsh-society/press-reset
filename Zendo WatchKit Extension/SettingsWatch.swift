@@ -13,6 +13,8 @@ class SettingsWatch  {
     
     static let defaults = UserDefaults.standard
     
+    static let dailyMediationGoalKey = "dailyMediationGoal"
+    
     static var fullName: String? {
         set {
             defaults.set(newValue, forKey: "fullNameWatch")
@@ -40,6 +42,26 @@ class SettingsWatch  {
         }
         get {
             return defaults.bool(forKey: "requestedNotificationPermission")
+        }
+    }
+    
+    static var dailyMediationGoal: Int {
+        set {
+            defaults.set(newValue, forKey: dailyMediationGoalKey)
+            defaults.synchronize()
+        }
+        get {
+            return defaults.integer(forKey: dailyMediationGoalKey)
+        }
+    }
+    
+    static var currentDailyMediationPercent: Int {
+        set {
+            defaults.set(newValue, forKey: "currentDailyMediationPercent")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.integer(forKey: "currentDailyMediationPercent")
         }
     }
     

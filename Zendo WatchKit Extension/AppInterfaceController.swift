@@ -38,7 +38,6 @@ class AppInterfaceController: WKInterfaceController {
         WKInterfaceDevice.current().play(WKHapticType.start)
         
         WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context:  Session.current  as AnyObject)])
-        
     }
     
     override func awake(withContext context: Any?)
@@ -74,6 +73,7 @@ class AppInterfaceController: WKInterfaceController {
             }
         }
         
+        UserDefaults.standard.register(defaults: [SettingsWatch.dailyMediationGoalKey: 5])
     }
     
     func enableLocalNotifications()
@@ -139,6 +139,42 @@ class AppInterfaceController: WKInterfaceController {
             }
         
         ZBFHealthKit.healthStore.execute(hkQuery)
+        
+        ZBFHealthKit.getMindfulMinutes { mins, error in
+            
+            let currentPercent = SettingsWatch.currentDailyMediationPercent
+            let goalMins = SettingsWatch.dailyMediationGoal
+            
+            if let mins = mins {
+                
+                let percent = Int((mins / Double(goalMins)) * 100.0)
+                
+                if percent >= 100 {
+                    self.mainGroup.setBackgroundImageNamed("single100")
+                    return
+                }
+                
+                self.mainGroup.setBackgroundImageNamed("single")
+            
+                if currentPercent < percent {
+                    self.mainGroup.startAnimatingWithImages(in:
+                        NSRange(location: currentPercent, length: percent - currentPercent),
+                                                            duration: 0.6, repeatCount: 1)
+                } else if currentPercent > percent {
+                    self.mainGroup.setBackgroundImageNamed("single\(percent)")
+//                    self.mainGroup.startAnimatingWithImages(in:
+//                        NSRange(location: currentPercent, length: percent - currentPercent),
+//                                duration: 0.6, repeatCount: 1)
+                } else {
+                    self.mainGroup.setBackgroundImageNamed("single\(percent)")
+                }
+                
+                SettingsWatch.currentDailyMediationPercent = percent
+                
+            } else {
+                self.mainGroup.setBackgroundImageNamed("single0")
+            }
+        }
     }
     
     override func didDeactivate()

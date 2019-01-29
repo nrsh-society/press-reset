@@ -12,6 +12,7 @@ import HealthKit
 class ZBFHealthKit {
     
     typealias SamplesHandler = (_ samples: [Double: Double]?, _ error: Error? ) -> Void
+    typealias SamplesHandlerDouble = (_ samples: Double?, _ error: Error? ) -> Void
     
     static let healthStore = HKHealthStore()
     
@@ -92,6 +93,44 @@ class ZBFHealthKit {
         }
         
         ZBFHealthKit.healthStore.execute(hkQuery)
+    }
+    
+    class func getMindfulMinutes(handler: @escaping SamplesHandlerDouble) {
+        
+        let start = Date().startOfDay
+        let end = Date().endOfDay
+        
+        let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
+        
+        let hkDatePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictStartDate)
+        
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
+        
+        var sum = 0.0
+        
+        let hkSampleQuery = HKSampleQuery(sampleType: hkType,
+                                          predicate: hkDatePredicate,
+                                          limit: HKObjectQueryNoLimit,
+                                          sortDescriptors: [sortDescriptor]) { query, samples, error in
+                                            
+                                            if let samples = samples{
+                                                
+                                                samples.forEach( { sample in
+                                                    
+                                                    let delta = DateInterval(start: sample.startDate, end: sample.endDate)
+                                                    
+                                                    sum += delta.duration
+                                                })
+                                                
+                                                handler(sum, error)
+                                                
+                                            } else {
+                                                handler(sum, error)
+                                            }
+                                            
+        }
+        
+        ZBFHealthKit.healthStore.execute(hkSampleQuery)
     }
     
 }
