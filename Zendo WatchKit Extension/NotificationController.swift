@@ -39,12 +39,12 @@ class NotificationController: WKUserNotificationInterfaceController {
         
         Mixpanel.sharedInstance()?.track("watch_localnotification")
         
-        let mediateAction = UNNotificationAction(identifier: "MEDIATE_ACTION",
-                                                 title: "Mediate Now",
+        let meditateAction = UNNotificationAction(identifier: "MEDITATE_ACTION",
+                                                 title: "Meditate Now",
                                                  options: UNNotificationActionOptions.foreground)
         
         if #available(watchOSApplicationExtension 5.0, *) {
-            self.notificationActions.append(mediateAction)
+            self.notificationActions.append(meditateAction)
         } else {
             // Fallback on earlier versions
         }
