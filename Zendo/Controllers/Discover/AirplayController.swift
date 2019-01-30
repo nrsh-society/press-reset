@@ -137,30 +137,6 @@ class AirplayController: UIViewController {
                         
                         ticker.text = int_hrv.description
                         
-                        if let email = Settings.email
-                        {
-                            
-                            let value = ["data" : sample,
-                                         "updated" : Date().description,
-                                         "title" : "",
-                                         "email" : email] as [String : Any]
-                            
-                            let database = Database.database().reference()
-                            
-                            let sample = database.child("samples")
-                            
-                            let key = sample.child(email.replacingOccurrences(of: ".", with: "_"))
-                            
-                            key.setValue(value)
-                            {
-                                (error, ref) in
-                                if let error = error
-                                {
-                                    print("Data could not be saved: \(error).")
-                                }
-                            }
-                            
-                        }
                     }
             }
         }

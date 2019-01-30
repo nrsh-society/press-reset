@@ -11,6 +11,8 @@ import AVFoundation
 import Hero
 import Cache
 import Mixpanel
+import Firebase
+import FirebaseDatabase
 
 //import SwiftVideoGenerator
 
@@ -122,6 +124,31 @@ class VideoViewController: UIViewController {
                 })
                 
                 self.tickerLabel.text = int_hrv.description
+                
+                if let email = Settings.email
+                {
+                    
+                    let value = ["data" : sample,
+                                 "updated" : Date().description,
+                                 "title" : self.story.title,
+                                 "email" : email] as [String : Any]
+                    
+                    let database = Database.database().reference()
+                    
+                    let sample = database.child("samples")
+                    
+                    let key = sample.child(email.replacingOccurrences(of: ".", with: "_"))
+                    
+                    key.setValue(value)
+                    {
+                        (error, ref) in
+                        if let error = error
+                        {
+                            print("Data could not be saved: \(error).")
+                        }
+                    }
+                    
+                }
             }
             
         }
@@ -221,14 +248,6 @@ class VideoViewController: UIViewController {
         
         NotificationCenter.default.removeObserver(self)
         
-        if let airplay = self.airplay
-        {
-            airplay.pauseMedia()
-            
-            airplay.dismiss(animated: true, completion: nil)
-            
-        }
-        
         Mixpanel.mainInstance().track(event: "phone_story", properties: ["name": story.title])
         
     }
@@ -286,38 +305,44 @@ class VideoViewController: UIViewController {
     
     func airplay(_ player: AVPlayer)
     {
-            NotificationCenter.default.addObserver(
+        
+        var screenConnectObserver : Any?
+        
+        screenConnectObserver = NotificationCenter.default.addObserver(
                 forName: NSNotification.Name.UIScreenDidConnect,
                 object: nil, queue: nil)
             {
                 (notification) in
                
-                    if self.airplay == nil
+                if self.airplay == nil //#4.5 #todo this only makes sense for meditations?
                     {
                         
-                        if(self.story.title.lowercased().contains("meditation"))
-                        {
-                            
-                            let newScreen = notification.object as! UIScreen
-                            let screenDimensions = newScreen.bounds
+                        let newScreen = notification.object as! UIScreen
+                        let screenDimensions = newScreen.bounds
                     
-                            self.newWindow = UIWindow(frame: screenDimensions)
-                            self.newWindow?.screen = newScreen
+                        self.newWindow = UIWindow(frame: screenDimensions)
+                        self.newWindow?.screen = newScreen
                     
-                            self.airplay = AirplayController.loadFromStoryboard()
+                        self.airplay = AirplayController.loadFromStoryboard()
                     
-                            self.newWindow?.rootViewController = self.airplay
+                        self.newWindow?.rootViewController = self.airplay
                 
-                            player.isMuted = true
+                        player.isMuted = true
                     
-                            self.newWindow?.isHidden = false
+                        self.newWindow?.isHidden = false
                     
-                            self.airplay!.updateMedia(player.currentItem!)
-                        }
+                        self.airplay!.updateMedia(player.currentItem!)
+                        
                     }
+                
+                
+                    NotificationCenter.default.removeObserver(screenConnectObserver!)
                 }
         
-            NotificationCenter.default.addObserver(
+        
+        var screenDisconnectObserver : Any?
+        
+            screenDisconnectObserver = NotificationCenter.default.addObserver(
                 forName:NSNotification.Name.UIScreenDidDisconnect,
                 object: nil, queue: nil)
             {
@@ -327,7 +352,7 @@ class VideoViewController: UIViewController {
                 {
                     airplay.pauseMedia()
                         
-                    airplay.dismiss(animated: true, completion: nil)
+                   // airplay.dismiss(animated: true, completion: nil)
                 
                     self.newWindow?.isHidden = true
                         
@@ -336,6 +361,9 @@ class VideoViewController: UIViewController {
                     self.newWindow = nil
                     self.airplay = nil
                 }
+                
+                
+                NotificationCenter.default.removeObserver(screenDisconnectObserver!)
             }
     }
     
@@ -567,6 +595,18 @@ class VideoViewController: UIViewController {
     
     @objc func dismissVideo() {
         removeObserver()
+        
+        if let airplay = self.airplay
+        {
+            airplay.pauseMedia()
+            
+            // airplay.dismiss(animated: true, completion: nil)
+            
+            self.newWindow?.isHidden = true
+            self.newWindow = nil
+            self.airplay = nil
+        }
+        
         dismiss(animated: true)
     }
     
