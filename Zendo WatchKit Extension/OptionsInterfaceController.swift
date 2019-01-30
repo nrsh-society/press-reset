@@ -92,8 +92,10 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     }
     
     @IBAction func minusAction() {
-        SettingsWatch.dailyMediationGoal -= 1
-        updateTime()
+        if SettingsWatch.dailyMediationGoal > 5 {
+            SettingsWatch.dailyMediationGoal -= 1
+            updateTime()
+        }
     }
     
     override func willActivate()
