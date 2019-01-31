@@ -260,6 +260,7 @@ class VideoViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         self.airplay?.dismiss()
+        self.airplay = nil
         
         NotificationCenter.default.removeObserver(self)
         
@@ -340,8 +341,8 @@ class VideoViewController: UIViewController {
         
         UIImage.setImage(from: url) { image in
             VideoGenerator.current.shouldOptimiseImageForVideo = true
-            VideoGenerator.current.maxVideoLengthInSeconds = 30
-            VideoGenerator.current.videoDurationInSeconds = 30
+            VideoGenerator.current.maxVideoLengthInSeconds = 60
+            VideoGenerator.current.videoDurationInSeconds = 60
             
             VideoGenerator.current.generate(withImages: [image], andAudios: [], andType: .single, { (progress) in
             }, success: { (url) in

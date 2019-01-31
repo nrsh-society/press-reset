@@ -71,6 +71,8 @@ extension WatchSessionManager: WCSessionDelegate {
                 {
                     replyHandler(["email": email, "name": name])
                 }
+                
+                FBSDKAppEvents.logEvent("watch_identity")
             }
             else if message["watch"] == "registerNotifications"
             {
@@ -78,6 +80,8 @@ extension WatchSessionManager: WCSessionDelegate {
                 {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
+                
+                FBSDKAppEvents.logEvent("watch_notification")
             }
         }
         else if(message.first?.key == "sample")
@@ -86,6 +90,8 @@ extension WatchSessionManager: WCSessionDelegate {
             {
                 NotificationCenter.default.post(name: NSNotification.Name("sample"),
                                                 object: sample )
+                
+                FBSDKAppEvents.logEvent("watch_sample")
             }
         }
         else if(message.first?.key == "facebook")

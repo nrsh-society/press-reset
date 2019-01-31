@@ -83,8 +83,6 @@ class AirplayController: UIViewController {
                 
                 let _ = notification.object as! UIScreen
                 
-                self.avPlayer?.pause()
-                
                 if self.newWindow != nil
                 {
                     self.dismiss()
@@ -100,9 +98,10 @@ class AirplayController: UIViewController {
     func dismiss()
     {
         self.avPlayer?.pause()
+        self.dismiss(animated: true)
         self.newWindow?.isHidden = true
         self.newWindow = nil
-        self.dismiss(animated: true)
+        
     }
     
     func updateMedia(_ item : AVPlayerItem)
