@@ -138,7 +138,7 @@ class DiscoverViewController: UIViewController {
         
         //let urlPath: String = "http://media.zendo.tools/discover.json?v=\(Date().timeIntervalSinceNow)"
         
-         let urlPath: String = "http://media.zendo.tools/discover.new.json?v=\(Date().timeIntervalSinceNow)"
+        let urlPath: String = "http://media.zendo.tools/discover.v3.json?v=\(Date().timeIntervalSinceNow)"
         
         URLSession.shared.dataTask(with: URL(string: urlPath)!) { data, response, error -> Void in
             

@@ -16,6 +16,8 @@ class Content: Codable {
     var thumbnailUrl: String!
     var stream: String?
     var download: String?
+    var airplay: String?
+    var spherial: String?
     
     public init(_ json: JSON) {
         
@@ -29,6 +31,14 @@ class Content: Codable {
 
         if let download = json["download"].string {
             self.download = download
+        }
+        
+        if let airplay = json["airplay"].string {
+            self.airplay = airplay
+        }
+        
+        if let spherial = json["spherial"].string {
+            self.spherial = spherial
         }
     
     }

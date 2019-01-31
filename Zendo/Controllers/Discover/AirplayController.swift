@@ -17,25 +17,92 @@ class AirplayController: UIViewController {
     @IBOutlet weak var tickerLabel: UILabel!
     @IBOutlet weak var partyConsole: UITextView!
     
+    var screenConnectObserver : Any?
+    var screenDisconnectObserver : Any?
     
+    var newWindow : UIWindow?
     var avItem : AVPlayerItem?
     var avLayer : AVPlayerLayer?
     var avPlayer : AVPlayer?
+    var url : URL?
     
-    class func loadFromStoryboard() -> AirplayController
+    class func loadFromStoryboard(_ url: URL) -> AirplayController
     {
         let storyboard =  UIStoryboard(name: "AirplayController", bundle: nil).instantiateViewController(withIdentifier: "AirplayController") as! AirplayController
+        
+        storyboard.setupDisplayCallbacks(url: url)
         
         return storyboard
  
     }
     
-    func pauseMedia()
+    func setupDisplayCallbacks(url: URL)
     {
-        if let player = self.avPlayer
+        if(screenConnectObserver == nil)
         {
-            player.pause()
+            screenConnectObserver = NotificationCenter.default.addObserver(
+                forName: NSNotification.Name.UIScreenDidConnect,
+                object: nil, queue: nil)
+            {
+                (notification) in
+                
+                let newScreen = notification.object as! UIScreen
+                
+                if self.newWindow == nil
+                {
+                    let screenDimensions = newScreen.bounds
+                    
+                    self.newWindow = UIWindow(frame: screenDimensions)
+                    self.newWindow?.screen = newScreen
+                
+                    self.newWindow?.rootViewController = self
+                
+                    self.newWindow?.isHidden = false
+                    
+                    let item = AVPlayerItem(url: url)
+                    
+                    self.updateMedia(item)
+                
+                }
+            
+                NotificationCenter.default.removeObserver(self.screenConnectObserver!)
+                
+                self.screenConnectObserver = nil
+            }
+            
         }
+        
+        if(screenDisconnectObserver == nil)
+        {
+    
+            screenDisconnectObserver = NotificationCenter.default.addObserver(
+                forName:NSNotification.Name.UIScreenDidDisconnect,
+                object: nil, queue: nil)
+            {
+                (notification) in
+                
+                let _ = notification.object as! UIScreen
+                
+                self.avPlayer?.pause()
+                
+                if self.newWindow != nil
+                {
+                    self.dismiss()
+                }
+                
+                NotificationCenter.default.removeObserver(self.screenDisconnectObserver!)
+                
+                self.screenDisconnectObserver = nil
+            }
+        }
+    }
+    
+    func dismiss()
+    {
+        self.avPlayer?.pause()
+        self.newWindow?.isHidden = true
+        self.newWindow = nil
+        self.dismiss(animated: true)
     }
     
     func updateMedia(_ item : AVPlayerItem)
@@ -51,6 +118,7 @@ class AirplayController: UIViewController {
         let media = self.avItem?.asset
         let item = AVPlayerItem(asset: media!)
         self.avPlayer = AVPlayer(playerItem: item)
+        self.avPlayer?.allowsExternalPlayback = false
         self.avLayer  = AVPlayerLayer(player: self.avPlayer)
         
         self.avLayer?.frame = (self.view.window?.bounds)!
@@ -65,7 +133,10 @@ class AirplayController: UIViewController {
     {
         super.viewDidDisappear(animated)
         
+        self.avPlayer?.pause()
+        
         NotificationCenter.default.removeObserver(self)
+        
     }
     
     override func viewDidLoad()

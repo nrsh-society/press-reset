@@ -30,8 +30,6 @@ enum PlayerStatus: Float {
 
 class VideoViewController: UIViewController {
     
-    var newWindow : UIWindow?
-    
     var panGR: UIPanGestureRecognizer!
     var playerStatus = PlayerStatus.play
 
@@ -186,6 +184,7 @@ class VideoViewController: UIViewController {
                     }
                 }
                 
+                //#todo(live meditation): story.type == "live"?
                 if(story.title.lowercased().contains("meditation"))
                 {
                     NotificationCenter.default.addObserver(self,
@@ -194,6 +193,7 @@ class VideoViewController: UIViewController {
                                                        object: nil)
                     
                 }
+                
             }
             
             for (index, content) in story.content.enumerated() {
@@ -206,15 +206,28 @@ class VideoViewController: UIViewController {
                         urlDownload = url
                     }
                     
+                    var urlAirplay: URL?
+                    
+                    if let airplay = content.airplay, let url = URL(string: airplay) {
+                        urlAirplay = url
+                    }
+                    
                     let pathExtension = urlStream.pathExtension.lowercased()
                     
-                    if pathExtension == "png" || pathExtension == "jpg" || pathExtension == "jpeg" {
-                        startImage(urlStream, index: index)
-                    } else {
-                        play(with: urlStream, urlDownload: urlDownload) { playerLayer in
-                            self.playerLayers.append(playerLayer)
+                    if pathExtension == "png" || pathExtension == "jpg" || pathExtension == "jpeg"
+                    {
+                        startImage(urlStream, urlAirplay, index: index)
+                    }
+                    else
+                    {
+                        play(with: urlStream, urlDownload: urlDownload, urlAirplay: urlAirplay)
+                    {
+                            playerLayer in
                             
-                            if index == 0 {
+                                self.playerLayers.append(playerLayer)
+                            
+                            if index == 0
+                            {
                                 self.startVideo()
                             }
                         }
@@ -246,6 +259,8 @@ class VideoViewController: UIViewController {
     {
         super.viewWillDisappear(animated)
         
+        self.airplay?.dismiss()
+        
         NotificationCenter.default.removeObserver(self)
         
         Mixpanel.mainInstance().track(event: "phone_story", properties: ["name": story.title])
@@ -260,12 +275,18 @@ class VideoViewController: UIViewController {
         return true
     }
     
-    func play(with urlStream: URL, urlDownload: URL?, completion: ((AVPlayerLayer)->())? = nil) {
+    func play(with urlStream: URL, urlDownload: URL?, urlAirplay: URL?, completion: ((AVPlayerLayer)->())? = nil) {
         
         var download = ""
         
-        if let url = urlDownload {
+        if let url = urlDownload
+        {
             download = url.absoluteString
+        }
+        
+        if let url = urlAirplay
+        {
+            self.airplay(url)
         }
         
         storage?.async.entry(forKey: download, completion: { result in
@@ -297,86 +318,34 @@ class VideoViewController: UIViewController {
             playerLayer.frame = UIScreen.main.bounds
             playerLayer.videoGravity = .resizeAspectFill
             
-            self.airplay(player)
-            
             completion?(playerLayer)
         })
     }
     
-    func airplay(_ player: AVPlayer)
+    func airplay(_ url: URL)
     {
+        if let airplay = self.airplay
+        {
+            airplay.dismiss()
+            airplay.dismiss(animated: true, completion: nil)
+        }
         
-        var screenConnectObserver : Any?
-        
-        screenConnectObserver = NotificationCenter.default.addObserver(
-                forName: NSNotification.Name.UIScreenDidConnect,
-                object: nil, queue: nil)
-            {
-                (notification) in
-               
-                if self.airplay == nil //#4.5 #todo this only makes sense for meditations?
-                    {
-                        
-                        let newScreen = notification.object as! UIScreen
-                        let screenDimensions = newScreen.bounds
-                    
-                        self.newWindow = UIWindow(frame: screenDimensions)
-                        self.newWindow?.screen = newScreen
-                    
-                        self.airplay = AirplayController.loadFromStoryboard()
-                    
-                        self.newWindow?.rootViewController = self.airplay
-                
-                        player.isMuted = true
-                    
-                        self.newWindow?.isHidden = false
-                    
-                        self.airplay!.updateMedia(player.currentItem!)
-                        
-                    }
-                
-                
-                    NotificationCenter.default.removeObserver(screenConnectObserver!)
-                }
-        
-        
-        var screenDisconnectObserver : Any?
-        
-            screenDisconnectObserver = NotificationCenter.default.addObserver(
-                forName:NSNotification.Name.UIScreenDidDisconnect,
-                object: nil, queue: nil)
-            {
-                (notification) in
-                
-                if let airplay = self.airplay
-                {
-                    airplay.pauseMedia()
-                        
-                   // airplay.dismiss(animated: true, completion: nil)
-                
-                    self.newWindow?.isHidden = true
-                        
-                    player.isMuted = false
-                
-                    self.newWindow = nil
-                    self.airplay = nil
-                }
-                
-                
-                NotificationCenter.default.removeObserver(screenDisconnectObserver!)
-            }
+        self.airplay = AirplayController.loadFromStoryboard(url)
     }
     
-    func startImage(_ url: URL, index: Int? = nil) {
+    func startImage(_ url: URL, _ urlAirplay: URL?, index: Int? = nil)
+    {
+    
         activity.stopAnimating()
+        
         UIImage.setImage(from: url) { image in
             VideoGenerator.current.shouldOptimiseImageForVideo = true
-            VideoGenerator.current.maxVideoLengthInSeconds = 5
-            VideoGenerator.current.videoDurationInSeconds = 5
+            VideoGenerator.current.maxVideoLengthInSeconds = 30
+            VideoGenerator.current.videoDurationInSeconds = 30
             
             VideoGenerator.current.generate(withImages: [image], andAudios: [], andType: .single, { (progress) in
             }, success: { (url) in
-                self.play(with: url, urlDownload: nil) { playerLayer in
+                self.play(with: url, urlDownload: nil, urlAirplay: urlAirplay) { playerLayer in
                     self.playerLayers.append(playerLayer)
                     
                     if let i = index, i == 0 {
@@ -495,12 +464,25 @@ class VideoViewController: UIViewController {
                     urlDownload = url
                 }
                 
+                var urlAirplay: URL?
+                
+                if let airplay = story.content[curent + 1].airplay, let url = URL(string: airplay) {
+                    urlAirplay = url
+                }
+                
                 let pathExtension = urlStream.pathExtension.lowercased()
                 
-                if pathExtension == "png" || pathExtension == "jpg" || pathExtension == "jpeg" {
-                    startImage(urlStream)
-                } else {
-                    play(with: urlStream, urlDownload: urlDownload) { playerLayer in
+                if pathExtension == "png" || pathExtension == "jpg" || pathExtension == "jpeg"
+                {
+                    startImage(urlStream, urlAirplay)
+                
+                }
+                else
+                {
+                    play(with: urlStream, urlDownload: urlDownload, urlAirplay: urlAirplay )
+                    {
+                        playerLayer in
+                        
                         self.playerLayers.append(playerLayer)
                     }
                 }
@@ -593,19 +575,11 @@ class VideoViewController: UIViewController {
         }
     }
     
-    @objc func dismissVideo() {
+    @objc func dismissVideo()
+    {
         removeObserver()
         
-        if let airplay = self.airplay
-        {
-            airplay.pauseMedia()
-            
-            // airplay.dismiss(animated: true, completion: nil)
-            
-            self.newWindow?.isHidden = true
-            self.newWindow = nil
-            self.airplay = nil
-        }
+        airplay?.dismiss()
         
         dismiss(animated: true)
     }
