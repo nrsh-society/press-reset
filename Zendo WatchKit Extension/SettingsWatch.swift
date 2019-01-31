@@ -65,5 +65,15 @@ class SettingsWatch  {
         }
     }
     
+    static var isFirstSession: Bool {
+        set {
+            defaults.set(newValue, forKey: "isFirsrSession")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.bool(forKey: "isFirsrSession")
+        }
+    }
+    
 }
 

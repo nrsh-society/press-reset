@@ -14,41 +14,6 @@ import Mixpanel
 class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatusDelegate
 {
     
-    @IBOutlet var minusGroup: WKInterfaceGroup!{
-        didSet {
-            if WKInterfaceDevice.AW42 {
-                minusGroup.setHeight(40)
-                minusGroup.setWidth(40)
-                minusGroup.setCornerRadius(20)
-            } else if WKInterfaceDevice.AW38 {
-                minusGroup.setHeight(28)
-                minusGroup.setWidth(28)
-                minusGroup.setCornerRadius(14)
-            } else if WKInterfaceDevice.AW40 {
-                minusGroup.setHeight(30)
-                minusGroup.setWidth(30)
-                minusGroup.setCornerRadius(15)
-            }
-        }
-    }
-    @IBOutlet var plusGroup: WKInterfaceGroup!{
-        didSet {
-            if WKInterfaceDevice.AW42 {
-                plusGroup.setHeight(40)
-                plusGroup.setWidth(40)
-                plusGroup.setCornerRadius(20)
-            } else if WKInterfaceDevice.AW38 {
-                plusGroup.setHeight(28)
-                plusGroup.setWidth(28)
-                plusGroup.setCornerRadius(14)
-            } else if WKInterfaceDevice.AW40 {
-                plusGroup.setHeight(30)
-                plusGroup.setWidth(30)
-                plusGroup.setCornerRadius(15)
-            }
-        }
-    }
-    @IBOutlet var timeLabel: WKInterfaceLabel!
     @IBOutlet var bluetoothStatus: WKInterfaceLabel!
     @IBOutlet var hapticSetting: WKInterfaceSlider!
     @IBOutlet var bluetoothToogle: WKInterfaceSwitch!
@@ -86,18 +51,6 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         }
     }
     
-    @IBAction func plusAction() {
-        SettingsWatch.dailyMediationGoal += 1
-        updateTime()
-    }
-    
-    @IBAction func minusAction() {
-        if SettingsWatch.dailyMediationGoal > 5 {
-            SettingsWatch.dailyMediationGoal -= 1
-            updateTime()
-        }
-    }
-    
     override func willActivate()
     {
         super.willActivate()
@@ -112,12 +65,6 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         
         self.hapticSetting.setValue(Float(Session.options.hapticStrength))
         
-        updateTime()
-    }
-    
-    func updateTime() {
-        let mins = String(SettingsWatch.dailyMediationGoal)
-        timeLabel.setText(mins)
     }
     
     override func didDeactivate()
