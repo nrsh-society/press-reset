@@ -81,6 +81,7 @@ class AppInterfaceController: WKInterfaceController {
         }
         
         UserDefaults.standard.register(defaults: [SettingsWatch.dailyMediationGoalKey: 5])
+
     }
     
     func enableLocalNotifications()
@@ -167,38 +168,38 @@ class AppInterfaceController: WKInterfaceController {
         ZBFHealthKit.healthStore.execute(hkQuery)
         
         ZBFHealthKit.getMindfulMinutes { mins, error in
-            
+
             let currentPercent = SettingsWatch.currentDailyMediationPercent
             let goalMins = SettingsWatch.dailyMediationGoal
             
             if let mins = mins {
-                
-                let percent = Int((mins / Double(goalMins)) * 100.0)
-                
-                if percent >= 100 {
-                    self.mainGroup.setBackgroundImageNamed("single100")
+
+                let percent = Int(((mins / Double(goalMins)) * 100.0) / 2.0)
+
+                if percent >= 161 {
+                    self.mainGroup.setBackgroundImageNamed("ring161")
                     return
                 }
-                
-                self.mainGroup.setBackgroundImageNamed("single")
-            
+
+                self.mainGroup.setBackgroundImageNamed("ring")
+
                 if currentPercent < percent {
                     self.mainGroup.startAnimatingWithImages(in:
                         NSRange(location: currentPercent, length: percent - currentPercent),
                                                             duration: 0.6, repeatCount: 1)
                 } else if currentPercent > percent {
-                    self.mainGroup.setBackgroundImageNamed("single\(percent)")
+                    self.mainGroup.setBackgroundImageNamed("ring\(percent)")
 //                    self.mainGroup.startAnimatingWithImages(in:
 //                        NSRange(location: currentPercent, length: percent - currentPercent),
 //                                duration: 0.6, repeatCount: 1)
                 } else {
-                    self.mainGroup.setBackgroundImageNamed("single\(percent)")
+                    self.mainGroup.setBackgroundImageNamed("ring\(percent)")
                 }
-                
+
                 SettingsWatch.currentDailyMediationPercent = percent
-                
+
             } else {
-                self.mainGroup.setBackgroundImageNamed("single0")
+                self.mainGroup.setBackgroundImageNamed("ring0")
             }
         }
     }

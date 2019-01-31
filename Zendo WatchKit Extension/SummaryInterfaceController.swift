@@ -85,10 +85,15 @@ class SummaryInterfaceController: WKInterfaceController {
     }
     
     @IBAction func onDonePress() {
-        
         Mixpanel.sharedInstance()?.track("watch_summary")
         
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session as AnyObject), (name: "OptionsInterfaceController", context: session as AnyObject)])
+        if SettingsWatch.isFirstSession {
+            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session as AnyObject), (name: "OptionsInterfaceController", context: session as AnyObject)])
+        } else {
+            SettingsWatch.isFirstSession = true
+            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SetGoalInterfaceController", context: session as AnyObject)])
+        }
+        
     }
 
 }

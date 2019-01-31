@@ -25,9 +25,8 @@
             <objects>
                 <controller identifier="AppInterfaceController" title="Zendō" contentMode="scaleAspectFit" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <group width="1" height="1" alignment="center" verticalAlignment="center" backgroundImage="single50" contentMode="scaleAspectFit" layout="overlap" id="obQ-Pj-vnx">
+                        <group width="1" height="1" alignment="center" verticalAlignment="center" backgroundImage="ring0" contentMode="scaleAspectFit" layout="overlap" id="obQ-Pj-vnx">
                             <items>
-                                <group width="1" height="1" alignment="left" alpha="0.40000000000000002" backgroundImage="single100" contentMode="scaleAspectFit" layout="vertical" id="6XY-6H-0mL"/>
                                 <group width="1" height="0.59999999999999998" alignment="center" verticalAlignment="center" layout="vertical" spacing="3" id="PzY-zg-xK5">
                                     <items>
                                         <label width="1" alignment="center" verticalAlignment="center" text="--" textAlignment="center" id="c3z-hl-RcP">
@@ -38,14 +37,6 @@
                                         </label>
                                     </items>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="11" bottom="10"/>
-                                </group>
-                                <group width="1" height="0.92500000000000004" alignment="center" verticalAlignment="bottom" layout="vertical" id="LqN-ue-Gr6">
-                                    <items>
-                                        <label alignment="center" text="   mins" textAlignment="right" id="rAt-MO-fHW">
-                                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="6"/>
-                                        </label>
-                                    </items>
                                 </group>
                             </items>
                             <gestureRecognizers>
@@ -60,7 +51,7 @@
                     <connections>
                         <outlet property="hrvLabel" destination="c3z-hl-RcP" id="wYd-MY-4LK"/>
                         <outlet property="mainGroup" destination="obQ-Pj-vnx" id="25j-dH-YEO"/>
-                        <segue destination="y7B-OZ-tWG" kind="relationship" relationship="nextPage" id="9c9-vQ-dac"/>
+                        <segue destination="UFh-Qs-xDf" kind="relationship" relationship="nextPage" id="3Be-Rx-via"/>
                     </connections>
                 </controller>
             </objects>
@@ -228,7 +219,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="103" y="791"/>
+            <point key="canvasLocation" x="103" y="832"/>
         </scene>
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
@@ -251,68 +242,85 @@
             </objects>
             <point key="canvasLocation" x="374" y="1261"/>
         </scene>
+        <!--Set Goal-->
+        <scene sceneID="Uhu-St-bST">
+            <objects>
+                <controller title="Set Goal" id="UFh-Qs-xDf" customClass="SetGoalInterfaceController" customModule="Zendo_WatchKit_Extension">
+                    <items>
+                        <group width="1" height="1" alignment="center" layout="vertical" radius="0.0" spacing="0.0" id="kz8-PQ-R5z">
+                            <items>
+                                <label width="1" alignment="center" text="Daily Mindfulness Goal" textAlignment="center" numberOfLines="0" id="xNF-r4-lw4">
+                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="13"/>
+                                </label>
+                                <group width="1" height="70" alignment="center" verticalAlignment="center" radius="0.0" spacing="0.0" id="TPy-An-Hno">
+                                    <items>
+                                        <group width="40" height="40" alignment="left" verticalAlignment="center" layout="overlap" radius="20" id="DYe-UB-hda">
+                                            <items>
+                                                <button width="1" height="1" alignment="left" verticalAlignment="center" id="Xof-yq-d7d">
+                                                    <color key="backgroundColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <connections>
+                                                        <action selector="minusAction" destination="UFh-Qs-xDf" id="Osl-S7-SMv"/>
+                                                    </connections>
+                                                </button>
+                                                <imageView width="0.5" height="0.5" alignment="center" verticalAlignment="center" image="minus" id="UEO-wo-drg">
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </imageView>
+                                            </items>
+                                        </group>
+                                        <group width="40" height="40" alignment="right" verticalAlignment="center" layout="overlap" radius="20" id="bpB-sE-OqT">
+                                            <items>
+                                                <button width="1" height="1" alignment="right" verticalAlignment="center" id="5Ng-pt-xiO">
+                                                    <color key="backgroundColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="font" type="system" pointSize="37"/>
+                                                    <connections>
+                                                        <action selector="plusAction" destination="UFh-Qs-xDf" id="yYh-th-SQL"/>
+                                                    </connections>
+                                                </button>
+                                                <imageView width="0.5" height="0.5" alignment="center" verticalAlignment="center" image="plus" id="ykx-Ff-rFj">
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </imageView>
+                                            </items>
+                                        </group>
+                                        <group alignment="center" verticalAlignment="bottom" layout="vertical" radius="0.0" id="iFj-zo-Gfj">
+                                            <items>
+                                                <label alignment="center" verticalAlignment="center" text="20" textAlignment="center" minimumScaleFactor="0.5" id="pN2-6a-a0j">
+                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="40"/>
+                                                </label>
+                                                <label alignment="center" verticalAlignment="bottom" text="minutes" textAlignment="center" id="gt3-3f-D8c">
+                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="13"/>
+                                                </label>
+                                            </items>
+                                        </group>
+                                    </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                </group>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="minusGroup" destination="DYe-UB-hda" id="8j6-ff-yVq"/>
+                        <outlet property="plusGroup" destination="bpB-sE-OqT" id="rWv-6R-lGx"/>
+                        <outlet property="timeLabel" destination="pN2-6a-a0j" id="1kJ-z0-6ta"/>
+                        <outlet property="topLabel" destination="xNF-r4-lw4" id="xkb-Sp-RZj"/>
+                        <segue destination="y7B-OZ-tWG" kind="relationship" relationship="nextPage" id="UZ4-Yo-9z5"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="364" y="-52"/>
+        </scene>
         <!--Options-->
         <scene sceneID="mYQ-LG-qhF">
             <objects>
                 <controller identifier="OptionsInterfaceController" title="Options" contentMode="scaleAspectFit" id="y7B-OZ-tWG" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <group alignment="center" verticalAlignment="center" layout="vertical" radius="0.0" spacing="13" id="wPv-bi-RQr">
+                        <group alignment="center" verticalAlignment="center" layout="vertical" radius="0.0" spacing="10" id="wPv-bi-RQr">
                             <items>
-                                <group width="1" alignment="center" layout="vertical" radius="0.0" id="kz8-PQ-R5z">
-                                    <items>
-                                        <label width="136" alignment="left" text="Daily Mediation Goal" textAlignment="left" id="xNF-r4-lw4">
-                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="13"/>
-                                        </label>
-                                        <group width="1" height="70" alignment="left" radius="0.0" spacing="10" id="TPy-An-Hno">
-                                            <items>
-                                                <group width="40" height="40" alignment="left" verticalAlignment="center" layout="overlap" radius="20" id="DYe-UB-hda">
-                                                    <items>
-                                                        <button width="1" height="1" alignment="left" verticalAlignment="center" id="Xof-yq-d7d">
-                                                            <color key="backgroundColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <connections>
-                                                                <action selector="minusAction" destination="y7B-OZ-tWG" id="Fyb-aP-fLh"/>
-                                                            </connections>
-                                                        </button>
-                                                        <imageView width="0.5" height="0.5" alignment="center" verticalAlignment="center" image="minus" id="UEO-wo-drg">
-                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </imageView>
-                                                    </items>
-                                                </group>
-                                                <group width="40" height="40" alignment="right" verticalAlignment="center" layout="overlap" radius="20" id="bpB-sE-OqT">
-                                                    <items>
-                                                        <button width="1" height="1" alignment="right" verticalAlignment="center" id="5Ng-pt-xiO">
-                                                            <color key="backgroundColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <fontDescription key="font" type="system" pointSize="37"/>
-                                                            <connections>
-                                                                <action selector="plusAction" destination="y7B-OZ-tWG" id="zQ0-Qz-gsz"/>
-                                                            </connections>
-                                                        </button>
-                                                        <imageView width="0.5" height="0.5" alignment="center" verticalAlignment="center" image="plus" id="ykx-Ff-rFj">
-                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </imageView>
-                                                    </items>
-                                                </group>
-                                                <group alignment="center" verticalAlignment="bottom" layout="vertical" radius="0.0" id="iFj-zo-Gfj">
-                                                    <items>
-                                                        <label alignment="center" verticalAlignment="center" text="20" textAlignment="center" minimumScaleFactor="0.5" id="pN2-6a-a0j">
-                                                            <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="40"/>
-                                                        </label>
-                                                        <label alignment="center" verticalAlignment="bottom" text="minutes" textAlignment="center" id="gt3-3f-D8c">
-                                                            <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="13"/>
-                                                        </label>
-                                                    </items>
-                                                </group>
-                                            </items>
-                                        </group>
-                                    </items>
-                                    <edgeInsets key="margins" left="0.0" right="0.0" top="5" bottom="0.0"/>
-                                </group>
                                 <group width="1" alignment="left" layout="vertical" id="ksL-6C-M7w">
                                     <items>
-                                        <label alignment="left" text="Vibration Level" id="L7V-Eq-ZNU">
+                                        <label alignment="center" text="Feedback Level " textAlignment="center" id="L7V-Eq-ZNU">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="13"/>
                                         </label>
-                                        <slider alignment="center" continuous="YES" value="1" maximum="3" steps="3" id="Dou-CY-eup">
+                                        <slider height="45" alignment="center" continuous="YES" value="1" maximum="3" steps="3" id="Dou-CY-eup">
                                             <connections>
                                                 <action selector="KyosakChanged:" destination="y7B-OZ-tWG" id="GuZ-zl-8OK"/>
                                             </connections>
@@ -321,10 +329,10 @@
                                 </group>
                                 <group width="1" alignment="left" layout="vertical" id="cu7-5r-Mcc">
                                     <items>
-                                        <label alignment="left" verticalAlignment="bottom" text="Heart  Monitor" id="TbH-jo-FUw">
+                                        <label alignment="center" verticalAlignment="bottom" text="Heart Rate Monitor" textAlignment="center" id="TbH-jo-FUw">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="13"/>
                                         </label>
-                                        <switch alignment="left" verticalAlignment="bottom" title="Bluetooth" id="x5n-aD-JDj">
+                                        <switch height="45" alignment="left" verticalAlignment="bottom" title="Bluetooth" id="x5n-aD-JDj">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
                                             <connections>
                                                 <action selector="bluetoothChanged:" destination="y7B-OZ-tWG" id="hie-eH-VBr"/>
@@ -342,13 +350,87 @@
                         <outlet property="bluetoothStatus" destination="23s-j7-ycm" id="20e-RZ-Ag1"/>
                         <outlet property="bluetoothToogle" destination="x5n-aD-JDj" id="vlK-GZ-Ppq"/>
                         <outlet property="hapticSetting" destination="Dou-CY-eup" id="bXd-lH-YRP"/>
-                        <outlet property="minusGroup" destination="DYe-UB-hda" id="g2z-iV-jxR"/>
-                        <outlet property="plusGroup" destination="bpB-sE-OqT" id="OmM-7Y-fhz"/>
-                        <outlet property="timeLabel" destination="pN2-6a-a0j" id="UqS-5c-Zah"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="421" y="148"/>
+            <point key="canvasLocation" x="364" y="317"/>
+        </scene>
+        <!--Set Goal-->
+        <scene sceneID="Eaa-gP-xvC">
+            <objects>
+                <controller identifier="SetGoalInterfaceController" title="Set Goal" contentMode="scaleAspectFit" id="iqt-Nq-L2v" customClass="SetGoalInterfaceController" customModule="Zendo_WatchKit_Extension">
+                    <items>
+                        <group width="1" height="1" alignment="center" layout="vertical" radius="0.0" spacing="0.0" id="ne0-EB-Veg">
+                            <items>
+                                <label width="1" alignment="center" text="Daily Mindfulness Goal" textAlignment="center" numberOfLines="6" minimumScaleFactor="0.5" id="Hya-3d-Cbz">
+                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="13"/>
+                                </label>
+                                <group width="1" height="70" alignment="center" verticalAlignment="center" radius="0.0" spacing="0.0" id="UM5-9g-Ei4">
+                                    <items>
+                                        <group width="40" height="40" alignment="left" verticalAlignment="center" layout="overlap" radius="20" id="Ecu-zG-QeH">
+                                            <items>
+                                                <button width="1" height="1" alignment="left" verticalAlignment="center" id="N2a-39-MlT">
+                                                    <color key="backgroundColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <connections>
+                                                        <action selector="minusAction" destination="iqt-Nq-L2v" id="9Lb-DO-9eF"/>
+                                                    </connections>
+                                                </button>
+                                                <imageView width="0.5" height="0.5" alignment="center" verticalAlignment="center" image="minus" id="vHk-66-B5X">
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </imageView>
+                                            </items>
+                                        </group>
+                                        <group width="40" height="40" alignment="right" verticalAlignment="center" layout="overlap" radius="20" id="Vkz-Uj-VE1">
+                                            <items>
+                                                <button width="1" height="1" alignment="right" verticalAlignment="center" id="cUS-WL-6yk">
+                                                    <color key="backgroundColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="font" type="system" pointSize="37"/>
+                                                    <connections>
+                                                        <action selector="plusAction" destination="iqt-Nq-L2v" id="sOy-J6-gFE"/>
+                                                    </connections>
+                                                </button>
+                                                <imageView width="0.5" height="0.5" alignment="center" verticalAlignment="center" image="plus" id="GYI-7W-4Ij">
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </imageView>
+                                            </items>
+                                        </group>
+                                        <group alignment="center" verticalAlignment="bottom" layout="vertical" radius="0.0" id="cen-dg-NsQ">
+                                            <items>
+                                                <label alignment="center" verticalAlignment="center" text="20" textAlignment="center" minimumScaleFactor="0.5" id="5oe-OO-D0k">
+                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="40"/>
+                                                </label>
+                                                <label alignment="center" verticalAlignment="bottom" text="minutes" textAlignment="center" id="ula-Av-Rii">
+                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="13"/>
+                                                </label>
+                                            </items>
+                                        </group>
+                                    </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                </group>
+                                <group width="1" height="40" alignment="left" verticalAlignment="bottom" radius="20" id="QxE-02-baR">
+                                    <items>
+                                        <button width="1" height="1" alignment="center" verticalAlignment="center" hidden="YES" title="DONE" id="5NZ-9M-y04">
+                                            <color key="backgroundColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="13"/>
+                                            <connections>
+                                                <action selector="doneAction" destination="iqt-Nq-L2v" id="xkm-5U-Whu"/>
+                                            </connections>
+                                        </button>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="doneButton" destination="5NZ-9M-y04" id="xg5-pi-uD2"/>
+                        <outlet property="minusGroup" destination="Ecu-zG-QeH" id="Bl8-Le-OF6"/>
+                        <outlet property="plusGroup" destination="Vkz-Uj-VE1" id="E9Z-zu-aNR"/>
+                        <outlet property="timeLabel" destination="5oe-OO-D0k" id="6CF-so-kWz"/>
+                        <outlet property="topLabel" destination="Hya-3d-Cbz" id="P4A-yc-QhJ"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="364" y="-52"/>
         </scene>
     </scenes>
 </document>
