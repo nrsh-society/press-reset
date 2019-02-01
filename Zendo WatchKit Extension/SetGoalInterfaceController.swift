@@ -10,7 +10,7 @@ import WatchKit
 
 class SetGoalInterfaceController: WKInterfaceController {
     
-    
+    @IBOutlet var mainGroup: WKInterfaceGroup!
     @IBOutlet var doneButton: WKInterfaceButton!
     @IBOutlet var topLabel: WKInterfaceLabel!
     @IBOutlet var minusGroup: WKInterfaceGroup!{
@@ -55,14 +55,18 @@ class SetGoalInterfaceController: WKInterfaceController {
         super.awake(withContext: context)
         
         if let session = context as? Session {
-           self.session = session
+            self.session = session
             
             doneButton.setHidden(false)
             topLabel.setText("Set your daily mindfulness goal and receive reminders on your progress")
+            
+            
+            if WKInterfaceDevice.AW38 || WKInterfaceDevice.AW40 {
+                mainGroup.sizeToFitHeight()
+            }
         }
         
     }
-    
     
     override func willActivate() {
         super.willActivate()
@@ -86,7 +90,6 @@ class SetGoalInterfaceController: WKInterfaceController {
             updateTime()
         }
     }
-    
     
     @IBAction func doneAction() {
         if let session = session {
