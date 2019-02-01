@@ -82,6 +82,7 @@ class VideoViewController: UIViewController {
     }
     
     @IBOutlet weak var tickerLabel: UILabel!
+    @IBOutlet weak var groupTextView: UITextView!
     
     var idHero = ""
     var curent = 0
@@ -105,6 +106,8 @@ class VideoViewController: UIViewController {
     let mainQueue = DispatchQueue.main
     var airplay: AirplayController?
     
+
+    
     @objc func sample(notification: NSNotification)
     {
         DispatchQueue.main.async
@@ -123,32 +126,37 @@ class VideoViewController: UIViewController {
                 
                 self.tickerLabel.text = int_hrv.description
                 
-                if let email = Settings.email
+                //#todo(party mode): story.type == "group"?
+                if(self.story.title.lowercased().contains("group"))
                 {
+                    if let email = Settings.email
+                    {
                     
-                    let value = ["data" : sample,
+                        let value = ["data" : sample,
                                  "updated" : Date().description,
                                  "title" : self.story.title,
                                  "email" : email] as [String : Any]
                     
-                    let database = Database.database().reference()
+                        let database = Database.database().reference()
                     
-                    let sample = database.child("samples")
+                        let sample = database.child("samples")
                     
-                    let key = sample.child(email.replacingOccurrences(of: ".", with: "_"))
+                        let key = sample.child(email.replacingOccurrences(of: ".", with: "_"))
                     
-                    key.setValue(value)
-                    {
-                        (error, ref) in
-                        if let error = error
+                        key.setValue(value)
                         {
-                            print("Data could not be saved: \(error).")
+                            (error, ref) in
+                            
+                            if let error = error
+                            {
+                                print("Data could not be saved: \(error).")
+                            }
                         }
-                    }
                     
+                    }
+                
                 }
             }
-            
         }
     }
     
@@ -192,6 +200,46 @@ class VideoViewController: UIViewController {
                                                        name: NSNotification.Name("sample"),
                                                        object: nil)
                     
+                }
+                
+                //#todo(live meditation): story.type == "live"?
+                if(story.title.lowercased().contains("group")) {
+                
+                let database = Database.database().reference()
+                
+                let sample = database.child("samples")
+                
+                let refHandle = sample.observe(DataEventType.value, with:
+                {
+                    (snapshot) in
+                    
+                    let samples = snapshot.value as? [String : [String : AnyObject]] ?? [:]
+                    
+                    self.groupTextView.text.removeAll()
+                    
+                    samples.forEach({ (arg0) in
+                        
+                        let (key, value) = arg0
+                        
+                        let data = value["data"] as! [String : String]
+                        
+                        let text_hrv = data["sdnn"]!
+                        let double_hrv = Double(text_hrv)!.rounded()
+                        let int_hrv = Int(double_hrv)
+                        
+                        let  text_email = value["email"]!
+                        
+                        let entry = (text_email as! String) + ": " + int_hrv.description + "\n"
+                        
+                        DispatchQueue.main.async
+                            {
+                                self.groupTextView.text.append(entry)
+                                
+                                let lastLine = NSMakeRange(self.groupTextView.text.count - 1, 1);
+                                self.groupTextView.scrollRangeToVisible(lastLine)
+                        }
+                    })
+                })
                 }
                 
             }
@@ -341,8 +389,8 @@ class VideoViewController: UIViewController {
         
         UIImage.setImage(from: url) { image in
             VideoGenerator.current.shouldOptimiseImageForVideo = true
-            VideoGenerator.current.maxVideoLengthInSeconds = 60
-            VideoGenerator.current.videoDurationInSeconds = 60
+            VideoGenerator.current.maxVideoLengthInSeconds = 5.0
+            VideoGenerator.current.videoDurationInSeconds = 5.0
             
             VideoGenerator.current.generate(withImages: [image], andAudios: [], andType: .single, { (progress) in
             }, success: { (url) in

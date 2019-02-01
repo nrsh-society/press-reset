@@ -81,6 +81,7 @@ class AirplayController: UIViewController {
             {
                 (notification) in
                 
+
                 let _ = notification.object as! UIScreen
                 
                 if self.newWindow != nil
@@ -97,6 +98,16 @@ class AirplayController: UIViewController {
     
     func dismiss()
     {
+        if let observer = self.screenConnectObserver
+        {
+            NotificationCenter.default.removeObserver(observer)
+        }
+        
+        if let observer = self.screenDisconnectObserver
+        {
+            NotificationCenter.default.removeObserver(observer)
+        }
+        
         self.avPlayer?.pause()
         self.dismiss(animated: true)
         self.newWindow?.isHidden = true
@@ -146,40 +157,6 @@ class AirplayController: UIViewController {
                                                selector: #selector(self.sample),
                                                name: NSNotification.Name("sample"),
                                                object: nil)
-        
-        let database = Database.database().reference()
-        
-        let sample = database.child("samples")
-        
-        let refHandle = sample.observe(DataEventType.value, with:
-        {
-            (snapshot) in
-            
-            let samples = snapshot.value as? [String : [String : AnyObject]] ?? [:]
-            
-            samples.forEach({ (arg0) in
-                
-                let (key, value) = arg0
-                
-                let data = value["data"] as! [String : String]
-                
-                let text_hrv = data["sdnn"]!
-                let double_hrv = Double(text_hrv)!.rounded()
-                let int_hrv = Int(double_hrv)
-                
-                let  text_email = value["email"]!
-                
-                let entry = (text_email as! String) + ": " + int_hrv.description + "\n"
-                
-                DispatchQueue.main.async
-                {
-                    self.partyConsole.text.append(entry)
-                        
-                    let lastLine = NSMakeRange(self.partyConsole.text.count - 1, 1);
-                    self.partyConsole.scrollRangeToVisible(lastLine)
-                }
-            })
-        })
         
     }
     

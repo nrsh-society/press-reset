@@ -223,6 +223,13 @@
                                 <color key="textColor" red="0.60030913350000004" green="0.67497491840000001" blue="0.6431349516" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fO3-Sj-fvl">
+                                <rect key="frame" x="19" y="44" width="375" height="647"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="19"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -238,6 +245,7 @@
                     <connections>
                         <outlet property="activity" destination="ReN-qZ-w4A" id="Bpu-W8-vYK"/>
                         <outlet property="centerView" destination="JdS-aH-jkN" id="vPR-TM-TC5"/>
+                        <outlet property="groupTextView" destination="fO3-Sj-fvl" id="JrV-7a-hQ9"/>
                         <outlet property="leftView" destination="Ull-KX-f86" id="ZQ3-YQ-QAH"/>
                         <outlet property="loadStackView" destination="sWz-67-2hV" id="L48-Aq-KHj"/>
                         <outlet property="pauseImage" destination="x8T-ks-p4c" id="3IO-GC-dnZ"/>
