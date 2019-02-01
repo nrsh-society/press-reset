@@ -167,13 +167,14 @@ class AppInterfaceController: WKInterfaceController {
         
         ZBFHealthKit.healthStore.execute(hkQuery)
         
-        ZBFHealthKit.getMindfulMinutes { mins, error in
+        ZBFHealthKit.getMindfulMinutes { sec, error in
 
             let currentPercent = SettingsWatch.currentDailyMediationPercent
             let goalMins = SettingsWatch.dailyMediationGoal
             
-            if let mins = mins {
-
+            if let sec = sec {
+                let mins = sec / 60.0
+                
                 let percent = Int(((mins / Double(goalMins)) * 100.0) / 2.0)
 
                 if percent >= 161 {
