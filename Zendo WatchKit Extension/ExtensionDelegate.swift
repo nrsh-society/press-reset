@@ -73,6 +73,25 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
             switch task {
             case let backgroundTask as WKApplicationRefreshBackgroundTask:
                 // Be sure to complete the background task once you’re done.
+                
+                if let userInfo = backgroundTask.userInfo as? [String: String] {
+                    
+                    switch userInfo[Background.key] {
+                    case BackgroundType.checkCloseRing.rawValue:
+                        
+                        Notification.checkCloseRing()
+                        Background.scheduleBackgroundRefreshCheckCloseRing()
+                        
+                    case BackgroundType.closeRing.rawValue:
+                        
+                        Notification.closeRing()
+                        Background.scheduleBackgroundRefreshCloseRing()
+                        
+                    default: break
+                    }
+                    
+                }
+               
                 backgroundTask.setTaskCompletedWithSnapshot(false)
             case let snapshotTask as WKSnapshotRefreshBackgroundTask:
                 // Snapshot tasks have a unique completion call, make sure to set your expiration date
@@ -88,6 +107,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
                 task.setTaskCompletedWithSnapshot(false)
             }
         }
+        
     }
     
     public func handle(_ workoutConfiguration: HKWorkoutConfiguration) {
@@ -103,4 +123,5 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         
         WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject), (name: "OptionsInterfaceController", context: Session.current as AnyObject)])
     }
+    
 }

@@ -60,7 +60,6 @@ class SetGoalInterfaceController: WKInterfaceController {
             doneButton.setHidden(false)
             topLabel.setText("Set your daily mindfulness goal and receive reminders on your progress")
             
-            
             if WKInterfaceDevice.AW38 || WKInterfaceDevice.AW40 {
                 mainGroup.sizeToFitHeight()
             }

@@ -31,6 +31,8 @@ public enum NotificationType : String
     case hourSummary
     case daySummary
     case weekSummary
+    case checkCloseRing
+    case closeRing
 }
 
 public class Notification
@@ -58,15 +60,15 @@ public class Notification
     static func status(handler: @escaping Notification.StatusHandler)
     {
         UNUserNotificationCenter.current().getNotificationSettings
-        {
-            settings in
-    
-            print("Notification settings: \(settings)")
-    
-            handler(settings.authorizationStatus)
+            {
+                settings in
+                
+                print("Notification settings: \(settings)")
+                
+                handler(settings.authorizationStatus)
         }
     }
-
+    
     static func auth(handler: @escaping AuthHandler)
     {
         
@@ -84,14 +86,14 @@ public class Notification
                     (replyMessage) in
                     
                     print(replyMessage.debugDescription)
-                                            
-                },
+                    
+            },
                 errorHandler:
                 {
                     (error) in
                     
                     print(error.localizedDescription)
-                })
+            })
             
             handler(granted, error)
         }
@@ -206,5 +208,75 @@ public class Notification
                 print("\(error)")
             }
         }
+    }
+    
+    static func checkCloseRing(){
+        
+        ZBFHealthKit.getMindfulMinutes { sec, error in
+            
+            let goalMins = SettingsWatch.dailyMediationGoal
+            
+            if let sec = sec {
+                let mins = sec / 60.0
+                
+                let percent = Int(((mins / Double(goalMins)) * 100.0))
+                
+                if percent < 100 {
+                    
+                    let content = UNMutableNotificationContent()
+                    
+                    content.title = "You Got This!"
+                    content.categoryIdentifier = "HrvSummary"
+                    content.body = "Consistent mindfulness leads to positive health outcomes. Don’t forget to close your mindulfulness ring."
+                    content.sound = UNNotificationSound.default()
+                    
+                    let request = UNNotificationRequest(identifier: NotificationType.checkCloseRing.rawValue, content: content, trigger: nil)
+                    
+                    UNUserNotificationCenter.current().add(request) { error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        }
+                    }
+                    
+                }
+                
+            }
+        }
+        
+    }
+    
+    static func closeRing() {
+        
+        ZBFHealthKit.getMindfulMinutes { sec, error in
+
+            let goalMins = SettingsWatch.dailyMediationGoal
+
+            if let sec = sec {
+                let mins = sec / 60.0
+
+                let percent = Int(((mins / Double(goalMins)) * 100.0))
+
+                if percent >= 100 {
+        
+                    let content = UNMutableNotificationContent()
+                    
+                    content.title = "Congrats!"
+                    content.categoryIdentifier = "HrvSummary"
+                    content.body = "You reached your daily mindfulness goal!"
+                    content.sound = UNNotificationSound.default()
+                    
+                    let request = UNNotificationRequest(identifier: NotificationType.closeRing.rawValue, content: content, trigger: nil)
+                    
+                    UNUserNotificationCenter.current().add(request) { error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        }
+                    }
+
+                }
+
+            }
+        }
+
     }
 }

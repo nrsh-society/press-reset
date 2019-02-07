@@ -410,7 +410,7 @@ extension DiscoverViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiscoverCollectionViewCell.reuseIdentifierCell, for: indexPath) as! DiscoverCollectionViewCell
-        cell.hero.id = "cellImage" + indexPath.row.description
+        cell.hero.id = "cellImage" + indexPath.row.description + collectionView.tag.description
         cell.story = sections[collectionView.tag].stories[indexPath.row]
         return cell
     }
@@ -419,7 +419,7 @@ extension DiscoverViewController: UICollectionViewDataSource {
         dataTask?.cancel()
         let story = sections[collectionView.tag].stories[indexPath.row]
         let vc = VideoViewController.loadFromStoryboard()
-        vc.idHero = "cellImage" + indexPath.row.description
+        vc.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
         vc.hero.isEnabled = true
         vc.story = story
         present(vc, animated: true, completion: nil)

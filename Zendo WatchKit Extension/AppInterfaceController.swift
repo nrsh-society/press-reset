@@ -82,6 +82,8 @@ class AppInterfaceController: WKInterfaceController {
         
         UserDefaults.standard.register(defaults: [SettingsWatch.dailyMediationGoalKey: 5])
 
+        Background.scheduleBackgroundRefreshCheckCloseRing()
+        Background.scheduleBackgroundRefreshCloseRing()
     }
     
     func enableLocalNotifications()
@@ -95,7 +97,7 @@ class AppInterfaceController: WKInterfaceController {
         if(!Notification.enabled)
         {
             #if DEBUG
-                //Notification.minute()
+//                Notification.minute()
                 Notification.hourly()
             #endif
             
@@ -107,7 +109,6 @@ class AppInterfaceController: WKInterfaceController {
             Mixpanel.sharedInstance()?.track("watch_notification_enabled")
         }
     }
-    
     
     override func willActivate()
     {

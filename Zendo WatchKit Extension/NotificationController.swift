@@ -88,6 +88,20 @@ class NotificationController: WKUserNotificationInterfaceController {
             alertText =  "Your HRV changed %@ms from %ldms 5 minutes ago."
             alertTitle = "5min Summary"
             
+        case NotificationType.checkCloseRing.rawValue:
+            
+            alertText =  "Consistent mindfulness leads to positive health outcomes. Don’t forget to close your mindulfulness ring."
+            alertTitle = "You Got This!"
+            
+        case NotificationType.closeRing.rawValue:
+            
+            alertText =  "You reached your daily mindfulness goal!"
+            alertTitle = "Congrats!"
+            
+            if #available(watchOSApplicationExtension 5.0, *) {
+                notificationActions.removeAll()
+            }
+            
         default:
             break
         }
@@ -123,7 +137,21 @@ class NotificationController: WKUserNotificationInterfaceController {
                 
                 let hrv_delta_string = arrow + hrv_delta.description
                 
-                alertText = String(format: alertText, hrv_delta_string, last_hrv)
+                
+                switch notification.request.identifier {
+                case NotificationType.weekSummary.rawValue:
+                    if hrv_delta == 0 {
+                        alertText = String(format: "Your HRV this week is the same as last week’s %ldms.", last_hrv)
+                    } else {
+                        alertText = String(format: alertText, hrv_delta_string, last_hrv)
+                    }
+                    
+                case NotificationType.checkCloseRing.rawValue,
+                     NotificationType.closeRing.rawValue:
+                    break
+                default:
+                    alertText = String(format: alertText, hrv_delta_string, last_hrv)
+                }
                 
                 self.notificationTitle.setText(alertTitle)
                 self.notificationLabel.setText(alertText)
