@@ -57,6 +57,16 @@ public class Notification
         }
     }
     
+    static var isShowNotificationCloseRing: Bool {
+        set {
+            defaults.set(newValue, forKey: "isShowNotificationCloseRing")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.bool(forKey: "isShowNotificationCloseRing")
+        }
+    }
+    
     static func status(handler: @escaping Notification.StatusHandler)
     {
         UNUserNotificationCenter.current().getNotificationSettings
@@ -210,7 +220,7 @@ public class Notification
         }
     }
     
-    static func checkCloseRing(){
+    static func checkCloseRing() {
         
         ZBFHealthKit.getMindfulMinutes { sec, error in
             
@@ -248,16 +258,22 @@ public class Notification
     static func closeRing() {
         
         ZBFHealthKit.getMindfulMinutes { sec, error in
-
+            
             let goalMins = SettingsWatch.dailyMediationGoal
-
+            
             if let sec = sec {
                 let mins = sec / 60.0
-
+                
                 let percent = Int(((mins / Double(goalMins)) * 100.0))
-
-                if percent >= 100 {
-        
+                
+                if percent < 100 && isShowNotificationCloseRing {
+                    isShowNotificationCloseRing = false
+                }
+                
+                if percent >= 100 && !isShowNotificationCloseRing {
+                    
+                    isShowNotificationCloseRing = true
+                    
                     let content = UNMutableNotificationContent()
                     
                     content.title = "Congrats!"
@@ -272,11 +288,11 @@ public class Notification
                             print(error.localizedDescription)
                         }
                     }
-
+                    
                 }
-
+                
             }
         }
-
+        
     }
 }
