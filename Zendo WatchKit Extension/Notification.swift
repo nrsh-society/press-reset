@@ -237,7 +237,7 @@ public class Notification
                     
                     content.title = "You Got This!"
                     content.categoryIdentifier = "HrvSummary"
-                    content.body = "Consistent mindfulness leads to positive health outcomes. Don’t forget to close your mindulfulness ring."
+                    content.body = "Mindfulness improves mental fitness. Remember to close your ring today."
                     content.sound = UNNotificationSound.default()
                     
                     let request = UNNotificationRequest(identifier: NotificationType.checkCloseRing.rawValue, content: content, trigger: nil)
@@ -278,7 +278,7 @@ public class Notification
                     
                     content.title = "Congrats!"
                     content.categoryIdentifier = "HrvSummary"
-                    content.body = "You reached your daily mindfulness goal!"
+                    content.body = "You closed your mindfulness ring."
                     content.sound = UNNotificationSound.default()
                     
                     let request = UNNotificationRequest(identifier: NotificationType.closeRing.rawValue, content: content, trigger: nil)

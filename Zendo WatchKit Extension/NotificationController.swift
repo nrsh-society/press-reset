@@ -160,7 +160,7 @@ class NotificationController: WKUserNotificationInterfaceController {
                 
                 let textRange = NSRange(location: 0, length: textString.length)
                 let paragraphStyle = NSMutableParagraphStyle()
-                paragraphStyle.lineSpacing = 1.32
+                paragraphStyle.lineSpacing = 1.50
                 textString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range: textRange)
                 
                 self.notificationLabel.setAttributedText(textString)
@@ -260,7 +260,7 @@ class NotificationController: WKUserNotificationInterfaceController {
                     
                     let textRange = NSRange(location: 0, length: textString.length)
                     let paragraphStyle = NSMutableParagraphStyle()
-                    paragraphStyle.lineSpacing = 1.32
+                    paragraphStyle.lineSpacing = 1.50
                     textString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range: textRange)
                     
                     self.notificationLabel.setAttributedText(textString)

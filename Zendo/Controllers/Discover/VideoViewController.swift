@@ -217,7 +217,9 @@ class VideoViewController: UIViewController {
                     
                     self.groupTextView.text.removeAll()
                     
-                    samples.forEach({ (arg0) in
+                    samples.forEach(
+                    {
+                        (arg0) in
                         
                         let (key, value) = arg0
                         
@@ -232,7 +234,7 @@ class VideoViewController: UIViewController {
                         let entry = (text_email as! String) + ": " + int_hrv.description + "\n"
                         
                         DispatchQueue.main.async
-                            {
+                        {
                                 self.groupTextView.text.append(entry)
                                 
                                 let lastLine = NSMakeRange(self.groupTextView.text.count - 1, 1);
@@ -240,6 +242,7 @@ class VideoViewController: UIViewController {
                         }
                     })
                 })
+                    
                 }
                 
             }
