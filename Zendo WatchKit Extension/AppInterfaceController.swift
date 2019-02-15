@@ -112,11 +112,12 @@ class AppInterfaceController: WKInterfaceController {
         if(!Notification.enabled)
         {
             #if DEBUG
-//                Notification.minute()
-                Notification.hourly()
+                // Notification.minute()
+               // Notification.hourly()
+                // Notification.daily()
             #endif
             
-            Notification.daily()
+            
             Notification.weekly()
             
             Notification.enabled = true

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14460.31" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch44" orientation="portrait">
+    <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -219,7 +219,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="103" y="832"/>
+            <point key="canvasLocation" x="103" y="871"/>
         </scene>
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
@@ -293,12 +293,12 @@
             <objects>
                 <controller identifier="OptionsInterfaceController" title="Options" contentMode="scaleAspectFit" id="y7B-OZ-tWG" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <group alignment="center" verticalAlignment="center" layout="vertical" radius="0.0" spacing="10" id="wPv-bi-RQr">
+                        <group alignment="center" verticalAlignment="center" layout="vertical" radius="0.0" spacing="23" id="wPv-bi-RQr">
                             <items>
                                 <group width="1" alignment="left" layout="vertical" id="ksL-6C-M7w">
                                     <items>
                                         <label alignment="center" text="Feedback Level " textAlignment="center" id="L7V-Eq-ZNU">
-                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="11"/>
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                         </label>
                                         <slider height="45" alignment="center" continuous="YES" value="1" maximum="3" steps="3" id="Dou-CY-eup">
                                             <connections>
@@ -306,11 +306,12 @@
                                             </connections>
                                         </slider>
                                     </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="20" bottom="0.0"/>
                                 </group>
                                 <group width="1" alignment="left" layout="vertical" id="cu7-5r-Mcc">
                                     <items>
                                         <label alignment="center" verticalAlignment="bottom" text="Heart Rate Monitor" textAlignment="center" id="TbH-jo-FUw">
-                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="11"/>
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
                                         </label>
                                         <switch height="45" alignment="left" verticalAlignment="bottom" title="Bluetooth" id="x5n-aD-JDj">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
@@ -324,7 +325,8 @@
                                     </items>
                                 </group>
                             </items>
-                            <edgeInsets key="margins" left="0.0" right="0.0" top="15" bottom="0.0"/>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                            <variation key="device=watch38mm" spacing="24"/>
                         </group>
                     </items>
                     <connections>
@@ -336,19 +338,22 @@
             </objects>
             <point key="canvasLocation" x="364" y="317"/>
         </scene>
-        <!--Set Goal-->
+        <!--Goals-->
         <scene sceneID="Eaa-gP-xvC">
             <objects>
-                <controller identifier="SetGoalInterfaceController" title="Set Goal" contentMode="scaleAspectFit" id="iqt-Nq-L2v" customClass="SetGoalInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="SetGoalInterfaceController" title="Goals" contentMode="scaleAspectFit" id="iqt-Nq-L2v" customClass="SetGoalInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <group width="1" height="1" alignment="center" layout="vertical" radius="0.0" spacing="0.0" id="ne0-EB-Veg">
+                        <group width="1" alignment="center" layout="vertical" spacing="14" id="ne0-EB-Veg">
                             <items>
-                                <group width="1" height="1" alignment="left" layout="vertical" spacing="0.0" id="coT-V1-CPo">
+                                <group width="1" height="1" alignment="left" layout="vertical" id="coT-V1-CPo">
                                     <items>
-                                        <label width="1" alignment="center" text="Daily Mindfulness Goal" textAlignment="center" numberOfLines="6" minimumScaleFactor="0.5" id="Hya-3d-Cbz">
-                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="11"/>
+                                        <label width="1" alignment="center" text="Daily Mindfulness" textAlignment="center" numberOfLines="6" minimumScaleFactor="0.5" id="Hya-3d-Cbz">
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
+                                            <variation key="device=watch38mm">
+                                                <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
+                                            </variation>
                                         </label>
-                                        <group width="1" height="70" alignment="center" verticalAlignment="center" radius="0.0" spacing="0.0" id="UM5-9g-Ei4">
+                                        <group width="1" height="70" alignment="center" radius="0.0" id="UM5-9g-Ei4">
                                             <items>
                                                 <group width="40" height="40" alignment="left" verticalAlignment="center" layout="overlap" radius="20" id="Ecu-zG-QeH">
                                                     <items>
@@ -363,11 +368,26 @@
                                                         </imageView>
                                                     </items>
                                                 </group>
+                                                <group alignment="center" verticalAlignment="bottom" layout="vertical" radius="0.0" id="cen-dg-NsQ">
+                                                    <items>
+                                                        <label alignment="center" verticalAlignment="center" text="20" textAlignment="center" minimumScaleFactor="0.5" id="5oe-OO-D0k">
+                                                            <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="40"/>
+                                                            <variation key="device=watch38mm">
+                                                                <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="29"/>
+                                                            </variation>
+                                                        </label>
+                                                        <label alignment="center" verticalAlignment="bottom" text="minutes" textAlignment="center" id="ula-Av-Rii">
+                                                            <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
+                                                            <variation key="device=watch38mm" text="mins"/>
+                                                        </label>
+                                                    </items>
+                                                </group>
                                                 <group width="40" height="40" alignment="right" verticalAlignment="center" layout="overlap" radius="20" id="Vkz-Uj-VE1">
                                                     <items>
                                                         <button width="1" height="1" alignment="right" verticalAlignment="center" id="cUS-WL-6yk">
                                                             <color key="backgroundColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="font" type="system" pointSize="37"/>
+                                                            <variation key="device=watch38mm" width="1"/>
                                                             <connections>
                                                                 <action selector="plusAction" destination="iqt-Nq-L2v" id="sOy-J6-gFE"/>
                                                             </connections>
@@ -377,22 +397,17 @@
                                                         </imageView>
                                                     </items>
                                                 </group>
-                                                <group alignment="center" verticalAlignment="bottom" layout="vertical" radius="0.0" id="cen-dg-NsQ">
-                                                    <items>
-                                                        <label alignment="center" verticalAlignment="center" text="20" textAlignment="center" minimumScaleFactor="0.5" id="5oe-OO-D0k">
-                                                            <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="40"/>
-                                                        </label>
-                                                        <label alignment="center" verticalAlignment="bottom" text="minutes" textAlignment="center" id="ula-Av-Rii">
-                                                            <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="11"/>
-                                                        </label>
-                                                    </items>
-                                                </group>
                                             </items>
-                                            <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="10"/>
+                                            <edgeInsets key="margins" left="0.0" right="0.0" top="14" bottom="0.0"/>
                                         </group>
-                                        <group width="1" height="40" alignment="center" verticalAlignment="bottom" radius="20" id="QxE-02-baR">
+                                    </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="20" bottom="0.0"/>
+                                </group>
+                                <group width="1" alignment="left" id="hhG-Nz-ZGn">
+                                    <items>
+                                        <group width="1" height="40" alignment="left" layout="vertical" radius="17" id="Uon-6K-GEW">
                                             <items>
-                                                <button width="1" height="1" alignment="center" verticalAlignment="center" hidden="YES" title="DONE" id="5NZ-9M-y04">
+                                                <button width="1" height="100" alignment="center" verticalAlignment="center" hidden="YES" title="DONE" id="5NZ-9M-y04" userLabel=" ">
                                                     <color key="backgroundColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="13"/>
                                                     <connections>
@@ -402,7 +417,6 @@
                                             </items>
                                         </group>
                                     </items>
-                                    <edgeInsets key="margins" left="0.0" right="0.0" top="20" bottom="0.0"/>
                                 </group>
                             </items>
                             <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
@@ -419,7 +433,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="404" y="-60"/>
+            <point key="canvasLocation" x="404" y="-61"/>
         </scene>
     </scenes>
 </document>
