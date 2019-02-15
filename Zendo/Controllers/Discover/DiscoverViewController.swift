@@ -14,6 +14,10 @@ import HealthKit
 import Mixpanel
 import Cache
 
+class SubscriptionHeaderTableViewCell: UITableViewCell {
+    @IBOutlet weak var textLable: UILabel!
+}
+
 
 class DiscoverTableViewCell: UITableViewCell {
     
@@ -105,13 +109,8 @@ class DiscoverViewController: UIViewController {
         
     }
     
-//    view
-    
     @IBAction func onNewSession(_ sender: Any) {
-        let startingSessions = StartingSessionViewController()
-        startingSessions.modalPresentationStyle = .overFullScreen
-        startingSessions.modalTransitionStyle = .crossDissolve
-        present(startingSessions, animated: true, completion: nil)
+        startingSession()
     }
     
     @objc func onReload(_ sender: UIRefreshControl) {

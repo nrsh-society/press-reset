@@ -14,6 +14,9 @@ class SettingsWatch  {
     static let defaults = UserDefaults.standard
     
     static let dailyMediationGoalKey = "dailyMediationGoal"
+    static let sharedUserActivityType = "tools.sunyata.Zendo.app"
+    static let sharedIdentifierKey = "identifier"
+
     
     static var fullName: String? {
         set {

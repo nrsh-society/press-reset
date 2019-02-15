@@ -158,10 +158,7 @@ class OverviewController: UIViewController {
     }
     
     @IBAction func onNewSession(_ sender: Any) {
-        let startingSessions = StartingSessionViewController()
-        startingSessions.modalPresentationStyle = .overFullScreen
-        startingSessions.modalTransitionStyle = .crossDissolve
-        present(startingSessions, animated: true, completion: nil)
+        startingSession()
     }
     
     func initHRVData()

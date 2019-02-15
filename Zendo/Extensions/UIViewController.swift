@@ -94,6 +94,22 @@ extension UIViewController {
         }
     }
     
+    
+    func startingSession() {
+        Settings.checkSubscriptionAvailability { success in
+            if success {
+                let startingSessions = StartingSessionViewController()
+                startingSessions.modalPresentationStyle = .overFullScreen
+                startingSessions.modalTransitionStyle = .crossDissolve
+                self.present(startingSessions, animated: true)
+            } else {
+                let vc = SubscriptionViewController.loadFromStoryboard()
+                self.present(vc, animated: true)
+            }
+        }
+        
+    }
+        
 }
 
 

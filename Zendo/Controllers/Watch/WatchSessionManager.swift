@@ -83,6 +83,14 @@ extension WatchSessionManager: WCSessionDelegate {
                 
                 FBSDKAppEvents.logEvent("watch_notification")
             }
+            else if message["watch"] == "subscribe"
+            {
+                Settings.checkSubscriptionAvailability { bool in
+                    replyHandler(["isSubscribe": bool])
+                }
+               
+            }
+            
         }
         else if(message.first?.key == "sample")
         {

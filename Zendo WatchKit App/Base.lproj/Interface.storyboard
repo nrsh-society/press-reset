@@ -242,6 +242,52 @@
             </objects>
             <point key="canvasLocation" x="374" y="1261"/>
         </scene>
+        <!--Session-->
+        <scene sceneID="cOn-TP-OLG">
+            <objects>
+                <controller identifier="SubscribeInterfaceController" title="Session" id="7Dt-61-ueo" customClass="SubscribeInterfaceController" customModule="Zendo_WatchKit_Extension">
+                    <items>
+                        <group width="1" alignment="left" layout="vertical" spacing="10" id="zTx-II-tJ7">
+                            <items>
+                                <group width="1" alignment="left" id="14K-Nz-sCb">
+                                    <items>
+                                        <imageView width="50" height="50" alignment="center" image="shobogenzo" id="u0M-AT-oFY"/>
+                                    </items>
+                                </group>
+                                <label alignment="center" text="Recording a meditation requires a monthly subscription. Go to Zendo app on the phone to subscribe. " textAlignment="center" numberOfLines="0" id="t4F-ed-mDq">
+                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="13"/>
+                                </label>
+                                <group width="1" height="40" alignment="left" radius="20" id="2XN-Qx-95s">
+                                    <items>
+                                        <button width="1" height="1" alignment="left" title="Subscribe" id="dbZ-cI-PWT">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.15686274509803921" green="0.50196078431372548" blue="0.41960784313725491" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="12"/>
+                                            <connections>
+                                                <action selector="subscribeAction" destination="7Dt-61-ueo" id="4hB-Zj-Lk4"/>
+                                            </connections>
+                                        </button>
+                                    </items>
+                                </group>
+                                <group width="1" height="40" alignment="left" radius="20" id="ykG-8a-Y4Y">
+                                    <items>
+                                        <button width="1" height="1" alignment="left" title="Not Now" id="9QS-Q4-DCM">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.26666666666666666" green="0.31764705882352939" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="12"/>
+                                            <connections>
+                                                <action selector="cancelAction" destination="7Dt-61-ueo" id="hee-b1-ojR"/>
+                                            </connections>
+                                        </button>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="668" y="1261"/>
+        </scene>
         <!--Options-->
         <scene sceneID="mYQ-LG-qhF">
             <objects>

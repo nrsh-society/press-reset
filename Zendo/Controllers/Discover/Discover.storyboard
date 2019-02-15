@@ -48,8 +48,46 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubscriptionHeaderTableViewCell" id="A2b-mr-FL7" customClass="SubscriptionHeaderTableViewCell" customModule="Zendo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A2b-mr-FL7" id="kNF-gg-ltf">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 14 days remaining on your free trial " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2gf-3c-kic">
+                                                    <rect key="frame" x="14" y="0.0" width="311" height="44"/>
+                                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                                    <color key="textColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hp4-pV-fqI">
+                                                    <rect key="frame" x="335" y="0.0" width="68" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="68" id="Zxr-d1-DRh"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                                    <state key="normal" title="subscribe">
+                                                        <color key="titleColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="hp4-pV-fqI" firstAttribute="leading" secondItem="2gf-3c-kic" secondAttribute="trailing" constant="10" id="4BR-zx-FGm"/>
+                                                <constraint firstItem="2gf-3c-kic" firstAttribute="top" secondItem="kNF-gg-ltf" secondAttribute="top" id="Lnr-Ho-Djz"/>
+                                                <constraint firstAttribute="trailing" secondItem="hp4-pV-fqI" secondAttribute="trailing" constant="11" id="W74-pL-WLk"/>
+                                                <constraint firstAttribute="bottom" secondItem="hp4-pV-fqI" secondAttribute="bottom" id="bVG-dR-D1G"/>
+                                                <constraint firstAttribute="bottom" secondItem="2gf-3c-kic" secondAttribute="bottom" id="h4F-pw-iZO"/>
+                                                <constraint firstItem="hp4-pV-fqI" firstAttribute="top" secondItem="kNF-gg-ltf" secondAttribute="top" id="srR-CW-8Tu"/>
+                                                <constraint firstItem="2gf-3c-kic" firstAttribute="leading" secondItem="kNF-gg-ltf" secondAttribute="leading" constant="14" id="zkU-sm-qQt"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="textLable" destination="2gf-3c-kic" id="Tdl-rd-xwV"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiscoverTableViewCell" rowHeight="267" id="bYI-a4-lwh" customClass="DiscoverTableViewCell" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="267"/>
+                                        <rect key="frame" x="0.0" y="72" width="414" height="267"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bYI-a4-lwh" id="VBr-Sj-zZT">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="267"/>
@@ -258,11 +296,219 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HWt-MA-mRU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1124.6376811594205" y="147.55434782608697"/>
+            <point key="canvasLocation" x="2186" y="148"/>
+        </scene>
+        <!--Subscription View Controller-->
+        <scene sceneID="6NS-b6-4lz">
+            <objects>
+                <viewController storyboardIdentifier="SubscriptionViewController" id="TeQ-PY-kQs" customClass="SubscriptionViewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tQg-CM-nKw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_image_trees-2" translatesAutoresizingMaskIntoConstraints="NO" id="cdd-6Q-Bne">
+                                <rect key="frame" x="0.0" y="480" width="414" height="256"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0O-oK-so9">
+                                <rect key="frame" x="371" y="56" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="i7o-zm-mZd"/>
+                                    <constraint firstAttribute="width" secondItem="r0O-oK-so9" secondAttribute="height" multiplier="1:1" id="kvA-qk-gsm"/>
+                                </constraints>
+                                <color key="tintColor" red="0.16078431372549018" green="0.18431372549019609" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="Close"/>
+                                <connections>
+                                    <action selector="cancelAction:" destination="TeQ-PY-kQs" eventType="touchUpInside" id="GNm-7r-lVL"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="QdL-pQ-piX">
+                                <rect key="frame" x="40.000000000000014" y="101" width="208.33333333333337" height="70"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="subscribe and" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7JS-fN-zKG">
+                                        <rect key="frame" x="0.0" y="0.0" width="208.33333333333334" height="30"/>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="train with us." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bfp-R5-exb">
+                                        <rect key="frame" x="0.0" y="40" width="190.33333333333334" height="30"/>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                        <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eDf-hl-WhQ">
+                                <rect key="frame" x="40" y="209.99999999999997" width="334" height="94.666666666666657"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="NjF-Xz-LHf">
+                                        <rect key="frame" x="0.0" y="0.0" width="334" height="28.333333333333332"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="TrE-EX-jpc">
+                                                <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                                <color key="tintColor" red="0.32549019607843138" green="0.58039215686274503" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="TrE-EX-jpc" secondAttribute="height" multiplier="1:1" id="bAA-J4-ACH"/>
+                                                    <constraint firstAttribute="height" constant="18" id="oHB-Ff-6nI"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXw-u6-WZy" userLabel="access to meditation tracking on Apple Watch">
+                                                <rect key="frame" x="31" y="0.0" width="303" height="28.333333333333332"/>
+                                                <string key="text">access to meditation tracking on Apple Watch
+
+</string>
+                                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                                <color key="textColor" red="0.058823529411764705" green="0.14509803921568626" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="who-Mn-qaF">
+                                        <rect key="frame" x="0.0" y="38.333333333333343" width="334" height="28.333333333333329"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="wea-X7-N2W">
+                                                <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                                <color key="tintColor" red="0.32549019610000002" green="0.58039215690000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="18" id="DLW-GO-ddo"/>
+                                                    <constraint firstAttribute="width" secondItem="wea-X7-N2W" secondAttribute="height" multiplier="1:1" id="Dwr-Is-Mr6"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eh-Zg-Jv4">
+                                                <rect key="frame" x="31" y="0.0" width="303" height="28.333333333333332"/>
+                                                <string key="text">access to live heart rate varaiability tracking in Discover 
+
+
+</string>
+                                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                                <color key="textColor" red="0.058823529409999999" green="0.1450980392" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="loN-jq-wE5">
+                                        <rect key="frame" x="0.0" y="76.666666666666686" width="334" height="18"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="BIU-gj-YMT">
+                                                <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                                <color key="tintColor" red="0.32549019610000002" green="0.58039215690000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="BIU-gj-YMT" secondAttribute="height" multiplier="1:1" id="CEL-27-GTB"/>
+                                                    <constraint firstAttribute="height" constant="18" id="goK-w5-iiF"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sli-ij-rnC">
+                                                <rect key="frame" x="31" y="0.0" width="303" height="14.333333333333334"/>
+                                                <string key="text">other exclusive content
+
+</string>
+                                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                                <color key="textColor" red="0.058823529409999999" green="0.1450980392" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U2s-6q-dek">
+                                <rect key="frame" x="40" y="344.66666666666669" width="334" height="89"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="overlay_green" translatesAutoresizingMaskIntoConstraints="NO" id="WA5-ep-BJg">
+                                        <rect key="frame" x="0.0" y="0.0" width="334" height="89"/>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="sZc-ua-L9Z">
+                                        <rect key="frame" x="30" y="20" width="164" height="48"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="subscribe for" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lTQ-sl-FiD">
+                                                <rect key="frame" x="0.0" y="0.0" width="96.333333333333329" height="15"/>
+                                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="15"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$3.33/month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vP0-wp-QxP">
+                                                <rect key="frame" x="0.0" y="23" width="164" height="25"/>
+                                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="25"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="WA5-ep-BJg" firstAttribute="leading" secondItem="U2s-6q-dek" secondAttribute="leading" id="0jm-LY-Qe9"/>
+                                    <constraint firstAttribute="bottom" secondItem="WA5-ep-BJg" secondAttribute="bottom" id="3MT-Mu-GCJ"/>
+                                    <constraint firstItem="sZc-ua-L9Z" firstAttribute="top" secondItem="U2s-6q-dek" secondAttribute="top" constant="20" id="DCP-Wi-cyb"/>
+                                    <constraint firstItem="WA5-ep-BJg" firstAttribute="top" secondItem="U2s-6q-dek" secondAttribute="top" id="JNz-Pz-IKH"/>
+                                    <constraint firstItem="sZc-ua-L9Z" firstAttribute="leading" secondItem="U2s-6q-dek" secondAttribute="leading" constant="30" id="lSK-8j-sM1"/>
+                                    <constraint firstAttribute="trailing" secondItem="WA5-ep-BJg" secondAttribute="trailing" id="lW5-Ss-BTR"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3vU-bG-hAg">
+                                <rect key="frame" x="154.66666666666666" y="445.66666666666669" width="104.99999999999997" height="24"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="12"/>
+                                <state key="normal" title="Restore Purchase">
+                                    <color key="titleColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="restoreOnClick:" destination="TeQ-PY-kQs" eventType="touchUpInside" id="YLA-Wn-9Hb"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADP-gk-iss">
+                                <rect key="frame" x="40" y="490.66666666666669" width="334" height="100.33333333333331"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">The subscription will automatically be renewed unless turned off in your iTunes Account Settings at least 24 hours before the current period ends. Manage your subscriptions and turn off auto-renew through your iTunes Account. </string>
+                                        <attributes>
+                                            <color key="NSColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="12" name="Antenna-Regular"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.6699999999999999" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94509803921568625" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Y2i-gj-IXa" firstAttribute="bottom" secondItem="cdd-6Q-Bne" secondAttribute="bottom" id="0IV-51-aWc"/>
+                            <constraint firstItem="ADP-gk-iss" firstAttribute="leading" secondItem="Y2i-gj-IXa" secondAttribute="leading" constant="40" id="88z-Y7-qax"/>
+                            <constraint firstItem="U2s-6q-dek" firstAttribute="top" secondItem="eDf-hl-WhQ" secondAttribute="bottom" constant="40" id="G6H-Ci-War"/>
+                            <constraint firstItem="Y2i-gj-IXa" firstAttribute="trailing" secondItem="U2s-6q-dek" secondAttribute="trailing" constant="40" id="KK3-3P-sav"/>
+                            <constraint firstItem="QdL-pQ-piX" firstAttribute="leading" secondItem="Y2i-gj-IXa" secondAttribute="leading" constant="40" id="PfA-4Y-sUc"/>
+                            <constraint firstItem="3vU-bG-hAg" firstAttribute="top" secondItem="U2s-6q-dek" secondAttribute="bottom" constant="12" id="RO3-xe-rnx"/>
+                            <constraint firstItem="Y2i-gj-IXa" firstAttribute="trailing" secondItem="eDf-hl-WhQ" secondAttribute="trailing" constant="40" id="X6c-TA-8zi"/>
+                            <constraint firstItem="Y2i-gj-IXa" firstAttribute="trailing" secondItem="cdd-6Q-Bne" secondAttribute="trailing" id="ael-uz-nBH"/>
+                            <constraint firstItem="eDf-hl-WhQ" firstAttribute="leading" secondItem="Y2i-gj-IXa" secondAttribute="leading" constant="40" id="ayT-D1-YdV"/>
+                            <constraint firstItem="Y2i-gj-IXa" firstAttribute="trailing" secondItem="r0O-oK-so9" secondAttribute="trailing" constant="23" id="bFx-6d-GNB"/>
+                            <constraint firstItem="ADP-gk-iss" firstAttribute="top" secondItem="3vU-bG-hAg" secondAttribute="bottom" constant="21" id="cda-9z-7St"/>
+                            <constraint firstItem="r0O-oK-so9" firstAttribute="top" secondItem="Y2i-gj-IXa" secondAttribute="top" constant="36" id="eIN-mn-xrS"/>
+                            <constraint firstItem="Y2i-gj-IXa" firstAttribute="trailing" secondItem="ADP-gk-iss" secondAttribute="trailing" constant="40" id="hoO-m1-f0c"/>
+                            <constraint firstItem="3vU-bG-hAg" firstAttribute="centerX" secondItem="Y2i-gj-IXa" secondAttribute="centerX" id="l9M-AJ-Wfa"/>
+                            <constraint firstItem="cdd-6Q-Bne" firstAttribute="leading" secondItem="Y2i-gj-IXa" secondAttribute="leading" id="nWV-6w-2Xs"/>
+                            <constraint firstItem="eDf-hl-WhQ" firstAttribute="top" secondItem="QdL-pQ-piX" secondAttribute="bottom" constant="39" id="qU2-J0-vWg"/>
+                            <constraint firstItem="U2s-6q-dek" firstAttribute="leading" secondItem="Y2i-gj-IXa" secondAttribute="leading" constant="40" id="t02-oF-JfA"/>
+                            <constraint firstItem="QdL-pQ-piX" firstAttribute="top" secondItem="r0O-oK-so9" secondAttribute="bottom" constant="25" id="xcS-vS-WMS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Y2i-gj-IXa"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="cdd-6Q-Bne" id="Dz3-LG-GoP"/>
+                        <outlet property="priceLabel" destination="vP0-wp-QxP" id="RRo-ob-bSX"/>
+                        <outlet property="subButtonView" destination="U2s-6q-dek" id="qQR-lO-OR2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zvh-yY-5kX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1189.8550724637682" y="147.55434782608697"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Close" width="20" height="20"/>
+        <image name="bg_image_trees-2" width="375" height="256"/>
+        <image name="checkmark" width="16" height="11"/>
         <image name="discover" width="20" height="20"/>
+        <image name="overlay_green" width="290" height="89"/>
         <image name="watch" width="13" height="23"/>
     </resources>
 </document>

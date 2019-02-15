@@ -58,6 +58,8 @@
 	<string>Add Zendo data to Apple Health </string>
 	<key>NSMotionUsageDescription</key>
 	<string>Uses motion data to track posture</string>
+	<key>NSUserActivityTypes</key>
+	<string>tools.sunyata.Zendo.app</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Antenna-ExtraLight.otf</string>

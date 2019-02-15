@@ -52,6 +52,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func application(_ application: UIApplication, willContinueUserActivityWithType userActivityType: String) -> Bool {
+        if (userActivityType == Settings.sharedUserActivityType) {
+            return true
+        }
+        return false
+    }
+    
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        print("continue activity2")
+        restorationHandler([self.window!.rootViewController!])
+        return true
+    }
+    
+    func application(_ application: UIApplication, handleWatchKitExtensionRequest userInfo: [AnyHashable : Any]?, reply: @escaping ([AnyHashable : Any]?) -> Void) {
+        print(userInfo)
+    }
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
     }

@@ -55,6 +55,10 @@
 		12C2C27F2137F7F70039C7A0 /* ZenTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12C2C27E2137F7F70039C7A0 /* ZenTextField.xib */; };
 		12C2C2812137FCA90039C7A0 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2C2802137FCA90039C7A0 /* CommunityViewController.swift */; };
 		12C2C286213802760039C7A0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2C285213802760039C7A0 /* String.swift */; };
+		12C63FF8221593B6001C93C7 /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C63FF7221593B6001C93C7 /* SubscriptionViewController.swift */; };
+		12C63FFA2215B86A001C93C7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C63FF92215B86A001C93C7 /* StoreKit.framework */; };
+		12C63FFC22170B44001C93C7 /* Date+UTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C63FFB22170B44001C93C7 /* Date+UTC.swift */; };
+		12C63FFE22173A46001C93C7 /* SubscribeInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C63FFD22173A46001C93C7 /* SubscribeInterfaceController.swift */; };
 		12C85D662176168C00329B53 /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C85D652176168B00329B53 /* WatchSessionManager.swift */; };
 		12CBA45E213549560066F671 /* TimeZone+UTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CBA45D213549560066F671 /* TimeZone+UTC.swift */; };
 		12CE364E211302A900EF0196 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE364D211302A900EF0196 /* UIView.swift */; };
@@ -264,6 +268,10 @@
 		12C2C27E2137F7F70039C7A0 /* ZenTextField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZenTextField.xib; sourceTree = "<group>"; };
 		12C2C2802137FCA90039C7A0 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
 		12C2C285213802760039C7A0 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		12C63FF7221593B6001C93C7 /* SubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionViewController.swift; sourceTree = "<group>"; };
+		12C63FF92215B86A001C93C7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		12C63FFB22170B44001C93C7 /* Date+UTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+UTC.swift"; sourceTree = "<group>"; };
+		12C63FFD22173A46001C93C7 /* SubscribeInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeInterfaceController.swift; sourceTree = "<group>"; };
 		12C85D652176168B00329B53 /* WatchSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSessionManager.swift; sourceTree = "<group>"; };
 		12CBA45D213549560066F671 /* TimeZone+UTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+UTC.swift"; sourceTree = "<group>"; };
 		12CE364D211302A900EF0196 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -367,6 +375,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12C63FFA2215B86A001C93C7 /* StoreKit.framework in Frameworks */,
 				BE81B26F2001B85500274FA1 /* HealthKit.framework in Frameworks */,
 				7C58E4E41E858E4241584A97 /* Pods_Zendo.framework in Frameworks */,
 			);
@@ -449,6 +458,7 @@
 				127C3E2821788FD300B332EB /* Discover.storyboard */,
 				127C3E2A2178939C00B332EB /* DiscoverViewController.swift */,
 				127C3E382178B37C00B332EB /* VideoViewController.swift */,
+				12C63FF7221593B6001C93C7 /* SubscriptionViewController.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -646,6 +656,7 @@
 				12C2C285213802760039C7A0 /* String.swift */,
 				127C3E3621789FD800B332EB /* CALayer+Corners.swift */,
 				124A689D2199CCF800598639 /* Error.swift */,
+				12C63FFB22170B44001C93C7 /* Date+UTC.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -723,6 +734,7 @@
 		BE2E820E1FF44A7B00D104AC /* Zendo WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				12C63FFD22173A46001C93C7 /* SubscribeInterfaceController.swift */,
 				125EB0E62202FF9200075DF4 /* SetGoalInterfaceController.swift */,
 				121F25FF211B372300C1CC96 /* SessionDelegater.swift */,
 				121F25FD211B367D00C1CC96 /* SessionCommands.swift */,
@@ -736,8 +748,8 @@
 				BE0B4EB1213E05AF006C3773 /* BluetoothManager.swift */,
 				1277A525215CF3F800B15CE6 /* SummaryInterfaceController.swift */,
 				123E8E8621748DC900C6E2EC /* SettingsWatch.swift */,
-				BE3AE43521ED0ACF0019C489 /* Notification.swift */,
 				12BC71FD220C80FD00588739 /* Background.swift */,
+				BE3AE43521ED0ACF0019C489 /* Notification.swift */,
 				128B104021AEB8E6009190B0 /* Supporting Files */,
 			);
 			path = "Zendo WatchKit Extension";
@@ -746,6 +758,7 @@
 		BE8BB21D1FFDCC4600B2E113 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				12C63FF92215B86A001C93C7 /* StoreKit.framework */,
 				BE9B00012065FE44007FF96A /* CoreMotion.framework */,
 				BE9B00032065FF6B007FF96A /* CoreMotion.framework */,
 				BE81B26E2001B85500274FA1 /* HealthKit.framework */,
@@ -870,10 +883,16 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
 							com.apple.HealthKit = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 							com.apple.Push = {
@@ -1132,6 +1151,7 @@
 				12E189BC211C6387004EADE9 /* UIViewController.swift in Sources */,
 				12E2A1B721107CE400E0E911 /* UIColor+Zendo.swift in Sources */,
 				12FFCAE5210F7DDD007E2480 /* Cell+ReuseIdentifier.swift in Sources */,
+				12C63FFC22170B44001C93C7 /* Date+UTC.swift in Sources */,
 				BE75AEC120F708C300311512 /* Chart.swift in Sources */,
 				124A689C2199A41400598639 /* WatchSyncError.swift in Sources */,
 				12C2C2812137FCA90039C7A0 /* CommunityViewController.swift in Sources */,
@@ -1158,6 +1178,7 @@
 				121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */,
 				12C1A72C2119B78900EEFF4F /* UIView+Nib.swift in Sources */,
 				12E2A1B22110774000E0E911 /* ConstraintFont.swift in Sources */,
+				12C63FF8221593B6001C93C7 /* SubscriptionViewController.swift in Sources */,
 				127C3E412178DAF500B332EB /* LoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1177,6 +1198,7 @@
 				123E8E8721748DC900C6E2EC /* SettingsWatch.swift in Sources */,
 				BE89838F20E6BBE300F0FD63 /* ZendoDataSource.swift in Sources */,
 				1277A526215CF3F800B15CE6 /* SummaryInterfaceController.swift in Sources */,
+				12C63FFE22173A46001C93C7 /* SubscribeInterfaceController.swift in Sources */,
 				12F121362125B68400F5451D /* ConstraintMetadata.swift in Sources */,
 				BE2E82121FF44A7B00D104AC /* ExtensionDelegate.swift in Sources */,
 				12CE61E32158FB3A00AD8A11 /* TimeInterval.swift in Sources */,

@@ -28,7 +28,22 @@ class AppInterfaceController: WKInterfaceController {
         
         NSLog("start press")
         
-        startSession()
+//        sessionDelegater.sendMessage(["watch": "subscribe"], replyHandler: { replyHandler in
+//
+//            if let isSubscribe = replyHandler["isSubscribe"] as? Bool, isSubscribe {
+//                DispatchQueue.main.async {
+//                    self.startSession()
+//                }
+//            } else {
+//                DispatchQueue.main.async {
+        
+        self.presentController(withName: "SubscribeInterfaceController", context: nil)
+//                }
+//            }
+//
+//        }, errorHandler: { error in
+//
+//        })
         
     }
     
@@ -42,7 +57,7 @@ class AppInterfaceController: WKInterfaceController {
         
         WKInterfaceDevice.current().play(WKHapticType.start)
         
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context:  Session.current  as AnyObject)])
+        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject)])
     }
     
     override func awake(withContext context: Any?)
