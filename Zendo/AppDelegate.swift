@@ -20,16 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]?) -> Bool {
         
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
-        Mixpanel.initialize(token: "73167d0429d8da0c05c6707e832cbb46")
-        BuddyBuildSDK.setup()
-        
-        CommunityDataLoader.load()
+        Cloud.enable(application, launchOptions)
         
         WatchSessionManager.sharedManager.startSession()
-        
-        FirebaseApp.configure()
         
         UINavigationBar.appearance().barStyle = .black
         UINavigationBar.appearance().barTintColor = UIColor.zenDarkGreen
@@ -47,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().tintColor = UIColor.zenDarkGreen
         UITabBar.appearance().shadowImage = UIImage()
         UITabBar.appearance().backgroundImage = UIImage()
+        
+        
         
         
         return true

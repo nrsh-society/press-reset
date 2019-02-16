@@ -113,6 +113,9 @@
 		BE75AEC020F708C300311512 /* ChartSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75AEBD20F708C300311512 /* ChartSeries.swift */; };
 		BE75AEC120F708C300311512 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75AEBE20F708C300311512 /* Chart.swift */; };
 		BE81B26F2001B85500274FA1 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE81B26E2001B85500274FA1 /* HealthKit.framework */; };
+		BE8786FF2215EE1F0052FE4C /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8786FD2215EE1F0052FE4C /* Cloud.swift */; };
+		BE8787002215EE1F0052FE4C /* ArenaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8786FE2215EE1F0052FE4C /* ArenaController.swift */; };
+		BE8787022215F68B0052FE4C /* ArenaController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE8787012215F68B0052FE4C /* ArenaController.storyboard */; };
 		BE89838F20E6BBE300F0FD63 /* ZendoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE89838E20E6BBE300F0FD63 /* ZendoDataSource.swift */; };
 		BE8BB21F1FFDCC4600B2E113 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8BB21E1FFDCC4600B2E113 /* HealthKit.framework */; };
 		BE9B00002065F317007FF96A /* ZBFHealthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9BFFFF2065F317007FF96A /* ZBFHealthKit.swift */; };
@@ -325,6 +328,9 @@
 		BE75AEBE20F708C300311512 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		BE81B26D2001B85500274FA1 /* Zendo.entitlements */ = {isa = PBXFileReference; explicitFileType = text.plist.entitlements; path = Zendo.entitlements; sourceTree = "<group>"; };
 		BE81B26E2001B85500274FA1 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		BE8786FD2215EE1F0052FE4C /* Cloud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cloud.swift; sourceTree = "<group>"; };
+		BE8786FE2215EE1F0052FE4C /* ArenaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArenaController.swift; sourceTree = "<group>"; };
+		BE8787012215F68B0052FE4C /* ArenaController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ArenaController.storyboard; sourceTree = "<group>"; };
 		BE89838E20E6BBE300F0FD63 /* ZendoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZendoDataSource.swift; sourceTree = "<group>"; };
 		BE8BB21E1FFDCC4600B2E113 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS4.1.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		BE8BB2201FFDCC4700B2E113 /* Zendo WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Zendo WatchKit Extension.entitlements"; sourceTree = "<group>"; };
@@ -444,6 +450,8 @@
 		127C3E2721788F9900B332EB /* Discover */ = {
 			isa = PBXGroup;
 			children = (
+				BE8787012215F68B0052FE4C /* ArenaController.storyboard */,
+				BE8786FE2215EE1F0052FE4C /* ArenaController.swift */,
 				BE9DB33321F5680600BCE8C2 /* AirplayController.storyboard */,
 				BE9DB33421F5680700BCE8C2 /* AirplayController.swift */,
 				127C3E2821788FD300B332EB /* Discover.storyboard */,
@@ -702,6 +710,7 @@
 				BE75AEBC20F708C300311512 /* ChartColors.swift */,
 				BE75AEBD20F708C300311512 /* ChartSeries.swift */,
 				BE9BFFFF2065F317007FF96A /* ZBFHealthKit.swift */,
+				BE8786FD2215EE1F0052FE4C /* Cloud.swift */,
 				BE066BDC20F1F3D10008747D /* PageController.swift */,
 				BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */,
 				12BE94BE21AEE4C6000E2B0B /* PauseImageView.swift */,
@@ -947,6 +956,7 @@
 				12E2A1AA211073D700E0E911 /* Antenna-Regular.otf in Resources */,
 				127C3E352178993100B332EB /* DiscoverCollectionViewCell.xib in Resources */,
 				12584E5321AFF86D004DA557 /* animationNoInternet.json in Resources */,
+				BE8787022215F68B0052FE4C /* ArenaController.storyboard in Resources */,
 				12C1A7302119C28700EEFF4F /* ZenInfoView.xib in Resources */,
 				BE2E81F21FF44A7B00D104AC /* Main.storyboard in Resources */,
 				BED56AFB21F8C0BF0027F78B /* GoogleService-Info.plist in Resources */,
@@ -1115,6 +1125,7 @@
 				BE0FF19921E03EDB0050D15B /* NotificationViewController.swift in Sources */,
 				DFE3B1762189C377008830CD /* StartingSessionViewController.swift in Sources */,
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
+				BE8787002215EE1F0052FE4C /* ArenaController.swift in Sources */,
 				126544AE2170B44D00CA8F0B /* NavigationControllerWelcome.swift in Sources */,
 				12BE94BF21AEE4C6000E2B0B /* PauseImageView.swift in Sources */,
 				BE9DB33621F5680700BCE8C2 /* AirplayController.swift in Sources */,
@@ -1125,6 +1136,7 @@
 				BE38CF612075D1D10095BB6C /* WelcomeController.swift in Sources */,
 				12477F222119A27700D8AE83 /* Settings.swift in Sources */,
 				12FFCAE1210F6DA0007E2480 /* ZendoTableViewCell.swift in Sources */,
+				BE8786FF2215EE1F0052FE4C /* Cloud.swift in Sources */,
 				121F260A211B499300C1CC96 /* HealthKitViewController.swift in Sources */,
 				12DAE77C212B1A1200D28DD7 /* Array.swift in Sources */,
 				12C85D662176168C00329B53 /* WatchSessionManager.swift in Sources */,

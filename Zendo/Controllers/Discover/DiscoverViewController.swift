@@ -133,12 +133,16 @@ class DiscoverViewController: UIViewController {
         Mixpanel.mainInstance().track(event: "phone_discover")
     }
     
-    func startConnection() {
+    func startConnection()
+    {
+
         isNoInternet = false
         
-        //let urlPath: String = "http://media.zendo.tools/discover.json?v=\(Date().timeIntervalSinceNow)"
-        
-        let urlPath: String = "http://media.zendo.tools/discover.v3.json?v=\(Date().timeIntervalSinceNow)"
+        #if DEBUG
+            let urlPath: String = "http://media.zendo.tools/discover.v4.json?v=\(Date().timeIntervalSinceNow)"
+        #else
+            let urlPath: String = "http://media.zendo.tools/discover.v3.json?v=\(Date().timeIntervalSinceNow)"
+        #endif
         
         URLSession.shared.dataTask(with: URL(string: urlPath)!) { data, response, error -> Void in
             
@@ -415,14 +419,36 @@ extension DiscoverViewController: UICollectionViewDataSource {
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+    
         dataTask?.cancel()
+        
         let story = sections[collectionView.tag].stories[indexPath.row]
-        let vc = VideoViewController.loadFromStoryboard()
-        vc.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-        vc.hero.isEnabled = true
-        vc.story = story
-        present(vc, animated: true, completion: nil)
+        
+        var vc : UIViewController?
+        
+        if story.type == "arena"
+        {
+            
+            let arena = ArenaController.loadFromStoryboard()
+            arena.story = story
+            
+            
+                    arena.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            vc = arena
+            
+        }
+        else
+        {
+            let video = VideoViewController.loadFromStoryboard()
+            video.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            video.story = story
+            vc = video
+        }
+        
+        vc?.hero.isEnabled = true
+        present(vc!, animated: true, completion: nil)
     }
     
 }
