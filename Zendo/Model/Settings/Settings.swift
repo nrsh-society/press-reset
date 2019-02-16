@@ -40,13 +40,13 @@ class Settings  {
     
     static var email: String? {
         set {
-            defaults.set(newValue, forKey: "email")
+            defaults.set(newValue?.trimmingCharacters(in: CharacterSet.whitespaces), forKey: "email")
             defaults.synchronize()
         }
         get {
-            return defaults.string(forKey: "email")
+            return defaults.string(forKey: "email")?.trimmingCharacters(in: CharacterSet.whitespaces)
+            }
         }
-    }
     
     static var requestedNotificationPermission: Bool {
         set {

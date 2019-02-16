@@ -177,7 +177,7 @@
                                                 <constraint firstAttribute="height" constant="319" id="r4L-5Z-BFb"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start a session from Apple Phone by pressing the watch icon above. Start on Apple Watch by pressing inside the ring ." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5J-CS-i6v">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start a session from Apple Phone by pressing the watch icon above. Start on Apple Watch by pressing inside the ring." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5J-CS-i6v">
                                             <rect key="frame" x="32" y="350" width="311" height="42.333333333333314"/>
                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                             <color key="textColor" red="0.58431372549019611" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -594,7 +594,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                 <rect key="frame" x="149" y="168" width="124.66666666666669" height="125"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1B-N9-wqN">
-                                <rect key="frame" x="47" y="417" width="187" height="30"/>
+                                <rect key="frame" x="46.999999999999986" y="417" width="186.66666666666663" height="30"/>
                                 <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                 <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -670,7 +670,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BYx-Uq-KDh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3256.521739130435" y="-709.82142857142856"/>
+            <point key="canvasLocation" x="-3257" y="-735"/>
         </scene>
         <!--Community View Controller-->
         <scene sceneID="5T6-K5-oSo">

@@ -15,10 +15,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Zendō Airplay-->
+        <!--Zendō-->
         <scene sceneID="fJB-84-DsG">
             <objects>
-                <viewController storyboardIdentifier="AirplayController" title="Zendō Airplay" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MZm-GO-rLu" customClass="AirplayController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AirplayController" title="Zendō" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MZm-GO-rLu" customClass="AirplayController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="S1P-aP-I2z">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

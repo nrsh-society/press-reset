@@ -40,7 +40,7 @@ class Content: Codable {
         if let spherial = json["spherial"].string {
             self.spherial = spherial
         }
-    
+        
     }
     
 }

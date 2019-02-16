@@ -106,8 +106,6 @@ class VideoViewController: UIViewController {
     let mainQueue = DispatchQueue.main
     var airplay: AirplayController?
     
-
-    
     @objc func sample(notification: NSNotification)
     {
         DispatchQueue.main.async
@@ -118,44 +116,13 @@ class VideoViewController: UIViewController {
                 let double_hrv = Double(text_hrv)!.rounded()
                 let int_hrv = Int(double_hrv)
                 
-                UIView.animate(withDuration: 0.5
-                    , animations: {
-                        
-                        self.tickerLabel.alpha = self.tickerLabel.alpha == 0.5 ? 1 : 0.5
+                UIView.animate(withDuration: 0.5, animations:
+                {
+                    self.tickerLabel.alpha = self.tickerLabel.alpha == 0.5 ? 1 : 0.5
                 })
                 
-                self.tickerLabel.text = int_hrv.description
+                self.tickerLabel.text = int_hrv > 1 ? int_hrv.description : "--"
                 
-                //#todo(party mode): story.type == "group"?
-                if(self.story.title.lowercased().contains("group"))
-                {
-                    if let email = Settings.email
-                    {
-                    
-                        let value = ["data" : sample,
-                                 "updated" : Date().description,
-                                 "title" : self.story.title,
-                                 "email" : email] as [String : Any]
-                    
-                        let database = Database.database().reference()
-                    
-                        let sample = database.child("samples")
-                    
-                        let key = sample.child(email.replacingOccurrences(of: ".", with: "_"))
-                    
-                        key.setValue(value)
-                        {
-                            (error, ref) in
-                            
-                            if let error = error
-                            {
-                                print("Data could not be saved: \(error).")
-                            }
-                        }
-                    
-                    }
-                
-                }
             }
         }
     }
@@ -192,59 +159,18 @@ class VideoViewController: UIViewController {
                     }
                 }
                 
-                //#todo(live meditation): story.type == "live"?
-                if(story.title.lowercased().contains("meditation"))
+                if let type = story.type
                 {
+                    if(type == "meditation")
+                    {
+                        
                     NotificationCenter.default.addObserver(self,
                                                        selector: #selector(self.sample),
                                                        name: NSNotification.Name("sample"),
                                                        object: nil)
                     
+                    }
                 }
-                
-                //#todo(live meditation): story.type == "live"?
-                if(story.title.lowercased().contains("group")) {
-                
-                let database = Database.database().reference()
-                
-                let sample = database.child("samples")
-                
-                let refHandle = sample.observe(DataEventType.value, with:
-                {
-                    (snapshot) in
-                    
-                    let samples = snapshot.value as? [String : [String : AnyObject]] ?? [:]
-                    
-                    self.groupTextView.text.removeAll()
-                    
-                    samples.forEach(
-                    {
-                        (arg0) in
-                        
-                        let (key, value) = arg0
-                        
-                        let data = value["data"] as! [String : String]
-                        
-                        let text_hrv = data["sdnn"]!
-                        let double_hrv = Double(text_hrv)!.rounded()
-                        let int_hrv = Int(double_hrv)
-                        
-                        let  text_email = value["email"]!
-                        
-                        let entry = (text_email as! String) + ": " + int_hrv.description + "\n"
-                        
-                        DispatchQueue.main.async
-                        {
-                                self.groupTextView.text.append(entry)
-                                
-                                let lastLine = NSMakeRange(self.groupTextView.text.count - 1, 1);
-                                self.groupTextView.scrollRangeToVisible(lastLine)
-                        }
-                    })
-                })
-                    
-                }
-                
             }
             
             for (index, content) in story.content.enumerated() {

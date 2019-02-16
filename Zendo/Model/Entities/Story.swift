@@ -15,6 +15,8 @@ class Story: Codable {
     
     var title: String!
     var thumbnailUrl: String?
+    var type: String?
+
     var content = [Content]()
     
     public init(_ json: JSON) {
@@ -27,7 +29,13 @@ class Story: Codable {
             self.thumbnailUrl = thumbnailUrl
         }
         
+       
+        if let type = json["type"].string {
+            self.type = type
+        }
+        
         content = json["content"].toContents
+        
     }
     
 }
