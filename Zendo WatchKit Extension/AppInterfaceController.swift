@@ -37,7 +37,10 @@ class AppInterfaceController: WKInterfaceController {
 //            } else {
 //                DispatchQueue.main.async {
         
-        self.presentController(withName: "SubscribeInterfaceController", context: nil)
+        DispatchQueue.main.async {
+            self.presentController(withName: "SubscribeInterfaceController", context: nil)
+            self.startSession()
+        }
 //                }
 //            }
 //

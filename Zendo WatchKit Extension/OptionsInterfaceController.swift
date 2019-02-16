@@ -23,6 +23,24 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
         
         Session.options.hapticStrength = Int(value)
+        
+        let iterations = Int(Session.options.hapticStrength)
+        
+        if iterations > 0
+        {
+            Thread.detachNewThread
+                {
+                    for _ in 1...iterations
+                    {
+                        DispatchQueue.main.async
+                            {
+                                WKInterfaceDevice.current().play(WKHapticType.success)
+                        }
+                        
+                        Thread.sleep(forTimeInterval: 0.5)
+                    }
+            }
+        }
     }
     
     @IBAction func bluetoothChanged(_ value: Bool)
