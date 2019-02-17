@@ -101,8 +101,11 @@ class ArenaController: UIViewController
 
                             if(motionD > 0.0)
                             {
-                                let force = CGVector(dx: 100 * motionD, dy: 100 * motionD)
-                                existingPlayer.physicsBody?.applyImpulse(force)
+                               // let force = CGVector(dx: 100 * motionD, dy: 100 * motionD)
+                                //existingPlayer.physicsBody?.applyImpulse(force)
+                                
+                               // let v = CGVector(dx: 0, dy: (existingPlayer.physicsBody?.velocity.dy)! + 75)
+                                //existingPlayer.physicsBody?.velocity = v
                             }
 
                         }
@@ -193,7 +196,7 @@ class ArenaController: UIViewController
         scene.physicsBody?.isDynamic = false
         scene.physicsBody?.friction = 0
  
-        video = SKVideoNode(url: URL(string: "http://media.zendo.tools/sitting_meditation.m4v")!)
+        video = SKVideoNode(url: URL(string: "http://media.zendo.tools/rainbow.mp4")!)
         
         video?.size = scene.frame.size
         video?.position = scene.position
