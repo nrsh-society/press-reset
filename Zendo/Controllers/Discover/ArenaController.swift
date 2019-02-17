@@ -94,89 +94,82 @@ class ArenaController: UIViewController
                         {
                             let label = existingPlayer.childNode(withName: "hrv") as! SKLabelNode
                             
-                            label.text = Int(hrv).description
-                            label.fontSize = 55
+                            label.text = Int(hrv.rounded()).description
                             
-                            let size = CGSize(width: 100 + (CGFloat(hrv) * 1.1 ), height: 100 + (CGFloat(hrv) * 1.1 ))
-                            
-                            existingPlayer.size = size
-                            
-                            let radius = ((100 + CGFloat(hrv)) / 2)
-                            
-                            let newBody = SKPhysicsBody(circleOfRadius: radius)
-                            
-                            newBody.velocity = (existingPlayer.physicsBody?.velocity)!
-                            newBody.mass = 100 + CGFloat(hrv)
-                            newBody.friction = CGFloat(hrv * 0.01)
-                            newBody.restitution = 1 //- CGFloat(hrv * 0.01)
-                            newBody.linearDamping = CGFloat(hrv * 0.01)
-                            newBody.allowsRotation = false
-                            newBody.affectedByGravity = false //!((existingPlayer.physicsBody?.affectedByGravity)!)
-                            
-                            
-                            let ballCategory  : UInt32 = 0x1 << 1
-                            
-                            newBody.categoryBitMask = ballCategory
-                            newBody.contactTestBitMask = ballCategory
-                            
-                            existingPlayer.physicsBody = newBody
+                            let motion = data["motion"]!
+                            let motionD = Double(motion)!
 
-                                let yaw = data["yaw"]!
-                                let pitch = data["pitch"]!
-                               // let roll = value["roll"]! as! String
-                                
-                                let yawD = Double(yaw)!
-                                let pitchD = Double(pitch)!
-                                //let rollD = Double(roll)!
-                        
-                                let force = CGVector(dx: 30000 * pitchD, dy: 30000 * yawD)
-                                
+                            if(motionD > 0.0)
+                            {
+                                let force = CGVector(dx: 100 * motionD, dy: 100 * motionD)
                                 existingPlayer.physicsBody?.applyImpulse(force)
+                            }
 
                         }
                         else
                         {
-                                let size = CGSize(width: 100 , height: 100)
+                            let size = CGSize(width: 40 , height: 40)
+                        
+                            let radius = (size.width / 2)
                             
-                                let radius = (size.width / 2)
-                                
-                                let node = SKSpriteNode(imageNamed: "shobogenzo")
-                                
-                                node.size = size
+                            let node = SKSpriteNode(imageNamed: "shobogenzo")
                             
-                                node.name = "ball"
+                            node.size = size
+                        
+                            node.name = "ball"
+                        
+                            let body = SKPhysicsBody(circleOfRadius: radius )
                             
-                                let body = SKPhysicsBody(circleOfRadius: radius / 2 )
-                                
-                                body.isDynamic = true
-                                body.affectedByGravity = true
-                                body.allowsRotation = false
-                                body.mass = CGFloat(hrv)
-                                body.friction = CGFloat(hrv * 0.01)
-                                body.linearDamping = CGFloat(hrv * 0.01)
-                                body.restitution = 1 //0.9 //1 - CGFloat(hrv * 0.01)
+                            body.isDynamic = true
+                            body.affectedByGravity = true
+                            body.allowsRotation = true
+                            body.mass = 100
+                            body.friction = 1
+                            body.linearDamping = 0
+                            body.restitution = 1
                             
-                                node.physicsBody = body
-                                
-                                let text = Int(hrv.rounded()).description
-                                
-                                let label = SKLabelNode(text: text)
-                                
-                                label.fontSize = 33
-                                label.fontName = "Antenna"
-                                
-                                label.verticalAlignmentMode = .center
-                                label.horizontalAlignmentMode = .center
-                                label.name = "hrv"
+                            let ballCategory  : UInt32 = 0x1 << 1
                             
+                            body.categoryBitMask = ballCategory
+                            body.contactTestBitMask = ballCategory
                             
-                                node.addChild(label)
+                            node.physicsBody = body
                                 
+                            let text = Int(hrv.rounded()).description
+                            
+                            let label = SKLabelNode(text: text)
+
+                            
+                            label.fontSize = 15
+                            label.fontName = "Antenna"
+                            label.color = UIColor.black
+                            label.verticalAlignmentMode = .center
+                            label.horizontalAlignmentMode = .center
+                            label.name = "hrv"
+                            
+                            node.addChild(label)
+                            
                             self.players[email] = node
                             
-                            node.position = CGPoint(x: CGFloat(self.players.count) * CGFloat(radius * 2), y: 600)
-                            body.velocity = CGVector(dx: 0, dy: 100)
+                            node.position = CGPoint(x: self.spriteView!.frame.midX + (CGFloat(self.players.count) * radius * 1.1) , y: self.spriteView!.frame.midY + (CGFloat(self.players.count) * radius))
+                            
+                            body.velocity = CGVector(dx: 0, dy: 75)
+                            
                             self.spriteView.scene?.addChild(self.players[email]!)
+                            
+                            let center = self.spriteView.scene!.childNode(withName: "center")!
+                            
+                            let centerBody = center.physicsBody!
+                            
+                            let joint = SKPhysicsJointSpring.joint(withBodyA: centerBody
+                                , bodyB: body
+                                , anchorA: center.position
+                                , anchorB: node.position)
+                            
+                            joint.frequency = 5.0
+                            joint.damping = 0.0
+                            
+                            self.spriteView.scene?.physicsWorld.add(joint)
                             
                         }
                             
@@ -194,10 +187,11 @@ class ArenaController: UIViewController
         scene.scaleMode = .aspectFill
         
         scene.physicsBody = SKPhysicsBody(edgeLoopFrom: scene.frame)
-        scene.physicsWorld.gravity = CGVector(dx: 0, dy: -5)
+        scene.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         scene.physicsWorld.contactDelegate = self
         scene.physicsBody?.node?.name = "walls"
         scene.physicsBody?.isDynamic = false
+        scene.physicsBody?.friction = 0
  
         video = SKVideoNode(url: URL(string: "http://media.zendo.tools/sitting_meditation.m4v")!)
         
@@ -207,14 +201,31 @@ class ArenaController: UIViewController
         scene.addChild(video!)
         video?.play()
         
-        let center = SKPhysicsBody(circleOfRadius: CGFloat(10.0))
+        
+        let size = CGSize(width: 1 , height: 1)
+        let radius = (size.width / 2)
+        let node = SKSpriteNode(imageNamed: "shobogenzo")
+
+        node.size = size
+        
+        node.name = "center"
+        
+        let center = SKPhysicsBody(circleOfRadius: radius)
         center.affectedByGravity = false
-        center.density = 1000000
+        center.mass = 5.972e24 //1.989e30
+        node.position = CGPoint(x: scene.frame.midX, y: scene.frame.midY)
+        node.physicsBody = center
+        center.pinned = true
+        scene.addChild(node)
         
-        scene.addChild(SKSpriteNode(color: .clear, size: CGSize(width: 10, height: 10)))
-        
-        
-        
+        let field = SKFieldNode.radialGravityField()
+        field.strength = 20.0
+        field.falloff = 0
+        field.name = "centerField"
+        field.isEnabled = false
+        field.position = node.position
+        node.addChild(field)
+    
         panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
         spriteView.addGestureRecognizer(panGR)
         
@@ -234,7 +245,7 @@ class ArenaController: UIViewController
             Hero.shared.apply(modifiers: [.position(currentPos)], to: spriteView)
         default:
             if progress + panGR.velocity(in: nil).y / spriteView.bounds.height > 0.3 {
-              //  removeObserver()
+              
                 Hero.shared.finish()
             } else {
                 Hero.shared.cancel()
@@ -253,10 +264,7 @@ extension ArenaController: SKPhysicsContactDelegate
         
         if(lname == rname &&  lname == "ball")
         {
-            
             print(contact.collisionImpulse)
-            
-            
             
             if(contact.collisionImpulse < 10.0)
             {
@@ -291,22 +299,18 @@ extension ArenaController: SKPhysicsContactDelegate
                 
                 if (parentA != nil && parentB != nil)
                 {
-                let joint = SKPhysicsJointSpring.joint(withBodyA: contact.bodyA
-                    , bodyB: contact.bodyB
-                    , anchorA: contact.contactPoint
-                    , anchorB: contact.contactPoint)
+                    let joint = SKPhysicsJointSpring.joint(withBodyA: contact.bodyA
+                        , bodyB: contact.bodyB
+                        , anchorA: contact.contactPoint
+                        , anchorB: contact.contactPoint)
                 
-                joint.frequency = 1.0
-                joint.damping = 0.0
+                    joint.frequency = 1.0
+                    joint.damping = 0.0
                 
-                self.spriteView.scene?.physicsWorld.add(joint)
+                    self.spriteView.scene?.physicsWorld.add(joint)
                 }
             }
-            
-           
         }
-        
-        
     }
     
     func didEnd(_ contact: SKPhysicsContact)
@@ -319,10 +323,6 @@ extension ArenaController: SKPhysicsContactDelegate
         if(lname == rname &&  lname == "ball")
         {
             print(contact.collisionImpulse)
-            
-            
         }
     }
 }
-
-

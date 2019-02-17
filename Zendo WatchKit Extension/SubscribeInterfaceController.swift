@@ -22,7 +22,15 @@ class SubscribeInterfaceController: WKInterfaceController {
     }
     
     @IBAction func cancelAction() {
-        dismiss()
+        
+        Session.current = Session()
+        
+        Session.current?.start()
+        
+        WKInterfaceDevice.current().play(WKHapticType.start)
+        
+        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject)])
+        
     }
     
 }
