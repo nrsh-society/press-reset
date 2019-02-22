@@ -13,10 +13,8 @@ class Settings  {
 
     static let defaults = UserDefaults.standard
     
-    static let SHARED_SECRET = "____" //Get it from iTunes connect
-    static let sharedUserActivityType = "tools.sunyata.Zendo.app"
-    static let sharedIdentifierKey = "identifier"
-
+    static let SHARED_SECRET = "80653a3a2e33453c9e69f7d2da8945eb"
+   
 
     static var isRunOnce: Bool {
         set {
@@ -68,6 +66,36 @@ class Settings  {
         }
     }
     
+    static var isSetTrial: Bool {
+        set {
+            defaults.set(newValue, forKey: "isSetTrial")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.bool(forKey: "isSetTrial")
+        }
+    }
+    
+    static var isTrial: Bool {
+        set {
+            defaults.set(newValue, forKey: "isTrial")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.bool(forKey: "isTrial")
+        }
+    }
+    
+    static var startTrialDateStr: String? {
+        set {
+            defaults.set(newValue, forKey: "startTrialDateStr")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.string(forKey: "startTrialDateStr")
+        }
+    }
+    
     static var expiresDateStr: String? {
         set {
             defaults.set(newValue, forKey: "expiresDateStr")
@@ -85,61 +113,77 @@ class Settings  {
         return nil
     }
     
-    static func checkSubscriptionAvailability(_ completionHandler: ((Bool) -> ())? = nil) {
-        
-        if let date = expiresDate, date > Date() {
-            completionHandler?(true)
-        } else {
-            
-            guard let receiptUrl = Bundle.main.appStoreReceiptURL,
-                let receipt = try? Data(contentsOf: receiptUrl).base64EncodedString() else {
-                    completionHandler?(false)
-                    return
-            }
-            
-            let appleServer = receiptUrl.lastPathComponent == "sandboxReceipt" ? "sandbox" : "buy"
-            
-            let stringURL = "https://\(appleServer).itunes.apple.com/verifyReceipt"
-            
-            var request = URLRequest(url: URL(string: stringURL)! )
-            request.httpMethod = "POST"
-            
-            let httpBody = [
-                "receipt-data": receipt,
-                "password": SHARED_SECRET
-            ]
-            
-            if let json = try? JSONSerialization.data(withJSONObject: httpBody, options: []) {
-                request.httpBody = json
-            } else {
-                completionHandler?(false)
-            }
-            
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let data = data, error == nil {
-                    
-                    guard let json = try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers])
-                        as? [String: Any],
-                        let lastReceipt = json?["latest_receipt_info"] as? [[String: Any]],
-                        let expiresDate = lastReceipt.last?["expires_date"] as? String else {
-                            print("error trying to convert data to JSON")
-                            completionHandler?(false)
-                            return
-                    }
-                    
-                    self.expiresDateStr = expiresDate
-                    
-                    if let date = expiresDate.dateFromUTCString {
-                        isSubscriptionAvailability = date > Date()
-                        completionHandler?(date > Date())
-                    }
-                    
-                } else {
-                    completionHandler?(false)
-                }
-                }.resume()
-            
+    static var startTrialDate: Date? {
+        if let str = startTrialDateStr, let date = str.dateFromUTCString {
+            return date
         }
+        return nil
+    }
+    
+    static func checkSubscriptionAvailability(_ completionHandler: ((Bool, Bool) -> ())? = nil) {
+        
+        if isTrial && !isSubscriptionAvailability {
+            completionHandler?(false, true)
+            return
+        }
+        
+        if !isTrial {
+            if let date = expiresDate, date > Date() {
+                completionHandler?(true, false)
+            } else {
+                
+                guard let receiptUrl = Bundle.main.appStoreReceiptURL,
+                    let receipt = try? Data(contentsOf: receiptUrl).base64EncodedString() else {
+                        completionHandler?(false, false)
+                        return
+                }
+                
+                let appleServer = receiptUrl.lastPathComponent == "sandboxReceipt" ? "sandbox" : "buy"
+                
+                let stringURL = "https://\(appleServer).itunes.apple.com/verifyReceipt"
+                
+                var request = URLRequest(url: URL(string: stringURL)! )
+                request.httpMethod = "POST"
+                
+                let httpBody = [
+                    "receipt-data": receipt,
+                    "password": SHARED_SECRET
+                ]
+                
+                if let json = try? JSONSerialization.data(withJSONObject: httpBody, options: []) {
+                    request.httpBody = json
+                } else {
+                    completionHandler?(false, false)
+                }
+                
+                URLSession.shared.dataTask(with: request) { data, response, error in
+                    if let data = data, error == nil {
+                        
+                        guard let json = try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers])
+                            as? [String: Any],
+                            let lastReceipt = json?["latest_receipt_info"] as? [[String: Any]],
+                            let expiresDate = lastReceipt.last?["expires_date"] as? String else {
+                                print("error trying to convert data to JSON")
+                                completionHandler?(false, false)
+                                return
+                        }
+                        
+                        self.expiresDateStr = expiresDate
+                        
+                        if let date = expiresDate.dateFromUTCString {
+                            isSubscriptionAvailability = date > Date()
+                            completionHandler?(date > Date(), false)
+                        }
+                        
+                    } else {
+                        completionHandler?(false, false)
+                    }
+                    }.resume()
+                
+            }
+        }
+        
+        
     }
     
     

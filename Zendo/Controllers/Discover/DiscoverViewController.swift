@@ -15,7 +15,36 @@ import Mixpanel
 import Cache
 
 class SubscriptionHeaderTableViewCell: UITableViewCell {
-    @IBOutlet weak var textLable: UILabel!
+    
+    enum SubscriptionStatus: String {
+        case end = "your trial has ended"
+        case trial =  "days remaining on your free trial"
+    }
+    
+    @IBOutlet weak var textLabelSub: UILabel!
+    @IBAction func subscribeAction(_ sender: UIButton) {
+        action?()
+    }
+    
+    var isTrial: Bool? = nil {
+        didSet {
+            if let trial = isTrial, trial {
+                if let date = Settings.startTrialDate {
+                    let days = date.addingTimeInterval(60*60*24*14).days(from: Date())
+                    
+                    if days <= 0 {
+                        textLabelSub.text = SubscriptionStatus.end.rawValue
+                    } else {
+                        textLabelSub.text = "\(days) " + SubscriptionStatus.trial.rawValue
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+    var action: (()->())?
+    
 }
 
 
@@ -82,11 +111,14 @@ class DiscoverViewController: UIViewController {
         return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forData())
     }()
     
+    var isTrial: Bool? = nil
+    var isSubscription: Bool? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        try? storage?.removeAll()
-//        try? self.storageCodable?.removeAll()
+        //        try? storage?.removeAll()
+        //        try? self.storageCodable?.removeAll()
         
         refreshControl = UIRefreshControl()
         refreshControl.tintColor = UIColor.white
@@ -107,6 +139,7 @@ class DiscoverViewController: UIViewController {
             }
         }
         
+        
     }
     
     @IBAction func onNewSession(_ sender: Any) {
@@ -123,6 +156,12 @@ class DiscoverViewController: UIViewController {
         Mixpanel.mainInstance().time(event: "phone_discover")
         
         startConnection()
+        
+        Settings.checkSubscriptionAvailability { subscription, trial in
+            self.isTrial = trial
+            self.isSubscription = subscription
+            self.tableView.reloadData()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool)
@@ -134,13 +173,13 @@ class DiscoverViewController: UIViewController {
     
     func startConnection()
     {
-
+        
         isNoInternet = false
         
         #if DEBUG
-            let urlPath: String = "http://media.zendo.tools/discover.v4.json?v=\(Date().timeIntervalSinceNow)"
+        let urlPath: String = "http://media.zendo.tools/discover.v4.json?v=\(Date().timeIntervalSinceNow)"
         #else
-            let urlPath: String = "http://media.zendo.tools/discover.v4.json?v=\(Date().timeIntervalSinceNow)"
+        let urlPath: String = "http://media.zendo.tools/discover.v4.json?v=\(Date().timeIntervalSinceNow)"
         #endif
         
         URLSession.shared.dataTask(with: URL(string: urlPath)!) { data, response, error -> Void in
@@ -366,6 +405,31 @@ extension DiscoverViewController: UITableViewDelegate {
 
 extension DiscoverViewController: UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if let trial = isTrial, let subscription = isSubscription, trial && !subscription  {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: SubscriptionHeaderTableViewCell.reuseIdentifierCell) as! SubscriptionHeaderTableViewCell
+            
+            cell.isTrial = trial
+            cell.action = {
+                let vc = SubscriptionViewController.loadFromStoryboard()
+                self.present(vc, animated: true)
+            }
+            
+            return cell
+        }
+        
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if let trial = isTrial, let subscription = isSubscription, trial && !subscription {
+            return 40.0
+        }
+        return 0.0
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return isNoInternet ? tableView.frame.height : (sections.count == 1 ? getHeightCell() : tableView.frame.height / 2.0)
     }
@@ -420,7 +484,7 @@ extension DiscoverViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-    
+        
         dataTask?.cancel()
         
         let story = sections[collectionView.tag].stories[indexPath.row]
@@ -433,8 +497,7 @@ extension DiscoverViewController: UICollectionViewDataSource {
             let arena = ArenaController.loadFromStoryboard()
             arena.story = story
             
-            
-                    arena.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            arena.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
             vc = arena
             
         }

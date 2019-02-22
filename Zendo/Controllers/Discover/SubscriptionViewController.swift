@@ -11,7 +11,7 @@ import StoreKit
 
 class SubscriptionViewController: UIViewController {
     
-    var PRODUCT_ID = "ZendoPurchase1" //Get it from iTunes connect
+    var PRODUCT_ID = "subscription_v1"
     
     var productID = ""
     var productsRequest = SKProductsRequest()
@@ -145,6 +145,7 @@ extension SubscriptionViewController: SKPaymentTransactionObserver {
                 SKPaymentQueue.default().finishTransaction(transaction)
                 
                 if productID == PRODUCT_ID {
+                    Settings.isTrial = false
                     Settings.isSubscriptionAvailability = true
                     Settings.checkSubscriptionAvailability()
                     

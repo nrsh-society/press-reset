@@ -85,7 +85,7 @@ extension WatchSessionManager: WCSessionDelegate {
             }
             else if message["watch"] == "subscribe"
             {
-                Settings.checkSubscriptionAvailability { bool in
+                Settings.checkSubscriptionAvailability { bool, trial in
                     replyHandler(["isSubscribe": bool])
                 }
                

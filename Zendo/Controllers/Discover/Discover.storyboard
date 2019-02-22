@@ -48,21 +48,21 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubscriptionHeaderTableViewCell" id="A2b-mr-FL7" customClass="SubscriptionHeaderTableViewCell" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubscriptionHeaderTableViewCell" rowHeight="30" id="A2b-mr-FL7" customClass="SubscriptionHeaderTableViewCell" customModule="Zendo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A2b-mr-FL7" id="kNF-gg-ltf">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 14 days remaining on your free trial " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2gf-3c-kic">
-                                                    <rect key="frame" x="14" y="0.0" width="311" height="44"/>
+                                                    <rect key="frame" x="14" y="0.0" width="311" height="30"/>
                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                     <color key="textColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hp4-pV-fqI">
-                                                    <rect key="frame" x="335" y="0.0" width="68" height="44"/>
+                                                    <rect key="frame" x="335" y="0.0" width="68" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="68" id="Zxr-d1-DRh"/>
                                                     </constraints>
@@ -70,6 +70,9 @@
                                                     <state key="normal" title="subscribe">
                                                         <color key="titleColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="subscribeAction:" destination="A2b-mr-FL7" eventType="touchUpInside" id="1wE-HY-edp"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -82,12 +85,13 @@
                                                 <constraint firstItem="2gf-3c-kic" firstAttribute="leading" secondItem="kNF-gg-ltf" secondAttribute="leading" constant="14" id="zkU-sm-qQt"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="textLable" destination="2gf-3c-kic" id="Tdl-rd-xwV"/>
+                                            <outlet property="textLabelSub" destination="2gf-3c-kic" id="Tdl-rd-xwV"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiscoverTableViewCell" rowHeight="267" id="bYI-a4-lwh" customClass="DiscoverTableViewCell" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="414" height="267"/>
+                                        <rect key="frame" x="0.0" y="58" width="414" height="267"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bYI-a4-lwh" id="VBr-Sj-zZT">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="267"/>
@@ -471,7 +475,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.94509803921568625" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Y2i-gj-IXa" firstAttribute="bottom" secondItem="cdd-6Q-Bne" secondAttribute="bottom" id="0IV-51-aWc"/>
+                            <constraint firstAttribute="bottom" secondItem="cdd-6Q-Bne" secondAttribute="bottom" id="0IV-51-aWc"/>
                             <constraint firstItem="ADP-gk-iss" firstAttribute="leading" secondItem="Y2i-gj-IXa" secondAttribute="leading" constant="40" id="88z-Y7-qax"/>
                             <constraint firstItem="U2s-6q-dek" firstAttribute="top" secondItem="eDf-hl-WhQ" secondAttribute="bottom" constant="40" id="G6H-Ci-War"/>
                             <constraint firstItem="Y2i-gj-IXa" firstAttribute="trailing" secondItem="U2s-6q-dek" secondAttribute="trailing" constant="40" id="KK3-3P-sav"/>

@@ -28,25 +28,21 @@ class AppInterfaceController: WKInterfaceController {
         
         NSLog("start press")
         
-//        sessionDelegater.sendMessage(["watch": "subscribe"], replyHandler: { replyHandler in
-//
-//            if let isSubscribe = replyHandler["isSubscribe"] as? Bool, isSubscribe {
-//                DispatchQueue.main.async {
-//                    self.startSession()
-//                }
-//            } else {
-//                DispatchQueue.main.async {
-        
-        DispatchQueue.main.async {
-            self.presentController(withName: "SubscribeInterfaceController", context: nil)
+        sessionDelegater.sendMessage(["watch": "subscribe"], replyHandler: { replyHandler in
             
-        }
-//                }
-//            }
-//
-//        }, errorHandler: { error in
-//
-//        })
+            if let isSubscribe = replyHandler["isSubscribe"] as? Bool, isSubscribe {
+                DispatchQueue.main.async {
+                    self.startSession()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.presentController(withName: "SubscribeInterfaceController", context: nil)
+                }
+            }
+            
+        }, errorHandler: { error in
+            
+        })
         
     }
     

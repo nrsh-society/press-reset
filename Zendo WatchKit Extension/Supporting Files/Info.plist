@@ -42,8 +42,6 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
-	<key>NSUserActivityTypes</key>
-	<string>tools.sunyata.Zendo.app</string>
 	<key>UIBackgroundModes</key>
 	<array/>
 	<key>UIRequiresPersistentWiFi</key>

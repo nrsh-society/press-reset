@@ -31,6 +31,8 @@
 	<string>705460713163317</string>
 	<key>FacebookDisplayName</key>
 	<string>Zendō</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -59,7 +61,9 @@
 	<key>NSMotionUsageDescription</key>
 	<string>Uses motion data to track posture</string>
 	<key>NSUserActivityTypes</key>
-	<string>tools.sunyata.Zendo.app</string>
+	<array>
+		<string>tools.sunyata.Zendo.app</string>
+	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Antenna-ExtraLight.otf</string>

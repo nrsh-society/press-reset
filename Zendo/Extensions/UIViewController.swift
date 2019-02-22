@@ -96,7 +96,16 @@ extension UIViewController {
     
     
     func startingSession() {
-        Settings.checkSubscriptionAvailability { success in
+        Settings.checkSubscriptionAvailability { success, trial in
+            
+            if trial {
+                let startingSessions = StartingSessionViewController()
+                startingSessions.modalPresentationStyle = .overFullScreen
+                startingSessions.modalTransitionStyle = .crossDissolve
+                self.present(startingSessions, animated: true)
+                return
+            }
+            
             if success {
                 let startingSessions = StartingSessionViewController()
                 startingSessions.modalPresentationStyle = .overFullScreen
