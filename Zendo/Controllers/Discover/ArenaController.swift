@@ -41,6 +41,8 @@ class ArenaController: UIViewController
     {
         super.viewDidLoad()
         
+        UIApplication.shared.isIdleTimerDisabled = true
+        
         Cloud.registerSamplesChangedHandler()
         {
             (samples, error) in
@@ -107,6 +109,7 @@ class ArenaController: UIViewController
                                // let v = CGVector(dx: 0, dy: (existingPlayer.physicsBody?.velocity.dy)! + 75)
                                 //existingPlayer.physicsBody?.velocity = v
                             }
+                            
 
                         }
                         else
@@ -127,7 +130,7 @@ class ArenaController: UIViewController
                             body.affectedByGravity = true
                             body.allowsRotation = true
                             body.mass = 100
-                            body.friction = 1
+                            body.friction = 0
                             body.linearDamping = 0
                             body.restitution = 1
                             
@@ -142,7 +145,6 @@ class ArenaController: UIViewController
                             
                             let label = SKLabelNode(text: text)
 
-                            
                             label.fontSize = 15
                             label.fontName = "Antenna"
                             label.color = UIColor.black
@@ -154,18 +156,24 @@ class ArenaController: UIViewController
                             
                             self.players[email] = node
                             
-                            node.position = CGPoint(x: self.spriteView!.frame.midX + (CGFloat(self.players.count) * radius * 1.1) , y: self.spriteView!.frame.midY + (CGFloat(self.players.count) * radius))
-                            
-                            body.velocity = CGVector(dx: 0, dy: 75)
-                            
+                           body.velocity = CGVector(dx: 0, dy: 33)
+                    
                             self.spriteView.scene?.addChild(self.players[email]!)
+                            
+                            let dShell = self.spriteView.scene!.childNode(withName: "d")! as! SKShapeNode
+                        
+                               node.position = CGPoint(x: dShell.frame.maxX  + cos((CGFloat(self.players.count) * 200 + size.width)  ) , y: dShell.frame.midY + sin(CGFloat(self.players.count) * 200 +  size.width))
+                            
+                            
+                           // node.run(SKAction.follow(dShell.path!, asOffset: true, orientToPath: true, duration: 2))
+                            
                             
                             let center = self.spriteView.scene!.childNode(withName: "center")!
                             
                             let centerBody = center.physicsBody!
                             
                             let joint = SKPhysicsJointSpring.joint(withBodyA: centerBody
-                                , bodyB: body
+                               , bodyB: body
                                 , anchorA: center.position
                                 , anchorB: node.position)
                             
@@ -173,6 +181,15 @@ class ArenaController: UIViewController
                             joint.damping = 0.0
                             
                             self.spriteView.scene?.physicsWorld.add(joint)
+ 
+                        
+                            
+                            //let circle = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 100, height: 100), cornerRadius: 100)
+                            
+                            //let followCircle = SKAction.follow(circle.cgPath, asOffset: true, //orientToPath: false, duration: 60.0)
+                            
+                            
+                            //node.run(followCircle)
                             
                         }
                             
@@ -191,10 +208,11 @@ class ArenaController: UIViewController
         
         scene.physicsBody = SKPhysicsBody(edgeLoopFrom: scene.frame)
         scene.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
-        scene.physicsWorld.contactDelegate = self
+       // scene.physicsWorld.contactDelegate = self
         scene.physicsBody?.node?.name = "walls"
         scene.physicsBody?.isDynamic = false
         scene.physicsBody?.friction = 0
+        scene.physicsBody?.linearDamping = 0
  
         video = SKVideoNode(url: URL(string: "http://media.zendo.tools/rainbow.mp4")!)
         
@@ -232,8 +250,27 @@ class ArenaController: UIViewController
         panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
         spriteView.addGestureRecognizer(panGR)
         
+        
+        self.addShell(scene, 50, "s")
+        self.addShell(scene, 100, "p")
+        self.addShell(scene, 150, "d")
+        
         return scene
         
+    }
+    
+    func addShell(_ scene: SKScene, _ radius: Int, _ name: String)
+    {
+        let bezierPath = UIBezierPath(arcCenter: CGPoint(x: scene.frame.midX, y: scene.frame.midY), radius: CGFloat(radius), startAngle: 0 , endAngle: CGFloat(Double.pi) * 2.0, clockwise: true)
+        
+        let pathNode = SKShapeNode(path: bezierPath.cgPath)
+        pathNode.strokeColor = SKColor.blue
+        
+        pathNode.name = name
+        
+        pathNode.lineWidth = 3
+        
+        scene.addChild(pathNode)
     }
     
     @objc func pan() {
