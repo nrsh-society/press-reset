@@ -18,10 +18,12 @@ class ArenaController: UIViewController
     @IBOutlet weak var spriteView: SKView!
     
     var players = [String : SKSpriteNode]()
+    var joints = [String : SKPhysicsJointSpring]()
     var connectedPlayerCount = 0
     var story: Story!
     var video : SKVideoNode?
     var idHero = ""
+    let size = CGSize(width: 40 , height: 40)
     
      var panGR: UIPanGestureRecognizer!
     
@@ -51,9 +53,22 @@ class ArenaController: UIViewController
             
         }
         
+        Cloud.registerProgressChangedHandler()
+        {
+                (progress, error) in
+                
+                self.processProgress(progress)
+                
+        }
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.sample),
                                                name: NSNotification.Name("sample"),
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.progress),
+                                               name: NSNotification.Name("progress"),
                                                object: nil)
         
         modalPresentationCapturesStatusBarAppearance = true
@@ -62,59 +77,151 @@ class ArenaController: UIViewController
     }
     
     
+    @objc func progress(notification: NSNotification)
+    {
+        if let progress = notification.object as? [String]
+        {
+            Cloud.updateProgress(email: Settings.email!, content: "arena", progress: progress)
+        }
+    }
+    
     @objc func sample(notification: NSNotification)
     {
         if let sample = notification.object as? [String : Any]
         {
-            Cloud.updateSample(email: Settings.email!, content: "area", sample: sample)
+            Cloud.updateSample(email: Settings.email!, content: "arena", sample: sample)
         }
     }
     
+    func getDate(_ text : String) -> Date
+    {
+        //let RFC3339DateFormatter = DateFormatter()
+        //RFC3339DateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        //RFC3339DateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        //RFC3339DateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
+        return Date(timeIntervalSince1970: Double(text)!)
+    }
+    
+    func processProgress(_ progress:  [String : [String : AnyObject]])
+    {
+        progress.forEach(
+            {
+                (sample) in
+                
+                let (key, value) = sample
+                
+                let email = value["email"]! as! String
+                let player = self.players[email]
+                let join = self.joints[email]
+                
+                let text_updated = value["updated"] as! String
+                let date_updated = getDate(text_updated)
+                let since_now = date_updated.timeIntervalSinceNow
+                
+                let data = value["data"] as! [String]
+                
+                if (data.count > 5) {
+                    
+                    self.spriteView.scene?.children.forEach (
+                        {
+                          (node) in
+                            node.removeFromParent()
+                    })
+                }
+                
+                if(since_now > (-60 * 20) && data.count < 5)
+                {
+                    if let existingPlayer = player, let existingJoint = join
+                    {
+                        DispatchQueue.main.async
+                        {
+                            self.spriteView.scene?.physicsWorld.remove(existingJoint)
+                            
+                            let shell = self.spriteView.scene!.childNode(withName: data.count.description)! as! SKShapeNode
+                            
+                            //let x = shell.frame.midX  + self.size.width * cos(CGFloat(self.players.count))
+                                
+                            //let y = shell.frame.midY + self.size.width * sin(CGFloat(self.players.count))
+                            
+                            existingPlayer.position = CGPoint(x: shell.frame.maxX  + cos((CGFloat(self.players.count) * 200 + self.size.width)  ) , y: shell.frame.midY + sin(CGFloat(self.players.count) * 200 +  self.size.width))
+                            
+                            existingPlayer.zRotation = 0
+                            
+                            let playBody = existingPlayer.physicsBody!
+                            
+                            playBody.velocity = CGVector(dx: 0, dy: -16.5)
+                            
+                            let center = self.spriteView.scene!.childNode(withName: "center")!
+                            
+                            let centerBody = center.physicsBody!
+                            
+                            let joint = SKPhysicsJointSpring.joint(withBodyA: centerBody
+                                , bodyB: existingPlayer.physicsBody!
+                                , anchorA: center.position
+                                , anchorB: existingPlayer.position)
+                            
+                            joint.frequency = 1.0
+                            joint.damping = 0.0
+                            
+                            self.spriteView.scene?.physicsWorld.add(joint)
+                            self.joints[email] = joint
+                        }
+                    }
+                }
+                
+        })
+    }
     
     func processSamples(_ samples:  [String : [String : AnyObject]])
     {
-
-            samples.forEach(
+        samples.forEach(
+        {
+            (sample) in
+                    
+                let (key, value) = sample
+                    
+                let data = value["data"] as! [String : String]
+                    
+                let text_updated = data["time"]!
+                let date_updated = getDate(text_updated)
+                let since_now = date_updated.timeIntervalSinceNow
+                    
+                if(since_now > (-60 * 20))
                 {
-                    (sample) in
+                        let data = value["data"] as! [String : String]
                     
-                    let (key, value) = sample
+                        let text_hrv = data["sdnn"]!
+                        let double_hrv = Double(text_hrv)!.rounded()
+                        let hrv = Float(double_hrv)
                     
-                    let data = value["data"] as! [String : String]
+                        let email = value["email"]! as! String
                     
-                    let text_hrv = data["sdnn"]!
-                    let double_hrv = Double(text_hrv)!.rounded()
-                    let hrv = Float(double_hrv)
-                    
-                    let email = value["email"]! as! String
-                    
-                    let player = self.players[email]
-                    
-                    DispatchQueue.main.async
-                    {
+                        let player = self.players[email]
+                        
                         if let existingPlayer = player
                         {
-                            let label = existingPlayer.childNode(withName: "hrv") as! SKLabelNode
-                            
-                            label.text = Int(hrv.rounded()).description
-                            
-                            let motion = data["motion"]!
-                            let motionD = Double(motion)!
-
-                            if(motionD > 0.0)
+                            DispatchQueue.main.async
                             {
-                               // let force = CGVector(dx: 100 * motionD, dy: 100 * motionD)
-                                //existingPlayer.physicsBody?.applyImpulse(force)
-                                
-                               // let v = CGVector(dx: 0, dy: (existingPlayer.physicsBody?.velocity.dy)! + 75)
-                                //existingPlayer.physicsBody?.velocity = v
-                            }
+                        
+                                let label = existingPlayer.childNode(withName: "hrv") as! SKLabelNode
                             
+                                label.text = Int(hrv.rounded()).description
+                            
+                                let motion = data["motion"]!
+                                let motionD = Double(motion)!
 
+                                if(motionD > 0.0)
+                                {
+                                    existingPlayer.run(SKAction.applyAngularImpulse(CGFloat(motionD)
+                                        , duration: 1))
+
+                                }
+                            }
                         }
                         else
                         {
-                            let size = CGSize(width: 40 , height: 40)
+                            
                         
                             let radius = (size.width / 2)
                             
@@ -156,17 +263,13 @@ class ArenaController: UIViewController
                             
                             self.players[email] = node
                             
-                           body.velocity = CGVector(dx: 0, dy: 33)
+                            body.velocity = CGVector(dx: 0, dy: -16.5)
                     
                             self.spriteView.scene?.addChild(self.players[email]!)
                             
-                            let dShell = self.spriteView.scene!.childNode(withName: "d")! as! SKShapeNode
+                            let dShell = self.spriteView.scene!.childNode(withName: "1")! as! SKShapeNode
                         
-                               node.position = CGPoint(x: dShell.frame.maxX  + cos((CGFloat(self.players.count) * 200 + size.width)  ) , y: dShell.frame.midY + sin(CGFloat(self.players.count) * 200 +  size.width))
-                            
-                            
-                           // node.run(SKAction.follow(dShell.path!, asOffset: true, orientToPath: true, duration: 2))
-                            
+                            node.position = CGPoint(x: dShell.frame.maxX  + cos((CGFloat(self.players.count) * 200 + size.width)  ) , y: dShell.frame.midY + sin(CGFloat(self.players.count) * 200 +  size.width))
                             
                             let center = self.spriteView.scene!.childNode(withName: "center")!
                             
@@ -181,16 +284,9 @@ class ArenaController: UIViewController
                             joint.damping = 0.0
                             
                             self.spriteView.scene?.physicsWorld.add(joint)
+                            
+                            self.joints[email] = joint
  
-                        
-                            
-                            //let circle = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 100, height: 100), cornerRadius: 100)
-                            
-                            //let followCircle = SKAction.follow(circle.cgPath, asOffset: true, //orientToPath: false, duration: 60.0)
-                            
-                            
-                            //node.run(followCircle)
-                            
                         }
                             
                     }
@@ -250,10 +346,10 @@ class ArenaController: UIViewController
         panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
         spriteView.addGestureRecognizer(panGR)
         
-        
-        self.addShell(scene, 50, "s")
-        self.addShell(scene, 100, "p")
-        self.addShell(scene, 150, "d")
+        self.addShell(scene, 25, "4")
+        self.addShell(scene, 50, "3")
+        self.addShell(scene, 100, "2")
+        self.addShell(scene, 150, "1")
         
         return scene
         
