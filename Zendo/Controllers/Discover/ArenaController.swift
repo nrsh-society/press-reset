@@ -119,7 +119,7 @@ class ArenaController: UIViewController
                 let date_updated = getDate(text_updated)
                 let since_now = date_updated.timeIntervalSinceNow
                     
-                let progress = value["data"]!.description!.lowercased().contains("good")
+                let progress = (value["data"]! as! [String]).last!.description.lowercased().contains("good")
                 
                 if (progress && since_now > (-60 * 5) && currentRing >= 4)
                 {
