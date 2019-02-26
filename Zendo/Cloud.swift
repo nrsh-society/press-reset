@@ -40,6 +40,31 @@ class Cloud
             }
         }
      }
+    
+    static func updateProgress(email: String, content: String, progress: [String])
+    {
+        
+        let value = ["data" : progress,
+                     "updated" : Date().timeIntervalSince1970.description,
+                     "content" : content,
+                     "email" : email] as [String : Any]
+        
+        let database = Database.database().reference()
+        
+        let sample = database.child("progress")
+        
+        let key = sample.child(email.replacingOccurrences(of: ".", with: "_"))
+        
+        key.setValue(value)
+        {
+            (error, ref) in
+            
+            if let error = error
+            {
+                print("Data could not be saved: \(error).")
+            }
+        }
+    }
 
     static func enable(_ application: UIApplication, _ options : [UIApplicationLaunchOptionsKey : Any]?)
     {
@@ -74,9 +99,37 @@ class Cloud
         {
             (snapshot) in
             
-             let samples = snapshot.value as? [String : [String : AnyObject]] ?? [:]
+            if let samples = snapshot.value as? [String : [String : AnyObject]]
+            {
+                handler(samples, nil)
+            }
+        }
+        
+        return refHandle
+    }
+    
+    typealias ProgressChangedHandler = (_ progress : [String : [String : AnyObject]], _ error: Error? ) -> Void
+    
+    static func registerProgressChangedHandler(handler: @escaping ProgressChangedHandler) -> DatabaseHandle?
+    {
+        if(!enabled)
+        {
+            print ("Cloud disabled")
+            return nil
+        }
+        
+        let database = Database.database().reference()
+        
+        let sample = database.child("progress")
+        
+        let refHandle = sample.observe(DataEventType.value)
+        {
+            (snapshot) in
             
-            handler(samples, nil)
+            if let samples = snapshot.value as? [String : [String : AnyObject]]
+            {
+                handler(samples, nil)
+            }
         }
         
         return refHandle

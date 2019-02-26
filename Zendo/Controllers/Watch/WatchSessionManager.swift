@@ -109,6 +109,16 @@ extension WatchSessionManager: WCSessionDelegate {
                 FBSDKAppEvents.logEvent("watch_sample")
             }
         }
+        else if(message.first?.key == "progress")
+        {
+            if let progress = message.first?.value
+            {
+                NotificationCenter.default.post(name: NSNotification.Name("progress"),
+                                                object: progress )
+                
+                FBSDKAppEvents.logEvent("watch_progress")
+            }
+        }
         else if(message.first?.key == "facebook")
         {
             if let event = message.first?.value

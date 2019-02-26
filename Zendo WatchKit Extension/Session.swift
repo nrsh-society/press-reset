@@ -62,6 +62,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     var heartRateSamples = [Double]()
     var heartRateRangeSamples = [Double]()
     var movementRangeSamples = [Double]()
+    var notifyMessages = [String]()
     var heart_rate_query : HKAnchoredObjectQuery?
     
     private var sampleTimer: Timer?
@@ -314,7 +315,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                         haptic = WKHapticType.retry
                         message = "Breathe deeper"
                     default:
-                        message = ""
+                        message = "Good work"
                 }
             }
             
@@ -326,6 +327,10 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                 {
                     haptic = WKHapticType.retry
                     message = "Stop moving"
+                }
+                else
+                {
+                    message = "Good work"
                 }
             }
             
@@ -349,9 +354,22 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             heartRateRangeSamples.removeAll()
             movementRangeSamples.removeAll()
+            
+            self.notifyMessages.append(message ?? "")
+            
+            sessionDelegater.sendMessage(["progress" : self.notifyMessages],
+                                         replyHandler:
+                { (message) in
+                    print(message.debugDescription)
+            },
+                                         errorHandler:
+                { (error) in
+                    print(error)
+            })
         }
         
         self.delegate.sessionTick(startDate: self.startDate!, message: message)
+        
     }
     
     @objc func sample()  {
