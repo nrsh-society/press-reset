@@ -35,7 +35,7 @@ class SubscriptionHeaderTableViewCell: UITableViewCell {
                     if days <= 0 {
                         textLabelSub.text = SubscriptionStatus.end.rawValue
                     } else {
-                        textLabelSub.text = "\(days) " + SubscriptionStatus.trial.rawValue
+                        textLabelSub.text = "\(days + 1) " + SubscriptionStatus.trial.rawValue
                     }
                     
                 }

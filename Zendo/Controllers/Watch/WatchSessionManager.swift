@@ -86,9 +86,16 @@ extension WatchSessionManager: WCSessionDelegate {
             else if message["watch"] == "subscribe"
             {
                 Settings.checkSubscriptionAvailability { bool, trial in
-                    replyHandler(["isSubscribe": bool])
+                    replyHandler(["isSubscribe": bool, "isTrial": trial])
                 }
                
+            }
+            else if message["watch"] == "present"
+            {
+                let vcSub = SubscriptionViewController.loadFromStoryboard()
+                if let vc = UIApplication.shared.keyWindow?.topViewController, !vc.isKind(of: SubscriptionViewController.self) {
+                    vc.present(vcSub, animated: true)
+                }
             }
             
         }

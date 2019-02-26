@@ -14,7 +14,9 @@ class Settings  {
     static let defaults = UserDefaults.standard
     
     static let SHARED_SECRET = "80653a3a2e33453c9e69f7d2da8945eb"
-   
+//   static let SHARED_SECRET = "e929eeee2144466197cd844b370fbffb" // test
+    
+    
 
     static var isRunOnce: Bool {
         set {
@@ -131,59 +133,63 @@ class Settings  {
             if let date = expiresDate, date > Date() {
                 completionHandler?(true, false)
             } else {
-                
-                guard let receiptUrl = Bundle.main.appStoreReceiptURL,
-                    let receipt = try? Data(contentsOf: receiptUrl).base64EncodedString() else {
-                        completionHandler?(false, false)
-                        return
+                checkSubscription { subscription, trial in
+                    completionHandler?(subscription, trial)
                 }
-                
-                let appleServer = receiptUrl.lastPathComponent == "sandboxReceipt" ? "sandbox" : "buy"
-                
-                let stringURL = "https://\(appleServer).itunes.apple.com/verifyReceipt"
-                
-                var request = URLRequest(url: URL(string: stringURL)! )
-                request.httpMethod = "POST"
-                
-                let httpBody = [
-                    "receipt-data": receipt,
-                    "password": SHARED_SECRET
-                ]
-                
-                if let json = try? JSONSerialization.data(withJSONObject: httpBody, options: []) {
-                    request.httpBody = json
-                } else {
-                    completionHandler?(false, false)
-                }
-                
-                URLSession.shared.dataTask(with: request) { data, response, error in
-                    if let data = data, error == nil {
-                        
-                        guard let json = try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers])
-                            as? [String: Any],
-                            let lastReceipt = json?["latest_receipt_info"] as? [[String: Any]],
-                            let expiresDate = lastReceipt.last?["expires_date"] as? String else {
-                                print("error trying to convert data to JSON")
-                                completionHandler?(false, false)
-                                return
-                        }
-                        
-                        self.expiresDateStr = expiresDate
-                        
-                        if let date = expiresDate.dateFromUTCString {
-                            isSubscriptionAvailability = date > Date()
-                            completionHandler?(date > Date(), false)
-                        }
-                        
-                    } else {
-                        completionHandler?(false, false)
-                    }
-                    }.resume()
-                
             }
         }
         
         
+    }
+    
+    static func checkSubscription(_ completionHandler: ((Bool, Bool) -> ())? = nil) {
+        guard let receiptUrl = Bundle.main.appStoreReceiptURL,
+            let receipt = try? Data(contentsOf: receiptUrl).base64EncodedString() else {
+                completionHandler?(false, false)
+                return
+        }
+        
+        let appleServer = receiptUrl.lastPathComponent == "sandboxReceipt" ? "sandbox" : "buy"
+        
+        let stringURL = "https://\(appleServer).itunes.apple.com/verifyReceipt"
+        
+        var request = URLRequest(url: URL(string: stringURL)! )
+        request.httpMethod = "POST"
+        
+        let httpBody = [
+            "receipt-data": receipt,
+            "password": SHARED_SECRET
+        ]
+        
+        if let json = try? JSONSerialization.data(withJSONObject: httpBody, options: []) {
+            request.httpBody = json
+        } else {
+            completionHandler?(false, false)
+        }
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data, error == nil {
+                
+                guard let json = try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers])
+                    as? [String: Any],
+                    let lastReceipt = json?["latest_receipt_info"] as? [[String: Any]],
+                    let expiresDate = lastReceipt.last?["expires_date"] as? String else {
+                        print("error trying to convert data to JSON")
+                        completionHandler?(false, false)
+                        return
+                }
+                
+                self.expiresDateStr = expiresDate
+                
+                if let date = expiresDate.dateFromUTCString {
+                    isSubscriptionAvailability = date > Date()
+                    completionHandler?(date > Date(), false)
+                }
+                
+            } else {
+                completionHandler?(false, false)
+            }
+            }.resume()
     }
     
     

@@ -12,6 +12,8 @@ import StoreKit
 class SubscriptionViewController: UIViewController {
     
     var PRODUCT_ID = "subscription_v1"
+//    var PRODUCT_ID = "ZendoPurchase1" // test
+    
     
     var productID = ""
     var productsRequest = SKProductsRequest()
@@ -164,6 +166,7 @@ extension SubscriptionViewController: SKPaymentTransactionObserver {
                 SKPaymentQueue.default().finishTransaction(transaction)
             case .restored:
                 SKPaymentQueue.default().finishTransaction(transaction)
+                Settings.checkSubscription()
             default: break
             }
         }

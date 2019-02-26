@@ -56,13 +56,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 14 days remaining on your free trial " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2gf-3c-kic">
-                                                    <rect key="frame" x="14" y="0.0" width="311" height="30"/>
+                                                    <rect key="frame" x="14" y="0.0" width="311" height="25"/>
                                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
-                                                    <color key="textColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.058823529411764705" green="0.14509803921568626" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hp4-pV-fqI">
-                                                    <rect key="frame" x="335" y="0.0" width="68" height="30"/>
+                                                    <rect key="frame" x="335" y="0.0" width="68" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="68" id="Zxr-d1-DRh"/>
                                                     </constraints>
@@ -74,14 +74,24 @@
                                                         <action selector="subscribeAction:" destination="A2b-mr-FL7" eventType="touchUpInside" id="1wE-HY-edp"/>
                                                     </connections>
                                                 </button>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AWM-fg-DtG">
+                                                    <rect key="frame" x="0.0" y="25" width="414" height="5"/>
+                                                    <color key="backgroundColor" red="0.96470588235294119" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="5" id="569-zH-WMf"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="hp4-pV-fqI" firstAttribute="leading" secondItem="2gf-3c-kic" secondAttribute="trailing" constant="10" id="4BR-zx-FGm"/>
                                                 <constraint firstItem="2gf-3c-kic" firstAttribute="top" secondItem="kNF-gg-ltf" secondAttribute="top" id="Lnr-Ho-Djz"/>
                                                 <constraint firstAttribute="trailing" secondItem="hp4-pV-fqI" secondAttribute="trailing" constant="11" id="W74-pL-WLk"/>
-                                                <constraint firstAttribute="bottom" secondItem="hp4-pV-fqI" secondAttribute="bottom" id="bVG-dR-D1G"/>
-                                                <constraint firstAttribute="bottom" secondItem="2gf-3c-kic" secondAttribute="bottom" id="h4F-pw-iZO"/>
+                                                <constraint firstAttribute="bottom" secondItem="AWM-fg-DtG" secondAttribute="bottom" id="Wt9-QP-oTQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="AWM-fg-DtG" secondAttribute="trailing" id="eMk-VM-Fwl"/>
+                                                <constraint firstItem="AWM-fg-DtG" firstAttribute="leading" secondItem="kNF-gg-ltf" secondAttribute="leading" id="i1S-Ss-PNz"/>
+                                                <constraint firstItem="AWM-fg-DtG" firstAttribute="top" secondItem="2gf-3c-kic" secondAttribute="bottom" id="sXc-PQ-ael"/>
                                                 <constraint firstItem="hp4-pV-fqI" firstAttribute="top" secondItem="kNF-gg-ltf" secondAttribute="top" id="srR-CW-8Tu"/>
+                                                <constraint firstItem="AWM-fg-DtG" firstAttribute="top" secondItem="hp4-pV-fqI" secondAttribute="bottom" id="zcV-dv-6TI"/>
                                                 <constraint firstItem="2gf-3c-kic" firstAttribute="leading" secondItem="kNF-gg-ltf" secondAttribute="leading" constant="14" id="zkU-sm-qQt"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -154,6 +164,11 @@
                         <viewLayoutGuide key="safeArea" id="Ar3-ZE-Yqr"/>
                     </view>
                     <navigationItem key="navigationItem" title="Discover" id="1WB-04-bbZ">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="Rbd-cJ-vU3">
+                            <connections>
+                                <segue destination="TeQ-PY-kQs" kind="presentation" id="rnT-TT-eEu"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="New Session" image="watch" style="done" id="dkd-Fl-9rH">
                             <connections>
                                 <action selector="onNewSession:" destination="FV6-Tz-yMd" id="1Vb-gD-nrX"/>

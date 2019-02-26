@@ -29,8 +29,8 @@ class AppInterfaceController: WKInterfaceController {
         NSLog("start press")
         
         sessionDelegater.sendMessage(["watch": "subscribe"], replyHandler: { replyHandler in
-            
-            if let isSubscribe = replyHandler["isSubscribe"] as? Bool, isSubscribe {
+
+            if let isSubscribe = replyHandler["isSubscribe"] as? Bool, let isTrial = replyHandler["isTrial"] as? Bool, isSubscribe || isTrial {
                 DispatchQueue.main.async {
                     self.startSession()
                 }
@@ -39,9 +39,9 @@ class AppInterfaceController: WKInterfaceController {
                     self.presentController(withName: "SubscribeInterfaceController", context: nil)
                 }
             }
-            
+
         }, errorHandler: { error in
-            
+
         })
         
     }
