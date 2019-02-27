@@ -164,11 +164,6 @@
                         <viewLayoutGuide key="safeArea" id="Ar3-ZE-Yqr"/>
                     </view>
                     <navigationItem key="navigationItem" title="Discover" id="1WB-04-bbZ">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="Rbd-cJ-vU3">
-                            <connections>
-                                <segue destination="TeQ-PY-kQs" kind="presentation" id="rnT-TT-eEu"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="New Session" image="watch" style="done" id="dkd-Fl-9rH">
                             <connections>
                                 <action selector="onNewSession:" destination="FV6-Tz-yMd" id="1Vb-gD-nrX"/>
