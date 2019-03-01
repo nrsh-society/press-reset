@@ -23,11 +23,21 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.60030913350000004" green="0.67497491840000001" blue="0.6431349516" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </skView>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cCa-Pd-CyP" customClass="ArenaView" customModule="Zendo" customModuleProvider="target">
+                                <rect key="frame" x="3" y="479" width="369" height="180"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="cCa-Pd-CyP" secondAttribute="trailing" constant="3" id="7VI-ed-01J"/>
+                            <constraint firstItem="cCa-Pd-CyP" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" constant="3" id="DmB-HV-XtB"/>
+                            <constraint firstItem="z49-wy-zwZ" firstAttribute="bottom" secondItem="cCa-Pd-CyP" secondAttribute="bottom" constant="8" id="yhc-ZL-XoZ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="z49-wy-zwZ"/>
                     </view>
                     <connections>
+                        <outlet property="arenaView" destination="cCa-Pd-CyP" id="pd9-By-euJ"/>
                         <outlet property="spriteView" destination="xcq-F9-V7c" id="K8r-nF-Wj1"/>
                     </connections>
                 </viewController>

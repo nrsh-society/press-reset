@@ -13,6 +13,10 @@
 		121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F2604211B3D9C00C1CC96 /* Notification+Name.swift */; };
 		121F260A211B499300C1CC96 /* HealthKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F2609211B499300C1CC96 /* HealthKitViewController.swift */; };
 		1223161F21A809D800413A62 /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223161E21A809D700413A62 /* UIImageView+Download.swift */; };
+		1226B01D2229965A00EE02F9 /* SuccessSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1226B01C2229965A00EE02F9 /* SuccessSubscriptionViewController.swift */; };
+		1226B0212229A45600EE02F9 /* checkAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 1226B0202229A45600EE02F9 /* checkAnimation.json */; };
+		1226B0242229A6D300EE02F9 /* ArenaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1226B0232229A6D300EE02F9 /* ArenaView.swift */; };
+		1226B0262229A6DD00EE02F9 /* ArenaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1226B0252229A6DD00EE02F9 /* ArenaView.xib */; };
 		123E8E8721748DC900C6E2EC /* SettingsWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123E8E8621748DC900C6E2EC /* SettingsWatch.swift */; };
 		1246C422212725140011F5D3 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246C421212725140011F5D3 /* BalloonMarker.swift */; };
 		12477F222119A27700D8AE83 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12477F212119A27700D8AE83 /* Settings.swift */; };
@@ -230,6 +234,10 @@
 		121F2604211B3D9C00C1CC96 /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
 		121F2609211B499300C1CC96 /* HealthKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitViewController.swift; sourceTree = "<group>"; };
 		1223161E21A809D700413A62 /* UIImageView+Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Download.swift"; sourceTree = "<group>"; };
+		1226B01C2229965A00EE02F9 /* SuccessSubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessSubscriptionViewController.swift; sourceTree = "<group>"; };
+		1226B0202229A45600EE02F9 /* checkAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = checkAnimation.json; sourceTree = "<group>"; };
+		1226B0232229A6D300EE02F9 /* ArenaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArenaView.swift; sourceTree = "<group>"; };
+		1226B0252229A6DD00EE02F9 /* ArenaView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArenaView.xib; sourceTree = "<group>"; };
 		123E8E8621748DC900C6E2EC /* SettingsWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWatch.swift; sourceTree = "<group>"; };
 		1246C421212725140011F5D3 /* BalloonMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		12477F212119A27700D8AE83 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -407,6 +415,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1226B0222229A6B200EE02F9 /* ArenaView */ = {
+			isa = PBXGroup;
+			children = (
+				1226B0232229A6D300EE02F9 /* ArenaView.swift */,
+				1226B0252229A6DD00EE02F9 /* ArenaView.xib */,
+			);
+			path = ArenaView;
+			sourceTree = "<group>";
+		};
 		12477F1E2119A22900D8AE83 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -467,6 +484,7 @@
 				127C3E2A2178939C00B332EB /* DiscoverViewController.swift */,
 				127C3E382178B37C00B332EB /* VideoViewController.swift */,
 				12C63FF7221593B6001C93C7 /* SubscriptionViewController.swift */,
+				1226B01C2229965A00EE02F9 /* SuccessSubscriptionViewController.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -540,6 +558,7 @@
 		12C1A7262119B70100EEFF4F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1226B0222229A6B200EE02F9 /* ArenaView */,
 				127C3E2C217898DA00B332EB /* Cell */,
 				12C1A7272119B74B00EEFF4F /* ZenButton.swift */,
 				12C1A7292119B75900EEFF4F /* ZenButton.xib */,
@@ -628,6 +647,7 @@
 				BEEA862E20D4A941003E1E1D /* Assets.xcassets */,
 				DFE3B1732189A6E5008830CD /* animationStartingSession.json */,
 				12584E5221AFF86D004DA557 /* animationNoInternet.json */,
+				1226B0202229A45600EE02F9 /* checkAnimation.json */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -973,6 +993,8 @@
 				127C3E432178DB1100B332EB /* LoadingView.xib in Resources */,
 				12C2C27F2137F7F70039C7A0 /* ZenTextField.xib in Resources */,
 				12E2A1AA211073D700E0E911 /* Antenna-Regular.otf in Resources */,
+				1226B0262229A6DD00EE02F9 /* ArenaView.xib in Resources */,
+				1226B0212229A45600EE02F9 /* checkAnimation.json in Resources */,
 				127C3E352178993100B332EB /* DiscoverCollectionViewCell.xib in Resources */,
 				12584E5321AFF86D004DA557 /* animationNoInternet.json in Resources */,
 				BE8787022215F68B0052FE4C /* ArenaController.storyboard in Resources */,
@@ -1152,6 +1174,7 @@
 				12E189C1211C64AB004EADE9 /* UIApplication.swift in Sources */,
 				DFE3B16E2189A3DF008830CD /* StartingSessions.swift in Sources */,
 				12BE94CE21AF1019000E2B0B /* AVAssetExtension.swift in Sources */,
+				1226B0242229A6D300EE02F9 /* ArenaView.swift in Sources */,
 				BE38CF612075D1D10095BB6C /* WelcomeController.swift in Sources */,
 				12477F222119A27700D8AE83 /* Settings.swift in Sources */,
 				12FFCAE1210F6DA0007E2480 /* ZendoTableViewCell.swift in Sources */,
@@ -1180,6 +1203,7 @@
 				BE066BD820F1EFC10008747D /* OverviewController.swift in Sources */,
 				12A7E256217F404200E38018 /* Story.swift in Sources */,
 				12F121352125B67D00F5451D /* ConstraintMetadata.swift in Sources */,
+				1226B01D2229965A00EE02F9 /* SuccessSubscriptionViewController.swift in Sources */,
 				BE75AEC020F708C300311512 /* ChartSeries.swift in Sources */,
 				12BE94CA21AF0FF4000E2B0B /* VideoGeneratorError.swift in Sources */,
 				127C3E392178B37C00B332EB /* VideoViewController.swift in Sources */,

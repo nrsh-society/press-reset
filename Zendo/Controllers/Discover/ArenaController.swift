@@ -16,6 +16,7 @@ import FirebaseDatabase
 class ArenaController: UIViewController
 {
     @IBOutlet weak var spriteView: SKView!
+    @IBOutlet weak var arenaView: ArenaView!
     
     var players = [String : SKSpriteNode]()
     var joints = [String : SKPhysicsJointSpring]()

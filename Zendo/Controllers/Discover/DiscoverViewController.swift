@@ -414,7 +414,8 @@ extension DiscoverViewController: UITableViewDataSource {
             cell.isTrial = trial
             cell.action = {
                 let vc = SubscriptionViewController.loadFromStoryboard()
-                self.present(vc, animated: true)
+                let nv = UINavigationController(rootViewController: vc)
+                self.present(nv, animated: true)
             }
             
             return cell

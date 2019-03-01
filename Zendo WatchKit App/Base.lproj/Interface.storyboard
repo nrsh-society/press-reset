@@ -251,7 +251,7 @@
                             <items>
                                 <group width="1" alignment="left" id="14K-Nz-sCb">
                                     <items>
-                                        <imageView width="50" height="50" alignment="center" image="shobogenzo" id="u0M-AT-oFY"/>
+                                        <imageView width="50" height="50" alignment="center" image="Lock" contentMode="scaleAspectFit" id="u0M-AT-oFY"/>
                                     </items>
                                 </group>
                                 <label alignment="center" text="Recording a meditation requires a monthly subscription. Go to Zendo app on the phone to subscribe. " textAlignment="center" numberOfLines="0" id="t4F-ed-mDq">

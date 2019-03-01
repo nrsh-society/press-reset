@@ -12,7 +12,7 @@ import StoreKit
 class SubscriptionViewController: UIViewController {
     
     var PRODUCT_ID = "subscription_v1"
-//    var PRODUCT_ID = "ZendoPurchase1" // test
+    //    var PRODUCT_ID = "ZendoPurchase1" // test
     
     
     var productID = ""
@@ -47,6 +47,8 @@ class SubscriptionViewController: UIViewController {
         
         subButtonView.layoutIfNeeded()
         subButtonView.shadowView()
+        
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     @objc func subscription() {
@@ -129,14 +131,13 @@ extension SubscriptionViewController: SKProductsRequestDelegate {
                 }
             }
             
-            
             if let price = price {
                 priceLabel.text = "\(price)/" + period
             }
             
         }
     }
-   
+    
 }
 
 extension SubscriptionViewController: SKPaymentTransactionObserver {
@@ -151,12 +152,9 @@ extension SubscriptionViewController: SKPaymentTransactionObserver {
                     Settings.isSubscriptionAvailability = true
                     Settings.checkSubscriptionAvailability()
                     
-                    let alert = showAlertContrller(title: "Purchase Success", message: "You've successfully purchased") {
-                        self.dismiss(animated: true, completion: nil)
-                    }
+                    let vc = SuccessSubscriptionViewController.loadFromStoryboard()
+                    self.navigationController?.pushViewController(vc, animated: false)
                     
-                    self.present(alert, animated: true)
-                                        
                 }
             case .failed:
                 if transaction.error != nil {
