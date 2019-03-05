@@ -12,6 +12,7 @@ import SpriteKit
 import Firebase
 import FirebaseDatabase
 import HealthKit
+import AVKit
 
 
 class ArenaController: UIViewController
@@ -34,6 +35,7 @@ class ArenaController: UIViewController
     var video : SKVideoNode?
     var idHero = ""
     var timer: Timer?
+    var player = AVPlayer()
     let size = CGSize(width: 30 , height: 30)
     
     var panGR: UIPanGestureRecognizer!
@@ -381,14 +383,26 @@ class ArenaController: UIViewController
         scene.physicsBody?.isDynamic = false
         scene.physicsBody?.friction = 0
         scene.physicsBody?.linearDamping = 0
-
-        video = SKVideoNode(url: URL(string: self.story.content[0].download!)!)
+        
+        
+        let item = AVPlayerItem(url: URL(string: self.story.content[0].download!)!)
+        
+        player = AVPlayer(playerItem: item)
+        video = SKVideoNode(avPlayer: player)
         
         video?.size = scene.frame.size
         video?.position = scene.position
         video?.anchorPoint = scene.anchorPoint
         scene.addChild(video!)
         video?.play()
+        
+        
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: nil) { notification in
+            
+            self.player.seek(to: kCMTimeZero)
+            self.player.play()
+                        
+        }
         
         let size = CGSize(width: 1 , height: 1)
         let radius = (size.width / 2)
