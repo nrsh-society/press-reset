@@ -60,3 +60,12 @@ public class MMChartValueFormatter: MMChartFormatter {
     }
     
 }
+
+public class MMChartHRVFormatter: MMChartFormatter {
+    
+    public override func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        return ""
+    }
+    
+}
+

@@ -8,15 +8,25 @@
 
 import UIKit
 
-//let kUTCDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS Z"
-let kUTCDateFormat = "yyyy-MM-dd HH:mm:ss VV"
+let kUTCDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS Z"
+let kUTCSubscriptionDateFormat = "yyyy-MM-dd HH:mm:ss VV"
 
 
 extension Date {
+    
     var toUTCString: String {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone(abbreviation: "UTC")
         formatter.dateFormat = kUTCDateFormat
+        let res = formatter.string(from: self)
+        print(res)
+        return res
+    }
+    
+    var toUTCSubscriptionString: String {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        formatter.dateFormat = kUTCSubscriptionDateFormat
         let res = formatter.string(from: self)
         print(res)
         return res
@@ -32,6 +42,14 @@ extension String {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone(abbreviation: "UTC")
         formatter.dateFormat = kUTCDateFormat
+        let res = formatter.date(from: self)
+        return res
+    }
+    
+    var dateFromUTCSubscriptionString: Date? {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        formatter.dateFormat = kUTCSubscriptionDateFormat
         let res = formatter.date(from: self)
         return res
     }

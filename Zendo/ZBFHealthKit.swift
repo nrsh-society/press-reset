@@ -326,6 +326,69 @@ public class ZBFHealthKit {
         ZBFHealthKit.healthStore.execute(hkQuery)
     }
     
+    class func fetchLatestHeartRateSample(_ completion: @escaping (_ sample: Int?) -> Void) {
+        
+        guard let sampleType = HKObjectType.quantityType(forIdentifier: .heartRate) else {
+                completion(nil)
+                return
+        }
+        
+        let predicate = HKQuery.predicateForSamples(withStart: Date.distantPast, end: Date(), options: .strictEndDate)
+        
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        
+        let query = HKSampleQuery(
+            sampleType: sampleType,
+            predicate: predicate,
+            limit: Int(HKObjectQueryNoLimit),
+            sortDescriptors: [sortDescriptor]) { (_, results, error) in
+                
+                guard error == nil else {
+                    print("Error: \(error!.localizedDescription)")
+                    return
+                }
+                
+                if let  last = results?[0] as? HKQuantitySample {
+                    let heartRateUnit = HKUnit(from: "count/min")
+                    let heartRate = last.quantity.doubleValue(for: heartRateUnit)
+                    
+                    completion(Int(heartRate))
+                } else {
+                    completion(nil)
+                }
+                
+        }
+        
+        ZBFHealthKit.healthStore.execute(query)
+    }
+        
+    class func getHRVReal(start: Date, end: Date, handler: @escaping SamplesHandler) {
+        
+        let hkType = HKObjectType.quantityType(forIdentifier: .heartRate)!
+        
+        let hkPredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictStartDate)
+        
+        let options: HKStatisticsOptions = [HKStatisticsOptions.discreteAverage, HKStatisticsOptions.discreteMax, HKStatisticsOptions.discreteMin]
+        
+        let hkQuery = HKStatisticsQuery(quantityType: hkType,
+                                        quantitySamplePredicate: hkPredicate,
+                                        options: options) { query, result, error in
+                                            
+                                            if let result = result {
+                                                if let value = result.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
+                                                    let value = [0.0 : value]
+                                                    handler(value, nil)
+                                                } else {
+                                                    handler(nil, nil)
+                                                }
+                                            } else {
+                                                handler(nil, error)
+                                            }
+        }
+        
+        ZBFHealthKit.healthStore.execute(hkQuery)
+    }
+    
     class func getHRVAverage(start: Date, end: Date, handler: @escaping SamplesHandler) {
         
         let hkType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!

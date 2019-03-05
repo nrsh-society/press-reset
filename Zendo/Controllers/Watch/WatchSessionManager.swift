@@ -52,7 +52,7 @@ extension WatchSessionManager: WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessage message: [String: Any],
                  replyHandler: @escaping ([String: Any]) -> Void)
     {
-        
+        print(message)
         if let message = message as? [String: String]
         {
             
@@ -97,6 +97,14 @@ extension WatchSessionManager: WCSessionDelegate {
                     vc.present(vcSub, animated: true)
                 }
             }
+            else if message["watch"] == "arena" &&  message["startDate"] == "end"
+            {
+                Settings.timeSessionStr = nil
+                Settings.chartHRV = [:]
+                Settings.invalidateTimer()
+                NotificationCenter.default.post(name: .updateHRV, object: nil)
+                NotificationCenter.default.post(name: .startSession, object: nil)
+            }
             
         }
         else if(message.first?.key == "sample")
@@ -125,6 +133,13 @@ extension WatchSessionManager: WCSessionDelegate {
             {
                 FBSDKAppEvents.logEvent(event as? String)
             }
+        } else if let arena = message["watch"] as? String, arena == "arena", let startDate = message["startDate"] as? Date
+        {
+            Settings.chartHRV = [:]
+            Settings.startTimer()
+//            Settings.fetchLatestHeartRateSample()
+            Settings.timeSessionStr = startDate.toUTCString
+            NotificationCenter.default.post(name: .startSession, object: nil)
         }
     }
 }

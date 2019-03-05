@@ -71,6 +71,7 @@ class HealthKitViewController: UIViewController {
                                 }
                                 break
                             }
+                            
                         }
                     }
                 })

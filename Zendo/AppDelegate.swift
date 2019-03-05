@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if !Settings.isSetTrial {
             Settings.isSetTrial = true
             Settings.isTrial = true
-            Settings.startTrialDateStr = Date().toUTCString
+            Settings.startTrialDateStr = Date().toUTCSubscriptionString
         }
         
         return true

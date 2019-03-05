@@ -111,6 +111,12 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         {
             self.startDate = Date()
             
+            sessionDelegater.sendMessage(["watch": "arena", "startDate": self.startDate ?? Date()], replyHandler: { replyHandler in
+                
+            }, errorHandler: { error in
+                
+            })
+            
             motionManager.startDeviceMotionUpdates()
             
             healthStore.start(workoutSession!)
@@ -134,6 +140,12 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             print("called end on unrunning session")
             return
         }
+        
+        sessionDelegater.sendMessage(["watch": "arena", "startDate": "end"], replyHandler: { replyHandler in
+            
+        }, errorHandler: { error in
+            
+        })
         
         sample()
         

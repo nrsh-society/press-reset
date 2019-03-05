@@ -9,14 +9,14 @@
 import Foundation
 
 
-class Settings  {
+class Settings: NSObject {
 
     static let defaults = UserDefaults.standard
     
     static let SHARED_SECRET = "80653a3a2e33453c9e69f7d2da8945eb"
 //   static let SHARED_SECRET = "e929eeee2144466197cd844b370fbffb" // test
     
-    
+    static var timer10Sec: Timer?
 
     static var isRunOnce: Bool {
         set {
@@ -108,21 +108,51 @@ class Settings  {
         }
     }
     
+    static var timeSessionStr: String? {
+        set {
+            defaults.set(newValue, forKey: "timeSession")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.string(forKey: "timeSession")
+        }
+    }
+    
+    static var chartHRV: [String: Int] {
+        set {
+            defaults.set(newValue, forKey: "chartHRV")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.dictionary(forKey: "chartHRV") as! [String: Int]
+        }
+    }
+    
+    static var timeSession: Date? {
+        if let str = timeSessionStr, let date = str.dateFromUTCString {
+            return date
+        }
+        return nil
+    }
+    
     static var expiresDate: Date? {
-        if let str = expiresDateStr, let date = str.dateFromUTCString {
+        if let str = expiresDateStr, let date = str.dateFromUTCSubscriptionString {
             return date
         }
         return nil
     }
     
     static var startTrialDate: Date? {
-        if let str = startTrialDateStr, let date = str.dateFromUTCString {
+        if let str = startTrialDateStr, let date = str.dateFromUTCSubscriptionString {
             return date
         }
         return nil
     }
     
     static func checkSubscriptionAvailability(_ completionHandler: ((Bool, Bool) -> ())? = nil) {
+        
+        completionHandler?(true, false)
+        return
         
         if isTrial && !isSubscriptionAvailability {
             completionHandler?(false, true)
@@ -139,7 +169,50 @@ class Settings  {
             }
         }
         
-        
+    }
+    
+//    class func setTimer() {
+//        timer10Sec = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(fetchLatestHeartRateSample), userInfo: nil, repeats: false)
+//        print(timer10Sec)
+//    }
+    
+    class func invalidateTimer() {
+        DispatchQueue.main.async {
+            timer10Sec?.invalidate()
+            timer10Sec = nil
+        }
+    }
+    
+    class func startTimer() {
+        DispatchQueue.main.async {
+            timer10Sec = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
+                fetchLatestHeartRateSample ()
+            }
+        }
+    }
+    
+    class func fetchLatestHeartRateSample () {
+        DispatchQueue.main.async {
+            if let timeInterval = timer10Sec?.timeInterval, timeInterval == 0.0 {
+                timer10Sec = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { timer in
+                    fetchLatestHeartRateSample()
+                }
+            }
+            
+            ZBFHealthKit.fetchLatestHeartRateSample { heartRate in
+                DispatchQueue.main.async {
+                    guard let heartRate = heartRate else {
+                        return
+                    }
+            
+                    var hrv = chartHRV
+                    hrv[String(Date().timeIntervalSince1970)] = heartRate
+                    
+                    chartHRV = hrv
+                    NotificationCenter.default.post(name: .updateHRV, object: nil)
+                }
+            }
+        }
     }
     
     static func checkSubscription(_ completionHandler: ((Bool, Bool) -> ())? = nil) {
@@ -181,7 +254,7 @@ class Settings  {
                 
                 self.expiresDateStr = expiresDate
                 
-                if let date = expiresDate.dateFromUTCString {
+                if let date = expiresDate.dateFromUTCSubscriptionString {
                     isSubscriptionAvailability = date > Date()
                     completionHandler?(date > Date(), false)
                 }
