@@ -381,8 +381,8 @@ class ArenaController: UIViewController
         scene.physicsBody?.isDynamic = false
         scene.physicsBody?.friction = 0
         scene.physicsBody?.linearDamping = 0
-        
-        video = SKVideoNode(url: URL(string: "http://media.zendo.tools/rainbow.mp4")!)
+
+        video = SKVideoNode(url: URL(string: self.story.content[0].download!)!)
         
         video?.size = scene.frame.size
         video?.position = scene.position
