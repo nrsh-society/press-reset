@@ -53,6 +53,8 @@ class ArenaController: UIViewController
         spriteView.scene?.removeAllChildren()
         UIApplication.shared.isIdleTimerDisabled = false
         
+        Cloud.unregisterChangeHandlers()
+        
     }
     
     override func viewDidLoad()
@@ -297,7 +299,16 @@ class ArenaController: UIViewController
                     {
                         let radius = (size.width / 2)
                         
-                        let node = SKSpriteNode(imageNamed: "shobogenzo")
+                        var node : SKSpriteNode
+                        
+                        if self.players.count == 0
+                        {
+                            node = SKSpriteNode(imageNamed: "player1")
+                        }
+                        else
+                        {
+                            node = SKSpriteNode(imageNamed: "shobogenzo")
+                        }
                         
                         node.size = size
                         
@@ -326,7 +337,7 @@ class ArenaController: UIViewController
                         
                         label.fontSize = 12
                         label.fontName = "Antenna"
-                        label.color = UIColor.black
+                        label.fontColor = SKColor.yellow
                         label.verticalAlignmentMode = .center
                         label.horizontalAlignmentMode = .center
                         label.name = "hrv"
@@ -446,11 +457,16 @@ class ArenaController: UIViewController
         let bezierPath = UIBezierPath(arcCenter: CGPoint(x: scene.frame.midX, y: scene.frame.midY), radius: CGFloat(radius), startAngle: 0 , endAngle: CGFloat(Double.pi) * 2.0, clockwise: true)
         
         let pathNode = SKShapeNode(path: bezierPath.cgPath)
-        pathNode.strokeColor = SKColor.black
+        pathNode.strokeColor = SKColor.white
+        
+        let level = Float(Int(name)! * 2 )
+        let realLevel = CGFloat(level / 100)
+        pathNode.glowWidth = realLevel
+        //pathNode.alpha = floatLevel
         
         pathNode.name = name
         
-        pathNode.lineWidth = 0.01
+        pathNode.lineWidth = CGFloat(0.01 + realLevel)
         
         scene.addChild(pathNode)
     }
