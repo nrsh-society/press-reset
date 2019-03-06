@@ -332,34 +332,70 @@ public class ZBFHealthKit {
                 completion(nil)
                 return
         }
+
+        let datePredicate = HKQuery.predicateForSamples(withStart: Date.distantPast, end: Date(), options: .strictEndDate)
         
-        let predicate = HKQuery.predicateForSamples(withStart: Date.distantPast, end: Date(), options: .strictEndDate)
+        let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
+        
+        let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[datePredicate, devicePredicate])
         
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
-        
+
         let query = HKSampleQuery(
             sampleType: sampleType,
-            predicate: predicate,
+            predicate: queryPredicate,
             limit: Int(HKObjectQueryNoLimit),
             sortDescriptors: [sortDescriptor]) { (_, results, error) in
-                
+
                 guard error == nil else {
                     print("Error: \(error!.localizedDescription)")
                     return
                 }
-                
-                if let  last = results?[0] as? HKQuantitySample {
+
+                if let first = results?.first as? HKQuantitySample {
                     let heartRateUnit = HKUnit(from: "count/min")
-                    let heartRate = last.quantity.doubleValue(for: heartRateUnit)
-                    
+                    let heartRate = first.quantity.doubleValue(for: heartRateUnit)
+
                     completion(Int(heartRate))
                 } else {
                     completion(nil)
                 }
-                
+
         }
-        
+
         ZBFHealthKit.healthStore.execute(query)
+        
+        
+        
+//        guard let quantityType = HKObjectType.quantityType(forIdentifier: .heartRate) else {
+//            completion(nil)
+//            return
+//        }
+//
+//        let datePredicate = HKQuery.predicateForSamples(withStart: Date.distantPast, end: Date(), options: .strictStartDate)
+//
+//        let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
+//
+//        let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[datePredicate, devicePredicate])
+//
+//        let heartRateQuery = HKAnchoredObjectQuery(type: quantityType, predicate: queryPredicate, anchor: nil, limit: HKObjectQueryNoLimit) { query, samples, deletedObjects, queryAnchor, error in
+//            if let quantitySamples = samples as? [HKQuantitySample] {
+//                print(quantitySamples)
+//
+//                if let last = quantitySamples.last {
+//                    let heartRateUnit = HKUnit(from: "count/min")
+//                    let heartRate = last.quantity.doubleValue(for: heartRateUnit)
+//                    print(heartRate)
+//                    completion(Int(heartRate))
+//                } else {
+//                    completion(nil)
+//                }
+//            }
+//
+////
+//        }
+//
+//        ZBFHealthKit.healthStore.execute(heartRateQuery)
     }
         
     class func getHRVReal(start: Date, end: Date, handler: @escaping SamplesHandler) {

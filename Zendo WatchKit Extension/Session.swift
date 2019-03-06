@@ -219,8 +219,16 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     private func process(sample: HKQuantitySample)
     {
         self.heartRate = sample.quantity.doubleValue(for: HKUnit(from: "count/s"))
-        
         heartRateSamples.append(self.heartRate)
+
+        let heartRateUnit = HKUnit(from: "count/min")
+        let heartRateMin = sample.quantity.doubleValue(for: heartRateUnit)
+        
+        sessionDelegater.sendMessage(["watch": "arena", "heartRate": Int(heartRateMin)], replyHandler: { replyHandler in
+            
+        }, errorHandler: { error in
+            
+        })
         
         self.sample()
     }

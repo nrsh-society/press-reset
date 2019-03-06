@@ -101,7 +101,6 @@ extension WatchSessionManager: WCSessionDelegate {
             {
                 Settings.timeSessionStr = nil
                 Settings.chartHRV = [:]
-                Settings.invalidateTimer()
                 NotificationCenter.default.post(name: .updateHRV, object: nil)
                 NotificationCenter.default.post(name: .startSession, object: nil)
             }
@@ -136,10 +135,12 @@ extension WatchSessionManager: WCSessionDelegate {
         } else if let arena = message["watch"] as? String, arena == "arena", let startDate = message["startDate"] as? Date
         {
             Settings.chartHRV = [:]
-            Settings.startTimer()
-//            Settings.fetchLatestHeartRateSample()
             Settings.timeSessionStr = startDate.toUTCString
             NotificationCenter.default.post(name: .startSession, object: nil)
+        } else if let arena = message["watch"] as? String, arena == "arena", let hrvInt = message["heartRate"] as? Int
+        {
+            
+            Settings.fetchLatestHeartRateSample(hrvInt)
         }
     }
 }

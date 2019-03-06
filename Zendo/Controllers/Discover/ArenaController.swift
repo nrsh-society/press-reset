@@ -32,10 +32,10 @@ class ArenaController: UIViewController
     var rings = [String : Int]()
     var connectedPlayerCount = 0
     var story: Story!
-    var video : SKVideoNode?
+    var video: SKVideoNode?
     var idHero = ""
     var timer: Timer?
-    var player = AVPlayer()
+    var player = AVPlayer()
     let size = CGSize(width: 30 , height: 30)
     
     var panGR: UIPanGestureRecognizer!
@@ -91,7 +91,7 @@ class ArenaController: UIViewController
                                                name: .startSession,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateTimer10Sec),
+                                               selector: #selector(updateHRV),
                                                name: .updateHRV,
                                                object: nil)
         
@@ -107,13 +107,13 @@ class ArenaController: UIViewController
     @objc func startSession() {
         DispatchQueue.main.async {
             if let _ = Settings.timeSession {
-                self.updateTimer10Sec()
+                self.updateTimer2Sec()
                 self.arenaView.isHidden = false
                 UIView.animate(withDuration: 0.3) {
                     self.arenaView.alpha = 1.0
                 }
                 self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
-                
+
             } else {
                 UIView.animate(withDuration: 0.3, animations: {
                     self.arenaView.alpha = 0.0
@@ -122,17 +122,17 @@ class ArenaController: UIViewController
                         self.arenaView.isHidden = true
                         self.timer?.invalidate()
                         self.timer = nil
-                        
+
                         self.arenaView.hrv.text = "--"
                         self.arenaView.time.text = nil
                     }
                 })
-                
+
             }
         }
     }
     
-    @objc func updateTimer10Sec() {
+    @objc func updateHRV() {
         let chartHRV = Settings.chartHRV.sorted(by: <)
         if let last = chartHRV.last {
             DispatchQueue.main.async {
@@ -148,7 +148,6 @@ class ArenaController: UIViewController
             
             self.arenaView.time.text = timeElapsed.stringZendoTimeWatch
         }
-        
     }
     
     @objc func progress(notification: NSNotification)

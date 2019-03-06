@@ -16,8 +16,6 @@ class Settings: NSObject {
     static let SHARED_SECRET = "80653a3a2e33453c9e69f7d2da8945eb"
 //   static let SHARED_SECRET = "e929eeee2144466197cd844b370fbffb" // test
     
-    static var timer10Sec: Timer?
-
     static var isRunOnce: Bool {
         set {
             defaults.set(newValue, forKey: "runonce")
@@ -171,47 +169,13 @@ class Settings: NSObject {
         
     }
     
-//    class func setTimer() {
-//        timer10Sec = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(fetchLatestHeartRateSample), userInfo: nil, repeats: false)
-//        print(timer10Sec)
-//    }
-    
-    class func invalidateTimer() {
+    class func fetchLatestHeartRateSample(_ heartRate: Int) {
         DispatchQueue.main.async {
-            timer10Sec?.invalidate()
-            timer10Sec = nil
-        }
-    }
-    
-    class func startTimer() {
-        DispatchQueue.main.async {
-            timer10Sec = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
-                fetchLatestHeartRateSample ()
-            }
-        }
-    }
-    
-    class func fetchLatestHeartRateSample () {
-        DispatchQueue.main.async {
-            if let timeInterval = timer10Sec?.timeInterval, timeInterval == 0.0 {
-                timer10Sec = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { timer in
-                    fetchLatestHeartRateSample()
-                }
-            }
+            var hrv = chartHRV
+            hrv[String(Date().timeIntervalSince1970)] = heartRate
             
-            ZBFHealthKit.fetchLatestHeartRateSample { heartRate in
-                DispatchQueue.main.async {
-                    guard let heartRate = heartRate else {
-                        return
-                    }
-            
-                    var hrv = chartHRV
-                    hrv[String(Date().timeIntervalSince1970)] = heartRate
-                    
-                    chartHRV = hrv
-                    NotificationCenter.default.post(name: .updateHRV, object: nil)
-                }
-            }
+            chartHRV = hrv
+            NotificationCenter.default.post(name: .updateHRV, object: nil)
         }
     }
     
