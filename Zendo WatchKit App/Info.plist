@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>5.0</string>
 	<key>CFBundleVersion</key>
-	<string>12</string>
+	<string>14</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Antenna-ExtraLight.otf</string>
@@ -33,7 +33,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>tools.sunyata.Zendo.ios</string>
+	<string>tools.sunyata.Zendo</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>

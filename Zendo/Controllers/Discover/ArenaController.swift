@@ -53,6 +53,8 @@ class ArenaController: UIViewController
         spriteView.scene?.removeAllChildren()
         UIApplication.shared.isIdleTimerDisabled = false
         
+        Cloud.unregisterChangeHandlers()
+        
     }
     
     override func viewDidLoad()
@@ -107,7 +109,7 @@ class ArenaController: UIViewController
     @objc func startSession() {
         DispatchQueue.main.async {
             if let _ = Settings.timeSession {
-                self.updateTimer2Sec()
+                self.updateHRV()
                 self.arenaView.isHidden = false
                 UIView.animate(withDuration: 0.3) {
                     self.arenaView.alpha = 1.0
@@ -296,13 +298,27 @@ class ArenaController: UIViewController
                     {
                         let radius = (size.width / 2)
                         
-                        let node = SKSpriteNode(imageNamed: "shobogenzo")
+                        var node: SKSpriteNode
+                        
+                        if self.players.count == 0
+                        {
+                            node = SKSpriteNode(color: UIColor.zenYellow, size: size)
+                            node = SKSpriteNode(imageNamed: "player1")
+                        }
+                        else
+                        {
+//                            node = SKSpriteNode(imageNamed: "shobogenzo")
+                        }
+                        
+                        node = SKSpriteNode(color: UIColor.zenYellow, size: size)
+                        
+//                        node.addTo(parent: node, withRadius: radius)
                         
                         node.size = size
                         
                         node.name = "ball"
                         
-                        let body = SKPhysicsBody(circleOfRadius: radius )
+                        let body = SKPhysicsBody(circleOfRadius: radius)
                         
                         body.isDynamic = true
                         body.affectedByGravity = true
@@ -312,25 +328,25 @@ class ArenaController: UIViewController
                         body.linearDamping = 0
                         body.restitution = 1
                         
-                        let ballCategory  : UInt32 = 0x1 << 1
+                        let ballCategory: UInt32 = 0x1 << 1
                         
                         body.categoryBitMask = ballCategory
                         body.contactTestBitMask = ballCategory
                         
                         node.physicsBody = body
                         
-                        let text = Int(hrv.rounded()).description
+//                        let text = Int(hrv.rounded()).description
                         
-                        let label = SKLabelNode(text: text)
-                        
-                        label.fontSize = 12
-                        label.fontName = "Antenna"
-                        label.color = UIColor.black
-                        label.verticalAlignmentMode = .center
-                        label.horizontalAlignmentMode = .center
-                        label.name = "hrv"
-                        
-                        node.addChild(label)
+//                        let label = SKLabelNode(text: text)
+//
+//                        label.fontSize = 12
+//                        label.fontName = "Antenna"
+//                        label.fontColor = SKColor.yellow
+//                        label.verticalAlignmentMode = .center
+//                        label.horizontalAlignmentMode = .center
+//                        label.name = "hrv"
+//
+//                        node.addChild(label)
                         
                         self.players[email] = node
                         
@@ -445,11 +461,16 @@ class ArenaController: UIViewController
         let bezierPath = UIBezierPath(arcCenter: CGPoint(x: scene.frame.midX, y: scene.frame.midY), radius: CGFloat(radius), startAngle: 0 , endAngle: CGFloat(Double.pi) * 2.0, clockwise: true)
         
         let pathNode = SKShapeNode(path: bezierPath.cgPath)
-        pathNode.strokeColor = SKColor.black
+        pathNode.strokeColor = SKColor.white
+        
+        let level = Float(Int(name)! * 2 )
+        let realLevel = CGFloat(level / 100)
+        pathNode.glowWidth = realLevel
+        //pathNode.alpha = floatLevel
         
         pathNode.name = name
         
-        pathNode.lineWidth = 0.01
+        pathNode.lineWidth = CGFloat(0.01 + realLevel)
         
         scene.addChild(pathNode)
     }

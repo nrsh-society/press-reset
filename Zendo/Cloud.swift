@@ -81,8 +81,23 @@ class Cloud
         self.enabled = true
     }
     
+    static func unregisterChangeHandlers()
+    {
+        refHandles.forEach(
+        {
+            entry in
+            
+            let database = Database.database().reference()
+            
+            database.removeObserver(withHandle: entry)
+            
+        })
+    }
+    
     typealias SamplesChangedHandler = (_ samples : [String : [String : AnyObject]], _ error: Error? ) -> Void
 
+    static var refHandles : [DatabaseHandle] = []
+    
     static func registerSamplesChangedHandler(handler: @escaping SamplesChangedHandler) -> DatabaseHandle?
     {
         if(!enabled)
@@ -104,6 +119,8 @@ class Cloud
                 handler(samples, nil)
             }
         }
+        
+        refHandles.append(refHandle)
         
         return refHandle
     }
@@ -131,6 +148,8 @@ class Cloud
                 handler(samples, nil)
             }
         }
+        
+        refHandles.append(refHandle)
         
         return refHandle
     }

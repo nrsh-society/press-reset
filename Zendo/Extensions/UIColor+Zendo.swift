@@ -10,6 +10,10 @@ import UIKit
 
 extension UIColor {
     
+    static var zenYellow: UIColor { //#E7EAA8
+        return UIColor(red: 0.91, green: 0.92, blue: 0.66, alpha: 1)
+    }
+    
     static var zenDarkGreen: UIColor { //#478C78
         return UIColor(red: 0.28, green: 0.55, blue: 0.47, alpha: 1.0)
     }

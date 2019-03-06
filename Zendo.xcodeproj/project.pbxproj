@@ -55,6 +55,7 @@
 		12C1A72C2119B78900EEFF4F /* UIView+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C1A72B2119B78900EEFF4F /* UIView+Nib.swift */; };
 		12C1A72E2119C27C00EEFF4F /* ZenInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C1A72D2119C27C00EEFF4F /* ZenInfoView.swift */; };
 		12C1A7302119C28700EEFF4F /* ZenInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12C1A72F2119C28700EEFF4F /* ZenInfoView.xib */; };
+		12C208F122304C3900305F57 /* SKSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C208F022304C3900305F57 /* SKSpriteNode.swift */; };
 		12C2C27D2137F7E80039C7A0 /* ZenTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2C27C2137F7E80039C7A0 /* ZenTextField.swift */; };
 		12C2C27F2137F7F70039C7A0 /* ZenTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12C2C27E2137F7F70039C7A0 /* ZenTextField.xib */; };
 		12C2C2812137FCA90039C7A0 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2C2802137FCA90039C7A0 /* CommunityViewController.swift */; };
@@ -275,6 +276,7 @@
 		12C1A72B2119B78900EEFF4F /* UIView+Nib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Nib.swift"; sourceTree = "<group>"; };
 		12C1A72D2119C27C00EEFF4F /* ZenInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenInfoView.swift; sourceTree = "<group>"; };
 		12C1A72F2119C28700EEFF4F /* ZenInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZenInfoView.xib; sourceTree = "<group>"; };
+		12C208F022304C3900305F57 /* SKSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKSpriteNode.swift; sourceTree = "<group>"; };
 		12C2C27C2137F7E80039C7A0 /* ZenTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenTextField.swift; sourceTree = "<group>"; };
 		12C2C27E2137F7F70039C7A0 /* ZenTextField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZenTextField.xib; sourceTree = "<group>"; };
 		12C2C2802137FCA90039C7A0 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
@@ -685,6 +687,7 @@
 				127C3E3621789FD800B332EB /* CALayer+Corners.swift */,
 				124A689D2199CCF800598639 /* Error.swift */,
 				12C63FFB22170B44001C93C7 /* Date+UTC.swift */,
+				12C208F022304C3900305F57 /* SKSpriteNode.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1207,6 +1210,7 @@
 				BE75AEC020F708C300311512 /* ChartSeries.swift in Sources */,
 				12BE94CA21AF0FF4000E2B0B /* VideoGeneratorError.swift in Sources */,
 				127C3E392178B37C00B332EB /* VideoViewController.swift in Sources */,
+				12C208F122304C3900305F57 /* SKSpriteNode.swift in Sources */,
 				127C3E342178993100B332EB /* DiscoverCollectionViewCell.swift in Sources */,
 				BE2E81ED1FF44A7B00D104AC /* AppDelegate.swift in Sources */,
 				1223161F21A809D800413A62 /* UIImageView+Download.swift in Sources */,
@@ -1426,10 +1430,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = TZSWHX7RVS;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios.watchkit.ext;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1450,10 +1454,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = TZSWHX7RVS;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios.watchkit.ext;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1473,11 +1477,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = TZSWHX7RVS;
+				DEVELOPMENT_TEAM = "";
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios.watchkit;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1497,11 +1501,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = TZSWHX7RVS;
+				DEVELOPMENT_TEAM = "";
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios.watchkit;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1523,7 +1527,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = TZSWHX7RVS;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1531,7 +1535,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1551,7 +1555,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = TZSWHX7RVS;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1559,7 +1563,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1576,14 +1580,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = TZSWHX7RVS;
+				DEVELOPMENT_TEAM = "";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
@@ -1598,13 +1602,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = TZSWHX7RVS;
+				DEVELOPMENT_TEAM = "";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
