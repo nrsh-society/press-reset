@@ -93,7 +93,7 @@ class ArenaController: UIViewController
                                                name: .startSession,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateHRV),
+                                               selector: #selector(updateHR),
                                                name: .updateHRV,
                                                object: nil)
         
@@ -109,7 +109,7 @@ class ArenaController: UIViewController
     @objc func startSession() {
         DispatchQueue.main.async {
             if let _ = Settings.timeSession {
-                self.updateHRV()
+                self.updateHR()
                 self.arenaView.isHidden = false
                 UIView.animate(withDuration: 0.3) {
                     self.arenaView.alpha = 1.0
@@ -134,11 +134,11 @@ class ArenaController: UIViewController
         }
     }
     
-    @objc func updateHRV() {
+    @objc func updateHR() {
         let chartHRV = Settings.chartHRV.sorted(by: <)
         if let last = chartHRV.last {
             DispatchQueue.main.async {
-                self.arenaView.hrv.text = "\(last.value)ms"
+               
                 self.arenaView.setChart(chartHRV)
             }
         }
@@ -274,6 +274,18 @@ class ArenaController: UIViewController
                     
                     let player = self.players[email]
                     
+                    let isPlayer1 = Settings.email?.elementsEqual(email)
+                    
+                    if(isPlayer1!)
+                    {
+                        DispatchQueue.main.async
+                            {
+                        let text = Int(hrv.rounded()).description
+                        
+                        self.arenaView.hrv.text = "\(text)ms"
+                        }
+                    }
+                    
                     if let existingPlayer = player
                     {
                         DispatchQueue.main.async
@@ -296,25 +308,23 @@ class ArenaController: UIViewController
                     }
                     else
                     {
-                        let radius = (size.width / 2)
+                        
+                        DispatchQueue.main.async
+                            {
+                                let radius = (self.size.width / 2)
                         
                         var node: SKSpriteNode
-                        
-                        if self.players.count == 0
+                                
+                        if(isPlayer1!)
                         {
-                            node = SKSpriteNode(color: UIColor.zenYellow, size: size)
                             node = SKSpriteNode(imageNamed: "player1")
                         }
                         else
                         {
-//                            node = SKSpriteNode(imageNamed: "shobogenzo")
+                            node = SKSpriteNode(imageNamed: "shobogenzo")
                         }
                         
-                        node = SKSpriteNode(color: UIColor.zenYellow, size: size)
-                        
-//                        node.addTo(parent: node, withRadius: radius)
-                        
-                        node.size = size
+                        node.size = self.size
                         
                         node.name = "ball"
                         
@@ -335,28 +345,28 @@ class ArenaController: UIViewController
                         
                         node.physicsBody = body
                         
-//                        let text = Int(hrv.rounded()).description
+                        let text = Int(hrv.rounded()).description
+                
+                        let label = SKLabelNode(text: text)
                         
-//                        let label = SKLabelNode(text: text)
-//
-//                        label.fontSize = 12
-//                        label.fontName = "Antenna"
-//                        label.fontColor = SKColor.yellow
-//                        label.verticalAlignmentMode = .center
-//                        label.horizontalAlignmentMode = .center
-//                        label.name = "hrv"
-//
-//                        node.addChild(label)
+                        label.fontSize = 12
+                        label.fontName = "Antenna"
+                        label.fontColor = SKColor.yellow
+                        label.verticalAlignmentMode = .center
+                        label.horizontalAlignmentMode = .center
+                        label.name = "hrv"
+                        
+                        node.addChild(label)
                         
                         self.players[email] = node
                         
                         body.velocity = CGVector(dx: 0, dy: -16.5)
                         
-                        self.spriteView.scene?.addChild(self.players[email]!)
+                                self.spriteView.scene?.addChild(self.players[email]!)
                         
                         let dShell = self.spriteView.scene!.childNode(withName: "0")! as! SKShapeNode
                         
-                        node.position = CGPoint(x: dShell.frame.maxX  + cos((CGFloat(self.players.count) * 200 + size.width)  ) , y: dShell.frame.midY + sin(CGFloat(self.players.count) * 200 +  size.width))
+                                node.position = CGPoint(x: dShell.frame.maxX  + cos((CGFloat(self.players.count) * 200 + self.size.width)  ) , y: dShell.frame.midY + sin(CGFloat(self.players.count) * 200 +  self.size.width))
                         
                         let center = self.spriteView.scene!.childNode(withName: "center")!
                         
@@ -375,6 +385,8 @@ class ArenaController: UIViewController
                         self.joints[email] = joint
                         
                         self.rings[email] = 0
+                                
+                        }
                         
                     }
                     
