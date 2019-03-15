@@ -14,8 +14,6 @@ import Mixpanel
 import Firebase
 import FirebaseDatabase
 
-//import SwiftVideoGenerator
-
 enum PlayerStatus: Float {
     case pause = 0.0
     case play = 1.0

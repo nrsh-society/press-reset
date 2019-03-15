@@ -28,6 +28,20 @@ class AppInterfaceController: WKInterfaceController {
         
         NSLog("start press")
         
+        Session.current = Session()
+        
+        Session.current?.start()
+        
+        WKInterfaceDevice.current().play(WKHapticType.start)
+        
+        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject)])
+        /*
+        DispatchQueue.main.async {
+            self.presentController(withName: "SubscribeInterfaceController", context: nil)
+        }
+        
+    
+         * @todo: subscriptions
         sessionDelegater.sendMessage(["watch": "subscribe"], replyHandler: { replyHandler in
 
             if let isSubscribe = replyHandler["isSubscribe"] as? Bool, let isTrial = replyHandler["isTrial"] as? Bool, isSubscribe || isTrial {
@@ -43,6 +57,7 @@ class AppInterfaceController: WKInterfaceController {
         }, errorHandler: { error in
 
         })
+        */
         
     }
     

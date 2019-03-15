@@ -44,16 +44,33 @@ class ArenaController: UIViewController
         return UIStoryboard(name: "ArenaController", bundle: nil).instantiateViewController(withIdentifier: "ArenaController") as! ArenaController
     }
     
+    var airplay: AirplayController?
+    
+    func airplay(_ url: URL)
+    {
+        if let airplay = self.airplay
+        {
+            airplay.dismiss()
+            airplay.dismiss(animated: true, completion: nil)
+        }
+        
+        self.airplay = AirplayController.loadFromStoryboard(url)
+    }
+    
     override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
         
         NotificationCenter.default.removeObserver(self)
+        Cloud.unregisterChangeHandlers()
+        
         video?.pause()
         spriteView.scene?.removeAllChildren()
+        
         UIApplication.shared.isIdleTimerDisabled = false
         
-        Cloud.unregisterChangeHandlers()
+        self.airplay?.dismiss()
+        self.airplay = nil
         
     }
     
@@ -106,8 +123,10 @@ class ArenaController: UIViewController
         startSession()
     }
     
-    @objc func startSession() {
-        DispatchQueue.main.async {
+    @objc func startSession()
+    {
+        DispatchQueue.main.async
+        {
             if let _ = Settings.timeSession {
                 self.updateHR()
                 self.arenaView.isHidden = false
@@ -136,12 +155,12 @@ class ArenaController: UIViewController
     
     @objc func updateHR() {
         let chartHRV = Settings.chartHRV.sorted(by: <)
-        if let last = chartHRV.last {
+        
             DispatchQueue.main.async {
                
                 self.arenaView.setChart(chartHRV)
             }
-        }
+        
     }
     
     @objc func updateTimer() {
@@ -276,24 +295,12 @@ class ArenaController: UIViewController
                     
                     let isPlayer1 = Settings.email?.elementsEqual(email)
                     
-                    if(isPlayer1!)
-                    {
-                        DispatchQueue.main.async
-                            {
-                        let text = Int(hrv.rounded()).description
-                        
-                        self.arenaView.hrv.text = "\(text)ms"
-                        }
-                    }
-                    
                     if let existingPlayer = player
                     {
                         DispatchQueue.main.async
                             {
                                 
                                 let label = existingPlayer.childNode(withName: "hrv") as! SKLabelNode
-                                
-                                label.text = Int(hrv.rounded()).description
                                 
                                 let motion = data["motion"]!
                                 let motionD = Double(motion)!
@@ -344,6 +351,8 @@ class ArenaController: UIViewController
                         body.contactTestBitMask = ballCategory
                         
                         node.physicsBody = body
+                                
+                        /*
                         
                         let text = Int(hrv.rounded()).description
                 
@@ -357,7 +366,8 @@ class ArenaController: UIViewController
                         label.name = "hrv"
                         
                         node.addChild(label)
-                        
+ 
+                        */
                         self.players[email] = node
                         
                         body.velocity = CGVector(dx: 0, dy: -16.5)
@@ -423,7 +433,11 @@ class ArenaController: UIViewController
         scene.addChild(video!)
         video?.play()
         
-        
+        if let airplayURL = self.story.content[0].airplay, let url = URL(string: airplayURL)
+        {
+            self.airplay(url)
+        }
+    
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: nil) { notification in
             
             self.player.seek(to: kCMTimeZero)
@@ -458,11 +472,11 @@ class ArenaController: UIViewController
         panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
         spriteView.addGestureRecognizer(panGR)
         
-        self.addShell(scene, 20, "4")
-        self.addShell(scene, 50, "3")
-        self.addShell(scene, 90, "2")
-        self.addShell(scene, 130, "1")
-        self.addShell(scene, 170, "0")
+        self.addShell(scene, 30, "2")
+        //self.addShell(scene, 50, "3")
+        self.addShell(scene, 90, "1")
+        //self.addShell(scene, 130, "1")
+        self.addShell(scene, 150, "0")
         
         return scene
         
