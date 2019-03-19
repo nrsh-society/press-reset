@@ -37,11 +37,16 @@ class ArenaController: UIViewController
     var timer: Timer?
     var player = AVPlayer()
     let size = CGSize(width: 30 , height: 30)
-    
+    let multiPlayer = false
     var panGR: UIPanGestureRecognizer!
     
-    static func loadFromStoryboard() -> ArenaController {
-        return UIStoryboard(name: "ArenaController", bundle: nil).instantiateViewController(withIdentifier: "ArenaController") as! ArenaController
+    static func loadFromStoryboard( _ multiPlayer : Bool) -> ArenaController
+    {
+       let controller = UIStoryboard(name: "ArenaController", bundle: nil).instantiateViewController(withIdentifier: "ArenaController") as! ArenaController
+        
+        return controller
+        
+        
     }
     
     var airplay: AirplayController?
@@ -213,21 +218,54 @@ class ArenaController: UIViewController
                     
                     let progress = (value["data"]! as! [String]).last!.description.lowercased().contains("good")
                     
-                    if (progress && since_now > (-60 * 5) && currentRing >= 4)
+                    if (progress && since_now > (-60) && currentRing >= 2)
                     {
-                        DispatchQueue.main.async
+
+                        //#todo: are all players
+                        //let playersOnFinalRing = self.rings.map( { $1.value >= 2 } )
+                        let playersOnFinalRing =  self.rings.compactMap({ (arg0) -> String? in
+                            
+                            let (key, value) = arg0
+                            if (value >= 2)
                             {
-                                self.spriteView.scene?.physicsWorld.remove(existingJoint)
-                                existingPlayer.removeFromParent()
-                                self.players.removeValue(forKey: email)
-                                self.joints.removeValue(forKey: email)
-                                self.rings.removeValue(forKey: email)
-                        }
+                                return key
+                                
+                            }
+                            else
+                            {
+                                return nil
+                            }
+                            
+                        })
+
                         
-                        return
+                        if playersOnFinalRing.count == self.players.count
+                        {
+                            
+                            self.players.forEach({
+                                (arg0) in
+                                
+                                let (key, value) = arg0
+                                
+                                DispatchQueue.main.async
+                                    {
+                                        self.spriteView.scene?.physicsWorld.removeAllJoints()
+                                        //self.spriteView.scene?.physicsWorld.remove(existingJoint)
+                                        //existingPlayer.removeFromParent()
+                                        value.removeFromParent()
+                                        self.players.removeValue(forKey: key)
+                                        self.joints.removeValue(forKey: key)
+                                        self.rings.removeValue(forKey: key)
+                                }
+                                
+                                return
+                                
+                            })
+                            
+                            }
                         
                     }
-                    else if(progress && since_now > (-60 * 5) && currentRing <= 4)
+                    else if(progress && since_now > (-60) && currentRing < 2)
                     {
                         self.rings[email] = currentRing + 1
                         
@@ -236,7 +274,7 @@ class ArenaController: UIViewController
                                 
                                 self.spriteView.scene?.physicsWorld.remove(existingJoint)
                                 
-                                let shell = self.spriteView.scene!.childNode(withName: self.rings[email]!.description)! as! SKShapeNode
+                                if let shell = self.spriteView.scene!.childNode(withName: self.rings[email]!.description)! as? SKShapeNode {
                                 
                                 existingPlayer.position = CGPoint(x: shell.frame.maxX  + cos((CGFloat(self.players.count) * 200 + self.size.width)  ) , y: shell.frame.midY + sin(CGFloat(self.players.count) * 200 +  self.size.width))
                                 
@@ -260,6 +298,7 @@ class ArenaController: UIViewController
                                 
                                 self.spriteView.scene?.physicsWorld.add(joint)
                                 self.joints[email] = joint
+                                }
                         }
                         
                     }
@@ -300,8 +339,6 @@ class ArenaController: UIViewController
                         DispatchQueue.main.async
                             {
                                 
-                                let label = existingPlayer.childNode(withName: "hrv") as! SKLabelNode
-                                
                                 let motion = data["motion"]!
                                 let motionD = Double(motion)!
                                 
@@ -311,16 +348,22 @@ class ArenaController: UIViewController
                                         , duration: 1))
                                     
                                 }
+                                
+                                if let player1 = isPlayer1, player1
+                                {
+                                    let text = Int(hrv.rounded()).description
+                                    self.arenaView.hrv.text = text
+                                }
                         }
                     }
                     else
                     {
                         
                         DispatchQueue.main.async
-                            {
-                                let radius = (self.size.width / 2)
+                        {
+                            let radius = (self.size.width / 2)
                         
-                        var node: SKSpriteNode
+                            var node: SKSpriteNode
                                 
                         if(isPlayer1!)
                         {
@@ -415,12 +458,10 @@ class ArenaController: UIViewController
         
         scene.physicsBody = SKPhysicsBody(edgeLoopFrom: scene.frame)
         scene.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
-        // scene.physicsWorld.contactDelegate = self
         scene.physicsBody?.node?.name = "walls"
         scene.physicsBody?.isDynamic = false
         scene.physicsBody?.friction = 0
         scene.physicsBody?.linearDamping = 0
-        
         
         let item = AVPlayerItem(url: URL(string: self.story.content[0].download!)!)
         

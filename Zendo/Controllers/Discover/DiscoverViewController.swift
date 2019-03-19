@@ -176,10 +176,11 @@ class DiscoverViewController: UIViewController {
         
         isNoInternet = false
         
+        //#todo: make this based on the build #
         #if DEBUG
-        let urlPath: String = "http://media.zendo.tools/discover.v5.json?v=\(Date().timeIntervalSinceNow)"
+        let urlPath: String = "http://media.zendo.tools/discover.v5.00.json?v=\(Date().timeIntervalSinceNow)"
         #else
-        let urlPath: String = "http://media.zendo.tools/discover.v5.json?v=\(Date().timeIntervalSinceNow)"
+        let urlPath: String = "http://media.zendo.tools/discover.v5.00.json?v=\(Date().timeIntervalSinceNow)"
         #endif
         
         URLSession.shared.dataTask(with: URL(string: urlPath)!) { data, response, error -> Void in
@@ -492,17 +493,23 @@ extension DiscoverViewController: UICollectionViewDataSource {
         
         var vc : UIViewController?
         
-        if story.type == "arena"
+        if story.type == "game"
         {
             
-            let arena = ArenaController.loadFromStoryboard()
+            let arena = ArenaController.loadFromStoryboard(true)
             arena.story = story
-            
             arena.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
             vc = arena
             
         }
-        else
+        else if story.type == "train"
+        {
+            let arena = ArenaController.loadFromStoryboard(false)
+            arena.story = story
+            arena.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            vc = arena
+        }
+        else //tutorial? //learn
         {
             let video = VideoViewController.loadFromStoryboard()
             video.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
