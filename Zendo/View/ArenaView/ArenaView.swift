@@ -10,6 +10,8 @@ import UIKit
 import Charts
 
 class ArenaView: UIView {
+    
+    @IBOutlet weak var connectButton: UIButton!
     @IBOutlet weak var hrv: UILabel!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var hrvImage: UIImageView! {

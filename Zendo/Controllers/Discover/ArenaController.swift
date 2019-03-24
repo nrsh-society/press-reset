@@ -20,8 +20,8 @@ class ArenaController: UIViewController
     @IBOutlet weak var spriteView: SKView!
     @IBOutlet weak var arenaView: ArenaView! {
         didSet {
-            arenaView.isHidden = true
-            arenaView.alpha = 0.0
+            arenaView.isHidden = false
+            arenaView.alpha = 1.0
             self.arenaView.hrv.text = "--"
             self.arenaView.time.text = nil
         }
@@ -35,17 +35,18 @@ class ArenaController: UIViewController
     var video: SKVideoNode?
     var idHero = ""
     var timer: Timer?
-    var player = AVPlayer()
+    var player = AVPlayer()
     let size = CGSize(width: 30 , height: 30)
-    let multiPlayer = false
+    var multiPlayer = false
     var panGR: UIPanGestureRecognizer!
     
     static func loadFromStoryboard( _ multiPlayer : Bool) -> ArenaController
     {
        let controller = UIStoryboard(name: "ArenaController", bundle: nil).instantiateViewController(withIdentifier: "ArenaController") as! ArenaController
         
-        return controller
+        controller.multiPlayer = multiPlayer
         
+        return controller
         
     }
     
@@ -67,7 +68,11 @@ class ArenaController: UIViewController
         super.viewWillDisappear(animated)
         
         NotificationCenter.default.removeObserver(self)
-        Cloud.unregisterChangeHandlers()
+        
+        if(self.multiPlayer)
+        {
+            Cloud.unregisterChangeHandlers()
+        }
         
         video?.pause()
         spriteView.scene?.removeAllChildren()
@@ -85,20 +90,24 @@ class ArenaController: UIViewController
         
         UIApplication.shared.isIdleTimerDisabled = true
         
-        Cloud.registerSamplesChangedHandler()
-            {
-                (samples, error) in
-                
-                self.processSamples(samples)
-                
-        }
+        if(self.multiPlayer)
+        {
         
-        Cloud.registerProgressChangedHandler()
-            {
-                (progress, error) in
-                
-                self.processProgress(progress)
-                
+            Cloud.registerSamplesChangedHandler()
+                {
+                    (samples, error) in
+                    
+                    self.processSamples(samples)
+                    
+            }
+        
+            Cloud.registerProgressChangedHandler()
+                {
+                    (progress, error) in
+                    
+                    self.processProgress(progress)
+                    
+            }
         }
         
         NotificationCenter.default.addObserver(self,
@@ -124,8 +133,19 @@ class ArenaController: UIViewController
         modalPresentationCapturesStatusBarAppearance = true
         
         self.spriteView.presentScene(self.setupScene())
+        
+        self.arenaView.connectButton.addTarget(self, action: #selector(connectAppleWatch), for: .touchUpInside)
 
         startSession()
+    }
+    
+    @objc func connectAppleWatch()
+    {
+        self.arenaView.connectButton.isHidden = true
+        let startingSessions = StartingSessionViewController()
+        startingSessions.modalPresentationStyle = .overFullScreen
+        startingSessions.modalTransitionStyle = .crossDissolve
+        self.present(startingSessions, animated: true)
     }
     
     @objc func startSession()
@@ -133,8 +153,11 @@ class ArenaController: UIViewController
         DispatchQueue.main.async
         {
             if let _ = Settings.timeSession {
+                
                 self.updateHR()
+                self.arenaView.connectButton.isHidden = true
                 self.arenaView.isHidden = false
+                
                 UIView.animate(withDuration: 0.3) {
                     self.arenaView.alpha = 1.0
                 }
@@ -142,15 +165,17 @@ class ArenaController: UIViewController
 
             } else {
                 UIView.animate(withDuration: 0.3, animations: {
-                    self.arenaView.alpha = 0.0
+                    self.arenaView.alpha = 1.0
                 }, completion: { completion in
                     DispatchQueue.main.async {
-                        self.arenaView.isHidden = true
+                        //self.arenaView.isHidden = true
+                        self.arenaView.connectButton.isHidden = false
                         self.timer?.invalidate()
                         self.timer = nil
 
                         self.arenaView.hrv.text = "--"
-                        self.arenaView.time.text = nil
+                        self.arenaView.time.text = "--"
+                        self.arenaView.setChart([])
                     }
                 })
 
@@ -174,21 +199,49 @@ class ArenaController: UIViewController
             
             self.arenaView.time.text = timeElapsed.stringZendoTimeWatch
         }
+        
     }
     
     @objc func progress(notification: NSNotification)
     {
+        
         if let progress = notification.object as? [String]
         {
-            Cloud.updateProgress(email: Settings.email!, content: "arena", progress: progress)
+            if(self.multiPlayer)
+            {
+                Cloud.updateProgress(email: Settings.email!, content: "arena", progress: progress)
+            }
+            else
+            {
+                let value = ["data" : progress,
+                             "updated" : Date().timeIntervalSince1970.description,
+                             "content" : "",
+                             "email" : Settings.email!] as [String : Any]
+                
+                self.processProgress([Settings.email!: value as Dictionary<String, AnyObject>])
+            }
         }
+        
     }
     
     @objc func sample(notification: NSNotification)
     {
         if let sample = notification.object as? [String : Any]
         {
-            Cloud.updateSample(email: Settings.email!, content: "arena", sample: sample)
+            if(self.multiPlayer)
+            {
+                Cloud.updateSample(email: Settings.email!, content: "arena", sample: sample)
+            }
+            else
+            {
+                let value = ["data" : sample,
+                             "updated" : Date().description,
+                             "content" : "",
+                             "email" : Settings.email!] as [String : Any]
+                
+                
+                self.processProgress([Settings.email!: value as Dictionary<String, AnyObject>])
+            }
         }
     }
     
@@ -528,7 +581,7 @@ class ArenaController: UIViewController
         let bezierPath = UIBezierPath(arcCenter: CGPoint(x: scene.frame.midX, y: scene.frame.midY), radius: CGFloat(radius), startAngle: 0 , endAngle: CGFloat(Double.pi) * 2.0, clockwise: true)
         
         let pathNode = SKShapeNode(path: bezierPath.cgPath)
-        pathNode.strokeColor = SKColor.white
+        pathNode.strokeColor = SKColor.clear
         
         let level = Float(Int(name)! * 2 )
         let realLevel = CGFloat(level / 100)
@@ -545,7 +598,7 @@ class ArenaController: UIViewController
     @objc func pan()
     {
         let translation = panGR.translation(in: nil)
-        let progress = translation.y / spriteView.bounds.height
+        let progress = translation.y / view.bounds.height
         switch panGR.state {
         case .began:
             hero.dismissViewController()
@@ -554,7 +607,7 @@ class ArenaController: UIViewController
             let currentPos = CGPoint(x: translation.x + view.center.x, y: translation.y + view.center.y)
             Hero.shared.apply(modifiers: [.position(currentPos)], to: spriteView)
         default:
-            if progress + panGR.velocity(in: nil).y / spriteView.bounds.height > 0.3 {
+            if progress + panGR.velocity(in: nil).y / view.bounds.height > 0.3 {
                 
                 Hero.shared.finish()
             } else {

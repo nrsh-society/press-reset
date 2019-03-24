@@ -364,7 +364,10 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                     {
                         DispatchQueue.main.async
                         {
-                            WKInterfaceDevice.current().play(haptic)
+                            if(haptic == WKHapticType.retry)
+                            {
+                                WKInterfaceDevice.current().play(haptic)
+                            }
                         }
                         
                         Thread.sleep(forTimeInterval: 1)

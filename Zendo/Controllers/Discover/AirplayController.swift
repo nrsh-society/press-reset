@@ -478,7 +478,7 @@ class AirplayController: UIViewController
                                  
                                  label.fontSize = 8
                                  label.fontName = "Antenna"
-                                 label.fontColor = SKColor.zenLightGreen
+                                 label.fontColor = SKColor.zenWhite
                                  label.verticalAlignmentMode = .center
                                  label.horizontalAlignmentMode = .center
                                  label.name = "hrv"
