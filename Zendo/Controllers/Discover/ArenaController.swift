@@ -21,9 +21,15 @@ class ArenaController: UIViewController
     @IBOutlet weak var arenaView: ArenaView! {
         didSet {
             arenaView.isHidden = false
+            self.arenaView.hrv.isHidden = true
+            self.arenaView.time.isHidden = true
+            self.arenaView.hrvImage.isHidden = true
+            self.arenaView.timeImage.isHidden = true
+            self.arenaView.timeLabel.isHidden = true
+            self.arenaView.hrvLabel.isHidden = true
             arenaView.alpha = 1.0
             self.arenaView.hrv.text = "--"
-            self.arenaView.time.text = nil
+            self.arenaView.time.text = "--"
         }
     }
     
@@ -134,7 +140,7 @@ class ArenaController: UIViewController
         
         self.spriteView.presentScene(self.setupScene())
         
-        self.arenaView.connectButton.addTarget(self, action: #selector(connectAppleWatch), for: .touchUpInside)
+        self.arenaView.connectButton.addTarget(self, action: #selector(connectAppleWatch), for: .primaryActionTriggered)
 
         startSession()
     }
@@ -155,7 +161,14 @@ class ArenaController: UIViewController
             if let _ = Settings.timeSession {
                 
                 self.updateHR()
+                
                 self.arenaView.connectButton.isHidden = true
+                self.arenaView.hrv.isHidden = false
+                self.arenaView.time.isHidden = false
+                self.arenaView.hrvImage.isHidden = false
+                self.arenaView.timeImage.isHidden = false
+                self.arenaView.timeLabel.isHidden = false
+                self.arenaView.hrvLabel.isHidden = false
                 self.arenaView.isHidden = false
                 
                 UIView.animate(withDuration: 0.3) {
@@ -173,6 +186,12 @@ class ArenaController: UIViewController
                         self.timer?.invalidate()
                         self.timer = nil
 
+                        self.arenaView.hrv.isHidden = true
+                        self.arenaView.time.isHidden = true
+                        self.arenaView.hrvImage.isHidden = true
+                        self.arenaView.timeImage.isHidden = true
+                        self.arenaView.timeLabel.isHidden = true
+                        self.arenaView.hrvLabel.isHidden = true
                         self.arenaView.hrv.text = "--"
                         self.arenaView.time.text = "--"
                         self.arenaView.setChart([])
@@ -240,7 +259,7 @@ class ArenaController: UIViewController
                              "email" : Settings.email!] as [String : Any]
                 
                 
-                self.processProgress([Settings.email!: value as Dictionary<String, AnyObject>])
+                self.processSamples([Settings.email!: value as Dictionary<String, AnyObject>])
             }
         }
     }
@@ -387,26 +406,31 @@ class ArenaController: UIViewController
                     
                     let isPlayer1 = Settings.email?.elementsEqual(email)
                     
+                    let text = Int(hrv.rounded()).description
+                    
+                    DispatchQueue.main.async
+                    {
+                    
+                        self.arenaView.hrv.text = text
+                        
+                    }
+                }
+        })
+    }
+        
+        /*
+                    
                     if let existingPlayer = player
                     {
-                        DispatchQueue.main.async
-                            {
+                       
+                        let motion = data["motion"]!
+                        let motionD = Double(motion)!
                                 
-                                let motion = data["motion"]!
-                                let motionD = Double(motion)!
-                                
-                                if(motionD > 0.0)
-                                {
-                                    existingPlayer.run(SKAction.applyAngularImpulse(CGFloat(motionD)
+                        if(motionD > 0.0)
+                        {
+                            existingPlayer.run(SKAction.applyAngularImpulse(CGFloat(motionD)
                                         , duration: 1))
                                     
-                                }
-                                
-                                if let player1 = isPlayer1, player1
-                                {
-                                    let text = Int(hrv.rounded()).description
-                                    self.arenaView.hrv.text = text
-                                }
                         }
                     }
                     else
@@ -498,9 +522,9 @@ class ArenaController: UIViewController
                     
                 }
                 
-        })
+        })*/
         
-    }
+   // }
     
     func setupScene() -> SKScene
     {
@@ -689,3 +713,4 @@ extension ArenaController: SKPhysicsContactDelegate
         }
     }
 }
+

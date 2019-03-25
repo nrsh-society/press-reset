@@ -11,6 +11,7 @@ import Charts
 
 class ArenaView: UIView {
     
+    @IBOutlet weak var hudView: UIView!
     @IBOutlet weak var connectButton: UIButton!
     @IBOutlet weak var hrv: UILabel!
     @IBOutlet weak var time: UILabel!
@@ -27,6 +28,9 @@ class ArenaView: UIView {
 //            timeImage.tintColor = UIColor.white
         }
     }
+    
+    @IBOutlet weak var hrvLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     
     @IBOutlet weak var lineChartView: LineChartView! {
         didSet {
