@@ -118,7 +118,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             })
             
             motionManager.startDeviceMotionUpdates()
-            
+        
             healthStore.start(workoutSession!)
             
             WKInterfaceDevice.current().play(.start)
@@ -159,7 +159,11 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         var healthKitSamples: [HKSample] = []
         
-        let workout = HKWorkout(activityType: .mindAndBody, start: self.startDate!, end: self.endDate!, workoutEvents: nil, totalEnergyBurned: nil, totalDistance: nil, totalSwimmingStrokeCount: nil, device: nil, metadata: metadataWork)
+        let energyUnit = HKUnit.smallCalorie()
+        
+        let energyValue = HKQuantity(unit: energyUnit, doubleValue: 0.0)
+        
+        let workout = HKWorkout(activityType: .mindAndBody, start: self.startDate!, end: self.endDate!, workoutEvents: nil, totalEnergyBurned: energyValue, totalDistance: nil, totalSwimmingStrokeCount: nil, device: nil, metadata: metadataWork)
         
         let mindfulType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         
@@ -339,6 +343,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                 }
             }
             
+/*
             if(movementRangeSamples.count > 10 && notifyTimerSeconds > 60)
             {
                 let range = (self.movementRangeSamples.max()! - self.movementRangeSamples.min()!)
@@ -353,6 +358,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                     message = "Good work"
                 }
             }
+ */
             
             let iterations = Int(Session.options.hapticStrength)
             

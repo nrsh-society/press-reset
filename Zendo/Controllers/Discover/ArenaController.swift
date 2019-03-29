@@ -13,23 +13,27 @@ import Firebase
 import FirebaseDatabase
 import HealthKit
 import AVKit
+import Mixpanel
 
 
 class ArenaController: UIViewController
 {
     @IBOutlet weak var spriteView: SKView!
+    {
+        didSet {
+            spriteView.hero.id = idHero
+        }
+    }
+    @IBOutlet weak var connectButton: UIButton!
+    
     @IBOutlet weak var arenaView: ArenaView! {
         didSet {
-            arenaView.isHidden = false
-            self.arenaView.hrv.isHidden = true
-            self.arenaView.time.isHidden = true
-            self.arenaView.hrvImage.isHidden = true
-            self.arenaView.timeImage.isHidden = true
-            self.arenaView.timeLabel.isHidden = true
-            self.arenaView.hrvLabel.isHidden = true
+
+            arenaView.isHidden = true
             arenaView.alpha = 1.0
             self.arenaView.hrv.text = "--"
             self.arenaView.time.text = "--"
+            
         }
     }
     
@@ -73,6 +77,8 @@ class ArenaController: UIViewController
     {
         super.viewWillDisappear(animated)
         
+        Mixpanel.mainInstance().track(event: "phone_train", properties: ["name": story.title])
+        
         NotificationCenter.default.removeObserver(self)
         
         if(self.multiPlayer)
@@ -95,6 +101,8 @@ class ArenaController: UIViewController
         super.viewDidLoad()
         
         UIApplication.shared.isIdleTimerDisabled = true
+        
+        Mixpanel.mainInstance().time(event: "phone_train")
         
         if(self.multiPlayer)
         {
@@ -140,18 +148,27 @@ class ArenaController: UIViewController
         
         self.spriteView.presentScene(self.setupScene())
         
-        self.arenaView.connectButton.addTarget(self, action: #selector(connectAppleWatch), for: .primaryActionTriggered)
+        self.connectButton.addTarget(self, action: #selector(connectAppleWatch), for: .primaryActionTriggered)
+        
+        self.connectButton.layer.borderColor = UIColor.white.cgColor
+        self.connectButton.layer.borderWidth = 1.0
+        self.connectButton.layer.cornerRadius = 20.0
+        self.connectButton.backgroundColor = UIColor(red:0.06, green:0.15, blue:0.13, alpha:0.3)
+        self.connectButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        self.connectButton.layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
+        self.connectButton.layer.shadowOpacity = 1
+        self.connectButton.layer.shadowRadius = 20
 
         startSession()
     }
     
     @objc func connectAppleWatch()
     {
-        self.arenaView.connectButton.isHidden = true
         let startingSessions = StartingSessionViewController()
         startingSessions.modalPresentationStyle = .overFullScreen
         startingSessions.modalTransitionStyle = .crossDissolve
         self.present(startingSessions, animated: true)
+        
     }
     
     @objc func startSession()
@@ -159,39 +176,30 @@ class ArenaController: UIViewController
         DispatchQueue.main.async
         {
             if let _ = Settings.timeSession {
-                
+                Mixpanel.mainInstance().time(event: "phone_train_watch_connected")
                 self.updateHR()
-                
-                self.arenaView.connectButton.isHidden = true
-                self.arenaView.hrv.isHidden = false
-                self.arenaView.time.isHidden = false
-                self.arenaView.hrvImage.isHidden = false
-                self.arenaView.timeImage.isHidden = false
-                self.arenaView.timeLabel.isHidden = false
-                self.arenaView.hrvLabel.isHidden = false
-                self.arenaView.isHidden = false
-                
                 UIView.animate(withDuration: 0.3) {
                     self.arenaView.alpha = 1.0
+                    self.arenaView.isHidden = false
+                    self.connectButton.isHidden = true
                 }
                 self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
 
             } else {
+                
+                Mixpanel.mainInstance().track(event: "phone_train_watch_connected", properties: ["name": self.story.title])
+                
                 UIView.animate(withDuration: 0.3, animations: {
                     self.arenaView.alpha = 1.0
+                    self.arenaView.isHidden = true
+                    self.connectButton.isHidden = false
+
                 }, completion: { completion in
                     DispatchQueue.main.async {
-                        //self.arenaView.isHidden = true
-                        self.arenaView.connectButton.isHidden = false
+
                         self.timer?.invalidate()
                         self.timer = nil
 
-                        self.arenaView.hrv.isHidden = true
-                        self.arenaView.time.isHidden = true
-                        self.arenaView.hrvImage.isHidden = true
-                        self.arenaView.timeImage.isHidden = true
-                        self.arenaView.timeLabel.isHidden = true
-                        self.arenaView.hrvLabel.isHidden = true
                         self.arenaView.hrv.text = "--"
                         self.arenaView.time.text = "--"
                         self.arenaView.setChart([])

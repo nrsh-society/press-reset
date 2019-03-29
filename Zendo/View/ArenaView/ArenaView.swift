@@ -152,11 +152,9 @@ class ArenaView: UIView {
         
     }
     
-    override func layoutSubviews() {
+    override func layoutSubviews()
+    {
         super.layoutSubviews()
-        
-        
-        
         layer.borderColor = UIColor.white.cgColor
         layer.borderWidth = 1.0
         layer.cornerRadius = 20.0

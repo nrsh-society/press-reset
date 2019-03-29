@@ -17,7 +17,8 @@ class StartingSessionViewController: UIViewController {
     let startingSessions = StartingSessions()
     let healthStore = ZBFHealthKit.healthStore
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.black.withAlphaComponent(0.2)

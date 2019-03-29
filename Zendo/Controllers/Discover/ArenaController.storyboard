@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Antenna-Regular.otf">
+            <string>Antenna-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Arena Controller-->
         <scene sceneID="Qdr-8l-U0n">
@@ -24,21 +29,32 @@
                                 <color key="backgroundColor" red="0.60030913350000004" green="0.67497491840000001" blue="0.6431349516" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </skView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cCa-Pd-CyP" customClass="ArenaView" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="3" y="525.5" width="369" height="133.5"/>
+                                <rect key="frame" x="3" y="525.5" width="369" height="144.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTo-no-nA4">
+                                <rect key="frame" x="3" y="640" width="369" height="30"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="18"/>
+                                <state key="normal" title=" connect to Apple Watch">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="cCa-Pd-CyP" secondAttribute="trailing" constant="3" id="7VI-ed-01J"/>
                             <constraint firstItem="cCa-Pd-CyP" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" constant="3" id="DmB-HV-XtB"/>
-                            <constraint firstItem="cCa-Pd-CyP" firstAttribute="height" secondItem="HIe-zl-TmH" secondAttribute="height" multiplier="0.2" id="huw-Gy-Joc"/>
-                            <constraint firstItem="z49-wy-zwZ" firstAttribute="bottom" secondItem="cCa-Pd-CyP" secondAttribute="bottom" constant="8" id="yhc-ZL-XoZ"/>
+                            <constraint firstItem="FTo-no-nA4" firstAttribute="centerX" secondItem="HIe-zl-TmH" secondAttribute="centerX" id="Kye-Kp-nRX"/>
+                            <constraint firstItem="cCa-Pd-CyP" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" constant="3" id="TKE-YK-7FN"/>
+                            <constraint firstItem="cCa-Pd-CyP" firstAttribute="top" secondItem="z49-wy-zwZ" secondAttribute="top" constant="505.5" id="TX3-D5-Z67"/>
+                            <constraint firstItem="FTo-no-nA4" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" constant="3" id="agU-bz-pgX"/>
+                            <constraint firstItem="FTo-no-nA4" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" constant="3" id="eMV-8q-8mW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="z49-wy-zwZ"/>
                     </view>
                     <connections>
                         <outlet property="arenaView" destination="cCa-Pd-CyP" id="pd9-By-euJ"/>
+                        <outlet property="connectButton" destination="FTo-no-nA4" id="plm-Fc-T2k"/>
                         <outlet property="spriteView" destination="xcq-F9-V7c" id="K8r-nF-Wj1"/>
                     </connections>
                 </viewController>
