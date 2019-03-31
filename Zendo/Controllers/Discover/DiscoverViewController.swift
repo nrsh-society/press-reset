@@ -17,8 +17,8 @@ import Cache
 class SubscriptionHeaderTableViewCell: UITableViewCell {
     
     enum SubscriptionStatus: String {
-        case end = "your trial has ended"
-        case trial =  "days remaining on your free trial"
+        //case end = "support our work together..."
+        case trial =  "support our work together."
     }
     
     @IBOutlet weak var textLabelSub: UILabel!
@@ -33,9 +33,12 @@ class SubscriptionHeaderTableViewCell: UITableViewCell {
                     let days = date.addingTimeInterval(60*60*24*14).days(from: Date())
                     
                     if days <= 0 {
-                        textLabelSub.text = SubscriptionStatus.end.rawValue
+                        textLabelSub.text = SubscriptionStatus.trial.rawValue
                     } else {
-                        textLabelSub.text = "\(days + 1) " + SubscriptionStatus.trial.rawValue
+                        
+                        //textLabelSub.text = "\(days + 1) " + SubscriptionStatus.trial.rawValue
+                        
+                        textLabelSub.text = SubscriptionStatus.trial.rawValue
                     }
                     
                 }
@@ -126,6 +129,7 @@ class DiscoverViewController: UIViewController {
         tableView.refreshControl = refreshControl
         
         tableView.register(NoInternetTableViewCell.nib, forCellReuseIdentifier: NoInternetTableViewCell.reuseIdentifierCell)
+
         
         if let email = Settings.email
         {

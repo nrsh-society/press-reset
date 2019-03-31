@@ -149,8 +149,8 @@ class Settings: NSObject {
     
     static func checkSubscriptionAvailability(_ completionHandler: ((Bool, Bool) -> ())? = nil) {
         
-        completionHandler?(true, false)
-        return
+       // completionHandler?(true, false)
+        //return
         
         if isTrial && !isSubscriptionAvailability {
             completionHandler?(false, true)

@@ -152,7 +152,7 @@ class ArenaController: UIViewController
         
         self.connectButton.layer.borderColor = UIColor.white.cgColor
         self.connectButton.layer.borderWidth = 1.0
-        self.connectButton.layer.cornerRadius = 20.0
+        self.connectButton.layer.cornerRadius = 10.0
         self.connectButton.backgroundColor = UIColor(red:0.06, green:0.15, blue:0.13, alpha:0.3)
         self.connectButton.layer.shadowOffset = CGSize(width: 0, height: 2)
         self.connectButton.layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor

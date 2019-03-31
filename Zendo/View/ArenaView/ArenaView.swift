@@ -111,7 +111,7 @@ class ArenaView: UIView {
         dataset.drawValuesEnabled = false
         dataset.setColor(UIColor.white)
         dataset.lineWidth = 1.5
-        
+        dataset.label = "bpm"
         dataset.fillAlpha = 0.3
         dataset.fillColor = UIColor.white
         dataset.drawFilledEnabled = true
