@@ -134,6 +134,8 @@ class AppInterfaceController: WKInterfaceController {
             
             Notification.weekly()
             
+            Notification.daily()
+            
             Notification.enabled = true
             
             Mixpanel.sharedInstance()?.track("watch_notification_enabled")

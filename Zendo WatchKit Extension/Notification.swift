@@ -220,6 +220,10 @@ public class Notification
         }
     }
     
+    
+    /*
+     #todo: only one of these notifications is running as of v5.00
+     */
     static func checkCloseRing() {
         
         ZBFHealthKit.getMindfulMinutes { sec, error in

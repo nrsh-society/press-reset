@@ -156,19 +156,6 @@ class VideoViewController: UIViewController {
                         self.video.addBackground(image: image, isLayer: true, isReplase: false)
                     }
                 }
-                
-                if let type = story.type
-                {
-                    if(type == "meditation")
-                    {
-                        
-                    NotificationCenter.default.addObserver(self,
-                                                       selector: #selector(self.sample),
-                                                       name: NSNotification.Name("sample"),
-                                                       object: nil)
-                    
-                    }
-                }
             }
             
             for (index, content) in story.content.enumerated() {

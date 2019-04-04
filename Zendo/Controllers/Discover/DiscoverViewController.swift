@@ -497,23 +497,29 @@ extension DiscoverViewController: UICollectionViewDataSource {
         
         var vc : UIViewController?
         
-        if story.type == "game"
+        if story.type == "group"
         {
-            
-            let arena = ArenaController.loadFromStoryboard(true)
+            let arena = GameController.loadFromStoryboard()
             arena.story = story
             arena.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
             vc = arena
             
+        }
+        if story.type == "solo"
+        {
+            let solo = TrainController.loadFromStoryboard(true)
+            solo.story = story
+            solo.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            vc = solo
         }
         else if story.type == "train"
         {
-            let arena = ArenaController.loadFromStoryboard(false)
-            arena.story = story
-            arena.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-            vc = arena
+            let train = TrainController.loadFromStoryboard(false)
+            train.story = story
+            train.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            vc = train
         }
-        else //tutorial? //learn
+        else //tutorial
         {
             let video = VideoViewController.loadFromStoryboard()
             video.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description

@@ -15,10 +15,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Arena Controller-->
+        <!--Game Controller-->
         <scene sceneID="Qdr-8l-U0n">
             <objects>
-                <viewController storyboardIdentifier="ArenaController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NZg-Kt-xhW" customClass="ArenaController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NZg-Kt-xhW" customClass="GameController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HIe-zl-TmH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,7 +29,7 @@
                                 <color key="backgroundColor" red="0.60030913350000004" green="0.67497491840000001" blue="0.6431349516" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </skView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cCa-Pd-CyP" customClass="ArenaView" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="3" y="507" width="375" height="150"/>
+                                <rect key="frame" x="3" y="507" width="369" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="ndM-It-NmL"/>
@@ -45,10 +45,15 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mog-SI-TKB">
+                                <rect key="frame" x="103" y="78" width="162" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Host | Join"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="cCa-Pd-CyP" firstAttribute="trailing" secondItem="z49-wy-zwZ" secondAttribute="trailing" constant="3" id="7VI-ed-01J"/>
+                            <constraint firstItem="cCa-Pd-CyP" firstAttribute="trailing" secondItem="z49-wy-zwZ" secondAttribute="trailing" constant="-3" id="7VI-ed-01J"/>
                             <constraint firstItem="cCa-Pd-CyP" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" constant="3" id="DmB-HV-XtB"/>
                             <constraint firstItem="FTo-no-nA4" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" constant="-10" id="EqL-9p-gK6"/>
                             <constraint firstItem="cCa-Pd-CyP" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" constant="-10" id="TX3-D5-Z67"/>
@@ -57,9 +62,10 @@
                         <viewLayoutGuide key="safeArea" id="z49-wy-zwZ"/>
                     </view>
                     <connections>
-                        <outlet property="arenaView" destination="cCa-Pd-CyP" id="pd9-By-euJ"/>
-                        <outlet property="connectButton" destination="FTo-no-nA4" id="plm-Fc-T2k"/>
-                        <outlet property="spriteView" destination="xcq-F9-V7c" id="K8r-nF-Wj1"/>
+                        <outlet property="arenaView" destination="cCa-Pd-CyP" id="4yL-Tk-ZU3"/>
+                        <outlet property="connectButton" destination="FTo-no-nA4" id="AhI-cA-a5h"/>
+                        <outlet property="joinGame" destination="mog-SI-TKB" id="Hzg-ae-s4i"/>
+                        <outlet property="spriteView" destination="xcq-F9-V7c" id="fto-Qb-6Od"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tVi-YP-W0J" userLabel="First Responder" sceneMemberID="firstResponder"/>

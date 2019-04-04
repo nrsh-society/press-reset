@@ -144,8 +144,10 @@ class ArenaView: UIView {
         let xaxis = XAxis()
         xaxis.valueFormatter = formato
         
-        lineChartView.xAxis.valueFormatter = xaxis.valueFormatter
         
+        lineChartView.xAxis.valueFormatter = xaxis.valueFormatter
+        lineChartView.xAxis.avoidFirstLastClippingEnabled = true
+        lineChartView.xAxis.axisMaxLabels = 5
         self.chartData?.notifyDataChanged()
         lineChartView.notifyDataSetChanged()
         lineChartView.fitScreen()

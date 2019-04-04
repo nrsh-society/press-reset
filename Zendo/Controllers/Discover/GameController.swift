@@ -16,16 +16,19 @@ import AVKit
 import Mixpanel
 
 
-class ArenaController: UIViewController
+class GameController: UIViewController
 {
+    @IBOutlet weak var joinGame: UIButton!
+   
     @IBOutlet weak var spriteView: SKView!
     {
         didSet {
             spriteView.hero.id = idHero
         }
     }
-    @IBOutlet weak var connectButton: UIButton!
     
+    @IBOutlet weak var connectButton: UIButton!
+  
     @IBOutlet weak var arenaView: ArenaView! {
         didSet {
 
@@ -50,11 +53,11 @@ class ArenaController: UIViewController
     var multiPlayer = false
     var panGR: UIPanGestureRecognizer!
     
-    static func loadFromStoryboard( _ multiPlayer : Bool) -> ArenaController
+    static func loadFromStoryboard() -> GameController
     {
-       let controller = UIStoryboard(name: "ArenaController", bundle: nil).instantiateViewController(withIdentifier: "ArenaController") as! ArenaController
+       let controller = UIStoryboard(name: "GameController", bundle: nil).instantiateViewController(withIdentifier: "GameController") as! GameController
         
-        controller.multiPlayer = multiPlayer
+        controller.multiPlayer = true
         
         return controller
         
@@ -649,7 +652,7 @@ class ArenaController: UIViewController
     }
 }
 
-extension ArenaController: SKPhysicsContactDelegate
+extension GameController: SKPhysicsContactDelegate
 {
     
     func didBegin(_ contact: SKPhysicsContact)
