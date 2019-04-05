@@ -202,5 +202,14 @@ class Settings: NSObject {
         }
     }
     
+    static var connectedDate: Date? {
+        set {
+            defaults.set(newValue, forKey: "connectedDate")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.object(forKey: "connectedDate") as? Date
+        }
+    }
     
 }

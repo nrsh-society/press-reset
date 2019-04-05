@@ -43,13 +43,11 @@ class TrainController: UIViewController
     var story: Story!
     var video: SKVideoNode?
     var idHero = ""
-    var timer: Timer?
+    var timer: Timer? = nil
     var videoPlayer = AVPlayer()
     var panGR: UIPanGestureRecognizer!
     var showLevels : Bool = false
     var airplay: AirplayController?
-    var isConnected: Bool = false
-    var connectedDate : Date?
     var chartHR = [String: Int]()
     var rings = [SKShapeNode]()
     
@@ -155,6 +153,9 @@ class TrainController: UIViewController
         video?.pause()
         spriteView.scene?.removeAllChildren()
         
+        self.timer?.invalidate()
+        self.timer = nil
+        
         UIApplication.shared.isIdleTimerDisabled = false
         
         self.airplay?.dismiss()
@@ -226,25 +227,31 @@ class TrainController: UIViewController
     
     @objc func startSession()
     {
-        Mixpanel.mainInstance().time(event: "phone_train_watch_connected")
-        
-        let scene = self.spriteView.scene!
-        
         if(Settings.isWatchConnected)
         {
-            self.connectedDate = Date()
+            Mixpanel.mainInstance().time(event: "phone_train_watch_connected")
+            
+            let scene = self.spriteView.scene!
             
             DispatchQueue.main.async
             {
-                if(self.showLevels)
+                if self.timer == nil
                 {
-                    
+                    self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
+                }
+                
+                UIView.animate(withDuration: 0.5)
+                {
                     self.arenaView.isHidden = false
                     self.connectButton.isHidden = true
-                    
+                }
+
+                if(self.showLevels)
+                {
+            
                     self.rings.forEach( {$0.isHidden = false })
                     
-                    if let shell = self.spriteView.scene!.childNode(withName: "//0")! as? SKShapeNode
+                    if let shell = scene.childNode(withName: "//0")! as? SKShapeNode
                     {
                         shell.addChild(self.player)
                         
@@ -255,7 +262,7 @@ class TrainController: UIViewController
                         self.player.run(action)
                     }
                     
-                    self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
+
                 }
             }
         }
@@ -265,35 +272,40 @@ class TrainController: UIViewController
     {
         Mixpanel.mainInstance().track(event: "phone_train_watch_connected",
                                           properties: ["name": self.story.title])
-            DispatchQueue.main.async
+        
+        DispatchQueue.main.async
+        {
+            self.timer?.invalidate()
+            self.timer = nil
+            
+            self.player.removeAllActions()
+                
+            UIView.animate(withDuration: 0.5)
             {
-                self.arenaView.isHidden = true
-                self.connectButton.isHidden = false
+                    self.player.removeFromParent()
+                    self.arenaView.isHidden = true
+                    self.connectButton.isHidden = false
+                    self.rings.forEach( {$0.isHidden = true })
+                    
+                    self.arenaView.hrv.text = "--"
+                    self.arenaView.time.text = "--"
+                    self.arenaView.setChart([])
+                }
                 
-                self.player.removeAllActions()
-                self.player.removeFromParent()
-                
-                self.timer?.invalidate()
-                self.timer = nil
-                self.isConnected = false
-                self.connectedDate = nil
-                
-                self.arenaView.hrv.text = "--"
-                self.arenaView.time.text = "--"
-                self.arenaView.setChart([])
-                
-                self.rings.forEach( {$0.isHidden = true })
             }
             
         }
     
     @objc func updateTimer()
     {
-        if let startDate = self.connectedDate
+        if let startDate = Settings.connectedDate
         {
             let timeElapsed = abs(startDate.timeIntervalSinceNow)
             
-            self.arenaView.time.text = timeElapsed.stringZendoTimeWatch
+            DispatchQueue.main.async
+            {
+                self.arenaView.time.text = timeElapsed.stringZendoTimeWatch
+            }
         }
     }
     
