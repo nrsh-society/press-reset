@@ -67,7 +67,7 @@ extension WatchSessionManager: WCSessionDelegate {
             {
                 
                 if let email = Settings.email,
-                    let name = Settings.fullName
+                let name = Settings.fullName
                 {
                     replyHandler(["email": email, "name": name])
                 }
@@ -99,10 +99,9 @@ extension WatchSessionManager: WCSessionDelegate {
             }
             else if message["watch"] == "arena" &&  message["startDate"] == "end"
             {
-                Settings.timeSessionStr = nil
-                Settings.chartHRV = [:]
-                NotificationCenter.default.post(name: .updateHRV, object: nil)
-                NotificationCenter.default.post(name: .startSession, object: nil)
+
+                Settings.isWatchConnected = false
+                NotificationCenter.default.post(name: .endSession, object: nil)
             }
             
         }
@@ -134,13 +133,8 @@ extension WatchSessionManager: WCSessionDelegate {
             }
         } else if let arena = message["watch"] as? String, arena == "arena", let startDate = message["startDate"] as? Date
         {
-            Settings.chartHRV = [:]
-            Settings.timeSessionStr = startDate.toUTCString
-            NotificationCenter.default.post(name: .startSession, object: nil)
-        } else if let arena = message["watch"] as? String, arena == "arena", let hrvInt = message["heartRate"] as? Int
-        {
-            
-            Settings.fetchLatestHeartRateSample(hrvInt)
+            Settings.isWatchConnected = true
+            NotificationCenter.default.post(name: .startSession, object: startDate)
         }
     }
 }

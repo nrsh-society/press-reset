@@ -106,33 +106,6 @@ class Settings: NSObject {
         }
     }
     
-    static var timeSessionStr: String? {
-        set {
-            defaults.set(newValue, forKey: "timeSession")
-            defaults.synchronize()
-        }
-        get {
-            return defaults.string(forKey: "timeSession")
-        }
-    }
-    
-    static var chartHRV: [String: Int] {
-        set {
-            defaults.set(newValue, forKey: "chartHRV")
-            defaults.synchronize()
-        }
-        get {
-            return defaults.dictionary(forKey: "chartHRV") as! [String: Int]
-        }
-    }
-    
-    static var timeSession: Date? {
-        if let str = timeSessionStr, let date = str.dateFromUTCString {
-            return date
-        }
-        return nil
-    }
-    
     static var expiresDate: Date? {
         if let str = expiresDateStr, let date = str.dateFromUTCSubscriptionString {
             return date
@@ -168,17 +141,7 @@ class Settings: NSObject {
         }
         
     }
-    
-    class func fetchLatestHeartRateSample(_ heartRate: Int) {
-        DispatchQueue.main.async {
-            var hrv = chartHRV
-            hrv[String(Date().timeIntervalSince1970)] = heartRate
-            
-            chartHRV = hrv
-            NotificationCenter.default.post(name: .updateHRV, object: nil)
-        }
-    }
-    
+        
     static func checkSubscription(_ completionHandler: ((Bool, Bool) -> ())? = nil) {
         guard let receiptUrl = Bundle.main.appStoreReceiptURL,
             let receipt = try? Data(contentsOf: receiptUrl).base64EncodedString() else {
@@ -227,6 +190,16 @@ class Settings: NSObject {
                 completionHandler?(false, false)
             }
             }.resume()
+    }
+    
+    static var isWatchConnected: Bool {
+        set {
+            defaults.set(newValue, forKey: "isWatchConnected")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.bool(forKey: "isWatchConnected")
+        }
     }
     
     

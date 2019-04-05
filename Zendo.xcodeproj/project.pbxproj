@@ -135,8 +135,6 @@
 		BEA398F220762F4700C85A84 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA398F120762F4700C85A84 /* Media.xcassets */; };
 		BEBAE48B20E6CDB500495C65 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEBAE48720E6CDB500495C65 /* Media.xcassets */; };
 		BEBAE48D20E6DED800495C65 /* gallery.ckcomplication in Resources */ = {isa = PBXBuildFile; fileRef = BEBAE48C20E6DED800495C65 /* gallery.ckcomplication */; };
-		BEC4E2D12253C0A8000B5455 /* GameController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEC4E2CF2253C0A8000B5455 /* GameController.storyboard */; };
-		BEC4E2D22253C0A8000B5455 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E2D02253C0A8000B5455 /* GameController.swift */; };
 		BED56AFB21F8C0BF0027F78B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BED56AFA21F8C0BE0027F78B /* GoogleService-Info.plist */; };
 		BED56AFC21F8C0BF0027F78B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BED56AFA21F8C0BE0027F78B /* GoogleService-Info.plist */; };
 		BED56AFD21F8C0BF0027F78B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BED56AFA21F8C0BE0027F78B /* GoogleService-Info.plist */; };
@@ -363,8 +361,6 @@
 		BEA398F120762F4700C85A84 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		BEBAE48720E6CDB500495C65 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		BEBAE48C20E6DED800495C65 /* gallery.ckcomplication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = gallery.ckcomplication; sourceTree = "<group>"; };
-		BEC4E2CF2253C0A8000B5455 /* GameController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameController.storyboard; sourceTree = "<group>"; };
-		BEC4E2D02253C0A8000B5455 /* GameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		BED56AFA21F8C0BE0027F78B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BEEA862E20D4A941003E1E1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BEF0750C21E6B0C700EE657D /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -482,8 +478,6 @@
 		127C3E2721788F9900B332EB /* Discover */ = {
 			isa = PBXGroup;
 			children = (
-				BEC4E2CF2253C0A8000B5455 /* GameController.storyboard */,
-				BEC4E2D02253C0A8000B5455 /* GameController.swift */,
 				BE8787012215F68B0052FE4C /* TrainController.storyboard */,
 				BE8786FE2215EE1F0052FE4C /* TrainController.swift */,
 				BE9DB33321F5680600BCE8C2 /* AirplayController.storyboard */,
@@ -1005,7 +999,6 @@
 				1226B0262229A6DD00EE02F9 /* ArenaView.xib in Resources */,
 				1226B0212229A45600EE02F9 /* checkAnimation.json in Resources */,
 				127C3E352178993100B332EB /* DiscoverCollectionViewCell.xib in Resources */,
-				BEC4E2D12253C0A8000B5455 /* GameController.storyboard in Resources */,
 				12584E5321AFF86D004DA557 /* animationNoInternet.json in Resources */,
 				BE8787022215F68B0052FE4C /* TrainController.storyboard in Resources */,
 				12C1A7302119C28700EEFF4F /* ZenInfoView.xib in Resources */,
@@ -1221,7 +1214,6 @@
 				127C3E342178993100B332EB /* DiscoverCollectionViewCell.swift in Sources */,
 				BE2E81ED1FF44A7B00D104AC /* AppDelegate.swift in Sources */,
 				1223161F21A809D800413A62 /* UIImageView+Download.swift in Sources */,
-				BEC4E2D22253C0A8000B5455 /* GameController.swift in Sources */,
 				BE75AEBF20F708C300311512 /* ChartColors.swift in Sources */,
 				121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */,
 				12C1A72C2119B78900EEFF4F /* UIView+Nib.swift in Sources */,

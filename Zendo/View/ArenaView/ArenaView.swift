@@ -60,13 +60,15 @@ class ArenaView: UIView {
             rightAxis.labelPosition = .insideChart
             rightAxis.labelFont = zendoFont
             rightAxis.yOffset = -12.0
+            rightAxis.drawTopYLabelEntryEnabled = false
+            rightAxis.labelCount = 5
             
             let leftAxis = lineChartView.leftAxis
             leftAxis.drawAxisLineEnabled = false
             leftAxis.drawGridLinesEnabled = false
             leftAxis.drawLabelsEnabled = false
             
-            lineChartView.setViewPortOffsets(left: 0, top: 0, right: 0, bottom: 0)
+            //lineChartView.setViewPortOffsets(left: 0, top: 0, right: 0, bottom: 0)
             lineChartView.highlightPerTapEnabled = false
             lineChartView.highlightPerDragEnabled = false
             lineChartView.doubleTapToZoomEnabled = false

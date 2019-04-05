@@ -39,17 +39,19 @@ class TrainController: UIViewController
     }
     
     var player = SKSpriteNode(imageNamed: "player1")
-    var joint : SKPhysicsJointSpring?
     var ring: Int = 0
     var story: Story!
     var video: SKVideoNode?
     var idHero = ""
     var timer: Timer?
     var videoPlayer = AVPlayer()
-    let size = CGSize(width: 30 , height: 30)
     var panGR: UIPanGestureRecognizer!
     var showLevels : Bool = false
     var airplay: AirplayController?
+    var isConnected: Bool = false
+    var connectedDate : Date?
+    var chartHR = [String: Int]()
+    var rings = [SKShapeNode]()
     
     let diskConfig = DiskConfig(name: "DiskCache")
     let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
@@ -78,7 +80,6 @@ class TrainController: UIViewController
         
         self.airplay = AirplayController.loadFromStoryboard(url)
     }
-    
     
     func startBackgroundContent(story : Story, completion: @escaping (AVPlayerItem) -> Void)
     {
@@ -112,7 +113,6 @@ class TrainController: UIViewController
             
             switch result
             {
-               
                 case .value(let entry):
                 
                     if var path = entry.filePath
@@ -159,7 +159,6 @@ class TrainController: UIViewController
         
         self.airplay?.dismiss()
         self.airplay = nil
-        
     }
     
     func setupConnectButton()
@@ -180,21 +179,22 @@ class TrainController: UIViewController
     {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.sample),
-                                               name: NSNotification.Name("sample"),
+                                               name: .sample,
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.progress),
-                                               name: NSNotification.Name("progress"),
+                                               name: .progress,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(startSession),
                                                name: .startSession,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateHR),
-                                               name: .updateHRV,
+                                               selector: #selector(endSession),
+                                               name: .endSession,
                                                object: nil)
+ 
     }
     
     override func viewDidLoad()
@@ -211,7 +211,8 @@ class TrainController: UIViewController
         
         self.spriteView.presentScene(self.setupScene())
         
-        startSession()
+        self.startSession()
+        
     }
     
     @objc func connectAppleWatch()
@@ -225,77 +226,102 @@ class TrainController: UIViewController
     
     @objc func startSession()
     {
-        DispatchQueue.main.async
+        Mixpanel.mainInstance().time(event: "phone_train_watch_connected")
+        
+        let scene = self.spriteView.scene!
+        
+        if(Settings.isWatchConnected)
         {
-            if let _ = Settings.timeSession {
-                Mixpanel.mainInstance().time(event: "phone_train_watch_connected")
-                self.updateHR()
-                UIView.animate(withDuration: 0.3) {
-                    self.arenaView.alpha = 1.0
+            self.connectedDate = Date()
+            
+            DispatchQueue.main.async
+            {
+                if(self.showLevels)
+                {
+                    
                     self.arenaView.isHidden = false
                     self.connectButton.isHidden = true
-                }
-                self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
-
-            } else {
-                
-                Mixpanel.mainInstance().track(event: "phone_train_watch_connected", properties: ["name": self.story.title])
-                
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.arenaView.alpha = 1.0
-                    self.arenaView.isHidden = true
-                    self.connectButton.isHidden = false
-
-                }, completion: { completion in
-                    DispatchQueue.main.async {
-
-                        self.timer?.invalidate()
-                        self.timer = nil
-
-                        self.arenaView.hrv.text = "--"
-                        self.arenaView.time.text = "--"
-                        self.arenaView.setChart([])
+                    
+                    self.rings.forEach( {$0.isHidden = false })
+                    
+                    if let shell = self.spriteView.scene!.childNode(withName: "//0")! as? SKShapeNode
+                    {
+                        shell.addChild(self.player)
+                        
+                        self.player.zPosition = 3.0
+                        
+                        let action = SKAction.repeatForever(SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 15.0))
+                        
+                        self.player.run(action)
                     }
-                })
-
+                    
+                    self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
+                }
             }
         }
     }
     
-    @objc func updateHR() {
-        let chartHRV = Settings.chartHRV.sorted(by: <)
-        
-            DispatchQueue.main.async {
-               
-                self.arenaView.setChart(chartHRV)
+    @objc func endSession()
+    {
+        Mixpanel.mainInstance().track(event: "phone_train_watch_connected",
+                                          properties: ["name": self.story.title])
+            DispatchQueue.main.async
+            {
+                self.arenaView.isHidden = true
+                self.connectButton.isHidden = false
+                
+                self.player.removeAllActions()
+                self.player.removeFromParent()
+                
+                self.timer?.invalidate()
+                self.timer = nil
+                self.isConnected = false
+                self.connectedDate = nil
+                
+                self.arenaView.hrv.text = "--"
+                self.arenaView.time.text = "--"
+                self.arenaView.setChart([])
+                
+                self.rings.forEach( {$0.isHidden = true })
             }
-        
-    }
+            
+        }
     
-    @objc func updateTimer() {
-        if let startDate = Settings.timeSession {
+    @objc func updateTimer()
+    {
+        if let startDate = self.connectedDate
+        {
             let timeElapsed = abs(startDate.timeIntervalSinceNow)
             
             self.arenaView.time.text = timeElapsed.stringZendoTimeWatch
         }
-        
     }
     
     @objc func progress(notification: NSNotification)
     {
-        
         if let progress = notification.object as? [String]
         {
-
             let lastProgress = progress.last!.description.lowercased().contains("good")
             
             if (ring >= 2)
             {
-                
                 DispatchQueue.main.async
-                    {
-                        self.spriteView.scene?.physicsWorld.removeAllJoints()
-                        self.player.removeFromParent()
+                {
+                    self.player.removeAllActions()
+                    self.player.removeFromParent()
+                    
+                    self.ring = 0
+                    
+                    if let shell = self.spriteView.scene!.childNode(withName: "//0")! as? SKShapeNode {
+                        
+                        shell.addChild(self.player)
+                        
+                        self.player.zPosition = 3.0
+                        
+                        let action = SKAction.repeatForever( SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 25.0))
+                        
+                        self.player.run(action)
+                    }
                 }
             }
             else if(lastProgress && ring < 2)
@@ -303,56 +329,47 @@ class TrainController: UIViewController
                 self.ring = self.ring + 1
                 
                 DispatchQueue.main.async
+                {
+                    self.player.removeAllActions()
+                    self.player.removeFromParent()
+                        
+                    if let shell = self.spriteView.scene!.childNode(withName: "//" + self.ring.description)! as? SKShapeNode
                     {
+                        shell.addChild(self.player)
                         
-                        self.spriteView.scene?.physicsWorld.remove(self.joint!)
+                        let action = SKAction.repeatForever( SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 15.0))
                         
-                        if let shell = self.spriteView.scene!.childNode(withName: self.ring.description)! as? SKShapeNode {
-                            
-                            self.player.position = CGPoint(x: shell.frame.maxX  + cos((CGFloat(1) * 200 + self.size.width)  ) , y: shell.frame.midY + sin(CGFloat(1) * 200 +  self.size.width))
-                            
-                            self.player.zRotation = 0
-                            
-                            let playBody = self.player.physicsBody!
-                            
-                            playBody.velocity = CGVector(dx: 0, dy: -16.5)
-                            
-                            let center = self.spriteView.scene!.childNode(withName: "center")!
-                            
-                            let centerBody = center.physicsBody!
-                            
-                            self.joint = SKPhysicsJointSpring.joint(withBodyA: centerBody
-                                , bodyB: self.player.physicsBody!
-                                , anchorA: center.position
-                                , anchorB: self.player.position)
-                            
-                            self.joint?.frequency = 1.0
-                            self.joint?.damping = 0.0
-                            
-                            self.spriteView.scene?.physicsWorld.add(self.joint!)
-                            
-                        }
+                        self.player.run(action)
+                    }
                 }
             }
-            
         }
-        
-        
     }
     
     @objc func sample(notification: NSNotification)
     {
         if let sample = notification.object as? [String : Any]
         {
-            let text_hrv = sample["sdnn"] as! String
-            let double_hrv = Double(text_hrv)!.rounded()
-            let hrv = Float(double_hrv)
-            let text = Int(hrv.rounded()).description
+            let raw_hrv = sample["sdnn"] as! String
+            let double_hrv = Double(raw_hrv)!.rounded()
+            let text_hrv = Int(double_hrv.rounded()).description
+            
+            let raw_hr = sample["heart"] as! String
+            let double_hr = (Double(raw_hr)! * 60).rounded()
+            let int_hr = Int(double_hr)
+            
             
             DispatchQueue.main.async
             {
                 //#todo: update the whole hud view like this
-                self.arenaView.hrv.text = text
+                self.arenaView.hrv.text = text_hrv
+                
+                self.chartHR[String(Date().timeIntervalSince1970)] = int_hr
+            
+                let chartHR = self.chartHR.sorted(by: <)
+
+                self.arenaView.setChart(chartHR)
+                
             }
         }
         
@@ -365,95 +382,74 @@ class TrainController: UIViewController
         let scene = SKScene(size: (spriteView.frame.size))
         scene.scaleMode = .aspectFill
         
-        scene.physicsBody = SKPhysicsBody(edgeLoopFrom: scene.frame)
-        scene.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
-        scene.physicsBody?.node?.name = "walls"
-        scene.physicsBody?.isDynamic = false
-        scene.physicsBody?.friction = 0
-        scene.physicsBody?.linearDamping = 0
-        
         self.startBackgroundContent(story: story, completion:
         {
             item in
+            
+            DispatchQueue.main.async
+            {
+                self.videoPlayer = AVPlayer(playerItem: item)
+                let video = SKVideoNode(avPlayer: self.videoPlayer)
+                video.zPosition = 1.0
+                video.size = scene.frame.size
+                video.position = scene.position
+                video.anchorPoint = scene.anchorPoint
+                video.play()
+                scene.addChild(video)
     
-            self.videoPlayer = AVPlayer(playerItem: item)
-            let video = SKVideoNode(avPlayer: self.videoPlayer)
-        
-            video.size = scene.frame.size
-            video.position = scene.position
-            video.anchorPoint = scene.anchorPoint
-            video.play()
-            scene.addChild(video)
+            }
+            
         })
     
-        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: videoPlayer.currentItem, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
+                                               object: videoPlayer.currentItem, queue: nil)
+        {
+            notification in
             
-            self.videoPlayer.seek(to: kCMTimeZero)
-            self.videoPlayer.play()
+            DispatchQueue.main.async
+            {
+                self.videoPlayer.seek(to: kCMTimeZero)
+                self.videoPlayer.play()
+            }
                         
         }
-        
-        let size = CGSize(width: 1 , height: 1)
-        let radius = (size.width / 2)
-        let node = SKSpriteNode(imageNamed: "shobogenzo")
-        
-        node.size = size
-        
-        node.name = "center"
-        
-        let center = SKPhysicsBody(circleOfRadius: radius)
-        center.affectedByGravity = false
-        center.mass = 5.972e24 //1.989e30
-        node.position = CGPoint(x: scene.frame.midX, y: scene.frame.midY)
-        node.physicsBody = center
-        center.pinned = true
-        scene.addChild(node)
-        
-        let field = SKFieldNode.radialGravityField()
-        field.strength = 20.0
-        field.falloff = 0
-        field.name = "centerField"
-        field.isEnabled = false
-        field.position = node.position
-        node.addChild(field)
         
         panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
         spriteView.addGestureRecognizer(panGR)
         
         setupConnectButton()
         
-        if(self.showLevels)
-        {
-        
-            self.addShell(scene, 30, "2")
-            self.addShell(scene, 90, "1")
-            self.addShell(scene, 150, "0")
-        }
+        self.addShell(scene, 30, "2")
+        self.addShell(scene, 90, "1")
+        self.addShell(scene, 150, "0")
         
         return scene
         
     }
     
-    func addShell(_ scene: SKScene, _ radius: Int, _ name: String)
+    func addShell(_ parent: SKNode, _ radius: Int, _ name: String)
     {
-        let bezierPath = UIBezierPath(arcCenter: CGPoint(x: scene.frame.midX, y: scene.frame.midY), radius: CGFloat(radius), startAngle: 0 , endAngle: CGFloat(Double.pi) * 2.0, clockwise: true)
+  
+        let pathNode = SKShapeNode(circleOfRadius: CGFloat(radius))
         
-        let pathNode = SKShapeNode(path: bezierPath.cgPath)
-        pathNode.strokeColor = SKColor.clear
+        pathNode.strokeColor = SKColor.zenWhite
         
-        let level = Float(Int(name)! * 2 )
-        let realLevel = CGFloat(level / 100)
-        pathNode.glowWidth = realLevel
-        //pathNode.alpha = floatLevel
+        pathNode.position = CGPoint(x: parent.frame.midX, y: parent.frame.midY)
+        
+        pathNode.fillColor = SKColor(red:0.06, green:0.15, blue:0.13, alpha:0.3)
+       
+        pathNode.zPosition = 3
         
         pathNode.name = name
         
-        pathNode.lineWidth = CGFloat(0.01 + realLevel)
+        pathNode.isHidden = true
         
-        scene.addChild(pathNode)
+        pathNode.lineWidth = CGFloat(0.01)
+        
+        parent.addChild(pathNode)
+        
+        rings.append(pathNode)
     }
-    
-   
     
     @objc func pan()
     {
