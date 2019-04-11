@@ -38,18 +38,17 @@ class TrainController: UIViewController
         }
     }
     
-    var player = SKSpriteNode(imageNamed: "player1")
+    let player = SKSpriteNode(imageNamed: "player1")
     var ring: Int = 0
     var story: Story!
     var video: SKVideoNode?
     var idHero = ""
-    var timer: Timer? = nil
-    var videoPlayer = AVPlayer()
     var panGR: UIPanGestureRecognizer!
     var showLevels : Bool = false
     var airplay: AirplayController?
     var chartHR = [String: Int]()
     var rings = [SKShapeNode]()
+    var scene : SKScene?
     
     let diskConfig = DiskConfig(name: "DiskCache")
     let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
@@ -68,6 +67,11 @@ class TrainController: UIViewController
         
     }
     
+    override func didReceiveMemoryWarning()
+    {
+        try? storage?.removeAll()
+    }
+    
     func airplay(_ url: URL)
     {
         if let airplay = self.airplay
@@ -77,6 +81,23 @@ class TrainController: UIViewController
         }
         
         self.airplay = AirplayController.loadFromStoryboard(url)
+    }
+    
+    func setBackground() {
+        if let story = story, let thumbnailUrl = story.thumbnailUrl, let url = URL(string: thumbnailUrl) {
+            UIImage.setImage(from: url) { image in
+                DispatchQueue.main.async {
+                    self.spriteView.addBackground(image: image, isLayer: false, isReplase: false)
+                }
+            }
+        }
+    }
+    
+    func removeBackground()
+    {
+        if let viewWithTag = self.view.viewWithTag(100) {
+            viewWithTag.removeFromSuperview()
+        }
     }
     
     func startBackgroundContent(story : Story, completion: @escaping (AVPlayerItem) -> Void)
@@ -151,12 +172,14 @@ class TrainController: UIViewController
         NotificationCenter.default.removeObserver(self)
         
         video?.pause()
+        video = nil
+        
         spriteView.scene?.removeAllChildren()
         
-        self.timer?.invalidate()
-        self.timer = nil
-        
         UIApplication.shared.isIdleTimerDisabled = false
+        
+        self.spriteView.presentScene(nil)
+        self.scene = nil
         
         self.airplay?.dismiss()
         self.airplay = nil
@@ -202,15 +225,24 @@ class TrainController: UIViewController
     {
         super.viewDidLoad()
         
+        self.setBackground()
+        
         UIApplication.shared.isIdleTimerDisabled = true
         
         Mixpanel.mainInstance().time(event: "phone_train")
-    
+        
         setupWatchNotifications()
+        
+        do {
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
+            try? AVAudioSession.sharedInstance().setActive(true)
+        }
         
         modalPresentationCapturesStatusBarAppearance = true
         
-        self.spriteView.presentScene(self.setupScene())
+        self.scene = self.setupScene()
+        
+        self.spriteView.presentScene(scene)
         
         self.startSession()
         
@@ -219,8 +251,11 @@ class TrainController: UIViewController
     @objc func connectAppleWatch()
     {
         let startingSessions = StartingSessionViewController()
+        
         startingSessions.modalPresentationStyle = .overFullScreen
+        
         startingSessions.modalTransitionStyle = .crossDissolve
+        
         self.present(startingSessions, animated: true)
         
     }
@@ -235,10 +270,6 @@ class TrainController: UIViewController
             
             DispatchQueue.main.async
             {
-                if self.timer == nil
-                {
-                    self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
-                }
                 
                 UIView.animate(withDuration: 0.5)
                 {
@@ -257,9 +288,19 @@ class TrainController: UIViewController
                         
                         self.player.zPosition = 3.0
                         
+                        let emitter = SKEmitterNode(fileNamed: "trainparticles.sks")!
+                        
+                        emitter.targetNode = shell
+                        
+                        emitter.zRotation = self.player.zRotation
+        
+                        self.player.addChild(emitter)
+                        
                         let action = SKAction.repeatForever(SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 15.0))
                         
                         self.player.run(action)
+                        
+                       
                     }
                     
 
@@ -275,9 +316,6 @@ class TrainController: UIViewController
         
         DispatchQueue.main.async
         {
-            self.timer?.invalidate()
-            self.timer = nil
-            
             self.player.removeAllActions()
                 
             UIView.animate(withDuration: 0.5)
@@ -296,19 +334,6 @@ class TrainController: UIViewController
             
         }
     
-    @objc func updateTimer()
-    {
-        if let startDate = Settings.connectedDate
-        {
-            let timeElapsed = abs(startDate.timeIntervalSinceNow)
-            
-            DispatchQueue.main.async
-            {
-                self.arenaView.time.text = timeElapsed.stringZendoTimeWatch
-            }
-        }
-    }
-    
     @objc func progress(notification: NSNotification)
     {
         if let progress = notification.object as? [String]
@@ -320,6 +345,7 @@ class TrainController: UIViewController
                 DispatchQueue.main.async
                 {
                     self.player.removeAllActions()
+                    
                     self.player.removeFromParent()
                     
                     self.ring = 0
@@ -369,12 +395,15 @@ class TrainController: UIViewController
             let raw_hr = sample["heart"] as! String
             let double_hr = (Double(raw_hr)! * 60).rounded()
             let int_hr = Int(double_hr)
+            let text_hr = int_hr.description
             
             
             DispatchQueue.main.async
             {
-                //#todo: update the whole hud view like this
+                
                 self.arenaView.hrv.text = text_hrv
+                
+                self.arenaView.time.text = text_hr
                 
                 self.chartHR[String(Date().timeIntervalSince1970)] = int_hr
             
@@ -387,12 +416,46 @@ class TrainController: UIViewController
         
     }
     
+    
+    
+    
     func setupScene() -> SKScene
     {
         spriteView.frame = UIScreen.main.bounds
         
         let scene = SKScene(size: (spriteView.frame.size))
+        
         scene.scaleMode = .aspectFill
+        spriteView.allowsTransparency = true
+        
+       /*
+        if let thumbnail = story?.thumbnailUrl
+        {
+            DispatchQueue.global().async
+            {
+                if let data = try? Data(contentsOf: URL(string: thumbnail)!)
+                {
+                     DispatchQueue.main.async
+                        {
+                        if let image = UIImage(data: data)
+                        {
+                            let txt = SKTexture(image: image)
+                        
+                            let node = SKSpriteNode(texture: txt)
+                            
+                            node.zPosition = 0.0
+                            
+                            node.size = scene.frame.size
+                            node.position = scene.position
+                            node.anchorPoint = scene.anchorPoint
+                            
+                            scene.addChild(node)
+                        }
+                    }
+                }
+            }
+        }
+ */
         
         self.startBackgroundContent(story: story, completion:
         {
@@ -400,32 +463,35 @@ class TrainController: UIViewController
             
             DispatchQueue.main.async
             {
-                self.videoPlayer = AVPlayer(playerItem: item)
-                let video = SKVideoNode(avPlayer: self.videoPlayer)
+                let videoPlayer = AVPlayer(playerItem: item)
+                
+                let video = SKVideoNode(avPlayer: videoPlayer)
+                    
                 video.zPosition = 1.0
                 video.size = scene.frame.size
                 video.position = scene.position
                 video.anchorPoint = scene.anchorPoint
                 video.play()
                 scene.addChild(video)
-    
-            }
+                
+                self.removeBackground()
+                    
+                NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
+                                                           object: videoPlayer.currentItem, queue: nil)
+                    {
+                       notification in
+                        
+                        DispatchQueue.main.async
+                        {
+                            videoPlayer.seek(to: kCMTimeZero)
+                            videoPlayer.play()
+                        }
+                        
+                    }
+                }
             
         })
     
-        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
-                                               object: videoPlayer.currentItem, queue: nil)
-        {
-            notification in
-            
-            DispatchQueue.main.async
-            {
-                self.videoPlayer.seek(to: kCMTimeZero)
-                self.videoPlayer.play()
-            }
-                        
-        }
-        
         panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
         spriteView.addGestureRecognizer(panGR)
         
@@ -475,12 +541,19 @@ class TrainController: UIViewController
             let currentPos = CGPoint(x: translation.x + view.center.x, y: translation.y + view.center.y)
             Hero.shared.apply(modifiers: [.position(currentPos)], to: spriteView)
         default:
+            
+             Hero.shared.finish()
+             /*
             if progress + panGR.velocity(in: nil).y / view.bounds.height > 0.3 {
                 
                 Hero.shared.finish()
+                self.dismiss(animated: false)
             } else {
                 Hero.shared.cancel()
+                self.spriteView.presentScene(scene)
             }
+             */
         }
+
     }
 }

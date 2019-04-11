@@ -125,6 +125,11 @@ class VideoViewController: UIViewController {
         }
     }
     
+    override func didReceiveMemoryWarning()
+    {
+        try? storage?.removeAll()
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -378,12 +383,16 @@ class VideoViewController: UIViewController {
             let currentPos = CGPoint(x: translation.x + view.center.x, y: translation.y + view.center.y)
             Hero.shared.apply(modifiers: [.position(currentPos)], to: video)
         default:
+            removeObserver()
+            Hero.shared.finish()
+            /*
             if progress + panGR.velocity(in: nil).y / view.bounds.height > 0.3 {
-                removeObserver()
+             
                 Hero.shared.finish()
             } else {
                 Hero.shared.cancel()
             }
+             */
         }
     }
     

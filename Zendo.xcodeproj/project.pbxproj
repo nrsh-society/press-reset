@@ -127,6 +127,7 @@
 		BE8787022215F68B0052FE4C /* TrainController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE8787012215F68B0052FE4C /* TrainController.storyboard */; };
 		BE89838F20E6BBE300F0FD63 /* ZendoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE89838E20E6BBE300F0FD63 /* ZendoDataSource.swift */; };
 		BE8BB21F1FFDCC4600B2E113 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8BB21E1FFDCC4600B2E113 /* HealthKit.framework */; };
+		BE9A81CF225C6FAD00D19DC8 /* trainparticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = BE9A81CE225C6FAD00D19DC8 /* trainparticles.sks */; };
 		BE9B00002065F317007FF96A /* ZBFHealthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9BFFFF2065F317007FF96A /* ZBFHealthKit.swift */; };
 		BE9B00042065FF6B007FF96A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9B00032065FF6B007FF96A /* CoreMotion.framework */; };
 		BE9BFFFE2065F215007FF96A /* ZBFHealthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9BFFFC2065EE3D007FF96A /* ZBFHealthKit.swift */; };
@@ -352,6 +353,7 @@
 		BE89838E20E6BBE300F0FD63 /* ZendoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZendoDataSource.swift; sourceTree = "<group>"; };
 		BE8BB21E1FFDCC4600B2E113 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS4.1.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		BE8BB2201FFDCC4700B2E113 /* Zendo WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Zendo WatchKit Extension.entitlements"; sourceTree = "<group>"; };
+		BE9A81CE225C6FAD00D19DC8 /* trainparticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trainparticles.sks; sourceTree = "<group>"; };
 		BE9B00012065FE44007FF96A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		BE9B00032065FF6B007FF96A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS4.2.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
 		BE9BFFFC2065EE3D007FF96A /* ZBFHealthKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZBFHealthKit.swift; sourceTree = "<group>"; };
@@ -650,6 +652,7 @@
 				DFE3B1732189A6E5008830CD /* animationStartingSession.json */,
 				12584E5221AFF86D004DA557 /* animationNoInternet.json */,
 				1226B0202229A45600EE02F9 /* checkAnimation.json */,
+				BE9A81CE225C6FAD00D19DC8 /* trainparticles.sks */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -982,6 +985,7 @@
 			files = (
 				12E2A1A9211073D700E0E911 /* Antenna-Light.otf in Resources */,
 				12584E5121AFF57A004DA557 /* NoInternetTableViewCell.xib in Resources */,
+				BE9A81CF225C6FAD00D19DC8 /* trainparticles.sks in Resources */,
 				12C1A72A2119B75900EEFF4F /* ZenButton.xib in Resources */,
 				12E2A1A7211073D600E0E911 /* Antenna-ExtraLight.otf in Resources */,
 				BEBAE48D20E6DED800495C65 /* gallery.ckcomplication in Resources */,
