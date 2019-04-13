@@ -26,7 +26,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>40</string>
+	<string>41</string>
 	<key>FacebookAppID</key>
 	<string>705460713163317</string>
 	<key>FacebookDisplayName</key>
@@ -54,6 +54,8 @@
 	</dict>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Measure heart rate variablity from external monitors</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Profile photo for groups</string>
 	<key>NSHealthShareUsageDescription</key>
 	<string>Show progress across Zendo sessions </string>
 	<key>NSHealthUpdateUsageDescription</key>

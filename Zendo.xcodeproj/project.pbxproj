@@ -96,6 +96,8 @@
 		12FFCAE5210F7DDD007E2480 /* Cell+ReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE4210F7DDD007E2480 /* Cell+ReuseIdentifier.swift */; };
 		12FFCAE7210F7E40007E2480 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE6210F7E40007E2480 /* Date.swift */; };
 		7C58E4E41E858E4241584A97 /* Pods_Zendo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA85D12F03B88975AECB0609 /* Pods_Zendo.framework */; };
+		BE021CC42260E79A00153D4B /* GroupController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE021CC22260E79A00153D4B /* GroupController.storyboard */; };
+		BE021CC52260E79A00153D4B /* GroupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE021CC32260E79A00153D4B /* GroupController.swift */; };
 		BE066BD820F1EFC10008747D /* OverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE066BD720F1EFC10008747D /* OverviewController.swift */; };
 		BE066BDD20F1F3D10008747D /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE066BDC20F1F3D10008747D /* PageController.swift */; };
 		BE0A7228209C2B83009E23AA /* OptionsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */; };
@@ -315,6 +317,8 @@
 		73956C9DFF514C25FAEB0010 /* Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		91FBDAC94D9B42088C3E7F8B /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
 		9BD6CE514120A3F5874E8C15 /* Pods-Zendo WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zendo WatchKit Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
+		BE021CC22260E79A00153D4B /* GroupController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GroupController.storyboard; sourceTree = "<group>"; };
+		BE021CC32260E79A00153D4B /* GroupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupController.swift; sourceTree = "<group>"; };
 		BE066BD720F1EFC10008747D /* OverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewController.swift; sourceTree = "<group>"; };
 		BE066BDC20F1F3D10008747D /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
 		BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsInterfaceController.swift; sourceTree = "<group>"; };
@@ -480,6 +484,8 @@
 		127C3E2721788F9900B332EB /* Discover */ = {
 			isa = PBXGroup;
 			children = (
+				BE021CC22260E79A00153D4B /* GroupController.storyboard */,
+				BE021CC32260E79A00153D4B /* GroupController.swift */,
 				BE8787012215F68B0052FE4C /* TrainController.storyboard */,
 				BE8786FE2215EE1F0052FE4C /* TrainController.swift */,
 				BE9DB33321F5680600BCE8C2 /* AirplayController.storyboard */,
@@ -989,6 +995,7 @@
 				12C1A72A2119B75900EEFF4F /* ZenButton.xib in Resources */,
 				12E2A1A7211073D600E0E911 /* Antenna-ExtraLight.otf in Resources */,
 				BEBAE48D20E6DED800495C65 /* gallery.ckcomplication in Resources */,
+				BE021CC42260E79A00153D4B /* GroupController.storyboard in Resources */,
 				DFE3B1702189A3FA008830CD /* StartingSessions.xib in Resources */,
 				BE2E81F71FF44A7B00D104AC /* LaunchScreen.storyboard in Resources */,
 				127C3E2921788FD300B332EB /* Discover.storyboard in Resources */,
@@ -1074,6 +1081,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Zendo/Pods-Zendo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AvatarCapture/AvatarCapture.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
@@ -1083,6 +1091,7 @@
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/Mixpanel-swift/Mixpanel.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/PeerKit/PeerKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -1091,6 +1100,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AvatarCapture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
@@ -1100,6 +1110,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PeerKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -1201,6 +1212,7 @@
 				BE2E81EF1FF44A7B00D104AC /* ZendoController.swift in Sources */,
 				12C1A72E2119C27C00EEFF4F /* ZenInfoView.swift in Sources */,
 				12BE94C421AF0FD9000E2B0B /* VideoGenerator.swift in Sources */,
+				BE021CC52260E79A00153D4B /* GroupController.swift in Sources */,
 				12C2C286213802760039C7A0 /* String.swift in Sources */,
 				BE9B00002065F317007FF96A /* ZBFHealthKit.swift in Sources */,
 				12BE94CF21AF1019000E2B0B /* ImageExtension.swift in Sources */,

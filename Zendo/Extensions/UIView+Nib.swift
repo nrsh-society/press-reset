@@ -64,7 +64,7 @@ extension UIView {
         
         let imageViewBackground = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: width, height: height))
         imageViewBackground.image = image
-        
+        imageViewBackground.tag = 100
         imageViewBackground.contentMode = UIViewContentMode.scaleAspectFill
         
         if isLayer {

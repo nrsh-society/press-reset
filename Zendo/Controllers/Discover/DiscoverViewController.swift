@@ -499,13 +499,12 @@ extension DiscoverViewController: UICollectionViewDataSource {
         
         if story.type == "group"
         {
-            //let arena = GameController.loadFromStoryboard()
-            //arena.story = story
-            //arena.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-            //vc = arena
+            let solo = GroupController.loadFromStoryboard()
+            solo.story = story
+            solo.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            vc = solo
             
-        }
-        if story.type == "solo"
+        } else if story.type == "solo"
         {
             let solo = TrainController.loadFromStoryboard(true)
             solo.story = story

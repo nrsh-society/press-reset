@@ -16,7 +16,7 @@ import AVKit
 import Mixpanel
 import Cache
 
-class TrainController: UIViewController
+class GroupController: UIViewController
 {
     @IBOutlet weak var spriteView: SKView!
     {
@@ -26,29 +26,28 @@ class TrainController: UIViewController
     }
     @IBOutlet weak var connectButton: UIButton!
     @IBOutlet weak var avatarView: UIView!
+    @IBOutlet weak var playersLabel: UILabel!
+    @IBOutlet weak var minutesLabel: UILabel!
+    @IBOutlet weak var playersTitle: UILabel!
+    @IBOutlet weak var minutesTitle: UILabel!
     
     @IBOutlet weak var arenaView: ArenaView! {
         didSet {
 
             arenaView.isHidden = true
             arenaView.alpha = 1.0
-            self.arenaView.hrv.text = "--"
-            self.arenaView.time.text = "--"
-            
+            arenaView.hrv.text = "--"
+            arenaView.time.text = "--"
         }
     }
-    
-    let player = SKSpriteNode(imageNamed: "player1")
-    var ring: Int = 0
+
     var story: Story!
     var idHero = ""
     var panGR: UIPanGestureRecognizer!
-    var showLevels : Bool = false
-    var showGroups : Bool = false
     var airplay: AirplayController?
     var chartHR = [String: Int]()
-    var rings = [SKShapeNode]()
     var scene : SKScene?
+    var players = [String : Int]()
     
     let diskConfig = DiskConfig(name: "DiskCache")
     let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
@@ -57,13 +56,10 @@ class TrainController: UIViewController
         return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forData())
     }()
     
-    static func loadFromStoryboard(_ showLevels: Bool, _ showGroups: Bool = false) -> TrainController
+    static func loadFromStoryboard() -> GroupController
     {
-       let controller = UIStoryboard(name: "TrainController", bundle: nil).instantiateViewController(withIdentifier: "TrainController") as! TrainController
-        
-        controller.showLevels = showLevels
-        controller.showGroups = showGroups
-        
+       let controller = UIStoryboard(name: "GroupController", bundle: nil).instantiateViewController(withIdentifier: "GroupController") as! GroupController
+
         return controller
         
     }
@@ -200,7 +196,7 @@ class TrainController: UIViewController
     
     func setupWatchNotifications()
     {
-        NotificationCenter.default.addObserver(self,
+       NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.sample),
                                                name: .sample,
                                                object: nil)
@@ -209,6 +205,7 @@ class TrainController: UIViewController
                                                selector: #selector(self.progress),
                                                name: .progress,
                                                object: nil)
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(startSession),
                                                name: .startSession,
@@ -239,9 +236,7 @@ class TrainController: UIViewController
         
         modalPresentationCapturesStatusBarAppearance = true
         
-        self.scene = self.setupScene()
-        
-        self.spriteView.presentScene(scene)
+        self.spriteView.presentScene(self.setupScene())
         
         self.startSession()
         
@@ -249,23 +244,47 @@ class TrainController: UIViewController
     
     @objc func connectAppleWatch()
     {
-        let startingSessions = StartingSessionViewController()
-        
-        startingSessions.modalPresentationStyle = .overFullScreen
-        
-        startingSessions.modalTransitionStyle = .crossDissolve
-        
-        self.present(startingSessions, animated: true)
-        
+        if(!Settings.isWatchConnected) {
+            
+            let startingSessions = StartingSessionViewController()
+            
+            startingSessions.modalPresentationStyle = .overFullScreen
+            
+            startingSessions.modalTransitionStyle = .crossDissolve
+            
+            self.present(startingSessions, animated: true)
+            
+        }
     }
     
     @objc func startSession()
     {
+
         if(Settings.isWatchConnected)
         {
             Mixpanel.mainInstance().time(event: "phone_train_watch_connected")
             
-            let scene = self.spriteView.scene!
+            Cloud.registerPlayersChangedHandler
+            {
+                (players, error) in
+                
+                self.players = players
+                
+                DispatchQueue.main.async
+                {
+                    UIView.animate(withDuration: 0.5)
+                    {
+                        self.playersLabel.text = self.players.count.description
+                        self.minutesLabel.text = self.players.reduce(0,
+                        {
+                            return $0 + $1.value
+                        }).description
+
+                    }
+                }
+            }
+            
+            Cloud.updatePlayer(email: Settings.email!, mins: 0)
             
             DispatchQueue.main.async
             {
@@ -273,112 +292,49 @@ class TrainController: UIViewController
                 {
                     self.arenaView.isHidden = false
                     self.connectButton.isHidden = true
+                    self.avatarView.isHidden = true
+                    self.playersLabel.isHidden = false
+                    self.minutesLabel.isHidden = false
+                    self.playersTitle.isHidden = false
+                    self.minutesTitle.isHidden = false
                 }
-
-                if(self.showLevels)
-                {
-                    self.rings.forEach( {$0.isHidden = false })
-                    
-                    if let shell = scene.childNode(withName: "//0")! as? SKShapeNode
-                    {
-                        shell.addChild(self.player)
-                        
-                        self.player.zPosition = 3.0
-                        
-                        let emitter = SKEmitterNode(fileNamed: "trainparticles.sks")!
-                        
-                        emitter.targetNode = shell
-                        
-                        emitter.zRotation = self.player.zRotation
-        
-                        self.player.addChild(emitter)
-                        
-                        let action = SKAction.repeatForever(SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 15.0))
-                        
-                        self.player.run(action)
-                        
-                       
-                    }
-                    
-                }
+                
             }
-        
+            
         }
     }
-    
     
     @objc func endSession()
     {
         Mixpanel.mainInstance().track(event: "phone_train_watch_connected",
                                           properties: ["name": self.story.title])
         
+        Cloud.removePlayer(email: Settings.email!)
+        
         DispatchQueue.main.async
         {
-            self.player.removeAllActions()
-                
+            
             UIView.animate(withDuration: 0.5)
             {
-                    self.player.removeFromParent()
                     self.arenaView.isHidden = true
                     self.connectButton.isHidden = false
-                    self.rings.forEach( {$0.isHidden = true })
-                    
+                
                     self.arenaView.hrv.text = "--"
                     self.arenaView.time.text = "--"
                     self.arenaView.setChart([])
+                    self.playersLabel.isHidden = true
+                    self.minutesLabel.isHidden = true
+                    self.playersTitle.isHidden = true
+                    self.minutesTitle.isHidden = true
                 }
-                
             }
-            
         }
     
     @objc func progress(notification: NSNotification)
     {
         if let progress = notification.object as? [String]
         {
-            let lastProgress = progress.last!.description.lowercased().contains("good")
-            
-            if (ring >= 2)
-            {
-                DispatchQueue.main.async
-                {
-                    self.player.removeAllActions()
-                    
-                    self.player.removeFromParent()
-                    
-                    self.ring = 0
-                    
-                    if let shell = self.spriteView.scene!.childNode(withName: "//0")! as? SKShapeNode {
-                        
-                        shell.addChild(self.player)
-                        
-                        self.player.zPosition = 3.0
-                        
-                        let action = SKAction.repeatForever( SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 25.0))
-                        
-                        self.player.run(action)
-                    }
-                }
-            }
-            else if(lastProgress && ring < 2)
-            {
-                self.ring = self.ring + 1
-                
-                DispatchQueue.main.async
-                {
-                    self.player.removeAllActions()
-                    self.player.removeFromParent()
-                        
-                    if let shell = self.spriteView.scene!.childNode(withName: "//" + self.ring.description)! as? SKShapeNode
-                    {
-                        shell.addChild(self.player)
-                        
-                        let action = SKAction.repeatForever( SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 15.0))
-                        
-                        self.player.run(action)
-                    }
-                }
-            }
+            Cloud.updatePlayer(email: Settings.email!, mins: progress.count)
         }
     }
     
@@ -394,11 +350,9 @@ class TrainController: UIViewController
             let double_hr = (Double(raw_hr)! * 60).rounded()
             let int_hr = Int(double_hr)
             let text_hr = int_hr.description
-            
-            
+    
             DispatchQueue.main.async
             {
-                
                 self.arenaView.hrv.text = text_hrv
                 
                 self.arenaView.time.text = text_hr
@@ -408,7 +362,6 @@ class TrainController: UIViewController
                 let chartHR = self.chartHR.sorted(by: <)
 
                 self.arenaView.setChart(chartHR)
-                
             }
         }
         
@@ -466,36 +419,8 @@ class TrainController: UIViewController
         
         setupConnectButton()
         
-        self.addShell(scene, 30, "2")
-        self.addShell(scene, 90, "1")
-        self.addShell(scene, 150, "0")
-        
         return scene
         
-    }
-    
-    func addShell(_ parent: SKNode, _ radius: Int, _ name: String)
-    {
-  
-        let pathNode = SKShapeNode(circleOfRadius: CGFloat(radius))
-        
-        pathNode.strokeColor = SKColor.zenWhite
-        
-        pathNode.position = CGPoint(x: parent.frame.midX, y: parent.frame.midY)
-        
-        pathNode.fillColor = SKColor(red:0.06, green:0.15, blue:0.13, alpha:0.3)
-       
-        pathNode.zPosition = 3
-        
-        pathNode.name = name
-        
-        pathNode.isHidden = true
-        
-        pathNode.lineWidth = CGFloat(0.01)
-        
-        parent.addChild(pathNode)
-        
-        rings.append(pathNode)
     }
     
     @objc func pan()
@@ -517,5 +442,3 @@ class TrainController: UIViewController
 
     }
 }
-
-

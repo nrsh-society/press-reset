@@ -16,6 +16,63 @@ class Cloud
 {
     static var enabled = false
 
+    static func updatePlayer(email: String, mins: Int )
+    {
+        let database = Database.database().reference()
+        let players = database.child("players")
+        
+        let key = players.child(email.replacingOccurrences(of: ".", with: "_"))
+        
+        key.setValue(mins)
+        {
+            (error, ref) in
+            
+            if let error = error
+            {
+                print("Data could not be saved: \(error).")
+            }
+        }
+    }
+    
+    static func removePlayer(email: String)
+    {
+        let database = Database.database().reference()
+        let players = database.child("players")
+        
+        let key = players.child(email.replacingOccurrences(of: ".", with: "_"))
+        
+        key.removeValue()
+    }
+
+    typealias PlayersChangedHandler = (_ player : [String: Int], _ error: Error? ) -> Void
+    
+    static func registerPlayersChangedHandler(handler: @escaping PlayersChangedHandler) -> DatabaseHandle?
+    {
+        if(!enabled)
+        {
+            print ("Cloud disabled")
+            return nil
+        }
+        
+        let database = Database.database().reference()
+        
+        let sample = database.child("players")
+        
+        let refHandle = sample.observe(DataEventType.value)
+        {
+            (snapshot) in
+            
+            if let value = snapshot.value as? [String : Int]
+            {
+                handler(value, nil)
+            }
+        }
+        
+        refHandles.append(refHandle)
+        
+        return refHandle
+    }
+    
     static func updateSample(email: String, content: String, sample: [String : Any])
     {
         

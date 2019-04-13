@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Antenna-Regular.otf">
+            <string>Antenna-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Group Controller-->
+        <scene sceneID="Qdr-8l-U0n">
+            <objects>
+                <viewController storyboardIdentifier="GroupController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NZg-Kt-xhW" userLabel="Group Controller" customClass="GroupController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HIe-zl-TmH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <skView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xcq-F9-V7c">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </skView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cCa-Pd-CyP" customClass="ArenaView" customModule="Zendo" customModuleProvider="target">
+                                <rect key="frame" x="3" y="507" width="369" height="150"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="ndM-It-NmL"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTo-no-nA4">
+                                <rect key="frame" x="37.5" y="627" width="300" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="Qwo-st-xOf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="18"/>
+                                <state key="normal" title=" play zendō">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JIZ-EC-Fts">
+                                <rect key="frame" x="137.5" y="283.5" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="agM-ZG-7Jh"/>
+                                    <constraint firstAttribute="width" constant="100" id="kPp-Il-ABT"/>
+                                </constraints>
+                            </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="players" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M0f-LB-SwS">
+                                <rect key="frame" x="10" y="20" width="50" height="15"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="minutes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49I-SK-P7y">
+                                <rect key="frame" x="308" y="20" width="57" height="15"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnV-oi-AVZ">
+                                <rect key="frame" x="10" y="45" width="13" height="15"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L82-FC-WPe">
+                                <rect key="frame" x="352" y="45" width="13" height="15"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="M0f-LB-SwS" firstAttribute="top" secondItem="z49-wy-zwZ" secondAttribute="top" id="0bx-xP-ad3"/>
+                            <constraint firstItem="49I-SK-P7y" firstAttribute="top" secondItem="z49-wy-zwZ" secondAttribute="top" id="7Gi-os-2uF"/>
+                            <constraint firstItem="cCa-Pd-CyP" firstAttribute="trailing" secondItem="z49-wy-zwZ" secondAttribute="trailing" constant="-3" id="7VI-ed-01J"/>
+                            <constraint firstItem="JIZ-EC-Fts" firstAttribute="centerY" secondItem="HIe-zl-TmH" secondAttribute="centerY" id="A0o-1m-ZCK"/>
+                            <constraint firstItem="JIZ-EC-Fts" firstAttribute="centerX" secondItem="HIe-zl-TmH" secondAttribute="centerX" id="Ae9-QY-6CY"/>
+                            <constraint firstItem="nnV-oi-AVZ" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" constant="10" id="CWa-0q-mL9"/>
+                            <constraint firstItem="cCa-Pd-CyP" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" constant="3" id="DmB-HV-XtB"/>
+                            <constraint firstItem="FTo-no-nA4" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" constant="-10" id="EqL-9p-gK6"/>
+                            <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="L82-FC-WPe" secondAttribute="trailing" constant="10" id="IUw-wF-Nqu"/>
+                            <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="49I-SK-P7y" secondAttribute="trailing" constant="10" id="OWk-ZZ-LVl"/>
+                            <constraint firstItem="nnV-oi-AVZ" firstAttribute="top" secondItem="M0f-LB-SwS" secondAttribute="bottom" constant="10" id="SdM-Na-Bbv"/>
+                            <constraint firstItem="cCa-Pd-CyP" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" constant="-10" id="TX3-D5-Z67"/>
+                            <constraint firstItem="FTo-no-nA4" firstAttribute="centerX" secondItem="HIe-zl-TmH" secondAttribute="centerX" id="s1Y-dP-Qqq"/>
+                            <constraint firstItem="M0f-LB-SwS" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" constant="10" id="tdM-N9-Z4h"/>
+                            <constraint firstItem="L82-FC-WPe" firstAttribute="baseline" secondItem="nnV-oi-AVZ" secondAttribute="baseline" id="wvC-0i-4kA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="z49-wy-zwZ"/>
+                    </view>
+                    <connections>
+                        <outlet property="arenaView" destination="cCa-Pd-CyP" id="pd9-By-euJ"/>
+                        <outlet property="avatarView" destination="JIZ-EC-Fts" id="y4h-PZ-CxO"/>
+                        <outlet property="connectButton" destination="FTo-no-nA4" id="plm-Fc-T2k"/>
+                        <outlet property="minutesLabel" destination="L82-FC-WPe" id="fg1-9Q-Rjd"/>
+                        <outlet property="minutesTitle" destination="49I-SK-P7y" id="FSs-dx-kkp"/>
+                        <outlet property="playersLabel" destination="nnV-oi-AVZ" id="gXn-tX-h88"/>
+                        <outlet property="playersTitle" destination="M0f-LB-SwS" id="Q19-k3-oMS"/>
+                        <outlet property="spriteView" destination="xcq-F9-V7c" id="K8r-nF-Wj1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tVi-YP-W0J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-186.40000000000001" y="44.527736131934034"/>
+        </scene>
+    </scenes>
+</document>

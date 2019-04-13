@@ -14,6 +14,8 @@ target 'Zendo' do
     pod 'SDWebImage', '~> 4.0'
     pod 'Firebase/Core', '~> 5.15.0'
     pod 'Firebase/Database', '~> 5.15.0'
+    pod 'AvatarCapture', '1.0.5'
+    pod 'PeerKit', '~> 4.0'
 #    pod 'SwiftVideoGenerator', '<= 1.1.8'
 end
 
@@ -21,5 +23,13 @@ end
 target 'Zendo WatchKit Extension' do
     platform :watchos, '4.0'
     pod 'Mixpanel', '~> 3.3.6'
+end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+                config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-Onone'
+        end
+    end
 end
 
