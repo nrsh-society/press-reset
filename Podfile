@@ -14,6 +14,7 @@ target 'Zendo' do
     pod 'SDWebImage', '~> 4.0'
     pod 'Firebase/Core', '~> 5.15.0'
     pod 'Firebase/Database', '~> 5.15.0'
+    pod 'Firebase/Storage', '~> 5.15.0'
     pod 'AvatarCapture', '1.0.5'
     pod 'PeerKit', '~> 4.0'
 #    pod 'SwiftVideoGenerator', '<= 1.1.8'

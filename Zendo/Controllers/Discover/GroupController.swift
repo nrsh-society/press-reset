@@ -15,6 +15,7 @@ import HealthKit
 import AVKit
 import Mixpanel
 import Cache
+import AvatarCapture
 
 class GroupController: UIViewController
 {
@@ -48,6 +49,10 @@ class GroupController: UIViewController
     var chartHR = [String: Int]()
     var scene : SKScene?
     var players = [String : Int]()
+    let avatarCaptureController = AvatarCaptureController()
+    var profileImage : UIImage?
+    var last_progress : [String]?
+    var last_sample : [String : String]?
     
     let diskConfig = DiskConfig(name: "DiskCache")
     let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
@@ -238,23 +243,21 @@ class GroupController: UIViewController
         
         self.spriteView.presentScene(self.setupScene())
         
+        avatarCaptureController.delegate = self
+        avatarView.addSubview((avatarCaptureController.view)!)
+        
         self.startSession()
         
     }
     
+    @objc func avatarViewClicked()
+    {
+        avatarCaptureController.startCapture()
+    }
+    
     @objc func connectAppleWatch()
     {
-        if(!Settings.isWatchConnected) {
-            
-            let startingSessions = StartingSessionViewController()
-            
-            startingSessions.modalPresentationStyle = .overFullScreen
-            
-            startingSessions.modalTransitionStyle = .crossDissolve
-            
-            self.present(startingSessions, animated: true)
-            
-        }
+        avatarCaptureController.startCapture()
     }
     
     @objc func startSession()
@@ -284,7 +287,7 @@ class GroupController: UIViewController
                 }
             }
             
-            Cloud.updatePlayer(email: Settings.email!, mins: 0)
+            Cloud.createPlayer(email: Settings.email!, image: self.profileImage!)
             
             DispatchQueue.main.async
             {
@@ -292,7 +295,7 @@ class GroupController: UIViewController
                 {
                     self.arenaView.isHidden = false
                     self.connectButton.isHidden = true
-                    self.avatarView.isHidden = true
+                    self.avatarView.isHidden = false
                     self.playersLabel.isHidden = false
                     self.minutesLabel.isHidden = false
                     self.playersTitle.isHidden = false
@@ -310,6 +313,8 @@ class GroupController: UIViewController
                                           properties: ["name": self.story.title])
         
         Cloud.removePlayer(email: Settings.email!)
+        
+        Settings.isWatchConnected = false
         
         DispatchQueue.main.async
         {
@@ -334,7 +339,10 @@ class GroupController: UIViewController
     {
         if let progress = notification.object as? [String]
         {
-            Cloud.updatePlayer(email: Settings.email!, mins: progress.count)
+            self.last_progress = progress
+            
+            Cloud.updatePlayer(email: Settings.email!, progress: self.last_progress!, sample: self.last_sample!)
+            
         }
     }
     
@@ -342,6 +350,7 @@ class GroupController: UIViewController
     {
         if let sample = notification.object as? [String : Any]
         {
+            
             let raw_hrv = sample["sdnn"] as! String
             let double_hrv = Double(raw_hrv)!.rounded()
             let text_hrv = Int(double_hrv.rounded()).description
@@ -363,6 +372,10 @@ class GroupController: UIViewController
 
                 self.arenaView.setChart(chartHR)
             }
+            
+            self.last_sample = sample as! [String: String]
+            
+            Cloud.updatePlayer(email: Settings.email!, progress: self.last_progress!, sample: self.last_sample!)
         }
         
     }
@@ -440,5 +453,31 @@ class GroupController: UIViewController
             
         }
 
+    }
+}
+
+extension GroupController: AvatarCaptureControllerDelegate
+{
+    func imageSelected(image: UIImage)
+    {
+        print("image Selected")
+        
+        self.profileImage = image
+        
+        if(!Settings.isWatchConnected) {
+            
+            let startingSessions = StartingSessionViewController()
+            
+            startingSessions.modalPresentationStyle = .overFullScreen
+            
+            startingSessions.modalTransitionStyle = .crossDissolve
+            
+            self.present(startingSessions, animated: true)
+            
+        }
+    }
+    
+    func imageSelectionCancelled() {
+        print("image selection cancelled")
     }
 }

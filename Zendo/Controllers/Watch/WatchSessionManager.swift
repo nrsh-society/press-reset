@@ -110,6 +110,8 @@ extension WatchSessionManager: WCSessionDelegate {
         {
             if let sample = message.first?.value
             {
+                Settings.isWatchConnected = true
+                
                 NotificationCenter.default.post(name: NSNotification.Name("sample"),
                                                 object: sample )
                 
@@ -120,6 +122,8 @@ extension WatchSessionManager: WCSessionDelegate {
         {
             if let progress = message.first?.value
             {
+                Settings.isWatchConnected = true
+                
                 NotificationCenter.default.post(name: NSNotification.Name("progress"),
                                                 object: progress )
                 

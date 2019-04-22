@@ -11,10 +11,69 @@ import Firebase
 import FirebaseDatabase
 import FBSDKCoreKit
 import Mixpanel
+import FirebaseStorage
 
 class Cloud
 {
     static var enabled = false
+    
+    static func createPlayer(email: String, image: UIImage )
+    {
+        var data = Data()
+        data = UIImageJPEGRepresentation(image, 0.8)!
+        
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        
+        let key = email.replacingOccurrences(of: ".", with: "_")
+        
+        let profileRef = storageRef.child( key + ".jpg")
+        
+        let uploadTask = profileRef.putData(data, metadata: nil) { (metadata, error) in
+            guard let metadata = metadata else {
+                // Uh-oh, an error occurred!
+                return
+            }
+            // Metadata contains file metadata such as size, content-type.
+            let size = metadata.size
+            // You can also access to download URL after upload.
+            profileRef.downloadURL { (url, error) in
+                guard let downloadURL = url else {
+                    // Uh-oh, an error occurred!
+                    return
+                }
+                
+                print(downloadURL)
+            }
+        }
+    }
+    
+    static func updatePlayer(email: String, progress: [String], sample: [String: Any])
+    {
+
+        let database = Database.database().reference()
+        let players = database.child("players")
+        
+        let key_string = email.replacingOccurrences(of: ".", with: "_")
+        
+        let key = players.child(key_string)
+        
+        let value = [progress, sample] as [Any]
+        
+        key.setValue(value)
+        {
+            (error, ref) in
+            
+            if let error = error
+            {
+                print("Data could not be saved: \(error).")
+                
+                return
+            }
+            
+        }
+
+    }
 
     static func updatePlayer(email: String, mins: Int )
     {
@@ -24,6 +83,24 @@ class Cloud
         let key = players.child(email.replacingOccurrences(of: ".", with: "_"))
         
         key.setValue(mins)
+        {
+            (error, ref) in
+            
+            if let error = error
+            {
+                print("Data could not be saved: \(error).")
+            }
+        }
+    }
+    
+    static func updatePlayer(email: String, sample: [String : Any] )
+    {
+        let database = Database.database().reference()
+        let players = database.child("players")
+        
+        let key = players.child(email.replacingOccurrences(of: ".", with: "_"))
+        
+        key.setValue(sample)
         {
             (error, ref) in
             
