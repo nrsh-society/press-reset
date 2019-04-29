@@ -51,8 +51,8 @@ class GroupController: UIViewController
     var players = [String : Int]()
     let avatarCaptureController = AvatarCaptureController()
     var profileImage : UIImage?
-    var last_progress : [String]?
-    var last_sample : [String : String]?
+    var last_progress : [String]? = nil
+    var last_sample : [String : Any]? = nil 
     
     let diskConfig = DiskConfig(name: "DiskCache")
     let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
@@ -287,7 +287,10 @@ class GroupController: UIViewController
                 }
             }
             
-            Cloud.createPlayer(email: Settings.email!, image: self.profileImage!)
+            if let image = self.profileImage
+            {
+                Cloud.createPlayer(email: Settings.email!, image: image)
+            }
             
             DispatchQueue.main.async
             {
@@ -373,9 +376,9 @@ class GroupController: UIViewController
                 self.arenaView.setChart(chartHR)
             }
             
-            self.last_sample = sample as! [String: String]
+            self.last_sample = sample
             
-            Cloud.updatePlayer(email: Settings.email!, progress: self.last_progress!, sample: self.last_sample!)
+            Cloud.updatePlayer(email: Settings.email!, progress: self.last_progress, sample: self.last_sample)
         }
         
     }

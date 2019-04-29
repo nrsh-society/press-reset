@@ -18,7 +18,7 @@ class SubscriptionHeaderTableViewCell: UITableViewCell {
     
     enum SubscriptionStatus: String {
         //case end = "support our work together..."
-        case trial =  "support our work together."
+        case trial =  "Support Our Work"
     }
     
     @IBOutlet weak var textLabelSub: UILabel!

@@ -28,13 +28,34 @@ class SubscriptionViewController: UIViewController {
         }
     }
     
+    @IBOutlet var labels: [UILabel]!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         priceLabel.text = ""
         
+        for label in labels
+        {
+            label.attributedText = setAttributedString(label.text ?? "")
+        }
+        
         fetchAvailableProducts()
         
+    }
+    
+    
+    
+    func setAttributedString(_ text: String) -> NSMutableAttributedString
+    {
+        let attributedString = NSMutableAttributedString(string: text)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.43
+        
+        attributedString.addAttribute(.paragraphStyle, value:paragraphStyle, range: NSMakeRange(0, attributedString.length))
+        
+        return attributedString
     }
     
     static func loadFromStoryboard() -> SubscriptionViewController {
