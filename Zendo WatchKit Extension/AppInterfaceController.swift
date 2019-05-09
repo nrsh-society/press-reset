@@ -9,7 +9,7 @@
 import WatchKit
 import Foundation
 import HealthKit
-import Mixpanel
+//import Mixpanel
 import UserNotifications
 
 //var _currentSession : Session?
@@ -63,7 +63,7 @@ class AppInterfaceController: WKInterfaceController {
     
     func startSession() {
         
-        Mixpanel.sharedInstance()?.track("watch_new_session")
+        //Mixpanel.sharedInstance()?.track("watch_new_session")
         
         Session.current = Session()
         
@@ -97,7 +97,7 @@ class AppInterfaceController: WKInterfaceController {
                                 self.enableLocalNotifications()
                             }
                             
-                            Mixpanel.sharedInstance()?.track("watch_notification_auth")
+                            //Mixpanel.sharedInstance()?.track("watch_notification_auth")
                         }
                     }
                     
@@ -138,7 +138,7 @@ class AppInterfaceController: WKInterfaceController {
             
             Notification.enabled = true
             
-            Mixpanel.sharedInstance()?.track("watch_notification_enabled")
+            //Mixpanel.sharedInstance()?.track("watch_notification_enabled")
         }
     }
     
@@ -147,7 +147,7 @@ class AppInterfaceController: WKInterfaceController {
 
         super.willActivate()
         
-        Mixpanel.sharedInstance()?.timeEvent("watch_overview")
+        //Mixpanel.sharedInstance()?.timeEvent("watch_overview")
         
         sessionDelegater.sendMessage(["facebook" : "watch_overview"],
             replyHandler:
@@ -242,7 +242,7 @@ class AppInterfaceController: WKInterfaceController {
     {
         super.didDeactivate()
         
-        Mixpanel.sharedInstance()?.track("watch_overview")
+        //Mixpanel.sharedInstance()?.track("watch_overview")
     }
     
 }
