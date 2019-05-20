@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Nz-z1-oTd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Nz-z1-oTd">
     <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -892,7 +892,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
             </objects>
             <point key="canvasLocation" x="-1466.4000000000001" y="-255.02248875562222"/>
         </scene>
-        <!--Stats-->
+        <!--full name-->
         <scene sceneID="QGL-GW-IDO">
             <objects>
                 <viewController storyboardIdentifier="Overview" id="y4I-bb-DEZ" customClass="OverviewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
@@ -901,7 +901,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XnG-Wf-AeE">
-                                <rect key="frame" x="0.0" y="140" width="414" height="877"/>
+                                <rect key="frame" x="0.0" y="174" width="414" height="843"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="EgG-QL-Qld">
                                     <rect key="frame" x="0.0" y="918" width="414" height="1"/>
@@ -1164,7 +1164,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JLv-6G-LTB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Stats" id="aBi-9f-bIj">
+                    <navigationItem key="navigationItem" title="full name" prompt="email" id="aBi-9f-bIj">
                         <barButtonItem key="rightBarButtonItem" title="New Session" image="watch" style="done" id="0jC-fu-UI7">
                             <connections>
                                 <action selector="onNewSession:" destination="y4I-bb-DEZ" id="prH-qE-wBl"/>
@@ -1174,6 +1174,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="414" height="1100"/>
                     <connections>
+                        <outlet property="navigationItem" destination="aBi-9f-bIj" id="7tl-jR-3pB"/>
                         <outlet property="tableView" destination="XnG-Wf-AeE" id="U3H-Vs-Y1M"/>
                     </connections>
                 </viewController>

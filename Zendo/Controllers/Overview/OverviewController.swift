@@ -67,6 +67,9 @@ class OverviewController: UIViewController {
         tableView.estimatedRowHeight = 1000.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        self.navigationItem.title = Settings.fullName
+        self.navigationItem.prompt = Settings.email
+        
         let gradient = CAGradientLayer()
         gradient.frame = view.bounds
         gradient.locations = [0.0, 0.4]
