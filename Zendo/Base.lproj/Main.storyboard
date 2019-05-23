@@ -235,13 +235,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Activity" id="a61-4s-xIt">
-                        <barButtonItem key="rightBarButtonItem" title="New Session" image="watch" style="done" id="90w-8I-n8k">
-                            <connections>
-                                <action selector="onNewSession:" destination="OgR-X5-jbh" id="nGK-H9-nVS"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Activity" id="a61-4s-xIt"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="1000"/>
                 </tableViewController>
@@ -1164,13 +1158,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JLv-6G-LTB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="full name" prompt="email" id="aBi-9f-bIj">
-                        <barButtonItem key="rightBarButtonItem" title="New Session" image="watch" style="done" id="0jC-fu-UI7">
-                            <connections>
-                                <action selector="onNewSession:" destination="y4I-bb-DEZ" id="prH-qE-wBl"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="full name" prompt="email" id="aBi-9f-bIj"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="414" height="1100"/>
                     <connections>
@@ -1194,7 +1182,6 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
         <image name="overview" width="24" height="24"/>
         <image name="share" width="24" height="24"/>
         <image name="time" width="35" height="40"/>
-        <image name="watch" width="13" height="23"/>
         <image name="welcome" width="248" height="319"/>
     </resources>
 </document>
