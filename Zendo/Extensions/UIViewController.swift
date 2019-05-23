@@ -20,7 +20,7 @@ extension UIViewController {
         view.endEditing(true)
     }
     
-    func showWelcomeController() {
+    func showInitialController() {
         if let vc = UIApplication.shared.keyWindow?.topViewController {
             if !vc.isKind(of: NavigationControllerWelcome.self) {
                 let controller = NavigationControllerWelcome.loadFromStoryboard()
@@ -53,7 +53,7 @@ extension UIViewController {
         if !Settings.isRunOnce {
             if let vc = UIApplication.shared.keyWindow?.topViewController {
                 if !vc.isKind(of: CommunityViewController.self) && isShow {
-                    showWelcomeController()
+                    showInitialController()
                 }
             }
         } else {
