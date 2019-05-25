@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Zendō</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -57,9 +59,9 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Profile photo for groups</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>Show progress across Zendo sessions </string>
+	<string>Show progress across Zendō sessions </string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>Add Zendo data to Apple Health </string>
+	<string>Add Zendō data to Apple Health </string>
 	<key>NSMotionUsageDescription</key>
 	<string>Uses motion data to track posture</string>
 	<key>NSUserActivityTypes</key>
