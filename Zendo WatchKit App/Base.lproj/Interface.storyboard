@@ -254,7 +254,7 @@
                                         <imageView width="50" height="50" alignment="center" image="Lock" contentMode="scaleAspectFit" id="u0M-AT-oFY"/>
                                     </items>
                                 </group>
-                                <label alignment="center" text="Recording a meditation requires a monthly subscription. Go to Zendo app on the phone to subscribe. " textAlignment="center" numberOfLines="0" id="t4F-ed-mDq">
+                                <label alignment="center" text="Recording a meditation requires a monthly subscription. Go to Zendō app on the phone to subscribe. " textAlignment="center" numberOfLines="0" id="t4F-ed-mDq">
                                     <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="13"/>
                                 </label>
                                 <group width="1" height="40" alignment="left" radius="20" id="2XN-Qx-95s">
