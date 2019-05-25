@@ -163,13 +163,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ar3-ZE-Yqr"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Discover" id="1WB-04-bbZ">
-                        <barButtonItem key="rightBarButtonItem" title="New Session" image="watch" style="done" id="dkd-Fl-9rH">
-                            <connections>
-                                <action selector="onNewSession:" destination="FV6-Tz-yMd" id="1Vb-gD-nrX"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Discover" id="1WB-04-bbZ"/>
                     <connections>
                         <outlet property="tableView" destination="xhR-1H-DLz" id="z8Q-6G-WQH"/>
                     </connections>
@@ -595,6 +589,5 @@
         <image name="checkmark" width="16" height="11"/>
         <image name="discover" width="20" height="20"/>
         <image name="overlay_green" width="290" height="89"/>
-        <image name="watch" width="13" height="23"/>
     </resources>
 </document>
