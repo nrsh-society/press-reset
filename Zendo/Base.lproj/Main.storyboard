@@ -660,7 +660,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Skip" id="5u3-ZB-4vL" userLabel="Skip">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="gph-pp-dV7" kind="show" id="Dti-6H-2Cz"/>
+                                <action selector="didSkipWithSender:" destination="FOx-Oj-Aa3" id="1fK-b5-wL9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -669,12 +669,14 @@
                         <outlet property="fullName" destination="oAN-ji-17l" id="PXr-91-A3n"/>
                         <outlet property="nextBottomSpace" destination="7pk-aw-dT1" id="hlH-E9-IIo"/>
                         <outlet property="nextButton" destination="n8Z-dv-fhB" id="P8j-Qx-Ycs"/>
+                        <outlet property="skipButton" destination="5u3-ZB-4vL" id="a7Q-Hy-gIt"/>
                         <outlet property="stackView" destination="j4b-yy-xhs" id="B8d-e3-WXS"/>
                         <outlet property="topSpace" destination="wOs-pP-v6B" id="T9f-J2-Nbe"/>
                         <outlet property="topSpaceTextField" destination="e4l-5i-CXC" id="gNB-7O-VjE"/>
                         <outletCollection property="labels" destination="xua-QO-A7Q" collectionClass="NSMutableArray" id="bgw-M2-zrL"/>
                         <outletCollection property="labels" destination="e29-hP-oad" collectionClass="NSMutableArray" id="10C-dT-Bde"/>
                         <outletCollection property="labels" destination="YVx-Jo-CSq" collectionClass="NSMutableArray" id="r0H-UG-p6L"/>
+                        <segue destination="gph-pp-dV7" kind="show" identifier="SkipToHealthKit" id="KqU-A5-uo5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D9f-cy-vpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

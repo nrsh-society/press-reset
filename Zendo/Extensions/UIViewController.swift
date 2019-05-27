@@ -50,7 +50,7 @@ extension UIViewController {
     }
     
     func checkHealthKit(isShow: Bool) {
-        if !Settings.isRunOnce {
+        if !Settings.didFinishCommunitySignup && !Settings.skippedCommunitySignup {
             if let vc = UIApplication.shared.keyWindow?.topViewController {
                 if !vc.isKind(of: CommunityViewController.self) && isShow {
                     showInitialController()
