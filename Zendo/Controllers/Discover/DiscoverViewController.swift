@@ -490,25 +490,40 @@ extension DiscoverViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        
         dataTask?.cancel()
-        
         let story = sections[collectionView.tag].stories[indexPath.row]
-        
+        let vc = getViewControllerForStory(story, indexPath: indexPath, collectionView: collectionView)
+        if vc != nil {
+            present(vc!, animated: true, completion: nil)
+        }
+    }
+
+    func getViewControllerForStory(_ story: Story, indexPath: IndexPath, collectionView: UICollectionView) -> UIViewController? {
         var vc : UIViewController?
-        
         if story.type == "group"
         {
-            let solo = GroupController.loadFromStoryboard()
-            solo.story = story
-            solo.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-            vc = solo
-            
+            if Settings.email == nil || Settings.fullName == nil {
+                let alert = UIAlertController(
+                    title: "Missing Required Info",
+                    message: "Entering into a group session requires full name and email",
+                    preferredStyle: .alert
+                )
+
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                vc = alert
+            } else {
+                let solo = GroupController.loadFromStoryboard()
+                solo.story = story
+                solo.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+                solo.hero.isEnabled = true
+                vc = solo
+            }
         } else if story.type == "solo"
         {
             let solo = TrainController.loadFromStoryboard(true)
             solo.story = story
             solo.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            solo.hero.isEnabled = true
             vc = solo
         }
         else if story.type == "train"
@@ -516,6 +531,7 @@ extension DiscoverViewController: UICollectionViewDataSource {
             let train = TrainController.loadFromStoryboard(false)
             train.story = story
             train.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            train.hero.isEnabled = true
             vc = train
         }
         else //tutorial
@@ -523,13 +539,12 @@ extension DiscoverViewController: UICollectionViewDataSource {
             let video = VideoViewController.loadFromStoryboard()
             video.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
             video.story = story
+            video.hero.isEnabled = true
             vc = video
         }
-        
-        vc?.hero.isEnabled = true
-        present(vc!, animated: true, completion: nil)
+
+        return vc
     }
-    
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
