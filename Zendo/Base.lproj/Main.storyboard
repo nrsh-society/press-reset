@@ -649,18 +649,27 @@
                         <viewLayoutGuide key="safeArea" id="dGQ-zL-A4P"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" id="zKr-Am-NzO"/>
+                    <navigationItem key="navigationItem" id="zKr-Am-NzO">
+                        <barButtonItem key="rightBarButtonItem" title="Skip" id="5u3-ZB-4vL" userLabel="Skip">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="didSkipWithSender:" destination="FOx-Oj-Aa3" id="1fK-b5-wL9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="email" destination="mN8-Qu-Loh" id="XiD-uX-ScQ"/>
                         <outlet property="fullName" destination="oAN-ji-17l" id="PXr-91-A3n"/>
                         <outlet property="nextBottomSpace" destination="7pk-aw-dT1" id="hlH-E9-IIo"/>
                         <outlet property="nextButton" destination="n8Z-dv-fhB" id="P8j-Qx-Ycs"/>
+                        <outlet property="skipButton" destination="5u3-ZB-4vL" id="a7Q-Hy-gIt"/>
                         <outlet property="stackView" destination="j4b-yy-xhs" id="B8d-e3-WXS"/>
                         <outlet property="topSpace" destination="wOs-pP-v6B" id="T9f-J2-Nbe"/>
                         <outlet property="topSpaceTextField" destination="e4l-5i-CXC" id="gNB-7O-VjE"/>
                         <outletCollection property="labels" destination="xua-QO-A7Q" collectionClass="NSMutableArray" id="bgw-M2-zrL"/>
                         <outletCollection property="labels" destination="e29-hP-oad" collectionClass="NSMutableArray" id="10C-dT-Bde"/>
                         <outletCollection property="labels" destination="YVx-Jo-CSq" collectionClass="NSMutableArray" id="r0H-UG-p6L"/>
+                        <segue destination="gph-pp-dV7" kind="show" identifier="SkipToHealthKit" id="KqU-A5-uo5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D9f-cy-vpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -676,10 +685,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="connectToHealthkit" translatesAutoresizingMaskIntoConstraints="NO" id="eWO-nn-SMc">
-                                <rect key="frame" x="32" y="56" width="350" height="448"/>
+                                <rect key="frame" x="32" y="100" width="350" height="448"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3D2-S6-5aY">
-                                <rect key="frame" x="41" y="463.99999999999994" width="328" height="164.33333333333331"/>
+                                <rect key="frame" x="41" y="507.99999999999994" width="328" height="164.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="connect to" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjV-Yv-0YV">
                                         <rect key="frame" x="0.0" y="0.0" width="159" height="30"/>

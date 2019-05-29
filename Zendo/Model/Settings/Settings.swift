@@ -16,13 +16,23 @@ class Settings: NSObject {
     static let SHARED_SECRET = "80653a3a2e33453c9e69f7d2da8945eb"
 //   static let SHARED_SECRET = "e929eeee2144466197cd844b370fbffb" // test
     
-    static var isRunOnce: Bool {
+    static var didFinishCommunitySignup: Bool {
         set {
             defaults.set(newValue, forKey: "runonce")
             defaults.synchronize()
         }
         get {
             return defaults.bool(forKey: "runonce")
+        }
+    }
+
+    static var skippedCommunitySignup: Bool {
+        set {
+            defaults.set(newValue, forKey: "skippedCommunitySignup")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.bool(forKey: "skippedCommunitySignup")
         }
     }
     

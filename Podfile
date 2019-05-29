@@ -18,6 +18,13 @@ target 'Zendo' do
     pod 'AvatarCapture', '1.0.5'
     pod 'PeerKit', '~> 4.0'
 #    pod 'SwiftVideoGenerator', '<= 1.1.8'
+
+  target 'ZendoTests' do
+    inherit! :search_paths
+    pod 'Quick'
+    pod 'Nimble'
+    pod 'Fleet'
+  end
 end
 
 
