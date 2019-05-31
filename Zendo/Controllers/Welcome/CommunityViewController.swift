@@ -10,7 +10,9 @@ import UIKit
 import Mixpanel
 
 class CommunityViewController: UIViewController {
-    
+    class var storyboardIdentifier: String { get { return "CommunityViewController" } }
+    class var skipToHealthKitSegueID: String { get { return "SkipToHealthKit" } }
+
     @IBOutlet weak var topSpace: NSLayoutConstraint!
     @IBOutlet weak var topSpaceTextField: NSLayoutConstraint!
     @IBOutlet weak var stackView: UIStackView!
@@ -33,7 +35,8 @@ class CommunityViewController: UIViewController {
         }
     }
     @IBOutlet var labels: [UILabel]!
-    
+    @IBOutlet weak var skipButton: UIBarButtonItem!
+
     var bottomSpaceNext: CGFloat = 37.0
 
     override func viewDidAppear(_ animated: Bool) {
@@ -88,7 +91,6 @@ class CommunityViewController: UIViewController {
         email.editingChanged = { _ in
             self.check()
         }
-        
     }
     
     static func loadFromStoryboard() -> CommunityViewController {
@@ -149,7 +151,7 @@ class CommunityViewController: UIViewController {
         } else if !(email.textField.text?.isEmail())! {
             showAlert(text: "Invalid Email")
         } else {
-            Settings.isRunOnce = true
+            Settings.didFinishCommunitySignup = true
             Settings.fullName = fullName.textField.text
             Settings.email = email.textField.text
             
@@ -174,7 +176,11 @@ class CommunityViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
-    
+
+    @IBAction func didSkip(sender: Any?) {
+        Settings.skippedCommunitySignup = true
+        performSegue(withIdentifier: CommunityViewController.skipToHealthKitSegueID, sender: nil)
+    }
 }
 
 extension CommunityViewController: UITextFieldDelegate {

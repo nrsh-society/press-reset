@@ -51,6 +51,7 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.1)
     - GTMSessionFetcher/Core (~> 1.1)
+  - Fleet (4.3.0)
   - GoogleAppMeasurement (5.4.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -88,10 +89,12 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - Nimble (8.0.1)
   - NVActivityIndicatorView (4.2.1):
     - NVActivityIndicatorView/Presenter (= 4.2.1)
   - NVActivityIndicatorView/Presenter (4.2.1)
   - PeerKit (4.0.0)
+  - Quick (2.1.0)
   - SDWebImage (4.4.4):
     - SDWebImage/Core (= 4.4.4)
   - SDWebImage/Core (4.4.4)
@@ -106,12 +109,15 @@ DEPENDENCIES:
   - Firebase/Core (~> 5.15.0)
   - Firebase/Database (~> 5.15.0)
   - Firebase/Storage (~> 5.15.0)
+  - Fleet
   - Hero (~> 1.4.0)
   - lottie-ios (~> 2.5.2)
   - Mixpanel (~> 3.3.6)
   - Mixpanel-swift (~> 2.4.2)
+  - Nimble
   - NVActivityIndicatorView (~> 4.2.1)
   - PeerKit (~> 4.0)
+  - Quick
   - SDWebImage (~> 4.0)
   - SwiftyJSON (~> 4.0)
 
@@ -131,6 +137,7 @@ SPEC REPOS:
     - FirebaseDatabase
     - FirebaseInstanceID
     - FirebaseStorage
+    - Fleet
     - GoogleAppMeasurement
     - GoogleUtilities
     - GTMSessionFetcher
@@ -140,8 +147,10 @@ SPEC REPOS:
     - Mixpanel
     - Mixpanel-swift
     - nanopb
+    - Nimble
     - NVActivityIndicatorView
     - PeerKit
+    - Quick
     - SDWebImage
     - SwiftyJSON
 
@@ -160,6 +169,7 @@ SPEC CHECKSUMS:
   FirebaseDatabase: 0621689f77528d62b47e1c06ca737c4c19275d1a
   FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
   FirebaseStorage: 3d22c041370593e639fba013d1eb698a8dae2881
+  Fleet: 5efad25e84f0a575dd87fe10133d6b472873b9ad
   GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
   GoogleUtilities: 111a012f4c3a29c9e7c954c082fafd6ee3c999c0
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
@@ -169,8 +179,10 @@ SPEC CHECKSUMS:
   Mixpanel: 5bc76524e4e6f7eea1db809cceaf17b4ad504b05
   Mixpanel-swift: a9ed3dd197d8f2837920cec6be1acdb51d07b31a
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Nimble: 45f786ae66faa9a709624227fae502db55a8bdd0
   NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
   PeerKit: 34e275ee3c74bbd1bf35ab5093644817897136b5
+  Quick: 4be43f6634acfa727dd106bdf3929ce125ffa79d
   SDWebImage: c00ec18ab25d10e5ffac109b0f78d1b4341c9691
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 

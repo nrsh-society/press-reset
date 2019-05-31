@@ -4,8 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDisplayName</key>
-	<string>Zendō</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,26 +13,10 @@
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
-	<string>APPL</string>
+	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.0</string>
+	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>46</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Antenna-ExtraLight.otf</string>
-		<string>Antenna-Light.otf</string>
-		<string>Antenna-Medium.otf</string>
-		<string>Antenna-Regular.otf</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-	</array>
-	<key>WKCompanionAppBundleIdentifier</key>
-	<string>tools.sunyata.Zendo</string>
-	<key>WKWatchKitApp</key>
-	<true/>
+	<string>1</string>
 </dict>
 </plist>

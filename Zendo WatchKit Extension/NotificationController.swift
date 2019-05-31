@@ -9,7 +9,7 @@
 import WatchKit
 import Foundation
 import UserNotifications
-import Mixpanel
+//import Mixpanel
 
 
 class NotificationController: WKUserNotificationInterfaceController {
@@ -37,7 +37,7 @@ class NotificationController: WKUserNotificationInterfaceController {
     override func didReceive(_ notification: UNNotification)
     {
         
-        Mixpanel.sharedInstance()?.track("watch_localnotification")
+        //Mixpanel.sharedInstance()?.track("watch_localnotification")
         
         let meditateAction = UNNotificationAction(identifier: "MEDITATE_ACTION",
                                                  title: "Meditate Now",

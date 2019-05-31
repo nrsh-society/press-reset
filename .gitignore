@@ -10,6 +10,7 @@ Carthage/*
 *.xcbkptlist
 *.xcbkptlist
 *.xcuserstate
+xcuserdata
 Charts/.github/ISSUE_TEMPLATE.md
 Charts/.github/PULL_REQUEST_TEMPLATE.md
 Charts/.swift-version

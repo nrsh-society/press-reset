@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Nz-z1-oTd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Nz-z1-oTd">
     <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -171,20 +171,21 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="firstSession" translatesAutoresizingMaskIntoConstraints="NO" id="Psk-Mn-lDv">
-                                            <rect key="frame" x="0.0" y="20" width="248" height="319"/>
+                                            <rect key="frame" x="63.666666666666657" y="20" width="247.99999999999997" height="319"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="Psk-Mn-lDv" secondAttribute="height" multiplier="248:319" id="eMh-8b-lWw"/>
                                                 <constraint firstAttribute="height" constant="319" id="r4L-5Z-BFb"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start a session from Apple Phone by pressing the watch icon above. Start on Apple Watch by pressing inside the ring." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5J-CS-i6v">
-                                            <rect key="frame" x="32" y="350" width="311" height="42.333333333333314"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5J-CS-i6v">
+                                            <rect key="frame" x="32" y="350" width="311" height="56.333333333333314"/>
+                                            <string key="text">Record your meditation session using your Apple Watch. Zendō works great with Headspace, Calm, podcasts, or self-guided meditations</string>
                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                             <color key="textColor" red="0.58431372549019611" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wLl-ap-4N7">
-                                            <rect key="frame" x="93" y="53" width="177" height="70"/>
+                                            <rect key="frame" x="99" y="53" width="177" height="70"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="record your " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zfz-4T-fgo">
                                                     <rect key="frame" x="0.0" y="0.0" width="177" height="30"/>
@@ -200,25 +201,17 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="1Dw-Id-VTy">
-                                            <rect key="frame" x="280" y="20" width="75" height="75"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="1Dw-Id-VTy" secondAttribute="height" multiplier="1:1" id="zSK-IC-Xt6"/>
-                                            </constraints>
-                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="1Dw-Id-VTy" firstAttribute="leading" secondItem="wLl-ap-4N7" secondAttribute="trailing" constant="10" id="5xl-Wh-eiM"/>
                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="P5J-CS-i6v" secondAttribute="bottom" constant="15" id="7gl-c6-O1F"/>
-                                        <constraint firstItem="Psk-Mn-lDv" firstAttribute="leading" secondItem="cVa-X4-jIO" secondAttribute="leading" id="McE-03-nH0"/>
+                                        <constraint firstItem="wLl-ap-4N7" firstAttribute="centerX" secondItem="cVa-X4-jIO" secondAttribute="centerX" id="FRD-q5-j5f"/>
                                         <constraint firstAttribute="trailing" secondItem="P5J-CS-i6v" secondAttribute="trailing" constant="32" id="NkF-OW-7fl"/>
+                                        <constraint firstItem="Psk-Mn-lDv" firstAttribute="centerX" secondItem="cVa-X4-jIO" secondAttribute="centerX" id="TqD-Wa-fCZ"/>
                                         <constraint firstItem="P5J-CS-i6v" firstAttribute="top" secondItem="Psk-Mn-lDv" secondAttribute="bottom" constant="10.999999999999943" id="XId-T7-4jA"/>
                                         <constraint firstItem="Psk-Mn-lDv" firstAttribute="top" secondItem="wLl-ap-4N7" secondAttribute="bottom" constant="-103" id="b8Q-4A-T6U"/>
                                         <constraint firstItem="P5J-CS-i6v" firstAttribute="leading" secondItem="cVa-X4-jIO" secondAttribute="leading" constant="32" id="chG-LM-ZbA"/>
                                         <constraint firstItem="Psk-Mn-lDv" firstAttribute="top" secondItem="cVa-X4-jIO" secondAttribute="top" constant="20" id="nU2-6t-wr6"/>
-                                        <constraint firstAttribute="trailing" secondItem="1Dw-Id-VTy" secondAttribute="trailing" constant="20" id="qse-7y-G19"/>
-                                        <constraint firstItem="1Dw-Id-VTy" firstAttribute="top" secondItem="cVa-X4-jIO" secondAttribute="top" constant="20" id="rM0-8F-z9B"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -235,13 +228,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Activity" id="a61-4s-xIt">
-                        <barButtonItem key="rightBarButtonItem" title="New Session" image="watch" style="done" id="90w-8I-n8k">
-                            <connections>
-                                <action selector="onNewSession:" destination="OgR-X5-jbh" id="nGK-H9-nVS"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Activity" id="a61-4s-xIt"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="1000"/>
                 </tableViewController>
@@ -486,98 +473,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="Zat-xg-miU" kind="relationship" relationship="rootViewController" id="aC8-Oj-yIB"/>
+                        <segue destination="FOx-Oj-Aa3" kind="relationship" relationship="rootViewController" id="UR9-Ui-sE7"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hSV-e8-VP1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4842" y="-1403"/>
-        </scene>
-        <!--Welcome-->
-        <scene sceneID="IU5-Lt-djM">
-            <objects>
-                <viewController storyboardIdentifier="WelcomeController" title="Welcome" modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="Zat-xg-miU" customClass="WelcomeController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="LJM-oY-Ml1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="welcome" translatesAutoresizingMaskIntoConstraints="NO" id="jae-tp-FsZ">
-                                <rect key="frame" x="0.0" y="124" width="248" height="319"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="319" id="YRt-M2-suj"/>
-                                    <constraint firstAttribute="width" secondItem="jae-tp-FsZ" secondAttribute="height" multiplier="248:319" id="t2P-tf-NH3"/>
-                                </constraints>
-                            </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="CXj-sz-1cY">
-                                <rect key="frame" x="41" y="84" width="215" height="70"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="improve your" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t48-QA-eQY">
-                                        <rect key="frame" x="0.0" y="0.0" width="192.66666666666666" height="30"/>
-                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mental fitness" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r1l-kg-9Be">
-                                        <rect key="frame" x="0.0" y="40" width="215" height="30"/>
-                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
-                                        <color key="textColor" red="0.27843137254901962" green="0.5490196078431373" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4RK-cn-RQd">
-                                <rect key="frame" x="41" y="451" width="330" height="84.333333333333371"/>
-                                <string key="text">Practice. Observe. Improve.
-
-Use Apple Watch to record your meditation and view your Heart Rate Variability (HRV), a measure empirically correlated to a sense of well-being and positive health outcomes.</string>
-                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
-                                <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yQ8-ky-LSd" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="207" y="780" width="207" height="45"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="3Lf-3o-gbT"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="titleButton" value="Next"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="jae-tp-FsZ" firstAttribute="top" secondItem="CXj-sz-1cY" secondAttribute="bottom" constant="-30" id="1Vw-HR-eGZ"/>
-                            <constraint firstItem="4RK-cn-RQd" firstAttribute="leading" secondItem="Xf9-SG-J5R" secondAttribute="leading" constant="41" id="2dk-Qz-hZD"/>
-                            <constraint firstItem="CXj-sz-1cY" firstAttribute="leading" secondItem="Xf9-SG-J5R" secondAttribute="leading" constant="41" id="4PM-6u-fei"/>
-                            <constraint firstItem="Xf9-SG-J5R" firstAttribute="bottom" secondItem="yQ8-ky-LSd" secondAttribute="bottom" constant="37" id="B2G-r0-0Cn"/>
-                            <constraint firstItem="CXj-sz-1cY" firstAttribute="top" secondItem="Xf9-SG-J5R" secondAttribute="top" constant="40" id="Ggl-6H-HnE"/>
-                            <constraint firstItem="jae-tp-FsZ" firstAttribute="leading" secondItem="Xf9-SG-J5R" secondAttribute="leading" id="QTg-AM-uTf"/>
-                            <constraint firstItem="4RK-cn-RQd" firstAttribute="top" secondItem="jae-tp-FsZ" secondAttribute="bottom" constant="8" id="QuK-bZ-hVX"/>
-                            <constraint firstItem="yQ8-ky-LSd" firstAttribute="width" secondItem="LJM-oY-Ml1" secondAttribute="width" multiplier="0.5" id="gH7-0U-tLM"/>
-                            <constraint firstItem="Xf9-SG-J5R" firstAttribute="trailing" secondItem="4RK-cn-RQd" secondAttribute="trailing" constant="43" id="hYC-vS-0DU"/>
-                            <constraint firstItem="Xf9-SG-J5R" firstAttribute="trailing" secondItem="yQ8-ky-LSd" secondAttribute="trailing" id="wi0-fc-cmV"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="Xf9-SG-J5R"/>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" id="3Gh-2W-uh6"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="Url" value="http://sunyata.tools/welcome"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="imageHeight" destination="YRt-M2-suj" id="S75-jc-DXv"/>
-                        <outlet property="topStackView" destination="Ggl-6H-HnE" id="sEL-yd-yc2"/>
-                        <outlet property="zenButton" destination="yQ8-ky-LSd" id="Agh-g8-j9h"/>
-                        <outletCollection property="labels" destination="t48-QA-eQY" collectionClass="NSMutableArray" id="CnP-9r-9ew"/>
-                        <outletCollection property="labels" destination="r1l-kg-9Be" collectionClass="NSMutableArray" id="9s1-XC-cDd"/>
-                        <outletCollection property="labels" destination="4RK-cn-RQd" collectionClass="NSMutableArray" id="JkN-Tx-ULI"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8nQ-W7-shc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-4012" y="-1403"/>
+            <point key="canvasLocation" x="-4172" y="-1404"/>
         </scene>
         <!--Notification View Controller-->
         <scene sceneID="iwe-rf-nYd">
@@ -677,11 +578,11 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
             <objects>
                 <viewController storyboardIdentifier="CommunityViewController" modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="FOx-Oj-Aa3" customClass="CommunityViewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gr2-6O-C2R">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n8Z-dv-fhB" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="207" y="780" width="207" height="45"/>
+                                <rect key="frame" x="207" y="692" width="207" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="OpT-fT-VwG"/>
@@ -691,7 +592,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gFT-zA-ERl">
-                                <rect key="frame" x="41" y="94" width="332" height="122.33333333333331"/>
+                                <rect key="frame" x="41" y="49.999999999999993" width="332" height="122.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="join the" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVx-Jo-CSq">
                                         <rect key="frame" x="0.0" y="0.0" width="109.66666666666667" height="30"/>
@@ -724,7 +625,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mN8-Qu-Loh" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="86.999999999999972" width="373" height="48"/>
+                                        <rect key="frame" x="0.0" y="87" width="373" height="48"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="Cib-CH-TjC"/>
@@ -748,17 +649,27 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                         <viewLayoutGuide key="safeArea" id="dGQ-zL-A4P"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="zKr-Am-NzO">
+                        <barButtonItem key="rightBarButtonItem" title="Skip" id="5u3-ZB-4vL" userLabel="Skip">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="didSkipWithSender:" destination="FOx-Oj-Aa3" id="1fK-b5-wL9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="email" destination="mN8-Qu-Loh" id="XiD-uX-ScQ"/>
                         <outlet property="fullName" destination="oAN-ji-17l" id="PXr-91-A3n"/>
                         <outlet property="nextBottomSpace" destination="7pk-aw-dT1" id="hlH-E9-IIo"/>
                         <outlet property="nextButton" destination="n8Z-dv-fhB" id="P8j-Qx-Ycs"/>
+                        <outlet property="skipButton" destination="5u3-ZB-4vL" id="a7Q-Hy-gIt"/>
                         <outlet property="stackView" destination="j4b-yy-xhs" id="B8d-e3-WXS"/>
                         <outlet property="topSpace" destination="wOs-pP-v6B" id="T9f-J2-Nbe"/>
                         <outlet property="topSpaceTextField" destination="e4l-5i-CXC" id="gNB-7O-VjE"/>
                         <outletCollection property="labels" destination="xua-QO-A7Q" collectionClass="NSMutableArray" id="bgw-M2-zrL"/>
                         <outletCollection property="labels" destination="e29-hP-oad" collectionClass="NSMutableArray" id="10C-dT-Bde"/>
                         <outletCollection property="labels" destination="YVx-Jo-CSq" collectionClass="NSMutableArray" id="r0H-UG-p6L"/>
+                        <segue destination="gph-pp-dV7" kind="show" identifier="SkipToHealthKit" id="KqU-A5-uo5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D9f-cy-vpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -774,10 +685,10 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="connectToHealthkit" translatesAutoresizingMaskIntoConstraints="NO" id="eWO-nn-SMc">
-                                <rect key="frame" x="32" y="56" width="350" height="448"/>
+                                <rect key="frame" x="32" y="100" width="350" height="448"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3D2-S6-5aY">
-                                <rect key="frame" x="41" y="463.99999999999994" width="328" height="164.33333333333331"/>
+                                <rect key="frame" x="41" y="507.99999999999994" width="328" height="164.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="connect to" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjV-Yv-0YV">
                                         <rect key="frame" x="0.0" y="0.0" width="159" height="30"/>
@@ -892,7 +803,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
             </objects>
             <point key="canvasLocation" x="-1466.4000000000001" y="-255.02248875562222"/>
         </scene>
-        <!--Stats-->
+        <!--full name-->
         <scene sceneID="QGL-GW-IDO">
             <objects>
                 <viewController storyboardIdentifier="Overview" id="y4I-bb-DEZ" customClass="OverviewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
@@ -901,7 +812,7 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XnG-Wf-AeE">
-                                <rect key="frame" x="0.0" y="140" width="414" height="877"/>
+                                <rect key="frame" x="0.0" y="174" width="414" height="843"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="EgG-QL-Qld">
                                     <rect key="frame" x="0.0" y="918" width="414" height="1"/>
@@ -1164,16 +1075,11 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JLv-6G-LTB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Stats" id="aBi-9f-bIj">
-                        <barButtonItem key="rightBarButtonItem" title="New Session" image="watch" style="done" id="0jC-fu-UI7">
-                            <connections>
-                                <action selector="onNewSession:" destination="y4I-bb-DEZ" id="prH-qE-wBl"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="full name" prompt="email" id="aBi-9f-bIj"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="414" height="1100"/>
                     <connections>
+                        <outlet property="navigationItem" destination="aBi-9f-bIj" id="7tl-jR-3pB"/>
                         <outlet property="tableView" destination="XnG-Wf-AeE" id="U3H-Vs-Y1M"/>
                     </connections>
                 </viewController>
@@ -1183,7 +1089,6 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
         </scene>
     </scenes>
     <resources>
-        <image name="arrow" width="75" height="61"/>
         <image name="connectToHealthkit" width="311" height="340"/>
         <image name="discover" width="20" height="20"/>
         <image name="firstSession" width="248" height="319"/>
@@ -1193,7 +1098,5 @@ Use Apple Watch to record your meditation and view your Heart Rate Variability (
         <image name="overview" width="24" height="24"/>
         <image name="share" width="24" height="24"/>
         <image name="time" width="35" height="40"/>
-        <image name="watch" width="13" height="23"/>
-        <image name="welcome" width="248" height="319"/>
     </resources>
 </document>

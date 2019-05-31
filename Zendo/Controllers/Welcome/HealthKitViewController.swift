@@ -102,7 +102,7 @@ class HealthKitViewController: UIViewController {
             case 1: label.text = "sync failed"
             case 2: label.text =
             """
-            Zendo requires access to Health App.
+            Zendō requires access to Health App.
             
             1. Go to Health app.
             2. Tap on the Source Tab.

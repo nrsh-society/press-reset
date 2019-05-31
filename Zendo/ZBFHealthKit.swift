@@ -230,6 +230,38 @@ public class ZBFHealthKit {
         
     }
     
+    class func getWorkouts(since: Date, handler: @escaping GetSamplesHandler)
+    {
+        let hkType = HKObjectType.workoutType()
+        let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
+        let datePredicate = HKQuery.predicateForSamples(withStart: since, end: Date(), options: .strictStartDate )
+        
+        let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[datePredicate, hkPredicate])
+        
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        
+        let hkQuery = HKSampleQuery(sampleType: hkType,
+                                    predicate: queryPredicate,
+                                    limit: HKObjectQueryNoLimit,
+                                    sortDescriptors: [sortDescriptor],
+                                    resultsHandler:
+            {
+                query, results, error in
+                
+                if let error = error
+                {
+                    print(error)
+                }
+                else
+                {
+                    handler(results!)
+                }
+        })
+        
+        ZBFHealthKit.healthStore.execute(hkQuery)
+        
+    }
+    
     typealias GetSamplesHandler = ([HKSample]) -> Void
     
     class func getMindfulSamples(workout: HKWorkout, handler: @escaping GetSamplesHandler ) {
