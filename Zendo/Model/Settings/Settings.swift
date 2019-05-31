@@ -222,4 +222,21 @@ class Settings: NSObject {
         }
     }
     
+    static var lastUploadDateStr: String? {
+        set {
+            defaults.set(newValue, forKey: "lastUploadDateStr")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.string(forKey: "lastUploadDateStr")
+        }
+    }
+    
+    static var lastUploadDate: Date? {
+        if let str = lastUploadDateStr, let date = str.dateFromUTCSubscriptionString {
+            return date
+        }
+        return nil
+    }
+    
 }
