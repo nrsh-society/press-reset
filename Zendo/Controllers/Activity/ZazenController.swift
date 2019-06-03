@@ -437,7 +437,6 @@ class ZazenController: UIViewController {
         var csvText = "start, end, now, hr, sdnn, motion\n"
         
         for sample in samples {
-            
             let line : String =
                 "\(workout.startDate),"  +
                     "\(workout.endDate)," +

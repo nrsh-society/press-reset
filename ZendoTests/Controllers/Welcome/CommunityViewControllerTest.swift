@@ -32,8 +32,8 @@ class CommunityViewControllerTest: QuickSpec {
                 }
 
                 it("registers in settings that the user skipped community setup") {
-                    expect(Settings.didFinishCommunitySignup).to(beFalse())
-                    expect(Settings.skippedCommunitySignup).to(beTrue())
+                    expect(Settings.didFinishCommunitySignup).toEventually(beFalse())
+                    expect(Settings.skippedCommunitySignup).toEventually(beTrue())
                 }
             }
         }

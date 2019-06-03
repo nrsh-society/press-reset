@@ -20,6 +20,17 @@ let zendoHeaderYearFormat = "yyyy"
 
 
 extension Date {
+
+    static func createFrom(year: Int, month: Int, day: Int) -> Date? {
+        var dateComponents = DateComponents()
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+        dateComponents.timeZone = TimeZone(abbreviation: "UTC")
+        dateComponents.hour = 12
+        let calendar = Calendar.current
+        return calendar.date(from: dateComponents)
+    }
     
     var toZendoEndString: String {
         let formatter = DateFormatter()
