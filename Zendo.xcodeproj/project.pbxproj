@@ -95,8 +95,18 @@
 		12FFCAE1210F6DA0007E2480 /* ZendoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE0210F6DA0007E2480 /* ZendoTableViewCell.swift */; };
 		12FFCAE5210F7DDD007E2480 /* Cell+ReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE4210F7DDD007E2480 /* Cell+ReuseIdentifier.swift */; };
 		12FFCAE7210F7E40007E2480 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE6210F7E40007E2480 /* Date.swift */; };
+		7B2BD44C22A4961100B0B5A4 /* MetadataExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2BD44B22A4961100B0B5A4 /* MetadataExtractor.swift */; };
 		7BBF84AC229B81C9008FA2A2 /* Pods_ZendoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BBF84AB229B81C9008FA2A2 /* Pods_ZendoTests.framework */; };
 		7BBF84B1229B8272008FA2A2 /* CommunityViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBF84B0229B8272008FA2A2 /* CommunityViewControllerTest.swift */; };
+		7BEDEAEF22A3440B008FCAF7 /* WorkoutSessionReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAEE22A3440B008FCAF7 /* WorkoutSessionReporter.swift */; };
+		7BEDEAF122A3487F008FCAF7 /* WorkoutSessionReporterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAF022A3487F008FCAF7 /* WorkoutSessionReporterTest.swift */; };
+		7BEDEAF522A34CCF008FCAF7 /* WorkoutFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAF422A34CCF008FCAF7 /* WorkoutFetcher.swift */; };
+		7BEDEAF922A34EC5008FCAF7 /* MockWorkoutFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAF822A34EC5008FCAF7 /* MockWorkoutFetcher.swift */; };
+		7BEDEAFB22A351EB008FCAF7 /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAFA22A351EB008FCAF7 /* TestUtil.swift */; };
+		7BEDEB0222A35D0E008FCAF7 /* Date+InitializersTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEB0122A35D0E008FCAF7 /* Date+InitializersTest.swift */; };
+		7BEDEB0422A43052008FCAF7 /* ForegrounderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEB0322A43052008FCAF7 /* ForegrounderTest.swift */; };
+		7BEDEB0622A43111008FCAF7 /* Foregrounder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEB0522A43111008FCAF7 /* Foregrounder.swift */; };
+		7BEDEB0822A436F7008FCAF7 /* MockWorkoutSessionReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEB0722A436F7008FCAF7 /* MockWorkoutSessionReporter.swift */; };
 		7C58E4E41E858E4241584A97 /* Pods_Zendo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA85D12F03B88975AECB0609 /* Pods_Zendo.framework */; };
 		BE021CC42260E79A00153D4B /* GroupController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE021CC22260E79A00153D4B /* GroupController.storyboard */; };
 		BE021CC52260E79A00153D4B /* GroupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE021CC32260E79A00153D4B /* GroupController.swift */; };
@@ -324,8 +334,18 @@
 		6E8477B811FB4211AB7EE3D4 /* Pods-ZendoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZendoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZendoTests/Pods-ZendoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6E976786A0B62DF02B6D3728 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		73956C9DFF514C25FAEB0010 /* Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		7B2BD44B22A4961100B0B5A4 /* MetadataExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataExtractor.swift; sourceTree = "<group>"; };
 		7BBF84AB229B81C9008FA2A2 /* Pods_ZendoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_ZendoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BBF84B0229B8272008FA2A2 /* CommunityViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewControllerTest.swift; sourceTree = "<group>"; };
+		7BEDEAEE22A3440B008FCAF7 /* WorkoutSessionReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionReporter.swift; sourceTree = "<group>"; };
+		7BEDEAF022A3487F008FCAF7 /* WorkoutSessionReporterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionReporterTest.swift; sourceTree = "<group>"; };
+		7BEDEAF422A34CCF008FCAF7 /* WorkoutFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutFetcher.swift; sourceTree = "<group>"; };
+		7BEDEAF822A34EC5008FCAF7 /* MockWorkoutFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWorkoutFetcher.swift; sourceTree = "<group>"; };
+		7BEDEAFA22A351EB008FCAF7 /* TestUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtil.swift; sourceTree = "<group>"; };
+		7BEDEB0122A35D0E008FCAF7 /* Date+InitializersTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+InitializersTest.swift"; sourceTree = "<group>"; };
+		7BEDEB0322A43052008FCAF7 /* ForegrounderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegrounderTest.swift; sourceTree = "<group>"; };
+		7BEDEB0522A43111008FCAF7 /* Foregrounder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foregrounder.swift; sourceTree = "<group>"; };
+		7BEDEB0722A436F7008FCAF7 /* MockWorkoutSessionReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWorkoutSessionReporter.swift; sourceTree = "<group>"; };
 		7BF70C99229B80D4001E4D0E /* ZendoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZendoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF70C9D229B80D4001E4D0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91FBDAC94D9B42088C3E7F8B /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
@@ -750,11 +770,51 @@
 			path = Welcome;
 			sourceTree = "<group>";
 		};
+		7BEDEAF322A34C83008FCAF7 /* Workouts */ = {
+			isa = PBXGroup;
+			children = (
+				7B2BD44B22A4961100B0B5A4 /* MetadataExtractor.swift */,
+				7BEDEAEE22A3440B008FCAF7 /* WorkoutSessionReporter.swift */,
+				7BEDEAF422A34CCF008FCAF7 /* WorkoutFetcher.swift */,
+			);
+			path = Workouts;
+			sourceTree = "<group>";
+		};
+		7BEDEAF622A34EAD008FCAF7 /* Workouts */ = {
+			isa = PBXGroup;
+			children = (
+				7BEDEAF722A34EB9008FCAF7 /* Mocks */,
+				7BEDEAF022A3487F008FCAF7 /* WorkoutSessionReporterTest.swift */,
+			);
+			path = Workouts;
+			sourceTree = "<group>";
+		};
+		7BEDEAF722A34EB9008FCAF7 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				7BEDEAF822A34EC5008FCAF7 /* MockWorkoutFetcher.swift */,
+				7BEDEB0722A436F7008FCAF7 /* MockWorkoutSessionReporter.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		7BEDEB0022A35D00008FCAF7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7BEDEB0122A35D0E008FCAF7 /* Date+InitializersTest.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		7BF70C9A229B80D4001E4D0E /* ZendoTests */ = {
 			isa = PBXGroup;
 			children = (
+				7BEDEB0322A43052008FCAF7 /* ForegrounderTest.swift */,
+				7BEDEB0022A35D00008FCAF7 /* Extensions */,
+				7BEDEAF622A34EAD008FCAF7 /* Workouts */,
 				7BBF84AE229B8256008FA2A2 /* Controllers */,
 				7BF70C9D229B80D4001E4D0E /* Info.plist */,
+				7BEDEAFA22A351EB008FCAF7 /* TestUtil.swift */,
 			);
 			path = ZendoTests;
 			sourceTree = "<group>";
@@ -798,6 +858,7 @@
 				12E2A1B3211077B400E0E911 /* Controllers */,
 				12477F1E2119A22900D8AE83 /* Model */,
 				12C1A7262119B70100EEFF4F /* View */,
+				7BEDEAF322A34C83008FCAF7 /* Workouts */,
 				BE75AEBE20F708C300311512 /* Chart.swift */,
 				BE75AEBC20F708C300311512 /* ChartColors.swift */,
 				BE75AEBD20F708C300311512 /* ChartSeries.swift */,
@@ -807,6 +868,7 @@
 				BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */,
 				12BE94BE21AEE4C6000E2B0B /* PauseImageView.swift */,
 				BE81B26D2001B85500274FA1 /* Zendo.entitlements */,
+				7BEDEB0522A43111008FCAF7 /* Foregrounder.swift */,
 			);
 			path = Zendo;
 			sourceTree = "<group>";
@@ -1298,7 +1360,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BEDEAF122A3487F008FCAF7 /* WorkoutSessionReporterTest.swift in Sources */,
+				7BEDEAF922A34EC5008FCAF7 /* MockWorkoutFetcher.swift in Sources */,
+				7BEDEB0422A43052008FCAF7 /* ForegrounderTest.swift in Sources */,
+				7BEDEB0822A436F7008FCAF7 /* MockWorkoutSessionReporter.swift in Sources */,
+				7BEDEB0222A35D0E008FCAF7 /* Date+InitializersTest.swift in Sources */,
 				7BBF84B1229B8272008FA2A2 /* CommunityViewControllerTest.swift in Sources */,
+				7BEDEAFB22A351EB008FCAF7 /* TestUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1323,6 +1391,7 @@
 				1246C422212725140011F5D3 /* BalloonMarker.swift in Sources */,
 				12E2A1B521107A9400E0E911 /* UIFont.swift in Sources */,
 				BE0FF19921E03EDB0050D15B /* NotificationViewController.swift in Sources */,
+				7BEDEB0622A43111008FCAF7 /* Foregrounder.swift in Sources */,
 				DFE3B1762189C377008830CD /* StartingSessionViewController.swift in Sources */,
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
 				BE8787002215EE1F0052FE4C /* TrainController.swift in Sources */,
@@ -1363,14 +1432,17 @@
 				12A7E256217F404200E38018 /* Story.swift in Sources */,
 				12F121352125B67D00F5451D /* ConstraintMetadata.swift in Sources */,
 				1226B01D2229965A00EE02F9 /* SuccessSubscriptionViewController.swift in Sources */,
+				7BEDEAEF22A3440B008FCAF7 /* WorkoutSessionReporter.swift in Sources */,
 				BE75AEC020F708C300311512 /* ChartSeries.swift in Sources */,
 				12BE94CA21AF0FF4000E2B0B /* VideoGeneratorError.swift in Sources */,
+				7B2BD44C22A4961100B0B5A4 /* MetadataExtractor.swift in Sources */,
 				127C3E392178B37C00B332EB /* VideoViewController.swift in Sources */,
 				12C208F122304C3900305F57 /* SKSpriteNode.swift in Sources */,
 				127C3E342178993100B332EB /* DiscoverCollectionViewCell.swift in Sources */,
 				BE2E81ED1FF44A7B00D104AC /* AppDelegate.swift in Sources */,
 				1223161F21A809D800413A62 /* UIImageView+Download.swift in Sources */,
 				BE75AEBF20F708C300311512 /* ChartColors.swift in Sources */,
+				7BEDEAF522A34CCF008FCAF7 /* WorkoutFetcher.swift in Sources */,
 				121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */,
 				12C1A72C2119B78900EEFF4F /* UIView+Nib.swift in Sources */,
 				12E2A1B22110774000E0E911 /* ConstraintFont.swift in Sources */,
