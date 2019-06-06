@@ -1209,7 +1209,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ZendoTests/Pods-ZendoTests-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-ZendoTests/Pods-ZendoTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Fleet/Fleet.framework",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
@@ -1224,7 +1224,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ZendoTests/Pods-ZendoTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZendoTests/Pods-ZendoTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2EE5DDFBAABA553E9CB79A25 /* [CP] Check Pods Manifest.lock */ = {
@@ -1251,7 +1251,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Zendo/Pods-Zendo-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-Zendo/Pods-Zendo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AvatarCapture/AvatarCapture.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
@@ -1292,7 +1292,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Zendo/Pods-Zendo-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zendo/Pods-Zendo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3C1F746DCB363754C1EA1C72 /* [CP] Check Pods Manifest.lock */ = {

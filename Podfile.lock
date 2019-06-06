@@ -80,7 +80,6 @@ PODS:
   - Hero (1.4.0)
   - leveldb-library (1.20)
   - lottie-ios (2.5.2)
-  - Mixpanel (3.3.9)
   - Mixpanel-swift (2.4.5):
     - Mixpanel-swift/Complete (= 2.4.5)
   - Mixpanel-swift/Complete (2.4.5)
@@ -112,7 +111,6 @@ DEPENDENCIES:
   - Fleet
   - Hero (~> 1.4.0)
   - lottie-ios (~> 2.5.2)
-  - Mixpanel (~> 3.3.6)
   - Mixpanel-swift (~> 2.4.2)
   - Nimble
   - NVActivityIndicatorView (~> 4.2.1)
@@ -144,7 +142,6 @@ SPEC REPOS:
     - Hero
     - leveldb-library
     - lottie-ios
-    - Mixpanel
     - Mixpanel-swift
     - nanopb
     - Nimble
@@ -176,7 +173,6 @@ SPEC CHECKSUMS:
   Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
-  Mixpanel: 5bc76524e4e6f7eea1db809cceaf17b4ad504b05
   Mixpanel-swift: a9ed3dd197d8f2837920cec6be1acdb51d07b31a
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Nimble: 45f786ae66faa9a709624227fae502db55a8bdd0
@@ -186,6 +182,6 @@ SPEC CHECKSUMS:
   SDWebImage: c00ec18ab25d10e5ffac109b0f78d1b4341c9691
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 7a0e82ee5a0ee97109852532e5fd36dcbc56e76f
+PODFILE CHECKSUM: 9dd3a67bbfda46824098ea53659f4d9458ed5429
 
 COCOAPODS: 1.5.3
