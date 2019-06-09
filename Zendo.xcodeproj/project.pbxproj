@@ -96,6 +96,7 @@
 		12FFCAE5210F7DDD007E2480 /* Cell+ReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE4210F7DDD007E2480 /* Cell+ReuseIdentifier.swift */; };
 		12FFCAE7210F7E40007E2480 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE6210F7E40007E2480 /* Date.swift */; };
 		7B2BD44C22A4961100B0B5A4 /* MetadataExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2BD44B22A4961100B0B5A4 /* MetadataExtractor.swift */; };
+		7B4874B222AD891600449C83 /* AppDelegate+SKPaymentTransactionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4874B122AD891600449C83 /* AppDelegate+SKPaymentTransactionObserver.swift */; };
 		7BBF84AC229B81C9008FA2A2 /* Pods_ZendoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BBF84AB229B81C9008FA2A2 /* Pods_ZendoTests.framework */; };
 		7BBF84B1229B8272008FA2A2 /* CommunityViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBF84B0229B8272008FA2A2 /* CommunityViewControllerTest.swift */; };
 		7BEDEAEF22A3440B008FCAF7 /* WorkoutSessionReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAEE22A3440B008FCAF7 /* WorkoutSessionReporter.swift */; };
@@ -335,6 +336,7 @@
 		6E976786A0B62DF02B6D3728 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		73956C9DFF514C25FAEB0010 /* Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		7B2BD44B22A4961100B0B5A4 /* MetadataExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataExtractor.swift; sourceTree = "<group>"; };
+		7B4874B122AD891600449C83 /* AppDelegate+SKPaymentTransactionObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+SKPaymentTransactionObserver.swift"; sourceTree = "<group>"; };
 		7BBF84AB229B81C9008FA2A2 /* Pods_ZendoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_ZendoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BBF84B0229B8272008FA2A2 /* CommunityViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewControllerTest.swift; sourceTree = "<group>"; };
 		7BEDEAEE22A3440B008FCAF7 /* WorkoutSessionReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionReporter.swift; sourceTree = "<group>"; };
@@ -869,6 +871,7 @@
 				12BE94BE21AEE4C6000E2B0B /* PauseImageView.swift */,
 				BE81B26D2001B85500274FA1 /* Zendo.entitlements */,
 				7BEDEB0522A43111008FCAF7 /* Foregrounder.swift */,
+				7B4874B122AD891600449C83 /* AppDelegate+SKPaymentTransactionObserver.swift */,
 			);
 			path = Zendo;
 			sourceTree = "<group>";
@@ -1390,6 +1393,7 @@
 				7BEDEB0622A43111008FCAF7 /* Foregrounder.swift in Sources */,
 				DFE3B1762189C377008830CD /* StartingSessionViewController.swift in Sources */,
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
+				7B4874B222AD891600449C83 /* AppDelegate+SKPaymentTransactionObserver.swift in Sources */,
 				BE8787002215EE1F0052FE4C /* TrainController.swift in Sources */,
 				126544AE2170B44D00CA8F0B /* NavigationControllerWelcome.swift in Sources */,
 				12BE94BF21AEE4C6000E2B0B /* PauseImageView.swift in Sources */,
