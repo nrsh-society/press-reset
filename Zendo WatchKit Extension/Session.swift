@@ -68,6 +68,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     private var sampleTimer: Timer?
     private var notifyTimer: Timer?
     private var notifyTimerSeconds = 0
+    private var sessionDurationInSeconds = TimeInterval(60 * 10)
 
     private let healthStore = HKHealthStore()
     private let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
@@ -110,8 +111,9 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         if (!self.isRunning)
         {
             self.startDate = Date()
+            self.endDate = self.startDate?.addingTimeInterval(sessionDurationInSeconds)
             
-            sessionDelegater.sendMessage(["watch": "arena", "startDate": self.startDate ?? Date()], replyHandler: { replyHandler in
+            sessionDelegater.sendMessage(["watch": "arena", "startDate": self.startDate!, "endDate": self.endDate!], replyHandler: { replyHandler in
                 
             }, errorHandler: { error in
                 
@@ -171,7 +173,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         healthKitSamples.append(mindfulSample)
         
-        if(self.heartRateSamples.count > 2)
+        if self.heartRateSamples.count > 2
         {
             let hrvType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)
         
@@ -213,6 +215,16 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         invalidate()
     }
     
+    func timeElapsed() -> TimeInterval {
+        let currentTime = Date()
+        return currentTime.timeIntervalSince1970 - self.startDate!.timeIntervalSince1970
+    }
+    
+    func timeRemaining() -> TimeInterval {
+        let currentTime = Date()
+        return ceil(self.endDate!.timeIntervalSince1970 - currentTime.timeIntervalSince1970)
+    }
+    
     typealias HKQueryUpdateHandler = ((HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Swift.Void)
     
     private func process(samples: [HKQuantitySample])
@@ -239,13 +251,16 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
 
     func createTimers() {
         
-        notifyTimerSeconds = 0
-        notifyTimer = Timer.scheduledTimer(timeInterval: 1, target:self, selector: #selector(Session.notify), userInfo: nil, repeats: true)
+        notifyTimer = Timer.scheduledTimer(timeInterval: 1,
+                                           target:self,
+                                           selector: #selector(Session.notify),
+                                           userInfo: nil,
+                                           repeats: true)
         
         
         if let bluetooth = Session.bluetoothManager
         {
-            if(bluetooth.isConnected())
+            if bluetooth.isConnected()
             {
                 bluetooth.dataDelegate = self
                 
@@ -270,10 +285,10 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         }
         
         let heart_rate_query = HKAnchoredObjectQuery(type: quantityType,
-                                          predicate: queryPredicate,
-                                          anchor: nil,
-                                          limit: HKObjectQueryNoLimit,
-                                          resultsHandler: updateHandler)
+                                                     predicate: queryPredicate,
+                                                     anchor: nil,
+                                                     limit: HKObjectQueryNoLimit,
+                                                     resultsHandler: updateHandler)
         
         heart_rate_query.updateHandler = updateHandler
         
@@ -287,7 +302,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         let bps = 1000 / Double(rr)
         
-        if(bps != Double.infinity && bps != Double.nan && bps > 0.33 && bps < 3.67)
+        if bps != Double.infinity && bps != Double.nan && bps > 0.33 && bps < 3.67
         {
             self.heartRate = Double(bps)
 
@@ -325,11 +340,11 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         heartRateRangeSamples.append(self.heartRate)
         movementRangeSamples.append(self.motion)
         
-        notifyTimerSeconds += 1
+        let secondsElapsed = Int(timeElapsed())
         
-        if notifyTimerSeconds % 60 == 0
+        if secondsElapsed % 60 == 0
         {
-            if(heartRateRangeSamples.count > 10)
+            if heartRateRangeSamples.count > 10
             {
                 let range = Int(((self.heartRateRangeSamples.max()! - self.heartRateRangeSamples.min()!) * 60.0).rounded())
                 

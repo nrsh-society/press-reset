@@ -35,6 +35,24 @@
                                     <constraint firstAttribute="height" constant="150" id="ndM-It-NmL"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gtg-eP-xWh" userLabel="Timer View">
+                                <rect key="frame" x="126" y="180" width="123" height="57.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEm-Dv-hWA" userLabel="Timer Label">
+                                        <rect key="frame" x="0.0" y="0.0" width="123" height="57.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="FEm-Dv-hWA" firstAttribute="centerX" secondItem="Gtg-eP-xWh" secondAttribute="centerX" id="MHN-bh-ZQc"/>
+                                    <constraint firstItem="FEm-Dv-hWA" firstAttribute="centerY" secondItem="Gtg-eP-xWh" secondAttribute="centerY" id="Nwa-7T-4R0"/>
+                                    <constraint firstItem="FEm-Dv-hWA" firstAttribute="height" secondItem="Gtg-eP-xWh" secondAttribute="height" id="fka-Kg-1bW"/>
+                                    <constraint firstItem="FEm-Dv-hWA" firstAttribute="width" secondItem="Gtg-eP-xWh" secondAttribute="width" id="s9e-sR-oPU"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTo-no-nA4">
                                 <rect key="frame" x="37.5" y="627" width="300" height="30"/>
                                 <constraints>
@@ -52,6 +70,8 @@
                             <constraint firstItem="cCa-Pd-CyP" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" constant="3" id="DmB-HV-XtB"/>
                             <constraint firstItem="FTo-no-nA4" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" constant="-10" id="EqL-9p-gK6"/>
                             <constraint firstItem="cCa-Pd-CyP" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" constant="-10" id="TX3-D5-Z67"/>
+                            <constraint firstItem="Gtg-eP-xWh" firstAttribute="top" secondItem="z49-wy-zwZ" secondAttribute="top" constant="160" id="aMr-0N-ZOJ"/>
+                            <constraint firstItem="Gtg-eP-xWh" firstAttribute="centerX" secondItem="z49-wy-zwZ" secondAttribute="centerX" id="oPC-9L-c67"/>
                             <constraint firstItem="FTo-no-nA4" firstAttribute="centerX" secondItem="HIe-zl-TmH" secondAttribute="centerX" id="s1Y-dP-Qqq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="z49-wy-zwZ"/>
@@ -60,6 +80,8 @@
                         <outlet property="arenaView" destination="cCa-Pd-CyP" id="pd9-By-euJ"/>
                         <outlet property="connectButton" destination="FTo-no-nA4" id="plm-Fc-T2k"/>
                         <outlet property="spriteView" destination="xcq-F9-V7c" id="K8r-nF-Wj1"/>
+                        <outlet property="timerLabel" destination="FEm-Dv-hWA" id="BDu-rI-gtv"/>
+                        <outlet property="timerView" destination="Gtg-eP-xWh" id="ad9-Wt-cMz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tVi-YP-W0J" userLabel="First Responder" sceneMemberID="firstResponder"/>

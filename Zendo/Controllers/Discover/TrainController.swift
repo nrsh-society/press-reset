@@ -37,6 +37,12 @@ class TrainController: UIViewController
             
         }
     }
+    @IBOutlet weak var timerView: UIView!
+    @IBOutlet weak var timerLabel: UILabel!
+    
+    private var sessionStartTime: Date?
+    private var sessionEndTime: Date?
+    private var sessionTimer = Timer()
     
     let player = SKSpriteNode(imageNamed: "player1")
     var ring: Int = 0
@@ -243,7 +249,7 @@ class TrainController: UIViewController
         
         self.spriteView.presentScene(scene)
         
-        self.startSession()
+        self.continueSession()
         
     }
     
@@ -256,12 +262,49 @@ class TrainController: UIViewController
         startingSessions.modalTransitionStyle = .crossDissolve
         
         self.present(startingSessions, animated: true)
-        
     }
     
-    @objc func startSession()
+    func startTimer() {
+        sessionTimer = Timer.scheduledTimer(timeInterval: 0.1,
+                                     target: self,
+                                     selector: #selector(TrainController.timerTick),
+                                     userInfo: nil,
+                                     repeats: true)
+    }
+    
+    @objc func timerTick() {
+        guard let sessionEndTime = self.sessionEndTime else { return }
+        let now = Date()
+        var secondsRemaining = Int(ceil(sessionEndTime.timeIntervalSince1970 - now.timeIntervalSince1970))
+        if secondsRemaining < 0 {
+            secondsRemaining = 0
+        }
+        self.timerLabel.text = Time.digitalClockString(fromSeconds: secondsRemaining)
+    }
+    
+    func stopTimer() {
+        sessionTimer.invalidate()
+    }
+    
+    @objc func startSession(notification: Notification) {
+        let startDate = notification.userInfo?["startDate"] as? Date
+        if startDate == nil {
+            print("expected startDate to be passed when posting startSession notification")
+        } else {
+            sessionStartTime = startDate!
+        }
+        let endDate = notification.userInfo?["endDate"] as? Date
+        if endDate == nil {
+            print("expected endDate to be passed when posting startSession notification")
+        } else {
+            sessionEndTime = endDate!
+        }
+        self.continueSession()
+    }
+    
+    @objc func continueSession()
     {
-        if(Settings.isWatchConnected)
+        if Settings.isWatchConnected
         {
             Mixpanel.mainInstance().time(event: "phone_train_watch_connected")
             
@@ -269,13 +312,15 @@ class TrainController: UIViewController
             
             DispatchQueue.main.async
             {
+                self.startTimer()
                 UIView.animate(withDuration: 0.5)
                 {
+                    self.timerView.isHidden = false
                     self.arenaView.isHidden = false
                     self.connectButton.isHidden = true
                 }
 
-                if(self.showLevels)
+                if (self.showLevels)
                 {
                     self.rings.forEach( {$0.isHidden = false })
                     
@@ -306,31 +351,28 @@ class TrainController: UIViewController
         }
     }
     
-    
     @objc func endSession()
     {
         Mixpanel.mainInstance().track(event: "phone_train_watch_connected",
-                                          properties: ["name": self.story.title])
+                                      properties: ["name": self.story.title])
         
-        DispatchQueue.main.async
-        {
+        DispatchQueue.main.async {
             self.player.removeAllActions()
-                
+            
             UIView.animate(withDuration: 0.5)
             {
-                    self.player.removeFromParent()
-                    self.arenaView.isHidden = true
-                    self.connectButton.isHidden = false
-                    self.rings.forEach( {$0.isHidden = true })
-                    
-                    self.arenaView.hrv.text = "--"
-                    self.arenaView.time.text = "--"
-                    self.arenaView.setChart([])
-                }
+                self.player.removeFromParent()
+                self.timerView.isHidden = true
+                self.arenaView.isHidden = true
+                self.connectButton.isHidden = false
+                self.rings.forEach( {$0.isHidden = true })
                 
+                self.arenaView.hrv.text = "--"
+                self.arenaView.time.text = "--"
+                self.arenaView.setChart([])
             }
-            
         }
+    }
     
     @objc func progress(notification: NSNotification)
     {
@@ -338,7 +380,7 @@ class TrainController: UIViewController
         {
             let lastProgress = progress.last!.description.lowercased().contains("good")
             
-            if (ring >= 2)
+            if ring >= 2
             {
                 DispatchQueue.main.async
                 {
@@ -360,7 +402,7 @@ class TrainController: UIViewController
                     }
                 }
             }
-            else if(lastProgress && ring < 2)
+            else if lastProgress && ring < 2
             {
                 self.ring = self.ring + 1
                 

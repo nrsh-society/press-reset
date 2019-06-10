@@ -31,21 +31,28 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     {
         DispatchQueue.main.async
         {
-            let timeElapsed = abs(startDate.timeIntervalSinceNow)
-        
+            let timeElapsed = self.session.timeElapsed()
             self.timeElapsedLabel.setText(timeElapsed.stringZendoTimeWatch)
             
             if let message = message
             {
                 self.heartRateLabel.setText(message)
             }
+            
+            if self.session.timeRemaining() <= 0 {
+                self.endSession()
+            }
         }
     }
     
     @IBAction func onDonePress() {
+        endSession()
+    }
+    
+    func endSession() {
         session.end() { workout in
             DispatchQueue.main.async() {
-               // Mixpanel.sharedInstance()?.track("watch_meditation")
+                // Mixpanel.sharedInstance()?.track("watch_meditation")
                 
                 WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SummaryInterfaceController", context: ["session": self.session, "workout": workout] as AnyObject)])
             }

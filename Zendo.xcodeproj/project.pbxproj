@@ -97,6 +97,8 @@
 		12FFCAE7210F7E40007E2480 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE6210F7E40007E2480 /* Date.swift */; };
 		7B2BD44C22A4961100B0B5A4 /* MetadataExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2BD44B22A4961100B0B5A4 /* MetadataExtractor.swift */; };
 		7B4874B222AD891600449C83 /* AppDelegate+SKPaymentTransactionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4874B122AD891600449C83 /* AppDelegate+SKPaymentTransactionObserver.swift */; };
+		7B4874B422ADE57400449C83 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4874B322ADE57400449C83 /* Time.swift */; };
+		7B4874B622ADE5D300449C83 /* TimeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4874B522ADE5D300449C83 /* TimeTest.swift */; };
 		7BBF84AC229B81C9008FA2A2 /* Pods_ZendoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BBF84AB229B81C9008FA2A2 /* Pods_ZendoTests.framework */; };
 		7BBF84B1229B8272008FA2A2 /* CommunityViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBF84B0229B8272008FA2A2 /* CommunityViewControllerTest.swift */; };
 		7BEDEAEF22A3440B008FCAF7 /* WorkoutSessionReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAEE22A3440B008FCAF7 /* WorkoutSessionReporter.swift */; };
@@ -337,6 +339,8 @@
 		73956C9DFF514C25FAEB0010 /* Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		7B2BD44B22A4961100B0B5A4 /* MetadataExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataExtractor.swift; sourceTree = "<group>"; };
 		7B4874B122AD891600449C83 /* AppDelegate+SKPaymentTransactionObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+SKPaymentTransactionObserver.swift"; sourceTree = "<group>"; };
+		7B4874B322ADE57400449C83 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		7B4874B522ADE5D300449C83 /* TimeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTest.swift; sourceTree = "<group>"; };
 		7BBF84AB229B81C9008FA2A2 /* Pods_ZendoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_ZendoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BBF84B0229B8272008FA2A2 /* CommunityViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewControllerTest.swift; sourceTree = "<group>"; };
 		7BEDEAEE22A3440B008FCAF7 /* WorkoutSessionReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionReporter.swift; sourceTree = "<group>"; };
@@ -817,6 +821,7 @@
 				7BBF84AE229B8256008FA2A2 /* Controllers */,
 				7BF70C9D229B80D4001E4D0E /* Info.plist */,
 				7BEDEAFA22A351EB008FCAF7 /* TestUtil.swift */,
+				7B4874B522ADE5D300449C83 /* TimeTest.swift */,
 			);
 			path = ZendoTests;
 			sourceTree = "<group>";
@@ -872,6 +877,7 @@
 				BE81B26D2001B85500274FA1 /* Zendo.entitlements */,
 				7BEDEB0522A43111008FCAF7 /* Foregrounder.swift */,
 				7B4874B122AD891600449C83 /* AppDelegate+SKPaymentTransactionObserver.swift */,
+				7B4874B322ADE57400449C83 /* Time.swift */,
 			);
 			path = Zendo;
 			sourceTree = "<group>";
@@ -1359,6 +1365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B4874B622ADE5D300449C83 /* TimeTest.swift in Sources */,
 				7BEDEAF122A3487F008FCAF7 /* WorkoutSessionReporterTest.swift in Sources */,
 				7BEDEAF922A34EC5008FCAF7 /* MockWorkoutFetcher.swift in Sources */,
 				7BEDEB0422A43052008FCAF7 /* ForegrounderTest.swift in Sources */,
@@ -1393,6 +1400,7 @@
 				7BEDEB0622A43111008FCAF7 /* Foregrounder.swift in Sources */,
 				DFE3B1762189C377008830CD /* StartingSessionViewController.swift in Sources */,
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
+				7B4874B422ADE57400449C83 /* Time.swift in Sources */,
 				7B4874B222AD891600449C83 /* AppDelegate+SKPaymentTransactionObserver.swift in Sources */,
 				BE8787002215EE1F0052FE4C /* TrainController.swift in Sources */,
 				126544AE2170B44D00CA8F0B /* NavigationControllerWelcome.swift in Sources */,
