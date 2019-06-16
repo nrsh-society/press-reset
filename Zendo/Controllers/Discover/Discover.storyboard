@@ -379,7 +379,7 @@
                                                     <constraint firstAttribute="width" secondItem="wea-X7-N2W" secondAttribute="height" multiplier="1:1" id="Dwr-Is-Mr6"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your support goes directly to content creators, charity and our team." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eh-Zg-Jv4">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your support goes directly to content creators and our team." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eh-Zg-Jv4">
                                                 <rect key="frame" x="31" y="0.0" width="303" height="28.333333333333332"/>
                                                 <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                 <color key="textColor" red="0.058823529409999999" green="0.1450980392" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -453,13 +453,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADP-gk-iss">
-                                <rect key="frame" x="40" y="518.66666666666663" width="334" height="100.33333333333337"/>
+                                <rect key="frame" x="40" y="518.66666666666663" width="334" height="119.66666666666663"/>
                                 <attributedString key="attributedText">
                                     <fragment>
                                         <string key="content">The subscription will automatically be renewed unless turned off in your iTunes Account Settings at least 24 hours before the current period ends. Manage your subscriptions and turn off auto-renew through your iTunes Account. </string>
                                         <attributes>
                                             <color key="NSColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="12" name="Antenna-Regular"/>
+                                            <font key="NSFont" metaFont="cellTitle"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.6699999999999999" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
