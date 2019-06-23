@@ -164,7 +164,9 @@ class DiscoverViewController: UIViewController {
         Settings.checkSubscriptionAvailability { subscription, trial in
             self.isTrial = trial
             self.isSubscription = subscription
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
