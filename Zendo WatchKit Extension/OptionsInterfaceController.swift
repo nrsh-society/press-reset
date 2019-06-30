@@ -18,6 +18,9 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     @IBOutlet var hapticSetting: WKInterfaceSlider!
     @IBOutlet var bluetoothToogle: WKInterfaceSwitch!
     
+    @IBOutlet var retryFeedbackSlider: WKInterfaceSlider!
+    
+    
     @IBAction func KyosakChanged(_ value: Float)
     {
         //Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
@@ -25,6 +28,31 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         Session.options.hapticStrength = Int(value)
         
         let iterations = Int(Session.options.hapticStrength)
+        
+        if iterations > 0
+        {
+            Thread.detachNewThread
+                {
+                    for _ in 1...iterations
+                    {
+                        DispatchQueue.main.async
+                            {
+                                WKInterfaceDevice.current().play(WKHapticType.success)
+                        }
+                        
+                        Thread.sleep(forTimeInterval: 0.5)
+                    }
+            }
+        }
+    }
+    
+    @IBAction func retryChanged(_ value: Float)
+    {
+        //Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
+        
+        Session.options.retryStrength = Int(value)
+        
+        let iterations = Int(Session.options.retryStrength)
         
         if iterations > 0
         {

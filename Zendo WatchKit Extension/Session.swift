@@ -46,6 +46,26 @@ struct Options
             UserDefaults.standard.set(newValue, forKey: "hapticStrength")
         }
     }
+    
+    var retryStrength : Int
+    {
+        get
+        {
+            if let value = UserDefaults.standard.object(forKey: "retryStrength")
+            {
+                return value as! Int
+            }
+            else
+            {
+                return 1
+            }
+        }
+        
+        set
+        {
+            UserDefaults.standard.set(newValue, forKey: "retryStrength")
+        }
+    }
 }
 
 class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
@@ -343,25 +363,28 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                 }
             }
             
-/*
-            if(movementRangeSamples.count > 10 && notifyTimerSeconds > 60)
+            if(self.isMotionFeedbackEnabled())
             {
-                let range = (self.movementRangeSamples.max()! - self.movementRangeSamples.min()!)
-                
-                if(range > 0.15)
+                if(movementRangeSamples.count > 10 && notifyTimerSeconds > 60)
                 {
-                    haptic = WKHapticType.retry
-                    message = "Stop moving"
-                }
-                else
-                {
-                    message = "Good work"
+                    let range = (self.movementRangeSamples.max()! - self.movementRangeSamples.min()!)
+                    
+                    if(range > 0.15)
+                    {
+                        haptic = WKHapticType.retry
+                        message = "Stop moving"
+                    }
+                    else
+                    {
+                        message = "Good work"
+                    }
                 }
             }
- */
             
-            let iterations = Int(Session.options.hapticStrength)
-            
+            let iterations = (haptic == WKHapticType.retry) ?
+                Int(Session.options.hapticStrength) :
+                Int(Session.options.retryStrength)
+        
             if iterations > 0
             {
                 Thread.detachNewThread
@@ -370,10 +393,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                     {
                         DispatchQueue.main.async
                         {
-                            if(haptic == WKHapticType.retry)
-                            {
-                                WKInterfaceDevice.current().play(haptic)
-                            }
+                            WKInterfaceDevice.current().play(haptic)
                         }
                         
                         Thread.sleep(forTimeInterval: 1)
@@ -399,6 +419,11 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         self.delegate.sessionTick(startDate: self.startDate!, message: message)
         
+    }
+    
+    func isMotionFeedbackEnabled() -> Bool
+    {
+        return true
     }
     
     @objc func sample()  {
