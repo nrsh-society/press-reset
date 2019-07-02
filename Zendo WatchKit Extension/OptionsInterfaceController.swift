@@ -62,7 +62,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                     {
                         DispatchQueue.main.async
                             {
-                                WKInterfaceDevice.current().play(WKHapticType.success)
+                                WKInterfaceDevice.current().play(WKHapticType.retry)
                         }
                         
                         Thread.sleep(forTimeInterval: 0.5)
