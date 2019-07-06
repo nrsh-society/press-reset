@@ -15,26 +15,17 @@
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
-	<string>APPL</string>
+	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
 	<string>5.1</string>
 	<key>CFBundleVersion</key>
 	<string>318</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Antenna-ExtraLight.otf</string>
-		<string>Antenna-Light.otf</string>
-		<string>Antenna-Medium.otf</string>
-		<string>Antenna-Regular.otf</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-	</array>
-	<key>WKCompanionAppBundleIdentifier</key>
-	<string>tools.sunyata.Zendo</string>
-	<key>WKWatchKitApp</key>
-	<true/>
+	<key>NSExtension</key>
+	<dict>
+		<key>NSExtensionMainStoryboard</key>
+		<string>MainInterface</string>
+		<key>NSExtensionPointIdentifier</key>
+		<string>com.apple.message-payload-provider</string>
+	</dict>
 </dict>
 </plist>
