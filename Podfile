@@ -31,6 +31,8 @@ end
 target 'Zendo WatchKit Extension' do
     platform :watchos, '4.0'
 #    pod 'Mixpanel', '~> 3.3.6'
+
+    pod 'Mixpanel'
 end
 
 #post_install do |installer|

@@ -9,7 +9,7 @@
 import WatchKit
 import HealthKit
 import WatchConnectivity
-//import Mixpanel
+import Mixpanel
 import UserNotifications
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserNotificationCenterDelegate {
@@ -27,13 +27,13 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
 
     func applicationDidFinishLaunching() {
         
-       // Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
+       Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
         
         if let name = SettingsWatch.fullName, let email = SettingsWatch.email
         {
-           // Mixpanel.sharedInstance()?.identify(email)
-            //Mixpanel.sharedInstance()?.people.set(["$email": email])
-            //Mixpanel.sharedInstance()?.people.set(["$name": name])
+            Mixpanel.sharedInstance()?.identify(email)
+            Mixpanel.sharedInstance()?.people.set(["$email": email])
+            Mixpanel.sharedInstance()?.people.set(["$name": name])
         
         } else
         {
@@ -45,11 +45,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
                     SettingsWatch.fullName = name
                     SettingsWatch.email = email
                 
-                    //Mixpanel.sharedInstance()?.createAlias(email, forDistinctID: (Mixpanel.sharedInstance()?.distinctId)!)
+                    Mixpanel.sharedInstance()?.createAlias(email, forDistinctID: (Mixpanel.sharedInstance()?.distinctId)!)
                     
-                  //  Mixpanel.sharedInstance()?.identify(email)
-                    // Mixpanel.sharedInstance()?.people.set(["$email": email])
-                    // Mixpanel.sharedInstance()?.people.set(["$name": name])
+                  Mixpanel.sharedInstance()?.identify(email)
+                Mixpanel.sharedInstance()?.people.set(["$email": email])
+                Mixpanel.sharedInstance()?.people.set(["$name": name])
                 }
             }, errorHandler: { (error) in
                 print(error.localizedDescription)

@@ -295,7 +295,7 @@
                     <items>
                         <group alignment="center" verticalAlignment="center" layout="vertical" radius="0.0" spacing="15" id="wPv-bi-RQr">
                             <items>
-                                <group width="1" alignment="left" layout="vertical" spacing="0.0" id="ksL-6C-M7w">
+                                <group width="1" alignment="left" layout="vertical" spacing="5" id="ksL-6C-M7w">
                                     <items>
                                         <label alignment="center" text="Success Feedback" textAlignment="center" id="L7V-Eq-ZNU">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
@@ -308,52 +308,30 @@
                                                 <action selector="KyosakChanged:" destination="y7B-OZ-tWG" id="GuZ-zl-8OK"/>
                                             </connections>
                                         </slider>
-                                        <group width="1" alignment="left" layout="vertical" spacing="0.0" id="Fp2-Uw-lpu">
-                                            <items>
-                                                <label alignment="center" text="Retry Feedback" textAlignment="center" id="7oa-Us-KrR">
-                                                    <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
-                                                    <variation key="device=watch38mm">
-                                                        <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
-                                                    </variation>
-                                                </label>
-                                                <slider height="45" alignment="center" continuous="YES" value="1" maximum="3" steps="3" id="u67-Ib-why">
-                                                    <connections>
-                                                        <action selector="retryChanged:" destination="y7B-OZ-tWG" id="HkE-7t-gH5"/>
-                                                    </connections>
-                                                </slider>
-                                            </items>
-                                            <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="0.0"/>
-                                        </group>
                                     </items>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="0.0"/>
                                 </group>
-                                <group width="1" alignment="left" layout="vertical" spacing="1" id="cu7-5r-Mcc">
+                                <group width="1" alignment="left" layout="vertical" spacing="5" id="Fp2-Uw-lpu">
                                     <items>
-                                        <label alignment="center" verticalAlignment="bottom" text="Heart Rate Monitor" textAlignment="center" id="TbH-jo-FUw">
+                                        <label alignment="center" text="Retry Feedback" textAlignment="center" id="7oa-Us-KrR">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                             </variation>
                                         </label>
-                                        <switch height="45" alignment="left" verticalAlignment="bottom" title="Bluetooth" id="x5n-aD-JDj">
-                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
+                                        <slider height="45" alignment="center" continuous="YES" value="1" maximum="3" steps="3" id="u67-Ib-why">
                                             <connections>
-                                                <action selector="bluetoothChanged:" destination="y7B-OZ-tWG" id="hie-eH-VBr"/>
+                                                <action selector="retryChanged:" destination="y7B-OZ-tWG" id="HkE-7t-gH5"/>
                                             </connections>
-                                        </switch>
-                                        <label alignment="center" verticalAlignment="bottom" id="23s-j7-ycm">
-                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="10"/>
-                                        </label>
+                                        </slider>
                                     </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="0.0"/>
                                 </group>
                             </items>
                             <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="40"/>
-                            <variation key="device=watch38mm"/>
                         </group>
                     </items>
                     <connections>
-                        <outlet property="bluetoothStatus" destination="23s-j7-ycm" id="20e-RZ-Ag1"/>
-                        <outlet property="bluetoothToogle" destination="x5n-aD-JDj" id="vlK-GZ-Ppq"/>
                         <outlet property="hapticSetting" destination="Dou-CY-eup" id="bXd-lH-YRP"/>
                         <outlet property="retryFeedbackSlider" destination="u67-Ib-why" id="HB9-LX-Arr"/>
                     </connections>

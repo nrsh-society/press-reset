@@ -8,6 +8,7 @@
 
 import UIKit
 import StoreKit
+import Mixpanel
 
 class SubscriptionViewController: UIViewController {
     
@@ -31,8 +32,12 @@ class SubscriptionViewController: UIViewController {
     @IBOutlet var labels: [UILabel]!
     
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
+        
         super.viewDidLoad()
+        
+        Mixpanel.mainInstance().time(event: "phone_subscription")
         
         priceLabel.text = ""
         
@@ -43,6 +48,13 @@ class SubscriptionViewController: UIViewController {
         
         fetchAvailableProducts()
         
+    }
+    
+    override func viewDidDisappear(_ animated: Bool)
+    {
+        super.viewDidDisappear(animated)
+        
+        Mixpanel.mainInstance().track(event: "phone_subscription")
     }
     
     

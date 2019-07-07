@@ -179,7 +179,6 @@ public class Notification
         content.categoryIdentifier = "HrvSummary"
         content.sound = UNNotificationSound.default()
         
-        
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60 * 60, repeats: true)
         
         let request = UNNotificationRequest(identifier: NotificationType.hourSummary.rawValue, content: content, trigger: trigger)

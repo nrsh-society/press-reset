@@ -9,20 +9,16 @@
 import WatchKit
 import Foundation
 import HealthKit
-//import Mixpanel
+import Mixpanel
 import UserNotifications
 
-//var _currentSession : Session?
 
 class AppInterfaceController: WKInterfaceController {
     
     @IBOutlet var hrvLabel: WKInterfaceLabel!
     @IBOutlet var mainGroup: WKInterfaceGroup!
     
-    private lazy var sessionDelegater: SessionDelegater = {
-        return SessionDelegater()
-    }()
-    
+    private lazy var sessionDelegater: SessionDelegater = { return SessionDelegater() }()
     
     @IBAction func start() {
         
@@ -35,35 +31,11 @@ class AppInterfaceController: WKInterfaceController {
         WKInterfaceDevice.current().play(WKHapticType.start)
         
         WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject)])
-        /*
-        DispatchQueue.main.async {
-            self.presentController(withName: "SubscribeInterfaceController", context: nil)
-        }
-        
-    
-         * @todo: subscriptions
-        sessionDelegater.sendMessage(["watch": "subscribe"], replyHandler: { replyHandler in
-
-            if let isSubscribe = replyHandler["isSubscribe"] as? Bool, let isTrial = replyHandler["isTrial"] as? Bool, isSubscribe || isTrial {
-                DispatchQueue.main.async {
-                    self.startSession()
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.presentController(withName: "SubscribeInterfaceController", context: nil)
-                }
-            }
-
-        }, errorHandler: { error in
-
-        })
-        */
-        
     }
     
     func startSession() {
         
-        //Mixpanel.sharedInstance()?.track("watch_new_session")
+        Mixpanel.sharedInstance()?.track("watch_new_session")
         
         Session.current = Session()
         
@@ -97,7 +69,7 @@ class AppInterfaceController: WKInterfaceController {
                                 self.enableLocalNotifications()
                             }
                             
-                            //Mixpanel.sharedInstance()?.track("watch_notification_auth")
+                            Mixpanel.sharedInstance()?.track("watch_notification_auth")
                         }
                     }
                     
@@ -111,8 +83,9 @@ class AppInterfaceController: WKInterfaceController {
         
         UserDefaults.standard.register(defaults: [SettingsWatch.dailyMediationGoalKey: 5])
 
-        Background.scheduleBackgroundRefreshCheckCloseRing()
-        Background.scheduleBackgroundRefreshCloseRing()
+        //#todo(v5.1): make the mindfulness checking work again.
+        //Background.scheduleBackgroundRefreshCheckCloseRing()
+        //Background.scheduleBackgroundRefreshCloseRing()
     }
     
     func enableLocalNotifications()
@@ -126,9 +99,9 @@ class AppInterfaceController: WKInterfaceController {
         if(!Notification.enabled)
         {
             #if DEBUG
-                // Notification.minute()
-               // Notification.hourly()
-                // Notification.daily()
+                //Notification.minute()
+                //Notification.hourly()
+                //Notification.daily()
             #endif
             
             
@@ -138,7 +111,7 @@ class AppInterfaceController: WKInterfaceController {
             
             Notification.enabled = true
             
-            //Mixpanel.sharedInstance()?.track("watch_notification_enabled")
+            Mixpanel.sharedInstance()?.track("watch_notification_enabled")
         }
     }
     
@@ -147,9 +120,11 @@ class AppInterfaceController: WKInterfaceController {
 
         super.willActivate()
         
-        //Mixpanel.sharedInstance()?.timeEvent("watch_overview")
+        Mixpanel.sharedInstance()?.timeEvent("watch_overview")
         
-        sessionDelegater.sendMessage(["facebook" : "watch_overview"],
+        //#todo(v5.1): logging
+        sessionDelegater.sendMessage(
+            ["facebook" : "watch_overview"],
             replyHandler:
             {
                 (message) in
@@ -223,9 +198,7 @@ class AppInterfaceController: WKInterfaceController {
                                                             duration: 0.6, repeatCount: 1)
                 } else if currentPercent > percent {
                     self.mainGroup.setBackgroundImageNamed("ring\(percent)")
-//                    self.mainGroup.startAnimatingWithImages(in:
-//                        NSRange(location: currentPercent, length: percent - currentPercent),
-//                                duration: 0.6, repeatCount: 1)
+
                 } else {
                     self.mainGroup.setBackgroundImageNamed("ring\(percent)")
                 }
@@ -242,7 +215,7 @@ class AppInterfaceController: WKInterfaceController {
     {
         super.didDeactivate()
         
-        //Mixpanel.sharedInstance()?.track("watch_overview")
+        Mixpanel.sharedInstance()?.track("watch_overview")
     }
     
 }

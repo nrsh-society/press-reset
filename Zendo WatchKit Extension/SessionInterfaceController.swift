@@ -11,7 +11,7 @@ import WatchKit
 import Foundation
 import HealthKit
 import WatchConnectivity
-//import Mixpanel
+import Mixpanel
 
 class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     
@@ -23,9 +23,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     
     @IBOutlet var timeElapsedLabel: WKInterfaceLabel!
     
-    private lazy var sessionDelegater: SessionDelegater = {
-        return SessionDelegater()
-    }()
+    private lazy var sessionDelegater: SessionDelegater = { return SessionDelegater() }()
     
     func sessionTick(startDate: Date, message: String?)
     {
@@ -42,10 +40,11 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         }
     }
     
-    @IBAction func onDonePress() {
+    @IBAction func onDonePress()
+    {
         session.end() { workout in
             DispatchQueue.main.async() {
-               // Mixpanel.sharedInstance()?.track("watch_meditation")
+               Mixpanel.sharedInstance()?.track("watch_meditation")
                 
                 WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SummaryInterfaceController", context: ["session": self.session, "workout": workout] as AnyObject)])
             }
@@ -56,7 +55,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     {
         super.awake(withContext: context)
         
-       // Mixpanel.sharedInstance()?.timeEvent("watch_meditation")
+       Mixpanel.sharedInstance()?.timeEvent("watch_meditation")
         
         sessionDelegater.sendMessage(["facebook" : "watch_meditation"],
             replyHandler:

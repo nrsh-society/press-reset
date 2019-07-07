@@ -8,6 +8,7 @@
 
 import UIKit
 import Lottie
+import Mixpanel
 
 class SuccessSubscriptionViewController: UIViewController {
     
@@ -15,10 +16,11 @@ class SuccessSubscriptionViewController: UIViewController {
     
     let checkAnimation = LOTAnimationView(name: "checkAnimation")
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         
-        
+        Mixpanel.mainInstance().track(event: "phone_subscription_success")
         animationView.insertSubview(checkAnimation, at: 0)
         
         checkAnimation.contentMode = .scaleAspectFill

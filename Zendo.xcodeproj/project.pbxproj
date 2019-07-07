@@ -110,7 +110,6 @@
 		7C58E4E41E858E4241584A97 /* Pods_Zendo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA85D12F03B88975AECB0609 /* Pods_Zendo.framework */; };
 		BE021CC42260E79A00153D4B /* GroupController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE021CC22260E79A00153D4B /* GroupController.storyboard */; };
 		BE021CC52260E79A00153D4B /* GroupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE021CC32260E79A00153D4B /* GroupController.swift */; };
-		BE029E9B22D1000B00649DEF /* ZendoKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE029E9A22D1000B00649DEF /* ZendoKit.swift */; };
 		BE066BD820F1EFC10008747D /* OverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE066BD720F1EFC10008747D /* OverviewController.swift */; };
 		BE066BDD20F1F3D10008747D /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE066BDC20F1F3D10008747D /* PageController.swift */; };
 		BE0A7228209C2B83009E23AA /* OptionsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */; };
@@ -135,11 +134,6 @@
 		BE75AEBF20F708C300311512 /* ChartColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75AEBC20F708C300311512 /* ChartColors.swift */; };
 		BE75AEC020F708C300311512 /* ChartSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75AEBD20F708C300311512 /* ChartSeries.swift */; };
 		BE75AEC120F708C300311512 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75AEBE20F708C300311512 /* Chart.swift */; };
-		BE813BE522D070E6007DED15 /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE813BE422D070E6007DED15 /* Messages.framework */; };
-		BE813BE822D070E6007DED15 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE813BE722D070E6007DED15 /* MessagesViewController.swift */; };
-		BE813BEB22D070E6007DED15 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE813BE922D070E6007DED15 /* MainInterface.storyboard */; };
-		BE813BED22D070E7007DED15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE813BEC22D070E7007DED15 /* Assets.xcassets */; };
-		BE813BF122D070E7007DED15 /* ZendoMsg.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BE813BE322D070E6007DED15 /* ZendoMsg.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BE81B26F2001B85500274FA1 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE81B26E2001B85500274FA1 /* HealthKit.framework */; };
 		BE8786FF2215EE1F0052FE4C /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8786FD2215EE1F0052FE4C /* Cloud.swift */; };
 		BE8787002215EE1F0052FE4C /* TrainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8786FE2215EE1F0052FE4C /* TrainController.swift */; };
@@ -189,13 +183,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = BE2E82091FF44A7B00D104AC;
 			remoteInfo = "Zazen WatchKit Extension";
-		};
-		BE813BEF22D070E7007DED15 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BE2E81E11FF44A7B00D104AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BE813BE222D070E6007DED15;
-			remoteInfo = ZendoMsg;
 		};
 		BEF0751121E6B0C700EE657D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -256,7 +243,6 @@
 			dstSubfolderSpec = 13;
 			files = (
 				BEF0751321E6B0C700EE657D /* NotificationService.appex in Embed App Extensions */,
-				BE813BF122D070E7007DED15 /* ZendoMsg.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,7 +382,6 @@
 		BE75AEBC20F708C300311512 /* ChartColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartColors.swift; sourceTree = "<group>"; };
 		BE75AEBD20F708C300311512 /* ChartSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSeries.swift; sourceTree = "<group>"; };
 		BE75AEBE20F708C300311512 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
-		BE813BE322D070E6007DED15 /* ZendoMsg.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ZendoMsg.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE813BE422D070E6007DED15 /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
 		BE813BE722D070E6007DED15 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		BE813BEA22D070E6007DED15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -472,14 +457,6 @@
 				BE9B00042065FF6B007FF96A /* CoreMotion.framework in Frameworks */,
 				BE8BB21F1FFDCC4600B2E113 /* HealthKit.framework in Frameworks */,
 				0D53E8CB86D55DEC3ABD3EED /* Pods_Zendo_WatchKit_Extension.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BE813BE022D070E6007DED15 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BE813BE522D070E6007DED15 /* Messages.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -872,7 +849,6 @@
 				BE2E820A1FF44A7B00D104AC /* Zendo WatchKit Extension.appex */,
 				BEF0750C21E6B0C700EE657D /* NotificationService.appex */,
 				7BF70C99229B80D4001E4D0E /* ZendoTests.xctest */,
-				BE813BE322D070E6007DED15 /* ZendoMsg.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1026,7 +1002,6 @@
 			dependencies = (
 				BE2E81FE1FF44A7B00D104AC /* PBXTargetDependency */,
 				BEF0751221E6B0C700EE657D /* PBXTargetDependency */,
-				BE813BF022D070E7007DED15 /* PBXTargetDependency */,
 			);
 			name = Zendo;
 			productName = Zazen;
@@ -1060,6 +1035,7 @@
 				BE2E82061FF44A7B00D104AC /* Sources */,
 				BE2E82071FF44A7B00D104AC /* Frameworks */,
 				BE2E82081FF44A7B00D104AC /* Resources */,
+				4A3AF5CEC3CA7CC123E9DFEC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1069,23 +1045,6 @@
 			productName = "Zazen WatchKit Extension";
 			productReference = BE2E820A1FF44A7B00D104AC /* Zendo WatchKit Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
-		};
-		BE813BE222D070E6007DED15 /* ZendoMsg */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = BE813BF422D070E7007DED15 /* Build configuration list for PBXNativeTarget "ZendoMsg" */;
-			buildPhases = (
-				BE813BDF22D070E6007DED15 /* Sources */,
-				BE813BE022D070E6007DED15 /* Frameworks */,
-				BE813BE122D070E6007DED15 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ZendoMsg;
-			productName = ZendoMsg;
-			productReference = BE813BE322D070E6007DED15 /* ZendoMsg.appex */;
-			productType = "com.apple.product-type.app-extension.messages";
 		};
 		BEF0750B21E6B0C700EE657D /* NotificationService */ = {
 			isa = PBXNativeTarget;
@@ -1156,10 +1115,6 @@
 							};
 						};
 					};
-					BE813BE222D070E6007DED15 = {
-						CreatedOnToolsVersion = 10.2.1;
-						ProvisioningStyle = Automatic;
-					};
 					BEF0750B21E6B0C700EE657D = {
 						CreatedOnToolsVersion = 10.1;
 						ProvisioningStyle = Automatic;
@@ -1184,7 +1139,6 @@
 				BE2E82091FF44A7B00D104AC /* Zendo WatchKit Extension */,
 				BEF0750B21E6B0C700EE657D /* NotificationService */,
 				7BF70C98229B80D4001E4D0E /* ZendoTests */,
-				BE813BE222D070E6007DED15 /* ZendoMsg */,
 			);
 		};
 /* End PBXProject section */
@@ -1254,15 +1208,6 @@
 				12CE61E62158FF0200AD8A11 /* Antenna-Light.otf in Resources */,
 				BEBAE48B20E6CDB500495C65 /* Media.xcassets in Resources */,
 				BED56AFD21F8C0BF0027F78B /* GoogleService-Info.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BE813BE122D070E6007DED15 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BE813BED22D070E7007DED15 /* Assets.xcassets in Resources */,
-				BE813BEB22D070E6007DED15 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1383,6 +1328,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4A3AF5CEC3CA7CC123E9DFEC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Mixpanel/Mixpanel.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7BBF84AD229B81E1008FA2A2 /* Copy storyboard info */ = {
@@ -1551,15 +1514,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BE813BDF22D070E6007DED15 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BE813BE822D070E6007DED15 /* MessagesViewController.swift in Sources */,
-				BE029E9B22D1000B00649DEF /* ZendoKit.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		BEF0750821E6B0C700EE657D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1585,11 +1539,6 @@
 			isa = PBXTargetDependency;
 			target = BE2E82091FF44A7B00D104AC /* Zendo WatchKit Extension */;
 			targetProxy = BE2E820C1FF44A7B00D104AC /* PBXContainerItemProxy */;
-		};
-		BE813BF022D070E7007DED15 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BE813BE222D070E6007DED15 /* ZendoMsg */;
-			targetProxy = BE813BEF22D070E7007DED15 /* PBXContainerItemProxy */;
 		};
 		BEF0751221E6B0C700EE657D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1943,51 +1892,6 @@
 			};
 			name = Release;
 		};
-		BE813BF222D070E7007DED15 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6N25VDH5A9;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = ZendoMsg/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ZendoMsg;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		BE813BF322D070E7007DED15 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6N25VDH5A9;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = ZendoMsg/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ZendoMsg;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		BEF0751521E6B0C700EE657D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2075,15 +1979,6 @@
 			buildConfigurations = (
 				BE2E82241FF44A7B00D104AC /* Debug */,
 				BE2E82251FF44A7B00D104AC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BE813BF422D070E7007DED15 /* Build configuration list for PBXNativeTarget "ZendoMsg" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BE813BF222D070E7007DED15 /* Debug */,
-				BE813BF322D070E7007DED15 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
