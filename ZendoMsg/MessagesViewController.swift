@@ -34,9 +34,10 @@ class MessagesViewController: MSMessagesAppViewController {
     
     @IBAction func shareButtonTrigger(_ sender: Any)
     {
-        self.activeConversation?.insertText(self.hrvLabel.text!, completionHandler: { (error) in
+        self.activeConversation?.insertText(self.hrvLabel.text!, completionHandler: {
             
-        
+            (error) in
+            
         })
     }
     // MARK: - Conversation Handling

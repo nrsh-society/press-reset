@@ -514,27 +514,19 @@ extension DiscoverViewController: UICollectionViewDataSource {
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 vc = alert
             } else {
-                let solo = GroupController.loadFromStoryboard()
-                solo.story = story
-                solo.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-                solo.hero.isEnabled = true
-                vc = solo
+                let group = GroupController.loadFromStoryboard()
+                group.story = story
+                group.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+                group.hero.isEnabled = true
+                vc = group
             }
-        } else if story.type == "solo"
+        } else if story.type == "solo" || story.type == "train"
         {
             let solo = TrainController.loadFromStoryboard(true)
             solo.story = story
             solo.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
             solo.hero.isEnabled = true
             vc = solo
-        }
-        else if story.type == "train"
-        {
-            let train = TrainController.loadFromStoryboard(false)
-            train.story = story
-            train.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-            train.hero.isEnabled = true
-            vc = train
         }
         else //tutorial
         {

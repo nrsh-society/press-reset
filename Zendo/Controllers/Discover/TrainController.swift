@@ -261,7 +261,7 @@ class TrainController: UIViewController
     
     @objc func startSession()
     {
-        if(Settings.isWatchConnected)
+        if(Settings.isSensorConnected)
         {
             Mixpanel.mainInstance().time(event: "phone_train_watch_connected")
             

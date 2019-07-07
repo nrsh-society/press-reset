@@ -45,7 +45,6 @@ class GroupController: UIViewController
     var story: Story!
     var idHero = ""
     var panGR: UIPanGestureRecognizer!
-    var airplay: AirplayController?
     var chartHR = [String: Int]()
     var scene : SKScene?
     var players = [String : Int]()
@@ -75,17 +74,6 @@ class GroupController: UIViewController
         try? storage?.removeAll()
     }
     
-    func airplay(_ url: URL)
-    {
-        if let airplay = self.airplay
-        {
-            airplay.dismiss()
-            airplay.dismiss(animated: true, completion: nil)
-        }
-        
-        self.airplay = AirplayController.loadFromStoryboard(url)
-    }
-    
     func setBackground() {
         if let story = story, let thumbnailUrl = story.thumbnailUrl, let url = URL(string: thumbnailUrl) {
             UIImage.setImage(from: url) { image in
@@ -109,7 +97,6 @@ class GroupController: UIViewController
         
         let streamString = story.content[0].stream
         let downloadString = story.content[0].download
-        let airplayString = story.content[0].airplay
         
         var downloadUrl : URL?
         var streamUrl : URL?
@@ -122,11 +109,6 @@ class GroupController: UIViewController
         if let urlString = streamString, let url = URL(string: urlString)
         {
             streamUrl = url
-        }
-        
-        if let urlString = airplayString, let url = URL(string: urlString)
-        {
-            self.airplay(url)
         }
         
         storage?.async.entry(forKey: downloadUrl?.absoluteString ?? "", completion:
@@ -170,7 +152,7 @@ class GroupController: UIViewController
     {
         super.viewWillDisappear(animated)
         
-        Mixpanel.mainInstance().track(event: "phone_train", properties: ["name": story.title])
+        Mixpanel.mainInstance().track(event: "group_train", properties: ["name": story.title])
         
         NotificationCenter.default.removeObserver(self)
         
@@ -180,9 +162,7 @@ class GroupController: UIViewController
         
         self.spriteView.presentScene(nil)
         self.scene = nil
-        
-        self.airplay?.dismiss()
-        self.airplay = nil
+
     }
     
     func setupConnectButton()
@@ -199,7 +179,7 @@ class GroupController: UIViewController
         self.connectButton.layer.shadowRadius = 20
     }
     
-    func setupWatchNotifications()
+    func setupSensorNotifications()
     {
        NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.sample),
@@ -230,9 +210,9 @@ class GroupController: UIViewController
         
         UIApplication.shared.isIdleTimerDisabled = true
         
-        Mixpanel.mainInstance().time(event: "phone_train")
+        Mixpanel.mainInstance().time(event: "phone_group")
         
-        setupWatchNotifications()
+        setupSensorNotifications()
         
         do {
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
@@ -263,9 +243,9 @@ class GroupController: UIViewController
     @objc func startSession()
     {
 
-        if(Settings.isWatchConnected)
+        if(Settings.isSensorConnected)
         {
-            Mixpanel.mainInstance().time(event: "phone_train_watch_connected")
+            Mixpanel.mainInstance().time(event: "phone_group_session")
             
             Cloud.registerPlayersChangedHandler
             {
@@ -312,16 +292,15 @@ class GroupController: UIViewController
     
     @objc func endSession()
     {
-        Mixpanel.mainInstance().track(event: "phone_train_watch_connected",
+        Mixpanel.mainInstance().track(event: "phone_group_session",
                                           properties: ["name": self.story.title])
         
         Cloud.removePlayer(email: Settings.email!)
         
-        Settings.isWatchConnected = false
+        Settings.isSensorConnected = false
         
         DispatchQueue.main.async
         {
-            
             UIView.animate(withDuration: 0.5)
             {
                     self.arenaView.isHidden = true
@@ -467,17 +446,13 @@ extension GroupController: AvatarCaptureControllerDelegate
         
         self.profileImage = image
         
-        if(!Settings.isWatchConnected) {
+        let startingSessions = StartingSessionViewController()
             
-            let startingSessions = StartingSessionViewController()
+        startingSessions.modalPresentationStyle = .overFullScreen
             
-            startingSessions.modalPresentationStyle = .overFullScreen
+        startingSessions.modalTransitionStyle = .crossDissolve
             
-            startingSessions.modalTransitionStyle = .crossDissolve
-            
-            self.present(startingSessions, animated: true)
-            
-        }
+        self.present(startingSessions, animated: true)
     }
     
     func imageSelectionCancelled() {

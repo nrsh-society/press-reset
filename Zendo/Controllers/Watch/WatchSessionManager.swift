@@ -100,7 +100,7 @@ extension WatchSessionManager: WCSessionDelegate {
             else if message["watch"] == "arena" &&  message["startDate"] == "end"
             {
 
-                Settings.isWatchConnected = false
+                Settings.isSensorConnected = false
                 Settings.connectedDate = nil
                 NotificationCenter.default.post(name: .endSession, object: nil)
             }
@@ -138,7 +138,7 @@ extension WatchSessionManager: WCSessionDelegate {
             }
         } else if let arena = message["watch"] as? String, arena == "arena", let startDate = message["startDate"] as? Date
         {
-            Settings.isWatchConnected = true
+            Settings.isSensorConnected = true
             Settings.connectedDate = Date ()
             NotificationCenter.default.post(name: .startSession, object: startDate)
         }

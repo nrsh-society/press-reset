@@ -248,7 +248,7 @@ class Settings: NSObject {
             }.resume()
     }
     
-    static var isWatchConnected: Bool {
+    static var isSensorConnected: Bool {
         set {
             defaults.set(newValue, forKey: "isWatchConnected")
             defaults.synchronize()
