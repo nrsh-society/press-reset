@@ -55,11 +55,8 @@ class Cloud
         var sample : [String : Any]
     }
     
-    static func updatePlayer(email: String, progress: [String]?, sample: [String: Any]?)
+    static func updatePlayer(email: String, update: Any?)
     {
-        let player = [progress ?? [String](), sample ?? [String: Any]()] as [Any]
-
-        //let player = Player(email: email, progress: progress ?? [String](), sample: sample ?? [String: Any]())
         
         let database = Database.database().reference()
         let players = database.child("players")
@@ -68,7 +65,7 @@ class Cloud
         
         let key = players.child(key_string)
         
-        key.setValue(player)
+        key.setValue(update)
         {
             (error, ref) in
             

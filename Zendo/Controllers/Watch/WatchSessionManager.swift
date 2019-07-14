@@ -111,37 +111,27 @@ extension WatchSessionManager: WCSessionDelegate {
                 Settings.connectedDate = Date ()
                 NotificationCenter.default.post(name: .startSession, object: Settings.connectedDate)
             }
+            else if let progress = message["progress"] {
             
-        }
-        else if(message.first?.key == "sample")
-        {
-            if let sample = message.first?.value
-            {
-                //Settings.isWatchConnected = true
-                
-                NotificationCenter.default.post(name: NSNotification.Name("sample"),
-                                                object: sample )
-                
-                FBSDKAppEvents.logEvent("watch_sample")
-            }
-        }
-        else if(message.first?.key == "progress")
-        {
-            if let progress = message.first?.value
-            {
-                //Settings.isWatchConnected = true
-                
                 NotificationCenter.default.post(name: NSNotification.Name("progress"),
                                                 object: progress )
                 
                 FBSDKAppEvents.logEvent("watch_progress")
             }
+            
+            else if let facebook = message["facebook"] {
+                
+                FBSDKAppEvents.logEvent(facebook as? String)
+            }
         }
-        else if(message.first?.key == "facebook")
+        else if(message.first?.key == "sample")
         {
-            if let event = message.first?.value
-            {
-                FBSDKAppEvents.logEvent(event as? String)
+            if let sample = message.first?.value
+            {                
+                NotificationCenter.default.post(name: NSNotification.Name("sample"),
+                                                object: sample )
+                
+                FBSDKAppEvents.logEvent("watch_sample")
             }
         }
     }

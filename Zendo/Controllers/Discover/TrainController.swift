@@ -334,9 +334,9 @@ class TrainController: UIViewController
     
     @objc func progress(notification: NSNotification)
     {
-        if let progress = notification.object as? [String]
+        if let progress = notification.object as? String
         {
-            let lastProgress = progress.last!.description.lowercased().contains("good")
+            let lastProgress = progress.description.lowercased().contains("true")
             
             if (ring >= 2)
             {

@@ -53,7 +53,7 @@ class GroupController: UIViewController
     var players = [String : Int]()
     let avatarCaptureController = AvatarCaptureController()
     var profileImage : UIImage?
-    var last_progress : [String]? = nil
+    var last_progress : String? = nil
     var last_sample : [String : Any]? = nil 
     
     let diskConfig = DiskConfig(name: "DiskCache")
@@ -332,11 +332,11 @@ class GroupController: UIViewController
     
     @objc func progress(notification: NSNotification)
     {
-        if let progress = notification.object as? [String]
+        if let progress = notification.object as? String
         {
             self.last_progress = progress
             
-            Cloud.updatePlayer(email: Settings.email!, progress: self.last_progress!, sample: self.last_sample!)
+            Cloud.updatePlayer(email: Settings.email!, update: self.last_progress!)
             
         }
     }
@@ -370,7 +370,7 @@ class GroupController: UIViewController
             
             self.last_sample = sample
             
-            Cloud.updatePlayer(email: Settings.email!, progress: self.last_progress, sample: self.last_sample)
+            Cloud.updatePlayer(email: Settings.email!, update: self.last_sample)
         }
         
     }
