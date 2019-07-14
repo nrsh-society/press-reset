@@ -53,8 +53,13 @@ class GroupController: UIViewController
     var players = [String : Int]()
     let avatarCaptureController = AvatarCaptureController()
     var profileImage : UIImage?
-    var last_progress : String? = nil
-    var last_sample : [String : Any]? = nil 
+    var lastUpdate = NSMutableDictionary()
+    //var lastUpdate = Update(progress: "False/0", sample: nil)
+    
+    struct Update {
+        var progress : String
+        var sample : [String : Any]?
+    }
     
     let diskConfig = DiskConfig(name: "DiskCache")
     let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
@@ -334,9 +339,9 @@ class GroupController: UIViewController
     {
         if let progress = notification.object as? String
         {
-            self.last_progress = progress
+            self.lastUpdate["progress"] = progress
             
-            Cloud.updatePlayer(email: Settings.email!, update: self.last_progress!)
+            Cloud.updatePlayer(email: Settings.email!, update: self.lastUpdate)
             
         }
     }
@@ -368,9 +373,20 @@ class GroupController: UIViewController
                 self.arenaView.setChart(chartHR)
             }
             
-            self.last_sample = sample
+            let update = NSMutableDictionary(dictionary: sample)
             
-            Cloud.updatePlayer(email: Settings.email!, update: self.last_sample)
+            if let progress = self.lastUpdate["progress"]
+            {
+                update["progress"] = progress
+            }
+            else
+            {
+                update["progress"] = false.description + "/0"
+            }
+            
+            self.lastUpdate = update
+            
+            Cloud.updatePlayer(email: Settings.email!, update: self.lastUpdate)
         }
         
     }
