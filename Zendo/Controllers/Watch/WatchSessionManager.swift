@@ -53,6 +53,7 @@ extension WatchSessionManager: WCSessionDelegate {
                  replyHandler: @escaping ([String: Any]) -> Void)
     {
         print(message)
+        
         if let message = message as? [String: String]
         {
             
@@ -97,12 +98,18 @@ extension WatchSessionManager: WCSessionDelegate {
                     vc.present(vcSub, animated: true)
                 }
             }
-            else if message["watch"] == "arena" &&  message["startDate"] == "end"
+            else if message["watch"] == "end"
             {
 
                 Settings.isSensorConnected = false
                 Settings.connectedDate = nil
                 NotificationCenter.default.post(name: .endSession, object: nil)
+            }
+            else if message["watch"] == "start"
+            {
+                Settings.isSensorConnected = true
+                Settings.connectedDate = Date ()
+                NotificationCenter.default.post(name: .startSession, object: Settings.connectedDate)
             }
             
         }
@@ -136,11 +143,6 @@ extension WatchSessionManager: WCSessionDelegate {
             {
                 FBSDKAppEvents.logEvent(event as? String)
             }
-        } else if let arena = message["watch"] as? String, arena == "arena", let startDate = message["startDate"] as? Date
-        {
-            Settings.isSensorConnected = true
-            Settings.connectedDate = Date ()
-            NotificationCenter.default.post(name: .startSession, object: startDate)
         }
     }
 }

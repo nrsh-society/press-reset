@@ -19,6 +19,9 @@ import AvatarCapture
 
 class GroupController: UIViewController
 {
+    
+    let movesenseService = MovesenseService()
+    
     @IBOutlet weak var spriteView: SKView!
     {
         didSet {
@@ -225,6 +228,16 @@ class GroupController: UIViewController
         
         avatarCaptureController.delegate = self
         avatarView.addSubview((avatarCaptureController.view)!)
+        
+        /*
+        
+        self.movesenseService.setHandlers(deviceConnected: {(serial: String) ->() in self.updateConnected(serial:serial)},deviceDisconnected: { _ in
+            self.updateDisconnected()}, bleOnOff: { _ in
+                self.updatebleOnOff()})
+        
+        self.movesenseService.startScan({(device:MovesenseDevice)-> () in self.peripheralFound(device: device)})
+        
+        */
         
         self.startSession()
         
