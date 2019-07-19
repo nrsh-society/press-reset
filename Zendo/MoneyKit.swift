@@ -9,6 +9,9 @@ import Foundation
 
 class MoneyKit
 {
+    static var apiKey = "2b22b5b518d52bed1c8202f0ed9e8ddb"
+    static var moneyService = "http://localhost:3000/v1/payments/"
+    
     struct Payment
     {
         var source_address : String
@@ -23,8 +26,37 @@ class MoneyKit
         var currency : String
     }
     
+    struct PaymentMessage
+    {
+        var payment : Payment
+        var submit : Bool = true
+    }
+    
     static func pay(_ payment : Payment)
     {
-        //#todo: call xrp-api here
+        var request = URLRequest(url: URL(string: moneyService)!)
+        
+        let paymentMessage = PaymentMessage(payment: payment, submit: true)
+        
+        request.httpMethod = "POST"
+        
+        if let json = try? JSONSerialization.data(withJSONObject: paymentMessage, options: [])
+        {
+            request.httpBody = json
+
+            URLSession.shared.dataTask(with: request)
+            {
+                data, response, error in
+            
+                if let data = data, error == nil
+                {
+                    print(data)
+                }
+                else
+                {
+                    print(error.debugDescription)
+                }
+            }
+        }
     }
 }

@@ -56,6 +56,16 @@ class Settings: NSObject {
             }
         }
     
+    static var ilpAddress: String? {
+        set {
+            defaults.set(newValue?.trimmingCharacters(in: CharacterSet.whitespaces), forKey: "ilpAddress")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.string(forKey: "ilpAddress")?.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+    }
+    
     static var requestedNotificationPermission: Bool {
         set {
             defaults.set(newValue, forKey: "requestedNotificationPermission")

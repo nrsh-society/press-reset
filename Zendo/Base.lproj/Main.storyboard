@@ -615,7 +615,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="j4b-yy-xhs">
-                                <rect key="frame" x="41" y="223.33333333333348" width="373" height="135"/>
+                                <rect key="frame" x="41" y="223.33333333333348" width="373" height="222"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAN-ji-17l" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="373" height="48"/>
@@ -629,6 +629,13 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="Cib-CH-TjC"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RCq-Sv-JX1" userLabel="Wallet" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="174" width="373" height="48"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="EMe-ZC-EfQ"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -666,6 +673,7 @@
                         <outlet property="stackView" destination="j4b-yy-xhs" id="B8d-e3-WXS"/>
                         <outlet property="topSpace" destination="wOs-pP-v6B" id="T9f-J2-Nbe"/>
                         <outlet property="topSpaceTextField" destination="e4l-5i-CXC" id="gNB-7O-VjE"/>
+                        <outlet property="wallet" destination="RCq-Sv-JX1" id="bFS-U6-avF"/>
                         <outletCollection property="labels" destination="xua-QO-A7Q" collectionClass="NSMutableArray" id="bgw-M2-zrL"/>
                         <outletCollection property="labels" destination="e29-hP-oad" collectionClass="NSMutableArray" id="10C-dT-Bde"/>
                         <outletCollection property="labels" destination="YVx-Jo-CSq" collectionClass="NSMutableArray" id="r0H-UG-p6L"/>

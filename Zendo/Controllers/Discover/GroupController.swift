@@ -240,7 +240,6 @@ class GroupController: UIViewController
         
         self.movesenseService.startScan({(device:MovesenseDevice)-> () in self.peripheralFound(device: device)})
         
-        
         self.startSession()
         
     }
@@ -262,7 +261,6 @@ class GroupController: UIViewController
         {
             Mixpanel.mainInstance().time(event: "phone_group_session")
             
-            
             if let image = self.profileImage
             {
                 Cloud.createPlayer(email: Settings.email!, image: image)
@@ -276,10 +274,8 @@ class GroupController: UIViewController
                     self.connectButton.isHidden = true
                     self.avatarView.isHidden = false
                     self.playersLabel.isHidden = false
-                  }
-                
+                }
             }
-            
         }
     }
     
@@ -314,7 +310,10 @@ class GroupController: UIViewController
             self.lastUpdate["progress"] = progress
             
             Cloud.updatePlayer(email: Settings.email!, update: self.lastUpdate)
+           
+            let payment = MoneyKit.Payment(source_address: Settings.ilpAddress!, source_amount: MoneyKit.Amount(value: 1, currency: "XRP"), destination_address: story.beneficiaryPaymentAddress!, destination_amount: MoneyKit.Amount(value: 1, currency: "XRP"))
             
+            MoneyKit.pay(payment)
         }
     }
     
@@ -460,9 +459,12 @@ class GroupController: UIViewController
         print("Bluetooth toggled")
     }
     
-    private func handleData(_ response: MovesenseResponse, serial: String) {
+    private func handleData(_ response: MovesenseResponse, serial: String)
+    {
         let json = JSON(parseJSON: response.content)
-        if json["rrData"][0].number != nil {
+    
+        if json["rrData"][0].number != nil
+        {
             let rr = json["rrData"][0].doubleValue
             
             let hr = 1000/rr
