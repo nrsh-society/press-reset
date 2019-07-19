@@ -79,7 +79,7 @@ class Cloud
         }
 
     }
-
+    
     static func updatePlayer(email: String, mins: Int )
     {
         let database = Database.database().reference()

@@ -33,9 +33,6 @@ class GroupController: UIViewController
     @IBOutlet weak var connectButton: UIButton!
     @IBOutlet weak var avatarView: UIView!
     @IBOutlet weak var playersLabel: UILabel!
-    @IBOutlet weak var minutesLabel: UILabel!
-    @IBOutlet weak var playersTitle: UILabel!
-    @IBOutlet weak var minutesTitle: UILabel!
     
     @IBOutlet weak var arenaView: ArenaView! {
         didSet {
@@ -265,25 +262,6 @@ class GroupController: UIViewController
         {
             Mixpanel.mainInstance().time(event: "phone_group_session")
             
-            Cloud.registerPlayersChangedHandler
-            {
-                (players, error) in
-                
-                self.players = players
-                
-                DispatchQueue.main.async
-                {
-                    UIView.animate(withDuration: 0.5)
-                    {
-                        self.playersLabel.text = self.players.count.description
-                        self.minutesLabel.text = self.players.reduce(0,
-                        {
-                            return $0 + $1.value
-                        }).description
-
-                    }
-                }
-            }
             
             if let image = self.profileImage
             {
@@ -298,10 +276,7 @@ class GroupController: UIViewController
                     self.connectButton.isHidden = true
                     self.avatarView.isHidden = false
                     self.playersLabel.isHidden = false
-                    self.minutesLabel.isHidden = false
-                    self.playersTitle.isHidden = false
-                    self.minutesTitle.isHidden = false
-                }
+                  }
                 
             }
             
@@ -328,9 +303,6 @@ class GroupController: UIViewController
                     self.arenaView.time.text = "--"
                     self.arenaView.setChart([])
                     self.playersLabel.isHidden = true
-                    self.minutesLabel.isHidden = true
-                    self.playersTitle.isHidden = true
-                    self.minutesTitle.isHidden = true
                 }
             }
         }
@@ -472,6 +444,8 @@ class GroupController: UIViewController
         print("There are \(self.movesenseService.getDeviceCount()) devices")
         self.movesenseService.connectDevice(device.serial)
         print("Device: \(device.serial) just connected")
+        
+        self.playersLabel.text = self.playersLabel.text ?? "" + "\r\n" + device.serial
     }
     
     private func updateConnected(serial: String){
@@ -490,10 +464,61 @@ class GroupController: UIViewController
         let json = JSON(parseJSON: response.content)
         if json["rrData"][0].number != nil {
             let rr = json["rrData"][0].doubleValue
-            let hr = 60000/rr
+            
+            let hr = 1000/rr
             
             print("device: \(serial) Heart Rate: \(String(hr))")
+            
+            var progress = "true/0"
+            
+            if var samples = movesenseSamples[serial] {
+            
+                samples.append(rr)
+                
+                movesenseSamples[serial] = samples
+            
+                let startDate = movesenseSensors[serial]!
+                
+                let mins = abs(startDate.minutes(from: Date()))
+                
+                progress = "true/\(mins)"
+            }
+            else
+            {
+                movesenseSamples[serial] = [rr]
+                movesenseSensors[serial] = Date()
+            }
+            
+            let sdnn = self.standardDeviation(movesenseSamples[serial]!)
+            
+            let update = ["heart" : String(hr) , "sdnn" : sdnn.description, "progress" : progress]
+    
+            Cloud.updatePlayer(email: serial, update: update)
+            
         }
+    }
+    
+    var movesenseSamples = [String : [Double]]()
+    var movesenseSensors = [String : Date]()
+    
+    func standardDeviation(_ arr : [Double]) -> Double
+    {
+        let rrIntervals = arr.map
+        {
+            (beat) -> Double in
+            
+            return 1000 / beat
+        }
+        
+        let length = Double(rrIntervals.count)
+        
+        let avg = rrIntervals.reduce(0, +) / length
+        
+        let sumOfSquaredAvgDiff = rrIntervals.map
+        {pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
+        
+        return sqrt(sumOfSquaredAvgDiff / length)
+        
     }
 }
 

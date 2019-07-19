@@ -18,6 +18,8 @@ class Content: Codable {
     var download: String?
     var airplay: String?
     var spherial: String?
+    var creatorPaymentAddress: String?
+    var beneficiaryPaymentAddress: String?
     
     public init(_ json: JSON) {
         
@@ -39,6 +41,14 @@ class Content: Codable {
         
         if let spherial = json["spherial"].string {
             self.spherial = spherial
+        }
+        
+        if let creatorPaymentAddress = json["creatorPaymentAddress"].string {
+            self.creatorPaymentAddress = creatorPaymentAddress
+        }
+        
+        if let beneficiaryPaymentAddress = json["beneficiaryPaymentAddress"].string {
+            self.beneficiaryPaymentAddress = beneficiaryPaymentAddress
         }
         
     }

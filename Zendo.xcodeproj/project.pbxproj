@@ -128,6 +128,7 @@
 		BE2E82121FF44A7B00D104AC /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E82111FF44A7B00D104AC /* ExtensionDelegate.swift */; };
 		BE2E82141FF44A7B00D104AC /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E82131FF44A7B00D104AC /* NotificationController.swift */; };
 		BE30A47E21E4786600F8509C /* notification.json in Resources */ = {isa = PBXBuildFile; fileRef = BE30A47D21E4786600F8509C /* notification.json */; };
+		BE38B61322E16DBA0044DFB6 /* MoneyKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38B61222E16DBA0044DFB6 /* MoneyKit.swift */; };
 		BE3AE43621ED0ACF0019C489 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3AE43521ED0ACF0019C489 /* Notification.swift */; };
 		BE4895AC206B0CC400B007D6 /* ZazenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4895AB206B0CC400B007D6 /* ZazenController.swift */; };
 		BE4F346222D460830006BAAE /* MovesenseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F346122D460830006BAAE /* MovesenseService.swift */; };
@@ -379,6 +380,7 @@
 		BE2E82171FF44A7B00D104AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE2E82181FF44A7B00D104AC /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		BE30A47D21E4786600F8509C /* notification.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notification.json; sourceTree = "<group>"; };
+		BE38B61222E16DBA0044DFB6 /* MoneyKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyKit.swift; sourceTree = "<group>"; };
 		BE3AE43521ED0ACF0019C489 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		BE4895AB206B0CC400B007D6 /* ZazenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZazenController.swift; sourceTree = "<group>"; };
 		BE4F346122D460830006BAAE /* MovesenseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovesenseService.swift; sourceTree = "<group>"; };
@@ -886,6 +888,7 @@
 				12BE94BE21AEE4C6000E2B0B /* PauseImageView.swift */,
 				BE81B26D2001B85500274FA1 /* Zendo.entitlements */,
 				7BEDEB0522A43111008FCAF7 /* Foregrounder.swift */,
+				BE38B61222E16DBA0044DFB6 /* MoneyKit.swift */,
 			);
 			path = Zendo;
 			sourceTree = "<group>";
@@ -1429,6 +1432,7 @@
 				124A689E2199CCF800598639 /* Error.swift in Sources */,
 				12CE365421132A7100EF0196 /* UIImage.swift in Sources */,
 				127C3E3721789FD800B332EB /* CALayer+Corners.swift in Sources */,
+				BE38B61322E16DBA0044DFB6 /* MoneyKit.swift in Sources */,
 				BE066BDD20F1F3D10008747D /* PageController.swift in Sources */,
 				12C1A7282119B74B00EEFF4F /* ZenButton.swift in Sources */,
 				128D0BB92111D30900A4D757 /* UIDevice+Size.swift in Sources */,
