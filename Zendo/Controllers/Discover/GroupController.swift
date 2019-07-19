@@ -16,6 +16,8 @@ import AVKit
 import Mixpanel
 import Cache
 import AvatarCapture
+import Movesense
+import SwiftyJSON
 
 class GroupController: UIViewController
 {
@@ -234,7 +236,6 @@ class GroupController: UIViewController
         avatarCaptureController.delegate = self
         avatarView.addSubview((avatarCaptureController.view)!)
         
-        /*
         
         self.movesenseService.setHandlers(deviceConnected: {(serial: String) ->() in self.updateConnected(serial:serial)},deviceDisconnected: { _ in
             self.updateDisconnected()}, bleOnOff: { _ in
@@ -242,7 +243,6 @@ class GroupController: UIViewController
         
         self.movesenseService.startScan({(device:MovesenseDevice)-> () in self.peripheralFound(device: device)})
         
-        */
         
         self.startSession()
         
@@ -464,6 +464,36 @@ class GroupController: UIViewController
             
         }
 
+    }
+    
+    private func peripheralFound(device:MovesenseDevice){
+        print("movesense found")
+        
+        print("There are \(self.movesenseService.getDeviceCount()) devices")
+        self.movesenseService.connectDevice(device.serial)
+        print("Device: \(device.serial) just connected")
+    }
+    
+    private func updateConnected(serial: String){
+        print("movesense connected: \(serial)")
+        self.movesenseService.subscribe(serial, path: Movesense.HR_PATH, parameters: [:], onNotify: { response in self.handleData(response, serial: serial)}) { _,_,_  in }
+    }
+    
+    private func updateDisconnected(){
+        print("movesense Disconnected")
+    }
+    private func updatebleOnOff(){
+        print("Bluetooth toggled")
+    }
+    
+    private func handleData(_ response: MovesenseResponse, serial: String) {
+        let json = JSON(parseJSON: response.content)
+        if json["rrData"][0].number != nil {
+            let rr = json["rrData"][0].doubleValue
+            let hr = 60000/rr
+            
+            print("device: \(serial) Heart Rate: \(String(hr))")
+        }
     }
 }
 

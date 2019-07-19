@@ -56,11 +56,6 @@ class StartingSessionViewController: UIViewController {
             configuration.activityType = .mindAndBody
             configuration.locationType = .unknown
             
-            
-            //todo(5.1)
-            //Adding Bluetooth Manager code
-            
-            
             self.healthStore.startWatchApp(with: configuration) { success, error in
                 
                 guard success else {
