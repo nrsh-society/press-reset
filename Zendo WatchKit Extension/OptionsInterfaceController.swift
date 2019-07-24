@@ -9,7 +9,7 @@
 import WatchKit
 import Foundation
 import UIKit
-//import Mixpanel
+import Mixpanel
 
 class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatusDelegate
 {
@@ -18,9 +18,12 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     @IBOutlet var hapticSetting: WKInterfaceSlider!
     @IBOutlet var bluetoothToogle: WKInterfaceSwitch!
     
+    @IBOutlet var retryFeedbackSlider: WKInterfaceSlider!
+    
+    
     @IBAction func KyosakChanged(_ value: Float)
     {
-        //Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
+        Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
         
         Session.options.hapticStrength = Int(value)
         
@@ -43,9 +46,34 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         }
     }
     
+    @IBAction func retryChanged(_ value: Float)
+    {
+        Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
+        
+        Session.options.retryStrength = Int(value)
+        
+        let iterations = Int(Session.options.retryStrength)
+        
+        if iterations > 0
+        {
+            Thread.detachNewThread
+                {
+                    for _ in 1...iterations
+                    {
+                        DispatchQueue.main.async
+                            {
+                                WKInterfaceDevice.current().play(WKHapticType.retry)
+                        }
+                        
+                        Thread.sleep(forTimeInterval: 0.5)
+                    }
+            }
+        }
+    }
+    
     @IBAction func bluetoothChanged(_ value: Bool)
     {
-        //Mixpanel.sharedInstance()?.track("watch_options_bluetooth", properties: ["value": value])
+        Mixpanel.sharedInstance()?.track("watch_options_bluetooth", properties: ["value": value])
         
         if(value)
         {
@@ -73,7 +101,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     {
         super.willActivate()
         
-        //Mixpanel.sharedInstance()?.timeEvent("watch_options")
+        Mixpanel.sharedInstance()?.timeEvent("watch_options")
         
         if let bluetooth = Session.bluetoothManager
         {   self.bluetoothToogle.setOn(bluetooth.isRunning)
@@ -89,7 +117,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     {
         super.didDeactivate()
         
-        //Mixpanel.sharedInstance()?.track("watch_options")
+        Mixpanel.sharedInstance()?.track("watch_options")
     }
     
 }

@@ -53,6 +53,7 @@ extension WatchSessionManager: WCSessionDelegate {
                  replyHandler: @escaping ([String: Any]) -> Void)
     {
         print(message)
+        
         if let message = message as? [String: String]
         {
             
@@ -97,50 +98,41 @@ extension WatchSessionManager: WCSessionDelegate {
                     vc.present(vcSub, animated: true)
                 }
             }
-            else if message["watch"] == "arena" &&  message["startDate"] == "end"
+            else if message["watch"] == "end"
             {
 
-                Settings.isWatchConnected = false
+                Settings.isSensorConnected = false
                 Settings.connectedDate = nil
                 NotificationCenter.default.post(name: .endSession, object: nil)
             }
-            
-        }
-        else if(message.first?.key == "sample")
-        {
-            if let sample = message.first?.value
+            else if message["watch"] == "start"
             {
-                //Settings.isWatchConnected = true
-                
-                NotificationCenter.default.post(name: NSNotification.Name("sample"),
-                                                object: sample )
-                
-                FBSDKAppEvents.logEvent("watch_sample")
+                Settings.isSensorConnected = true
+                Settings.connectedDate = Date ()
+                NotificationCenter.default.post(name: .startSession, object: Settings.connectedDate)
             }
-        }
-        else if(message.first?.key == "progress")
-        {
-            if let progress = message.first?.value
-            {
-                //Settings.isWatchConnected = true
-                
+            else if let progress = message["progress"] {
+            
                 NotificationCenter.default.post(name: NSNotification.Name("progress"),
                                                 object: progress )
                 
                 FBSDKAppEvents.logEvent("watch_progress")
             }
-        }
-        else if(message.first?.key == "facebook")
-        {
-            if let event = message.first?.value
-            {
-                FBSDKAppEvents.logEvent(event as? String)
+            
+            else if let facebook = message["facebook"] {
+                
+                FBSDKAppEvents.logEvent(facebook as? String)
             }
-        } else if let arena = message["watch"] as? String, arena == "arena", let startDate = message["startDate"] as? Date
+        }
+        else if(message.first?.key == "sample")
         {
-            Settings.isWatchConnected = true
-            Settings.connectedDate = Date ()
-            NotificationCenter.default.post(name: .startSession, object: startDate)
+            if let sample = message.first?.value
+            {                
+                NotificationCenter.default.post(name: NSNotification.Name("sample"),
+                                                object: sample )
+                
+                FBSDKAppEvents.logEvent("watch_sample")
+            }
         }
     }
 }

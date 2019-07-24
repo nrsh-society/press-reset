@@ -18,6 +18,7 @@ class Content: Codable {
     var download: String?
     var airplay: String?
     var spherial: String?
+
     
     public init(_ json: JSON) {
         

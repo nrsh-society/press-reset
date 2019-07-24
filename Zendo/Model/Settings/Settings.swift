@@ -56,6 +56,16 @@ class Settings: NSObject {
             }
         }
     
+    static var ilpAddress: String? {
+        set {
+            defaults.set(newValue?.trimmingCharacters(in: CharacterSet.whitespaces), forKey: "ilpAddress")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.string(forKey: "ilpAddress")?.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+    }
+    
     static var requestedNotificationPermission: Bool {
         set {
             defaults.set(newValue, forKey: "requestedNotificationPermission")
@@ -159,11 +169,12 @@ class Settings: NSObject {
                 return
         }
         
-        let appleServer = receiptUrl.lastPathComponent == "sandboxReceipt" ? "sandbox" : "buy"
+       // let appleServer = receiptUrl.lastPathComponent == "sandboxReceipt" ? "sandbox" : "buy"
         
-        let stringURL = "https://\(appleServer).itunes.apple.com/verifyReceipt"
+        let prodServer = "https://buy.itunes.apple.com/verifyReceipt"
+        let testServer = "https://sandbox.itunes.apple.com/verifyReceipt"
         
-        var request = URLRequest(url: URL(string: stringURL)! )
+        var request = URLRequest(url: URL(string: prodServer)! )
         request.httpMethod = "POST"
         
         let httpBody = [
@@ -196,13 +207,58 @@ class Settings: NSObject {
                     completionHandler?(date > Date(), false)
                 }
                 
-            } else {
+            }
+            
+            else if let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode == 21007
+            {
+                
+                let testServer = "https://sandbox.itunes.apple.com/verifyReceipt"
+                
+                var request = URLRequest(url: URL(string: testServer)! )
+                request.httpMethod = "POST"
+                
+                let httpBody = [
+                    "receipt-data": receipt,
+                    "password": SHARED_SECRET
+                ]
+                
+                if let json = try? JSONSerialization.data(withJSONObject: httpBody, options: []) {
+                    request.httpBody = json
+                } else {
+                    completionHandler?(false, false)
+                }
+                
+                URLSession.shared.dataTask(with: request) { data, response, error in
+                    if let data = data, error == nil {
+                        
+                        guard let json = try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers])
+                            as? [String: Any],
+                            let lastReceipt = json?["latest_receipt_info"] as? [[String: Any]],
+                            let expiresDate = lastReceipt.last?["expires_date"] as? String else {
+                                print("error trying to convert data to JSON")
+                                completionHandler?(false, false)
+                                return
+                        }
+                        
+                        self.expiresDateStr = expiresDate
+                        
+                        if let date = expiresDate.dateFromUTCSubscriptionString {
+                            isSubscriptionAvailability = date > Date()
+                            completionHandler?(date > Date(), false)
+                        }
+                        
+                    }
+            }
+            }
+            
+            else {
                 completionHandler?(false, false)
             }
             }.resume()
     }
     
-    static var isWatchConnected: Bool {
+    static var isSensorConnected: Bool {
         set {
             defaults.set(newValue, forKey: "isWatchConnected")
             defaults.synchronize()

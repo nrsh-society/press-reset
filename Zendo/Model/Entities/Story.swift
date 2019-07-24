@@ -16,6 +16,8 @@ class Story: Codable {
     var title: String!
     var thumbnailUrl: String?
     var type: String?
+    var creatorPaymentAddress: String?
+    var beneficiaryPaymentAddress: String?
 
     var content = [Content]()
     
@@ -29,9 +31,16 @@ class Story: Codable {
             self.thumbnailUrl = thumbnailUrl
         }
         
-       
         if let type = json["type"].string {
             self.type = type
+        }
+        
+        if let creatorPaymentAddress = json["creatorPaymentAddress"].string {
+            self.creatorPaymentAddress = creatorPaymentAddress
+        }
+        
+        if let beneficiaryPaymentAddress = json["beneficiaryPaymentAddress"].string {
+            self.beneficiaryPaymentAddress = beneficiaryPaymentAddress
         }
         
         content = json["content"].toContents

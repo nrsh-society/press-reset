@@ -56,7 +56,6 @@ class StartingSessionViewController: UIViewController {
             configuration.activityType = .mindAndBody
             configuration.locationType = .unknown
             
-            
             self.healthStore.startWatchApp(with: configuration) { success, error in
                 
                 guard success else {

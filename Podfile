@@ -2,7 +2,8 @@ use_frameworks!
 
 target 'Zendo' do
     platform :ios, '11.0'
-    pod 'Charts', '~> 3.1.1'
+use_frameworks!    
+pod 'Charts', '~> 3.1.1'
     pod 'Mixpanel-swift', '~> 2.4.2'
     pod 'BuddyBuildSDK', '~> 1.0.17'
     pod 'NVActivityIndicatorView', '~> 4.2.1'
@@ -15,9 +16,10 @@ target 'Zendo' do
     pod 'Firebase/Core', '~> 5.15.0'
     pod 'Firebase/Database', '~> 5.15.0'
     pod 'Firebase/Storage', '~> 5.15.0'
-    pod 'AvatarCapture', '1.0.5'
-    pod 'PeerKit', '~> 4.0'
-#    pod 'SwiftVideoGenerator', '<= 1.1.8'
+    pod 'AvatarCapture', '1.0.5'  
+pod 'Movesense', :git => 'https://bitbucket.org/suunto/movesense-mobile-lib.git'    
+pod 'PromiseKit', '~> 6.8'
+    pod 'SwiftyJSON', '~> 4.0'
 
   target 'ZendoTests' do
     inherit! :search_paths
@@ -30,7 +32,7 @@ end
 
 target 'Zendo WatchKit Extension' do
     platform :watchos, '4.0'
-#    pod 'Mixpanel', '~> 3.3.6'
+    pod 'Mixpanel'
 end
 
 #post_install do |installer|

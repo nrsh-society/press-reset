@@ -164,7 +164,9 @@ class DiscoverViewController: UIViewController {
         Settings.checkSubscriptionAvailability { subscription, trial in
             self.isTrial = trial
             self.isSubscription = subscription
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -182,9 +184,9 @@ class DiscoverViewController: UIViewController {
         
         //#todo: make this based on the build #
         #if DEBUG
-        let urlPath: String = "http://media.zendo.tools/discover.v5.00.json?v=\(Date().timeIntervalSinceNow)"
+        let urlPath: String = "http://media.zendo.tools/discover.v5.20.json?v=\(Date().timeIntervalSinceNow)"
         #else
-        let urlPath: String = "http://media.zendo.tools/discover.v5.00.json?v=\(Date().timeIntervalSinceNow)"
+        let urlPath: String = "http://media.zendo.tools/discover.v5.20.json?v=\(Date().timeIntervalSinceNow)"
         #endif
         
         URLSession.shared.dataTask(with: URL(string: urlPath)!) { data, response, error -> Void in
@@ -512,27 +514,19 @@ extension DiscoverViewController: UICollectionViewDataSource {
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 vc = alert
             } else {
-                let solo = GroupController.loadFromStoryboard()
-                solo.story = story
-                solo.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-                solo.hero.isEnabled = true
-                vc = solo
+                let group = GroupController.loadFromStoryboard()
+                group.story = story
+                group.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+                group.hero.isEnabled = true
+                vc = group
             }
-        } else if story.type == "solo"
+        } else if story.type == "solo" || story.type == "train"
         {
             let solo = TrainController.loadFromStoryboard(true)
             solo.story = story
             solo.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
             solo.hero.isEnabled = true
             vc = solo
-        }
-        else if story.type == "train"
-        {
-            let train = TrainController.loadFromStoryboard(false)
-            train.story = story
-            train.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-            train.hero.isEnabled = true
-            vc = train
         }
         else //tutorial
         {

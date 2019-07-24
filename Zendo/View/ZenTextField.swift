@@ -9,12 +9,13 @@
 import UIKit
 
 enum ZenTextFieldType: Int {
-    case fullName = 0, email
+    case fullName = 0, email, wallet
     
     var placeholder: String {
         switch self {
         case .fullName: return "enter full name"
         case .email: return "email"
+        case .wallet : return "ilp wallet"
         }
     }
     
@@ -64,6 +65,10 @@ class TextFieldPlaceHolder: UITextField {
             textField.autocapitalizationType = .none
             textField.keyboardType = .emailAddress
             textField.returnKeyType = .done
+        case .wallet:
+            textField.textContentType = .name
+            textField.autocapitalizationType = .none
+            textField.keyboardType = .asciiCapableNumberPad
         }
         
     }

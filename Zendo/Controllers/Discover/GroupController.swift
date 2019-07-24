@@ -16,9 +16,14 @@ import AVKit
 import Mixpanel
 import Cache
 import AvatarCapture
+import Movesense
+import SwiftyJSON
 
 class GroupController: UIViewController
 {
+    
+    let movesenseService = MovesenseService.Instance
+    
     @IBOutlet weak var spriteView: SKView!
     {
         didSet {
@@ -28,9 +33,6 @@ class GroupController: UIViewController
     @IBOutlet weak var connectButton: UIButton!
     @IBOutlet weak var avatarView: UIView!
     @IBOutlet weak var playersLabel: UILabel!
-    @IBOutlet weak var minutesLabel: UILabel!
-    @IBOutlet weak var playersTitle: UILabel!
-    @IBOutlet weak var minutesTitle: UILabel!
     
     @IBOutlet weak var arenaView: ArenaView! {
         didSet {
@@ -45,14 +47,18 @@ class GroupController: UIViewController
     var story: Story!
     var idHero = ""
     var panGR: UIPanGestureRecognizer!
-    var airplay: AirplayController?
     var chartHR = [String: Int]()
     var scene : SKScene?
     var players = [String : Int]()
     let avatarCaptureController = AvatarCaptureController()
     var profileImage : UIImage?
-    var last_progress : [String]? = nil
-    var last_sample : [String : Any]? = nil 
+    var lastUpdate = NSMutableDictionary()
+    //var lastUpdate = Update(progress: "False/0", sample: nil)
+    
+    struct Update {
+        var progress : String
+        var sample : [String : Any]?
+    }
     
     let diskConfig = DiskConfig(name: "DiskCache")
     let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
@@ -73,17 +79,6 @@ class GroupController: UIViewController
     {
         super.didReceiveMemoryWarning()
         try? storage?.removeAll()
-    }
-    
-    func airplay(_ url: URL)
-    {
-        if let airplay = self.airplay
-        {
-            airplay.dismiss()
-            airplay.dismiss(animated: true, completion: nil)
-        }
-        
-        self.airplay = AirplayController.loadFromStoryboard(url)
     }
     
     func setBackground() {
@@ -109,7 +104,6 @@ class GroupController: UIViewController
         
         let streamString = story.content[0].stream
         let downloadString = story.content[0].download
-        let airplayString = story.content[0].airplay
         
         var downloadUrl : URL?
         var streamUrl : URL?
@@ -122,11 +116,6 @@ class GroupController: UIViewController
         if let urlString = streamString, let url = URL(string: urlString)
         {
             streamUrl = url
-        }
-        
-        if let urlString = airplayString, let url = URL(string: urlString)
-        {
-            self.airplay(url)
         }
         
         storage?.async.entry(forKey: downloadUrl?.absoluteString ?? "", completion:
@@ -170,7 +159,7 @@ class GroupController: UIViewController
     {
         super.viewWillDisappear(animated)
         
-        Mixpanel.mainInstance().track(event: "phone_train", properties: ["name": story.title])
+        Mixpanel.mainInstance().track(event: "group_train", properties: ["name": story.title])
         
         NotificationCenter.default.removeObserver(self)
         
@@ -180,9 +169,7 @@ class GroupController: UIViewController
         
         self.spriteView.presentScene(nil)
         self.scene = nil
-        
-        self.airplay?.dismiss()
-        self.airplay = nil
+
     }
     
     func setupConnectButton()
@@ -199,7 +186,7 @@ class GroupController: UIViewController
         self.connectButton.layer.shadowRadius = 20
     }
     
-    func setupWatchNotifications()
+    func setupSensorNotifications()
     {
        NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.sample),
@@ -230,9 +217,9 @@ class GroupController: UIViewController
         
         UIApplication.shared.isIdleTimerDisabled = true
         
-        Mixpanel.mainInstance().time(event: "phone_train")
+        Mixpanel.mainInstance().time(event: "phone_group")
         
-        setupWatchNotifications()
+        setupSensorNotifications()
         
         do {
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
@@ -245,6 +232,13 @@ class GroupController: UIViewController
         
         avatarCaptureController.delegate = self
         avatarView.addSubview((avatarCaptureController.view)!)
+        
+        
+        self.movesenseService.setHandlers(deviceConnected: {(serial: String) ->() in self.updateConnected(serial:serial)},deviceDisconnected: { _ in
+            self.updateDisconnected()}, bleOnOff: { _ in
+                self.updatebleOnOff()})
+        
+        self.movesenseService.startScan({(device:MovesenseDevice)-> () in self.peripheralFound(device: device)})
         
         self.startSession()
         
@@ -263,29 +257,9 @@ class GroupController: UIViewController
     @objc func startSession()
     {
 
-        if(Settings.isWatchConnected)
+        if(Settings.isSensorConnected)
         {
-            Mixpanel.mainInstance().time(event: "phone_train_watch_connected")
-            
-            Cloud.registerPlayersChangedHandler
-            {
-                (players, error) in
-                
-                self.players = players
-                
-                DispatchQueue.main.async
-                {
-                    UIView.animate(withDuration: 0.5)
-                    {
-                        self.playersLabel.text = self.players.count.description
-                        self.minutesLabel.text = self.players.reduce(0,
-                        {
-                            return $0 + $1.value
-                        }).description
-
-                    }
-                }
-            }
+            Mixpanel.mainInstance().time(event: "phone_group_session")
             
             if let image = self.profileImage
             {
@@ -300,28 +274,22 @@ class GroupController: UIViewController
                     self.connectButton.isHidden = true
                     self.avatarView.isHidden = false
                     self.playersLabel.isHidden = false
-                    self.minutesLabel.isHidden = false
-                    self.playersTitle.isHidden = false
-                    self.minutesTitle.isHidden = false
                 }
-                
             }
-            
         }
     }
     
     @objc func endSession()
     {
-        Mixpanel.mainInstance().track(event: "phone_train_watch_connected",
+        Mixpanel.mainInstance().track(event: "phone_group_session",
                                           properties: ["name": self.story.title])
         
         Cloud.removePlayer(email: Settings.email!)
         
-        Settings.isWatchConnected = false
+        Settings.isSensorConnected = false
         
         DispatchQueue.main.async
         {
-            
             UIView.animate(withDuration: 0.5)
             {
                     self.arenaView.isHidden = true
@@ -331,21 +299,24 @@ class GroupController: UIViewController
                     self.arenaView.time.text = "--"
                     self.arenaView.setChart([])
                     self.playersLabel.isHidden = true
-                    self.minutesLabel.isHidden = true
-                    self.playersTitle.isHidden = true
-                    self.minutesTitle.isHidden = true
                 }
             }
         }
     
     @objc func progress(notification: NSNotification)
     {
-        if let progress = notification.object as? [String]
+        if let progress = notification.object as? String
         {
-            self.last_progress = progress
+            self.lastUpdate["progress"] = progress
             
-            Cloud.updatePlayer(email: Settings.email!, progress: self.last_progress!, sample: self.last_sample!)
+            Cloud.updatePlayer(email: Settings.email!, update: self.lastUpdate)
             
+            if let address = Settings.ilpAddress
+            {
+                let payment = MoneyKit.Payment(source_address: address, source_amount: MoneyKit.Amount(value: 10, currency: "XRP"), destination_address: story.beneficiaryPaymentAddress!, destination_amount: MoneyKit.Amount(value: 10, currency: "XRP"))
+            
+                MoneyKit.pay(payment)
+            }
         }
     }
     
@@ -376,9 +347,27 @@ class GroupController: UIViewController
                 self.arenaView.setChart(chartHR)
             }
             
-            self.last_sample = sample
+            let update = NSMutableDictionary(dictionary: sample)
             
-            Cloud.updatePlayer(email: Settings.email!, progress: self.last_progress, sample: self.last_sample)
+            if let progress = self.lastUpdate["progress"]
+            {
+                update["progress"] = progress
+            }
+            else
+            {
+                update["progress"] = false.description + "/0"
+            }
+            
+            self.lastUpdate = update
+            
+            Cloud.updatePlayer(email: Settings.email!, update: self.lastUpdate)
+            
+            if let address = Settings.ilpAddress
+            {
+                let payment = MoneyKit.Payment(source_address: address, source_amount: MoneyKit.Amount(value: 1, currency: "XRP"), destination_address: story.beneficiaryPaymentAddress!, destination_amount: MoneyKit.Amount(value: 1, currency: "XRP"))
+                
+                MoneyKit.pay(payment)
+            }
         }
         
     }
@@ -457,6 +446,92 @@ class GroupController: UIViewController
         }
 
     }
+    
+    private func peripheralFound(device:MovesenseDevice){
+        print("movesense found")
+        
+        print("There are \(self.movesenseService.getDeviceCount()) devices")
+        self.movesenseService.connectDevice(device.serial)
+        print("Device: \(device.serial) just connected")
+        
+        self.playersLabel.text = self.playersLabel.text ?? "" + "\r\n" + device.serial
+    }
+    
+    private func updateConnected(serial: String){
+        print("movesense connected: \(serial)")
+        self.movesenseService.subscribe(serial, path: Movesense.HR_PATH, parameters: [:], onNotify: { response in self.handleData(response, serial: serial)}) { _,_,_  in }
+    }
+    
+    private func updateDisconnected(){
+        print("movesense Disconnected")
+    }
+    private func updatebleOnOff(){
+        print("Bluetooth toggled")
+    }
+    
+    private func handleData(_ response: MovesenseResponse, serial: String)
+    {
+        let json = JSON(parseJSON: response.content)
+    
+        if json["rrData"][0].number != nil
+        {
+            let rr = json["rrData"][0].doubleValue
+            
+            let hr = 1000/rr
+            
+            print("device: \(serial) Heart Rate: \(String(hr))")
+            
+            var progress = "true/0"
+            
+            if var samples = movesenseSamples[serial] {
+            
+                samples.append(rr)
+                
+                movesenseSamples[serial] = samples
+            
+                let startDate = movesenseSensors[serial]!
+                
+                let mins = abs(startDate.minutes(from: Date()))
+                
+                progress = "true/\(mins)"
+            }
+            else
+            {
+                movesenseSamples[serial] = [rr]
+                movesenseSensors[serial] = Date()
+            }
+            
+            let sdnn = self.standardDeviation(movesenseSamples[serial]!)
+            
+            let update = ["heart" : String(hr) , "sdnn" : sdnn.description, "progress" : progress]
+    
+            Cloud.updatePlayer(email: serial, update: update)
+            
+        }
+    }
+    
+    var movesenseSamples = [String : [Double]]()
+    var movesenseSensors = [String : Date]()
+    
+    func standardDeviation(_ arr : [Double]) -> Double
+    {
+        let rrIntervals = arr.map
+        {
+            (beat) -> Double in
+            
+            return 1000 / beat
+        }
+        
+        let length = Double(rrIntervals.count)
+        
+        let avg = rrIntervals.reduce(0, +) / length
+        
+        let sumOfSquaredAvgDiff = rrIntervals.map
+        {pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
+        
+        return sqrt(sumOfSquaredAvgDiff / length)
+        
+    }
 }
 
 extension GroupController: AvatarCaptureControllerDelegate
@@ -467,17 +542,13 @@ extension GroupController: AvatarCaptureControllerDelegate
         
         self.profileImage = image
         
-        if(!Settings.isWatchConnected) {
+        let startingSessions = StartingSessionViewController()
             
-            let startingSessions = StartingSessionViewController()
+        startingSessions.modalPresentationStyle = .overFullScreen
             
-            startingSessions.modalPresentationStyle = .overFullScreen
+        startingSessions.modalTransitionStyle = .crossDissolve
             
-            startingSessions.modalTransitionStyle = .crossDissolve
-            
-            self.present(startingSessions, animated: true)
-            
-        }
+        self.present(startingSessions, animated: true)
     }
     
     func imageSelectionCancelled() {

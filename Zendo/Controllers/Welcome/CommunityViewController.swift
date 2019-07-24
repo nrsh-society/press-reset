@@ -37,6 +37,14 @@ class CommunityViewController: UIViewController {
     @IBOutlet var labels: [UILabel]!
     @IBOutlet weak var skipButton: UIBarButtonItem!
 
+    @IBOutlet weak var wallet: ZenTextField! {
+        didSet {
+            wallet.zenTextFieldType = .wallet
+            wallet.textField.delegate = self
+        }
+    }
+    
+    
     var bottomSpaceNext: CGFloat = 37.0
 
     override func viewDidAppear(_ animated: Bool) {
@@ -154,6 +162,7 @@ class CommunityViewController: UIViewController {
             Settings.didFinishCommunitySignup = true
             Settings.fullName = fullName.textField.text
             Settings.email = email.textField.text
+            Settings.ilpAddress = wallet.textField.text
             
             if let name = Settings.fullName, let email = Settings.email
             {

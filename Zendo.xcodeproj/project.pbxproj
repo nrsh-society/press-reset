@@ -95,8 +95,18 @@
 		12FFCAE1210F6DA0007E2480 /* ZendoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE0210F6DA0007E2480 /* ZendoTableViewCell.swift */; };
 		12FFCAE5210F7DDD007E2480 /* Cell+ReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE4210F7DDD007E2480 /* Cell+ReuseIdentifier.swift */; };
 		12FFCAE7210F7E40007E2480 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE6210F7E40007E2480 /* Date.swift */; };
+		7B2BD44C22A4961100B0B5A4 /* MetadataExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2BD44B22A4961100B0B5A4 /* MetadataExtractor.swift */; };
 		7BBF84AC229B81C9008FA2A2 /* Pods_ZendoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BBF84AB229B81C9008FA2A2 /* Pods_ZendoTests.framework */; };
 		7BBF84B1229B8272008FA2A2 /* CommunityViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBF84B0229B8272008FA2A2 /* CommunityViewControllerTest.swift */; };
+		7BEDEAEF22A3440B008FCAF7 /* WorkoutSessionReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAEE22A3440B008FCAF7 /* WorkoutSessionReporter.swift */; };
+		7BEDEAF122A3487F008FCAF7 /* WorkoutSessionReporterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAF022A3487F008FCAF7 /* WorkoutSessionReporterTest.swift */; };
+		7BEDEAF522A34CCF008FCAF7 /* WorkoutFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAF422A34CCF008FCAF7 /* WorkoutFetcher.swift */; };
+		7BEDEAF922A34EC5008FCAF7 /* MockWorkoutFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAF822A34EC5008FCAF7 /* MockWorkoutFetcher.swift */; };
+		7BEDEAFB22A351EB008FCAF7 /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAFA22A351EB008FCAF7 /* TestUtil.swift */; };
+		7BEDEB0222A35D0E008FCAF7 /* Date+InitializersTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEB0122A35D0E008FCAF7 /* Date+InitializersTest.swift */; };
+		7BEDEB0422A43052008FCAF7 /* ForegrounderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEB0322A43052008FCAF7 /* ForegrounderTest.swift */; };
+		7BEDEB0622A43111008FCAF7 /* Foregrounder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEB0522A43111008FCAF7 /* Foregrounder.swift */; };
+		7BEDEB0822A436F7008FCAF7 /* MockWorkoutSessionReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEB0722A436F7008FCAF7 /* MockWorkoutSessionReporter.swift */; };
 		7C58E4E41E858E4241584A97 /* Pods_Zendo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA85D12F03B88975AECB0609 /* Pods_Zendo.framework */; };
 		BE021CC42260E79A00153D4B /* GroupController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE021CC22260E79A00153D4B /* GroupController.storyboard */; };
 		BE021CC52260E79A00153D4B /* GroupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE021CC32260E79A00153D4B /* GroupController.swift */; };
@@ -118,8 +128,12 @@
 		BE2E82121FF44A7B00D104AC /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E82111FF44A7B00D104AC /* ExtensionDelegate.swift */; };
 		BE2E82141FF44A7B00D104AC /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E82131FF44A7B00D104AC /* NotificationController.swift */; };
 		BE30A47E21E4786600F8509C /* notification.json in Resources */ = {isa = PBXBuildFile; fileRef = BE30A47D21E4786600F8509C /* notification.json */; };
+		BE38B61322E16DBA0044DFB6 /* MoneyKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38B61222E16DBA0044DFB6 /* MoneyKit.swift */; };
 		BE3AE43621ED0ACF0019C489 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3AE43521ED0ACF0019C489 /* Notification.swift */; };
 		BE4895AC206B0CC400B007D6 /* ZazenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4895AB206B0CC400B007D6 /* ZazenController.swift */; };
+		BE4F346222D460830006BAAE /* MovesenseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F346122D460830006BAAE /* MovesenseService.swift */; };
+		BE4F346422D460910006BAAE /* BleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F346322D460910006BAAE /* BleController.swift */; };
+		BE4F346822D550F90006BAAE /* libmds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4F346722D550F90006BAAE /* libmds.a */; };
 		BE50D2F220CC3BA200FF9C54 /* CommunityDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */; };
 		BE75AEBF20F708C300311512 /* ChartColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75AEBC20F708C300311512 /* ChartColors.swift */; };
 		BE75AEC020F708C300311512 /* ChartSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75AEBD20F708C300311512 /* ChartSeries.swift */; };
@@ -324,14 +338,25 @@
 		6E8477B811FB4211AB7EE3D4 /* Pods-ZendoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZendoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZendoTests/Pods-ZendoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6E976786A0B62DF02B6D3728 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		73956C9DFF514C25FAEB0010 /* Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		7B2BD44B22A4961100B0B5A4 /* MetadataExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataExtractor.swift; sourceTree = "<group>"; };
 		7BBF84AB229B81C9008FA2A2 /* Pods_ZendoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_ZendoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BBF84B0229B8272008FA2A2 /* CommunityViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewControllerTest.swift; sourceTree = "<group>"; };
+		7BEDEAEE22A3440B008FCAF7 /* WorkoutSessionReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionReporter.swift; sourceTree = "<group>"; };
+		7BEDEAF022A3487F008FCAF7 /* WorkoutSessionReporterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionReporterTest.swift; sourceTree = "<group>"; };
+		7BEDEAF422A34CCF008FCAF7 /* WorkoutFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutFetcher.swift; sourceTree = "<group>"; };
+		7BEDEAF822A34EC5008FCAF7 /* MockWorkoutFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWorkoutFetcher.swift; sourceTree = "<group>"; };
+		7BEDEAFA22A351EB008FCAF7 /* TestUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtil.swift; sourceTree = "<group>"; };
+		7BEDEB0122A35D0E008FCAF7 /* Date+InitializersTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+InitializersTest.swift"; sourceTree = "<group>"; };
+		7BEDEB0322A43052008FCAF7 /* ForegrounderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegrounderTest.swift; sourceTree = "<group>"; };
+		7BEDEB0522A43111008FCAF7 /* Foregrounder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foregrounder.swift; sourceTree = "<group>"; };
+		7BEDEB0722A436F7008FCAF7 /* MockWorkoutSessionReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWorkoutSessionReporter.swift; sourceTree = "<group>"; };
 		7BF70C99229B80D4001E4D0E /* ZendoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZendoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF70C9D229B80D4001E4D0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91FBDAC94D9B42088C3E7F8B /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
 		9BD6CE514120A3F5874E8C15 /* Pods-Zendo WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zendo WatchKit Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		BE021CC22260E79A00153D4B /* GroupController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GroupController.storyboard; sourceTree = "<group>"; };
 		BE021CC32260E79A00153D4B /* GroupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupController.swift; sourceTree = "<group>"; };
+		BE029E9A22D1000B00649DEF /* ZendoKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZendoKit.swift; sourceTree = "<group>"; };
 		BE066BD720F1EFC10008747D /* OverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewController.swift; sourceTree = "<group>"; };
 		BE066BDC20F1F3D10008747D /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
 		BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsInterfaceController.swift; sourceTree = "<group>"; };
@@ -355,12 +380,22 @@
 		BE2E82171FF44A7B00D104AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE2E82181FF44A7B00D104AC /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		BE30A47D21E4786600F8509C /* notification.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notification.json; sourceTree = "<group>"; };
+		BE38B61222E16DBA0044DFB6 /* MoneyKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyKit.swift; sourceTree = "<group>"; };
 		BE3AE43521ED0ACF0019C489 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		BE4895AB206B0CC400B007D6 /* ZazenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZazenController.swift; sourceTree = "<group>"; };
+		BE4F346122D460830006BAAE /* MovesenseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovesenseService.swift; sourceTree = "<group>"; };
+		BE4F346322D460910006BAAE /* BleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleController.swift; sourceTree = "<group>"; };
+		BE4F346522D550D60006BAAE /* Movesense.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Movesense.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE4F346722D550F90006BAAE /* libmds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmds.a; path = "Pods/Movesense/IOS/Movesense/Release-iphoneos/libmds.a"; sourceTree = "<group>"; };
 		BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDataLoader.swift; sourceTree = "<group>"; };
 		BE75AEBC20F708C300311512 /* ChartColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartColors.swift; sourceTree = "<group>"; };
 		BE75AEBD20F708C300311512 /* ChartSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSeries.swift; sourceTree = "<group>"; };
 		BE75AEBE20F708C300311512 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
+		BE813BE422D070E6007DED15 /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
+		BE813BE722D070E6007DED15 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		BE813BEA22D070E6007DED15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		BE813BEC22D070E7007DED15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BE813BEE22D070E7007DED15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE81B26D2001B85500274FA1 /* Zendo.entitlements */ = {isa = PBXFileReference; explicitFileType = text.plist.entitlements; path = Zendo.entitlements; sourceTree = "<group>"; };
 		BE81B26E2001B85500274FA1 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		BE8786FD2215EE1F0052FE4C /* Cloud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cloud.swift; sourceTree = "<group>"; };
@@ -418,6 +453,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE4F346822D550F90006BAAE /* libmds.a in Frameworks */,
 				12C63FFA2215B86A001C93C7 /* StoreKit.framework in Frameworks */,
 				BE81B26F2001B85500274FA1 /* HealthKit.framework in Frameworks */,
 				7C58E4E41E858E4241584A97 /* Pods_Zendo.framework in Frameworks */,
@@ -750,11 +786,51 @@
 			path = Welcome;
 			sourceTree = "<group>";
 		};
+		7BEDEAF322A34C83008FCAF7 /* Workouts */ = {
+			isa = PBXGroup;
+			children = (
+				7B2BD44B22A4961100B0B5A4 /* MetadataExtractor.swift */,
+				7BEDEAEE22A3440B008FCAF7 /* WorkoutSessionReporter.swift */,
+				7BEDEAF422A34CCF008FCAF7 /* WorkoutFetcher.swift */,
+			);
+			path = Workouts;
+			sourceTree = "<group>";
+		};
+		7BEDEAF622A34EAD008FCAF7 /* Workouts */ = {
+			isa = PBXGroup;
+			children = (
+				7BEDEAF722A34EB9008FCAF7 /* Mocks */,
+				7BEDEAF022A3487F008FCAF7 /* WorkoutSessionReporterTest.swift */,
+			);
+			path = Workouts;
+			sourceTree = "<group>";
+		};
+		7BEDEAF722A34EB9008FCAF7 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				7BEDEAF822A34EC5008FCAF7 /* MockWorkoutFetcher.swift */,
+				7BEDEB0722A436F7008FCAF7 /* MockWorkoutSessionReporter.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		7BEDEB0022A35D00008FCAF7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7BEDEB0122A35D0E008FCAF7 /* Date+InitializersTest.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		7BF70C9A229B80D4001E4D0E /* ZendoTests */ = {
 			isa = PBXGroup;
 			children = (
+				7BEDEB0322A43052008FCAF7 /* ForegrounderTest.swift */,
+				7BEDEB0022A35D00008FCAF7 /* Extensions */,
+				7BEDEAF622A34EAD008FCAF7 /* Workouts */,
 				7BBF84AE229B8256008FA2A2 /* Controllers */,
 				7BF70C9D229B80D4001E4D0E /* Info.plist */,
+				7BEDEAFA22A351EB008FCAF7 /* TestUtil.swift */,
 			);
 			path = ZendoTests;
 			sourceTree = "<group>";
@@ -767,6 +843,7 @@
 				BE2E820E1FF44A7B00D104AC /* Zendo WatchKit Extension */,
 				12E2A1A2211073B900E0E911 /* Fonts */,
 				7BF70C9A229B80D4001E4D0E /* ZendoTests */,
+				BE813BE622D070E6007DED15 /* ZendoMsg */,
 				BE2E81EA1FF44A7B00D104AC /* Products */,
 				BE8BB21D1FFDCC4600B2E113 /* Frameworks */,
 				73956C9DFF514C25FAEB0010 /* Bridging-Header.h */,
@@ -789,6 +866,8 @@
 		BE2E81EB1FF44A7B00D104AC /* Zendo */ = {
 			isa = PBXGroup;
 			children = (
+				BE4F346122D460830006BAAE /* MovesenseService.swift */,
+				BE4F346322D460910006BAAE /* BleController.swift */,
 				12FFCADD210F3F03007E2480 /* Supporting Files */,
 				BE2E81EC1FF44A7B00D104AC /* AppDelegate.swift */,
 				BE2E81F01FF44A7B00D104AC /* Main.storyboard */,
@@ -798,6 +877,7 @@
 				12E2A1B3211077B400E0E911 /* Controllers */,
 				12477F1E2119A22900D8AE83 /* Model */,
 				12C1A7262119B70100EEFF4F /* View */,
+				7BEDEAF322A34C83008FCAF7 /* Workouts */,
 				BE75AEBE20F708C300311512 /* Chart.swift */,
 				BE75AEBC20F708C300311512 /* ChartColors.swift */,
 				BE75AEBD20F708C300311512 /* ChartSeries.swift */,
@@ -807,6 +887,8 @@
 				BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */,
 				12BE94BE21AEE4C6000E2B0B /* PauseImageView.swift */,
 				BE81B26D2001B85500274FA1 /* Zendo.entitlements */,
+				7BEDEB0522A43111008FCAF7 /* Foregrounder.swift */,
+				BE38B61222E16DBA0044DFB6 /* MoneyKit.swift */,
 			);
 			path = Zendo;
 			sourceTree = "<group>";
@@ -845,9 +927,23 @@
 			path = "Zendo WatchKit Extension";
 			sourceTree = "<group>";
 		};
+		BE813BE622D070E6007DED15 /* ZendoMsg */ = {
+			isa = PBXGroup;
+			children = (
+				BE813BE722D070E6007DED15 /* MessagesViewController.swift */,
+				BE813BE922D070E6007DED15 /* MainInterface.storyboard */,
+				BE813BEC22D070E7007DED15 /* Assets.xcassets */,
+				BE813BEE22D070E7007DED15 /* Info.plist */,
+				BE029E9A22D1000B00649DEF /* ZendoKit.swift */,
+			);
+			path = ZendoMsg;
+			sourceTree = "<group>";
+		};
 		BE8BB21D1FFDCC4600B2E113 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE4F346722D550F90006BAAE /* libmds.a */,
+				BE4F346522D550D60006BAAE /* Movesense.framework */,
 				7BBF84AB229B81C9008FA2A2 /* Pods_ZendoTests.framework */,
 				12C63FF92215B86A001C93C7 /* StoreKit.framework */,
 				BE9B00012065FE44007FF96A /* CoreMotion.framework */,
@@ -865,6 +961,7 @@
 				C86368BD68AC54656999A5EB /* CoreVideo.framework */,
 				CA85D12F03B88975AECB0609 /* Pods_Zendo.framework */,
 				E5A68E6B7BCA076B4161502D /* Pods_Zendo_WatchKit_Extension.framework */,
+				BE813BE422D070E6007DED15 /* Messages.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -953,6 +1050,7 @@
 				BE2E82061FF44A7B00D104AC /* Sources */,
 				BE2E82071FF44A7B00D104AC /* Frameworks */,
 				BE2E82081FF44A7B00D104AC /* Resources */,
+				4A3AF5CEC3CA7CC123E9DFEC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1144,8 +1242,6 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ZendoTests/Pods-ZendoTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Fleet/Fleet.framework",
@@ -1153,8 +1249,6 @@
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Fleet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
@@ -1200,8 +1294,9 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/Mixpanel-swift/Mixpanel.framework",
+				"${BUILT_PRODUCTS_DIR}/Movesense/Movesense.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
-				"${BUILT_PRODUCTS_DIR}/PeerKit/PeerKit.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -1220,8 +1315,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Movesense.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PeerKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -1249,6 +1345,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4A3AF5CEC3CA7CC123E9DFEC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Mixpanel/Mixpanel.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7BBF84AD229B81E1008FA2A2 /* Copy storyboard info */ = {
@@ -1298,7 +1412,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BEDEAF122A3487F008FCAF7 /* WorkoutSessionReporterTest.swift in Sources */,
+				7BEDEAF922A34EC5008FCAF7 /* MockWorkoutFetcher.swift in Sources */,
+				7BEDEB0422A43052008FCAF7 /* ForegrounderTest.swift in Sources */,
+				7BEDEB0822A436F7008FCAF7 /* MockWorkoutSessionReporter.swift in Sources */,
+				7BEDEB0222A35D0E008FCAF7 /* Date+InitializersTest.swift in Sources */,
 				7BBF84B1229B8272008FA2A2 /* CommunityViewControllerTest.swift in Sources */,
+				7BEDEAFB22A351EB008FCAF7 /* TestUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1312,6 +1432,7 @@
 				124A689E2199CCF800598639 /* Error.swift in Sources */,
 				12CE365421132A7100EF0196 /* UIImage.swift in Sources */,
 				127C3E3721789FD800B332EB /* CALayer+Corners.swift in Sources */,
+				BE38B61322E16DBA0044DFB6 /* MoneyKit.swift in Sources */,
 				BE066BDD20F1F3D10008747D /* PageController.swift in Sources */,
 				12C1A7282119B74B00EEFF4F /* ZenButton.swift in Sources */,
 				128D0BB92111D30900A4D757 /* UIDevice+Size.swift in Sources */,
@@ -1323,9 +1444,11 @@
 				1246C422212725140011F5D3 /* BalloonMarker.swift in Sources */,
 				12E2A1B521107A9400E0E911 /* UIFont.swift in Sources */,
 				BE0FF19921E03EDB0050D15B /* NotificationViewController.swift in Sources */,
+				7BEDEB0622A43111008FCAF7 /* Foregrounder.swift in Sources */,
 				DFE3B1762189C377008830CD /* StartingSessionViewController.swift in Sources */,
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
 				BE8787002215EE1F0052FE4C /* TrainController.swift in Sources */,
+				BE4F346422D460910006BAAE /* BleController.swift in Sources */,
 				126544AE2170B44D00CA8F0B /* NavigationControllerWelcome.swift in Sources */,
 				12BE94BF21AEE4C6000E2B0B /* PauseImageView.swift in Sources */,
 				BE9DB33621F5680700BCE8C2 /* AirplayController.swift in Sources */,
@@ -1363,14 +1486,18 @@
 				12A7E256217F404200E38018 /* Story.swift in Sources */,
 				12F121352125B67D00F5451D /* ConstraintMetadata.swift in Sources */,
 				1226B01D2229965A00EE02F9 /* SuccessSubscriptionViewController.swift in Sources */,
+				7BEDEAEF22A3440B008FCAF7 /* WorkoutSessionReporter.swift in Sources */,
 				BE75AEC020F708C300311512 /* ChartSeries.swift in Sources */,
 				12BE94CA21AF0FF4000E2B0B /* VideoGeneratorError.swift in Sources */,
+				7B2BD44C22A4961100B0B5A4 /* MetadataExtractor.swift in Sources */,
 				127C3E392178B37C00B332EB /* VideoViewController.swift in Sources */,
 				12C208F122304C3900305F57 /* SKSpriteNode.swift in Sources */,
 				127C3E342178993100B332EB /* DiscoverCollectionViewCell.swift in Sources */,
+				BE4F346222D460830006BAAE /* MovesenseService.swift in Sources */,
 				BE2E81ED1FF44A7B00D104AC /* AppDelegate.swift in Sources */,
 				1223161F21A809D800413A62 /* UIImageView+Download.swift in Sources */,
 				BE75AEBF20F708C300311512 /* ChartColors.swift in Sources */,
+				7BEDEAF522A34CCF008FCAF7 /* WorkoutFetcher.swift in Sources */,
 				121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */,
 				12C1A72C2119B78900EEFF4F /* UIView+Nib.swift in Sources */,
 				12E2A1B22110774000E0E911 /* ConstraintFont.swift in Sources */,
@@ -1463,6 +1590,14 @@
 				BE2E82011FF44A7B00D104AC /* Base */,
 			);
 			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+		BE813BE922D070E6007DED15 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE813BEA22D070E6007DED15 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1739,6 +1874,10 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Movesense/IOS/Movesense/Release-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1767,6 +1906,10 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Movesense/IOS/Movesense/Release-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
