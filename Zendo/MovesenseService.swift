@@ -16,6 +16,8 @@ final public class MovesenseService: NSObject {
     private var deviceDisconnectedCb: (String) -> () = { (serial) in }
     private var bleOnOffCbs: Array<(Bool) -> ()> = []
     private var mdsUriPrefix: String = "suunto://MDS/"
+    
+    public static var Instance = MovesenseService()
 
     public override init() {
         super.init()

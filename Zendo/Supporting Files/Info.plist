@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>324</string>
+	<string>325</string>
 	<key>FacebookAppID</key>
 	<string>705460713163317</string>
 	<key>FacebookDisplayName</key>
@@ -50,6 +50,8 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>localhost</key>
+			<string></string>
 			<key>org.zenbf</key>
 			<string></string>
 		</dict>

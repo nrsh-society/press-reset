@@ -22,7 +22,7 @@ import SwiftyJSON
 class GroupController: UIViewController
 {
     
-    let movesenseService = MovesenseService()
+    let movesenseService = MovesenseService.Instance
     
     @IBOutlet weak var spriteView: SKView!
     {
@@ -310,10 +310,13 @@ class GroupController: UIViewController
             self.lastUpdate["progress"] = progress
             
             Cloud.updatePlayer(email: Settings.email!, update: self.lastUpdate)
-           
-            let payment = MoneyKit.Payment(source_address: Settings.ilpAddress!, source_amount: MoneyKit.Amount(value: 1, currency: "XRP"), destination_address: story.beneficiaryPaymentAddress!, destination_amount: MoneyKit.Amount(value: 1, currency: "XRP"))
             
-            MoneyKit.pay(payment)
+            if let address = Settings.ilpAddress
+            {
+                let payment = MoneyKit.Payment(source_address: address, source_amount: MoneyKit.Amount(value: 10, currency: "XRP"), destination_address: story.beneficiaryPaymentAddress!, destination_amount: MoneyKit.Amount(value: 10, currency: "XRP"))
+            
+                MoneyKit.pay(payment)
+            }
         }
     }
     
@@ -358,6 +361,13 @@ class GroupController: UIViewController
             self.lastUpdate = update
             
             Cloud.updatePlayer(email: Settings.email!, update: self.lastUpdate)
+            
+            if let address = Settings.ilpAddress
+            {
+                let payment = MoneyKit.Payment(source_address: address, source_amount: MoneyKit.Amount(value: 1, currency: "XRP"), destination_address: story.beneficiaryPaymentAddress!, destination_amount: MoneyKit.Amount(value: 1, currency: "XRP"))
+                
+                MoneyKit.pay(payment)
+            }
         }
         
     }

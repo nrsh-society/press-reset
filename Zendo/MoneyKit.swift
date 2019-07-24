@@ -10,7 +10,7 @@ import Foundation
 class MoneyKit
 {
     static var apiKey = "2b22b5b518d52bed1c8202f0ed9e8ddb"
-    static var moneyService = "http://localhost:3000/v1/payments/"
+    static var moneyService = "http://10.20.26.229:3000/v1/payments/"
     
     struct Payment
     {
@@ -36,15 +36,22 @@ class MoneyKit
     {
         var request = URLRequest(url: URL(string: moneyService)!)
         
-        let paymentMessage = PaymentMessage(payment: payment, submit: true)
+        //let paymentMessage = PaymentMessage(payment: payment, submit: true)
         
         request.httpMethod = "POST"
         
-        if let json = try? JSONSerialization.data(withJSONObject: paymentMessage, options: [])
-        {
-            request.httpBody = json
+        request.addValue("Bearer 2b22b5b518d52bed1c8202f0ed9e8ddb", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let paymentMessage = "{ 'payment': { 'source_address': '\(payment.source_address)', 'source_amount': { 'value': '\(payment.source_amount.value)', 'currency': '\(payment.source_amount.currency)' }, 'destination_address': '\(payment.destination_address)', 'destination_amount': { 'value': '\(payment.source_amount.value)', 'currency': '\(payment.source_amount.currency)' } }, 'submit': true }"
+        
+        print(paymentMessage)
+        
+       // if let json = try? JSONSerialization.data(withJSONObject: paymentMessage, options: [])
+        //{
+            request.httpBody = paymentMessage.data(using: .utf8)
 
-            URLSession.shared.dataTask(with: request)
+        var dataTask = URLSession.shared.dataTask(with: request)
             {
                 data, response, error in
             
@@ -57,6 +64,8 @@ class MoneyKit
                     print(error.debugDescription)
                 }
             }
-        }
+        
+        dataTask.resume()
+        //}
     }
 }

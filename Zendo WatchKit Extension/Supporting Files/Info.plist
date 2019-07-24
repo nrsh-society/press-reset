@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>5.2</string>
 	<key>CFBundleVersion</key>
-	<string>324</string>
+	<string>325</string>
 	<key>CLKComplicationPrincipalClass</key>
 	<string>$(PRODUCT_MODULE_NAME).ZendoDataSource</string>
 	<key>CLKComplicationSupportedFamilies</key>
