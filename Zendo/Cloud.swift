@@ -47,14 +47,7 @@ class Cloud
             }
         }
     }
-    
-    struct Player
-    {
-        var email : String
-        var progress : [String]
-        var sample : [String : Any]
-    }
-    
+        
     static func updatePlayer(email: String, update: Any?)
     {
         

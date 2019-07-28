@@ -19,8 +19,46 @@ import AvatarCapture
 import Movesense
 import SwiftyJSON
 
-class GroupController: UIViewController
+struct Player
 {
+    var id : String
+    var email : String?
+    
+    func getProfileUrl() -> String
+    {
+        return "\(self.id)"
+    }
+}
+
+class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSource
+{
+    
+    var players = [String : Player]()
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return players.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerCell", for: indexPath)
+        
+        let row = indexPath.row
+        
+        let player = Array(players.values)[row]
+        
+        cell.textLabel?.text = player.email
+        cell.textLabel?.textColor = UIColor.white
+        cell.imageView?.image = UIImage(named: "shobogenzo")
+/*
+        #todo: when profile photo uploading works
+ 
+        let url = URL(string: player.getProfileUrl())
+        cell.imageView?.setImage(from : url) { _, _ in }
+*/
+        return cell
+    }
+    
     
     let movesenseService = MovesenseService.Instance
     
@@ -32,7 +70,6 @@ class GroupController: UIViewController
     }
     @IBOutlet weak var connectButton: UIButton!
     @IBOutlet weak var avatarView: UIView!
-    @IBOutlet weak var playersLabel: UILabel!
     
     @IBOutlet weak var arenaView: ArenaView! {
         didSet {
@@ -44,21 +81,21 @@ class GroupController: UIViewController
         }
     }
 
-    var story: Story!
+    @IBOutlet weak var playerTableView: UITableView!
+    {
+        didSet {
+            playerTableView.delegate = self
+            playerTableView.dataSource = self
+        }
+    }
+    var story : Story!
     var idHero = ""
-    var panGR: UIPanGestureRecognizer!
+    var panGR : UIPanGestureRecognizer!
     var chartHR = [String: Int]()
     var scene : SKScene?
-    var players = [String : Int]()
     let avatarCaptureController = AvatarCaptureController()
     var profileImage : UIImage?
     var lastUpdate = NSMutableDictionary()
-    //var lastUpdate = Update(progress: "False/0", sample: nil)
-    
-    struct Update {
-        var progress : String
-        var sample : [String : Any]?
-    }
     
     let diskConfig = DiskConfig(name: "DiskCache")
     let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
@@ -233,7 +270,6 @@ class GroupController: UIViewController
         avatarCaptureController.delegate = self
         avatarView.addSubview((avatarCaptureController.view)!)
         
-        
         self.movesenseService.setHandlers(deviceConnected: {(serial: String) ->() in self.updateConnected(serial:serial)},deviceDisconnected: { _ in
             self.updateDisconnected()}, bleOnOff: { _ in
                 self.updatebleOnOff()})
@@ -273,7 +309,6 @@ class GroupController: UIViewController
                     self.arenaView.isHidden = false
                     self.connectButton.isHidden = true
                     self.avatarView.isHidden = false
-                    self.playersLabel.isHidden = false
                 }
             }
         }
@@ -298,7 +333,6 @@ class GroupController: UIViewController
                     self.arenaView.hrv.text = "--"
                     self.arenaView.time.text = "--"
                     self.arenaView.setChart([])
-                    self.playersLabel.isHidden = true
                 }
             }
         }
@@ -448,21 +482,57 @@ class GroupController: UIViewController
     }
     
     private func peripheralFound(device:MovesenseDevice){
+        
         print("movesense found")
         
         print("There are \(self.movesenseService.getDeviceCount()) devices")
+        
         self.movesenseService.connectDevice(device.serial)
+        
         print("Device: \(device.serial) just connected")
         
-        self.playersLabel.text = self.playersLabel.text ?? "" + "\r\n" + device.serial
+        let player = Player(id: device.serial, email: device.localName)
+        
+        self.players[device.serial] = player
+        
+        self.playerTableView.reloadData()
     }
     
-    private func updateConnected(serial: String){
+    private func updateConnected(serial: String)
+    {
         print("movesense connected: \(serial)")
-        self.movesenseService.subscribe(serial, path: Movesense.HR_PATH, parameters: [:], onNotify: { response in self.handleData(response, serial: serial)}) { _,_,_  in }
+    
+        self.movesenseService.subscribe(serial, path: Movesense.HR_PATH, parameters: [:], onNotify:
+        {
+            response in self.handleData(response, serial: serial)
+                
+        })
+        { _,_,_  in }
     }
     
     private func updateDisconnected(){
+        
+        /*
+ #todo: handle disconnected device. there appears to be a
+         Disconnected device: <MDSEvent at 0x2827083c0: header: {
+         "Content-Length" = 173;
+         "Content-Type" = "application/json";
+         Uri = "MDS/EventListener/24";
+         }
+         bodyDictionary: {
+         Body =     {
+         Address = "7D29A5B9-503E-E9DF-738F-3B12D89E6BF7";
+         Serial = 175030000867;
+         };
+         Method = DEL;
+         Response =     {
+         Status = 200;
+         };
+         Uri = "suunto://MDS/ConnectedDevices";
+         }
+         
+         this event should delete the player in the cloud.
+ */
         print("movesense Disconnected")
     }
     private func updatebleOnOff(){
@@ -512,6 +582,7 @@ class GroupController: UIViewController
     
     var movesenseSamples = [String : [Double]]()
     var movesenseSensors = [String : Date]()
+    var movesenseEmails = [String : String]()
     
     func standardDeviation(_ arr : [Double]) -> Double
     {
