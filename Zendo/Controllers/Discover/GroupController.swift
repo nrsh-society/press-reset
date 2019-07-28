@@ -206,6 +206,18 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         self.spriteView.presentScene(nil)
         self.scene = nil
+        
+        self.players.forEach
+        {
+            (arg0) in
+            
+            let (key, value) = arg0
+            
+            Cloud.removePlayer(email: key)
+            
+        }
+        
+        Cloud.removePlayer(email: Settings.email!)
 
     }
     
