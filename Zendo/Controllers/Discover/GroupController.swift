@@ -299,7 +299,15 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @objc func connectAppleWatch()
     {
-        avatarCaptureController.startCapture()
+        //avatarCaptureController.startCapture()
+        
+        let startingSessions = StartingSessionViewController()
+        
+        startingSessions.modalPresentationStyle = .overFullScreen
+        
+        startingSessions.modalTransitionStyle = .crossDissolve
+        
+        self.present(startingSessions, animated: true)
     }
     
     @objc func startSession()
@@ -623,15 +631,8 @@ extension GroupController: AvatarCaptureControllerDelegate
     {
         print("image Selected")
         
-        self.profileImage = image
+        //self.profileImage = image
         
-        let startingSessions = StartingSessionViewController()
-            
-        startingSessions.modalPresentationStyle = .overFullScreen
-            
-        startingSessions.modalTransitionStyle = .crossDissolve
-            
-        self.present(startingSessions, animated: true)
     }
     
     func imageSelectionCancelled() {
