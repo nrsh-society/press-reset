@@ -19,6 +19,10 @@ import AvatarCapture
 import Movesense
 import SwiftyJSON
 
+/*
+ * remove device listeners when dismissing viewcontroller
+
+ */
 struct Player
 {
     var id : String
@@ -207,6 +211,7 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.spriteView.presentScene(nil)
         self.scene = nil
         
+        /*
         self.players.forEach
         {
             (arg0) in
@@ -215,7 +220,7 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             Cloud.removePlayer(email: key)
             
-        }
+        } */
         
         Cloud.removePlayer(email: Settings.email!)
 
@@ -285,6 +290,17 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.movesenseService.setHandlers(deviceConnected: {(serial: String) ->() in self.updateConnected(serial:serial)},deviceDisconnected: { _ in
             self.updateDisconnected()}, bleOnOff: { _ in
                 self.updatebleOnOff()})
+        
+        
+        
+        for index in (1...8)
+        {
+            let player = Player(id: index.description, email: index.description)
+        
+            self.players[player.id] = player
+        
+        }
+        self.playerTableView.setNeedsLayout()
         
         self.movesenseService.startScan({(device:MovesenseDevice)-> () in self.peripheralFound(device: device)})
         
@@ -575,7 +591,7 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             if var samples = movesenseSamples[serial] {
             
-                samples.append(rr)
+                samples.append(hr)
                 
                 movesenseSamples[serial] = samples
             
@@ -587,7 +603,7 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             else
             {
-                movesenseSamples[serial] = [rr]
+                movesenseSamples[serial] = [hr]
                 movesenseSensors[serial] = Date()
             }
             
