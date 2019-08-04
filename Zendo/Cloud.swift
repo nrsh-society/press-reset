@@ -29,17 +29,21 @@ class Cloud
         
         let profileRef = storageRef.child( key + ".jpg")
         
-        let uploadTask = profileRef.putData(data, metadata: nil) { (metadata, error) in
-            guard let metadata = metadata else {
-                // Uh-oh, an error occurred!
+        _ = profileRef.putData(data, metadata: nil)
+        {
+            (metadata, error) in
+            
+            guard let metadata = metadata else
+            {
                 return
             }
-            // Metadata contains file metadata such as size, content-type.
-            let size = metadata.size
-            // You can also access to download URL after upload.
-            profileRef.downloadURL { (url, error) in
-                guard let downloadURL = url else {
-                    // Uh-oh, an error occurred!
+            
+            profileRef.downloadURL
+            {
+                (url, error) in
+                
+                guard let downloadURL = url else
+                {
                     return
                 }
                 
@@ -50,7 +54,6 @@ class Cloud
         
     static func updatePlayer(email: String, update: Any?)
     {
-        
         let database = Database.database().reference()
         let players = database.child("players")
         
@@ -73,22 +76,17 @@ class Cloud
 
     }
     
-    static func updatePlayer(email: String, mins: Int )
+    static func renamePlayer( _ currentEmail: String, _ newEmail: String)
     {
+        
         let database = Database.database().reference()
         let players = database.child("players")
         
-        let key = players.child(email.replacingOccurrences(of: ".", with: "_"))
+        let key_string = currentEmail.replacingOccurrences(of: ".", with: "_")
+        let new_key_string = newEmail.replacingOccurrences(of: ".", with: "_")
         
-        key.setValue(mins)
-        {
-            (error, ref) in
-            
-            if let error = error
-            {
-                print("Data could not be saved: \(error).")
-            }
-        }
+        let key = players.child(key_string)
+        
     }
     
     static func updatePlayer(email: String, sample: [String : Any] )
@@ -117,6 +115,16 @@ class Cloud
         let key = players.child(email.replacingOccurrences(of: ".", with: "_"))
         
         key.removeValue()
+    }
+    
+    static func removePlayers()
+    {
+        let database = Database.database().reference()
+        
+        let players = database.child("players")
+        
+        players.removeValue()
+        
     }
 
     typealias PlayersChangedHandler = (_ player : [String: Int], _ error: Error? ) -> Void

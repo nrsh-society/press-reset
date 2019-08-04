@@ -542,8 +542,8 @@
 			children = (
 				BE021CC22260E79A00153D4B /* GroupController.storyboard */,
 				BE021CC32260E79A00153D4B /* GroupController.swift */,
-				BE8787012215F68B0052FE4C /* TrainController.storyboard */,
 				BE8786FE2215EE1F0052FE4C /* TrainController.swift */,
+				BE8787012215F68B0052FE4C /* TrainController.storyboard */,
 				BE9DB33321F5680600BCE8C2 /* AirplayController.storyboard */,
 				BE9DB33421F5680700BCE8C2 /* AirplayController.swift */,
 				127C3E2821788FD300B332EB /* Discover.storyboard */,

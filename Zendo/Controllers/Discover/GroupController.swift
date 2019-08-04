@@ -34,37 +34,26 @@ struct Player
     }
 }
 
-class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSource
+class MovesensePlayerCell : UITableViewCell
 {
+    @IBOutlet weak var textField: UITextField!
+}
+
+class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate
+{
+    let avatarCaptureController = AvatarCaptureController()
+    let movesenseService = MovesenseService.Instance
+    let diskConfig = DiskConfig(name: "DiskCache")
+    let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
     
     var players = [String : Player]()
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return players.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerCell", for: indexPath)
-        
-        let row = indexPath.row
-        
-        let player = Array(players.values)[row]
-        
-        cell.textLabel?.text = player.email
-        cell.textLabel?.textColor = UIColor.white
-        cell.imageView?.image = UIImage(named: "shobogenzo")
-/*
-        #todo: when profile photo uploading works
- 
-        let url = URL(string: player.getProfileUrl())
-        cell.imageView?.setImage(from : url) { _, _ in }
-*/
-        return cell
-    }
-    
-    
-    let movesenseService = MovesenseService.Instance
+    var story : Story!
+    var idHero = ""
+    var panGR : UIPanGestureRecognizer!
+    var chartHR = [String: Int]()
+    var scene : SKScene?
+    var profileImage : UIImage?
+    var lastUpdate = NSMutableDictionary()
     
     @IBOutlet weak var spriteView: SKView!
     {
@@ -92,17 +81,6 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
             playerTableView.dataSource = self
         }
     }
-    var story : Story!
-    var idHero = ""
-    var panGR : UIPanGestureRecognizer!
-    var chartHR = [String: Int]()
-    var scene : SKScene?
-    let avatarCaptureController = AvatarCaptureController()
-    var profileImage : UIImage?
-    var lastUpdate = NSMutableDictionary()
-    
-    let diskConfig = DiskConfig(name: "DiskCache")
-    let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
     
     lazy var storage: Cache.Storage? = {
         return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forData())
@@ -120,6 +98,59 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
     {
         super.didReceiveMemoryWarning()
         try? storage?.removeAll()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField)
+    {
+        var player = (Array(players.values)[textField.tag])
+
+        player.email = textField.text
+        
+        players[player.id] = player
+        
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        return false
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return players.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerCell", for: indexPath) as! MovesensePlayerCell
+        
+        let row = indexPath.row
+        let player = Array(players.values)[row]
+    
+        cell.textField.tag = row
+        cell.textField.delegate = self
+        cell.textField.text = player.email
+        cell.textField.backgroundColor = UIColor.clear
+        cell.textField.textColor = UIColor.white
+        cell.textField.layer.borderColor = UIColor.zenLightGreen.cgColor
+        cell.textField.layer.borderWidth = 1.0
+        cell.textField.layer.cornerRadius = 8.0
+        cell.textField.layer.masksToBounds = true
+        //cell.textLabel?.text = player.email
+        //cell.textLabel?.textColor = UIColor.white
+        cell.imageView?.image = UIImage(named: "shobogenzo")
+        /*
+         #todo: when profile photo uploading works
+         
+         let url = URL(string: player.getProfileUrl())
+         cell.imageView?.setImage(from : url) { _, _ in }
+         */
+        return cell
     }
     
     func setBackground() {
@@ -211,19 +242,7 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.spriteView.presentScene(nil)
         self.scene = nil
         
-        /*
-        self.players.forEach
-        {
-            (arg0) in
-            
-            let (key, value) = arg0
-            
-            Cloud.removePlayer(email: key)
-            
-        } */
-        
-        Cloud.removePlayer(email: Settings.email!)
-
+        self.players.removeAll()
     }
     
     func setupConnectButton()
@@ -287,12 +306,30 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
         avatarCaptureController.delegate = self
         avatarView.addSubview((avatarCaptureController.view)!)
         
-        self.movesenseService.setHandlers(deviceConnected: {(serial: String) ->() in self.updateConnected(serial:serial)},deviceDisconnected: { _ in
-            self.updateDisconnected()}, bleOnOff: { _ in
-                self.updatebleOnOff()})
+        self.movesenseService.setHandlers(
+        deviceConnected:
+        {
+            (serial: String) ->() in
+            
+            self.updateConnected(serial:serial)
+            
+        },
+        deviceDisconnected:
+        {
+            _ in
+            
+            self.updateDisconnected()
+        },
+        bleOnOff:
+        {
+            _ in
+                
+            self.updatebleOnOff()
+        })
         
-        
-        
+    
+        /*
+        #if DEBUG
         for index in (1...8)
         {
             let player = Player(id: index.description, email: index.description)
@@ -300,9 +337,17 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.players[player.id] = player
         
         }
+        #endif
+        */
+        
         self.playerTableView.setNeedsLayout()
         
-        self.movesenseService.startScan({(device:MovesenseDevice)-> () in self.peripheralFound(device: device)})
+        self.movesenseService.startScan(
+        {
+            (device : MovesenseDevice) -> () in
+            self.peripheralFound(device: device)
+            
+        })
         
         self.startSession()
         
@@ -328,7 +373,6 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @objc func startSession()
     {
-
         if(Settings.isSensorConnected)
         {
             Mixpanel.mainInstance().time(event: "phone_group_session")
@@ -355,7 +399,7 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
         Mixpanel.mainInstance().track(event: "phone_group_session",
                                           properties: ["name": self.story.title])
         
-        Cloud.removePlayer(email: Settings.email!)
+        Cloud.removePlayers()
         
         Settings.isSensorConnected = false
         
@@ -442,7 +486,6 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
         
     }
     
-    
     func setupScene() -> SKScene
     {
         spriteView.frame = UIScreen.main.bounds
@@ -527,7 +570,7 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         print("Device: \(device.serial) just connected")
         
-        let player = Player(id: device.serial, email: device.localName)
+        let player = Player(id: device.serial, email: device.serial)
         
         self.players[device.serial] = player
         
@@ -577,42 +620,48 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     private func handleData(_ response: MovesenseResponse, serial: String)
     {
-        let json = JSON(parseJSON: response.content)
-    
-        if json["rrData"][0].number != nil
+        if(Settings.isSensorConnected)
         {
-            let rr = json["rrData"][0].doubleValue
-            
-            let hr = 1000/rr
-            
-            print("device: \(serial) Heart Rate: \(String(hr))")
-            
-            var progress = "true/0"
-            
-            if var samples = movesenseSamples[serial] {
-            
-                samples.append(hr)
-                
-                movesenseSamples[serial] = samples
-            
-                let startDate = movesenseSensors[serial]!
-                
-                let mins = abs(startDate.minutes(from: Date()))
-                
-                progress = "true/\(mins)"
-            }
-            else
+            let json = JSON(parseJSON: response.content)
+        
+            if json["rrData"][0].number != nil
             {
-                movesenseSamples[serial] = [hr]
-                movesenseSensors[serial] = Date()
+                let rr = json["rrData"][0].doubleValue
+                
+                let hr = 1000/rr
+                
+                print("device: \(serial) Heart Rate: \(String(hr))")
+                
+                var progress = "true/0"
+                
+                if var samples = movesenseSamples[serial] {
+                
+                    samples.append(hr)
+                    
+                    movesenseSamples[serial] = samples
+                
+                    let startDate = movesenseSensors[serial]!
+                    
+                    let mins = abs(startDate.minutes(from: Date()))
+                    
+                    progress = "true/\(mins)"
+                }
+                else
+                {
+                    movesenseSamples[serial] = [hr]
+                    movesenseSensors[serial] = Date()
+                }
+                
+                let sdnn = self.standardDeviation(movesenseSamples[serial]!)
+                
+                let update = ["heart" : String(hr) , "sdnn" : sdnn.description, "progress" : progress]
+                
+                if let player = (self.players[serial])
+                {
+                    Cloud.updatePlayer(email: (player.email)!, update: update)
+                }
+                
             }
-            
-            let sdnn = self.standardDeviation(movesenseSamples[serial]!)
-            
-            let update = ["heart" : String(hr) , "sdnn" : sdnn.description, "progress" : progress]
-    
-            Cloud.updatePlayer(email: serial, update: update)
-            
         }
     }
     
