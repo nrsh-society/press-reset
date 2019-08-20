@@ -1,4 +1,10 @@
-class Foregrounder {
+import MessageUI
+
+class Foregrounder: NSObject, MFMailComposeViewControllerDelegate {
+
+    
+    //var description: String
+    
     var window: UIWindow!
     var workoutSessionReporter: WorkoutSessionReporter!
 
@@ -7,6 +13,16 @@ class Foregrounder {
         self.workoutSessionReporter = workoutSessionReporter
     }
 
+    func showSendMailErrorAlert() {
+            let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.",
+                                                 delegate: self, cancelButtonTitle: "OK")
+            sendMailErrorAlert.show()
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+            controller.dismiss(animated: true, completion: nil)
+    }
+    
     func execute() {
         workoutSessionReporter.doesOptInCandidateHaveAnySessionsToUpload() { shouldUpload in
             if !shouldUpload {
@@ -14,36 +30,30 @@ class Foregrounder {
             }
 
             let onUserWantsUpload: (UIAlertAction) -> () = { action in
-                self.workoutSessionReporter.generateMeditationSessionCSVForUpload() { workout, csvPath in
-                    let activityChooser =
-                        UIActivityViewController(activityItems: [csvPath as Any],
-                                                 applicationActivities: [])
+                self.workoutSessionReporter.generateMeditationSessionCSVForUpload() {workout, csvPath in
+                    let composeVC = MFMailComposeViewController()
+                    if (MFMailComposeViewController.canSendMail()) {
+                        composeVC.mailComposeDelegate = self
 
-                    activityChooser.excludedActivityTypes = [
-                        UIActivityType.assignToContact,
-                        UIActivityType.saveToCameraRoll,
-                        UIActivityType.postToFlickr,
-                        UIActivityType.postToVimeo,
-                        UIActivityType.postToTencentWeibo,
-                        UIActivityType.postToTwitter,
-                        UIActivityType.postToFacebook,
-                        UIActivityType.openInIBooks
-                    ]
+                        // Configure the fields of the interface.
+                        composeVC.setToRecipients(["info@zenbf.org"])
+                        composeVC.setSubject("Session Data")
 
-                    activityChooser.completionWithItemsHandler = { activityType, completed, items, error in
-                        if completed {
-                            Settings.lastUploadDateStr = workout.startDate.toUTCSubscriptionString
-                            return
+                        do {
+                            let data = try Data(contentsOf: csvPath)
+                            composeVC.addAttachmentData(data, mimeType: "text/csv", fileName: "zazen.csv")
+                        } catch {
+                            print("Cannot read data")
                         }
-
-                        let errorMsg = error?.localizedDescription ?? ""
-                        print("failed during activity view actions: \(errorMsg)")
-                    }
-
-                    DispatchQueue.main.async {
-                        self.window.topViewController?.present(activityChooser, animated: true)
+                        
+                        // Present the view controller modally.
+                        self.window.topViewController?.present(composeVC, animated: true)
+                        Settings.lastUploadDateStr = workout.startDate.toUTCSubscriptionString
+                    } else {
+                        self.showSendMailErrorAlert()
                     }
                 }
+                
             }
 
             let alert = UIAlertController(title: "Sessions ready for upload",
