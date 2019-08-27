@@ -23,15 +23,91 @@ import SwiftyJSON
  * remove device listeners when dismissing viewcontroller
 
  */
-struct Player
+class Player
 {
     var id : String
     var email : String?
+    var duration : Int = 0
+    var samples = [Double]()
+    var startDate = Date()
+    
+    init(id: String)
+    {
+        self.id = id
+    }
     
     func getProfileUrl() -> String
     {
         return "\(self.id)"
     }
+    
+    func getMeditativeState() -> Bool
+    {
+        var retval = false
+        
+        if (self.samples.count > 2)
+        {
+            let min = self.samples.min()
+            let max = self.samples.max()
+            
+            let range = max! - min!
+            
+            if range > 2
+            {
+                retval = true
+            }
+        }
+        
+        return retval
+    }
+    
+    func getProgress() -> String
+    {
+        var progress = "false/0"
+        
+        let startDate = self.startDate
+        
+        let mins = abs(startDate.minutes(from: Date()))
+        
+        if(mins > 0)
+        {
+            progress = "\(self.getMeditativeState())/\(mins)"
+        }
+        
+        return progress
+    }
+    
+    func getUpdate() -> [String : String]
+    {
+        return ["heart" : self.samples.description , "sdnn" : self.getHRV(), "progress" : self.getProgress()] as! [String : String]
+        
+    }
+    
+    func getHRV() -> Double
+    {
+        return self.standardDeviation(self.samples)
+    }
+    
+    func standardDeviation(_ arr : [Double]) -> Double
+    {
+        let rrIntervals = arr.map
+        {
+            (beat) -> Double in
+            
+            return 1000 / beat
+        }
+        
+        let length = Double(rrIntervals.count)
+        
+        let avg = rrIntervals.reduce(0, +) / length
+        
+        let sumOfSquaredAvgDiff = rrIntervals.map
+        {pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
+        
+        return sqrt(sumOfSquaredAvgDiff / length)
+        
+    }
+    
 }
 
 class MovesensePlayerCell : UITableViewCell
@@ -311,14 +387,14 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
         {
             (serial: String) ->() in
             
-            self.updateConnected(serial:serial)
+            self.updateConnected(serial)
             
         },
         deviceDisconnected:
         {
-            _ in
+            (serial: String) ->() in
             
-            self.updateDisconnected()
+            self.updateDisconnected(serial)
         },
         bleOnOff:
         {
@@ -326,19 +402,6 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 
             self.updatebleOnOff()
         })
-        
-    
-        /*
-        #if DEBUG
-        for index in (1...8)
-        {
-            let player = Player(id: index.description, email: index.description)
-        
-            self.players[player.id] = player
-        
-        }
-        #endif
-        */
         
         self.playerTableView.setNeedsLayout()
         
@@ -425,12 +488,28 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             Cloud.updatePlayer(email: Settings.email!, update: self.lastUpdate)
             
-            if let address = Settings.ilpAddress
-            {
-                let payment = MoneyKit.Payment(source_address: address, source_amount: MoneyKit.Amount(value: 10, currency: "XRP"), destination_address: story.beneficiaryPaymentAddress!, destination_amount: MoneyKit.Amount(value: 10, currency: "XRP"))
+            self.donate()
             
-                MoneyKit.pay(payment)
+            self.players.forEach
+            {
+                (key: String, value: Player) in
+                
+                Cloud.updatePlayer(email: value.email!, update: value.getUpdate())
+                
+                self.donate()
+                
+                value.samples.removeAll()
             }
+        }
+    }
+    
+    func donate()
+    {
+        if let address = Settings.ilpAddress
+        {
+            let payment = MoneyKit.Payment(source_address: address, source_amount: MoneyKit.Amount(value: 10, currency: "XRP"), destination_address: story.beneficiaryPaymentAddress!, destination_amount: MoneyKit.Amount(value: 10, currency: "XRP"))
+                
+            MoneyKit.pay(payment)
         }
     }
     
@@ -438,7 +517,6 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
     {
         if let sample = notification.object as? [String : Any]
         {
-            
             let raw_hrv = sample["sdnn"] as! String
             let double_hrv = Double(raw_hrv)!.rounded()
             let text_hrv = Int(double_hrv.rounded()).description
@@ -460,30 +538,7 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
 
                 self.arenaView.setChart(chartHR)
             }
-            
-            let update = NSMutableDictionary(dictionary: sample)
-            
-            if let progress = self.lastUpdate["progress"]
-            {
-                update["progress"] = progress
-            }
-            else
-            {
-                update["progress"] = false.description + "/0"
-            }
-            
-            self.lastUpdate = update
-            
-            Cloud.updatePlayer(email: Settings.email!, update: self.lastUpdate)
-            
-            if let address = Settings.ilpAddress
-            {
-                let payment = MoneyKit.Payment(source_address: address, source_amount: MoneyKit.Amount(value: 1, currency: "XRP"), destination_address: story.beneficiaryPaymentAddress!, destination_amount: MoneyKit.Amount(value: 1, currency: "XRP"))
-                
-                MoneyKit.pay(payment)
-            }
         }
-        
     }
     
     func setupScene() -> SKScene
@@ -560,7 +615,7 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
 
     }
     
-    private func peripheralFound(device:MovesenseDevice){
+    func peripheralFound(device:MovesenseDevice){
         
         print("movesense found")
         
@@ -570,14 +625,14 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         print("Device: \(device.serial) just connected")
         
-        let player = Player(id: device.serial, email: device.serial)
+        let player = Player(id: device.serial)
         
         self.players[device.serial] = player
         
         self.playerTableView.reloadData()
     }
     
-    private func updateConnected(serial: String)
+    func updateConnected(_ serial: String)
     {
         print("movesense connected: \(serial)")
     
@@ -589,36 +644,23 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
         { _,_,_  in }
     }
     
-    private func updateDisconnected(){
-        
-        /*
- #todo: handle disconnected device. there appears to be a
-         Disconnected device: <MDSEvent at 0x2827083c0: header: {
-         "Content-Length" = 173;
-         "Content-Type" = "application/json";
-         Uri = "MDS/EventListener/24";
-         }
-         bodyDictionary: {
-         Body =     {
-         Address = "7D29A5B9-503E-E9DF-738F-3B12D89E6BF7";
-         Serial = 175030000867;
-         };
-         Method = DEL;
-         Response =     {
-         Status = 200;
-         };
-         Uri = "suunto://MDS/ConnectedDevices";
-         }
-         
-         this event should delete the player in the cloud.
- */
+    func updateDisconnected(_ serial: String)
+    {
         print("movesense Disconnected")
+        
+        if let player = (self.players[serial])
+        {
+            self.players.removeValue(forKey: player.id)
+            Cloud.removePlayer(email: player.email!)
+        }
+        
     }
-    private func updatebleOnOff(){
+    
+    func updatebleOnOff(){
         print("Bluetooth toggled")
     }
     
-    private func handleData(_ response: MovesenseResponse, serial: String)
+    func handleData(_ response: MovesenseResponse, serial: String)
     {
         if(Settings.isSensorConnected)
         {
@@ -632,62 +674,15 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 
                 print("device: \(serial) Heart Rate: \(String(hr))")
                 
-                var progress = "true/0"
-                
-                if var samples = movesenseSamples[serial] {
-                
-                    samples.append(hr)
-                    
-                    movesenseSamples[serial] = samples
-                
-                    let startDate = movesenseSensors[serial]!
-                    
-                    let mins = abs(startDate.minutes(from: Date()))
-                    
-                    progress = "true/\(mins)"
-                }
-                else
-                {
-                    movesenseSamples[serial] = [hr]
-                    movesenseSensors[serial] = Date()
-                }
-                
-                let sdnn = self.standardDeviation(movesenseSamples[serial]!)
-                
-                let update = ["heart" : String(hr) , "sdnn" : sdnn.description, "progress" : progress]
-                
                 if let player = (self.players[serial])
                 {
-                    Cloud.updatePlayer(email: (player.email)!, update: update)
+                    player.samples.append(hr)
                 }
                 
             }
         }
     }
-    
-    var movesenseSamples = [String : [Double]]()
-    var movesenseSensors = [String : Date]()
-    var movesenseEmails = [String : String]()
-    
-    func standardDeviation(_ arr : [Double]) -> Double
-    {
-        let rrIntervals = arr.map
-        {
-            (beat) -> Double in
-            
-            return 1000 / beat
-        }
-        
-        let length = Double(rrIntervals.count)
-        
-        let avg = rrIntervals.reduce(0, +) / length
-        
-        let sumOfSquaredAvgDiff = rrIntervals.map
-        {pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
-        
-        return sqrt(sumOfSquaredAvgDiff / length)
-        
-    }
+
 }
 
 extension GroupController: AvatarCaptureControllerDelegate
