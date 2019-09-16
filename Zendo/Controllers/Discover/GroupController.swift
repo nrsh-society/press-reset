@@ -19,10 +19,7 @@ import AvatarCapture
 import Movesense
 import SwiftyJSON
 
-/*
- * remove device listeners when dismissing viewcontroller
 
- */
 class Player
 {
     var id : String
@@ -79,8 +76,7 @@ class Player
     
     func getUpdate() -> [String : String]
     {
-        return ["heart" : self.samples.description , "sdnn" : self.getHRV(), "progress" : self.getProgress()] as! [String : String]
-        
+        return [ "progress" : self.getProgress()]
     }
     
     func getHRV() -> Double
@@ -178,7 +174,7 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     func textFieldDidEndEditing(_ textField: UITextField)
     {
-        var player = (Array(players.values)[textField.tag])
+        let player = (Array(players.values)[textField.tag])
 
         player.email = textField.text
         
@@ -210,7 +206,17 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
         cell.textField.tag = row
         cell.textField.delegate = self
-        cell.textField.text = player.email
+        
+        if let email = player.email
+        {
+            cell.textField.text = email
+        }
+        else
+        {
+            cell.textField.text = player.id
+            
+        }
+    
         cell.textField.backgroundColor = UIColor.clear
         cell.textField.textColor = UIColor.white
         cell.textField.layer.borderColor = UIColor.zenLightGreen.cgColor
@@ -405,9 +411,10 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         self.playerTableView.setNeedsLayout()
         
-        self.movesenseService.startScan(
+        let _ = self.movesenseService.startScan(
         {
             (device : MovesenseDevice) -> () in
+            
             self.peripheralFound(device: device)
             
         })
@@ -443,6 +450,24 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
             if let image = self.profileImage
             {
                 Cloud.createPlayer(email: Settings.email!, image: image)
+            }
+            
+            self.lastUpdate["progress"] = "false/0"
+            
+            Cloud.updatePlayer(email: Settings.email!, update: self.lastUpdate)
+            
+            self.players.forEach
+            {
+                (key: String, value: Player) in
+                
+                if let email = value.email
+                {
+                    Cloud.updatePlayer(email: email, update: value.getUpdate())
+                }
+                else
+                {
+                    Cloud.updatePlayer(email: value.id, update: value.getUpdate())
+                }
             }
             
             DispatchQueue.main.async
@@ -494,7 +519,14 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
             {
                 (key: String, value: Player) in
                 
-                Cloud.updatePlayer(email: value.email!, update: value.getUpdate())
+                if let email = value.email
+                {
+                    Cloud.updatePlayer(email: email, update: value.getUpdate())
+                }
+                else
+                {
+                    Cloud.updatePlayer(email: value.id, update: value.getUpdate())
+                }
                 
                 self.donate()
                 
@@ -676,7 +708,7 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 
                 if let player = (self.players[serial])
                 {
-                    player.samples.append(hr)
+                    player.samples.append(hr * 60)
                 }
                 
             }
