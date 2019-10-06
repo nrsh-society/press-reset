@@ -125,7 +125,7 @@ class WatchSyncError: HealthKitViewController {
     }
     
     func check() {
-        let peripheral = CBCentralManager().retrieveConnectedPeripherals(withServices: [CBUUID(string: "180A")])
+        //let peripheral = CBCentralManager().retrieveConnectedPeripherals(withServices: [CBUUID(string: "180A")])
         
         
         if let topVC = UIApplication.topViewController() as? WatchSyncError {
@@ -134,9 +134,9 @@ class WatchSyncError: HealthKitViewController {
                 errorConfiguration = .connecting
             }
             
-            if topVC.errorConfiguration == .unableToDetect && !peripheral.isEmpty && isFirstCheck {
-                errorConfiguration = .connecting
-            }
+            //if topVC.errorConfiguration == .unableToDetect && !peripheral.isEmpty && isFirstCheck {
+              //  errorConfiguration = .connecting
+            //}
             
             
             if topVC.errorConfiguration == .connecting && WCSession.isSupported() {
@@ -145,9 +145,9 @@ class WatchSyncError: HealthKitViewController {
                 if !session.isPaired {
                     errorConfiguration = .noAppleWatch
                     setScreen()
-                } else if peripheral.isEmpty {
-                    errorConfiguration = .unableToDetect
-                    setScreen()
+                //} //else if peripheral.isEmpty {
+                    //errorConfiguration = .unableToDetect
+                    //setScreen()
                 } else if !session.isWatchAppInstalled {
                     errorConfiguration = .noInstallZendo
                     setScreen()

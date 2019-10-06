@@ -9,13 +9,14 @@
 import UIKit
 import HealthKit
 
+
 public class ZBFHealthKit {
     
     static let healthStore = HKHealthStore()
     
     static let hkReadTypes = hkShareTypes
     
-    static let hkShareTypes = Set([heartRateType, mindfulSessionType, workoutType, heartRateSDNNType])
+    static let hkShareTypes = getPermissionTypes()
     
     static let heartRateType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
     
@@ -26,6 +27,24 @@ public class ZBFHealthKit {
     static let workoutType = HKObjectType.workoutType()
     
     static let workoutPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody)
+    
+    class func getPermissionTypes() -> Set<HKSampleType>
+    {
+        
+        let heartRateType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
+        
+        let heartRateSDNNType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
+        
+        let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
+
+        if #available(iOS 13, *)
+        {
+            return [heartRateType, heartRateSDNNType, mindfulSessionType, HKObjectType.workoutType(), HKSeriesType.heartbeat()]
+        } else {
+            return [heartRateType, heartRateSDNNType, mindfulSessionType, HKObjectType.workoutType()]
+        }
+        
+    }
     
     class func getPermissions() {
         

@@ -61,7 +61,6 @@
 		12C2C2812137FCA90039C7A0 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2C2802137FCA90039C7A0 /* CommunityViewController.swift */; };
 		12C2C286213802760039C7A0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2C285213802760039C7A0 /* String.swift */; };
 		12C63FF8221593B6001C93C7 /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C63FF7221593B6001C93C7 /* SubscriptionViewController.swift */; };
-		12C63FFA2215B86A001C93C7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C63FF92215B86A001C93C7 /* StoreKit.framework */; };
 		12C63FFC22170B44001C93C7 /* Date+UTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C63FFB22170B44001C93C7 /* Date+UTC.swift */; };
 		12C63FFE22173A46001C93C7 /* SubscribeInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C63FFD22173A46001C93C7 /* SubscribeInterfaceController.swift */; };
 		12C85D662176168C00329B53 /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C85D652176168B00329B53 /* WatchSessionManager.swift */; };
@@ -307,7 +306,6 @@
 		12C2C2802137FCA90039C7A0 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
 		12C2C285213802760039C7A0 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		12C63FF7221593B6001C93C7 /* SubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionViewController.swift; sourceTree = "<group>"; };
-		12C63FF92215B86A001C93C7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		12C63FFB22170B44001C93C7 /* Date+UTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+UTC.swift"; sourceTree = "<group>"; };
 		12C63FFD22173A46001C93C7 /* SubscribeInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeInterfaceController.swift; sourceTree = "<group>"; };
 		12C85D652176168B00329B53 /* WatchSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSessionManager.swift; sourceTree = "<group>"; };
@@ -454,7 +452,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE4F346822D550F90006BAAE /* libmds.a in Frameworks */,
-				12C63FFA2215B86A001C93C7 /* StoreKit.framework in Frameworks */,
 				BE81B26F2001B85500274FA1 /* HealthKit.framework in Frameworks */,
 				7C58E4E41E858E4241584A97 /* Pods_Zendo.framework in Frameworks */,
 			);
@@ -945,7 +942,6 @@
 				BE4F346722D550F90006BAAE /* libmds.a */,
 				BE4F346522D550D60006BAAE /* Movesense.framework */,
 				7BBF84AB229B81C9008FA2A2 /* Pods_ZendoTests.framework */,
-				12C63FF92215B86A001C93C7 /* StoreKit.framework */,
 				BE9B00012065FE44007FF96A /* CoreMotion.framework */,
 				BE9B00032065FF6B007FF96A /* CoreMotion.framework */,
 				BE81B26E2001B85500274FA1 /* HealthKit.framework */,
@@ -1769,6 +1765,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1793,6 +1790,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1816,6 +1814,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
@@ -1840,6 +1839,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
@@ -1866,6 +1866,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1898,6 +1899,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1927,6 +1929,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";
@@ -1949,6 +1952,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";

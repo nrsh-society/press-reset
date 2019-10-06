@@ -302,6 +302,74 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
     }
     
+    @available(watchOSApplicationExtension 6.0, *)
+    func createTimerEx()
+    {
+        
+        notifyTimerSeconds = 0
+        notifyTimer = Timer.scheduledTimer(timeInterval: 1, target:self, selector: #selector(Session.notify), userInfo: nil, repeats: true)
+        
+        let seriesType = HKSeriesType.heartbeat()
+        
+        let datePredicate = HKQuery.predicateForSamples(withStart: Date(), end: nil, options: .strictStartDate)
+               
+        let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
+               
+        let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[datePredicate, devicePredicate])
+               
+        let updateHandler: HKQueryUpdateHandler =
+        {
+            query, samples, deletedObjects, queryAnchor, error in
+            
+            if let seriesSample = samples as? HKHeartbeatSeriesSample
+            {
+                //seriesSamples
+                
+                //self.process(samples: quantitySamples)
+                
+                let query = HKHeartbeatSeriesQuery(heartbeatSeries: seriesSample)
+                {
+                    (query, timeSinceSeriesStart, precededByGap, done, errorOrNil) in
+                    
+                    // This block may be called multiple times.
+                    
+                    if let error = errorOrNil {
+                        // Handle any errors here.
+                        return
+                    }
+                    
+                    print(timeSinceSeriesStart)
+                    
+                    // Do something with this batch of location data.
+                        
+                    if done {
+                        print("done")
+                    }
+                    
+                    // You can stop the query by calling:
+                    // store.stop(query)
+                    
+                }
+                self.healthStore.execute(query)
+            }
+        }
+               
+        let heart_rate_query = HKAnchoredObjectQuery(type: seriesType,
+                                                    predicate: queryPredicate,
+                                                    anchor: nil,
+                                                    limit: HKObjectQueryNoLimit,
+                                                    resultsHandler: updateHandler)
+               
+        heart_rate_query.updateHandler = updateHandler
+               
+        self.heart_rate_query = heart_rate_query
+               
+        healthStore.execute(heart_rate_query)
+        
+        
+
+    }
+    
     func rrIntervalUpdated(_ rr: Int) {
         
         let bps = 1000 / Double(rr)

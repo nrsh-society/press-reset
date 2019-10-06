@@ -60,7 +60,7 @@ class Player
     
     func getProgress() -> String
     {
-        var progress = "false/1"
+        var progress = "true/0"
         
         let startDate = self.startDate
         
@@ -452,7 +452,7 @@ class GroupController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 Cloud.createPlayer(email: Settings.email!, image: image)
             }
             
-            self.lastUpdate["progress"] = "false/1"
+            self.lastUpdate["progress"] = "true/0"
             
             Cloud.updatePlayer(email: Settings.email!, update: self.lastUpdate)
             

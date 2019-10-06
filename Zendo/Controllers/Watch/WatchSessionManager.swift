@@ -121,7 +121,7 @@ extension WatchSessionManager: WCSessionDelegate {
             
             else if let facebook = message["facebook"] {
                 
-                FBSDKAppEvents.logEvent(facebook as? String)
+                FBSDKAppEvents.logEvent(facebook)
             }
         }
         else if(message.first?.key == "sample")

@@ -14,6 +14,11 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 13.0, *) {
+            // Always adopt a light interface style.
+            overrideUserInterfaceStyle = .light
+        }
+        
         tabBar.unselectedItemTintColor = UIColor.zenLightGreen
         
         tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)

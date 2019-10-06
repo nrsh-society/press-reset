@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>5.2</string>
 	<key>CFBundleVersion</key>
-	<string>335</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>CLKComplicationPrincipalClass</key>
 	<string>$(PRODUCT_MODULE_NAME).ZendoDataSource</string>
 	<key>CLKComplicationSupportedFamilies</key>
@@ -42,6 +42,10 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Show progress across Zendō sessions </string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Add Zendō data to Apple Health</string>
 	<key>UIBackgroundModes</key>
 	<array/>
 	<key>UIRequiresPersistentWiFi</key>
@@ -52,5 +56,7 @@
 	</array>
 	<key>WKExtensionDelegateClassName</key>
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
+	<key>WKRunsIndependentlyOfCompanionApp</key>
+	<true/>
 </dict>
 </plist>

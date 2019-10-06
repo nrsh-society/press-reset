@@ -120,6 +120,11 @@ class DiscoverViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 13.0, *) {
+            // Always adopt a light interface style.
+            overrideUserInterfaceStyle = .light
+        }
+        
         //        try? storage?.removeAll()
         //        try? self.storageCodable?.removeAll()
         
@@ -414,6 +419,7 @@ extension DiscoverViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
+        /*remove subscriptions
         if let trial = isTrial, let subscription = isSubscription, trial && !subscription  {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: SubscriptionHeaderTableViewCell.reuseIdentifierCell) as! SubscriptionHeaderTableViewCell
@@ -427,6 +433,7 @@ extension DiscoverViewController: UITableViewDataSource {
             
             return cell
         }
+         */
         
         return nil
     }

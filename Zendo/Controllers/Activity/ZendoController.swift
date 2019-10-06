@@ -30,6 +30,11 @@ class ZendoController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 13.0, *) {
+            // Always adopt a light interface style.
+            overrideUserInterfaceStyle = .light
+        }
+        
         refreshControl = UIRefreshControl()
         refreshControl?.tintColor = UIColor.white
         refreshControl?.addTarget(self, action: #selector(onReload), for: .valueChanged)

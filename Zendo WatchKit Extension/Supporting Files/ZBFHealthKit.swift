@@ -22,7 +22,26 @@ class ZBFHealthKit {
     static let workoutType = HKObjectType.workoutType()
     
     static let hkShareTypes = Set([heartRateType, mindfulSessionType, workoutType, heartRateSDNNType])
-    static let hkReadTypes = hkShareTypes
+    static let hkReadTypes = getPermissionTypes()
+    
+    
+    class func getPermissionTypes() -> Set<HKSampleType>
+    {
+        
+        let heartRateType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
+        
+        let heartRateSDNNType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
+        
+        let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
+
+  
+        if #available(watchOSApplicationExtension 6.0, *) {
+            return [heartRateType, heartRateSDNNType, mindfulSessionType, HKObjectType.workoutType(), HKSeriesType.heartbeat()]
+        } else {
+            return [heartRateType, heartRateSDNNType, mindfulSessionType, HKObjectType.workoutType()]
+        }
+        
+    }
     
     class func getPermissions()  {
         

@@ -32,7 +32,7 @@ class StartingSessionViewController: UIViewController {
             
             let vc = WatchSyncError.loadFromStoryboard()
             
-            let peripheral = CBCentralManager().retrieveConnectedPeripherals(withServices: [CBUUID(string: "180A")])
+            //let peripheral = CBCentralManager().retrieveConnectedPeripherals(withServices: [CBUUID(string: "180A")])
             
             if WCSession.isSupported() {
                 let session = WCSession.default
@@ -41,10 +41,10 @@ class StartingSessionViewController: UIViewController {
                     vc.errorConfiguration = .noAppleWatch
                     self.showWatchSyncError(vc)
                     return
-                } else if peripheral.isEmpty {
-                    vc.errorConfiguration = .unableToDetect
-                    self.showWatchSyncError(vc)
-                    return
+                //} else if peripheral.isEmpty {
+                 //   vc.errorConfiguration = .unableToDetect
+                   // self.showWatchSyncError(vc)
+                    // return
                 } else if !session.isWatchAppInstalled {
                     vc.errorConfiguration = .noInstallZendo
                     self.showWatchSyncError(vc)
