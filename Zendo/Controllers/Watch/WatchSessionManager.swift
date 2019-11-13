@@ -100,7 +100,6 @@ extension WatchSessionManager: WCSessionDelegate {
             }
             else if message["watch"] == "end"
             {
-
                 Settings.isSensorConnected = false
                 Settings.connectedDate = nil
                 NotificationCenter.default.post(name: .endSession, object: nil)

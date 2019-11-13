@@ -416,10 +416,10 @@ extension DiscoverViewController: UITableViewDelegate {
 }
 
 extension DiscoverViewController: UITableViewDataSource {
-    
+    /*remove subscriptions
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        /*remove subscriptions
+        
         if let trial = isTrial, let subscription = isSubscription, trial && !subscription  {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: SubscriptionHeaderTableViewCell.reuseIdentifierCell) as! SubscriptionHeaderTableViewCell
@@ -433,17 +433,19 @@ extension DiscoverViewController: UITableViewDataSource {
             
             return cell
         }
-         */
+         
         
         return nil
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
         if let trial = isTrial, let subscription = isSubscription, trial && !subscription {
             return 40.0
         }
         return 0.0
     }
+ */
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return isNoInternet ? tableView.frame.height : (sections.count == 1 ? getHeightCell() : tableView.frame.height / 2.0)
@@ -487,7 +489,8 @@ extension DiscoverViewController: UITableViewDataSource {
 extension DiscoverViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sections[collectionView.tag].stories.count
+        // temporarily deleted the last cell
+        return sections[collectionView.tag].stories.count - 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -524,6 +527,7 @@ extension DiscoverViewController: UICollectionViewDataSource {
                 let group = GroupController.loadFromStoryboard()
                 group.story = story
                 group.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+                group.modalPresentationStyle = .fullScreen
                 group.hero.isEnabled = true
                 vc = group
             }
@@ -532,6 +536,7 @@ extension DiscoverViewController: UICollectionViewDataSource {
             let solo = TrainController.loadFromStoryboard(true)
             solo.story = story
             solo.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            solo.modalPresentationStyle = .fullScreen
             solo.hero.isEnabled = true
             vc = solo
         }
@@ -540,6 +545,7 @@ extension DiscoverViewController: UICollectionViewDataSource {
             let video = VideoViewController.loadFromStoryboard()
             video.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
             video.story = story
+            video.modalPresentationStyle = .fullScreen
             video.hero.isEnabled = true
             vc = video
         }

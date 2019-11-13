@@ -132,7 +132,7 @@ DEPENDENCIES:
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - AvatarCapture
     - Bolts
     - BuddyBuildSDK
@@ -206,6 +206,6 @@ SPEC CHECKSUMS:
   SDWebImage: c00ec18ab25d10e5ffac109b0f78d1b4341c9691
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 5113b83125994e06b2cc986cbdd617121026fa08
+PODFILE CHECKSUM: 8b1b392a508743d267247d5941d82f5398b86c5e
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4

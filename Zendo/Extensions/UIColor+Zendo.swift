@@ -30,6 +30,10 @@ extension UIColor {
         return UIColor(red: 0.53, green: 0.58, blue: 0.59, alpha: 1.0)
     }
     
+    static var zenLightGray2: UIColor { //#858787
+        return UIColor(red: 0.52, green: 0.53, blue: 0.53, alpha: 1.0)
+    }
+        
     static var zenLightNavy: UIColor { //#4A5AE2
         return UIColor(red: 0.29, green: 0.35, blue: 0.89, alpha: 1.0)
     }

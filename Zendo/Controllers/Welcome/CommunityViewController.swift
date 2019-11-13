@@ -10,11 +10,13 @@ import UIKit
 import Mixpanel
 
 class CommunityViewController: UIViewController {
+    
     class var storyboardIdentifier: String { get { return "CommunityViewController" } }
     class var skipToHealthKitSegueID: String { get { return "SkipToHealthKit" } }
 
     @IBOutlet weak var topSpace: NSLayoutConstraint!
     @IBOutlet weak var topSpaceTextField: NSLayoutConstraint!
+    @IBOutlet weak var TOSPP: UITextView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var nextBottomSpace: NSLayoutConstraint!
     @IBOutlet weak var nextButton: ZenButton! {
@@ -43,6 +45,8 @@ class CommunityViewController: UIViewController {
           //  wallet.textField.delegate = self
         //}
     //}
+    
+    
     
     
     var bottomSpaceNext: CGFloat = 37.0
@@ -99,6 +103,8 @@ class CommunityViewController: UIViewController {
         email.editingChanged = { _ in
             self.check()
         }
+        
+        setTOSPP()
     }
     
     static func loadFromStoryboard() -> CommunityViewController {
@@ -185,6 +191,44 @@ class CommunityViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
+    
+    let kTAndPP = "kTAndPP"
+    let kTAndPP2 = "kTAndPP2"
+    
+    func setTOSPP() {
+        
+        let fontLabel = UIFont.zendo(font: .antennaRegular, size: 14)
+        
+        let string = "By joining the community, you are agreeing to our Terms and Privacy Policy"
+        let attributedString = NSMutableAttributedString(string: string)
+        
+        let foundRange = attributedString.mutableString.range(of: "By joining the community, you are agreeing to our")
+        let foundRange2 = attributedString.mutableString.range(of: "Terms")
+        let foundRange3 = attributedString.mutableString.range(of: "and")
+        let foundRange4 = attributedString.mutableString.range(of: "Privacy Policy")
+        
+        attributedString.addAttribute(.font, value: fontLabel, range: foundRange)
+        attributedString.addAttribute(.font, value: fontLabel, range: foundRange3)
+        
+        attributedString.addAttributes([
+            .link: kTAndPP,
+            .font: fontLabel
+        ], range: foundRange2)
+        
+        attributedString.addAttributes([
+            .link: kTAndPP2,
+            .font: fontLabel
+        ], range: foundRange4)
+                
+        TOSPP.delegate = self
+        TOSPP.attributedText = attributedString
+        TOSPP.textColor = UIColor.zenLightGray2
+        TOSPP.textAlignment = .left
+        
+        TOSPP.linkTextAttributes = [
+            NSAttributedString.Key.foregroundColor.rawValue: UIColor.zenDarkGreen
+        ]
+    }
 
     @IBAction func didSkip(sender: Any?) {
         Settings.skippedCommunitySignup = true
@@ -202,6 +246,21 @@ extension CommunityViewController: UITextFieldDelegate {
             next()
             return true
         }
+        return false
+    }
+    
+}
+
+
+extension CommunityViewController: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        if URL.absoluteString == kTAndPP {
+            print("Terms")
+        } else if URL.absoluteString == kTAndPP2 {
+            print("Privacy Policy")
+        }
+        
         return false
     }
     
