@@ -254,11 +254,17 @@ extension CommunityViewController: UITextFieldDelegate {
 
 extension CommunityViewController: UITextViewDelegate {
     
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        if URL.absoluteString == kTAndPP {
-            print("Terms")
-        } else if URL.absoluteString == kTAndPP2 {
+    
+    func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        guard let urlT = URL(string: "https://app.termly.io/document/terms-of-use-for-website/4c956fe5-e097-47f2-9b91-5da9fcc50a1a"),
+            let urlPP = URL(string: "http://zendo.tools/privacy") else { return false }
+        
+        if url.absoluteString == kTAndPP {
+            UIApplication.shared.open(urlT)
+        } else if url.absoluteString == kTAndPP2 {
             print("Privacy Policy")
+            UIApplication.shared.open(urlPP)
         }
         
         return false

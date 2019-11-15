@@ -13,6 +13,7 @@ enum DeviceType {
     case iPhone4, iPhone4S, iPhone5, iPhone5S, iPhone5C, iPhoneSE
     case iPhone6, iPhone6Plus, iPhone6S, iPhone6SPlus, iPhone7, iPhone7Plus, iPhone8, iPhone8Plus
     case iPhoneX, iPhoneXr, iPhoneXs, iPhoneXsMax
+    case iPhone11, iPhone11Pro, iPhone11ProMax
     case iPad2, iPad3, iPad4, iPad5, iPadAir, iPadAir2, iPadMini, iPadMini2, iPadMini3, iPadMini4
     case iPadPro, iPadPro2
     case AppleTV, AppleTV4k
@@ -24,23 +25,25 @@ enum DeviceType {
 extension UIDevice {
     
     static var small: Bool {
-        let smallTypes: [DeviceType] = [.iPod5, .iPod6, .iPhone4, .iPhone4S, .iPhone5, .iPhone5S, .iPhone5C, .iPhoneSE]
-        return smallTypes.contains(deviceType)
+        let types: [DeviceType] = [.iPod5, .iPod6, .iPhone4, .iPhone4S, .iPhone5, .iPhone5S, .iPhone5C, .iPhoneSE]
+        return types.contains(deviceType)
     }
     
     static var normal: Bool {
-        let smallTypes: [DeviceType] = [.iPhone6, .iPhone6S, .iPhone7, .iPhone8]
-        return smallTypes.contains(deviceType)
+        let types: [DeviceType] = [.iPhone6, .iPhone6S, .iPhone7, .iPhone8]
+        return types.contains(deviceType)
     }
     
     static var plus: Bool {
-        let smallTypes: [DeviceType] = [.iPhone6Plus, .iPhone6SPlus, .iPhone7Plus, .iPhone8Plus]
-        return smallTypes.contains(deviceType)
+        let types: [DeviceType] = [.iPhone6Plus, .iPhone6SPlus, .iPhone7Plus, .iPhone8Plus]
+        return types.contains(deviceType)
     }
     
     static var X: Bool {
-        let smallTypes: [DeviceType] = [.iPhoneX, .iPhoneXr, .iPhoneXs, .iPhoneXsMax]
-        return smallTypes.contains(deviceType)
+        let types: [DeviceType] = [.iPhoneX,
+                                   .iPhoneXr, .iPhoneXs, .iPhoneXsMax,
+                                   .iPhone11, .iPhone11Pro, .iPhone11ProMax]
+        return types.contains(deviceType)
     }
     
     static var identifier: String {
@@ -89,7 +92,11 @@ extension UIDevice {
         case "iPhone11,8":                              return .iPhoneXr
         case "iPhone11,2":                              return .iPhoneXs
         case "iPhone11,4", "iPhone11,6":                return .iPhoneXsMax
-            
+        
+        case "iPhone12,1":                              return .iPhone11
+        case "iPhone12,3":                              return .iPhone11Pro
+        case "iPhone12,5":                              return .iPhone11ProMax
+                        
         case "iPad2,1", "iPad2,2", "iPad2,3", "iPad2,4":return .iPad2
         case "iPad3,1", "iPad3,2", "iPad3,3":           return .iPad3
         case "iPad3,4", "iPad3,5", "iPad3,6":           return .iPad4
