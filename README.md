@@ -1,4 +1,3 @@
 
 # zendo
 
-![zendo](zendo.png)
