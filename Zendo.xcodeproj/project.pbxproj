@@ -103,8 +103,6 @@
 		7BEDEAF922A34EC5008FCAF7 /* MockWorkoutFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAF822A34EC5008FCAF7 /* MockWorkoutFetcher.swift */; };
 		7BEDEAFB22A351EB008FCAF7 /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAFA22A351EB008FCAF7 /* TestUtil.swift */; };
 		7BEDEB0222A35D0E008FCAF7 /* Date+InitializersTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEB0122A35D0E008FCAF7 /* Date+InitializersTest.swift */; };
-		7BEDEB0422A43052008FCAF7 /* ForegrounderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEB0322A43052008FCAF7 /* ForegrounderTest.swift */; };
-		7BEDEB0622A43111008FCAF7 /* Foregrounder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEB0522A43111008FCAF7 /* Foregrounder.swift */; };
 		7BEDEB0822A436F7008FCAF7 /* MockWorkoutSessionReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEB0722A436F7008FCAF7 /* MockWorkoutSessionReporter.swift */; };
 		7C58E4E41E858E4241584A97 /* Pods_Zendo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA85D12F03B88975AECB0609 /* Pods_Zendo.framework */; };
 		BE021CC42260E79A00153D4B /* GroupController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE021CC22260E79A00153D4B /* GroupController.storyboard */; };
@@ -345,8 +343,6 @@
 		7BEDEAF822A34EC5008FCAF7 /* MockWorkoutFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWorkoutFetcher.swift; sourceTree = "<group>"; };
 		7BEDEAFA22A351EB008FCAF7 /* TestUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtil.swift; sourceTree = "<group>"; };
 		7BEDEB0122A35D0E008FCAF7 /* Date+InitializersTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+InitializersTest.swift"; sourceTree = "<group>"; };
-		7BEDEB0322A43052008FCAF7 /* ForegrounderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegrounderTest.swift; sourceTree = "<group>"; };
-		7BEDEB0522A43111008FCAF7 /* Foregrounder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foregrounder.swift; sourceTree = "<group>"; };
 		7BEDEB0722A436F7008FCAF7 /* MockWorkoutSessionReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWorkoutSessionReporter.swift; sourceTree = "<group>"; };
 		7BF70C99229B80D4001E4D0E /* ZendoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZendoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF70C9D229B80D4001E4D0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -822,7 +818,6 @@
 		7BF70C9A229B80D4001E4D0E /* ZendoTests */ = {
 			isa = PBXGroup;
 			children = (
-				7BEDEB0322A43052008FCAF7 /* ForegrounderTest.swift */,
 				7BEDEB0022A35D00008FCAF7 /* Extensions */,
 				7BEDEAF622A34EAD008FCAF7 /* Workouts */,
 				7BBF84AE229B8256008FA2A2 /* Controllers */,
@@ -884,7 +879,6 @@
 				BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */,
 				12BE94BE21AEE4C6000E2B0B /* PauseImageView.swift */,
 				BE81B26D2001B85500274FA1 /* Zendo.entitlements */,
-				7BEDEB0522A43111008FCAF7 /* Foregrounder.swift */,
 				BE38B61222E16DBA0044DFB6 /* MoneyKit.swift */,
 			);
 			path = Zendo;
@@ -1410,7 +1404,6 @@
 			files = (
 				7BEDEAF122A3487F008FCAF7 /* WorkoutSessionReporterTest.swift in Sources */,
 				7BEDEAF922A34EC5008FCAF7 /* MockWorkoutFetcher.swift in Sources */,
-				7BEDEB0422A43052008FCAF7 /* ForegrounderTest.swift in Sources */,
 				7BEDEB0822A436F7008FCAF7 /* MockWorkoutSessionReporter.swift in Sources */,
 				7BEDEB0222A35D0E008FCAF7 /* Date+InitializersTest.swift in Sources */,
 				7BBF84B1229B8272008FA2A2 /* CommunityViewControllerTest.swift in Sources */,
@@ -1440,7 +1433,6 @@
 				1246C422212725140011F5D3 /* BalloonMarker.swift in Sources */,
 				12E2A1B521107A9400E0E911 /* UIFont.swift in Sources */,
 				BE0FF19921E03EDB0050D15B /* NotificationViewController.swift in Sources */,
-				7BEDEB0622A43111008FCAF7 /* Foregrounder.swift in Sources */,
 				DFE3B1762189C377008830CD /* StartingSessionViewController.swift in Sources */,
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
 				BE8787002215EE1F0052FE4C /* TrainController.swift in Sources */,
@@ -1900,7 +1892,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 340;
-				DEVELOPMENT_TEAM = TZSWHX7RVS;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
