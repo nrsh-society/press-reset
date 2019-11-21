@@ -3,7 +3,7 @@
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -493,13 +493,13 @@
                                 <rect key="frame" x="149" y="168" width="124.66666666666669" height="125"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1B-N9-wqN">
-                                <rect key="frame" x="47" y="417" width="163" height="35"/>
+                                <rect key="frame" x="46.999999999999986" y="417" width="186.66666666666663" height="30"/>
                                 <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                 <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We’ll send you weekly reminders and notifications about your progress." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="333" translatesAutoresizingMaskIntoConstraints="NO" id="OpH-SQ-Iof">
-                                <rect key="frame" x="47" y="446" width="315.33333333333331" height="56"/>
+                                <rect key="frame" x="47" y="441" width="258" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="m9H-Y9-z7u"/>
                                 </constraints>
@@ -520,7 +520,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="get" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nlV-fK-X2S">
-                                <rect key="frame" x="47" y="374" width="43" height="35"/>
+                                <rect key="frame" x="47" y="379" width="48" height="30"/>
                                 <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -588,16 +588,16 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are a group of meditators from around the world working together to bring the best tools and techniques to our practice." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xua-QO-A7Q">
-                                        <rect key="frame" x="0.0" y="40" width="320" height="42.333333333333343"/>
-                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
-                                        <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="community." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e29-hP-oad">
-                                        <rect key="frame" x="0.0" y="92.333333333333343" width="175.66666666666666" height="30"/>
+                                        <rect key="frame" x="0.0" y="40" width="175.66666666666666" height="30"/>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                         <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are a group of meditators from around the world working together to bring the best tools and techniques to our practice." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xua-QO-A7Q">
+                                        <rect key="frame" x="0.0" y="80" width="320" height="42.333333333333343"/>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                        <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
