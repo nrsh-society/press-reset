@@ -15,6 +15,8 @@ import HealthKit
 import AVKit
 import Mixpanel
 import Cache
+import Movesense
+import SwiftyJSON
 
 class TrainController: UIViewController
 {
@@ -37,6 +39,8 @@ class TrainController: UIViewController
             
         }
     }
+    
+    let movesenseService = MovesenseService.Instance
     
     let player = SKSpriteNode(imageNamed: "player1")
     var ring: Int = 0
@@ -243,8 +247,91 @@ class TrainController: UIViewController
         
         self.spriteView.presentScene(scene)
         
+        self.movesenseService.setHandlers(
+               deviceConnected:
+               {
+                   (serial: String) ->() in
+                   
+                   self.updateConnected(serial)
+                   
+               },
+               deviceDisconnected:
+               {
+                   (serial: String) ->() in
+                   
+                   self.updateDisconnected(serial)
+               },
+               bleOnOff:
+               {
+                   _ in
+                       
+                   self.updatebleOnOff()
+               })
+               
+               let _ = self.movesenseService.startScan(
+               {
+                   (device : MovesenseDevice) -> () in
+                   
+                   self.peripheralFound(device: device)
+                   
+               })
+        
         self.startSession()
         
+    }
+    
+    func peripheralFound(device:MovesenseDevice){
+        
+        print("movesense found")
+        
+        print("There are \(self.movesenseService.getDeviceCount()) devices")
+        
+        self.movesenseService.connectDevice(device.serial)
+        
+        print("Device: \(device.serial) just connected")
+        
+    }
+    
+    func updateConnected(_ serial: String)
+    {
+        print("movesense connected: \(serial)")
+    
+        self.movesenseService.subscribe(serial, path: Movesense.HR_PATH, parameters: [:], onNotify:
+        {
+            response in self.handleData(response, serial: serial)
+                
+        })
+        { _,_,_  in }
+    }
+    
+    func updateDisconnected(_ serial: String)
+    {
+        print("movesense Disconnected")
+        
+    }
+    
+    func updatebleOnOff(){
+        print("Bluetooth toggled")
+    }
+    
+    func handleData(_ response: MovesenseResponse, serial: String)
+    {
+        if(Settings.isSensorConnected)
+        {
+            let json = JSON(parseJSON: response.content)
+        
+            if json["rrData"][0].number != nil
+            {
+                let rr = json["rrData"][0].doubleValue
+                
+                let hr = 1000/rr
+                
+                print("device: \(serial) Heart Rate: \(String(hr))")
+                
+                //todo:@boris:wire up to the sample + progress methods
+                
+            }
+        }
     }
     
     @objc func connectAppleWatch()
