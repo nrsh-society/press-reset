@@ -13,12 +13,13 @@ import Mixpanel
 class SubscriptionViewController: UIViewController {
     
     var PRODUCT_ID = "subscription_v1"
-    //    var PRODUCT_ID = "ZendoPurchase1" // test
+//        var PRODUCT_ID = "ZendoTestInApp" // test
     
     
     var productID = ""
     var productsRequest = SKProductsRequest()
     var iapProducts = [SKProduct]()
+    var reload: (()->())?
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var priceLabel: UILabel!
@@ -56,9 +57,7 @@ class SubscriptionViewController: UIViewController {
         
         Mixpanel.mainInstance().track(event: "phone_subscription")
     }
-    
-    
-    
+        
     func setAttributedString(_ text: String) -> NSMutableAttributedString
     {
         let attributedString = NSMutableAttributedString(string: text)
@@ -69,12 +68,7 @@ class SubscriptionViewController: UIViewController {
         
         return attributedString
     }
-    
-    static func loadFromStoryboard() -> SubscriptionViewController {
-        let storyboard =  UIStoryboard(name: "Discover", bundle: nil).instantiateViewController(withIdentifier: "SubscriptionViewController") as! SubscriptionViewController
-        return storyboard
-    }
-    
+        
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -84,6 +78,11 @@ class SubscriptionViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
+    static func loadFromStoryboard() -> SubscriptionViewController {
+           let storyboard =  UIStoryboard(name: "Discover", bundle: nil).instantiateViewController(withIdentifier: "SubscriptionViewController") as! SubscriptionViewController
+           return storyboard
+       }
+    
     @objc func subscription() {
         if !iapProducts.isEmpty {
             purchaseProduct(product: iapProducts[0])
@@ -91,7 +90,6 @@ class SubscriptionViewController: UIViewController {
     }
     
     @IBAction func restoreOnClick(_ sender: UIButton) {
-        SKPaymentQueue.default().add(self)
         SKPaymentQueue.default().restoreCompletedTransactions()
     }
     
@@ -165,7 +163,10 @@ extension SubscriptionViewController: SKProductsRequestDelegate {
             }
             
             if let price = price {
-                priceLabel.text = "\(price)/" + period
+                DispatchQueue.main.async {
+                    self.priceLabel.text = "\(price)/" + period
+                }
+                
             }
             
         }
@@ -174,6 +175,7 @@ extension SubscriptionViewController: SKProductsRequestDelegate {
 }
 
 extension SubscriptionViewController: SKPaymentTransactionObserver {
+    
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             switch transaction.transactionState {
@@ -181,23 +183,23 @@ extension SubscriptionViewController: SKPaymentTransactionObserver {
                 SKPaymentQueue.default().finishTransaction(transaction)
                 
                 if productID == PRODUCT_ID {
-                    Settings.isTrial = false
-                    Settings.isSubscriptionAvailability = true
-                    Settings.checkSubscriptionAvailability()
+                    reload?()
                     
                     let vc = SuccessSubscriptionViewController.loadFromStoryboard()
                     self.navigationController?.pushViewController(vc, animated: false)
                     
                 }
             case .failed:
-                if transaction.error != nil {
-                    self.present(showAlertContrller(title: "Purchase failed!", message: transaction.error!.localizedDescription), animated: true, completion: nil)
-                    print(transaction.error!)
+                
+                if let error = transaction.error {
+                    self.present(showAlertContrller(title: "Purchase failed!", message:  error.localizedDescription), animated: true, completion: nil)
+                    print(transaction)
                 }
+                             
                 SKPaymentQueue.default().finishTransaction(transaction)
             case .restored:
                 SKPaymentQueue.default().finishTransaction(transaction)
-                Settings.checkSubscription()
+                Settings.checkSubscriptionAvailability()
             default: break
             }
         }
@@ -211,4 +213,5 @@ extension SubscriptionViewController: SKPaymentTransactionObserver {
         // always let them through
         return true
     }
+    
 }

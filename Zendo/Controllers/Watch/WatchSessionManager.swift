@@ -59,14 +59,11 @@ extension WatchSessionManager: WCSessionDelegate {
             
             if message["watch"] == "reload"
             {
-                
                 NotificationCenter.default.post(name: .reloadActivity, object: nil)
                 NotificationCenter.default.post(name: .reloadOverview, object: nil)
-                
             }
             else if message["watch"] == "mixpanel"
             {
-                
                 if let email = Settings.email,
                 let name = Settings.fullName
                 {
@@ -86,10 +83,9 @@ extension WatchSessionManager: WCSessionDelegate {
             }
             else if message["watch"] == "subscribe"
             {
-                Settings.checkSubscriptionAvailability { bool, trial in
-                    replyHandler(["isSubscribe": bool, "isTrial": trial])
+                Settings.checkSubscriptionAvailability { subscribe in
+                    replyHandler(["isSubscribe": subscribe, "isTrial": Settings.isTrial])
                 }
-               
             }
             else if message["watch"] == "present"
             {
@@ -103,6 +99,10 @@ extension WatchSessionManager: WCSessionDelegate {
                 Settings.isSensorConnected = false
                 Settings.connectedDate = nil
                 NotificationCenter.default.post(name: .endSession, object: nil)
+            }
+            else if message["watch"] == "endSession"
+            {
+                Settings.isUploadDate = true
             }
             else if message["watch"] == "start"
             {

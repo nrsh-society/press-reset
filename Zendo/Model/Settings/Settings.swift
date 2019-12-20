@@ -14,7 +14,7 @@ class Settings: NSObject {
     static let defaults = UserDefaults.standard
     
     static let SHARED_SECRET = "80653a3a2e33453c9e69f7d2da8945eb"
-//   static let SHARED_SECRET = "e929eeee2144466197cd844b370fbffb" // test
+//   static let SHARED_SECRET = "88bc524e373f4aa2956385af85d43c09" // test
     
     static var didFinishCommunitySignup: Bool {
         set {
@@ -76,26 +76,6 @@ class Settings: NSObject {
         }
     }
     
-    static var isSubscriptionAvailability: Bool {
-        set {
-            defaults.set(newValue, forKey: "isSubscriptionAvailability")
-            defaults.synchronize()
-        }
-        get {
-            return defaults.bool(forKey: "isSubscriptionAvailability")
-        }
-    }
-    
-    static var isSetTrial: Bool {
-        set {
-            defaults.set(newValue, forKey: "isSetTrial")
-            defaults.synchronize()
-        }
-        get {
-            return defaults.bool(forKey: "isSetTrial")
-        }
-    }
-    
     static var isTrial: Bool {
         set {
             defaults.set(newValue, forKey: "isTrial")
@@ -103,16 +83,6 @@ class Settings: NSObject {
         }
         get {
             return defaults.bool(forKey: "isTrial")
-        }
-    }
-    
-    static var startTrialDateStr: String? {
-        set {
-            defaults.set(newValue, forKey: "startTrialDateStr")
-            defaults.synchronize()
-        }
-        get {
-            return defaults.string(forKey: "startTrialDateStr")
         }
     }
     
@@ -125,7 +95,7 @@ class Settings: NSObject {
             return defaults.string(forKey: "expiresDateStr")
         }
     }
-    
+
     static var expiresDate: Date? {
         if let str = expiresDateStr, let date = str.dateFromUTCSubscriptionString {
             return date
@@ -133,48 +103,31 @@ class Settings: NSObject {
         return nil
     }
     
-    static var startTrialDate: Date? {
-        if let str = startTrialDateStr, let date = str.dateFromUTCSubscriptionString {
-            return date
-        }
-        return nil
-    }
-    
-    static func checkSubscriptionAvailability(_ completionHandler: ((Bool, Bool) -> ())? = nil) {
+    static func checkSubscriptionAvailability(_ completionHandler: ((_ subscription: Bool) -> ())? = nil) {
         
-       // completionHandler?(true, false)
-        //return
-        
-        if isTrial && !isSubscriptionAvailability {
-            completionHandler?(false, true)
-            return
-        }
-        
-        if !isTrial {
-            if let date = expiresDate, date > Date() {
-                completionHandler?(true, false)
-            } else {
-                checkSubscription { subscription, trial in
-                    completionHandler?(subscription, trial)
-                }
+        if let date = expiresDate, date > Date() {
+            completionHandler?(true)
+        } else {
+            checkSubscription { subscription in
+                completionHandler?(subscription)
             }
         }
-        
+                
     }
         
-    static func checkSubscription(_ completionHandler: ((Bool, Bool) -> ())? = nil) {
+    static func checkSubscription(_ completionHandler: ((_ subscription: Bool) -> ())? = nil) {
         guard let receiptUrl = Bundle.main.appStoreReceiptURL,
             let receipt = try? Data(contentsOf: receiptUrl).base64EncodedString() else {
-                completionHandler?(false, false)
+                completionHandler?(true)
                 return
         }
         
-       // let appleServer = receiptUrl.lastPathComponent == "sandboxReceipt" ? "sandbox" : "buy"
+//         let appleServer = receiptUrl.lastPathComponent == "sandboxReceipt" ? "sandbox" : "buy"
         
         let prodServer = "https://buy.itunes.apple.com/verifyReceipt"
-        let testServer = "https://sandbox.itunes.apple.com/verifyReceipt"
+//        let testServer = "https://sandbox.itunes.apple.com/verifyReceipt"
         
-        var request = URLRequest(url: URL(string: prodServer)! )
+        var request = URLRequest(url: URL(string: prodServer)!)
         request.httpMethod = "POST"
         
         let httpBody = [
@@ -185,33 +138,30 @@ class Settings: NSObject {
         if let json = try? JSONSerialization.data(withJSONObject: httpBody, options: []) {
             request.httpBody = json
         } else {
-            completionHandler?(false, false)
+            completionHandler?(true)
         }
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data, error == nil {
                 
-                guard let json = try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers])
-                    as? [String: Any],
+                guard let json = try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers]) as? [String: Any],
                     let lastReceipt = json?["latest_receipt_info"] as? [[String: Any]],
-                    let expiresDate = lastReceipt.last?["expires_date"] as? String else {
+                    let expiresDate = lastReceipt.last?["expires_date"] as? String,
+                    let isTrialPeriod = lastReceipt.last?["is_trial_period"] as? String else {
                         print("error trying to convert data to JSON")
-                        completionHandler?(false, false)
+                        completionHandler?(true)
                         return
                 }
                 
                 self.expiresDateStr = expiresDate
+                self.isTrial = isTrialPeriod.boolValue
                 
                 if let date = expiresDate.dateFromUTCSubscriptionString {
-                    isSubscriptionAvailability = date > Date()
-                    completionHandler?(date > Date(), false)
+                    completionHandler?(date > Date())
                 }
                 
-            }
-            
-            else if let httpResponse = response as? HTTPURLResponse,
-                httpResponse.statusCode == 21007
-            {
+            } else if let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode == 21007 {
                 
                 let testServer = "https://sandbox.itunes.apple.com/verifyReceipt"
                 
@@ -226,7 +176,7 @@ class Settings: NSObject {
                 if let json = try? JSONSerialization.data(withJSONObject: httpBody, options: []) {
                     request.httpBody = json
                 } else {
-                    completionHandler?(false, false)
+                    completionHandler?(true)
                 }
                 
                 URLSession.shared.dataTask(with: request) { data, response, error in
@@ -235,27 +185,26 @@ class Settings: NSObject {
                         guard let json = try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers])
                             as? [String: Any],
                             let lastReceipt = json?["latest_receipt_info"] as? [[String: Any]],
-                            let expiresDate = lastReceipt.last?["expires_date"] as? String else {
+                            let expiresDate = lastReceipt.last?["expires_date"] as? String,
+                            let isTrialPeriod = lastReceipt.last?["is_trial_period"] as? String else {
                                 print("error trying to convert data to JSON")
-                                completionHandler?(false, false)
+                                completionHandler?(true)
                                 return
                         }
                         
                         self.expiresDateStr = expiresDate
+                        self.isTrial = isTrialPeriod.boolValue
                         
                         if let date = expiresDate.dateFromUTCSubscriptionString {
-                            isSubscriptionAvailability = date > Date()
-                            completionHandler?(date > Date(), false)
+                            completionHandler?(date > Date())
                         }
                         
                     }
+                }
+            } else {
+                completionHandler?(true)
             }
-            }
-            
-            else {
-                completionHandler?(false, false)
-            }
-            }.resume()
+        }.resume()
     }
     
     static var isSensorConnected: Bool {
@@ -293,6 +242,25 @@ class Settings: NSObject {
             return date
         }
         return nil
+    }
+    
+    static var isUploadDate: Bool {
+        set {
+            defaults.set(newValue, forKey: "isUploadDate")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.bool(forKey: "isUploadDate")
+        }
+    }
+    
+}
+
+
+extension String {
+
+    var boolValue: Bool {
+        return (self as NSString).boolValue
     }
     
 }

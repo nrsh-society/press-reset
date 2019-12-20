@@ -205,13 +205,8 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         allSamples.append(workout)
         
         sessionDelegater.sendMessage(["watch": "end"],
-                                     replyHandler: { replyHandler in
-                                        
-        },
-                                     errorHandler:
-            { error in
-                
-        })
+                                     replyHandler: nil,
+                                     errorHandler: nil)
         
         healthStore.save(allSamples)
         {

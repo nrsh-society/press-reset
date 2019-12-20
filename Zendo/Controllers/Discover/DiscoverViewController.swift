@@ -28,20 +28,8 @@ class SubscriptionHeaderTableViewCell: UITableViewCell {
     
     var isTrial: Bool? = nil {
         didSet {
-            if let trial = isTrial, trial {
-                if let date = Settings.startTrialDate {
-                    let days = date.addingTimeInterval(60*60*24*14).days(from: Date())
-                    
-                    if days <= 0 {
-                        textLabelSub.text = SubscriptionStatus.trial.rawValue
-                    } else {
-                        
-                        //textLabelSub.text = "\(days + 1) " + SubscriptionStatus.trial.rawValue
-                        
-                        textLabelSub.text = SubscriptionStatus.trial.rawValue
-                    }
-                    
-                }
+            if let _ = isTrial {
+                textLabelSub.text = SubscriptionStatus.trial.rawValue
             }
         }
     }
@@ -114,8 +102,7 @@ class DiscoverViewController: UIViewController {
         return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forData())
     }()
     
-    var isTrial: Bool? = nil
-    var isSubscription: Bool? = nil
+    var isSubscription = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -166,13 +153,8 @@ class DiscoverViewController: UIViewController {
         
         startConnection()
         
-        Settings.checkSubscriptionAvailability { subscription, trial in
-            self.isTrial = trial
-            self.isSubscription = subscription
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
+        checkSubscription()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool)
@@ -180,6 +162,17 @@ class DiscoverViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         Mixpanel.mainInstance().track(event: "phone_discover")
+    }
+    
+    func checkSubscription() {
+        
+        Settings.checkSubscriptionAvailability { subscription in
+            self.isSubscription = subscription
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+            
     }
     
     func startConnection()
@@ -416,36 +409,36 @@ extension DiscoverViewController: UITableViewDelegate {
 }
 
 extension DiscoverViewController: UITableViewDataSource {
-    /*remove subscriptions
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        
-        if let trial = isTrial, let subscription = isSubscription, trial && !subscription  {
+        if !isSubscription  {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: SubscriptionHeaderTableViewCell.reuseIdentifierCell) as! SubscriptionHeaderTableViewCell
             
-            cell.isTrial = trial
+            cell.isTrial = Settings.isTrial
             cell.action = {
                 let vc = SubscriptionViewController.loadFromStoryboard()
+                vc.reload = {
+                    self.checkSubscription()
+                }
                 let nv = UINavigationController(rootViewController: vc)
                 self.present(nv, animated: true)
             }
             
             return cell
         }
-         
         
         return nil
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if let trial = isTrial, let subscription = isSubscription, trial && !subscription {
+        if !isSubscription {
             return 40.0
         }
+        
         return 0.0
     }
- */
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return isNoInternet ? tableView.frame.height : (sections.count == 1 ? getHeightCell() : tableView.frame.height / 2.0)

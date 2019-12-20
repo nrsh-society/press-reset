@@ -46,6 +46,8 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
             DispatchQueue.main.async() {
                Mixpanel.sharedInstance()?.track("watch_meditation")
                 
+                self.sessionDelegater.sendMessage(["watch" : "endSession"], replyHandler: nil, errorHandler: nil)
+                
                 WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SummaryInterfaceController", context: ["session": self.session, "workout": workout] as AnyObject)])
             }
         }

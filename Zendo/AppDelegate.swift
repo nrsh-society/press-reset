@@ -17,6 +17,7 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var foregrounder: Foregrounder!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]?) -> Bool {
         
@@ -44,13 +45,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().tintColor = UIColor.zenDarkGreen
         UITabBar.appearance().shadowImage = UIImage()
         UITabBar.appearance().backgroundImage = UIImage()
-        
-        if !Settings.isSetTrial {
-            Settings.isSetTrial = true
-            Settings.isTrial = true
-            Settings.startTrialDateStr = Date().toUTCSubscriptionString
+    
+        let workoutSessionReporter = WorkoutSessionReporter()
+        workoutSessionReporter.loadOptInCandidates()
+
+        if let window = window {
+            foregrounder = Foregrounder(window: window,
+                                        workoutSessionReporter: workoutSessionReporter)
         }
-        
+                        
         return true
     }
     
@@ -75,6 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //#todo
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         print("activate")
+        foregrounder.execute()
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {

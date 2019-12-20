@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14490.70" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch44" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="15505" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch44"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14490.21"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="15501"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="Antenna-Light.otf">
@@ -337,7 +335,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="606" y="-61"/>
+            <point key="canvasLocation" x="701" y="-61"/>
         </scene>
         <!--Goals-->
         <scene sceneID="Eaa-gP-xvC">
@@ -437,4 +435,13 @@
             <point key="canvasLocation" x="404" y="-61"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Lock" width="54" height="63"/>
+        <image name="hrv" width="39" height="35"/>
+        <image name="like" width="32" height="32"/>
+        <image name="minus" width="120" height="120"/>
+        <image name="plus" width="120" height="120"/>
+        <image name="ring0" width="300" height="300"/>
+        <image name="time" width="35" height="40"/>
+    </resources>
 </document>

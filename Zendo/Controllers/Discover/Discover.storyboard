@@ -3,7 +3,7 @@
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -441,6 +441,7 @@
                                     <constraint firstItem="WA5-ep-BJg" firstAttribute="top" secondItem="U2s-6q-dek" secondAttribute="top" id="JNz-Pz-IKH"/>
                                     <constraint firstItem="sZc-ua-L9Z" firstAttribute="leading" secondItem="U2s-6q-dek" secondAttribute="leading" constant="30" id="lSK-8j-sM1"/>
                                     <constraint firstAttribute="trailing" secondItem="WA5-ep-BJg" secondAttribute="trailing" id="lW5-Ss-BTR"/>
+                                    <constraint firstAttribute="height" constant="89" id="tSR-fj-r49"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3vU-bG-hAg">
