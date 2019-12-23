@@ -23,9 +23,9 @@ extension SessionCommands {
         }
 
         WCSession.default.sendMessage(message, replyHandler: { replyMessage in
-            replyHandler!(replyMessage)
+            replyHandler?(replyMessage)
         }, errorHandler: { error in
-            errorHandler!(error)
+            errorHandler?(error)
             print(error.localizedDescription)
         })
     }

@@ -116,18 +116,20 @@ class Settings: NSObject {
     }
         
     static func checkSubscription(_ completionHandler: ((_ subscription: Bool) -> ())? = nil) {
+        
+        let prodServer = "https://buy.itunes.apple.com/verifyReceipt"
+//        let testServer = "https://sandbox.itunes.apple.com/verifyReceipt"
+        
         guard let receiptUrl = Bundle.main.appStoreReceiptURL,
-            let receipt = try? Data(contentsOf: receiptUrl).base64EncodedString() else {
+            let receipt = try? Data(contentsOf: receiptUrl).base64EncodedString(),
+            let url = URL(string: prodServer) else {
                 completionHandler?(true)
                 return
         }
         
 //         let appleServer = receiptUrl.lastPathComponent == "sandboxReceipt" ? "sandbox" : "buy"
         
-        let prodServer = "https://buy.itunes.apple.com/verifyReceipt"
-//        let testServer = "https://sandbox.itunes.apple.com/verifyReceipt"
-        
-        var request = URLRequest(url: URL(string: prodServer)!)
+        var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
         let httpBody = [
@@ -149,7 +151,7 @@ class Settings: NSObject {
                     let expiresDate = lastReceipt.last?["expires_date"] as? String,
                     let isTrialPeriod = lastReceipt.last?["is_trial_period"] as? String else {
                         print("error trying to convert data to JSON")
-                        completionHandler?(true)
+                        completionHandler?(false)
                         return
                 }
                 
@@ -188,7 +190,7 @@ class Settings: NSObject {
                             let expiresDate = lastReceipt.last?["expires_date"] as? String,
                             let isTrialPeriod = lastReceipt.last?["is_trial_period"] as? String else {
                                 print("error trying to convert data to JSON")
-                                completionHandler?(true)
+                                completionHandler?(false)
                                 return
                         }
                         

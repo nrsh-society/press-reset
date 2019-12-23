@@ -51,6 +51,7 @@ struct Options
     {
         get
         {
+            
             if let value = UserDefaults.standard.object(forKey: "retryStrength")
             {
                 return value as! Int
@@ -442,19 +443,18 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                     }
                 }
             }
-            
+                        
             let iterations = (haptic == WKHapticType.retry) ?
                 Int(Session.options.retryStrength) :
                 Int(Session.options.hapticStrength)
-            
+                                    
             if iterations > 0
             {
-                Thread.detachNewThread
-                    {
+                
+                Thread.detachNewThread {
                         for _ in 1...iterations
                         {
-                            DispatchQueue.main.async
-                                {
+                            DispatchQueue.main.async {
                                     WKInterfaceDevice.current().play(haptic)
                             }
                             
@@ -472,23 +472,18 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             let progress = "\(isMeditating)/\(self.meditationLog.count)".description
             
-            sessionDelegater.sendMessage(
-                ["progress" : progress],
-                
-                replyHandler:
-                {
-                    (message) in
-                    print(message.debugDescription)
-            },
-                
-                errorHandler:
-                {
-                    (error) in
-                    print(error)
+            sessionDelegater.sendMessage(["progress" : progress],
+                                         replyHandler: { message in
+                                            print(message.debugDescription)
+                                            
+            }, errorHandler:{ error in
+                print(error)
             })
         }
         
-        self.delegate.sessionTick(startDate: self.startDate!, message: message)
+        if let date = self.startDate {
+            self.delegate.sessionTick(startDate: date, message: message)
+        }
         
     }
     

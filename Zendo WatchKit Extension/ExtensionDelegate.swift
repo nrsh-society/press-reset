@@ -17,55 +17,94 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
     private lazy var sessionDelegater: SessionDelegater = {
         return SessionDelegater()
     }()
-        
+    let healthStore = HKHealthStore()
+    
     override init()
     {
         super.init()
         WCSession.default.delegate = sessionDelegater
         WCSession.default.activate()
     }
-
+    
     func applicationDidFinishLaunching() {
         
-       Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
+        requestAccessToHealthKit()
         
+        Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
+
         if let name = SettingsWatch.fullName, let email = SettingsWatch.email
         {
             Mixpanel.sharedInstance()?.identify(email)
             Mixpanel.sharedInstance()?.people.set(["$email": email])
             Mixpanel.sharedInstance()?.people.set(["$name": name])
-        
-        } else
+
+        }
+        else
         {
             sendMessage(["watch": "mixpanel"], replyHandler: { reply in
                 if let reply = reply as? [String: String],
                     let email = reply["email"],
                     let name = reply["name"] {
-                    
+
                     SettingsWatch.fullName = name
                     SettingsWatch.email = email
-                
+
                     Mixpanel.sharedInstance()?.createAlias(email, forDistinctID: (Mixpanel.sharedInstance()?.distinctId)!)
-                    
-                  Mixpanel.sharedInstance()?.identify(email)
-                Mixpanel.sharedInstance()?.people.set(["$email": email])
-                Mixpanel.sharedInstance()?.people.set(["$name": name])
+
+                    Mixpanel.sharedInstance()?.identify(email)
+                    Mixpanel.sharedInstance()?.people.set(["$email": email])
+                    Mixpanel.sharedInstance()?.people.set(["$name": name])
                 }
             }, errorHandler: { (error) in
                 print(error.localizedDescription)
             })
         }
     }
-
+    
     func applicationDidBecomeActive() {
+//        requestAccessToHealthKit()
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
-
+    
     func applicationWillResignActive() {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, etc.
     }
-
+    
+    func requestAccessToHealthKit() {
+        if #available(watchOSApplicationExtension 5.0, *) {
+            
+            var healthKitTypes: Set<HKSampleType> = [
+                .workoutType(),
+                .quantityType(forIdentifier: .heartRate)!,
+                .quantityType(forIdentifier: .heartRateVariabilitySDNN)!,
+                .categoryType(forIdentifier: .mindfulSession)!
+            ]
+            
+            if #available(watchOSApplicationExtension 6.0, *) {
+                healthKitTypes.insert(HKSeriesType.heartbeat())
+            }
+            
+            var isRequestAuthorization = false
+            
+            for type in healthKitTypes {
+                let status = healthStore.authorizationStatus(for: type)
+                
+                if status == .sharingDenied || status == .notDetermined {
+                    isRequestAuthorization = true
+                    break
+                }
+            }
+                                    
+            if isRequestAuthorization {
+                healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { success, error in
+                    print("Successful HealthKit Authorization from Watch's extension Delegate")
+                }
+            }
+                                            
+        }
+    }
+        
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
         // Sent when the system needs to launch the application in the background to process tasks. Tasks arrive in a set, so loop through and process each one.
         for task in backgroundTasks {
@@ -91,7 +130,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
                     }
                     
                 }
-               
+                
                 backgroundTask.setTaskCompletedWithSnapshot(false)
             case let snapshotTask as WKSnapshotRefreshBackgroundTask:
                 // Snapshot tasks have a unique completion call, make sure to set your expiration date

@@ -26,7 +26,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
         
         Session.options.hapticStrength = Int(value)
-        
+                
         let iterations = Int(Session.options.hapticStrength)
         
         if iterations > 0
@@ -40,7 +40,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                                 WKInterfaceDevice.current().play(WKHapticType.success)
                         }
                         
-                        Thread.sleep(forTimeInterval: 0.5)
+                        Thread.sleep(forTimeInterval: 1)
                     }
             }
         }
@@ -51,7 +51,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
         
         Session.options.retryStrength = Int(value)
-        
+                
         let iterations = Int(Session.options.retryStrength)
         
         if iterations > 0
@@ -65,7 +65,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                                 WKInterfaceDevice.current().play(WKHapticType.retry)
                         }
                         
-                        Thread.sleep(forTimeInterval: 0.5)
+                        Thread.sleep(forTimeInterval: 1)
                     }
             }
         }
@@ -110,6 +110,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         }
         
         self.hapticSetting.setValue(Float(Session.options.hapticStrength))
+        self.retryFeedbackSlider.setValue(Float(Session.options.retryStrength))
         
     }
     
