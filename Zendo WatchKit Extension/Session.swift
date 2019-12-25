@@ -156,7 +156,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         }
     }
     
-    func end(workoutEnd: @escaping (HKWorkout)->()) {
+    func end(workoutEnd: @escaping (HKWorkout?)->()) {
         
         if !self.isRunning {
             print("called end on unrunning session")
@@ -215,18 +215,25 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             guard error == nil else {
                 print(error.debugDescription)
+                workoutEnd(nil)
                 return
             }
             
             self.healthStore.add(healthKitSamples, to: workout, completion:
                 {
-                    (success, error) in
+                    success, error in
+                    
+                    guard error == nil else {
+                        print(error.debugDescription)
+                        workoutEnd(nil)
+                        return
+                    }
                     
                     workoutEnd(workout)
                     
                     self.sendMessage(["watch": "reload"], replyHandler: { (replyMessage) in
                         
-                    }, errorHandler: { (error) in
+                    }, errorHandler: { error in
                         print(error.localizedDescription)
                     })
                     
@@ -361,8 +368,6 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         self.heart_rate_query = heart_rate_query
                
         healthStore.execute(heart_rate_query)
-        
-        
 
     }
     

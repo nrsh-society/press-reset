@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HealthKit
 
 
 class SettingsWatch  {
@@ -73,6 +74,44 @@ class SettingsWatch  {
         get {
             return defaults.bool(forKey: "isFirsrSession")
         }
+    }
+    
+    static func getHealthKitTypes() -> Set<HKSampleType> {
+        var healthKitTypes: Set<HKSampleType> = [
+            .workoutType(),
+            .quantityType(forIdentifier: .heartRate)!,
+            .quantityType(forIdentifier: .heartRateVariabilitySDNN)!,
+            .categoryType(forIdentifier: .mindfulSession)!
+        ]
+        
+        if #available(watchOSApplicationExtension 6.0, *) {
+            healthKitTypes.insert(HKSeriesType.heartbeat())
+        }
+        return healthKitTypes
+    }
+    
+    static func checkAuthorizationStatus(handle: ((_ success: Bool)->())? = nil) {
+        if #available(watchOSApplicationExtension 5.0, *) {
+            
+            let healthKitTypes = getHealthKitTypes()
+            
+            var isRequestAuthorization = false
+            
+            for type in healthKitTypes {
+                let status = HKHealthStore().authorizationStatus(for: type)
+                
+                if status == .sharingDenied || status == .notDetermined {
+                    isRequestAuthorization = true
+                    break
+                }
+            }
+            
+            handle?(!isRequestAuthorization)
+                                                                                    
+        } else {
+            handle?(true)
+        }
+        
     }
     
 }

@@ -22,15 +22,24 @@ class AppInterfaceController: WKInterfaceController {
     
     @IBAction func start() {
         
-        NSLog("start press")
+        SettingsWatch.checkAuthorizationStatus { [weak self] success in
+            if success {
+                NSLog("start press")
+                
+                Session.current = Session()
+                
+                Session.current?.start()
+                
+                WKInterfaceDevice.current().play(WKHapticType.start)
+                
+                WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject)])
+            } else {
+                let ok = WKAlertAction(title: "OK", style: .default) { }
+                
+                self?.presentAlert(withTitle: nil, message: "In order to get started we need to connect Apple Health app to sync your data with Zendō. This allows Zendō to measure and record HRV and other health indicators during meditation. All health data remains on your devices, nothing is shared with us or anyone else.", preferredStyle: .alert, actions: [ok])
+            }
+        }
         
-        Session.current = Session()
-        
-        Session.current?.start()
-        
-        WKInterfaceDevice.current().play(WKHapticType.start)
-        
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject)])
     }
     
     func startSession() {

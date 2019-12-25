@@ -42,13 +42,40 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     
     @IBAction func onDonePress()
     {
-        session.end() { workout in
+        session.end() { [weak self] workout in
+            
+            guard let self = self else { return }
+            
             DispatchQueue.main.async() {
-               Mixpanel.sharedInstance()?.track("watch_meditation")
                 
-                self.sessionDelegater.sendMessage(["watch" : "endSession"], replyHandler: nil, errorHandler: nil)
+                if let workout = workout {
+                    Mixpanel.sharedInstance()?.track("watch_meditation")
+                    
+                    self.sessionDelegater.sendMessage(["watch" : "endSession"], replyHandler: nil, errorHandler: nil)
+                    
+                    WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SummaryInterfaceController", context: ["session": self.session, "workout": workout] as AnyObject)])
+                } else {
+                    
+                    
+                    SettingsWatch.checkAuthorizationStatus { [weak self] success in
+                        
+                        guard let self = self else { return }
+                        
+                        if success {
+                            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "SetGoalInterfaceController", context: false as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
+                        } else {
+                            let ok = WKAlertAction(title: "OK", style: .default) {
+                                WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "SetGoalInterfaceController", context: false as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
+                            }
+                            
+                            self.presentAlert(withTitle: nil, message: "In order to get started we need to connect Apple Health app to sync your data with Zendō. This allows Zendō to measure and record HRV and other health indicators during meditation. All health data remains on your devices, nothing is shared with us or anyone else.", preferredStyle: .alert, actions: [ok])
+                        }
+                    }
+                    
+                    
+                    
+                }
                 
-                WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SummaryInterfaceController", context: ["session": self.session, "workout": workout] as AnyObject)])
             }
         }
     }

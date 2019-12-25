@@ -73,35 +73,15 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
     
     func requestAccessToHealthKit() {
         if #available(watchOSApplicationExtension 5.0, *) {
-            
-            var healthKitTypes: Set<HKSampleType> = [
-                .workoutType(),
-                .quantityType(forIdentifier: .heartRate)!,
-                .quantityType(forIdentifier: .heartRateVariabilitySDNN)!,
-                .categoryType(forIdentifier: .mindfulSession)!
-            ]
-            
-            if #available(watchOSApplicationExtension 6.0, *) {
-                healthKitTypes.insert(HKSeriesType.heartbeat())
-            }
-            
-            var isRequestAuthorization = false
-            
-            for type in healthKitTypes {
-                let status = healthStore.authorizationStatus(for: type)
-                
-                if status == .sharingDenied || status == .notDetermined {
-                    isRequestAuthorization = true
-                    break
+            SettingsWatch.checkAuthorizationStatus { [weak self] success in
+                if !success {
+                    let healthKitTypes = SettingsWatch.getHealthKitTypes()
+                    
+                    self?.healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { success, error in
+                        print("Successful HealthKit Authorization from Watch's extension Delegate")
+                    }
                 }
             }
-                                    
-            if isRequestAuthorization {
-                healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { success, error in
-                    print("Successful HealthKit Authorization from Watch's extension Delegate")
-                }
-            }
-                                            
         }
     }
         
