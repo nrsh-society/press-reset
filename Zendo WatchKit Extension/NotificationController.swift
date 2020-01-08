@@ -114,59 +114,60 @@ class NotificationController: WKUserNotificationInterfaceController {
         {
             (samples, error) in
             
-            let todayHRV = Int(samples![0]!)
-            
-            ZBFHealthKit.getHRVAverage(start: lastYesterday, end: lastNow)
+            if let todayHRV = samples?[0]
             {
-                (samples, error) in
                 
-                let last_hrv = Int(samples![0]!)
-                
-                let hrv_delta = Int(todayHRV - last_hrv)
-                
-                var arrow = ""
-                
-                if hrv_delta < 0
+                ZBFHealthKit.getHRVAverage(start: lastYesterday, end: lastNow)
                 {
-                    arrow = "▾"
-                }
-                else if hrv_delta > 0
-                {
-                    arrow = "▴"
-                }
-                
-                let hrv_delta_string = arrow + hrv_delta.description
-                
-                
-                switch notification.request.identifier {
-                case NotificationType.weekSummary.rawValue:
-                    if hrv_delta == 0 {
-                        alertText = String(format: "Your HRV this week is the same as last week’s %ldms.", last_hrv)
-                    } else {
+                    (samples, error) in
+                    
+                    guard let last_hrv = samples?[0] else { return }
+                    
+                    let hrv_delta = Int(todayHRV - last_hrv)
+                    
+                    var arrow = ""
+                    
+                    if hrv_delta < 0
+                    {
+                        arrow = "▾"
+                    }
+                    else if hrv_delta > 0
+                    {
+                        arrow = "▴"
+                    }
+                    
+                    let hrv_delta_string = arrow + hrv_delta.description
+                    
+                    
+                    switch notification.request.identifier {
+                    case NotificationType.weekSummary.rawValue:
+                        if hrv_delta == 0 {
+                            alertText = String(format: "Your HRV this week is the same as last week’s %ldms.", last_hrv)
+                        } else {
+                            alertText = String(format: alertText, hrv_delta_string, last_hrv)
+                        }
+                        
+                    case NotificationType.checkCloseRing.rawValue,
+                         NotificationType.closeRing.rawValue:
+                        break
+                    default:
                         alertText = String(format: alertText, hrv_delta_string, last_hrv)
                     }
                     
-                case NotificationType.checkCloseRing.rawValue,
-                     NotificationType.closeRing.rawValue:
-                    break
-                default:
-                    alertText = String(format: alertText, hrv_delta_string, last_hrv)
+                    self.notificationTitle.setText(alertTitle)
+                    self.notificationLabel.setText(alertText)
+                    
+                    let textString = NSMutableAttributedString(string: alertText)
+                    
+                    let textRange = NSRange(location: 0, length: textString.length)
+                    let paragraphStyle = NSMutableParagraphStyle()
+                    paragraphStyle.lineSpacing = 1.50
+                    textString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range: textRange)
+                    
+                    self.notificationLabel.setAttributedText(textString)
                 }
-                
-                self.notificationTitle.setText(alertTitle)
-                self.notificationLabel.setText(alertText)
-                
-                let textString = NSMutableAttributedString(string: alertText)
-                
-                let textRange = NSRange(location: 0, length: textString.length)
-                let paragraphStyle = NSMutableParagraphStyle()
-                paragraphStyle.lineSpacing = 1.50
-                textString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range: textRange)
-                
-                self.notificationLabel.setAttributedText(textString)
             }
         }
-    
     }
     
     override func didReceive(_ notification: UNNotification,
