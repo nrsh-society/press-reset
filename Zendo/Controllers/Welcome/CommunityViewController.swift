@@ -46,11 +46,6 @@ class CommunityViewController: UIViewController {
         //}
     //}
     
-    
-    
-    
-    var bottomSpaceNext: CGFloat = 37.0
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -67,11 +62,10 @@ class CommunityViewController: UIViewController {
         super.viewDidLoad()
         
         if UIDevice.small {
-            bottomSpaceNext = 20.0
             topSpace.constant = 20.0
             topSpaceTextField.constant = 15.0
             stackView.spacing = 20.0
-            nextBottomSpace.constant = bottomSpaceNext
+            nextBottomSpace.constant = 20
         }
         
         for label in labels {
@@ -88,9 +82,6 @@ class CommunityViewController: UIViewController {
         }
         
         hideKeyboardWhenTappedAround()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
         
         nextButton.action = {
             self.next()
@@ -109,32 +100,6 @@ class CommunityViewController: UIViewController {
     
     static func loadFromStoryboard() -> CommunityViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CommunityViewController") as! CommunityViewController
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            
-            if nextBottomSpace.constant == bottomSpaceNext {
-                nextBottomSpace.constant += keyboardSize.height
-                UIView.animate(withDuration: 0.3) {
-                    self.view.layoutIfNeeded()
-                }
-            }
-            
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            
-            if nextBottomSpace.constant > bottomSpaceNext {
-                nextBottomSpace.constant -= keyboardSize.height
-                UIView.animate(withDuration: 0.3) {
-                    self.view.layoutIfNeeded()
-                }
-            }
-            
-        }
     }
     
     func check() {

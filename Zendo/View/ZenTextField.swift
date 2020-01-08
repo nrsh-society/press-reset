@@ -64,7 +64,7 @@ class TextFieldPlaceHolder: UITextField {
             textField.textContentType = .emailAddress
             textField.autocapitalizationType = .none
             textField.keyboardType = .emailAddress
-            textField.returnKeyType = .done
+            textField.returnKeyType = .next
         case .wallet:
             textField.textContentType = .name
             textField.autocapitalizationType = .none
