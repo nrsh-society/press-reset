@@ -114,14 +114,22 @@ class NotificationController: WKUserNotificationInterfaceController {
         {
             (samples, error) in
             
-            let todayHRV = Int(samples![0]!)
-            
+            var todayHRV = 0
+
+            if let samp = samples, let first = samp[0] {
+                todayHRV = Int(first)
+            }
+                                    
             ZBFHealthKit.getHRVAverage(start: lastYesterday, end: lastNow)
             {
                 (samples, error) in
                 
-                let last_hrv = Int(samples![0]!)
-                
+                var last_hrv = 0
+
+                if let samp = samples, let first = samp[0] {
+                    last_hrv = Int(first)
+                }
+                                                                
                 let hrv_delta = Int(todayHRV - last_hrv)
                 
                 var arrow = ""
@@ -135,7 +143,7 @@ class NotificationController: WKUserNotificationInterfaceController {
                     arrow = "▴"
                 }
                 
-                let hrv_delta_string = arrow + hrv_delta.description
+                let hrv_delta_string = arrow + abs(hrv_delta).description
                 
                 
                 switch notification.request.identifier {
@@ -224,13 +232,21 @@ class NotificationController: WKUserNotificationInterfaceController {
         {
             (samples, error) in
             
-            let todayHRV = Int(samples![0]!)
+            var todayHRV = 0
+
+            if let samp = samples, let first = samp[0] {
+                todayHRV = Int(first)
+            }
             
             ZBFHealthKit.getHRVAverage(start: lastYesterday, end: lastNow)
             {
                 (samples, error) in
-                
-                let last_hrv = Int(samples![0]!)
+                                
+                var last_hrv = 0
+
+                if let samp = samples, let first = samp[0] {
+                    last_hrv = Int(first)
+                }
                 
                 let hrv_delta = Int(todayHRV - last_hrv)
                 
@@ -245,7 +261,7 @@ class NotificationController: WKUserNotificationInterfaceController {
                     arrow = "▴"
                 }
                 
-                let hrv_delta_string = arrow + hrv_delta.description
+                let hrv_delta_string = arrow + abs(hrv_delta).description
                 
                 alertText = String(format: alertText, hrv_delta_string, last_hrv)
                 
