@@ -483,7 +483,7 @@ extension DiscoverViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // temporarily deleted the last cell
-        return sections[collectionView.tag].stories.count - 1
+        return sections[collectionView.tag].stories.count //- 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -517,12 +517,20 @@ extension DiscoverViewController: UICollectionViewDataSource {
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 vc = alert
             } else {
-                let group = GroupController.loadFromStoryboard()
-                group.story = story
-                group.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-                group.modalPresentationStyle = .fullScreen
-                group.hero.isEnabled = true
-                vc = group
+                
+//                let group = GroupController.loadFromStoryboard()
+//                group.story = story
+//                group.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+//                group.modalPresentationStyle = .fullScreen
+//                group.hero.isEnabled = true
+//                vc = group
+
+                
+                let start = StartSessionController.loadFromStoryboard()
+                start.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+                start.modalPresentationStyle = .fullScreen
+                vc = start
+                
             }
         } else if story.type == "solo" || story.type == "train"
         {
