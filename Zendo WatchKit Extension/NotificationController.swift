@@ -119,21 +119,21 @@ class NotificationController: WKUserNotificationInterfaceController {
             if let samp = samples, let first = samp[0] {
                 todayHRV = Int(first)
             }
-                                    
+
             ZBFHealthKit.getHRVAverage(start: lastYesterday, end: lastNow)
             {
                 (samples, error) in
-                
+
                 var last_hrv = 0
 
                 if let samp = samples, let first = samp[0] {
                     last_hrv = Int(first)
                 }
-                                                                
+
                 let hrv_delta = Int(todayHRV - last_hrv)
-                
+
                 var arrow = ""
-                
+
                 if hrv_delta < 0
                 {
                     arrow = "▾"
@@ -142,7 +142,7 @@ class NotificationController: WKUserNotificationInterfaceController {
                 {
                     arrow = "▴"
                 }
-                
+
                 let hrv_delta_string = arrow + abs(hrv_delta).description
                 
                 
@@ -174,7 +174,6 @@ class NotificationController: WKUserNotificationInterfaceController {
                 self.notificationLabel.setAttributedText(textString)
             }
         }
-    
     }
     
     override func didReceive(_ notification: UNNotification,
@@ -241,7 +240,7 @@ class NotificationController: WKUserNotificationInterfaceController {
             ZBFHealthKit.getHRVAverage(start: lastYesterday, end: lastNow)
             {
                 (samples, error) in
-                                
+
                 var last_hrv = 0
 
                 if let samp = samples, let first = samp[0] {
