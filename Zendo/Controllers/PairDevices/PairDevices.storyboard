@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yrR-Oc-bbz">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Antenna-Regular.otf">
+            <string>Antenna-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Pair Devices Controller-->
+        <scene sceneID="Qal-6T-nre">
+            <objects>
+                <viewController storyboardIdentifier="PairDevicesController" modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="gv0-yV-8nq" customClass="PairDevicesController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zlE-vz-UIY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uCV-EB-Sy5">
+                                <rect key="frame" x="41" y="50" width="332" height="94.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pair" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Olk-zJ-Up1">
+                                        <rect key="frame" x="0.0" y="0.0" width="57.5" height="30"/>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="devices" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZPt-Pk-BiK">
+                                        <rect key="frame" x="0.0" y="40" width="112.5" height="30"/>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                        <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="searching for devices..." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vn4-TA-IuW">
+                                        <rect key="frame" x="0.0" y="80" width="156.5" height="14.5"/>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                        <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GNo-tq-Mc8" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
+                                <rect key="frame" x="207" y="692" width="207" height="45"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="XJF-Lu-5wB"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="titleButton" value="Next"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J8d-cF-snO">
+                                <rect key="frame" x="103.5" y="274.5" width="207" height="207"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="J8d-cF-snO" secondAttribute="height" multiplier="1:1" id="tgG-SR-1p7"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gex-eG-ewW">
+                                <rect key="frame" x="93" y="583" width="228" height="29"/>
+                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="17"/>
+                                <state key="normal" title="Don't see device? / Rescan">
+                                    <color key="titleColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="rescanAction:" destination="gv0-yV-8nq" eventType="touchUpInside" id="Jnv-uE-LLi"/>
+                                </connections>
+                            </button>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kug-Pt-bpz">
+                                <rect key="frame" x="40" y="164.5" width="334" height="378.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="gv0-yV-8nq" id="ceG-Vs-xj1"/>
+                                    <outlet property="delegate" destination="gv0-yV-8nq" id="pv0-wB-g8U"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="uCV-EB-Sy5" firstAttribute="top" secondItem="mYE-8y-hx1" secondAttribute="top" constant="50" id="BF6-sT-7zc"/>
+                            <constraint firstItem="mYE-8y-hx1" firstAttribute="trailing" secondItem="kug-Pt-bpz" secondAttribute="trailing" constant="40" id="BNB-Yq-fTC"/>
+                            <constraint firstItem="J8d-cF-snO" firstAttribute="width" secondItem="zlE-vz-UIY" secondAttribute="width" multiplier="0.5" id="Cbt-EM-zmJ"/>
+                            <constraint firstItem="J8d-cF-snO" firstAttribute="centerX" secondItem="mYE-8y-hx1" secondAttribute="centerX" id="Hld-3Z-nte"/>
+                            <constraint firstItem="GNo-tq-Mc8" firstAttribute="width" secondItem="zlE-vz-UIY" secondAttribute="width" multiplier="0.5" id="LEv-gD-KgR"/>
+                            <constraint firstItem="mYE-8y-hx1" firstAttribute="bottom" secondItem="GNo-tq-Mc8" secondAttribute="bottom" constant="37" id="Nd7-15-xck"/>
+                            <constraint firstItem="gex-eG-ewW" firstAttribute="centerX" secondItem="mYE-8y-hx1" secondAttribute="centerX" id="Oa3-dU-F6Y"/>
+                            <constraint firstItem="uCV-EB-Sy5" firstAttribute="leading" secondItem="mYE-8y-hx1" secondAttribute="leading" constant="41" id="RrD-m1-d0u"/>
+                            <constraint firstAttribute="trailing" secondItem="uCV-EB-Sy5" secondAttribute="trailing" constant="41" id="XId-JU-hEr"/>
+                            <constraint firstItem="kug-Pt-bpz" firstAttribute="top" secondItem="uCV-EB-Sy5" secondAttribute="bottom" constant="20" id="YIy-yA-plm"/>
+                            <constraint firstItem="J8d-cF-snO" firstAttribute="top" secondItem="vn4-TA-IuW" secondAttribute="bottom" constant="130" id="YbT-K9-BQx"/>
+                            <constraint firstItem="mYE-8y-hx1" firstAttribute="trailing" secondItem="GNo-tq-Mc8" secondAttribute="trailing" id="oWX-82-0ih"/>
+                            <constraint firstItem="gex-eG-ewW" firstAttribute="top" secondItem="kug-Pt-bpz" secondAttribute="bottom" constant="40" id="pce-PS-R30"/>
+                            <constraint firstItem="kug-Pt-bpz" firstAttribute="leading" secondItem="mYE-8y-hx1" secondAttribute="leading" constant="40" id="tYo-zb-d12"/>
+                            <constraint firstItem="GNo-tq-Mc8" firstAttribute="top" secondItem="gex-eG-ewW" secondAttribute="bottom" constant="80" id="vwe-5a-vw7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="mYE-8y-hx1"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="fKQ-Ad-z47">
+                        <barButtonItem key="rightBarButtonItem" title="Skip" id="ElZ-7Q-Lw8" userLabel="Skip">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="didSkipWithSender:" destination="gv0-yV-8nq" id="LZK-9C-jH5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="animationView" destination="J8d-cF-snO" id="3ii-Co-GWD"/>
+                        <outlet property="tableView" destination="kug-Pt-bpz" id="4oX-mB-Fy2"/>
+                        <outlet property="zenButton" destination="GNo-tq-Mc8" id="Nlh-z0-Qd0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nDr-Jf-UDV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2349.275362318841" y="-2147.5446428571427"/>
+        </scene>
+        <!--Pair Status Controller-->
+        <scene sceneID="D6k-NX-eyk">
+            <objects>
+                <viewController storyboardIdentifier="PairStatusController" modalTransitionStyle="crossDissolve" id="teJ-Qy-zQF" customClass="PairStatusController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8ZF-Y3-K03">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="watchConnectSuccess" translatesAutoresizingMaskIntoConstraints="NO" id="VIu-MC-yuP">
+                                <rect key="frame" x="32" y="56" width="350" height="448"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="y5g-sc-zjs">
+                                <rect key="frame" x="41" y="464" width="328" height="164.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="device" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6aa-68-NUp">
+                                        <rect key="frame" x="0.0" y="0.0" width="96.5" height="30"/>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="paired" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13V-H6-wNe">
+                                        <rect key="frame" x="0.0" y="40" width="94.5" height="30"/>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                        <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6J-sA-JyB">
+                                        <rect key="frame" x="0.0" y="80" width="328" height="84.5"/>
+                                        <string key="text">In order to get started we need to connect Apple Health app to sync your data with Zendō. This allows Zendō to measure and record HRV and other health indicators during meditation. All health data remains on your devices, nothing is shared with us or anyone else.</string>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                        <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MsQ-za-nza" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
+                                <rect key="frame" x="207" y="780" width="207" height="45"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="eEo-SI-xGK"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="titleButton" value="Connect"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="y5g-sc-zjs" firstAttribute="top" secondItem="VIu-MC-yuP" secondAttribute="bottom" constant="-40" id="0Rp-qs-NwW"/>
+                            <constraint firstItem="7wi-Vs-ZHh" firstAttribute="trailing" secondItem="MsQ-za-nza" secondAttribute="trailing" id="1AB-vI-wem"/>
+                            <constraint firstItem="7wi-Vs-ZHh" firstAttribute="trailing" secondItem="VIu-MC-yuP" secondAttribute="trailing" constant="32" id="5tH-AP-5bs"/>
+                            <constraint firstItem="y5g-sc-zjs" firstAttribute="leading" secondItem="7wi-Vs-ZHh" secondAttribute="leading" constant="41" id="LUf-EG-AEi"/>
+                            <constraint firstItem="7wi-Vs-ZHh" firstAttribute="bottom" secondItem="MsQ-za-nza" secondAttribute="bottom" constant="37" id="Q8d-MX-f7S"/>
+                            <constraint firstItem="7wi-Vs-ZHh" firstAttribute="trailing" secondItem="y5g-sc-zjs" secondAttribute="trailing" constant="45" id="S2K-SP-u6x"/>
+                            <constraint firstItem="VIu-MC-yuP" firstAttribute="height" secondItem="8ZF-Y3-K03" secondAttribute="height" multiplier="0.5" id="c3d-zE-pI9"/>
+                            <constraint firstItem="VIu-MC-yuP" firstAttribute="top" secondItem="7wi-Vs-ZHh" secondAttribute="top" constant="12" id="nDv-05-eRq"/>
+                            <constraint firstItem="MsQ-za-nza" firstAttribute="width" secondItem="8ZF-Y3-K03" secondAttribute="width" multiplier="0.5" id="sgR-Ch-LPl"/>
+                            <constraint firstItem="VIu-MC-yuP" firstAttribute="leading" secondItem="7wi-Vs-ZHh" secondAttribute="leading" constant="32" id="waI-d1-oKK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7wi-Vs-ZHh"/>
+                    </view>
+                    <connections>
+                        <outlet property="button" destination="MsQ-za-nza" id="maS-Zu-CoF"/>
+                        <outlet property="firstLabel" destination="6aa-68-NUp" id="G8G-1P-uLs"/>
+                        <outlet property="imageView" destination="VIu-MC-yuP" id="fDx-VL-I5e"/>
+                        <outlet property="secondLabel" destination="13V-H6-wNe" id="kZ0-aO-Ve7"/>
+                        <outlet property="thirdLabel" destination="z6J-sA-JyB" id="suq-bo-g8v"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lea-1l-NL0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1407.2463768115942" y="-2148.2142857142858"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="oEj-94-Zhl">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yrR-Oc-bbz" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gB7-CT-yS9">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="gv0-yV-8nq" kind="relationship" relationship="rootViewController" id="eyG-D2-zXZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NOB-WV-hUh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3259.4202898550725" y="-2147.5446428571427"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="watchConnectSuccess" width="315" height="340"/>
+    </resources>
+</document>

@@ -40,12 +40,21 @@
 		127C3E412178DAF500B332EB /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C3E402178DAF500B332EB /* LoadingView.swift */; };
 		127C3E432178DB1100B332EB /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 127C3E422178DB1100B332EB /* LoadingView.xib */; };
 		1280DD632125DCB100F3DFC1 /* MMChartFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280DD622125DCB100F3DFC1 /* MMChartFormatter.swift */; };
+		1284B7AE23C8C3030026B511 /* StartSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1284B7AD23C8C3030026B511 /* StartSessionController.swift */; };
+		1284B7B023C8C46C0026B511 /* StartSession.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1284B7AF23C8C46C0026B511 /* StartSession.storyboard */; };
+		1284B7B323C8D67A0026B511 /* StartSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1284B7B223C8D67A0026B511 /* StartSessionView.swift */; };
+		1284B7B523C8D6880026B511 /* StartSessionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1284B7B423C8D6880026B511 /* StartSessionView.xib */; };
 		128D0BB92111D30900A4D757 /* UIDevice+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128D0BB82111D30900A4D757 /* UIDevice+Size.swift */; };
 		12A7E252217F3B8400E38018 /* Discover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7E251217F3B8400E38018 /* Discover.swift */; };
 		12A7E254217F3BCC00E38018 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7E253217F3BCC00E38018 /* Section.swift */; };
 		12A7E256217F404200E38018 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7E255217F404200E38018 /* Story.swift */; };
 		12A7E258217F40F900E38018 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7E257217F40F900E38018 /* Content.swift */; };
 		12A8991023ABE76B00DDAFA3 /* Foregrounder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A8990F23ABE76B00DDAFA3 /* Foregrounder.swift */; };
+		12AC1A6C23C766A300696DA5 /* PairDevicesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AC1A6B23C766A300696DA5 /* PairDevicesController.swift */; };
+		12AC1A6E23C7670A00696DA5 /* PairDevices.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12AC1A6D23C7670A00696DA5 /* PairDevices.storyboard */; };
+		12AC1A7223C7728D00696DA5 /* PairDevicesTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AC1A7023C7728D00696DA5 /* PairDevicesTableCell.swift */; };
+		12AC1A7323C7728D00696DA5 /* PairDevicesTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12AC1A7123C7728D00696DA5 /* PairDevicesTableCell.xib */; };
+		12AC1A7523C7941000696DA5 /* PairStatusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AC1A7423C7941000696DA5 /* PairStatusController.swift */; };
 		12BC71FE220C80FD00588739 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BC71FD220C80FD00588739 /* Background.swift */; };
 		12BE94BF21AEE4C6000E2B0B /* PauseImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BE94BE21AEE4C6000E2B0B /* PauseImageView.swift */; };
 		12BE94C421AF0FD9000E2B0B /* VideoGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BE94C121AF0FD9000E2B0B /* VideoGenerator.swift */; };
@@ -285,12 +294,21 @@
 		127C3E402178DAF500B332EB /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		127C3E422178DB1100B332EB /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		1280DD622125DCB100F3DFC1 /* MMChartFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMChartFormatter.swift; sourceTree = "<group>"; };
+		1284B7AD23C8C3030026B511 /* StartSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSessionController.swift; sourceTree = "<group>"; };
+		1284B7AF23C8C46C0026B511 /* StartSession.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StartSession.storyboard; sourceTree = "<group>"; };
+		1284B7B223C8D67A0026B511 /* StartSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSessionView.swift; sourceTree = "<group>"; };
+		1284B7B423C8D6880026B511 /* StartSessionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StartSessionView.xib; sourceTree = "<group>"; };
 		128D0BB82111D30900A4D757 /* UIDevice+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Size.swift"; sourceTree = "<group>"; };
 		12A7E251217F3B8400E38018 /* Discover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discover.swift; sourceTree = "<group>"; };
 		12A7E253217F3BCC00E38018 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		12A7E255217F404200E38018 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		12A7E257217F40F900E38018 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		12A8990F23ABE76B00DDAFA3 /* Foregrounder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foregrounder.swift; sourceTree = "<group>"; };
+		12AC1A6B23C766A300696DA5 /* PairDevicesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairDevicesController.swift; sourceTree = "<group>"; };
+		12AC1A6D23C7670A00696DA5 /* PairDevices.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PairDevices.storyboard; sourceTree = "<group>"; };
+		12AC1A7023C7728D00696DA5 /* PairDevicesTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairDevicesTableCell.swift; sourceTree = "<group>"; };
+		12AC1A7123C7728D00696DA5 /* PairDevicesTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PairDevicesTableCell.xib; sourceTree = "<group>"; };
+		12AC1A7423C7941000696DA5 /* PairStatusController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairStatusController.swift; sourceTree = "<group>"; };
 		12BC71FD220C80FD00588739 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		12BE94BE21AEE4C6000E2B0B /* PauseImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseImageView.swift; sourceTree = "<group>"; };
 		12BE94C121AF0FD9000E2B0B /* VideoGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoGenerator.swift; sourceTree = "<group>"; };
@@ -556,6 +574,7 @@
 		127C3E2C217898DA00B332EB /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				12AC1A6F23C7726500696DA5 /* PairDevices */,
 				12584E4D21AFF55D004DA557 /* NoInternetTableViewCell */,
 				127C3E2D217898E000B332EB /* DiscoverCollectionViewCell */,
 			);
@@ -580,6 +599,24 @@
 			path = Chart;
 			sourceTree = "<group>";
 		};
+		1284B7AC23C8C2D40026B511 /* StartSession */ = {
+			isa = PBXGroup;
+			children = (
+				1284B7AF23C8C46C0026B511 /* StartSession.storyboard */,
+				1284B7AD23C8C3030026B511 /* StartSessionController.swift */,
+			);
+			path = StartSession;
+			sourceTree = "<group>";
+		};
+		1284B7B123C8D65B0026B511 /* StartSession */ = {
+			isa = PBXGroup;
+			children = (
+				1284B7B223C8D67A0026B511 /* StartSessionView.swift */,
+				1284B7B423C8D6880026B511 /* StartSessionView.xib */,
+			);
+			path = StartSession;
+			sourceTree = "<group>";
+		};
 		128B104021AEB8E6009190B0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -590,6 +627,25 @@
 				BE2E82181FF44A7B00D104AC /* PushNotificationPayload.apns */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		12AC1A6A23C7667C00696DA5 /* PairDevices */ = {
+			isa = PBXGroup;
+			children = (
+				12AC1A6D23C7670A00696DA5 /* PairDevices.storyboard */,
+				12AC1A6B23C766A300696DA5 /* PairDevicesController.swift */,
+				12AC1A7423C7941000696DA5 /* PairStatusController.swift */,
+			);
+			path = PairDevices;
+			sourceTree = "<group>";
+		};
+		12AC1A6F23C7726500696DA5 /* PairDevices */ = {
+			isa = PBXGroup;
+			children = (
+				12AC1A7023C7728D00696DA5 /* PairDevicesTableCell.swift */,
+				12AC1A7123C7728D00696DA5 /* PairDevicesTableCell.xib */,
+			);
+			path = PairDevices;
 			sourceTree = "<group>";
 		};
 		12BE94C021AF0FB0000E2B0B /* Video */ = {
@@ -622,6 +678,7 @@
 		12C1A7262119B70100EEFF4F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1284B7B123C8D65B0026B511 /* StartSession */,
 				1226B0222229A6B200EE02F9 /* ArenaView */,
 				127C3E2C217898DA00B332EB /* Cell */,
 				12C1A7272119B74B00EEFF4F /* ZenButton.swift */,
@@ -689,6 +746,8 @@
 		12E2A1B3211077B400E0E911 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1284B7AC23C8C2D40026B511 /* StartSession */,
+				12AC1A6A23C7667C00696DA5 /* PairDevices */,
 				12C85D642176167700329B53 /* Watch */,
 				1280DD612125DC9700F3DFC1 /* Chart */,
 				12477F232119A41600D8AE83 /* Welcome */,
@@ -1171,8 +1230,10 @@
 				12584E5121AFF57A004DA557 /* NoInternetTableViewCell.xib in Resources */,
 				BE9A81CF225C6FAD00D19DC8 /* trainparticles.sks in Resources */,
 				12C1A72A2119B75900EEFF4F /* ZenButton.xib in Resources */,
+				1284B7B523C8D6880026B511 /* StartSessionView.xib in Resources */,
 				12E2A1A7211073D600E0E911 /* Antenna-ExtraLight.otf in Resources */,
 				BEBAE48D20E6DED800495C65 /* gallery.ckcomplication in Resources */,
+				12AC1A6E23C7670A00696DA5 /* PairDevices.storyboard in Resources */,
 				BE021CC42260E79A00153D4B /* GroupController.storyboard in Resources */,
 				DFE3B1702189A3FA008830CD /* StartingSessions.xib in Resources */,
 				BE2E81F71FF44A7B00D104AC /* LaunchScreen.storyboard in Resources */,
@@ -1181,11 +1242,13 @@
 				BE9DB33521F5680700BCE8C2 /* AirplayController.storyboard in Resources */,
 				DFE3B1742189A6E5008830CD /* animationStartingSession.json in Resources */,
 				12E2A1A8211073D600E0E911 /* Antenna-Medium.otf in Resources */,
+				1284B7B023C8C46C0026B511 /* StartSession.storyboard in Resources */,
 				BE30A47E21E4786600F8509C /* notification.json in Resources */,
 				127C3E432178DB1100B332EB /* LoadingView.xib in Resources */,
 				12C2C27F2137F7F70039C7A0 /* ZenTextField.xib in Resources */,
 				12E2A1AA211073D700E0E911 /* Antenna-Regular.otf in Resources */,
 				1226B0262229A6DD00EE02F9 /* ArenaView.xib in Resources */,
+				12AC1A7323C7728D00696DA5 /* PairDevicesTableCell.xib in Resources */,
 				1226B0212229A45600EE02F9 /* checkAnimation.json in Resources */,
 				127C3E352178993100B332EB /* DiscoverCollectionViewCell.xib in Resources */,
 				12584E5321AFF86D004DA557 /* animationNoInternet.json in Resources */,
@@ -1423,6 +1486,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12CE364E211302A900EF0196 /* UIView.swift in Sources */,
+				1284B7AE23C8C3030026B511 /* StartSessionController.swift in Sources */,
 				12C2C27D2137F7E80039C7A0 /* ZenTextField.swift in Sources */,
 				12D3BB34211A00B40081CAE2 /* OverviewTableViewCell.swift in Sources */,
 				124A689E2199CCF800598639 /* Error.swift in Sources */,
@@ -1445,6 +1509,7 @@
 				BE8787002215EE1F0052FE4C /* TrainController.swift in Sources */,
 				BE4F346422D460910006BAAE /* BleController.swift in Sources */,
 				126544AE2170B44D00CA8F0B /* NavigationControllerWelcome.swift in Sources */,
+				1284B7B323C8D67A0026B511 /* StartSessionView.swift in Sources */,
 				12BE94BF21AEE4C6000E2B0B /* PauseImageView.swift in Sources */,
 				BE9DB33621F5680700BCE8C2 /* AirplayController.swift in Sources */,
 				12E2A19E21106E4500E0E911 /* TimeInterval.swift in Sources */,
@@ -1463,6 +1528,7 @@
 				12E2A1B721107CE400E0E911 /* UIColor+Zendo.swift in Sources */,
 				12FFCAE5210F7DDD007E2480 /* Cell+ReuseIdentifier.swift in Sources */,
 				12C63FFC22170B44001C93C7 /* Date+UTC.swift in Sources */,
+				12AC1A7523C7941000696DA5 /* PairStatusController.swift in Sources */,
 				BE75AEC120F708C300311512 /* Chart.swift in Sources */,
 				124A689C2199A41400598639 /* WatchSyncError.swift in Sources */,
 				12C2C2812137FCA90039C7A0 /* CommunityViewController.swift in Sources */,
@@ -1470,6 +1536,7 @@
 				BE2E81EF1FF44A7B00D104AC /* ZendoController.swift in Sources */,
 				12C1A72E2119C27C00EEFF4F /* ZenInfoView.swift in Sources */,
 				12BE94C421AF0FD9000E2B0B /* VideoGenerator.swift in Sources */,
+				12AC1A7223C7728D00696DA5 /* PairDevicesTableCell.swift in Sources */,
 				BE021CC52260E79A00153D4B /* GroupController.swift in Sources */,
 				12C2C286213802760039C7A0 /* String.swift in Sources */,
 				BE9B00002065F317007FF96A /* ZBFHealthKit.swift in Sources */,
@@ -1491,6 +1558,7 @@
 				BE4F346222D460830006BAAE /* MovesenseService.swift in Sources */,
 				BE2E81ED1FF44A7B00D104AC /* AppDelegate.swift in Sources */,
 				1223161F21A809D800413A62 /* UIImageView+Download.swift in Sources */,
+				12AC1A6C23C766A300696DA5 /* PairDevicesController.swift in Sources */,
 				BE75AEBF20F708C300311512 /* ChartColors.swift in Sources */,
 				7BEDEAF522A34CCF008FCAF7 /* WorkoutFetcher.swift in Sources */,
 				121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */,
@@ -1606,7 +1674,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = ZendoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -1628,7 +1696,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = ZendoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -1766,11 +1834,11 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 342;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 5.4;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios2.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1792,11 +1860,11 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 342;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 5.4;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios2.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1817,12 +1885,12 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 342;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 5.4;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios2.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1843,12 +1911,12 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 342;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 5.4;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios2.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1871,7 +1939,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 342;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1884,7 +1952,7 @@
 					"$(PROJECT_DIR)/Pods/Movesense/IOS/Movesense/Release-iphoneos",
 				);
 				MARKETING_VERSION = 5.4;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1905,7 +1973,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 342;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1918,7 +1986,7 @@
 					"$(PROJECT_DIR)/Pods/Movesense/IOS/Movesense/Release-iphoneos",
 				);
 				MARKETING_VERSION = 5.4;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1936,7 +2004,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 342;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
@@ -1944,7 +2012,7 @@
 				MARKETING_VERSION = 5.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios2.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
@@ -1960,14 +2028,14 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 342;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TZSWHX7RVS;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 5.4;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.ios2.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;

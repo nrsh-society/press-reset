@@ -56,6 +56,16 @@ class Settings: NSObject {
             }
         }
     
+    static var nameMovesense: String? {
+        set {
+             defaults.set(newValue, forKey: "nameMovesense")
+                       defaults.synchronize()
+        }
+        get {
+             return defaults.string(forKey: "nameMovesense")
+        }
+    }
+    
     static var ilpAddress: String? {
         set {
             defaults.set(newValue?.trimmingCharacters(in: CharacterSet.whitespaces), forKey: "ilpAddress")

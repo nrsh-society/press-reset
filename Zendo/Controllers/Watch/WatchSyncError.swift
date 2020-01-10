@@ -30,7 +30,7 @@ enum ErrorConfiguration {
         switch self {
         case .connecting: return (true, "")
         case .success: return (false, "Get Started")
-        case .noInstallZendo: return (false, "Done")
+        case .noInstallZendo: return (false, "Go to Watch App")
         case .needWear: return (false, "Retry")
         case .noAppleWatch: return (false, "Done")
         case .unableToDetect: return (false, "Done")
@@ -98,8 +98,13 @@ class WatchSyncError: HealthKitViewController {
                         self.dismiss(animated: true)
                     //}
                 case .noInstallZendo:
-                    //UIApplication.shared.open(URL(string: "itms-watch://")!)
-                    self.dismiss(animated: true)
+                    if let url = URL(string: "itms-watch://") {
+                        self.dismiss(animated: true) {
+                            UIApplication.shared.open(url)
+                        }
+                    } else {
+                        self.dismiss(animated: true)
+                    }
                 case .success:
                     self.dismiss(animated: true)
                 case .needWear, .unableToDetect:

@@ -64,9 +64,12 @@ class HealthKitViewController: UIViewController {
                                     self.isFailed = true
                                     self.setConnectFailed()
                                 case .sharingAuthorized:
-                                    let vc = WatchSyncError.loadFromStoryboard()
-                                    vc.errorConfiguration = .connecting
-                                    vc.isFirstCheck = true
+//                                    let vc = WatchSyncError.loadFromStoryboard()
+//                                    vc.errorConfiguration = .connecting
+//                                    vc.isFirstCheck = true
+//                                    self.navigationController?.pushViewController(vc, animated: true)
+                                    
+                                    let vc = PairDevicesController.loadFromStoryboard()
                                     self.navigationController?.pushViewController(vc, animated: true)
                                 }
                                 break

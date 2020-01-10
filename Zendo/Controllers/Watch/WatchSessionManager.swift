@@ -127,8 +127,8 @@ extension WatchSessionManager: WCSessionDelegate {
         {
             if let sample = message.first?.value
             {                
-                NotificationCenter.default.post(name: NSNotification.Name("sample"),
-                                                object: sample )
+                NotificationCenter.default.post(name: .sample,
+                                                object: sample)
                 
                 FBSDKAppEvents.logEvent("watch_sample")
             }

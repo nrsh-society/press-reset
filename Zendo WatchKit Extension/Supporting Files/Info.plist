@@ -37,7 +37,7 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>WKAppBundleIdentifier</key>
-			<string>tools.sunyata.Zendo.watchkit</string>
+			<string>tools.sunyata.Zendo.ios2.watchkit</string>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
@@ -58,5 +58,7 @@
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
 	<key>WKRunsIndependentlyOfCompanionApp</key>
 	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Use bluetooth to discover, connect to, and share information with nearby devices</string>
 </dict>
 </plist>
