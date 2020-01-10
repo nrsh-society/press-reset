@@ -33,7 +33,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>tools.sunyata.Zendo.ios2</string>
+	<string>tools.sunyata.Zendo</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>
