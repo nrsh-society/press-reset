@@ -31,7 +31,14 @@ class SessionDelegater: NSObject, WCSessionDelegate, SessionCommands {
     }
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-
+        
+        if let message = message as? [String: String] {
+            
+            if message["phone"] == "end" {
+                NotificationCenter.default.post(name: .endSessionFromiPhone, object: nil)
+            }
+            
+        }
     }
     
 }

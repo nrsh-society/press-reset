@@ -16,6 +16,7 @@ enum CurrentInterval: Int {
     case day = 1
     case month = 2
     case year = 3
+    case minute = 4
     
     var interval: Calendar.Component {
         switch self {
@@ -23,6 +24,7 @@ enum CurrentInterval: Int {
         case .day: return .day
         case .month: return .month
         case .year: return .year
+        case .minute: return .minute
         }
     }
     
@@ -32,6 +34,7 @@ enum CurrentInterval: Int {
         case .day: return 7
         case .month: return 1
         case .year: return 1
+        case .minute: return 1
         }
     }
     
@@ -311,6 +314,7 @@ class OverviewController: UIViewController {
                     case .year:
                         cell.hrvChart.xAxis.setLabelCount(12, force: true)
                         formato = MMChartFormatterYear()
+                    case .minute: break
                     }
                     
                     let xaxis = XAxis()
@@ -366,6 +370,7 @@ class OverviewController: UIViewController {
     func populateDatetimeSpan(_ cell: HeaderOverviewTableViewCell, _ currentInterval: CurrentInterval) {
         let date = Date()
         switch currentInterval {
+        case .minute: break
         case .hour:
             cell.dateTimeTitle.text = date.startOfDay.toZendoHeaderDayString
         case .day:
@@ -438,6 +443,7 @@ class OverviewController: UIViewController {
                     xaxisValue.valueFormatter = formatoValue
                     
                     switch self.currentInterval {
+                        case .minute: break
                     case .hour:
                         cell.mmChart.xAxis.setLabelCount(12, force: true)
                         formato = MMChartFormatterHour()
@@ -482,6 +488,7 @@ class OverviewController: UIViewController {
         let date = Date()
         
         switch self.currentInterval {
+            case .minute: break
         case .hour:
             self.start = date.startOfDay
             self.end = date.endOfDay

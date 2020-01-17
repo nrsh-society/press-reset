@@ -42,6 +42,14 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     
     @IBAction func onDonePress()
     {
+        endSession()
+    }
+    
+    @objc func endSessionFromiPhone() {
+        endSession()
+    }
+    
+    func endSession() {
         session.end() { [weak self] workout in
             
             guard let self = self else { return }
@@ -71,9 +79,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
                             self.presentAlert(withTitle: nil, message: "In order to get started we need to connect Apple Health app to sync your data with Zendō. This allows Zendō to measure and record HRV and other health indicators during meditation. All health data remains on your devices, nothing is shared with us or anyone else.", preferredStyle: .alert, actions: [ok])
                         }
                     }
-                    
-                    
-                    
+                                        
                 }
                 
             }
@@ -84,27 +90,32 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     {
         super.awake(withContext: context)
         
-       Mixpanel.sharedInstance()?.timeEvent("watch_meditation")
+        Mixpanel.sharedInstance()?.timeEvent("watch_meditation")
         
         sessionDelegater.sendMessage(["facebook" : "watch_meditation"],
-            replyHandler:
+                                     replyHandler:
             {
                 (message) in
                 
                 print(message.debugDescription)
-            },
-            errorHandler:
+        },
+                                     errorHandler:
             {
                 (error) in
                 
                 print(error)
-            })
+        })
         
         if let context = context as? Session {
             session = context
             session.delegate = self
             timeElapsedLabel.setText("00:00")
         }
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(endSessionFromiPhone),
+                                               name:  .endSessionFromiPhone,
+                                               object: nil)
     }
 
     override func willActivate() {

@@ -537,6 +537,7 @@ public class ZBFHealthKit {
                                                 for i in 1...12 {
                                                     entries[Double(i)] = 0.0
                                                 }
+                                            case .minute: break
                                             }
                                             
                                             if let samples = samples/*, !samples.isEmpty*/ {
@@ -555,6 +556,7 @@ public class ZBFHealthKit {
                                                     var keyDay = 0.0
                                                     
                                                     switch currentInterval {
+                                                    case .minute: break
                                                     case .hour:
                                                         key = Double(calender.component(.hour, from: startDate))
                                                     case .day:
@@ -612,6 +614,8 @@ public class ZBFHealthKit {
         var components = DateComponents()
         
         switch currentInterval {
+        case .minute:
+            components.minute = 1
         case .hour:
             components.hour = 1
         case .day:
@@ -623,6 +627,18 @@ public class ZBFHealthKit {
         }        
         
         switch currentInterval {
+        case .minute:
+            let calendar = Calendar.current
+            let range = calendar.dateComponents([.minute], from: start, to: end)
+            if let min = range.minute {
+                for i in 0...min {
+                    entries[Double(i)] = 0.0
+                }
+            } else {
+                for i in 0...23 {
+                    entries[Double(i)] = 0.0
+                }
+            }
         case .hour:
             for i in 0...23 {
                 entries[Double(i)] = 0.0
@@ -667,6 +683,8 @@ public class ZBFHealthKit {
                     let calender = Calendar.current
                     
                     switch currentInterval {
+                    case .minute:
+                        key = Double(calender.component(.minute, from: statistics.startDate))
                     case .hour:
                         key = Double(calender.component(.hour, from: statistics.startDate))
                     case .day:

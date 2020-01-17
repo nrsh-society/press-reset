@@ -20,3 +20,5 @@ enum MetadataType: String {
 }
 
 let metadataTypeArray: [MetadataType] = [.time, .now, .motion, .sdnn, .heart, .pitch, .roll, .yaw]
+
+let metadataTypeArraySmall: [MetadataType] = [.time, .sdnn, .heart]

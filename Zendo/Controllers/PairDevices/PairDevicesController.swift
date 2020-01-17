@@ -307,6 +307,7 @@ extension PairDevicesController {
                     device.isSelect = true
                 }
                 
+                
                 listDevices.append(device)
                 stopAnimation()
                 tableView.reloadData()

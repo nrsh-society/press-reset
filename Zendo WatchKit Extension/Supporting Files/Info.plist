@@ -30,6 +30,8 @@
 		<string>CLKComplicationFamilyCircularSmall</string>
 		<string>CLKComplicationFamilyExtraLarge</string>
 	</array>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Use bluetooth to discover, connect to, and share information with nearby devices</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Measure heart rate variablity from external monitors</string>
 	<key>NSExtension</key>
@@ -58,7 +60,5 @@
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
 	<key>WKRunsIndependentlyOfCompanionApp</key>
 	<true/>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Use bluetooth to discover, connect to, and share information with nearby devices</string>
 </dict>
 </plist>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yrR-Oc-bbz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yrR-Oc-bbz">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -55,14 +55,14 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J8d-cF-snO">
-                                <rect key="frame" x="103.5" y="274.5" width="207" height="207"/>
+                                <rect key="frame" x="103.5" y="283.5" width="207" height="207"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="J8d-cF-snO" secondAttribute="height" multiplier="1:1" id="tgG-SR-1p7"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gex-eG-ewW">
-                                <rect key="frame" x="93" y="583" width="228" height="29"/>
+                                <rect key="frame" x="93" y="593" width="228" height="29"/>
                                 <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="17"/>
                                 <state key="normal" title="Don't see device? / Rescan">
                                     <color key="titleColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -72,7 +72,7 @@
                                 </connections>
                             </button>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kug-Pt-bpz">
-                                <rect key="frame" x="40" y="164.5" width="334" height="378.5"/>
+                                <rect key="frame" x="40" y="164.5" width="334" height="388.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="gv0-yV-8nq" id="ceG-Vs-xj1"/>
@@ -92,11 +92,11 @@
                             <constraint firstItem="uCV-EB-Sy5" firstAttribute="leading" secondItem="mYE-8y-hx1" secondAttribute="leading" constant="41" id="RrD-m1-d0u"/>
                             <constraint firstAttribute="trailing" secondItem="uCV-EB-Sy5" secondAttribute="trailing" constant="41" id="XId-JU-hEr"/>
                             <constraint firstItem="kug-Pt-bpz" firstAttribute="top" secondItem="uCV-EB-Sy5" secondAttribute="bottom" constant="20" id="YIy-yA-plm"/>
-                            <constraint firstItem="J8d-cF-snO" firstAttribute="top" secondItem="vn4-TA-IuW" secondAttribute="bottom" constant="130" id="YbT-K9-BQx"/>
+                            <constraint firstItem="J8d-cF-snO" firstAttribute="centerY" secondItem="mYE-8y-hx1" secondAttribute="centerY" id="bLk-2a-p2L"/>
                             <constraint firstItem="mYE-8y-hx1" firstAttribute="trailing" secondItem="GNo-tq-Mc8" secondAttribute="trailing" id="oWX-82-0ih"/>
                             <constraint firstItem="gex-eG-ewW" firstAttribute="top" secondItem="kug-Pt-bpz" secondAttribute="bottom" constant="40" id="pce-PS-R30"/>
                             <constraint firstItem="kug-Pt-bpz" firstAttribute="leading" secondItem="mYE-8y-hx1" secondAttribute="leading" constant="40" id="tYo-zb-d12"/>
-                            <constraint firstItem="GNo-tq-Mc8" firstAttribute="top" secondItem="gex-eG-ewW" secondAttribute="bottom" constant="80" id="vwe-5a-vw7"/>
+                            <constraint firstItem="GNo-tq-Mc8" firstAttribute="top" secondItem="gex-eG-ewW" secondAttribute="bottom" constant="70" id="vwe-5a-vw7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mYE-8y-hx1"/>
                     </view>

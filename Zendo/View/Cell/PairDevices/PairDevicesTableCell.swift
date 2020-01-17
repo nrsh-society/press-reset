@@ -17,9 +17,9 @@ class PairDevicesTableCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        mainView.layer.cornerRadius = 15.0
+        mainView.layer.cornerRadius = 10.0
         mainView.layer.borderWidth = 1
-        mainView.layer.borderColor = UIColor.zenYellow.cgColor
+        mainView.layer.borderColor = UIColor.zenYellowBorder.cgColor
     }
     
 }

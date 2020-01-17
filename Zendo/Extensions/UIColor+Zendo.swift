@@ -9,6 +9,10 @@
 import UIKit
 
 extension UIColor {
+        
+    static var zenYellowBorder: UIColor {
+        return UIColor("#FBEAD4")
+    }
     
     static var zenYellow: UIColor { //#E7EAA8
         return UIColor(red: 0.91, green: 0.92, blue: 0.66, alpha: 1)

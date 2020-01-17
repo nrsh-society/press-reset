@@ -17,6 +17,7 @@ let zendoHeaderFormat = "EEEE, MMMM d"
 let zendoHeaderDayFormat = "MMMM d"
 let zendoHeaderMonthYearFormat = "MMMM yyyy"
 let zendoHeaderYearFormat = "yyyy"
+let zendoHeaderDayTimeFormat = "MMMM dd 'at' HH:mma"
 
 
 extension Date {
@@ -60,10 +61,19 @@ extension Date {
         return res
     }
     
+    
     var toZendoHeaderDayString: String {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone.autoupdatingCurrent
         formatter.dateFormat = zendoHeaderDayFormat
+        let res = formatter.string(from: self)
+        return res
+    }
+    
+    var toZendoHeaderDayTimeString: String {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone.autoupdatingCurrent
+        formatter.dateFormat = zendoHeaderDayTimeFormat
         let res = formatter.string(from: self)
         return res
     }

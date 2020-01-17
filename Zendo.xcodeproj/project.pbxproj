@@ -18,6 +18,9 @@
 		1226B0242229A6D300EE02F9 /* ArenaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1226B0232229A6D300EE02F9 /* ArenaView.swift */; };
 		1226B0262229A6DD00EE02F9 /* ArenaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1226B0252229A6DD00EE02F9 /* ArenaView.xib */; };
 		123E8E8721748DC900C6E2EC /* SettingsWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123E8E8621748DC900C6E2EC /* SettingsWatch.swift */; };
+		1240AA0923D21340001F03B5 /* Notification+NameWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1240AA0523D212D5001F03B5 /* Notification+NameWatch.swift */; };
+		1240AA0B23D221E4001F03B5 /* ResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1240AA0A23D221E4001F03B5 /* ResultsController.swift */; };
+		1240AA0D23D2341B001F03B5 /* ResultTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1240AA0C23D2341B001F03B5 /* ResultTableCell.swift */; };
 		1246892423ABC607000F18FC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1246892323ABC607000F18FC /* StoreKit.framework */; };
 		1246C422212725140011F5D3 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246C421212725140011F5D3 /* BalloonMarker.swift */; };
 		12477F222119A27700D8AE83 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12477F212119A27700D8AE83 /* Settings.swift */; };
@@ -29,6 +32,7 @@
 		12584E5321AFF86D004DA557 /* animationNoInternet.json in Resources */ = {isa = PBXBuildFile; fileRef = 12584E5221AFF86D004DA557 /* animationNoInternet.json */; };
 		125EB0E72202FF9200075DF4 /* SetGoalInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125EB0E62202FF9200075DF4 /* SetGoalInterfaceController.swift */; };
 		126544AE2170B44D00CA8F0B /* NavigationControllerWelcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126544AD2170B44D00CA8F0B /* NavigationControllerWelcome.swift */; };
+		126F116B23D1D59500513202 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126F116A23D1D59400513202 /* UIColor+Hex.swift */; };
 		1277A526215CF3F800B15CE6 /* SummaryInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1277A525215CF3F800B15CE6 /* SummaryInterfaceController.swift */; };
 		1277A527215D227C00B15CE6 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE6210F7E40007E2480 /* Date.swift */; };
 		127C3E2921788FD300B332EB /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 127C3E2821788FD300B332EB /* Discover.storyboard */; };
@@ -273,6 +277,9 @@
 		1226B0232229A6D300EE02F9 /* ArenaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArenaView.swift; sourceTree = "<group>"; };
 		1226B0252229A6DD00EE02F9 /* ArenaView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArenaView.xib; sourceTree = "<group>"; };
 		123E8E8621748DC900C6E2EC /* SettingsWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWatch.swift; sourceTree = "<group>"; };
+		1240AA0523D212D5001F03B5 /* Notification+NameWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+NameWatch.swift"; sourceTree = "<group>"; };
+		1240AA0A23D221E4001F03B5 /* ResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsController.swift; sourceTree = "<group>"; };
+		1240AA0C23D2341B001F03B5 /* ResultTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableCell.swift; sourceTree = "<group>"; };
 		1246892323ABC607000F18FC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1246C421212725140011F5D3 /* BalloonMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		12477F212119A27700D8AE83 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -284,6 +291,7 @@
 		12584E5221AFF86D004DA557 /* animationNoInternet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animationNoInternet.json; sourceTree = "<group>"; };
 		125EB0E62202FF9200075DF4 /* SetGoalInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGoalInterfaceController.swift; sourceTree = "<group>"; };
 		126544AD2170B44D00CA8F0B /* NavigationControllerWelcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerWelcome.swift; sourceTree = "<group>"; };
+		126F116A23D1D59400513202 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		1277A525215CF3F800B15CE6 /* SummaryInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInterfaceController.swift; sourceTree = "<group>"; };
 		127C3E2821788FD300B332EB /* Discover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Discover.storyboard; sourceTree = "<group>"; };
 		127C3E2A2178939C00B332EB /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
@@ -604,6 +612,8 @@
 			children = (
 				1284B7AF23C8C46C0026B511 /* StartSession.storyboard */,
 				1284B7AD23C8C3030026B511 /* StartSessionController.swift */,
+				1240AA0A23D221E4001F03B5 /* ResultsController.swift */,
+				1240AA0C23D2341B001F03B5 /* ResultTableCell.swift */,
 			);
 			path = StartSession;
 			sourceTree = "<group>";
@@ -797,10 +807,12 @@
 				12E2A19D21106E4500E0E911 /* TimeInterval.swift */,
 				12E2A1B421107A9400E0E911 /* UIFont.swift */,
 				12E2A1B621107CE400E0E911 /* UIColor+Zendo.swift */,
+				126F116A23D1D59400513202 /* UIColor+Hex.swift */,
 				12CE364D211302A900EF0196 /* UIView.swift */,
 				12CE365321132A7100EF0196 /* UIImage.swift */,
 				12C1A72B2119B78900EEFF4F /* UIView+Nib.swift */,
 				121F2604211B3D9C00C1CC96 /* Notification+Name.swift */,
+				1240AA0523D212D5001F03B5 /* Notification+NameWatch.swift */,
 				12E189BB211C6387004EADE9 /* UIViewController.swift */,
 				12E189C0211C64AB004EADE9 /* UIApplication.swift */,
 				12DAE77B212B1A1200D28DD7 /* Array.swift */,
@@ -1505,6 +1517,7 @@
 				12E2A1B521107A9400E0E911 /* UIFont.swift in Sources */,
 				BE0FF19921E03EDB0050D15B /* NotificationViewController.swift in Sources */,
 				DFE3B1762189C377008830CD /* StartingSessionViewController.swift in Sources */,
+				1240AA0B23D221E4001F03B5 /* ResultsController.swift in Sources */,
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
 				BE8787002215EE1F0052FE4C /* TrainController.swift in Sources */,
 				BE4F346422D460910006BAAE /* BleController.swift in Sources */,
@@ -1520,6 +1533,7 @@
 				12477F222119A27700D8AE83 /* Settings.swift in Sources */,
 				12FFCAE1210F6DA0007E2480 /* ZendoTableViewCell.swift in Sources */,
 				BE8786FF2215EE1F0052FE4C /* Cloud.swift in Sources */,
+				1240AA0D23D2341B001F03B5 /* ResultTableCell.swift in Sources */,
 				121F260A211B499300C1CC96 /* HealthKitViewController.swift in Sources */,
 				12DAE77C212B1A1200D28DD7 /* Array.swift in Sources */,
 				12C85D662176168C00329B53 /* WatchSessionManager.swift in Sources */,
@@ -1567,6 +1581,7 @@
 				12A8991023ABE76B00DDAFA3 /* Foregrounder.swift in Sources */,
 				12C63FF8221593B6001C93C7 /* SubscriptionViewController.swift in Sources */,
 				127C3E412178DAF500B332EB /* LoadingView.swift in Sources */,
+				126F116B23D1D59500513202 /* UIColor+Hex.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1583,6 +1598,7 @@
 				121F25FE211B367D00C1CC96 /* SessionCommands.swift in Sources */,
 				125EB0E72202FF9200075DF4 /* SetGoalInterfaceController.swift in Sources */,
 				123E8E8721748DC900C6E2EC /* SettingsWatch.swift in Sources */,
+				1240AA0923D21340001F03B5 /* Notification+NameWatch.swift in Sources */,
 				BE89838F20E6BBE300F0FD63 /* ZendoDataSource.swift in Sources */,
 				1277A526215CF3F800B15CE6 /* SummaryInterfaceController.swift in Sources */,
 				12C63FFE22173A46001C93C7 /* SubscribeInterfaceController.swift in Sources */,
