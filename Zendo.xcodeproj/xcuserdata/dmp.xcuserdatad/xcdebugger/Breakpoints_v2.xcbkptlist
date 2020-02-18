@@ -34,8 +34,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "142"
             endingLineNumber = "142"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "start()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -320,7 +320,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "375"
             endingLineNumber = "375"
-            landmarkName = "getHRVAverage(_:handler:)"
+            landmarkName = "fetchLatestHeartRateSample(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -337,7 +337,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "302"
             endingLineNumber = "302"
-            landmarkName = "getMindfulSamples(workout:handler:)"
+            landmarkName = "getHrvSamples(workout:handler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -354,7 +354,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "307"
             endingLineNumber = "307"
-            landmarkName = "getMindfulSamples(workout:handler:)"
+            landmarkName = "getHrvSamples(workout:handler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

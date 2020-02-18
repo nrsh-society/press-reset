@@ -16,31 +16,20 @@ class ZBFHealthKit {
     
     static let healthStore = HKHealthStore()
     
-    static let heartRateType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
-    static let heartRateSDNNType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
-    static let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
-    static let workoutType = HKObjectType.workoutType()
-    
-    static let hkShareTypes = Set([heartRateType, mindfulSessionType, workoutType, heartRateSDNNType])
-    static let hkReadTypes = getPermissionTypes()
-    
-    
+    static let hkReadTypes = hkShareTypes
+    static let hkShareTypes = getPermissionTypes()
+
     class func getPermissionTypes() -> Set<HKSampleType>
     {
         
         let heartRateType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
         
-        let heartRateSDNNType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
+        let hrvType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
         
         let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
 
-  
-        if #available(watchOSApplicationExtension 6.0, *) {
-            return [heartRateType, heartRateSDNNType, mindfulSessionType, HKObjectType.workoutType(), HKSeriesType.heartbeat()]
-        } else {
-            return [heartRateType, heartRateSDNNType, mindfulSessionType, HKObjectType.workoutType()]
-        }
-        
+        return [heartRateType, hrvType, mindfulSessionType, HKObjectType.workoutType()]
+    
     }
     
     class func getPermissions()  {

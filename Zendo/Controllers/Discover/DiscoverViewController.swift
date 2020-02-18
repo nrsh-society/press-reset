@@ -74,7 +74,6 @@ class DiscoverTableViewCell: UITableViewCell {
 
 class DiscoverViewController: UIViewController {
     
-    
     @IBOutlet weak var tableView: UITableView!
     
     var refreshControl = UIRefreshControl()

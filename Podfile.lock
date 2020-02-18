@@ -14,7 +14,7 @@ PODS:
   - FacebookCore (0.3.3):
     - Bolts (~> 1.9)
     - FBSDKCoreKit (~> 4.36)
-  - FBSDKCoreKit (4.40.0):
+  - FBSDKCoreKit (4.44.1):
     - Bolts (~> 1.9)
   - Firebase/Core (5.15.0):
     - Firebase/CoreOnly
@@ -58,56 +58,56 @@ PODS:
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - GoogleUtilities/AppDelegateSwizzler (5.3.7):
+  - GoogleUtilities/AppDelegateSwizzler (5.8.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (5.3.7)
-  - GoogleUtilities/Logger (5.3.7):
+  - GoogleUtilities/Environment (5.8.0)
+  - GoogleUtilities/Logger (5.8.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (5.3.7):
+  - GoogleUtilities/MethodSwizzler (5.8.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (5.3.7):
+  - GoogleUtilities/Network (5.8.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (5.3.7)"
-  - GoogleUtilities/Reachability (5.3.7):
+  - "GoogleUtilities/NSData+zlib (5.8.0)"
+  - GoogleUtilities/Reachability (5.8.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (5.3.7):
+  - GoogleUtilities/UserDefaults (5.8.0):
     - GoogleUtilities/Logger
-  - GTMSessionFetcher/Core (1.2.1)
+  - GTMSessionFetcher/Core (1.3.0)
   - Hero (1.4.0)
-  - leveldb-library (1.20)
-  - lottie-ios (2.5.2)
-  - Mixpanel (3.4.7)
+  - leveldb-library (1.22)
+  - lottie-ios (2.5.3)
+  - Mixpanel (3.5.0)
   - Mixpanel-swift (2.4.5):
     - Mixpanel-swift/Complete (= 2.4.5)
   - Mixpanel-swift/Complete (2.4.5)
-  - Movesense (1.34.1)
-  - nanopb (0.3.901):
-    - nanopb/decode (= 0.3.901)
-    - nanopb/encode (= 0.3.901)
-  - nanopb/decode (0.3.901)
-  - nanopb/encode (0.3.901)
-  - Nimble (8.0.1)
+  - Movesense (1.38.0)
+  - nanopb (0.3.9011):
+    - nanopb/decode (= 0.3.9011)
+    - nanopb/encode (= 0.3.9011)
+  - nanopb/decode (0.3.9011)
+  - nanopb/encode (0.3.9011)
+  - Nimble (8.0.4)
   - NVActivityIndicatorView (4.2.1):
     - NVActivityIndicatorView/Presenter (= 4.2.1)
   - NVActivityIndicatorView/Presenter (4.2.1)
-  - PromiseKit (6.10.0):
-    - PromiseKit/CorePromise (= 6.10.0)
-    - PromiseKit/Foundation (= 6.10.0)
-    - PromiseKit/UIKit (= 6.10.0)
-  - PromiseKit/CorePromise (6.10.0)
-  - PromiseKit/Foundation (6.10.0):
+  - PromiseKit (6.12.0):
+    - PromiseKit/CorePromise (= 6.12.0)
+    - PromiseKit/Foundation (= 6.12.0)
+    - PromiseKit/UIKit (= 6.12.0)
+  - PromiseKit/CorePromise (6.12.0)
+  - PromiseKit/Foundation (6.12.0):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (6.10.0):
+  - PromiseKit/UIKit (6.12.0):
     - PromiseKit/CorePromise
-  - Quick (2.1.0)
-  - SDWebImage (4.4.4):
-    - SDWebImage/Core (= 4.4.4)
-  - SDWebImage/Core (4.4.4)
-  - SwiftyJSON (4.2.0)
+  - Quick (2.2.0)
+  - SDWebImage (4.4.7):
+    - SDWebImage/Core (= 4.4.7)
+  - SDWebImage/Core (4.4.7)
+  - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
   - AvatarCapture (= 1.0.5)
@@ -132,7 +132,7 @@ DEPENDENCIES:
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - AvatarCapture
     - Bolts
     - BuddyBuildSDK
@@ -170,7 +170,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Movesense:
-    :commit: a6ef02a6d50cb50bd4797ddd6430a79f1663d83a
+    :commit: f59f8488256e6fe29759d04aa31a4e9d9ed2a363
     :git: https://bitbucket.org/suunto/movesense-mobile-lib.git
 
 SPEC CHECKSUMS:
@@ -180,7 +180,7 @@ SPEC CHECKSUMS:
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
   FacebookCore: 9ecbe48cfd37c91a93add7f8cec2b4a2c50a1eec
-  FBSDKCoreKit: ae214474b25033399c131dc81d258e412582a2ba
+  FBSDKCoreKit: a823ae35bdb60ebb8d7a7e51abe7c5d87d2bfced
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
   FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
@@ -190,21 +190,21 @@ SPEC CHECKSUMS:
   FirebaseStorage: 3d22c041370593e639fba013d1eb698a8dae2881
   Fleet: 5efad25e84f0a575dd87fe10133d6b472873b9ad
   GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
-  GoogleUtilities: 111a012f4c3a29c9e7c954c082fafd6ee3c999c0
-  GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
+  GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
+  GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
   Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
-  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
-  lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
-  Mixpanel: 696e0a1c7f2685aa06bb23829b7a58ab7203d6c7
+  leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
+  lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
+  Mixpanel: 399997670f5452de026449f9e9ecd52eccbb9ff7
   Mixpanel-swift: a9ed3dd197d8f2837920cec6be1acdb51d07b31a
-  Movesense: dd4fae97688c73d693851af3916f91551e67f76d
-  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  Nimble: 45f786ae66faa9a709624227fae502db55a8bdd0
+  Movesense: ec2685c04df0c154e6599d371a406e51cafdedc5
+  nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  Nimble: 18d5360282923225d62b09d781f63abc1a0111fc
   NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
-  PromiseKit: 1fdaeb6c0a94a5114fcb814ff3d772b86886ad4e
-  Quick: 4be43f6634acfa727dd106bdf3929ce125ffa79d
-  SDWebImage: c00ec18ab25d10e5ffac109b0f78d1b4341c9691
-  SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
+  PromiseKit: c06835ba442ce5454ce3cdde470232804a6e4ff8
+  Quick: 7fb19e13be07b5dfb3b90d4f9824c855a11af40e
+  SDWebImage: c10d14a8883ebd89664f02a422006f66a85c0c5d
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
 PODFILE CHECKSUM: 8b1b392a508743d267247d5941d82f5398b86c5e
 

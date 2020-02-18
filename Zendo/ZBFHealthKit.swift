@@ -13,36 +13,23 @@ import HealthKit
 public class ZBFHealthKit {
     
     static let healthStore = HKHealthStore()
+
+    static let workoutPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody)
     
     static let hkReadTypes = hkShareTypes
     
     static let hkShareTypes = getPermissionTypes()
-    
-    static let heartRateType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
-    
-    static let heartRateSDNNType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
-    
-    static let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
-    
-    static let workoutType = HKObjectType.workoutType()
-    
-    static let workoutPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody)
-    
+
     class func getPermissionTypes() -> Set<HKSampleType>
     {
         
         let heartRateType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
         
-        let heartRateSDNNType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
+        let hrvType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
         
         let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
 
-        if #available(iOS 13, *)
-        {
-            return [heartRateType, heartRateSDNNType, mindfulSessionType, HKObjectType.workoutType(), HKSeriesType.heartbeat()]
-        } else {
-            return [heartRateType, heartRateSDNNType, mindfulSessionType, HKObjectType.workoutType()]
-        }
+        return [heartRateType, hrvType, mindfulSessionType, HKObjectType.workoutType()]
         
     }
     
