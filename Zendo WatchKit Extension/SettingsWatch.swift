@@ -77,16 +77,13 @@ class SettingsWatch  {
     }
     
     static func getHealthKitTypes() -> Set<HKSampleType> {
-        var healthKitTypes: Set<HKSampleType> = [
+        let healthKitTypes: Set<HKSampleType> = [
             .workoutType(),
             .quantityType(forIdentifier: .heartRate)!,
             .quantityType(forIdentifier: .heartRateVariabilitySDNN)!,
             .categoryType(forIdentifier: .mindfulSession)!
         ]
-        
-        if #available(watchOSApplicationExtension 6.0, *) {
-            healthKitTypes.insert(HKSeriesType.heartbeat())
-        }
+
         return healthKitTypes
     }
     
