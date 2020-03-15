@@ -21,12 +21,6 @@ target 'Zendo' do
   pod 'PromiseKit', '~> 6.8'
   pod 'SwiftyJSON', '~> 4.0'
   
-  target 'ZendoTests' do
-    inherit! :search_paths
-    pod 'Quick'
-    pod 'Nimble'
-    pod 'Fleet'
-  end
 end
 
 

@@ -405,11 +405,12 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
     }
     
+    var haptic = WKHapticType.success
+    var message = "Calibrating"
+    
     @objc func notify(_ timer: Timer)
     {
-        var haptic = WKHapticType.success
-        var message : String? = nil
-        
+
         heartRateRangeSamples.append(self.heartRate)
         movementRangeSamples.append(self.motion)
         
@@ -427,6 +428,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                     haptic = WKHapticType.retry
                     message = "Breathe deeper"
                 default:
+                    haptic = WKHapticType.success
                     message = "Good work"
                 }
             }
@@ -444,6 +446,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                     }
                     else
                     {
+                        haptic = WKHapticType.success
                         message = "Good work"
                     }
                 }
@@ -460,7 +463,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                         for _ in 1...iterations
                         {
                             DispatchQueue.main.async {
-                                    WKInterfaceDevice.current().play(haptic)
+                                WKInterfaceDevice.current().play(self.haptic)
                             }
                             
                             Thread.sleep(forTimeInterval: 1)

@@ -51,7 +51,6 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.1)
     - GTMSessionFetcher/Core (~> 1.1)
-  - Fleet (4.3.0)
   - GoogleAppMeasurement (5.4.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -90,7 +89,6 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
-  - Nimble (8.0.4)
   - NVActivityIndicatorView (4.2.1):
     - NVActivityIndicatorView/Presenter (= 4.2.1)
   - NVActivityIndicatorView/Presenter (4.2.1)
@@ -103,7 +101,6 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (6.12.0):
     - PromiseKit/CorePromise
-  - Quick (2.2.0)
   - SDWebImage (4.4.7):
     - SDWebImage/Core (= 4.4.7)
   - SDWebImage/Core (4.4.7)
@@ -118,16 +115,13 @@ DEPENDENCIES:
   - Firebase/Core (~> 5.15.0)
   - Firebase/Database (~> 5.15.0)
   - Firebase/Storage (~> 5.15.0)
-  - Fleet
   - Hero (~> 1.4.0)
   - lottie-ios (~> 2.5.2)
   - Mixpanel
   - Mixpanel-swift (~> 2.4.2)
   - Movesense (from `https://bitbucket.org/suunto/movesense-mobile-lib.git`)
-  - Nimble
   - NVActivityIndicatorView (~> 4.2.1)
   - PromiseKit (~> 6.8)
-  - Quick
   - SDWebImage (~> 4.0)
   - SwiftyJSON (~> 4.0)
 
@@ -147,7 +141,6 @@ SPEC REPOS:
     - FirebaseDatabase
     - FirebaseInstanceID
     - FirebaseStorage
-    - Fleet
     - GoogleAppMeasurement
     - GoogleUtilities
     - GTMSessionFetcher
@@ -157,10 +150,8 @@ SPEC REPOS:
     - Mixpanel
     - Mixpanel-swift
     - nanopb
-    - Nimble
     - NVActivityIndicatorView
     - PromiseKit
-    - Quick
     - SDWebImage
     - SwiftyJSON
 
@@ -188,7 +179,6 @@ SPEC CHECKSUMS:
   FirebaseDatabase: 0621689f77528d62b47e1c06ca737c4c19275d1a
   FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
   FirebaseStorage: 3d22c041370593e639fba013d1eb698a8dae2881
-  Fleet: 5efad25e84f0a575dd87fe10133d6b472873b9ad
   GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
@@ -199,13 +189,11 @@ SPEC CHECKSUMS:
   Mixpanel-swift: a9ed3dd197d8f2837920cec6be1acdb51d07b31a
   Movesense: ec2685c04df0c154e6599d371a406e51cafdedc5
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  Nimble: 18d5360282923225d62b09d781f63abc1a0111fc
   NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
   PromiseKit: c06835ba442ce5454ce3cdde470232804a6e4ff8
-  Quick: 7fb19e13be07b5dfb3b90d4f9824c855a11af40e
   SDWebImage: c10d14a8883ebd89664f02a422006f66a85c0c5d
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 8b1b392a508743d267247d5941d82f5398b86c5e
+PODFILE CHECKSUM: fdb51cbd840fb7180e24f3e360618693ed9d5de9
 
 COCOAPODS: 1.8.4
