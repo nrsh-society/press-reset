@@ -28,9 +28,9 @@ enum PairStatus {
     var thirdText: String {
         switch self {
         case .paired: return
-            "You have successfully connected to your Apple Watch. Use your watch to monitor your HRV and record meditation sessions."
+            "You successfully connected to your Apple Watch or Zensor."
         case .noDetected: return
-            "In order to record a meditation session and track your HRV, Zendô requires a connnected heart rate device. Try connecting and Appie Watch or a LE bluetooth heart rate monitor."
+            "In order to record a meditation session, Zendô requires a connnected heart rate device. Try connecting an Appie Watch or Zensor."
         }
     }
     

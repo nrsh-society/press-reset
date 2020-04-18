@@ -181,9 +181,9 @@ class DiscoverViewController: UIViewController {
         
         //#todo: make this based on the build #
         #if DEBUG
-        let urlPath: String = "http://media.zendo.tools/discover.v5.40.json?v=\(Date().timeIntervalSinceNow)"
+        let urlPath: String = "http://media.zendo.tools/discover.v5.50.json?v=\(Date().timeIntervalSinceNow)"
         #else
-        let urlPath: String = "http://media.zendo.tools/discover.v5.40.json?v=\(Date().timeIntervalSinceNow)"
+        let urlPath: String = "http://media.zendo.tools/discover.v5.50.json?v=\(Date().timeIntervalSinceNow)"
         #endif
         
         URLSession.shared.dataTask(with: URL(string: urlPath)!) { data, response, error -> Void in
@@ -516,20 +516,11 @@ extension DiscoverViewController: UICollectionViewDataSource {
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 vc = alert
             } else {
-                
-//                let group = GroupController.loadFromStoryboard()
-//                group.story = story
-//                group.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-//                group.modalPresentationStyle = .fullScreen
-//                group.hero.isEnabled = true
-//                vc = group
 
-                
                 let start = StartSessionController.loadFromStoryboard()
                 start.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
                 start.modalPresentationStyle = .fullScreen
                 vc = start
-                
             }
         } else if story.type == "solo" || story.type == "train"
         {

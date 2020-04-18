@@ -12,7 +12,7 @@ import HealthKit
 import Mixpanel
 import WatchConnectivity
 
-class StartSessionView: UIView {
+class  StartSessionView: UIView {
     
     @IBOutlet weak var lenghtStack: UIStackView!
     @IBOutlet weak var chooseStack: UIStackView!

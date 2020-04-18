@@ -27,7 +27,6 @@ class TrainController: UIViewController
         }
     }
     @IBOutlet weak var connectButton: UIButton!
-    @IBOutlet weak var avatarView: UIView!
     
     @IBOutlet weak var arenaView: ArenaView! {
         didSet {
@@ -39,8 +38,6 @@ class TrainController: UIViewController
             
         }
     }
-    
-    let movesenseService = MovesenseService.Instance
     
     let player = SKSpriteNode(imageNamed: "player1")
     var ring: Int = 0
@@ -76,17 +73,6 @@ class TrainController: UIViewController
     {
         super.didReceiveMemoryWarning()
         try? storage?.removeAll()
-    }
-    
-    func airplay(_ url: URL)
-    {
-        if let airplay = self.airplay
-        {
-            airplay.dismiss()
-            airplay.dismiss(animated: true, completion: nil)
-        }
-        
-        self.airplay = AirplayController.loadFromStoryboard(url)
     }
     
     func setBackground() {
@@ -125,11 +111,6 @@ class TrainController: UIViewController
         if let urlString = streamString, let url = URL(string: urlString)
         {
             streamUrl = url
-        }
-        
-        if let urlString = airplayString, let url = URL(string: urlString)
-        {
-            self.airplay(url)
         }
         
         storage?.async.entry(forKey: downloadUrl?.absoluteString ?? "", completion:
@@ -247,91 +228,8 @@ class TrainController: UIViewController
         
         self.spriteView.presentScene(scene)
         
-        self.movesenseService.setHandlers(
-               deviceConnected:
-               {
-                   (serial: String) ->() in
-                   
-                   self.updateConnected(serial)
-                   
-               },
-               deviceDisconnected:
-               {
-                   (serial: String) ->() in
-                   
-                   self.updateDisconnected(serial)
-               },
-               bleOnOff:
-               {
-                   _ in
-                       
-                   self.updatebleOnOff()
-               })
-               
-               let _ = self.movesenseService.startScan(
-               {
-                   (device : MovesenseDevice) -> () in
-                   
-                   self.peripheralFound(device: device)
-                   
-               })
-        
         self.startSession()
         
-    }
-    
-    func peripheralFound(device:MovesenseDevice){
-        
-        print("movesense found")
-        
-        print("There are \(self.movesenseService.getDeviceCount()) devices")
-        
-        self.movesenseService.connectDevice(device.serial)
-        
-        print("Device: \(device.serial) just connected")
-        
-    }
-    
-    func updateConnected(_ serial: String)
-    {
-        print("movesense connected: \(serial)")
-    
-        self.movesenseService.subscribe(serial, path: Movesense.HR_PATH, parameters: [:], onNotify:
-        {
-            response in self.handleData(response, serial: serial)
-                
-        })
-        { _,_,_  in }
-    }
-    
-    func updateDisconnected(_ serial: String)
-    {
-        print("movesense Disconnected")
-        
-    }
-    
-    func updatebleOnOff(){
-        print("Bluetooth toggled")
-    }
-    
-    func handleData(_ response: MovesenseResponse, serial: String)
-    {
-        if(Settings.isSensorConnected)
-        {
-            let json = JSON(parseJSON: response.content)
-        
-            if json["rrData"][0].number != nil
-            {
-                let rr = json["rrData"][0].doubleValue
-                
-                let hr = 1000/rr
-                
-                print("device: \(serial) Heart Rate: \(String(hr))")
-                
-                //todo:@boris:wire up to the sample + progress methods
-                
-            }
-        }
     }
     
     @objc func connectAppleWatch()
@@ -383,7 +281,6 @@ class TrainController: UIViewController
                         let action = SKAction.repeatForever(SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 15.0))
                         
                         self.player.run(action)
-                        
                        
                     }
                     
@@ -392,8 +289,7 @@ class TrainController: UIViewController
         
         }
     }
-    
-    
+
     @objc func endSession()
     {
         Mixpanel.mainInstance().track(event: "phone_train_watch_connected",
@@ -485,7 +381,6 @@ class TrainController: UIViewController
             
             DispatchQueue.main.async
             {
-                
                 self.arenaView.hrv.text = text_hrv
                 
                 self.arenaView.time.text = text_hr
@@ -495,12 +390,11 @@ class TrainController: UIViewController
                 let chartHR = self.chartHR.sorted(by: <)
 
                 self.arenaView.setChart(chartHR)
-                
+    
             }
         }
         
     }
-    
     
     func setupScene() -> SKScene
     {

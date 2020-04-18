@@ -113,8 +113,6 @@
 		7BEDEAEF22A3440B008FCAF7 /* WorkoutSessionReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAEE22A3440B008FCAF7 /* WorkoutSessionReporter.swift */; };
 		7BEDEAF522A34CCF008FCAF7 /* WorkoutFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAF422A34CCF008FCAF7 /* WorkoutFetcher.swift */; };
 		7C58E4E41E858E4241584A97 /* Pods_Zendo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA85D12F03B88975AECB0609 /* Pods_Zendo.framework */; };
-		BE021CC42260E79A00153D4B /* GroupController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE021CC22260E79A00153D4B /* GroupController.storyboard */; };
-		BE021CC52260E79A00153D4B /* GroupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE021CC32260E79A00153D4B /* GroupController.swift */; };
 		BE066BD820F1EFC10008747D /* OverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE066BD720F1EFC10008747D /* OverviewController.swift */; };
 		BE066BDD20F1F3D10008747D /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE066BDC20F1F3D10008747D /* PageController.swift */; };
 		BE0A7228209C2B83009E23AA /* OptionsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */; };
@@ -136,8 +134,6 @@
 		BE38B61322E16DBA0044DFB6 /* MoneyKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38B61222E16DBA0044DFB6 /* MoneyKit.swift */; };
 		BE3AE43621ED0ACF0019C489 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3AE43521ED0ACF0019C489 /* Notification.swift */; };
 		BE4895AC206B0CC400B007D6 /* ZazenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4895AB206B0CC400B007D6 /* ZazenController.swift */; };
-		BE4F346222D460830006BAAE /* MovesenseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F346122D460830006BAAE /* MovesenseService.swift */; };
-		BE4F346422D460910006BAAE /* BleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F346322D460910006BAAE /* BleController.swift */; };
 		BE4F346822D550F90006BAAE /* libmds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4F346722D550F90006BAAE /* libmds.a */; };
 		BE50D2F220CC3BA200FF9C54 /* CommunityDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */; };
 		BE75AEBF20F708C300311512 /* ChartColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75AEBC20F708C300311512 /* ChartColors.swift */; };
@@ -149,7 +145,6 @@
 		BE8787022215F68B0052FE4C /* TrainController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE8787012215F68B0052FE4C /* TrainController.storyboard */; };
 		BE89838F20E6BBE300F0FD63 /* ZendoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE89838E20E6BBE300F0FD63 /* ZendoDataSource.swift */; };
 		BE8BB21F1FFDCC4600B2E113 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8BB21E1FFDCC4600B2E113 /* HealthKit.framework */; };
-		BE9A81CF225C6FAD00D19DC8 /* trainparticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = BE9A81CE225C6FAD00D19DC8 /* trainparticles.sks */; };
 		BE9B00002065F317007FF96A /* ZBFHealthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9BFFFF2065F317007FF96A /* ZBFHealthKit.swift */; };
 		BE9B00042065FF6B007FF96A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9B00032065FF6B007FF96A /* CoreMotion.framework */; };
 		BE9BFFFE2065F215007FF96A /* ZBFHealthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9BFFFC2065EE3D007FF96A /* ZBFHealthKit.swift */; };
@@ -363,15 +358,12 @@
 		7BF70C9D229B80D4001E4D0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91FBDAC94D9B42088C3E7F8B /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
 		9BD6CE514120A3F5874E8C15 /* Pods-Zendo WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zendo WatchKit Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
-		BE021CC22260E79A00153D4B /* GroupController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GroupController.storyboard; sourceTree = "<group>"; };
-		BE021CC32260E79A00153D4B /* GroupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupController.swift; sourceTree = "<group>"; };
 		BE029E9A22D1000B00649DEF /* ZendoKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZendoKit.swift; sourceTree = "<group>"; };
 		BE066BD720F1EFC10008747D /* OverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewController.swift; sourceTree = "<group>"; };
 		BE066BDC20F1F3D10008747D /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
 		BE0A7227209C2B83009E23AA /* OptionsInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsInterfaceController.swift; sourceTree = "<group>"; };
 		BE0B4EB1213E05AF006C3773 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		BE0FF19821E03EDB0050D15B /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
-		BE10BE1123DAE9A6008384A2 /* playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = playground.playground; path = ../../playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BE24023A1FFC961A008679C4 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		BE24023C1FFC965F008679C4 /* SessionInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionInterfaceController.swift; sourceTree = "<group>"; };
 		BE2E81E91FF44A7B00D104AC /* Zendo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zendo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -393,8 +385,6 @@
 		BE38B61222E16DBA0044DFB6 /* MoneyKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyKit.swift; sourceTree = "<group>"; };
 		BE3AE43521ED0ACF0019C489 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		BE4895AB206B0CC400B007D6 /* ZazenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZazenController.swift; sourceTree = "<group>"; };
-		BE4F346122D460830006BAAE /* MovesenseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovesenseService.swift; sourceTree = "<group>"; };
-		BE4F346322D460910006BAAE /* BleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleController.swift; sourceTree = "<group>"; };
 		BE4F346522D550D60006BAAE /* Movesense.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Movesense.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE4F346722D550F90006BAAE /* libmds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmds.a; path = "Pods/Movesense/IOS/Movesense/Release-iphoneos/libmds.a"; sourceTree = "<group>"; };
 		BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDataLoader.swift; sourceTree = "<group>"; };
@@ -414,7 +404,6 @@
 		BE89838E20E6BBE300F0FD63 /* ZendoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZendoDataSource.swift; sourceTree = "<group>"; };
 		BE8BB21E1FFDCC4600B2E113 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS4.1.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		BE8BB2201FFDCC4700B2E113 /* Zendo WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Zendo WatchKit Extension.entitlements"; sourceTree = "<group>"; };
-		BE9A81CE225C6FAD00D19DC8 /* trainparticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trainparticles.sks; sourceTree = "<group>"; };
 		BE9B00012065FE44007FF96A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		BE9B00032065FF6B007FF96A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS4.2.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
 		BE9BFFFC2065EE3D007FF96A /* ZBFHealthKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZBFHealthKit.swift; sourceTree = "<group>"; };
@@ -542,8 +531,6 @@
 		127C3E2721788F9900B332EB /* Discover */ = {
 			isa = PBXGroup;
 			children = (
-				BE021CC22260E79A00153D4B /* GroupController.storyboard */,
-				BE021CC32260E79A00153D4B /* GroupController.swift */,
 				BE8786FE2215EE1F0052FE4C /* TrainController.swift */,
 				BE8787012215F68B0052FE4C /* TrainController.storyboard */,
 				BE9DB33321F5680600BCE8C2 /* AirplayController.storyboard */,
@@ -759,7 +746,6 @@
 				DFE3B1732189A6E5008830CD /* animationStartingSession.json */,
 				12584E5221AFF86D004DA557 /* animationNoInternet.json */,
 				1226B0202229A45600EE02F9 /* checkAnimation.json */,
-				BE9A81CE225C6FAD00D19DC8 /* trainparticles.sks */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -911,9 +897,6 @@
 		BE2E81EB1FF44A7B00D104AC /* Zendo */ = {
 			isa = PBXGroup;
 			children = (
-				BE10BE1123DAE9A6008384A2 /* playground.playground */,
-				BE4F346122D460830006BAAE /* MovesenseService.swift */,
-				BE4F346322D460910006BAAE /* BleController.swift */,
 				12A8990F23ABE76B00DDAFA3 /* Foregrounder.swift */,
 				BE2E81EC1FF44A7B00D104AC /* AppDelegate.swift */,
 				12FFCADD210F3F03007E2480 /* Supporting Files */,
@@ -1184,13 +1167,11 @@
 			files = (
 				12E2A1A9211073D700E0E911 /* Antenna-Light.otf in Resources */,
 				12584E5121AFF57A004DA557 /* NoInternetTableViewCell.xib in Resources */,
-				BE9A81CF225C6FAD00D19DC8 /* trainparticles.sks in Resources */,
 				12C1A72A2119B75900EEFF4F /* ZenButton.xib in Resources */,
 				1284B7B523C8D6880026B511 /* StartSessionView.xib in Resources */,
 				12E2A1A7211073D600E0E911 /* Antenna-ExtraLight.otf in Resources */,
 				BEBAE48D20E6DED800495C65 /* gallery.ckcomplication in Resources */,
 				12AC1A6E23C7670A00696DA5 /* PairDevices.storyboard in Resources */,
-				BE021CC42260E79A00153D4B /* GroupController.storyboard in Resources */,
 				DFE3B1702189A3FA008830CD /* StartingSessions.xib in Resources */,
 				BE2E81F71FF44A7B00D104AC /* LaunchScreen.storyboard in Resources */,
 				127C3E2921788FD300B332EB /* Discover.storyboard in Resources */,
@@ -1389,7 +1370,6 @@
 				1240AA0B23D221E4001F03B5 /* ResultsController.swift in Sources */,
 				12CE3652211327D300EF0196 /* TabBarController.swift in Sources */,
 				BE8787002215EE1F0052FE4C /* TrainController.swift in Sources */,
-				BE4F346422D460910006BAAE /* BleController.swift in Sources */,
 				126544AE2170B44D00CA8F0B /* NavigationControllerWelcome.swift in Sources */,
 				1284B7B323C8D67A0026B511 /* StartSessionView.swift in Sources */,
 				12BE94BF21AEE4C6000E2B0B /* PauseImageView.swift in Sources */,
@@ -1420,7 +1400,6 @@
 				12C1A72E2119C27C00EEFF4F /* ZenInfoView.swift in Sources */,
 				12BE94C421AF0FD9000E2B0B /* VideoGenerator.swift in Sources */,
 				12AC1A7223C7728D00696DA5 /* PairDevicesTableCell.swift in Sources */,
-				BE021CC52260E79A00153D4B /* GroupController.swift in Sources */,
 				12C2C286213802760039C7A0 /* String.swift in Sources */,
 				BE9B00002065F317007FF96A /* ZBFHealthKit.swift in Sources */,
 				12BE94CF21AF1019000E2B0B /* ImageExtension.swift in Sources */,
@@ -1438,7 +1417,6 @@
 				127C3E392178B37C00B332EB /* VideoViewController.swift in Sources */,
 				12C208F122304C3900305F57 /* SKSpriteNode.swift in Sources */,
 				127C3E342178993100B332EB /* DiscoverCollectionViewCell.swift in Sources */,
-				BE4F346222D460830006BAAE /* MovesenseService.swift in Sources */,
 				BE2E81ED1FF44A7B00D104AC /* AppDelegate.swift in Sources */,
 				1223161F21A809D800413A62 /* UIImageView+Download.swift in Sources */,
 				12AC1A6C23C766A300696DA5 /* PairDevicesController.swift in Sources */,
@@ -1674,7 +1652,7 @@
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 5.4;
+				MARKETING_VERSION = 5.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
@@ -1700,7 +1678,7 @@
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 5.4;
+				MARKETING_VERSION = 5.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
@@ -1726,7 +1704,7 @@
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 5.4;
+				MARKETING_VERSION = 5.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1752,7 +1730,7 @@
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 5.4;
+				MARKETING_VERSION = 5.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1775,7 +1753,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 348;
+				CURRENT_PROJECT_VERSION = 349;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1788,7 +1766,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Movesense/IOS/Movesense/Release-iphoneos",
 				);
-				MARKETING_VERSION = 5.4;
+				MARKETING_VERSION = 5.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1809,7 +1787,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 348;
+				CURRENT_PROJECT_VERSION = 349;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1822,7 +1800,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Movesense/IOS/Movesense/Release-iphoneos",
 				);
-				MARKETING_VERSION = 5.4;
+				MARKETING_VERSION = 5.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1846,7 +1824,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 5.4;
+				MARKETING_VERSION = 5.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.NotificationService;
@@ -1870,7 +1848,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 5.4;
+				MARKETING_VERSION = 5.5;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
