@@ -13,6 +13,92 @@ import FBSDKCoreKit
 import Mixpanel
 import FirebaseStorage
 
+class Player
+{
+    var id : String
+    var email : String?
+    var duration : Int = 0
+    var samples = [Double]()
+    var startDate = Date()
+
+    init(id: String)
+    {
+        self.id = id
+    }
+
+    func getProfileUrl() -> String
+    {
+        return "\(self.id)"
+    }
+
+    func getMeditativeState() -> Bool
+    {
+        var retval = false
+
+        if (self.samples.count > 2)
+        {
+            let min = self.samples.min()
+            let max = self.samples.max()
+
+            let range = max! - min!
+
+            if range > 2
+            {
+                retval = true
+            }
+        }
+
+        return retval
+    }
+
+    func getProgress() -> String
+    {
+        var progress = "true/0"
+
+        let startDate = self.startDate
+
+        let mins = abs(startDate.minutes(from: Date()))
+
+        if(mins > 0)
+        {
+            progress = "\(self.getMeditativeState())/\(mins)"
+        }
+
+        return progress
+    }
+
+    func getUpdate() -> [String : String]
+    {
+        return [ "progress" : self.getProgress()]
+    }
+
+    func getHRV() -> Double
+    {
+        return self.standardDeviation(self.samples)
+    }
+
+    func standardDeviation(_ arr : [Double]) -> Double
+    {
+        let rrIntervals = arr.map
+        {
+            (beat) -> Double in
+
+            return 1000 / beat
+        }
+
+        let length = Double(rrIntervals.count)
+
+        let avg = rrIntervals.reduce(0, +) / length
+
+        let sumOfSquaredAvgDiff = rrIntervals.map
+        {pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
+
+        return sqrt(sumOfSquaredAvgDiff / length)
+
+    }
+
+}
+
 class Cloud
 {
     static var enabled = false

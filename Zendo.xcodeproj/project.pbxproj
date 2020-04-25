@@ -109,6 +109,8 @@
 		12FFCAE1210F6DA0007E2480 /* ZendoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE0210F6DA0007E2480 /* ZendoTableViewCell.swift */; };
 		12FFCAE5210F7DDD007E2480 /* Cell+ReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE4210F7DDD007E2480 /* Cell+ReuseIdentifier.swift */; };
 		12FFCAE7210F7E40007E2480 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE6210F7E40007E2480 /* Date.swift */; };
+		3AB1428F2453F4F700CA7268 /* Zensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB1428E2453F4F700CA7268 /* Zensor.swift */; };
+		3AB142912453F5EF00CA7268 /* ZensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB142902453F5EF00CA7268 /* ZensorView.swift */; };
 		7B2BD44C22A4961100B0B5A4 /* MetadataExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2BD44B22A4961100B0B5A4 /* MetadataExtractor.swift */; };
 		7BEDEAEF22A3440B008FCAF7 /* WorkoutSessionReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAEE22A3440B008FCAF7 /* WorkoutSessionReporter.swift */; };
 		7BEDEAF522A34CCF008FCAF7 /* WorkoutFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAF422A34CCF008FCAF7 /* WorkoutFetcher.swift */; };
@@ -131,7 +133,6 @@
 		BE2E82121FF44A7B00D104AC /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E82111FF44A7B00D104AC /* ExtensionDelegate.swift */; };
 		BE2E82141FF44A7B00D104AC /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E82131FF44A7B00D104AC /* NotificationController.swift */; };
 		BE30A47E21E4786600F8509C /* notification.json in Resources */ = {isa = PBXBuildFile; fileRef = BE30A47D21E4786600F8509C /* notification.json */; };
-		BE38B61322E16DBA0044DFB6 /* MoneyKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38B61222E16DBA0044DFB6 /* MoneyKit.swift */; };
 		BE3AE43621ED0ACF0019C489 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3AE43521ED0ACF0019C489 /* Notification.swift */; };
 		BE4895AC206B0CC400B007D6 /* ZazenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4895AB206B0CC400B007D6 /* ZazenController.swift */; };
 		BE4F346822D550F90006BAAE /* libmds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4F346722D550F90006BAAE /* libmds.a */; };
@@ -339,6 +340,8 @@
 		12FFCAE4210F7DDD007E2480 /* Cell+ReuseIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Cell+ReuseIdentifier.swift"; sourceTree = "<group>"; };
 		12FFCAE6210F7E40007E2480 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		1F5D94E96E8B881577F65C40 /* Pods-Zendo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zendo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zendo/Pods-Zendo.debug.xcconfig"; sourceTree = "<group>"; };
+		3AB1428E2453F4F700CA7268 /* Zensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Zensor.swift; sourceTree = "<group>"; };
+		3AB142902453F5EF00CA7268 /* ZensorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZensorView.swift; sourceTree = "<group>"; };
 		3ED375D9041CFE360443FA0F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		52A40FB3C69940CC2A7D2835 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		67414F738D8DE6FB16C9FEE1 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -382,7 +385,6 @@
 		BE2E82171FF44A7B00D104AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE2E82181FF44A7B00D104AC /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		BE30A47D21E4786600F8509C /* notification.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notification.json; sourceTree = "<group>"; };
-		BE38B61222E16DBA0044DFB6 /* MoneyKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyKit.swift; sourceTree = "<group>"; };
 		BE3AE43521ED0ACF0019C489 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		BE4895AB206B0CC400B007D6 /* ZazenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZazenController.swift; sourceTree = "<group>"; };
 		BE4F346522D550D60006BAAE /* Movesense.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Movesense.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -897,6 +899,8 @@
 		BE2E81EB1FF44A7B00D104AC /* Zendo */ = {
 			isa = PBXGroup;
 			children = (
+				3AB142902453F5EF00CA7268 /* ZensorView.swift */,
+				3AB1428E2453F4F700CA7268 /* Zensor.swift */,
 				12A8990F23ABE76B00DDAFA3 /* Foregrounder.swift */,
 				BE2E81EC1FF44A7B00D104AC /* AppDelegate.swift */,
 				12FFCADD210F3F03007E2480 /* Supporting Files */,
@@ -917,7 +921,6 @@
 				BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */,
 				12BE94BE21AEE4C6000E2B0B /* PauseImageView.swift */,
 				BE81B26D2001B85500274FA1 /* Zendo.entitlements */,
-				BE38B61222E16DBA0044DFB6 /* MoneyKit.swift */,
 			);
 			path = Zendo;
 			sourceTree = "<group>";
@@ -1354,7 +1357,6 @@
 				124A689E2199CCF800598639 /* Error.swift in Sources */,
 				12CE365421132A7100EF0196 /* UIImage.swift in Sources */,
 				127C3E3721789FD800B332EB /* CALayer+Corners.swift in Sources */,
-				BE38B61322E16DBA0044DFB6 /* MoneyKit.swift in Sources */,
 				BE066BDD20F1F3D10008747D /* PageController.swift in Sources */,
 				12C1A7282119B74B00EEFF4F /* ZenButton.swift in Sources */,
 				128D0BB92111D30900A4D757 /* UIDevice+Size.swift in Sources */,
@@ -1379,7 +1381,9 @@
 				DFE3B16E2189A3DF008830CD /* StartingSessions.swift in Sources */,
 				12BE94CE21AF1019000E2B0B /* AVAssetExtension.swift in Sources */,
 				1226B0242229A6D300EE02F9 /* ArenaView.swift in Sources */,
+				3AB142912453F5EF00CA7268 /* ZensorView.swift in Sources */,
 				12477F222119A27700D8AE83 /* Settings.swift in Sources */,
+				3AB1428F2453F4F700CA7268 /* Zensor.swift in Sources */,
 				12FFCAE1210F6DA0007E2480 /* ZendoTableViewCell.swift in Sources */,
 				BE8786FF2215EE1F0052FE4C /* Cloud.swift in Sources */,
 				1240AA0D23D2341B001F03B5 /* ResultTableCell.swift in Sources */,
@@ -1753,14 +1757,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 349;
+				CURRENT_PROJECT_VERSION = 350;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1787,14 +1791,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 349;
+				CURRENT_PROJECT_VERSION = 350;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

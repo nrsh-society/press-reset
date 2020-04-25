@@ -13,6 +13,7 @@ import SwiftyJSON
 import HealthKit
 import Mixpanel
 import Cache
+import SwiftUI
 
 class SubscriptionHeaderTableViewCell: UITableViewCell {
     
@@ -110,9 +111,6 @@ class DiscoverViewController: UIViewController {
             // Always adopt a light interface style.
             overrideUserInterfaceStyle = .light
         }
-        
-        //        try? storage?.removeAll()
-        //        try? self.storageCodable?.removeAll()
         
         refreshControl = UIRefreshControl()
         refreshControl.tintColor = UIColor.white
@@ -517,10 +515,13 @@ extension DiscoverViewController: UICollectionViewDataSource {
                 vc = alert
             } else {
 
-                let start = StartSessionController.loadFromStoryboard()
-                start.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-                start.modalPresentationStyle = .fullScreen
-                vc = start
+                let zensorView: some View = ZensorsView()
+                let hostingController = UIHostingController(rootView: zensorView)
+                //hostingController.story = story
+                //hostingController.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+                hostingController.modalPresentationStyle = .fullScreen
+                hostingController.hero.isEnabled = true
+                vc = hostingController
             }
         } else if story.type == "solo" || story.type == "train"
         {
@@ -530,6 +531,12 @@ extension DiscoverViewController: UICollectionViewDataSource {
             solo.modalPresentationStyle = .fullScreen
             solo.hero.isEnabled = true
             vc = solo
+        } else if story.type == "train2"
+        {
+            let start = StartSessionController.loadFromStoryboard()
+            start.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            start.modalPresentationStyle = .fullScreen
+            vc = start
         }
         else //tutorial
         {
