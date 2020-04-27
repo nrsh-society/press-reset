@@ -185,7 +185,9 @@ public class Zensor : Identifiable, ObservableObject
         let database = Database.database().reference()
         let players = database.child("players")
         
-        let key = players.child(self.name)
+        let name = self.name.replacingOccurrences(of: ".", with: "_")
+        
+        let key = players.child(name)
         
         key.setValue(self.getUpdate())
         {
@@ -208,7 +210,9 @@ public class Zensor : Identifiable, ObservableObject
         
         let players = database.child("players")
         
-        let key = players.child(self.name)
+        let name = self.name.replacingOccurrences(of: ".", with: "_")
+        
+        let key = players.child(name)
         
         key.removeValue()
         
@@ -227,6 +231,42 @@ open class Zensors : NSObject, CBCentralManagerDelegate, HMHomeManagerDelegate, 
     
     var lightCharacteristic : HMCharacteristic? = nil
     
+    var appleWatch : Zensor?
+    
+    @objc func sample(notification: NSNotification)
+    {
+        if let sample = notification.object as? [String : Any]
+        {
+            let raw_hrv = sample["sdnn"] as! String
+            let double_hrv = Double(raw_hrv)!.rounded()
+            let text_hrv = Int(double_hrv.rounded()).description
+            
+            let raw_hr = sample["heart"] as! String
+            let double_hr = (Double(raw_hr)! * 60).rounded()
+            let int_hr = Int(double_hr)
+            let text_hr = int_hr.description
+            
+            if (double_hr  != 0)
+            {
+                DispatchQueue.main.async
+                    {
+                        if let watch  = self.appleWatch
+                        {
+                            watch.update(hr: Float(double_hr) )
+                        }
+                        else
+                        {
+                            self.appleWatch = Zensor(id: UUID() , name: Settings.email!, hr: Float(double_hr) , batt: 100)
+                            self.current.append(self.appleWatch!)
+                        }
+                }
+            }
+            
+        }
+        
+    }
+    
+    
     override init()
     {
         super.init()
@@ -234,6 +274,8 @@ open class Zensors : NSObject, CBCentralManagerDelegate, HMHomeManagerDelegate, 
         centralManager = CBCentralManager(delegate: self, queue: centralQueue)
     
         homeManager.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.sample), name: .sample, object: nil)
         
     }
     
@@ -330,7 +372,6 @@ open class Zensors : NSObject, CBCentralManagerDelegate, HMHomeManagerDelegate, 
                                 {
                                     zensor.update(hr: hr)
                                     
-                                    
                                     if peripheral.name!.contains("502") {
                                         
                                         var brightness = 0.0
@@ -348,7 +389,6 @@ open class Zensors : NSObject, CBCentralManagerDelegate, HMHomeManagerDelegate, 
                                     let zensor = Zensor(id: peripheral.identifier , name: peripheral.name ?? "unknown", hr: hr, batt: batt)
                                     self.current.append(zensor)
                                 }
-                
                         }
                     }
                 }
