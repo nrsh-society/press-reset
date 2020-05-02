@@ -20,7 +20,7 @@ struct ZensorView: View
                 VStack {
                     
                     Image(systemName: "dot.radiowaves.right").padding(5)
-                    Text(model.name.suffix(3)).font(.system(size: 10)).bold()
+                    Text(model.name).font(.system(size: 10)).bold()
                 }
                 
                 

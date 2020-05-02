@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="15505" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="16096" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch44"/>
     <dependencies>
-        <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="15501"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="16012"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="Antenna-Light.otf">
@@ -332,6 +331,7 @@
                     <connections>
                         <outlet property="hapticSetting" destination="Dou-CY-eup" id="bXd-lH-YRP"/>
                         <outlet property="retryFeedbackSlider" destination="u67-Ib-why" id="HB9-LX-Arr"/>
+                        <segue destination="3ad-2P-1UE" kind="relationship" relationship="nextPage" id="IxA-Y1-zOP"/>
                     </connections>
                 </controller>
             </objects>
@@ -433,6 +433,54 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="404" y="-61"/>
+        </scene>
+        <!--Sharing-->
+        <scene sceneID="AfA-Zh-usQ">
+            <objects>
+                <controller identifier="SharingInterfaceController" title="Sharing" id="3ad-2P-1UE" customClass="SharingInterfaceController" customModule="Zendo_WatchKit_Extension">
+                    <items>
+                        <label height="20" alignment="left" text="Friends" id="wzN-Bb-4nM">
+                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
+                        </label>
+                        <table alignment="left" id="L9h-es-XUP"/>
+                        <button width="1" alignment="left" title="Invite a Friend" id="qYG-EA-kNZ">
+                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
+                            <connections>
+                                <action selector="onInviteButtonPressed" destination="3ad-2P-1UE" id="ENy-58-tt3"/>
+                                <segue destination="IZl-QI-oWY" kind="modal" id="hil-rn-HXt"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="friendsTable" destination="L9h-es-XUP" id="9gG-aX-vpa"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="991.91304347826076" y="-67.544642857142861"/>
+        </scene>
+        <!--Add Friend-->
+        <scene sceneID="E9J-az-EAZ">
+            <objects>
+                <controller title="Add Friend" id="IZl-QI-oWY">
+                    <items>
+                        <label alignment="left" text="Contacts" id="4LP-KI-THX">
+                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
+                        </label>
+                        <table alignment="left" id="MF7-lg-2cJ">
+                            <items>
+                                <tableRow id="a26-Fx-9ti">
+                                    <group key="rootItem" width="1" alignment="left" id="fQz-Zn-vTd">
+                                        <items>
+                                            <label alignment="left" text="Last Name, First Name" id="Esy-8e-UGD"/>
+                                        </items>
+                                    </group>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="1269" y="-68"/>
         </scene>
     </scenes>
     <resources>

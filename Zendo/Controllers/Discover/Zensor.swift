@@ -32,7 +32,7 @@ public class Zensor : Identifiable, ObservableObject
     init(id: UUID, name: String, hr: Float, batt: UInt8) {
         
         self.id = id
-        self.name = String(name.suffix(12))
+        self.name = name
         self.hr = hr.description
         self.batt = batt
     }
@@ -61,6 +61,12 @@ public class Zensor : Identifiable, ObservableObject
             
             self.publish()
         }
+    }
+    
+    func update(progress: String)
+    {
+        self.progress = progress
+        self.publish()
     }
     
     
@@ -226,7 +232,7 @@ open class Zensors : NSObject, CBCentralManagerDelegate, HMHomeManagerDelegate, 
     var centralManager: CBCentralManager!
     
     let homeManager = HMHomeManager()
-    
+     
     @Published public var current: [Zensor] = []
     
     var lightCharacteristic : HMCharacteristic? = nil
@@ -261,12 +267,20 @@ open class Zensors : NSObject, CBCentralManagerDelegate, HMHomeManagerDelegate, 
                         }
                 }
             }
-            
         }
-        
     }
     
-    
+    @objc func progress(notification: NSNotification)
+    {
+        if let progress = notification.object as? String
+        {
+            if let watch  = self.appleWatch
+            {
+                watch.update(progress: progress.description.lowercased())
+            }
+        }
+    }
+
     override init()
     {
         super.init()
@@ -277,7 +291,11 @@ open class Zensors : NSObject, CBCentralManagerDelegate, HMHomeManagerDelegate, 
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.sample), name: .sample, object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.progress), name: .progress, object: nil)
+        
     }
+    
+
     
     func hsba(from color: UIColor) -> [CGFloat] {
         
