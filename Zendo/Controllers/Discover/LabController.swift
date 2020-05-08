@@ -75,6 +75,9 @@ class LabController: UIViewController
         }
     }
     
+    var appleWatch : Zensor?
+
+    
     var story: Story!
     var idHero = ""
     var panGR: UIPanGestureRecognizer!
@@ -194,6 +197,11 @@ class LabController: UIViewController
         if let progress = notification.object as? String
         {
             let lastProgress = progress.description.lowercased().contains("true")
+            
+            if let watch  = self.appleWatch
+            {
+                watch.update(progress: progress.description.lowercased())
+            }
         }
     }
     
@@ -223,6 +231,15 @@ class LabController: UIViewController
 
                 self.arenaView.setChart(chartHR)
     
+            }
+            
+            if let watch  = self.appleWatch
+            {
+                watch.update(hr: Float(double_hr) )
+            }
+            else
+            {
+                self.appleWatch = Zensor(id: UUID() , name: Settings.email!, hr: Float(double_hr) , batt: 100)
             }
         }
         
