@@ -514,14 +514,17 @@ extension DiscoverViewController: UICollectionViewDataSource {
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 vc = alert
             } else {
-
-                let zensorView: some View = ZensorsView()
-                let hostingController = UIHostingController(rootView: zensorView)
+                
+                let lab = LabController.loadFromStoryboard()
+                lab.story = story
+                lab.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+                lab.modalPresentationStyle = .fullScreen
+                lab.hero.isEnabled = true
+                vc = lab
+                //let zensorView: some View = ZensorsView()
+                //let hostingController = UIHostingController(rootView: zensorView)
                 //hostingController.story = story
                 //hostingController.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-                hostingController.modalPresentationStyle = .fullScreen
-                hostingController.hero.isEnabled = true
-                vc = hostingController
             }
         } else if story.type == "solo" || story.type == "train"
         {
