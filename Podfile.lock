@@ -1,5 +1,4 @@
 PODS:
-  - AvatarCapture (1.0.5)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -83,7 +82,6 @@ PODS:
   - Mixpanel-swift (2.4.5):
     - Mixpanel-swift/Complete (= 2.4.5)
   - Mixpanel-swift/Complete (2.4.5)
-  - Movesense (1.38.0)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
@@ -105,9 +103,9 @@ PODS:
     - SDWebImage/Core (= 4.4.7)
   - SDWebImage/Core (4.4.7)
   - SwiftyJSON (4.3.0)
+  - TwitchPlayer (0.2.3)
 
 DEPENDENCIES:
-  - AvatarCapture (= 1.0.5)
   - BuddyBuildSDK (~> 1.0.17)
   - Cache (~> 5.2.0)
   - Charts (~> 3.1.1)
@@ -119,15 +117,14 @@ DEPENDENCIES:
   - lottie-ios (~> 2.5.2)
   - Mixpanel
   - Mixpanel-swift (~> 2.4.2)
-  - Movesense (from `https://bitbucket.org/suunto/movesense-mobile-lib.git`)
   - NVActivityIndicatorView (~> 4.2.1)
   - PromiseKit (~> 6.8)
   - SDWebImage (~> 4.0)
   - SwiftyJSON (~> 4.0)
+  - TwitchPlayer
 
 SPEC REPOS:
   trunk:
-    - AvatarCapture
     - Bolts
     - BuddyBuildSDK
     - Cache
@@ -154,18 +151,9 @@ SPEC REPOS:
     - PromiseKit
     - SDWebImage
     - SwiftyJSON
-
-EXTERNAL SOURCES:
-  Movesense:
-    :git: https://bitbucket.org/suunto/movesense-mobile-lib.git
-
-CHECKOUT OPTIONS:
-  Movesense:
-    :commit: f59f8488256e6fe29759d04aa31a4e9d9ed2a363
-    :git: https://bitbucket.org/suunto/movesense-mobile-lib.git
+    - TwitchPlayer
 
 SPEC CHECKSUMS:
-  AvatarCapture: 72b336139733cc0fc23b99dd5478a116708aaf3a
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BuddyBuildSDK: 8ae12ee721098b356a961ea7dce70ae55f93a7d2
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
@@ -187,13 +175,13 @@ SPEC CHECKSUMS:
   lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
   Mixpanel: 399997670f5452de026449f9e9ecd52eccbb9ff7
   Mixpanel-swift: a9ed3dd197d8f2837920cec6be1acdb51d07b31a
-  Movesense: ec2685c04df0c154e6599d371a406e51cafdedc5
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
   PromiseKit: c06835ba442ce5454ce3cdde470232804a6e4ff8
   SDWebImage: c10d14a8883ebd89664f02a422006f66a85c0c5d
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
+  TwitchPlayer: 60e9999dec4f74121685eec0b6e9843c2b44d794
 
-PODFILE CHECKSUM: fdb51cbd840fb7180e24f3e360618693ed9d5de9
+PODFILE CHECKSUM: 421146d9d8dc65ee361715430eb0fd41b8e0e7ca
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

@@ -15,7 +15,6 @@ import HealthKit
 import AVKit
 import Mixpanel
 import Cache
-import Movesense
 import SwiftyJSON
 
 class TrainController: UIViewController

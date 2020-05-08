@@ -34,6 +34,8 @@
 	<string>Use bluetooth to discover, connect to, and share information with nearby devices</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Measure heart rate variablity from external monitors</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Pick people to share daily progress</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
@@ -54,12 +56,11 @@
 	<true/>
 	<key>WKBackgroundModes</key>
 	<array>
+		<string>mindfulness</string>
 		<string>workout-processing</string>
 	</array>
 	<key>WKExtensionDelegateClassName</key>
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
-	<key>NSContactsUsageDescription</key>
-	<string>Pick people to share daily progress</string>
 	<key>WKRunsIndependentlyOfCompanionApp</key>
 	<true/>
 </dict>

@@ -62,10 +62,14 @@
 	<string>Measure heart rate variablity from external monitors</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Profile photo for groups</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Pick people to share daily progress</string>
 	<key>NSHealthShareUsageDescription</key>
 	<string>Show progress across Zendō sessions </string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Add Zendō data to Apple Health </string>
+	<key>NSHomeKitUsageDescription</key>
+	<string>Change lighting with breath</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Uses motion data to track posture</string>
 	<key>NSUserActivityTypes</key>
@@ -109,8 +113,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSHomeKitUsageDescription</key>
-	<string>Change lighting with breath</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 </dict>

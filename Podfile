@@ -1,7 +1,7 @@
 use_frameworks!
 
 target 'Zendo' do
-  platform :ios, '11.0'
+  platform :ios, '13.0'
   use_frameworks!
   pod 'Charts', '~> 3.1.1'
   pod 'Mixpanel-swift', '~> 2.4.2'
@@ -16,11 +16,11 @@ target 'Zendo' do
   pod 'Firebase/Core', '~> 5.15.0'
   pod 'Firebase/Database', '~> 5.15.0'
   pod 'Firebase/Storage', '~> 5.15.0'
-  pod 'AvatarCapture', '1.0.5'
-  pod 'Movesense', :git => 'https://bitbucket.org/suunto/movesense-mobile-lib.git'
+  # pod 'AvatarCapture', '1.0.5'
+  # pod 'Movesense', :git => 'https://bitbucket.org/suunto/movesense-mobile-lib.git'
   pod 'PromiseKit', '~> 6.8'
   pod 'SwiftyJSON', '~> 4.0'
-  
+  pod 'TwitchPlayer'
 end
 
 
