@@ -40,9 +40,14 @@ extension UIViewController {
     }
     
     func showHealthKitController(isFailed: Bool) {
-        let controller = HealthKitViewController.loadFromStoryboard()
-        controller.isFailed = isFailed
-        present(controller, animated: true)
+        if isFailed {
+            let vc = HealthKitControllerFailed.loadFromStoryboard()
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true)
+        } else {
+            let controller = HealthKitViewController.loadFromStoryboard()
+            present(controller, animated: true)
+        }
     }
     
     func updateOverview() {

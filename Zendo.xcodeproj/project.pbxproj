@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		07999EF7EB4604062800D0F7 /* Pods_Zendo_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C743FF41BE0CC30AB7793D6 /* Pods_Zendo_WatchKit_Extension.framework */; };
+		1219E51E248AB6EA005E9654 /* HealthKitControllerFailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1219E51D248AB6EA005E9654 /* HealthKitControllerFailed.swift */; };
 		121F25FE211B367D00C1CC96 /* SessionCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F25FD211B367D00C1CC96 /* SessionCommands.swift */; };
 		121F2600211B372300C1CC96 /* SessionDelegater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F25FF211B372300C1CC96 /* SessionDelegater.swift */; };
 		121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F2604211B3D9C00C1CC96 /* Notification+Name.swift */; };
@@ -251,6 +252,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1219E51D248AB6EA005E9654 /* HealthKitControllerFailed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitControllerFailed.swift; sourceTree = "<group>"; };
 		121F25FD211B367D00C1CC96 /* SessionCommands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCommands.swift; sourceTree = "<group>"; };
 		121F25FF211B372300C1CC96 /* SessionDelegater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDelegater.swift; sourceTree = "<group>"; };
 		121F2604211B3D9C00C1CC96 /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
@@ -519,6 +521,7 @@
 				126544AD2170B44D00CA8F0B /* NavigationControllerWelcome.swift */,
 				12C2C2802137FCA90039C7A0 /* CommunityViewController.swift */,
 				121F2609211B499300C1CC96 /* HealthKitViewController.swift */,
+				1219E51D248AB6EA005E9654 /* HealthKitControllerFailed.swift */,
 				BE0FF19821E03EDB0050D15B /* NotificationViewController.swift */,
 			);
 			path = Welcome;
@@ -1439,6 +1442,7 @@
 				7BEDEAF522A34CCF008FCAF7 /* WorkoutFetcher.swift in Sources */,
 				121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */,
 				BE73BCC02465D5E300EBF8DB /* LabController.swift in Sources */,
+				1219E51E248AB6EA005E9654 /* HealthKitControllerFailed.swift in Sources */,
 				12C1A72C2119B78900EEFF4F /* UIView+Nib.swift in Sources */,
 				12E2A1B22110774000E0E911 /* ConstraintFont.swift in Sources */,
 				12A8991023ABE76B00DDAFA3 /* Foregrounder.swift in Sources */,

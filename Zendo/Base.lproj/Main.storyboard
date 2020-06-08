@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Nz-z1-oTd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Nz-z1-oTd">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -688,6 +687,169 @@
             </objects>
             <point key="canvasLocation" x="-3256.521739130435" y="-1403.5714285714284"/>
         </scene>
+        <!--Health Kit Controller Failed-->
+        <scene sceneID="9Ia-Am-Swj">
+            <objects>
+                <viewController storyboardIdentifier="HealthKitControllerFailed" id="002-ls-Kib" customClass="HealthKitControllerFailed" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7fB-Gk-ttr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="2000"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0O9-4p-kjy">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="2000"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EKQ-qg-MtJ">
+                                        <rect key="frame" x="32" y="65" width="350" height="94.333333333333314"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" connect to" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m4n-ZT-iLc">
+                                                <rect key="frame" x="0.0" y="0.0" width="165.66666666666666" height="30"/>
+                                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Health app" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UaO-Bz-r0M">
+                                                <rect key="frame" x="0.0" y="40" width="172" height="30"/>
+                                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                                <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zendo requires access to Health App." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uUA-dw-Mn4">
+                                                <rect key="frame" x="0.0" y="80" width="256.66666666666669" height="14.333333333333329"/>
+                                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                                <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img connect failed" translatesAutoresizingMaskIntoConstraints="NO" id="WML-4e-l0D">
+                                        <rect key="frame" x="32" y="183.33333333333337" width="350" height="229.66666666666663"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="WML-4e-l0D" secondAttribute="height" multiplier="311:204" id="gsB-T2-ka4"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="24s-iG-Pcm">
+                                        <rect key="frame" x="32" y="430" width="350" height="42.333333333333314"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="1. Navigate to Health App and tap on the avatar on the top right to access Profile.">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="14" name="Antenna-Regular"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.5" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img connect failed-1" translatesAutoresizingMaskIntoConstraints="NO" id="rdF-S8-Bma">
+                                        <rect key="frame" x="32" y="496.33333333333331" width="350" height="229.66666666666669"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="rdF-S8-Bma" secondAttribute="height" multiplier="311:204" id="9m0-Ap-GVE"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2. Locate the Privacy section and tap on Apps." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PgK-dP-hcR">
+                                        <rect key="frame" x="32" y="749.66666666666663" width="350" height="14.333333333333371"/>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                        <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FgN-qz-22J">
+                                        <rect key="frame" x="32" y="1047.6666666666667" width="350" height="42.333333333333258"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="3. Navigate to Health App and click on the avatar on the top right.">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="14" name="Antenna-Regular"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.5" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img connect failed-2" translatesAutoresizingMaskIntoConstraints="NO" id="2aK-nK-WH6">
+                                        <rect key="frame" x="32" y="801" width="350" height="229.66666666666674"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="2aK-nK-WH6" secondAttribute="height" multiplier="311:204" id="K4Z-qb-aXG"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img connect failed-3" translatesAutoresizingMaskIntoConstraints="NO" id="4xs-zR-2vC">
+                                        <rect key="frame" x="32" y="1121" width="350" height="229.66666666666674"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4. Tap on Turn All Contegories On." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Gu-pk-cfn">
+                                        <rect key="frame" x="32" y="1367.6666666666667" width="350" height="14.333333333333258"/>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                        <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RPs-hz-hbz" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
+                                        <rect key="frame" x="207" y="1482" width="207" height="45"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="1ll-gl-uvn"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="titleButton" value="Go to Health App"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="rdF-S8-Bma" firstAttribute="leading" secondItem="0O9-4p-kjy" secondAttribute="leading" constant="32" id="21a-Vc-as3"/>
+                                    <constraint firstAttribute="trailing" secondItem="WML-4e-l0D" secondAttribute="trailing" constant="32" id="3Kk-Z8-m4R"/>
+                                    <constraint firstAttribute="bottom" secondItem="RPs-hz-hbz" secondAttribute="bottom" constant="70" id="9Vz-ir-FZy"/>
+                                    <constraint firstItem="2aK-nK-WH6" firstAttribute="top" secondItem="PgK-dP-hcR" secondAttribute="bottom" constant="37" id="Ak5-x3-8DC"/>
+                                    <constraint firstItem="WML-4e-l0D" firstAttribute="leading" secondItem="0O9-4p-kjy" secondAttribute="leading" constant="32" id="D5Q-7P-GUb"/>
+                                    <constraint firstItem="rdF-S8-Bma" firstAttribute="top" secondItem="24s-iG-Pcm" secondAttribute="bottom" constant="24" id="DYW-ge-zCj"/>
+                                    <constraint firstItem="2aK-nK-WH6" firstAttribute="leading" secondItem="0O9-4p-kjy" secondAttribute="leading" constant="32" id="F3f-WU-IOY"/>
+                                    <constraint firstItem="4xs-zR-2vC" firstAttribute="top" secondItem="FgN-qz-22J" secondAttribute="bottom" constant="31" id="FyN-yc-8Hs"/>
+                                    <constraint firstItem="PgK-dP-hcR" firstAttribute="leading" secondItem="0O9-4p-kjy" secondAttribute="leading" constant="32" id="GbY-tj-2Td"/>
+                                    <constraint firstAttribute="trailing" secondItem="rdF-S8-Bma" secondAttribute="trailing" constant="32" id="GcJ-8s-DOb"/>
+                                    <constraint firstItem="FgN-qz-22J" firstAttribute="top" secondItem="2aK-nK-WH6" secondAttribute="bottom" constant="17" id="Gra-j3-qhC"/>
+                                    <constraint firstAttribute="trailing" secondItem="2aK-nK-WH6" secondAttribute="trailing" constant="32" id="KCo-Qp-lja"/>
+                                    <constraint firstItem="24s-iG-Pcm" firstAttribute="leading" secondItem="0O9-4p-kjy" secondAttribute="leading" constant="32" id="MxP-I6-TJM"/>
+                                    <constraint firstItem="WML-4e-l0D" firstAttribute="centerX" secondItem="0O9-4p-kjy" secondAttribute="centerX" id="Nrw-kQ-LJ7"/>
+                                    <constraint firstItem="4xs-zR-2vC" firstAttribute="width" secondItem="4xs-zR-2vC" secondAttribute="height" multiplier="311:204" id="PjW-5M-i1G"/>
+                                    <constraint firstItem="EKQ-qg-MtJ" firstAttribute="top" secondItem="0O9-4p-kjy" secondAttribute="top" constant="65" id="QLA-P6-EPr"/>
+                                    <constraint firstItem="PgK-dP-hcR" firstAttribute="top" secondItem="rdF-S8-Bma" secondAttribute="bottom" constant="24" id="Vmo-Ej-j88"/>
+                                    <constraint firstAttribute="trailing" secondItem="24s-iG-Pcm" secondAttribute="trailing" constant="32" id="X72-or-BTs"/>
+                                    <constraint firstItem="5Gu-pk-cfn" firstAttribute="top" secondItem="4xs-zR-2vC" secondAttribute="bottom" constant="17" id="Z9L-E2-5VB"/>
+                                    <constraint firstItem="rdF-S8-Bma" firstAttribute="centerX" secondItem="0O9-4p-kjy" secondAttribute="centerX" id="ZP2-WA-gE3"/>
+                                    <constraint firstItem="PgK-dP-hcR" firstAttribute="centerX" secondItem="0O9-4p-kjy" secondAttribute="centerX" id="cjy-jU-FGs"/>
+                                    <constraint firstAttribute="trailing" secondItem="FgN-qz-22J" secondAttribute="trailing" constant="32" id="dKf-9T-Xqe"/>
+                                    <constraint firstAttribute="trailing" secondItem="RPs-hz-hbz" secondAttribute="trailing" id="eVY-l0-lMH"/>
+                                    <constraint firstItem="4xs-zR-2vC" firstAttribute="leading" secondItem="0O9-4p-kjy" secondAttribute="leading" constant="32" id="efh-nZ-GUh"/>
+                                    <constraint firstAttribute="trailing" secondItem="4xs-zR-2vC" secondAttribute="trailing" constant="32" id="fA5-PX-54P"/>
+                                    <constraint firstItem="24s-iG-Pcm" firstAttribute="top" secondItem="WML-4e-l0D" secondAttribute="bottom" constant="17" id="fIU-5U-Tpw"/>
+                                    <constraint firstAttribute="trailing" secondItem="5Gu-pk-cfn" secondAttribute="trailing" constant="32" id="ghJ-XR-A0T"/>
+                                    <constraint firstItem="5Gu-pk-cfn" firstAttribute="leading" secondItem="0O9-4p-kjy" secondAttribute="leading" constant="32" id="kMr-TQ-leK"/>
+                                    <constraint firstItem="EKQ-qg-MtJ" firstAttribute="leading" secondItem="0O9-4p-kjy" secondAttribute="leading" constant="32" id="oQD-mD-dTg"/>
+                                    <constraint firstItem="RPs-hz-hbz" firstAttribute="top" secondItem="5Gu-pk-cfn" secondAttribute="bottom" constant="100" id="q0T-iv-wI2"/>
+                                    <constraint firstItem="WML-4e-l0D" firstAttribute="top" secondItem="EKQ-qg-MtJ" secondAttribute="bottom" constant="24" id="r82-Xm-QOC"/>
+                                    <constraint firstAttribute="trailing" secondItem="PgK-dP-hcR" secondAttribute="trailing" constant="32" id="t8s-5d-uIe"/>
+                                    <constraint firstAttribute="trailing" secondItem="EKQ-qg-MtJ" secondAttribute="trailing" constant="32" id="u3c-Al-SUt"/>
+                                    <constraint firstItem="FgN-qz-22J" firstAttribute="leading" secondItem="0O9-4p-kjy" secondAttribute="leading" constant="32" id="vnL-Xf-0G8"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0O9-4p-kjy" firstAttribute="leading" secondItem="rH6-de-Sky" secondAttribute="leading" id="Eyz-dN-hwn"/>
+                            <constraint firstItem="0O9-4p-kjy" firstAttribute="top" secondItem="7fB-Gk-ttr" secondAttribute="top" id="G8O-ZF-ksY"/>
+                            <constraint firstAttribute="bottom" secondItem="0O9-4p-kjy" secondAttribute="bottom" id="LCS-tp-Aj1"/>
+                            <constraint firstItem="rH6-de-Sky" firstAttribute="trailing" secondItem="0O9-4p-kjy" secondAttribute="trailing" id="W6H-KO-hei"/>
+                            <constraint firstItem="RPs-hz-hbz" firstAttribute="width" secondItem="7fB-Gk-ttr" secondAttribute="width" multiplier="0.5" id="fKD-JA-EFu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="rH6-de-Sky"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="414" height="2000"/>
+                    <connections>
+                        <outlet property="zenButton" destination="RPs-hz-hbz" id="rFe-KY-PHG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VH4-rn-TJM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2450.7246376811595" y="-2544.6428571428569"/>
+        </scene>
         <!--Health Kit View Controller-->
         <scene sceneID="ox8-A3-TLw">
             <objects>
@@ -1106,6 +1268,10 @@
         <image name="firstSession" width="248" height="319"/>
         <image name="history" width="23" height="23"/>
         <image name="hrv" width="39" height="35"/>
+        <image name="img connect failed" width="311" height="204"/>
+        <image name="img connect failed-1" width="311" height="204"/>
+        <image name="img connect failed-2" width="311" height="204"/>
+        <image name="img connect failed-3" width="311" height="204"/>
         <image name="notification" width="317" height="340"/>
         <image name="overview" width="24" height="24"/>
         <image name="share" width="24" height="24"/>
