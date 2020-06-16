@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -37,7 +37,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A6e-ii-vgH" customClass="TwitchPlayer" customModule="TwitchPlayer">
+                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A6e-ii-vgH" customClass="TwitchClipPlayer" customModule="TwitchPlayer">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="499"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -48,11 +48,13 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autoPlayEnabled" value="YES"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="allowsFullScreen" value="NO"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="scrollingEnabled" value="NO"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="channelToLoad" value="zendotools"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="scrollingEnabled" value="YES"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="showingChatPanel" value="NO"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="chatModeIsMobile" value="NO"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="playerThemeIsDark" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="videoToLoad" value="647889951"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="clipId" value="ObliqueThirstyFungusMau5"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="muteOnLoad" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </wkWebView>
                         </subviews>
