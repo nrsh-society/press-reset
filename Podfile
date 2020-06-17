@@ -21,6 +21,8 @@ target 'Zendo' do
   pod 'PromiseKit', '~> 6.8'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'TwitchPlayer', :git => 'https://github.com/dpurdy/TwitchPlayer.git', :commit => 'a91a1900c3c277551e1b81f0cf35a32b2282f63f'
+  pod 'XpringKit'
+  pod 'Parse'
 end
 
 target 'Zendo WatchKit Extension' do
