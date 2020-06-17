@@ -14,6 +14,7 @@ class CommunityViewController: UIViewController {
     class var storyboardIdentifier: String { get { return "CommunityViewController" } }
     class var skipToHealthKitSegueID: String { get { return "SkipToHealthKit" } }
 
+    @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet weak var topSpace: NSLayoutConstraint!
     @IBOutlet weak var topSpaceTextField: NSLayoutConstraint!
     @IBOutlet weak var TOSPP: UITextView!
@@ -55,17 +56,22 @@ class CommunityViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        NotificationCenter.default.removeObserver(self)
         Mixpanel.mainInstance().track(event: "community")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if UIDevice.small {
-            topSpace.constant = 20.0
+        if #available(iOS 13.0, *) {
+            isModalInPresentation = true
+        }
+        
+        if UIDevice.small || checkZoomed() {
+            topSpace.constant = 10.0
             topSpaceTextField.constant = 15.0
             stackView.spacing = 20.0
-            nextBottomSpace.constant = 20
+            nextBottomSpace.constant = 10
         }
         
         for label in labels {
@@ -96,6 +102,29 @@ class CommunityViewController: UIViewController {
         }
         
         setTOSPP()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillChangeFrame,
+                                               object: nil,
+                                               queue: .main)
+        { [weak self] (notification) in
+            
+            if let userInfo = notification.userInfo,
+                let rect = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect {
+                self?.scrollView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: rect.size.height, right: 0)
+            }
+        }
+        
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillHide,
+                                               object: nil,
+                                               queue: .main)
+        { [weak self] (notification) in
+            
+            self?.scrollView.contentInset = .zero
+        }
     }
     
     static func loadFromStoryboard() -> CommunityViewController {

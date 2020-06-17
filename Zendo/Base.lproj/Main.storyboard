@@ -470,7 +470,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="FOx-Oj-Aa3" kind="relationship" relationship="rootViewController" id="UR9-Ui-sE7"/>
+                        <segue destination="dTm-tQ-If7" kind="relationship" relationship="rootViewController" id="Z6s-Mq-IXW"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hSV-e8-VP1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -570,16 +570,16 @@
             </objects>
             <point key="canvasLocation" x="-3257" y="-735"/>
         </scene>
-        <!--Community View Controller-->
+        <!--View Controller-->
         <scene sceneID="5T6-K5-oSo">
             <objects>
-                <viewController storyboardIdentifier="CommunityViewController" modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="FOx-Oj-Aa3" customClass="CommunityViewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="FOx-Oj-Aa3" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gr2-6O-C2R">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gFT-zA-ERl">
-                                <rect key="frame" x="41" y="49.999999999999993" width="332" height="122.33333333333331"/>
+                                <rect key="frame" x="41" y="94" width="332" height="122.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="join the" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVx-Jo-CSq">
                                         <rect key="frame" x="0.0" y="0.0" width="109.66666666666667" height="30"/>
@@ -602,7 +602,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="j4b-yy-xhs">
-                                <rect key="frame" x="41" y="185.33333333333331" width="373" height="135"/>
+                                <rect key="frame" x="41" y="229.33333333333337" width="373" height="135"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAN-ji-17l" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="373" height="48"/>
@@ -612,7 +612,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mN8-Qu-Loh" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="87" width="373" height="48"/>
+                                        <rect key="frame" x="0.0" y="86.999999999999972" width="373" height="48"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="Cib-CH-TjC"/>
@@ -620,8 +620,8 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="By joining the community, you are agreeing to our Terms and Privacy Policy" translatesAutoresizingMaskIntoConstraints="NO" id="eLb-uV-ioF">
-                                <rect key="frame" x="41" y="345.33333333333331" width="332" height="66"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="By joining the community, you are agreeing to our Terms and Privacy Policy" translatesAutoresizingMaskIntoConstraints="NO" id="eLb-uV-ioF">
+                                <rect key="frame" x="41" y="389.33333333333331" width="332" height="66"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="66" id="3as-gM-QTw"/>
@@ -631,7 +631,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n8Z-dv-fhB" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="207" y="692" width="207" height="45"/>
+                                <rect key="frame" x="207" y="780" width="207" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="OpT-fT-VwG"/>
@@ -680,7 +680,6 @@
                         <outletCollection property="labels" destination="xua-QO-A7Q" collectionClass="NSMutableArray" id="bgw-M2-zrL"/>
                         <outletCollection property="labels" destination="e29-hP-oad" collectionClass="NSMutableArray" id="10C-dT-Bde"/>
                         <outletCollection property="labels" destination="YVx-Jo-CSq" collectionClass="NSMutableArray" id="r0H-UG-p6L"/>
-                        <segue destination="gph-pp-dV7" kind="show" identifier="SkipToHealthKit" id="KqU-A5-uo5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D9f-cy-vpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -911,6 +910,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="l6U-wt-2x5"/>
                     </view>
+                    <navigationItem key="navigationItem" id="aO6-J6-Tdl"/>
                     <connections>
                         <outlet property="heightImage" destination="f3Q-PH-kOR" id="LpS-ME-r1P"/>
                         <outlet property="image" destination="eWO-nn-SMc" id="ywx-pg-xCj"/>
@@ -1260,6 +1260,135 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dx1-al-qMs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-531.20000000000005" y="-255.66502463054189"/>
+        </scene>
+        <!--Community View Controller-->
+        <scene sceneID="5gS-ya-cbw">
+            <objects>
+                <viewController storyboardIdentifier="CommunityViewController" modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="dTm-tQ-If7" customClass="CommunityViewController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lKK-2y-d4y">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DaS-7A-PBZ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Bcb-gF-Pxe">
+                                        <rect key="frame" x="41" y="49.999999999999993" width="332" height="122.33333333333331"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="join the" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnT-zY-lMM">
+                                                <rect key="frame" x="0.0" y="0.0" width="109.66666666666667" height="30"/>
+                                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="community." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cmU-Cj-hLn">
+                                                <rect key="frame" x="0.0" y="40" width="175.66666666666666" height="30"/>
+                                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
+                                                <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are a group of meditators from around the world working together to bring the best tools and techniques to our practice." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M2h-xj-SDd">
+                                                <rect key="frame" x="0.0" y="80" width="320" height="42.333333333333343"/>
+                                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                                <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="By joining the community, you are agreeing to our Terms and Privacy Policy" translatesAutoresizingMaskIntoConstraints="NO" id="OaV-Kt-oUZ">
+                                        <rect key="frame" x="41" y="345.33333333333331" width="332" height="49.666666666666686"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="gDt-1i-cDa">
+                                        <rect key="frame" x="41" y="185.33333333333331" width="373" height="135"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LAi-dC-tgE" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="373" height="48"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="2uS-ML-N9N"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiH-ko-dqO" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="87" width="373" height="48"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="28M-Uf-aPZ"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="OaV-Kt-oUZ" secondAttribute="trailing" constant="41" id="0Id-n2-sfR"/>
+                                    <constraint firstAttribute="trailing" secondItem="gDt-1i-cDa" secondAttribute="trailing" id="3WB-hW-Hc2"/>
+                                    <constraint firstItem="OaV-Kt-oUZ" firstAttribute="leading" secondItem="DaS-7A-PBZ" secondAttribute="leading" constant="41" id="77W-b6-Yuq"/>
+                                    <constraint firstItem="gDt-1i-cDa" firstAttribute="top" secondItem="Bcb-gF-Pxe" secondAttribute="bottom" constant="13" id="M80-21-Ft3"/>
+                                    <constraint firstItem="OaV-Kt-oUZ" firstAttribute="centerX" secondItem="DaS-7A-PBZ" secondAttribute="centerX" id="MCC-VI-gVa"/>
+                                    <constraint firstItem="gDt-1i-cDa" firstAttribute="leading" secondItem="DaS-7A-PBZ" secondAttribute="leading" constant="41" id="TC6-NZ-TwJ"/>
+                                    <constraint firstItem="Bcb-gF-Pxe" firstAttribute="centerX" secondItem="DaS-7A-PBZ" secondAttribute="centerX" id="TjC-cG-mhk"/>
+                                    <constraint firstItem="Bcb-gF-Pxe" firstAttribute="top" secondItem="DaS-7A-PBZ" secondAttribute="top" constant="50" id="dLe-Lp-HZd"/>
+                                    <constraint firstAttribute="bottom" secondItem="OaV-Kt-oUZ" secondAttribute="bottom" constant="10" id="dib-ZM-D4M"/>
+                                    <constraint firstItem="OaV-Kt-oUZ" firstAttribute="top" secondItem="gDt-1i-cDa" secondAttribute="bottom" constant="25" id="psW-5L-Foz"/>
+                                    <constraint firstItem="Bcb-gF-Pxe" firstAttribute="leading" secondItem="DaS-7A-PBZ" secondAttribute="leading" constant="41" id="rSA-D9-yHi"/>
+                                    <constraint firstAttribute="trailing" secondItem="Bcb-gF-Pxe" secondAttribute="trailing" constant="41" id="rfl-ym-R2y"/>
+                                </constraints>
+                            </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GTL-oE-BVC" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
+                                <rect key="frame" x="207" y="692" width="207" height="45"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="m7F-J2-sBW"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="titleButton" value="Next"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bQr-DE-YkC" firstAttribute="bottom" secondItem="GTL-oE-BVC" secondAttribute="bottom" constant="37" id="8js-u9-gKx"/>
+                            <constraint firstItem="DaS-7A-PBZ" firstAttribute="top" secondItem="bQr-DE-YkC" secondAttribute="top" id="9Ie-uN-p1C"/>
+                            <constraint firstItem="DaS-7A-PBZ" firstAttribute="leading" secondItem="lKK-2y-d4y" secondAttribute="leading" id="M1h-qX-LyT"/>
+                            <constraint firstItem="GTL-oE-BVC" firstAttribute="trailing" secondItem="bQr-DE-YkC" secondAttribute="trailing" id="V4V-kP-ziy"/>
+                            <constraint firstAttribute="bottom" secondItem="DaS-7A-PBZ" secondAttribute="bottom" id="bop-EL-Rdy"/>
+                            <constraint firstItem="GTL-oE-BVC" firstAttribute="width" secondItem="lKK-2y-d4y" secondAttribute="width" multiplier="0.5" id="gch-wV-zXc"/>
+                            <constraint firstAttribute="trailing" secondItem="DaS-7A-PBZ" secondAttribute="trailing" id="hmh-qf-Eqe"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bQr-DE-YkC"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="4ZF-Sg-OId">
+                        <barButtonItem key="rightBarButtonItem" title="Skip" id="7pe-Wk-mHZ" userLabel="Skip">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="didSkipWithSender:" destination="dTm-tQ-If7" id="CKa-67-UKM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="TOSPP" destination="OaV-Kt-oUZ" id="LNO-Zq-R8l"/>
+                        <outlet property="email" destination="aiH-ko-dqO" id="6RD-q2-TJG"/>
+                        <outlet property="fullName" destination="LAi-dC-tgE" id="pBz-FA-Mwb"/>
+                        <outlet property="nextBottomSpace" destination="8js-u9-gKx" id="SfX-Gd-YeH"/>
+                        <outlet property="nextButton" destination="GTL-oE-BVC" id="RVw-jp-blS"/>
+                        <outlet property="scrollView" destination="DaS-7A-PBZ" id="dty-9T-nwC"/>
+                        <outlet property="skipButton" destination="7pe-Wk-mHZ" id="Elc-7z-IBB"/>
+                        <outlet property="stackView" destination="gDt-1i-cDa" id="7d4-k3-3Mn"/>
+                        <outlet property="topSpace" destination="dLe-Lp-HZd" id="wWy-mA-iH3"/>
+                        <outlet property="topSpaceTextField" destination="M80-21-Ft3" id="4qM-1e-mPE"/>
+                        <outletCollection property="labels" destination="M2h-xj-SDd" collectionClass="NSMutableArray" id="3AY-Od-Xwx"/>
+                        <outletCollection property="labels" destination="cnT-zY-lMM" collectionClass="NSMutableArray" id="N6e-OD-a34"/>
+                        <outletCollection property="labels" destination="cmU-Cj-hLn" collectionClass="NSMutableArray" id="rWZ-E2-ibl"/>
+                        <segue destination="gph-pp-dV7" kind="show" identifier="SkipToHealthKit" id="UpL-d2-RBe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ND1-RI-JSD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3256.521739130435" y="-2175.6696428571427"/>
         </scene>
     </scenes>
     <resources>

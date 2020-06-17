@@ -39,6 +39,10 @@ extension UIViewController {
         }
     }
     
+    func checkZoomed() -> Bool {
+        return UIScreen.main.nativeScale > UIScreen.main.scale
+    }
+    
     func showHealthKitController(isFailed: Bool) {
         if isFailed {
             let vc = HealthKitControllerFailed.loadFromStoryboard()

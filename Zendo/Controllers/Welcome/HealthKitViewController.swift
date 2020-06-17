@@ -34,9 +34,9 @@ class HealthKitViewController: UIViewController {
             }
         }
         
-        if UIDevice.small {
+        if UIDevice.small || checkZoomed() {
             for label in labels {
-                label.font = UIFont.zendo(font: .antennaRegular, size: label.font.pointSize - 2)
+                label.font = UIFont.zendo(font: .antennaRegular, size: label.font.pointSize - 3)
             }
         }
         
