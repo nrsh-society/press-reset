@@ -227,7 +227,7 @@
                             <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
                         </label>
                         <label alignment="left" text="Your HRV this week is ▾ 11ms from last week's 50ms." textAlignment="left" numberOfLines="6" id="U53-F1-s3O">
-                            <color key="textColor" red="0.60030913352966309" green="0.67497491836547852" blue="0.6431349515914917" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="textColor" red="0.6002739668" green="0.67491501570000001" blue="0.64313453440000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <fontDescription key="font" name="Antenna-Light" family="Antenna" pointSize="15"/>
                         </label>
                     </items>
@@ -238,6 +238,26 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="374" y="1261"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="f6W-j7-S90">
+            <objects>
+                <notificationController id="vqY-BJ-eIe">
+                    <items>
+                        <label width="1" height="107" alignment="left" text="Zendō Community! We are giving $5K to families on Basic Income Day. For each minute you meditate, you donate with us." numberOfLines="15" id="9b5-b3-vT9">
+                            <color key="textColor" red="0.6002739668" green="0.67491501570000001" blue="0.64313453440000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <fontDescription key="font" name="Antenna-Light" family="Antenna" pointSize="15"/>
+                        </label>
+                    </items>
+                    <notificationCategory key="notificationCategory" id="jX0-ut-dcO"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="9b5-b3-vT9" id="p0p-M2-32G"/>
+                        <segue destination="IXi-WN-khc" kind="relationship" relationship="dynamicNotificationInterface" id="5Rg-ZJ-h5V"/>
+                        <segue destination="0Qg-CI-jB0" kind="relationship" relationship="dynamicInteractiveNotificationInterface" id="WR4-ca-QMt"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="411.695652173913" y="1640.0446428571429"/>
         </scene>
         <!--Session-->
         <scene sceneID="cOn-TP-OLG">
@@ -258,7 +278,7 @@
                                     <items>
                                         <button width="1" height="1" alignment="left" title="Subscribe" id="dbZ-cI-PWT">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <color key="backgroundColor" red="0.15686274509803921" green="0.50196078431372548" blue="0.41960784313725491" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.26406425239999998" green="0.49497437480000001" blue="0.42352253200000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="12"/>
                                             <connections>
                                                 <action selector="subscribeAction" destination="7Dt-61-ueo" id="4hB-Zj-Lk4"/>
@@ -331,7 +351,6 @@
                     <connections>
                         <outlet property="hapticSetting" destination="Dou-CY-eup" id="bXd-lH-YRP"/>
                         <outlet property="retryFeedbackSlider" destination="u67-Ib-why" id="HB9-LX-Arr"/>
-                        <segue destination="3ad-2P-1UE" kind="relationship" relationship="nextPage" id="IxA-Y1-zOP"/>
                     </connections>
                 </controller>
             </objects>
@@ -480,6 +499,20 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="1269" y="-68"/>
+        </scene>
+        <!--Dynamic Notification Interface Controller-->
+        <scene sceneID="iha-Nf-OKb">
+            <objects>
+                <controller id="IXi-WN-khc"/>
+            </objects>
+            <point key="canvasLocation" x="662" y="1640"/>
+        </scene>
+        <!--Dynamic Interactive Notification Interface Controller-->
+        <scene sceneID="v6Q-gg-nBf">
+            <objects>
+                <controller id="0Qg-CI-jB0"/>
+            </objects>
+            <point key="canvasLocation" x="412" y="1966"/>
         </scene>
     </scenes>
     <resources>
