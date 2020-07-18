@@ -436,7 +436,8 @@ class ZazenController: UIViewController {
     
     func export(samples: [[String: Any]]) -> UIActivityViewController {
         
-        let fileName = "zazen.csv"
+        let now = Date().toZazenDateString
+        let fileName = "\(now) zazen.csv"
         let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
         
         var csvText = "start, end, now, hr, sdnn, motion\n"

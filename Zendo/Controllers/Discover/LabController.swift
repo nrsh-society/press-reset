@@ -28,7 +28,7 @@ class LabController: UIViewController
         
         UIApplication.shared.isIdleTimerDisabled = true
         
-        Mixpanel.mainInstance().time(event: "phone_train")
+        Mixpanel.mainInstance().time(event: "phone_lab")
         
         setupWatchNotifications()
         
@@ -76,13 +76,10 @@ class LabController: UIViewController
     }
     
     var appleWatch : Zensor?
-
-    
     var story: Story!
     var idHero = ""
     var panGR: UIPanGestureRecognizer!
     var chartHR = [String: Int]()
-    
     
     override func didReceiveMemoryWarning()
     {
@@ -93,7 +90,7 @@ class LabController: UIViewController
     {
         super.viewWillDisappear(animated)
         
-        Mixpanel.mainInstance().track(event: "phone_train", properties: ["name": story.title])
+        Mixpanel.mainInstance().track(event: "phone_lab", properties: ["name": story.title])
         
         NotificationCenter.default.removeObserver(self)
                 
@@ -156,7 +153,7 @@ class LabController: UIViewController
     {
         if(Settings.isSensorConnected)
         {
-            Mixpanel.mainInstance().time(event: "phone_train_watch_connected")
+            Mixpanel.mainInstance().time(event: "phone_lab_watch_connected")
             
             DispatchQueue.main.async
             {
@@ -173,7 +170,7 @@ class LabController: UIViewController
 
     @objc func endSession()
     {
-        Mixpanel.mainInstance().track(event: "phone_train_watch_connected",
+        Mixpanel.mainInstance().track(event: "phone_lab_watch_connected",
                                           properties: ["name": self.story.title])
         DispatchQueue.main.async
         {

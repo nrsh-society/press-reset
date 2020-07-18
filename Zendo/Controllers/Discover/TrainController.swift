@@ -153,7 +153,7 @@ class TrainController: UIViewController
     {
         super.viewWillDisappear(animated)
         
-        Mixpanel.mainInstance().track(event: "phone_train", properties: ["name": story.title])
+        Mixpanel.mainInstance().track(event: "phone_lab", properties: ["name": story.title])
         
         NotificationCenter.default.removeObserver(self)
         
@@ -213,7 +213,7 @@ class TrainController: UIViewController
         
         UIApplication.shared.isIdleTimerDisabled = true
         
-        Mixpanel.mainInstance().time(event: "phone_train")
+        Mixpanel.mainInstance().time(event: "phone_lab")
         
         setupWatchNotifications()
         
@@ -248,7 +248,7 @@ class TrainController: UIViewController
     {
         if(Settings.isSensorConnected)
         {
-            Mixpanel.mainInstance().time(event: "phone_train_watch_connected")
+            Mixpanel.mainInstance().time(event: "phone_lab_watch_connected")
             
             let scene = self.spriteView.scene!
             
@@ -292,7 +292,7 @@ class TrainController: UIViewController
 
     @objc func endSession()
     {
-        Mixpanel.mainInstance().track(event: "phone_train_watch_connected",
+        Mixpanel.mainInstance().track(event: "phone_lab_watch_connected",
                                           properties: ["name": self.story.title])
         
         DispatchQueue.main.async

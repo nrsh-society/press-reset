@@ -16,8 +16,6 @@ target 'Zendo' do
   pod 'Firebase/Core', '~> 5.15.0'
   pod 'Firebase/Database', '~> 5.15.0'
   pod 'Firebase/Storage', '~> 5.15.0'
-  # pod 'AvatarCapture', '1.0.5'
-  # pod 'Movesense', :git => 'https://bitbucket.org/suunto/movesense-mobile-lib.git'
   pod 'PromiseKit', '~> 6.8'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'TwitchPlayer', :git => 'https://github.com/dpurdy/TwitchPlayer.git', :commit => 'a91a1900c3c277551e1b81f0cf35a32b2282f63f'
@@ -28,6 +26,7 @@ end
 target 'Zendo WatchKit Extension' do
   platform :watchos, '4.0'
   pod 'Mixpanel'
+  pod 'Parse'
 end
 
 #post_install do |installer|

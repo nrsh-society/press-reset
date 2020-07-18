@@ -821,6 +821,7 @@
 		7BEDEAF322A34C83008FCAF7 /* Workouts */ = {
 			isa = PBXGroup;
 			children = (
+				12A8990F23ABE76B00DDAFA3 /* Foregrounder.swift */,
 				7B2BD44B22A4961100B0B5A4 /* MetadataExtractor.swift */,
 				7BEDEAEE22A3440B008FCAF7 /* WorkoutSessionReporter.swift */,
 				7BEDEAF422A34CCF008FCAF7 /* WorkoutFetcher.swift */,
@@ -907,10 +908,9 @@
 		BE2E81EB1FF44A7B00D104AC /* Zendo */ = {
 			isa = PBXGroup;
 			children = (
-				12A8990F23ABE76B00DDAFA3 /* Foregrounder.swift */,
 				BE2E81EC1FF44A7B00D104AC /* AppDelegate.swift */,
-				12FFCADD210F3F03007E2480 /* Supporting Files */,
 				BE2E81F01FF44A7B00D104AC /* Main.storyboard */,
+				12FFCADD210F3F03007E2480 /* Supporting Files */,
 				BEF0750D21E6B0C700EE657D /* NotificationService */,
 				12E2A1AE211076FD00E0E911 /* Additions */,
 				12FFCAE3210F7D6D007E2480 /* Extensions */,
@@ -1296,10 +1296,14 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts-Tasks/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/Parse-watchOS/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/Mixpanel/Mixpanel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1327,7 +1331,7 @@
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/Mixpanel-swift/Mixpanel.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
-				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/Parse-iOS/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftGRPC/SwiftGRPC.framework",
@@ -1686,7 +1690,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 358;
+				CURRENT_PROJECT_VERSION = 360;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1712,7 +1716,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 358;
+				CURRENT_PROJECT_VERSION = 360;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1737,7 +1741,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 358;
+				CURRENT_PROJECT_VERSION = 360;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
@@ -1763,7 +1767,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 358;
+				CURRENT_PROJECT_VERSION = 360;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
@@ -1791,7 +1795,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 358;
+				CURRENT_PROJECT_VERSION = 360;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1810,7 +1814,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1824,7 +1828,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 358;
+				CURRENT_PROJECT_VERSION = 360;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1843,7 +1847,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1854,7 +1858,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 358;
+				CURRENT_PROJECT_VERSION = 360;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";
@@ -1878,7 +1882,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 358;
+				CURRENT_PROJECT_VERSION = 360;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";

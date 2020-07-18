@@ -152,6 +152,15 @@ extension Date {
         return calender
     }
     
+    var toZazenDateString : String
+    {
+        get {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            return formatter.string(from: self)
+        }
+    }
+    
 }
 
 extension Date {

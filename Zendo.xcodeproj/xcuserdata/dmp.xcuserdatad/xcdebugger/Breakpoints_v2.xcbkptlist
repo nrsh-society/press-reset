@@ -82,8 +82,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "38"
             endingLineNumber = "38"
-            landmarkName = "get(measure:at:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -116,11 +116,11 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "84"
             endingLineNumber = "84"
-            landmarkName = "populateCell(workout:cell:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
             <Locations>
                <Location
-                  uuid = "93A5C61C-8593-48A9-BFF0-DFE1CE62C464 - 4d94736eb244c884"
+                  uuid = "93A5C61C-8593-48A9-BFF0-DFE1CE62C464 - 1d7f6ecd5a689bc3"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -136,7 +136,7 @@
                   offsetFromSymbolStart = "876">
                </Location>
                <Location
-                  uuid = "93A5C61C-8593-48A9-BFF0-DFE1CE62C464 - 4d94736eb244c884"
+                  uuid = "93A5C61C-8593-48A9-BFF0-DFE1CE62C464 - 1d7f6ecd5a689bc3"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -167,8 +167,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "86"
             endingLineNumber = "86"
-            landmarkName = "populateCell(workout:cell:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -239,7 +239,7 @@
             landmarkType = "3">
             <Locations>
                <Location
-                  uuid = "2AC6E2F4-84EF-4BD3-B55E-C106114828E5 - 560557a5dc91ec35"
+                  uuid = "2AC6E2F4-84EF-4BD3-B55E-C106114828E5 - 9d3cc8dc7ea9b671"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -255,7 +255,7 @@
                   offsetFromSymbolStart = "1008">
                </Location>
                <Location
-                  uuid = "2AC6E2F4-84EF-4BD3-B55E-C106114828E5 - 13fd57ee647da08"
+                  uuid = "2AC6E2F4-84EF-4BD3-B55E-C106114828E5 - ca064a07447f804c"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -284,8 +284,8 @@
             timestampString = "552200500.782654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "getTemplate(complication:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -320,15 +320,15 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "375"
             endingLineNumber = "375"
-            landmarkName = "fetchLatestHeartRateSample(_:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "936B38C0-6C38-4C38-81D9-9E8025D10086"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zendo/ZBFHealthKit.swift"
@@ -337,15 +337,15 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "302"
             endingLineNumber = "302"
-            landmarkName = "getHrvSamples(workout:handler:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "67C950D7-698B-41D7-8BE8-CB7ADC579557"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zendo/ZBFHealthKit.swift"
@@ -354,8 +354,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "307"
             endingLineNumber = "307"
-            landmarkName = "getHrvSamples(workout:handler:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
