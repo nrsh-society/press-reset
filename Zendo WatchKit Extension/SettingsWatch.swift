@@ -16,6 +16,16 @@ class SettingsWatch  {
     
     static let dailyMediationGoalKey = "dailyMediationGoal"
     
+    static var appleUserID: String? {
+        set {
+            defaults.set(newValue, forKey: "appleUserID")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.string(forKey: "appleUserID")
+        }
+    }
+    
     static var fullName: String? {
         set {
             defaults.set(newValue, forKey: "fullNameWatch")
@@ -43,6 +53,26 @@ class SettingsWatch  {
         }
         get {
             return defaults.bool(forKey: "requestedNotificationPermission")
+        }
+    }
+    
+    static var donations: Bool {
+        set {
+            defaults.set(newValue, forKey: "requestedDonationsPermission")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.bool(forKey: "requestedDonationsPermission")
+        }
+    }
+    
+    static var progress: Bool {
+        set {
+            defaults.set(newValue, forKey: "requestedProgressPermission")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.bool(forKey: "requestedProgressPermission")
         }
     }
     

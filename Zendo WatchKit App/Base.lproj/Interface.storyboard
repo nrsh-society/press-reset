@@ -464,7 +464,11 @@
                             <items>
                                 <group width="1" alignment="left" layout="vertical" spacing="8" id="Yog-ud-tgJ">
                                     <items>
-                                        <switch width="1" alignment="left" enabled="NO" title="Support Causes" id="hgR-Th-ZxS"/>
+                                        <switch width="1" alignment="left" enabled="NO" title="Support Causes" id="hgR-Th-ZxS">
+                                            <connections>
+                                                <action selector="donationsActionWithValue:" destination="3ad-2P-1UE" id="S3y-nC-upw"/>
+                                            </connections>
+                                        </switch>
                                         <label alignment="center" text="Every minute you meditate, we donate" textAlignment="left" numberOfLines="5" id="Q7Y-LL-pPy">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
@@ -475,7 +479,11 @@
                                 </group>
                                 <group width="1" alignment="left" layout="vertical" spacing="8" id="X7O-19-T4f">
                                     <items>
-                                        <switch width="1" alignment="left" enabled="NO" title="Share Progress" id="jvr-vy-tgB"/>
+                                        <switch width="1" alignment="left" enabled="NO" title="Share Progress" id="jvr-vy-tgB">
+                                            <connections>
+                                                <action selector="progressActionWithValue:" destination="3ad-2P-1UE" id="mC3-3o-gKb"/>
+                                            </connections>
+                                        </switch>
                                         <label alignment="center" text="Tell others when you you meditate" textAlignment="left" numberOfLines="5" id="IP8-GB-BvL">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
