@@ -19,19 +19,46 @@ class SharingInterfaceController : WKInterfaceController, ASAuthorizationControl
 
     
     @IBOutlet weak var authorizationButton: WKInterfaceAuthorizationAppleIDButton!
-    
     @IBOutlet weak var donateSwitch: WKInterfaceSwitch!
     @IBOutlet weak var progressSwitch: WKInterfaceSwitch!
+    
     @IBOutlet weak var signinLabel: WKInterfaceLabel!
+    @IBOutlet weak var donateLabel: WKInterfaceLabel!
+    @IBOutlet weak var progressLabel: WKInterfaceLabel!
+    
+    @IBOutlet weak var donateMetricGroup: WKInterfaceGroup!
+    @IBOutlet weak var progressMetricGroup: WKInterfaceGroup!
+    
+    @IBOutlet weak var progressMetricValue: WKInterfaceLabel!
+    @IBOutlet weak var donateMetricValue: WKInterfaceLabel!
     
     @IBAction func donationsAction(value: Bool)
     {
         SettingsWatch.donations = value
+        donateMetricGroup.setHidden(!SettingsWatch.donations)
+        donateLabel.setHidden(SettingsWatch.donations)
+        
+        if(value)
+        {
+            donateMetricValue.setText(SettingsWatch.donatedMinutes.description)
+        }
     }
     
     @IBAction func progressAction(value: Bool)
     {
         SettingsWatch.progress = value
+        progressMetricGroup.setHidden(!SettingsWatch.progress)
+        progressLabel.setHidden(SettingsWatch.progress)
+        
+        if(value)
+        {
+            if(SettingsWatch.progressPosition == 0)
+            {
+                SettingsWatch.progressPosition = 343 //todo: get this from a database
+            }
+            
+            progressMetricValue.setText("#" + SettingsWatch.progressPosition.description)
+        }
     }
     
     override func willActivate()
@@ -45,6 +72,10 @@ class SharingInterfaceController : WKInterfaceController, ASAuthorizationControl
             self.donateSwitch.setOn(false)
             self.progressSwitch.setEnabled(false)
             self.progressSwitch.setOn(false)
+            
+            donateMetricGroup.setHidden(true)
+            progressMetricGroup.setHidden(true)
+            
         }
         else
         {
@@ -55,6 +86,9 @@ class SharingInterfaceController : WKInterfaceController, ASAuthorizationControl
             self.donateSwitch.setOn(SettingsWatch.donations)
             self.progressSwitch.setEnabled(true)
             self.progressSwitch.setOn(SettingsWatch.progress)
+            
+            donationsAction(value: SettingsWatch.donations)
+            progressAction(value: SettingsWatch.progress)
         }
         
     }
@@ -119,7 +153,7 @@ class SharingInterfaceController : WKInterfaceController, ASAuthorizationControl
                         
                     }
         
-                    self.presentAlert(withTitle: nil, message: "Hi \(fullName.givenName ?? "")! If you already have the Zendō iOS app, open the Labs story in the Discovery tab. Otherwise, we are sending \(email.description ) instructions as fast as we can.", preferredStyle: .alert, actions: [ok])
+                    self.presentAlert(withTitle: nil, message: "Hi \(fullName.givenName ?? "")! We are sending instructions to \(email.description ) as fast as we can. Welcome.", preferredStyle: .alert, actions: [ok])
                 }
                 
             break

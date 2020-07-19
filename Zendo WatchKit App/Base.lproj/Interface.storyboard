@@ -3,7 +3,7 @@
     <device id="watch44"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105.1"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17031"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -460,11 +460,11 @@
             <objects>
                 <controller identifier="SharingInterfaceController" title="Labs" spacing="9" id="3ad-2P-1UE" customClass="SharingInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <group width="1" alignment="left" layout="vertical" spacing="10" id="ZUu-yK-xf2">
+                        <group width="1" alignment="left" layout="vertical" spacing="5" id="ZUu-yK-xf2" userLabel="Top">
                             <items>
-                                <group width="1" alignment="left" layout="vertical" spacing="8" id="Yog-ud-tgJ">
+                                <group width="1" alignment="left" layout="vertical" spacing="6" id="Yog-ud-tgJ" userLabel="Support Group">
                                     <items>
-                                        <switch width="1" alignment="left" enabled="NO" title="Support Causes" id="hgR-Th-ZxS">
+                                        <switch width="1" alignment="left" value="YES" title="Support Causes" numberOfLines="4" id="hgR-Th-ZxS">
                                             <connections>
                                                 <action selector="donationsActionWithValue:" destination="3ad-2P-1UE" id="S3y-nC-upw"/>
                                             </connections>
@@ -475,11 +475,25 @@
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                             </variation>
                                         </label>
+                                        <group width="1" alignment="left" layout="vertical" id="h8h-zk-YW5">
+                                            <items>
+                                                <label alignment="center" verticalAlignment="center" text="117" textAlignment="center" minimumScaleFactor="0.5" id="JbO-he-Tmo">
+                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="33"/>
+                                                    <variation key="device=watch38mm">
+                                                        <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="29"/>
+                                                    </variation>
+                                                </label>
+                                                <label alignment="center" verticalAlignment="bottom" text="minutes donated" textAlignment="center" id="Hr4-UN-07a">
+                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
+                                                    <variation key="device=watch38mm" text="mins"/>
+                                                </label>
+                                            </items>
+                                        </group>
                                     </items>
                                 </group>
-                                <group width="1" alignment="left" layout="vertical" spacing="8" id="X7O-19-T4f">
+                                <group width="1" alignment="left" layout="vertical" spacing="6" id="X7O-19-T4f" userLabel="Progress Group">
                                     <items>
-                                        <switch width="1" alignment="left" enabled="NO" title="Share Progress" id="jvr-vy-tgB">
+                                        <switch width="1" alignment="left" value="YES" title="Share Progress" id="jvr-vy-tgB">
                                             <connections>
                                                 <action selector="progressActionWithValue:" destination="3ad-2P-1UE" id="mC3-3o-gKb"/>
                                             </connections>
@@ -490,18 +504,32 @@
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                             </variation>
                                         </label>
+                                        <group width="1" alignment="left" layout="vertical" id="Lpe-lJ-rhg">
+                                            <items>
+                                                <label alignment="center" verticalAlignment="center" text="#33" textAlignment="center" minimumScaleFactor="0.5" id="S0U-YQ-VBD">
+                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="33"/>
+                                                    <variation key="device=watch38mm">
+                                                        <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="29"/>
+                                                    </variation>
+                                                </label>
+                                                <label alignment="center" verticalAlignment="bottom" text="top meditator" textAlignment="center" id="BgJ-uD-gq4">
+                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
+                                                    <variation key="device=watch38mm" text="mins"/>
+                                                </label>
+                                            </items>
+                                        </group>
                                     </items>
                                 </group>
                             </items>
                         </group>
-                        <group width="1" alignment="left" layout="vertical" spacing="8" id="3Yy-pY-Sqi">
+                        <group width="1" alignment="left" layout="vertical" spacing="8" id="3Yy-pY-Sqi" userLabel="Signin Group">
                             <items>
-                                <authorizationAppleIDButton width="1" alignment="left" id="lPd-XR-Nyp">
+                                <authorizationAppleIDButton width="1" alignment="left" hidden="YES" id="lPd-XR-Nyp">
                                     <connections>
                                         <action selector="onAppleSignButtonPressed" destination="3ad-2P-1UE" id="awe-xS-1hU"/>
                                     </connections>
                                 </authorizationAppleIDButton>
-                                <label alignment="center" text="Sign in to get access" textAlignment="left" numberOfLines="5" id="6vb-L7-muC">
+                                <label alignment="center" hidden="YES" text="Sign in to get access" textAlignment="left" numberOfLines="5" id="6vb-L7-muC">
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                     <variation key="device=watch38mm">
                                         <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
@@ -512,7 +540,13 @@
                     </items>
                     <connections>
                         <outlet property="authorizationButton" destination="lPd-XR-Nyp" id="QcR-tm-eOH"/>
+                        <outlet property="donateLabel" destination="Q7Y-LL-pPy" id="YLV-U9-yiH"/>
+                        <outlet property="donateMetricGroup" destination="h8h-zk-YW5" id="OHG-xL-gPT"/>
+                        <outlet property="donateMetricValue" destination="JbO-he-Tmo" id="1rS-gr-KiX"/>
                         <outlet property="donateSwitch" destination="hgR-Th-ZxS" id="h8I-Ow-duP"/>
+                        <outlet property="progressLabel" destination="IP8-GB-BvL" id="Dac-CA-y0Y"/>
+                        <outlet property="progressMetricGroup" destination="Lpe-lJ-rhg" id="5eu-Sf-277"/>
+                        <outlet property="progressMetricValue" destination="S0U-YQ-VBD" id="BpZ-OH-cph"/>
                         <outlet property="progressSwitch" destination="jvr-vy-tgB" id="fdi-Pg-sgJ"/>
                         <outlet property="signinLabel" destination="6vb-L7-muC" id="1q5-97-YNo"/>
                     </connections>

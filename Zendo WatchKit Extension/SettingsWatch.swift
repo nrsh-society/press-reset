@@ -26,6 +26,26 @@ class SettingsWatch  {
         }
     }
     
+    static var donatedMinutes: Int {
+        set {
+            defaults.set(newValue, forKey: "totalMinsMeditated")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.integer(forKey: "totalMinsMeditated")
+        }
+    }
+    
+    static var progressPosition: Int {
+        set {
+            defaults.set(newValue, forKey: "progressPosition")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.integer(forKey: "progressPosition")
+        }
+    }
+    
     static var fullName: String? {
         set {
             defaults.set(newValue, forKey: "fullNameWatch")
@@ -78,11 +98,11 @@ class SettingsWatch  {
     
     static var dailyMediationGoal: Int {
         set {
-            defaults.set(newValue, forKey: dailyMediationGoalKey)
+            defaults.set(newValue, forKey: "dailyMediationGoal")
             defaults.synchronize()
         }
         get {
-            return defaults.integer(forKey: dailyMediationGoalKey)
+            return defaults.integer(forKey: "dailyMediationGoal")
         }
     }
     

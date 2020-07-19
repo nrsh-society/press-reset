@@ -480,6 +480,8 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             let progress = "\(isMeditating)/\(self.meditationLog.count)".description
             
+            SettingsWatch.donatedMinutes += 1 //todo;push this to the cloud
+            
             sessionDelegater.sendMessage(["progress" : progress],
                                          replyHandler: { message in
                                             print(message.debugDescription)
