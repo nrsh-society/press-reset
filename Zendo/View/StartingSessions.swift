@@ -18,7 +18,7 @@ class StartingSessions: UIView {
     @IBOutlet weak var cancelButton: ZenButton!
     @IBOutlet weak var countLabel: UILabel!
     
-    let circleAnimation = LOTAnimationView(name: "animationStartingSession")
+    let circleAnimation = AnimationView(name: "animationStartingSession")
     let healthStore = ZBFHealthKit.healthStore
     
     let newSessionHeight = UIScreen.main.bounds.height / 2

@@ -1,54 +1,24 @@
 //
-//  OverviewController.swift
+//  ResultGameController.swift
 //  Zendo
 //
-//  Created by Douglas Purdy on 7/8/18.
-//  Copyright © 2018 zenbf. All rights reserved.
+//  Created by Boris Sedov on 20.07.2020.
+//  Copyright © 2020 zenbf. All rights reserved.
 //
 
-import Foundation
+
+import UIKit
 import HealthKit
 import Mixpanel
 import Charts
 import XpringKit
 
-enum CurrentInterval: Int {
-    case hour = 0
-    case day = 1
-    case month = 2
-    case year = 3
-    case minute = 4
-    case last = 5
-    
-    var interval: Calendar.Component {
-        switch self {
-        case .hour: return .hour
-        case .day: return .day
-        case .month: return .month
-        case .year: return .year
-        case .minute: return .minute
-        case .last: return .hour
-        }
-    }
-    
-    var range: Int {
-        switch self {
-        case .hour: return 24
-        case .day: return 7
-        case .month: return 1
-        case .year: return 1
-        case .minute: return 1
-        case .last: return 24
-        }
-    }
-    
-}
-
-class OverviewController: UIViewController {
+class ResultGameController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    
-    var currentInterval: CurrentInterval = .hour
+    @IBOutlet weak var dateResult: UILabel!
+
+    var currentInterval: CurrentInterval = .last
     var isStartOverview = false
     
     let healthStore = ZBFHealthKit.healthStore
@@ -56,8 +26,8 @@ class OverviewController: UIViewController {
     let hkType = HKObjectType.workoutType()
     var start = Date()
     var end = Date()
-    var hrvData : LineChartData? = nil
-    var mmData : LineChartData? = nil
+    var hrvData: LineChartData? = nil
+    var mmData: LineChartData? = nil
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -70,57 +40,7 @@ class OverviewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        //        let payIDClient = PayIDClient(network: "xrpl-mainnet")
-        //
-        //        payIDClient.address(for: causePayID) { result in
-        ////            let Destination = try! result.
-        //
-        //            switch result {
-        //            case .success(let address):
-        //
-        //                let Destination = address.address
-        //
-        //                let grpcURL = "main.xrp.xpring.io:50051"
-        //                let amount = 166666
-        //
-        //                let wallet = Wallet(seed: self.sponsor)!
-        //
-        //                let xrpClient = XRPClient(grpcURL: grpcURL, network: XRPLNetwork.main)
-        //
-        //                let xSender = Utils.encode(classicAddress: self.sender)!
-        //
-        //                print(xSender)
-        //
-        //                let balance = try! xrpClient.getBalance(for: xSender)
-        //
-        //                print("Sender balance: " + String(balance))
-        //
-        //                let destinationBalance = try! xrpClient.getBalance(for: Destination)
-        //
-        //                print("Destination balance: " + String(destinationBalance))
-        //
-        //                let result2 = try! xrpClient.send(UInt64(amount), to: Destination, from: wallet)
-        //
-        //                print("Result: " + String(result2))
-        //
-        //                let status = try! xrpClient.paymentStatus(for: result2)
-        //
-        //                //            var status = try! xrpClient.getPayment(for: result2)!
-        //
-        //                print("Status: \(status)")
-        //
-        //                let success = status == TransactionStatus.succeeded
-        //
-        //                print("Sent: " + String(success))
-        //            case .failure(let error):
-        //                print(error.localizedDescription)
-        //            }
-        //
-        //        }
-        
         if #available(iOS 13.0, *) {
-            // Always adopt a light interface style.
             overrideUserInterfaceStyle = .light
         }
         
@@ -131,19 +51,6 @@ class OverviewController: UIViewController {
         tableView.backgroundColor = UIColor.clear
         tableView.estimatedRowHeight = 1000.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        
-        self.navigationItem.title = Settings.fullName
-        self.navigationItem.prompt = Settings.email
-        
-        let gradient = CAGradientLayer()
-        gradient.frame = view.bounds
-        gradient.locations = [0.0, 0.4]
-        gradient.colors = [
-            UIColor.zenDarkGreen.cgColor,
-            UIColor.zenWhite.cgColor
-        ]
-        view.layer.insertSublayer(gradient, at: 0)
-        view.backgroundColor = UIColor.zenWhite
         
         navigationController?.navigationBar.shadowImage = UIImage()
         
@@ -172,18 +79,6 @@ class OverviewController: UIViewController {
             }
         }
         
-        /*
-         * #todo: we were going to do phone notification in 4.20, but decide to do
-         * watch only notifications, but this is where we would want to run a phone
-         * notification request test.
-         
-         if !Settings.requestedNotificationPermission
-         {
-         self.showNotificationController()
-         }
-         
-         */
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -191,27 +86,6 @@ class OverviewController: UIViewController {
         
         Mixpanel.mainInstance().time(event: "overview")
         self.tableView.reloadData()
-        
-        //        ZBFHealthKit.getWorkouts(limit: 1)
-        //        {
-        //            results in
-        //
-        //                if results.count > 0
-        //                {
-        //                    DispatchQueue.main.async()
-        //                    {
-        //                        Mixpanel.mainInstance().time(event: "overview")
-        //                        self.tableView.reloadData()
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    DispatchQueue.main.async()
-        //                    {
-        //                        self.tabBarController?.selectedIndex = 1
-        //                    }
-        //                }
-        //        }
         
     }
     
@@ -311,28 +185,31 @@ class OverviewController: UIViewController {
         
     }
     
-    func populateCharts(_ cell: OverviewTableViewCell) {
+    func populateCharts(_ cell: ResultGameTableCell) {
         
         cell.isHiddenHRV = true
         cell.isHiddenMM = true
         
-        cell.durationView.setTitle("")
+        DispatchQueue.main.async {
+            cell.durationView.setTitle("")
+        }
         
-        cell.hrvChart.highlightValues([])
-        cell.hrvChart.drawGridBackgroundEnabled = false
-        cell.hrvChart.chartDescription?.enabled = false
-        cell.hrvChart.autoScaleMinMaxEnabled = true
-        cell.hrvChart.noDataText = ""
-        
-        cell.hrvChart.xAxis.drawGridLinesEnabled = false
-        cell.hrvChart.xAxis.drawAxisLineEnabled = false
-        cell.hrvChart.rightAxis.drawAxisLineEnabled = false
-        cell.hrvChart.leftAxis.drawAxisLineEnabled = false
+        DispatchQueue.main.async {
+            cell.hrvChart.highlightValues([])
+            cell.hrvChart.drawGridBackgroundEnabled = false
+            cell.hrvChart.chartDescription?.enabled = false
+            cell.hrvChart.autoScaleMinMaxEnabled = true
+            cell.hrvChart.noDataText = ""
+            
+            cell.hrvChart.xAxis.drawGridLinesEnabled = false
+            cell.hrvChart.xAxis.drawAxisLineEnabled = false
+            cell.hrvChart.rightAxis.drawAxisLineEnabled = false
+            cell.hrvChart.leftAxis.drawAxisLineEnabled = false
+        }
         
         let handler: ZBFHealthKit.SamplesHandler = { samples, error in
             
-            DispatchQueue.main.async()
-                {
+            DispatchQueue.main.async {
                     
                     let dataset = self.hrvData?.getDataSetByIndex(0)!
                     let communityDataset = self.hrvData?.getDataSetByIndex(1)!
@@ -359,6 +236,10 @@ class OverviewController: UIViewController {
                         var formato = MMChartFormatter()
                         
                         switch self.currentInterval {
+                        case .last:
+                            //                    cell.mmChart.xAxis.setLabelCount(12, force: true)
+//                            formato = MMChartFormatterHour()
+                            break
                         case .hour:
                             cell.hrvChart.xAxis.setLabelCount(12, force: true)
                             formato = MMChartFormatterHour()
@@ -371,7 +252,7 @@ class OverviewController: UIViewController {
                         case .year:
                             cell.hrvChart.xAxis.setLabelCount(12, force: true)
                             formato = MMChartFormatterYear()
-                        case .minute, .last: break
+                        case .minute: break
                         }
                         
                         let xaxis = XAxis()
@@ -384,8 +265,6 @@ class OverviewController: UIViewController {
                         cell.hrvChart.notifyDataSetChanged()
                         cell.hrvChart.fitScreen()
                         cell.isHiddenHRV = false
-                        self.populateMMChart(cell: cell)
-                        
                     }
             }
         }
@@ -400,61 +279,57 @@ class OverviewController: UIViewController {
         return ChartDataEntry(x: interval, y: value.rounded())
     }
     
-    func populateHRV(_ cell: OverviewTableViewCell) {
-        cell.hrvView.setTitle("")
-        
-        ZBFHealthKit.getHRVAverage(start: start, end: end)
-        {
-            (results, error) in
+    func setDonated(_ cell: ResultGameTableCell) {
+        cell.donatedView.setTitle("1249 xrp donated")
+    }
+    
+    func populateHRV(_ cell: ResultGameTableCell, start: Date, end: Date) {
+        DispatchQueue.main.async() {
+            self.dateResult.text = start.toZendoHeaderDayTimeString
+            cell.hrvView.setTitle("")
+        }
+        ZBFHealthKit.getHRVAverage(start: start, end: end) { results, error in
             
-            if let value = results?.first?.value
-            {
-                DispatchQueue.main.async()
-                    {
-                        cell.hrvView.setTitle(Int(value.rounded()).description + "ms")
+            if let value = results?.first?.value {
+                
+                DispatchQueue.main.async() {
+                    cell.hrvView.setTitle(Int(value.rounded()).description + "ms")
                 }
-            }
-            else
-            {
-                DispatchQueue.main.async()
-                    {
-                        cell.hrvView.setTitle("--")
+                
+            } else {
+                
+                DispatchQueue.main.async() {
+                    cell.hrvView.setTitle("--")
                 }
+                
             }
         }
     }
     
-    func populateDatetimeSpan(_ cell: HeaderOverviewTableViewCell, _ currentInterval: CurrentInterval) {
-        let date = Date()
-        switch currentInterval {
-        case .minute, .last: break
-        case .hour:
-            cell.dateTimeTitle.text = date.startOfDay.toZendoHeaderDayString
-        case .day:
-            cell.dateTimeTitle.text = date.startOfWeek.toZendoHeaderDayString + " - " + date.endOfWeek.toZendoHeaderDayString
-        case .month:
-            cell.dateTimeTitle.text = date.startOfMonth.toZendoHeaderMonthYearString
-        case .year:
-            cell.dateTimeTitle.text = date.startOfYear.toZendoHeaderYearString
+    func populateMMChart(cell: ResultGameTableCell) {
+        
+        DispatchQueue.main.async() {
+            cell.mmChart.highlightValues([])
+            cell.mmChart.xAxis.drawGridLinesEnabled = false
+            cell.mmChart.xAxis.drawAxisLineEnabled = false
+            cell.mmChart.rightAxis.drawAxisLineEnabled = false
+            cell.mmChart.leftAxis.drawAxisLineEnabled = false
+            
+            cell.mmChart.drawGridBackgroundEnabled = false
+            cell.mmChart.chartDescription?.enabled = false
+            cell.mmChart.autoScaleMinMaxEnabled = true
+            cell.mmChart.noDataText = ""
         }
-    }
-    
-    func populateMMChart(cell: OverviewTableViewCell) {
         
-        cell.mmChart.highlightValues([])
-        cell.mmChart.xAxis.drawGridLinesEnabled = false
-        cell.mmChart.xAxis.drawAxisLineEnabled = false
-        cell.mmChart.rightAxis.drawAxisLineEnabled = false
-        cell.mmChart.leftAxis.drawAxisLineEnabled = false
-        
-        cell.mmChart.drawGridBackgroundEnabled = false
-        cell.mmChart.chartDescription?.enabled = false
-        cell.mmChart.autoScaleMinMaxEnabled = true
-        cell.mmChart.noDataText = ""
-        
-        
-        
-        ZBFHealthKit.getMindfulMinutes(start: start, end: end, currentInterval: currentInterval) { samples, error in
+        ZBFHealthKit.getMindfulMinutesLast(start: start, end: end, currentInterval: currentInterval) { (samples, error, startDate, endDate) in
+            
+            if let startDate = startDate, let endDate = endDate {
+                self.start = startDate
+                self.end = endDate
+                self.populateCharts(cell)
+                self.populateHRV(cell, start: startDate, end: endDate)
+            }            
+            
             DispatchQueue.main.async() {
                 
                 let dataset = self.mmData?.getDataSetByIndex(0)!
@@ -500,7 +375,10 @@ class OverviewController: UIViewController {
                 xaxisValue.valueFormatter = formatoValue
                 
                 switch self.currentInterval {
-                case .minute, .last: break
+                case .last:
+                    cell.mmChart.xAxis.setLabelCount(samples?.count ?? 0, force: true)
+                    formato = MMChartFormatterHour()
+                case .minute: break
                 case .hour:
                     cell.mmChart.xAxis.setLabelCount(12, force: true)
                     formato = MMChartFormatterHour()
@@ -528,7 +406,7 @@ class OverviewController: UIViewController {
                 cell.isHiddenMM = false
                 
                 switch self.currentInterval {
-                case .hour: cell.durationView.setTitle(movingTotal.stringZendoTimeWatch)
+                case .hour, .minute: cell.durationView.setTitle(movingTotal.stringZendoTimeWatch)
                 default:
                     let avg = movingTotal / movingTotalCount
                     if avg.isNaN {
@@ -538,14 +416,19 @@ class OverviewController: UIViewController {
                     }
                 }
             }
+            
         }
+        
     }
     
     func setDate() {
         let date = Date()
         
         switch self.currentInterval {
-        case .minute, .last: break
+        case .minute: break
+        case .last:
+            self.start = date.addingTimeInterval(-60*60*24)
+            self.end = date
         case .hour:
             self.start = date.startOfDay
             self.end = date.endOfDay
@@ -564,7 +447,7 @@ class OverviewController: UIViewController {
     
 }
 
-extension OverviewController: IAxisValueFormatter {
+extension ResultGameController: IAxisValueFormatter {
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         return stringForValue(value, self.currentInterval.interval)
@@ -592,44 +475,24 @@ extension OverviewController: IAxisValueFormatter {
     
 }
 
-extension OverviewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableCell(withIdentifier: HeaderOverviewTableViewCell.reuseIdentifierCell) as! HeaderOverviewTableViewCell
-        populateDatetimeSpan(cell, currentInterval)
-        cell.backgroundColor = UIColor.zenDarkGreen
-        for button in cell.buttons {
-            button.layer.cornerRadius = 5.0
-            button.backgroundColor = button.tag == currentInterval.rawValue ? UIColor.white : UIColor.clear
-            button.setTitleColor(button.tag == currentInterval.rawValue ? UIColor.zenDarkGreen : UIColor.white, for: .normal)
-        }
-        cell.action = { tag in
-            self.currentInterval = CurrentInterval(rawValue: tag)!
-            
-            self.setDate()
-            
-            self.tableView.reloadData()
-            
-            
-        }
-        return cell
-    }
+extension ResultGameController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: OverviewTableViewCell.reuseIdentifierCell, for: indexPath) as! OverviewTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ResultGameTableCell.reuseIdentifierCell, for: indexPath) as! ResultGameTableCell
         
-        if self.currentInterval == .hour {
+        if self.currentInterval == .hour || self.currentInterval == .last {
             cell.durationView.zenInfoViewType = .totalMins
         } else {
             cell.durationView.zenInfoViewType = .minsAverage
         }
         
-        populateHRV(cell)
-        populateCharts(cell)
+        
+        populateMMChart(cell: cell)
+        setDonated(cell)
         
         return cell
     }
@@ -637,10 +500,19 @@ extension OverviewController: UITableViewDataSource {
 }
 
 
-extension OverviewController: UITableViewDelegate {
+extension ResultGameController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 90.0
     }
     
 }
+
+extension ResultGameController {
+    
+    static func loadFromStoryboard() -> ResultGameController {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ResultGameController") as! ResultGameController
+    }
+    
+}
+

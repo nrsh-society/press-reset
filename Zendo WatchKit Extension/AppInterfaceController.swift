@@ -149,6 +149,7 @@ class AppInterfaceController: WKInterfaceController {
         
         ZBFHealthKit.getPermissions()
         
+        
         let hkType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
         
         let yesterday = Calendar.autoupdatingCurrent.startOfDay(for: Date())
@@ -160,27 +161,23 @@ class AppInterfaceController: WKInterfaceController {
         let hkQuery = HKStatisticsQuery(quantityType: hkType,
                                         quantitySamplePredicate: hkPredicate,
                                         options: options)
-            {
-                query, result, error in
-                                            
-                    if error != nil
-                    {
-                        print(error.debugDescription)
-                    }
-                    else
-                    {
-                        if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms"))
-                        {
-                            DispatchQueue.main.async()
-                            {
-                                if value > 0.0
-                                {
-                                    self.hrvLabel.setText(Int(value.rounded()).description + "ms")
-                                }
-                            }
+        {
+            query, result, error in
+            
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                if let value = result?.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
+                    DispatchQueue.main.async {
+                        if value > 0.0 {
+                            self.hrvLabel.setText(Int(value.rounded()).description + "ms")
                         }
                     }
+                }
+                
             }
+            
+        }
         
         ZBFHealthKit.healthStore.execute(hkQuery)
         

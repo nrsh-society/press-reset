@@ -14,19 +14,23 @@ enum ZenInfoViewType: String {
     case totalMins = "total time"
     case minsAverage = "avg time"
     case totalHrv = "hrv"
+    case donated = "meditate for good"
     
-    var image: UIImage {
+    var image: UIImage? {
         switch self {
-        case .hrvAverage: return UIImage(named: "hrv")!
-        case .totalHrv: return UIImage(named: "hrv")!
-        case .totalMins: return UIImage(named: "time")!
-        case .minsAverage: return UIImage(named: "time")!
+        case .hrvAverage, .totalHrv: return UIImage(named: "hrv")
+        case .totalMins, .minsAverage, .donated: return UIImage(named: "time")
         }
     }
 }
 
 @IBDesignable class ZenInfoView: UIView {
     
+    @IBOutlet weak var giveImage: UIImageView! {
+        didSet {
+            giveImage.isHidden = true
+        }
+    }
     @IBOutlet weak var topTitle: UILabel!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var image: UIImageView!
@@ -62,6 +66,10 @@ enum ZenInfoViewType: String {
         if let type = zenInfoViewType {
             image.image = type.image
             topTitle.text = type.rawValue
+            
+            if type == .donated {
+                giveImage.isHidden = false
+            }
         }
     }
     

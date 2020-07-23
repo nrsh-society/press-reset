@@ -278,7 +278,7 @@ class ZazenController: UIViewController {
         
         let label = (lineChartKey == .heart || lineChartKey == .rate) ? "bpm" : lineChartKey.rawValue
         
-        let entryDataset = LineChartDataSet(values: entries, label: label)
+        let entryDataset = LineChartDataSet(entries: entries, label: label)
         
         entryDataset.drawCirclesEnabled = false
         entryDataset.drawValuesEnabled = false
@@ -300,7 +300,7 @@ class ZazenController: UIViewController {
             entryDataset.mode = .cubicBezier
         }
         
-        let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
+        let communityDataset = LineChartDataSet(entries: communityEntries, label: "community")
         
         communityDataset.drawCirclesEnabled = false
         communityDataset.drawValuesEnabled = false

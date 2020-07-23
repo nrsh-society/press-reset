@@ -14,7 +14,9 @@ class SuccessSubscriptionViewController: UIViewController {
     
     @IBOutlet weak var animationView: UIView!
     
-    let checkAnimation = LOTAnimationView(name: "checkAnimation")
+    
+    
+    let checkAnimation = AnimationView(name: "checkAnimation")
     
     override func viewDidLoad()
     {

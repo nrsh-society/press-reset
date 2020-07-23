@@ -293,14 +293,14 @@ class TrainController: UIViewController
     @objc func endSession()
     {
         Mixpanel.mainInstance().track(event: "phone_train_watch_connected",
-                                          properties: ["name": self.story.title])
+                                      properties: ["name": self.story.title])
         
         DispatchQueue.main.async
-        {
-            self.player.removeAllActions()
-                
-            UIView.animate(withDuration: 0.5)
             {
+                self.player.removeAllActions()
+                
+                UIView.animate(withDuration: 0.5)
+                {
                     self.player.removeFromParent()
                     self.arenaView.isHidden = true
                     self.connectButton.isHidden = false
@@ -311,9 +311,12 @@ class TrainController: UIViewController
                     self.arenaView.setChart([])
                 }
                 
-            }
-            
+                let vc = ResultGameController.loadFromStoryboard()
+                self.present(vc, animated: true)
+                
         }
+        
+    }
     
     @objc func progress(notification: NSNotification)
     {
