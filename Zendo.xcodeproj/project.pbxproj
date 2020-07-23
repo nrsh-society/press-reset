@@ -135,6 +135,8 @@
 		BE2E82101FF44A7B00D104AC /* AppInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E820F1FF44A7B00D104AC /* AppInterfaceController.swift */; };
 		BE2E82121FF44A7B00D104AC /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E82111FF44A7B00D104AC /* ExtensionDelegate.swift */; };
 		BE2E82141FF44A7B00D104AC /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E82131FF44A7B00D104AC /* NotificationController.swift */; };
+		BE2EEBFE24C540140067978E /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EEBFC24C540130067978E /* ProgressView.swift */; };
+		BE2EEBFF24C540140067978E /* ProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2EEBFD24C540140067978E /* ProgressView.xib */; };
 		BE30A47E21E4786600F8509C /* notification.json in Resources */ = {isa = PBXBuildFile; fileRef = BE30A47D21E4786600F8509C /* notification.json */; };
 		BE3AE43621ED0ACF0019C489 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3AE43521ED0ACF0019C489 /* Notification.swift */; };
 		BE4895AC206B0CC400B007D6 /* ZazenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4895AB206B0CC400B007D6 /* ZazenController.swift */; };
@@ -390,6 +392,8 @@
 		BE2E82131FF44A7B00D104AC /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		BE2E82171FF44A7B00D104AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE2E82181FF44A7B00D104AC /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		BE2EEBFC24C540130067978E /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		BE2EEBFD24C540140067978E /* ProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressView.xib; sourceTree = "<group>"; };
 		BE30A47D21E4786600F8509C /* notification.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notification.json; sourceTree = "<group>"; };
 		BE3AE43521ED0ACF0019C489 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		BE4895AB206B0CC400B007D6 /* ZazenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZazenController.swift; sourceTree = "<group>"; };
@@ -665,6 +669,7 @@
 		12C1A7262119B70100EEFF4F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BE2EEBFB24C540090067978E /* ProgressView */,
 				1284B7B123C8D65B0026B511 /* StartSession */,
 				1226B0222229A6B200EE02F9 /* ArenaView */,
 				127C3E2C217898DA00B332EB /* Cell */,
@@ -967,6 +972,16 @@
 			path = "Zendo WatchKit Extension";
 			sourceTree = "<group>";
 		};
+		BE2EEBFB24C540090067978E /* ProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				BE2EEBFC24C540130067978E /* ProgressView.swift */,
+				BE2EEBFD24C540140067978E /* ProgressView.xib */,
+			);
+			name = ProgressView;
+			path = StartSession/ProgressView;
+			sourceTree = "<group>";
+		};
 		BE813BE622D070E6007DED15 /* ZendoMsg */ = {
 			isa = PBXGroup;
 			children = (
@@ -1195,6 +1210,7 @@
 				127C3E432178DB1100B332EB /* LoadingView.xib in Resources */,
 				12C2C27F2137F7F70039C7A0 /* ZenTextField.xib in Resources */,
 				12E2A1AA211073D700E0E911 /* Antenna-Regular.otf in Resources */,
+				BE2EEBFF24C540140067978E /* ProgressView.xib in Resources */,
 				1226B0262229A6DD00EE02F9 /* ArenaView.xib in Resources */,
 				12AC1A7323C7728D00696DA5 /* PairDevicesTableCell.xib in Resources */,
 				1226B0212229A45600EE02F9 /* checkAnimation.json in Resources */,
@@ -1389,6 +1405,7 @@
 				12C2C27D2137F7E80039C7A0 /* ZenTextField.swift in Sources */,
 				12D3BB34211A00B40081CAE2 /* OverviewTableViewCell.swift in Sources */,
 				124A689E2199CCF800598639 /* Error.swift in Sources */,
+				BE2EEBFE24C540140067978E /* ProgressView.swift in Sources */,
 				12CE365421132A7100EF0196 /* UIImage.swift in Sources */,
 				127C3E3721789FD800B332EB /* CALayer+Corners.swift in Sources */,
 				BE066BDD20F1F3D10008747D /* PageController.swift in Sources */,
@@ -1690,7 +1707,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 363;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1716,7 +1733,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 363;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1741,7 +1758,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 363;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
@@ -1767,7 +1784,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 363;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
@@ -1795,7 +1812,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 363;
+				CURRENT_PROJECT_VERSION = 365;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1828,7 +1845,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 363;
+				CURRENT_PROJECT_VERSION = 365;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1858,7 +1875,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 363;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";
@@ -1882,7 +1899,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 363;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";

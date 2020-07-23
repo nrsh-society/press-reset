@@ -25,6 +25,7 @@ class TrainController: UIViewController
             spriteView.hero.id = idHero
         }
     }
+    
     @IBOutlet weak var connectButton: UIButton!
     
     @IBOutlet weak var arenaView: ArenaView! {
@@ -97,7 +98,6 @@ class TrainController: UIViewController
         
         let streamString = story.content[0].stream
         let downloadString = story.content[0].download
-        let airplayString = story.content[0].airplay
         
         var downloadUrl : URL?
         var streamUrl : URL?

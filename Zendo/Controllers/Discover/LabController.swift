@@ -40,7 +40,7 @@ class LabController: UIViewController
         modalPresentationCapturesStatusBarAppearance = true
         
         panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
-        twitchView.addGestureRecognizer(panGR)
+        //twitchView.addGestureRecognizer(panGR)
         
         setupConnectButton()
         
@@ -54,13 +54,18 @@ class LabController: UIViewController
         
         return controller
     }
-        
-    @IBOutlet weak var twitchView: TwitchPlayer!
-    {
-        didSet {
-            twitchView.hero.id = idHero
+    
+    @IBOutlet weak var progressView: ProgressView! {
+            didSet {
+
+                progressView.isHidden = true
+                progressView.alpha = 1.0
+                self.progressView.hrv.text = "--"
+                self.progressView.time.text = "--"
+                
+            }
         }
-    }
+    
     
     @IBOutlet weak var connectButton: UIButton!
     
@@ -252,7 +257,7 @@ class LabController: UIViewController
         case .changed:
             Hero.shared.update(progress)
             let currentPos = CGPoint(x: translation.x + view.center.x, y: translation.y + view.center.y)
-            Hero.shared.apply(modifiers: [.position(currentPos)], to: twitchView)
+          //  Hero.shared.apply(modifiers: [.position(currentPos)], to: twitchView)
         default:
             
              Hero.shared.finish()

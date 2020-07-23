@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Antenna-Regular.otf">
+            <string>Antenna-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ArenaView" customModule="Zendo" customModuleProvider="target">
+            <connections>
+                <outlet property="hrv" destination="iYT-KN-3v5" id="t4j-Dc-jg3"/>
+                <outlet property="hrvImage" destination="Sv1-3P-sZ8" id="xHb-7W-sDy"/>
+                <outlet property="hrvLabel" destination="R6Z-AS-lld" id="ub0-fv-GJs"/>
+                <outlet property="hudView" destination="Sst-C2-npf" id="SJC-3G-2z6"/>
+                <outlet property="lineChartView" destination="tVH-io-qpn" id="abb-5A-xg2"/>
+                <outlet property="time" destination="cs8-g6-4st" id="vHl-fj-xiC"/>
+                <outlet property="timeImage" destination="pkk-jM-Xj5" id="XUj-2z-P3l"/>
+                <outlet property="timeLabel" destination="WlL-GL-TVY" id="xZu-m8-cVC"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="188"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sst-C2-npf">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="188"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tVH-io-qpn" customClass="LineChartView" customModule="Charts">
+                            <rect key="frame" x="0.0" y="73" width="375" height="115"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hrv " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WlL-GL-TVY">
+                            <rect key="frame" x="29" y="24" width="25.5" height="14.5"/>
+                            <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="bpm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R6Z-AS-lld">
+                            <rect key="frame" x="268" y="24" width="33" height="15"/>
+                            <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20ms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYT-KN-3v5">
+                            <rect key="frame" x="29" y="42.5" width="40.5" height="14.5"/>
+                            <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hrvTemp" translatesAutoresizingMaskIntoConstraints="NO" id="Sv1-3P-sZ8">
+                            <rect key="frame" x="84.5" y="40" width="17" height="17"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="Sv1-3P-sZ8" secondAttribute="height" multiplier="1:1" id="6XU-TT-Ard"/>
+                                <constraint firstAttribute="height" constant="17" id="iBj-Hg-r6Q"/>
+                            </constraints>
+                        </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timeTemp" translatesAutoresizingMaskIntoConstraints="NO" id="pkk-jM-Xj5">
+                            <rect key="frame" x="328" y="40" width="17" height="17"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="17" id="1T2-bh-Sna"/>
+                                <constraint firstAttribute="width" secondItem="pkk-jM-Xj5" secondAttribute="height" multiplier="1:1" id="V8W-hC-eBd"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cs8-g6-4st">
+                            <rect key="frame" x="268" y="43" width="40" height="14.5"/>
+                            <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Sv1-3P-sZ8" firstAttribute="top" secondItem="Sst-C2-npf" secondAttribute="top" constant="40" id="6Ea-RM-Ox3"/>
+                        <constraint firstAttribute="bottom" secondItem="tVH-io-qpn" secondAttribute="bottom" id="6eA-dS-DD6"/>
+                        <constraint firstItem="pkk-jM-Xj5" firstAttribute="leading" relation="lessThanOrEqual" secondItem="cs8-g6-4st" secondAttribute="trailing" constant="20" id="BBe-ak-MbI"/>
+                        <constraint firstItem="WlL-GL-TVY" firstAttribute="leading" secondItem="Sst-C2-npf" secondAttribute="leading" constant="29" id="E0N-MO-Hde"/>
+                        <constraint firstAttribute="trailing" secondItem="pkk-jM-Xj5" secondAttribute="trailing" constant="30" id="EbT-d2-TFp"/>
+                        <constraint firstItem="cs8-g6-4st" firstAttribute="top" secondItem="R6Z-AS-lld" secondAttribute="bottom" constant="4" id="FFD-nn-IEm"/>
+                        <constraint firstItem="R6Z-AS-lld" firstAttribute="top" secondItem="Sst-C2-npf" secondAttribute="top" constant="24" id="Hyb-Lm-pwg"/>
+                        <constraint firstItem="Sv1-3P-sZ8" firstAttribute="leading" secondItem="WlL-GL-TVY" secondAttribute="trailing" constant="30" id="J0v-C4-N0Y"/>
+                        <constraint firstItem="pkk-jM-Xj5" firstAttribute="leading" secondItem="R6Z-AS-lld" secondAttribute="trailing" constant="27" id="PKD-69-JW5"/>
+                        <constraint firstItem="tVH-io-qpn" firstAttribute="leading" secondItem="Sst-C2-npf" secondAttribute="leading" id="Qlv-IU-qrc"/>
+                        <constraint firstItem="Sv1-3P-sZ8" firstAttribute="leading" secondItem="iYT-KN-3v5" secondAttribute="trailing" constant="15" id="UW7-8i-pfy"/>
+                        <constraint firstItem="iYT-KN-3v5" firstAttribute="top" secondItem="WlL-GL-TVY" secondAttribute="bottom" constant="4" id="bZr-Vy-Edw"/>
+                        <constraint firstItem="pkk-jM-Xj5" firstAttribute="top" secondItem="Sst-C2-npf" secondAttribute="top" constant="40" id="eqs-pu-8lO"/>
+                        <constraint firstItem="WlL-GL-TVY" firstAttribute="top" secondItem="Sst-C2-npf" secondAttribute="top" constant="24" id="k39-6V-oSm"/>
+                        <constraint firstItem="tVH-io-qpn" firstAttribute="top" secondItem="Sst-C2-npf" secondAttribute="top" constant="73" id="lKB-tf-14U"/>
+                        <constraint firstItem="R6Z-AS-lld" firstAttribute="leading" secondItem="cs8-g6-4st" secondAttribute="leading" id="mEY-wO-akO"/>
+                        <constraint firstItem="iYT-KN-3v5" firstAttribute="leading" secondItem="Sst-C2-npf" secondAttribute="leading" constant="29" id="oUM-Mv-B2j"/>
+                        <constraint firstItem="pkk-jM-Xj5" firstAttribute="width" secondItem="pkk-jM-Xj5" secondAttribute="height" multiplier="1:1" id="oXK-BK-8TA"/>
+                        <constraint firstAttribute="trailing" secondItem="tVH-io-qpn" secondAttribute="trailing" id="rpb-YW-Oi5"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Sst-C2-npf" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="2ui-SW-5cx"/>
+                <constraint firstItem="Sst-C2-npf" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="5X4-iw-SFn"/>
+                <constraint firstItem="Sst-C2-npf" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Qzr-QX-NLs"/>
+                <constraint firstItem="Sst-C2-npf" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="xQs-TE-63j"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="53.600000000000001" y="107.0464767616192"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="hrvTemp" width="22" height="19"/>
+        <image name="timeTemp" width="21" height="25"/>
+    </resources>
+</document>

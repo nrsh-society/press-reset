@@ -480,9 +480,14 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             let progress = "\(isMeditating)/\(self.meditationLog.count)".description
             
-            SettingsWatch.donatedMinutes += 1 //todo;push this to the cloud
+            if(SettingsWatch.donations)
+            {
+                SettingsWatch.donatedMinutes += 1 //todo;push this to the cloud
+            }
             
-            sessionDelegater.sendMessage(["progress" : progress],
+            let msg = ["progress" : progress]
+                
+            sessionDelegater.sendMessage(msg ,
                                          replyHandler: { message in
                                             print(message.debugDescription)
                                             
@@ -529,7 +534,9 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             MetadataType.heart.rawValue: heartRate.description,
             MetadataType.pitch.rawValue: self.rotation.pitch.description,
             MetadataType.roll.rawValue: self.rotation.roll.description,
-            MetadataType.yaw.rawValue: self.rotation.yaw.description
+            MetadataType.yaw.rawValue: self.rotation.yaw.description,
+            "donated" : SettingsWatch.donatedMinutes.description,
+            "position": SettingsWatch.progressPosition.description
         ]
         
         sessionDelegater.sendMessage(["sample" : metadata],
