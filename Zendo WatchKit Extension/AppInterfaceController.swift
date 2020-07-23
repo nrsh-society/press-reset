@@ -20,9 +20,19 @@ class AppInterfaceController: WKInterfaceController {
     
     private lazy var sessionDelegater: SessionDelegater = { return SessionDelegater() }()
     
+    func openUrl(urlString: String) {
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        
+        NSExtensionContext().open(url)
+    }
+    
     @IBAction func start() {
         
-        SettingsWatch.checkAuthorizationStatus { [weak self] success in
+        SettingsWatch.checkAuthorizationStatus {
+            [weak self] success in
+            
             if success {
                 NSLog("start press")
                 
@@ -33,10 +43,16 @@ class AppInterfaceController: WKInterfaceController {
                 WKInterfaceDevice.current().play(WKHapticType.start)
                 
                 WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject)])
-            } else {
-                let ok = WKAlertAction(title: "OK", style: .default) { }
+            }
+            else
+            {
+                let ok = WKAlertAction(title: "OK", style: .default)
+                {
+                    self?.openUrl(urlString: "x-apple-health://")
+                    
+                }
                 
-                self?.presentAlert(withTitle: nil, message: "In order to get started we need to connect Apple Health app to sync your data with Zendō. This allows Zendō to measure and record HRV and other health indicators during meditation. All health data remains on your devices, nothing is shared with us or anyone else.", preferredStyle: .alert, actions: [ok])
+                self?.presentAlert(withTitle: nil, message: "Zendō needs access to Apple Health to measure + record metrics during meditation. All Health data remains on your devices, nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
             }
         }
         
@@ -124,6 +140,7 @@ class AppInterfaceController: WKInterfaceController {
         }
     }
     
+    
     override func willActivate()
     {
 
@@ -148,73 +165,64 @@ class AppInterfaceController: WKInterfaceController {
             })
         
         ZBFHealthKit.getPermissions()
-        
-        
-        let hkType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
-        
-        let yesterday = Calendar.autoupdatingCurrent.startOfDay(for: Date())
-    
-        let hkPredicate = HKQuery.predicateForSamples(withStart: yesterday, end: Date(), options: .strictStartDate)
-        
-        let options = HKStatisticsOptions.discreteAverage
-        
-        let hkQuery = HKStatisticsQuery(quantityType: hkType,
-                                        quantitySamplePredicate: hkPredicate,
-                                        options: options)
         {
-            query, result, error in
+            success, error in
             
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                if let value = result?.averageQuantity()?.doubleValue(for: HKUnit(from: "ms")) {
-                    DispatchQueue.main.async {
-                        if value > 0.0 {
+            if(success)
+            {
+                ZBFHealthKit.getHRVAverage()
+                {
+                    value, error in
+                    
+                    DispatchQueue.main.async()
+                    {
+                        if value > 0.0
+                        {
                             self.hrvLabel.setText(Int(value.rounded()).description + "ms")
                         }
                     }
                 }
                 
+                ZBFHealthKit.getMindfulMinutes()
+                {
+                    sec, error in
+
+                    let currentPercent = SettingsWatch.currentDailyMediationPercent
+                    let goalMins = SettingsWatch.dailyMediationGoal
+                    
+                    if let sec = sec {
+                        let mins = sec / 60.0
+                        
+                        let percent = Int(((mins / Double(goalMins)) * 100.0) / 2.0)
+
+                        if percent >= 161 {
+                            self.mainGroup.setBackgroundImageNamed("ring161")
+                            return
+                        }
+
+                        self.mainGroup.setBackgroundImageNamed("ring")
+
+                        if currentPercent < percent {
+                            self.mainGroup.startAnimatingWithImages(in:
+                                NSRange(location: currentPercent, length: percent - currentPercent),
+                                                                    duration: 0.6, repeatCount: 1)
+                        } else if currentPercent > percent {
+                            self.mainGroup.setBackgroundImageNamed("ring\(percent)")
+
+                        } else {
+                            self.mainGroup.setBackgroundImageNamed("ring\(percent)")
+                        }
+
+                        SettingsWatch.currentDailyMediationPercent = percent
+
+                    } else {
+                        self.mainGroup.setBackgroundImageNamed("ring0")
+                    }
+                }
             }
             
         }
         
-        ZBFHealthKit.healthStore.execute(hkQuery)
-        
-        ZBFHealthKit.getMindfulMinutes { sec, error in
-
-            let currentPercent = SettingsWatch.currentDailyMediationPercent
-            let goalMins = SettingsWatch.dailyMediationGoal
-            
-            if let sec = sec {
-                let mins = sec / 60.0
-                
-                let percent = Int(((mins / Double(goalMins)) * 100.0) / 2.0)
-
-                if percent >= 161 {
-                    self.mainGroup.setBackgroundImageNamed("ring161")
-                    return
-                }
-
-                self.mainGroup.setBackgroundImageNamed("ring")
-
-                if currentPercent < percent {
-                    self.mainGroup.startAnimatingWithImages(in:
-                        NSRange(location: currentPercent, length: percent - currentPercent),
-                                                            duration: 0.6, repeatCount: 1)
-                } else if currentPercent > percent {
-                    self.mainGroup.setBackgroundImageNamed("ring\(percent)")
-
-                } else {
-                    self.mainGroup.setBackgroundImageNamed("ring\(percent)")
-                }
-
-                SettingsWatch.currentDailyMediationPercent = percent
-
-            } else {
-                self.mainGroup.setBackgroundImageNamed("ring0")
-            }
-        }
     }
     
     override func didDeactivate()

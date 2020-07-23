@@ -70,6 +70,10 @@
 	<string>Add Zendō data to Apple Health </string>
 	<key>NSHomeKitUsageDescription</key>
 	<string>Change lighting with breath</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app doesn't use location, so if you so this, there is a problem.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app doesn't use location, so if you so this, there is a problem.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Uses motion data to track posture</string>
 	<key>NSUserActivityTypes</key>

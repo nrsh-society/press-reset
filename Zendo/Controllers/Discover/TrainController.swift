@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  zendō arena
+//  zendō arena
 //
 //  Created by Douglas Purdy on 2/5/19.
 //  Copyright © 2019 Zendo Tools. All rights reserved.
@@ -25,6 +25,7 @@ class TrainController: UIViewController
             spriteView.hero.id = idHero
         }
     }
+    
     @IBOutlet weak var connectButton: UIButton!
     
     @IBOutlet weak var arenaView: ArenaView! {
@@ -97,7 +98,6 @@ class TrainController: UIViewController
         
         let streamString = story.content[0].stream
         let downloadString = story.content[0].download
-        let airplayString = story.content[0].airplay
         
         var downloadUrl : URL?
         var streamUrl : URL?
@@ -153,7 +153,7 @@ class TrainController: UIViewController
     {
         super.viewWillDisappear(animated)
         
-        Mixpanel.mainInstance().track(event: "phone_train", properties: ["name": story.title])
+        Mixpanel.mainInstance().track(event: "phone_lab", properties: ["name": story.title])
         
         NotificationCenter.default.removeObserver(self)
         
@@ -213,7 +213,7 @@ class TrainController: UIViewController
         
         UIApplication.shared.isIdleTimerDisabled = true
         
-        Mixpanel.mainInstance().time(event: "phone_train")
+        Mixpanel.mainInstance().time(event: "phone_lab")
         
         setupWatchNotifications()
         
@@ -248,7 +248,7 @@ class TrainController: UIViewController
     {
         if(Settings.isSensorConnected)
         {
-            Mixpanel.mainInstance().time(event: "phone_train_watch_connected")
+            Mixpanel.mainInstance().time(event: "phone_lab_watch_connected")
             
             let scene = self.spriteView.scene!
             
@@ -292,8 +292,8 @@ class TrainController: UIViewController
 
     @objc func endSession()
     {
-        Mixpanel.mainInstance().track(event: "phone_train_watch_connected",
-                                      properties: ["name": self.story.title])
+        Mixpanel.mainInstance().track(event: "phone_lab_watch_connected",
+                                          properties: ["name": self.story.title])
         
         DispatchQueue.main.async
             {

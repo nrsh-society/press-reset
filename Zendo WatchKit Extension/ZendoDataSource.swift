@@ -8,8 +8,10 @@
 
 import WatchKit
 import HealthKit
+import ClockKit
 
-class ZendoDataSource: NSObject, CLKComplicationDataSource
+
+ class ZendoDataSource: NSObject, CLKComplicationDataSource
 {
     var currentHrv = 0.0
     

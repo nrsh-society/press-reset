@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yrR-Oc-bbz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17132" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yrR-Oc-bbz">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,7 +27,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pair" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Olk-zJ-Up1">
                                         <rect key="frame" x="0.0" y="0.0" width="57.5" height="30"/>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" systemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="devices" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZPt-Pk-BiK">
@@ -61,7 +61,7 @@
                                     <constraint firstAttribute="width" secondItem="J8d-cF-snO" secondAttribute="height" multiplier="1:1" id="tgG-SR-1p7"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gex-eG-ewW">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gex-eG-ewW">
                                 <rect key="frame" x="93" y="593" width="228" height="29"/>
                                 <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="17"/>
                                 <state key="normal" title="Don't see device? / Rescan">
@@ -80,6 +80,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="mYE-8y-hx1"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="uCV-EB-Sy5" firstAttribute="top" secondItem="mYE-8y-hx1" secondAttribute="top" constant="50" id="BF6-sT-7zc"/>
@@ -98,7 +99,6 @@
                             <constraint firstItem="kug-Pt-bpz" firstAttribute="leading" secondItem="mYE-8y-hx1" secondAttribute="leading" constant="40" id="tYo-zb-d12"/>
                             <constraint firstItem="GNo-tq-Mc8" firstAttribute="top" secondItem="gex-eG-ewW" secondAttribute="bottom" constant="70" id="vwe-5a-vw7"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="mYE-8y-hx1"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="fKQ-Ad-z47">
@@ -131,12 +131,12 @@
                                 <rect key="frame" x="32" y="56" width="350" height="448"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="y5g-sc-zjs">
-                                <rect key="frame" x="41" y="464" width="328" height="164.5"/>
+                                <rect key="frame" x="41" y="464" width="328" height="150.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="device" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6aa-68-NUp">
                                         <rect key="frame" x="0.0" y="0.0" width="96.5" height="30"/>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" systemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="paired" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13V-H6-wNe">
@@ -146,8 +146,8 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6J-sA-JyB">
-                                        <rect key="frame" x="0.0" y="80" width="328" height="84.5"/>
-                                        <string key="text">In order to get started we need to connect Apple Health app to sync your data with Zendō. This allows Zendō to measure and record HRV and other health indicators during meditation. All health data remains on your devices, nothing is shared with us or anyone else.</string>
+                                        <rect key="frame" x="0.0" y="80" width="327" height="70.5"/>
+                                        <string key="text">Zendō needs access to Apple Health to measure and record metrics during meditation. All Health data remains on your devices, nothing is shared with us or anyone else without your permission.</string>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                         <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -165,6 +165,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="7wi-Vs-ZHh"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="y5g-sc-zjs" firstAttribute="top" secondItem="VIu-MC-yuP" secondAttribute="bottom" constant="-40" id="0Rp-qs-NwW"/>
@@ -178,7 +179,6 @@
                             <constraint firstItem="MsQ-za-nza" firstAttribute="width" secondItem="8ZF-Y3-K03" secondAttribute="width" multiplier="0.5" id="sgR-Ch-LPl"/>
                             <constraint firstItem="VIu-MC-yuP" firstAttribute="leading" secondItem="7wi-Vs-ZHh" secondAttribute="leading" constant="32" id="waI-d1-oKK"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="7wi-Vs-ZHh"/>
                     </view>
                     <connections>
                         <outlet property="button" destination="MsQ-za-nza" id="maS-Zu-CoF"/>
@@ -213,5 +213,11 @@
     </scenes>
     <resources>
         <image name="watchConnectSuccess" width="315" height="340"/>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

@@ -56,7 +56,10 @@ class ZendoTableViewCell: UITableViewCell {
                                                     print(error.debugDescription)
                                                 }
                                                 
-                                                if let value = result!.averageQuantity()?.doubleValue(for: HKUnit(from: "ms"))
+                
+                if let result = result
+                {
+                                                if let value = result.averageQuantity()?.doubleValue(for: HKUnit(from: "ms"))
                                                 {
                                                     DispatchQueue.main.async()
                                                     {
@@ -69,6 +72,7 @@ class ZendoTableViewCell: UITableViewCell {
                                                             self.pulseLabel.text = " ----- "
                                                         }
                                                     }
+                                                }
                                                 } else {
                                                     DispatchQueue.main.async() {
                                                         self.pulseLabel.text = " ----- "
