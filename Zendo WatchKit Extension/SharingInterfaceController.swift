@@ -63,7 +63,7 @@ class SharingInterfaceController : WKInterfaceController, ASAuthorizationControl
     
     override func willActivate()
     {
-        if SettingsWatch.appleUserID == nil
+        if let appleId = SettingsWatch.appleUserID
         {
             self.authorizationButton.setHidden(false)
             self.signinLabel.setHidden(false)
@@ -76,6 +76,7 @@ class SharingInterfaceController : WKInterfaceController, ASAuthorizationControl
             donateMetricGroup.setHidden(true)
             progressMetricGroup.setHidden(true)
             
+            print("add mixpanel here")
         }
         else
         {
@@ -124,7 +125,7 @@ class SharingInterfaceController : WKInterfaceController, ASAuthorizationControl
                     self.progressSwitch.setEnabled(true)
                     self.progressSwitch.setOn(SettingsWatch.progress)
                     
-                    return
+                    
                 }
                 
                 SettingsWatch.appleUserID = userIdentifier
