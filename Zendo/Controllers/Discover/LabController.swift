@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TwitchPlayer
 import Hero
 import SpriteKit
 import Firebase

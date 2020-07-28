@@ -127,7 +127,6 @@ PODS:
     - SwiftProtobuf (~> 1.5.0)
   - SwiftProtobuf (1.5.0)
   - SwiftyJSON (4.3.0)
-  - TwitchPlayer (0.2.3)
   - XpringKit (3.2.0):
     - Alamofire (~> 4.9.0)
     - BigInt (~> 5.0.0)
@@ -151,7 +150,6 @@ DEPENDENCIES:
   - PromiseKit (~> 6.8)
   - SDWebImage (~> 4.0)
   - SwiftyJSON (~> 4.0)
-  - TwitchPlayer (from `https://github.com/dpurdy/TwitchPlayer.git`, commit `a91a1900c3c277551e1b81f0cf35a32b2282f63f`)
   - XpringKit
 
 SPEC REPOS:
@@ -191,16 +189,6 @@ SPEC REPOS:
     - SwiftyJSON
     - XpringKit
 
-EXTERNAL SOURCES:
-  TwitchPlayer:
-    :commit: a91a1900c3c277551e1b81f0cf35a32b2282f63f
-    :git: https://github.com/dpurdy/TwitchPlayer.git
-
-CHECKOUT OPTIONS:
-  TwitchPlayer:
-    :commit: a91a1900c3c277551e1b81f0cf35a32b2282f63f
-    :git: https://github.com/dpurdy/TwitchPlayer.git
-
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   BigInt: 74b4d88367b0e819d9f77393549226d36faeb0d8
@@ -235,9 +223,8 @@ SPEC CHECKSUMS:
   SwiftGRPC: 43d3e8db88f97e7386bd44f159ecdfad02ce3362
   SwiftProtobuf: 241400280f912735c1e1b9fe675fdd2c6c4d42e2
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
-  TwitchPlayer: ae4c530d3de277c4769b9bb24ca2a29ce7add361
   XpringKit: 2f72de994e0a5f4dae8ad4fd262b599da853df33
 
-PODFILE CHECKSUM: 89b60ef7a808f605a639720e79b005aa46bf4eb8
+PODFILE CHECKSUM: 5fd7fba2d45fde78f1c063c34b93f105fca8e71c
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3
