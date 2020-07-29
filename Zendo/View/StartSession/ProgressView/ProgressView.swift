@@ -108,7 +108,7 @@ class ProgressView: UIView {
     }
     
     func initChartData() {
-        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "")
+        let dataset = LineChartDataSet(entries: [ChartDataEntry](), label: "")
         dataset.mode = .horizontalBezier
         dataset.drawValuesEnabled = false
         dataset.setColor(UIColor.white)

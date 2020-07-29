@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17132" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17140" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17115"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,45 +23,56 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cCa-Pd-CyP" customClass="ArenaView" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="3" y="507" width="369" height="150"/>
+                                <rect key="frame" x="0.0" y="517" width="375" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="ndM-It-NmL"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhC-FU-Hfa" customClass="ProgressView" customModule="Zendo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="pmp-qZ-EKj"/>
+                                </constraints>
+                            </view>
+                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1eM-Kb-Ta5">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </sceneKitView>
                             <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTo-no-nA4">
-                                <rect key="frame" x="37.5" y="627" width="300" height="30"/>
+                                <rect key="frame" x="37.5" y="577" width="300" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="Qwo-st-xOf"/>
+                                    <constraint firstAttribute="height" constant="30" id="wgm-MQ-S8S"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="18"/>
                                 <state key="normal" title=" connect to Apple Watch">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhC-FU-Hfa" customClass="ProgressView" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="67" y="0.0" width="241" height="140"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="z49-wy-zwZ"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="QhC-FU-Hfa" firstAttribute="top" secondItem="z49-wy-zwZ" secondAttribute="top" id="1Im-Gn-TKC"/>
-                            <constraint firstItem="z49-wy-zwZ" firstAttribute="bottom" secondItem="FTo-no-nA4" secondAttribute="bottom" constant="10" id="2sB-ur-F4c"/>
-                            <constraint firstItem="cCa-Pd-CyP" firstAttribute="trailing" secondItem="z49-wy-zwZ" secondAttribute="trailing" constant="-3" id="7VI-ed-01J"/>
-                            <constraint firstItem="cCa-Pd-CyP" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" constant="3" id="DmB-HV-XtB"/>
-                            <constraint firstItem="QhC-FU-Hfa" firstAttribute="centerX" secondItem="HIe-zl-TmH" secondAttribute="centerX" id="RTW-Jf-jsp"/>
-                            <constraint firstAttribute="bottom" secondItem="QhC-FU-Hfa" secondAttribute="bottom" constant="527" id="Su5-TU-ERq"/>
-                            <constraint firstItem="cCa-Pd-CyP" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" constant="-10" id="TX3-D5-Z67"/>
-                            <constraint firstItem="QhC-FU-Hfa" firstAttribute="centerX" secondItem="FTo-no-nA4" secondAttribute="centerX" id="ff9-Ra-7SN"/>
-                            <constraint firstItem="FTo-no-nA4" firstAttribute="centerX" secondItem="HIe-zl-TmH" secondAttribute="centerX" id="s1Y-dP-Qqq"/>
-                            <constraint firstItem="QhC-FU-Hfa" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" constant="67" id="ybJ-ue-Zc6"/>
+                            <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="QhC-FU-Hfa" secondAttribute="trailing" id="6Xp-eS-9nT"/>
+                            <constraint firstItem="1eM-Kb-Ta5" firstAttribute="centerY" secondItem="HIe-zl-TmH" secondAttribute="centerY" id="A08-nr-BWy"/>
+                            <constraint firstItem="1eM-Kb-Ta5" firstAttribute="centerX" secondItem="HIe-zl-TmH" secondAttribute="centerX" id="AtK-5g-Bmi"/>
+                            <constraint firstItem="1eM-Kb-Ta5" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="Gbr-7v-PZF"/>
+                            <constraint firstItem="QhC-FU-Hfa" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="MEO-BB-cwz"/>
+                            <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="1eM-Kb-Ta5" secondAttribute="trailing" id="MaI-VH-DcX"/>
+                            <constraint firstItem="QhC-FU-Hfa" firstAttribute="top" secondItem="z49-wy-zwZ" secondAttribute="top" id="PrH-Af-e5X"/>
+                            <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="cCa-Pd-CyP" secondAttribute="trailing" id="Rwf-s3-mEJ"/>
+                            <constraint firstItem="cCa-Pd-CyP" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" id="Yfa-KS-Srj"/>
+                            <constraint firstItem="z49-wy-zwZ" firstAttribute="bottom" secondItem="FTo-no-nA4" secondAttribute="bottom" constant="60" id="b1x-u9-zbR"/>
+                            <constraint firstItem="1eM-Kb-Ta5" firstAttribute="top" secondItem="z49-wy-zwZ" secondAttribute="top" id="pNu-1L-1eE"/>
+                            <constraint firstItem="cCa-Pd-CyP" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="qta-bo-dw0"/>
+                            <constraint firstItem="FTo-no-nA4" firstAttribute="centerX" secondItem="cCa-Pd-CyP" secondAttribute="centerX" id="tUQ-NU-nFS"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="arenaView" destination="cCa-Pd-CyP" id="pd9-By-euJ"/>
                         <outlet property="connectButton" destination="FTo-no-nA4" id="plm-Fc-T2k"/>
+                        <outlet property="sceneView" destination="1eM-Kb-Ta5" id="j7r-1q-hi9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tVi-YP-W0J" userLabel="First Responder" sceneMemberID="firstResponder"/>

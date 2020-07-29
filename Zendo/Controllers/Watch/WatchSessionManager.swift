@@ -10,7 +10,7 @@ import WatchConnectivity
 import Firebase
 import FirebaseDatabase
 import FBSDKCoreKit
-
+import FacebookCore
 
 class WatchSessionManager: NSObject {
     

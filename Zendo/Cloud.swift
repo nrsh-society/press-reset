@@ -12,6 +12,7 @@ import FirebaseDatabase
 import FBSDKCoreKit
 import Mixpanel
 import FirebaseStorage
+import FacebookCore
 
 class Player
 {

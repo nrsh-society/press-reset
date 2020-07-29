@@ -526,7 +526,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             self.heartSDNN = standardDeviation(self.heartRateSamples)
         }
         
-        let metadata: [String: Any] = [
+        var metadata: [String: Any] = [
             MetadataType.time.rawValue: Date().timeIntervalSince1970.description,
             MetadataType.now.rawValue: Date().description,
             MetadataType.motion.rawValue: motion.description,
@@ -534,10 +534,16 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             MetadataType.heart.rawValue: heartRate.description,
             MetadataType.pitch.rawValue: self.rotation.pitch.description,
             MetadataType.roll.rawValue: self.rotation.roll.description,
-            MetadataType.yaw.rawValue: self.rotation.yaw.description,
-            "donated" : SettingsWatch.donatedMinutes.description,
-            "position": SettingsWatch.progressPosition.description
+            MetadataType.yaw.rawValue: self.rotation.yaw.description
         ]
+        
+        if let appleUserUUID = SettingsWatch.appleUserID
+        {
+            
+            metadata["donated"] = SettingsWatch.donatedMinutes.description
+            metadata["position"] = SettingsWatch.progressPosition.description
+            metadata["appleID"] = appleUserUUID.description
+        }
         
         sessionDelegater.sendMessage(["sample" : metadata],
                                      replyHandler:

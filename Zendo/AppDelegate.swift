@@ -12,6 +12,8 @@ import Mixpanel
 import FBSDKCoreKit
 import UserNotifications
 import Firebase
+import FBSDKLoginKit
+import FacebookCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

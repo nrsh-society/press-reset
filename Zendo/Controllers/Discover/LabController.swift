@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TwitchPlayer
 import Hero
 import SpriteKit
 import Firebase
@@ -18,41 +17,30 @@ import Mixpanel
 import Cache
 import SwiftyJSON
 import WebKit
-
+import SceneKit
 
 class LabController: UIViewController
 {
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-        
-        UIApplication.shared.isIdleTimerDisabled = true
-        
-        Mixpanel.mainInstance().time(event: "phone_lab")
-        
-        setupWatchNotifications()
-        
-        do {
-            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
-            try? AVAudioSession.sharedInstance().setActive(true)
-        }
-        
-        modalPresentationCapturesStatusBarAppearance = true
-        
-        panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
-        //twitchView.addGestureRecognizer(panGR)
-        
-        setupConnectButton()
-        
-        self.startSession()
-
-    }
     
     static func loadFromStoryboard() -> LabController
     {
         let controller = UIStoryboard(name: "LabController", bundle: nil).instantiateViewController(withIdentifier: "LabController") as! LabController
         
         return controller
+    }
+    
+    var appleWatch : Zensor?
+    var story: Story!
+    var idHero = ""
+    var panGR: UIPanGestureRecognizer!
+    var chartHR = [String: Int]()
+    
+    @IBOutlet weak var sceneView: SCNView!
+    {
+        
+        didSet {
+            sceneView.hero.id = idHero
+        }
     }
     
     @IBOutlet weak var progressView: ProgressView! {
@@ -80,11 +68,35 @@ class LabController: UIViewController
         }
     }
     
-    var appleWatch : Zensor?
-    var story: Story!
-    var idHero = ""
-    var panGR: UIPanGestureRecognizer!
-    var chartHR = [String: Int]()
+   
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        
+        UIApplication.shared.isIdleTimerDisabled = true
+        
+        Mixpanel.mainInstance().time(event: "phone_lab")
+        
+        setupWatchNotifications()
+        
+        do {
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
+            try? AVAudioSession.sharedInstance().setActive(true)
+        }
+        
+        modalPresentationCapturesStatusBarAppearance = true
+        
+        panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
+        
+        sceneView.addGestureRecognizer(panGR)
+        
+        setupConnectButton()
+        
+        self.startSession()
+
+    }
+    
+   
     
     override func didReceiveMemoryWarning()
     {
