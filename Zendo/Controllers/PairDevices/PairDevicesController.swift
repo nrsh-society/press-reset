@@ -51,7 +51,7 @@ class PairDevicesController: UIViewController {
         
     // MARK: - Let
     
-    let circleAnimation = LOTAnimationView(name: "animationStartingSession")
+    let circleAnimation = AnimationView(name: "animationStartingSession")
     
     // MARK: - Var
     
@@ -253,7 +253,7 @@ extension PairDevicesController {
         circleAnimation.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         circleAnimation.contentMode = .scaleAspectFill
         circleAnimation.frame = animationView.bounds
-        circleAnimation.loopAnimation = true
+        circleAnimation.loopMode = .loop
         circleAnimation.animationSpeed = 0.6
     }
     

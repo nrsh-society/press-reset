@@ -19,7 +19,7 @@ class NotificationViewController: UIViewController
     @IBOutlet var skipButton: ZenButton!
     @IBOutlet var animationView: UIView!
     
-    let animation = LOTAnimationView(name: "notification")
+    let animation = AnimationView(name: "notification")
     
     override func viewWillAppear(_ animated: Bool)
     {

@@ -1,11 +1,6 @@
 PODS:
   - Alamofire (4.9.1)
   - BigInt (5.0.0)
-  - Bolts (1.9.1):
-    - Bolts/AppLinks (= 1.9.1)
-    - Bolts/Tasks (= 1.9.1)
-  - Bolts/AppLinks (1.9.1):
-    - Bolts/Tasks
   - Bolts/Tasks (1.9.1)
   - BoringSSL-GRPC (0.0.3):
     - BoringSSL-GRPC/Implementation (= 0.0.3)
@@ -14,15 +9,26 @@ PODS:
     - BoringSSL-GRPC/Interface (= 0.0.3)
   - BoringSSL-GRPC/Interface (0.0.3)
   - BuddyBuildSDK (1.0.17)
-  - Cache (5.2.0)
-  - Charts (3.1.1):
-    - Charts/Core (= 3.1.1)
-  - Charts/Core (3.1.1)
-  - FacebookCore (0.3.3):
-    - Bolts (~> 1.9)
-    - FBSDKCoreKit (~> 4.36)
-  - FBSDKCoreKit (4.44.1):
-    - Bolts (~> 1.9)
+  - Cache (5.3.0)
+  - Charts (3.5.0):
+    - Charts/Core (= 3.5.0)
+  - Charts/Core (3.5.0)
+  - FacebookCore (0.9.0):
+    - FBSDKCoreKit (~> 5.0)
+  - FBSDKCoreKit (5.15.1):
+    - FBSDKCoreKit/Basics (= 5.15.1)
+    - FBSDKCoreKit/Core (= 5.15.1)
+  - FBSDKCoreKit/Basics (5.15.1)
+  - FBSDKCoreKit/Core (5.15.1):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (5.15.1):
+    - FBSDKLoginKit/Login (= 5.15.1)
+  - FBSDKLoginKit/Login (5.15.1):
+    - FBSDKCoreKit (~> 5.0)
+  - FBSDKShareKit (5.15.1):
+    - FBSDKShareKit/Share (= 5.15.1)
+  - FBSDKShareKit/Share (5.15.1):
+    - FBSDKCoreKit (~> 5.0)
   - Firebase/Core (5.15.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.4.0)
@@ -91,21 +97,21 @@ PODS:
     - nanopb (~> 0.3)
   - gRPC-Core/Interface (1.19.0)
   - GTMSessionFetcher/Core (1.4.0)
-  - Hero (1.4.0)
+  - Hero (1.5.0)
   - leveldb-library (1.22)
-  - lottie-ios (2.5.3)
+  - lottie-ios (3.1.8)
   - Mixpanel (3.6.1)
-  - Mixpanel-swift (2.4.5):
-    - Mixpanel-swift/Complete (= 2.4.5)
-  - Mixpanel-swift/Complete (2.4.5)
+  - Mixpanel-swift (2.7.6):
+    - Mixpanel-swift/Complete (= 2.7.6)
+  - Mixpanel-swift/Complete (2.7.6)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
-  - NVActivityIndicatorView (4.2.1):
-    - NVActivityIndicatorView/Presenter (= 4.2.1)
-  - NVActivityIndicatorView/Presenter (4.2.1)
+  - NVActivityIndicatorView (5.0.0):
+    - NVActivityIndicatorView/Base (= 5.0.0)
+  - NVActivityIndicatorView/Base (5.0.0)
   - Parse (1.18.0):
     - Parse/Core (= 1.18.0)
   - Parse/Core (1.18.0):
@@ -119,15 +125,15 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (6.13.1):
     - PromiseKit/CorePromise
-  - SDWebImage (4.4.8):
-    - SDWebImage/Core (= 4.4.8)
-  - SDWebImage/Core (4.4.8)
+  - SDWebImage (5.8.4):
+    - SDWebImage/Core (= 5.8.4)
+  - SDWebImage/Core (5.8.4)
   - SwiftGRPC (0.9.1):
     - gRPC-Core (~> 1.19.0)
     - SwiftProtobuf (~> 1.5.0)
   - SwiftProtobuf (1.5.0)
-  - SwiftyJSON (4.3.0)
-  - XpringKit (3.2.0):
+  - SwiftyJSON (5.0.0)
+  - XpringKit (5.0.0):
     - Alamofire (~> 4.9.0)
     - BigInt (~> 5.0.0)
     - SwiftGRPC (~> 0.9.1)
@@ -135,21 +141,24 @@ PODS:
 
 DEPENDENCIES:
   - BuddyBuildSDK (~> 1.0.17)
-  - Cache (~> 5.2.0)
-  - Charts (~> 3.1.1)
-  - FacebookCore (~> 0.3.3)
+  - Cache (~> 5.3.0)
+  - Charts (~> 3.5.0)
+  - FacebookCore
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - FBSDKShareKit
   - Firebase/Core (~> 5.15.0)
   - Firebase/Database (~> 5.15.0)
   - Firebase/Storage (~> 5.15.0)
-  - Hero (~> 1.4.0)
-  - lottie-ios (~> 2.5.2)
+  - Hero (~> 1.5.0)
+  - lottie-ios (~> 3.1.8)
   - Mixpanel
-  - Mixpanel-swift (~> 2.4.2)
-  - NVActivityIndicatorView (~> 4.2.1)
+  - Mixpanel-swift (~> 2.7.6)
+  - NVActivityIndicatorView (~> 5.0.0)
   - Parse
   - PromiseKit (~> 6.8)
-  - SDWebImage (~> 4.0)
-  - SwiftyJSON (~> 4.0)
+  - SDWebImage (~> 5.8.4)
+  - SwiftyJSON (~> 5.0.0)
   - XpringKit
 
 SPEC REPOS:
@@ -163,6 +172,8 @@ SPEC REPOS:
     - Charts
     - FacebookCore
     - FBSDKCoreKit
+    - FBSDKLoginKit
+    - FBSDKShareKit
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuthInterop
@@ -195,10 +206,12 @@ SPEC CHECKSUMS:
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   BuddyBuildSDK: 8ae12ee721098b356a961ea7dce70ae55f93a7d2
-  Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
-  Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
-  FacebookCore: 9ecbe48cfd37c91a93add7f8cec2b4a2c50a1eec
-  FBSDKCoreKit: a823ae35bdb60ebb8d7a7e51abe7c5d87d2bfced
+  Cache: 48762993ec44e1d93483c4d4a13edd18452326f4
+  Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
+  FacebookCore: ba86524b66cfa86d0f8e65d08faa8504a9f732dd
+  FBSDKCoreKit: 1d5acf7c9d7a2f92bb1a242dc60cae5b7adb91df
+  FBSDKLoginKit: f1ea8026a58b52d30c9f2e6a58ca7d813619fb83
+  FBSDKShareKit: 259737eab3cc807087374553abdf588b3096ba55
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
   FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
   FirebaseAuthInterop: a0f37ae05833af156e72028f648d313f7e7592e9
@@ -210,21 +223,21 @@ SPEC CHECKSUMS:
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   gRPC-Core: bd9472c8daa2e414b9f8038ba667bf56ce0e02b8
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
-  Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
+  Hero: b7385b75e7259da62f4f85462f59a5082d66b058
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
-  lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
+  lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   Mixpanel: 61e6d8c0717c8e94ccc6d3a1ae8677b9a78f64c5
-  Mixpanel-swift: a9ed3dd197d8f2837920cec6be1acdb51d07b31a
+  Mixpanel-swift: 4950d554c4b28d2f594556f3641499ff495b6b5f
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
+  NVActivityIndicatorView: f109ed069924ac1b4adbc1ae9cfaeac0be1d6c2c
   Parse: 79bdda34fdb7eb2a707a43a951c8aae236cb3e34
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
-  SDWebImage: 783af2c3fa36291a250030c4752ee370a9a51d13
+  SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   SwiftGRPC: 43d3e8db88f97e7386bd44f159ecdfad02ce3362
   SwiftProtobuf: 241400280f912735c1e1b9fe675fdd2c6c4d42e2
-  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
-  XpringKit: 2f72de994e0a5f4dae8ad4fd262b599da853df33
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  XpringKit: 980683c3a59b9964a960681729b6af2ee5861ac0
 
-PODFILE CHECKSUM: 5fd7fba2d45fde78f1c063c34b93f105fca8e71c
+PODFILE CHECKSUM: 48227903309e061c8704c465098838d94f1600b3
 
 COCOAPODS: 1.9.3

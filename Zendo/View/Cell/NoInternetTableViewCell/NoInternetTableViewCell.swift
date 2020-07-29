@@ -18,12 +18,12 @@ class NoInternetTableViewCell: UITableViewCell {
         
         let animFrame = CGRect(x: -(animationView.bounds.width / 2.0), y: -(animationView.bounds.height / 2.0), width: animationView.bounds.width * 2, height: animationView.bounds.height * 2)        
         
-        let wifiAnimation = LOTAnimationView(name: "animationNoInternet")
+        let wifiAnimation = AnimationView(name: "animationNoInternet")
         wifiAnimation.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         wifiAnimation.contentMode = .scaleAspectFill
         wifiAnimation.frame = animFrame
         wifiAnimation.animationSpeed = 1
-        wifiAnimation.loopAnimation = true
+        wifiAnimation.loopMode = .loop
         
         animationView.addSubview(wifiAnimation)
         

@@ -10,7 +10,7 @@ import WatchConnectivity
 import Firebase
 import FirebaseDatabase
 import FBSDKCoreKit
-
+import FacebookCore
 
 class WatchSessionManager: NSObject {
     
@@ -70,7 +70,7 @@ extension WatchSessionManager: WCSessionDelegate {
                     replyHandler(["email": email, "name": name])
                 }
                 
-                FBSDKAppEvents.logEvent("watch_identity")
+                AppEvents.logEvent(AppEvents.Name(rawValue: "watch_identity"))
             }
             else if message["watch"] == "registerNotifications"
             {
@@ -79,7 +79,7 @@ extension WatchSessionManager: WCSessionDelegate {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
                 
-                FBSDKAppEvents.logEvent("watch_notification")
+                AppEvents.logEvent(AppEvents.Name(rawValue: "watch_notification"))
             }
             else if message["watch"] == "subscribe"
             {
@@ -115,12 +115,12 @@ extension WatchSessionManager: WCSessionDelegate {
                 NotificationCenter.default.post(name: NSNotification.Name("progress"),
                                                 object: progress )
                 
-                FBSDKAppEvents.logEvent("watch_progress")
+                AppEvents.logEvent(AppEvents.Name(rawValue: "watch_progress"))
             }
             
             else if let facebook = message["facebook"] {
                 
-                FBSDKAppEvents.logEvent(facebook)
+                AppEvents.logEvent(AppEvents.Name(rawValue: facebook))
             }
         }
         else if(message.first?.key == "sample")
@@ -130,7 +130,7 @@ extension WatchSessionManager: WCSessionDelegate {
                 NotificationCenter.default.post(name: .sample,
                                                 object: sample)
                 
-                FBSDKAppEvents.logEvent("watch_sample")
+                AppEvents.logEvent(AppEvents.Name(rawValue: "watch_sample"))
             }
         }
     }

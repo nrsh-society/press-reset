@@ -332,6 +332,7 @@ public class ZBFHealthKit {
     
     //#todo(debt): need to be consistent in the return of the handler functions?
     typealias SamplesHandler = (_ samples: [Double: Double]?, _ error: Error? ) -> Void
+    typealias SamplesHandlerLast = (_ samples: [Double: Double]?, _ error: Error?, _ startDate: Date?, _ endDate: Date?) -> Void
     
     class func getHRVAverage(_ workout: HKWorkout, handler: @escaping SamplesHandler) {
         
@@ -469,7 +470,11 @@ public class ZBFHealthKit {
         
         let hkPredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictStartDate)
         
-        let options: HKStatisticsOptions = [HKStatisticsOptions.discreteAverage, HKStatisticsOptions.discreteMax, HKStatisticsOptions.discreteMin]
+        let options: HKStatisticsOptions = [
+            .discreteAverage,
+            .discreteMax,
+            .discreteMin
+        ]
         
         let hkQuery = HKStatisticsQuery(quantityType: hkType,
                                         quantitySamplePredicate: hkPredicate,
@@ -525,11 +530,50 @@ public class ZBFHealthKit {
                                                     entries[Double(i)] = 0.0
                                                 }
                                             case .minute: break
+                                            case .last:
+                                                
+                                                
+                                                if let last = samples?.last {
+                                                    let startDate = last.startDate.timeIntervalSince1970
+                                                    let endDate = last.endDate.timeIntervalSince1970
+                                                    
+                                                    let date = endDate - startDate
+                                                    
+                                                    if date < 60 {
+                                                         entries[0] = 0.0
+                                                    } else {
+                                                        
+                                                        let count = date/60.0
+                                                        
+                                                        for i in 0...Int(count) {
+                                                            entries[Double(i)] = 0.0
+                                                        }
+                                                    }
+                                                    
+                                                }
+                                                
                                             }
                                             
-                                            if let samples = samples/*, !samples.isEmpty*/ {
+                                            let calender = Calendar.current
+                                            
+                                            if let last = samples?.last, currentInterval == .last {
                                                 
-                                                let calender = Calendar.current
+                                                let startDate = last.startDate
+                                                let endDate = last.endDate
+                                                
+                                                let key = Double(calender.component(.hour, from: startDate))
+                                                
+                                                let delta = DateInterval(start: startDate, end: endDate)
+                                                
+                                                if let existingValue = entries[key] {
+                                                    entries[key] = existingValue + delta.duration
+                                                } else {
+                                                    entries[key] = delta.duration
+                                                }
+                                                
+                                                handler(entries, error)
+                                                
+                                            } else if let samples = samples {
                                                 
                                                 samples.forEach( { sample in
                                                     
@@ -543,6 +587,7 @@ public class ZBFHealthKit {
                                                     var keyDay = 0.0
                                                     
                                                     switch currentInterval {
+                                                    case .last: break
                                                     case .minute: break
                                                     case .hour:
                                                         key = Double(calender.component(.hour, from: startDate))
@@ -594,6 +639,68 @@ public class ZBFHealthKit {
         healthStore.execute(hkSampleQuery)
     }
     
+    class func getMindfulMinutesLast(start: Date, end: Date, currentInterval: CurrentInterval, handler: @escaping SamplesHandlerLast) {
+        let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
+        
+        let hkDatePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictStartDate)
+        
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
+        
+        let hkSampleQuery = HKSampleQuery(sampleType: hkType,
+                                          predicate: hkDatePredicate,
+                                          limit: HKObjectQueryNoLimit,
+                                          sortDescriptors: [sortDescriptor])
+        { query, samples, error in
+            
+            var entries = [Double: Double]()
+            
+            if let last = samples?.last {
+                let startDate = last.startDate.timeIntervalSince1970
+                let endDate = last.endDate.timeIntervalSince1970
+                
+                let date = endDate - startDate
+                
+                if date < 60 {
+                    entries[0] = 0.0
+                } else {
+                    
+                    let count = date/60.0
+                    
+                    for i in 0...Int(count) {
+                        entries[Double(i)] = 0.0
+                    }
+                }
+                                
+            }
+            
+            let calender = Calendar.current
+            
+            if let last = samples?.last, currentInterval == .last {
+                
+                let startDate = last.startDate
+                let endDate = last.endDate
+                
+                let key = Double(calender.component(.hour, from: startDate))
+                
+                let delta = DateInterval(start: startDate, end: endDate)
+                
+                if let existingValue = entries[key] {
+                    entries[key] = existingValue + delta.duration
+                } else {
+                    entries[key] = delta.duration
+                }
+                
+                handler(entries, error, startDate, endDate)
+                
+            } else {
+                handler(entries, error, nil, nil)
+            }
+            
+        }
+        
+        healthStore.execute(hkSampleQuery)
+    }
+    
     class func getHRVSamples(start: Date, end: Date, currentInterval: CurrentInterval, handler: @escaping SamplesHandler) {
         
         var entries = [Double: Double]()
@@ -601,7 +708,7 @@ public class ZBFHealthKit {
         var components = DateComponents()
         
         switch currentInterval {
-        case .minute:
+        case .minute, .last:
             components.minute = 1
         case .hour:
             components.hour = 1
@@ -614,7 +721,7 @@ public class ZBFHealthKit {
         }        
         
         switch currentInterval {
-        case .minute:
+        case .minute, .last:
             let calendar = Calendar.current
             let range = calendar.dateComponents([.minute], from: start, to: end)
             if let min = range.minute {
@@ -670,7 +777,7 @@ public class ZBFHealthKit {
                     let calender = Calendar.current
                     
                     switch currentInterval {
-                    case .minute:
+                    case .minute, .last:
                         key = Double(calender.component(.minute, from: statistics.startDate))
                     case .hour:
                         key = Double(calender.component(.hour, from: statistics.startDate))

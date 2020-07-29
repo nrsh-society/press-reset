@@ -20,8 +20,9 @@ extension UIImageView {
             imagePlaceholder = getImageWithColor(color: UIColor.clear, size: self.frame.size)
         }
         
-        sd_setShowActivityIndicatorView(true)
-        sd_setIndicatorStyle(.gray)
+        
+        
+        sd_imageIndicator = SDWebImageActivityIndicator.gray
         sd_setImage(with: url, placeholderImage: imagePlaceholder, options: [.lowPriority]) { (image, error, cacheType, url) in
             if error == nil {
                 let scale = self.frame.width / (image?.size.width)!
@@ -54,7 +55,7 @@ extension UIImageView {
 extension UIImage {
     
     static func setImage(from url: URL?, completion: ((UIImage) -> Void)? = nil) {
-        SDWebImageManager.shared().loadImage(with: url, options: [.lowPriority], progress: nil) { (image, data, error, cacheType, success, url) in
+        SDWebImageManager.shared.loadImage(with: url, options: [.lowPriority], progress: nil) { (image, data, error, cacheType, success, url) in
             
             if let image = image, error == nil {
                 completion?(image)

@@ -62,8 +62,8 @@ class ResultsController: UIViewController {
     
     func initHRVData()
     {
-        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "ms")
-        let communityDataset = LineChartDataSet(values: [ChartDataEntry](), label: "community")
+        let dataset = LineChartDataSet(entries: [ChartDataEntry](), label: "ms")
+        let communityDataset = LineChartDataSet(entries: [ChartDataEntry](), label: "community")
         
         communityDataset.drawCirclesEnabled = false
         communityDataset.drawValuesEnabled = false

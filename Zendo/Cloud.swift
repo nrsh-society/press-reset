@@ -12,6 +12,7 @@ import FirebaseDatabase
 import FBSDKCoreKit
 import Mixpanel
 import FirebaseStorage
+import FacebookCore
 
 class Player
 {
@@ -296,7 +297,7 @@ class Cloud
     {
         FirebaseApp.configure()
         
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: options)
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: options)
         
         Mixpanel.initialize(token: "73167d0429d8da0c05c6707e832cbb46")
         
