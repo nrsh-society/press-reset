@@ -100,10 +100,10 @@ PODS:
   - Hero (1.5.0)
   - leveldb-library (1.22)
   - lottie-ios (3.1.8)
-  - Mixpanel (3.6.1)
-  - Mixpanel-swift (2.7.6):
-    - Mixpanel-swift/Complete (= 2.7.6)
-  - Mixpanel-swift/Complete (2.7.6)
+  - Mixpanel (3.6.2)
+  - Mixpanel-swift (2.7.7):
+    - Mixpanel-swift/Complete (= 2.7.7)
+  - Mixpanel-swift/Complete (2.7.7)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
@@ -133,7 +133,7 @@ PODS:
     - SwiftProtobuf (~> 1.5.0)
   - SwiftProtobuf (1.5.0)
   - SwiftyJSON (5.0.0)
-  - XpringKit (5.0.0):
+  - XpringKit (5.0.1):
     - Alamofire (~> 4.9.0)
     - BigInt (~> 5.0.0)
     - SwiftGRPC (~> 0.9.1)
@@ -226,8 +226,8 @@ SPEC CHECKSUMS:
   Hero: b7385b75e7259da62f4f85462f59a5082d66b058
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
-  Mixpanel: 61e6d8c0717c8e94ccc6d3a1ae8677b9a78f64c5
-  Mixpanel-swift: 4950d554c4b28d2f594556f3641499ff495b6b5f
+  Mixpanel: 0a78141d1a073308201f76c55c3e629535e72b47
+  Mixpanel-swift: 3a8fb9ce791e9c64d556b9446aa470b469c6fa7d
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   NVActivityIndicatorView: f109ed069924ac1b4adbc1ae9cfaeac0be1d6c2c
   Parse: 79bdda34fdb7eb2a707a43a951c8aae236cb3e34
@@ -236,8 +236,8 @@ SPEC CHECKSUMS:
   SwiftGRPC: 43d3e8db88f97e7386bd44f159ecdfad02ce3362
   SwiftProtobuf: 241400280f912735c1e1b9fe675fdd2c6c4d42e2
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
-  XpringKit: 980683c3a59b9964a960681729b6af2ee5861ac0
+  XpringKit: b3bad1674b8978f4e87a7f81b2f4e9940cd24466
 
 PODFILE CHECKSUM: 48227903309e061c8704c465098838d94f1600b3
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.9.1

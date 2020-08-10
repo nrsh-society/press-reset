@@ -61,7 +61,7 @@
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Measure heart rate variablity from external monitors</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Profile photo for groups</string>
+	<string>Share your visage with groups</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Pick people to share daily progress</string>
 	<key>NSHealthShareUsageDescription</key>
@@ -74,6 +74,8 @@
 	<string>This app doesn't use location, so if you so this, there is a problem.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app doesn't use location, so if you so this, there is a problem.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Share your voice with groups</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Uses motion data to track posture</string>
 	<key>NSUserActivityTypes</key>

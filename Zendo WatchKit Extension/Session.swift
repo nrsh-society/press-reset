@@ -555,6 +555,8 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                 print(error)
         })
         
+        NotificationCenter.default.post(name: .sample, object: metadata)
+        
         let empty = metadataWork.isEmpty ? "" : "/"
         
         for type in metadataTypeArray {
