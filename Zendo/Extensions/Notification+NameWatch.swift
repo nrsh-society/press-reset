@@ -11,4 +11,5 @@ import Foundation
 
 extension NSNotification.Name {
     static let endSessionFromiPhone = NSNotification.Name("endSessionFromiPhone")
+    static let sample = NSNotification.Name("sampleFromWatch")
 }

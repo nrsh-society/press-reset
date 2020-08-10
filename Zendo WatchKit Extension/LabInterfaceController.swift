@@ -37,8 +37,13 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
         
         if(value)
         {
-            donateMetricValue.setText(SettingsWatch.donatedMinutes.description)
+            setDonation(value: SettingsWatch.donatedMinutes)
         }
+    }
+    
+    func setDonation(value: Int)
+    {
+        donateMetricValue.setText(value.description)
     }
     
     @IBAction func progressAction(value: Bool)
@@ -49,46 +54,13 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
         
         if(value)
         {
-            if(SettingsWatch.progressPosition == 0)
-            {
-                SettingsWatch.progressPosition = 343 //todo: get this from a database
-            }
-            
-            progressMetricValue.setText("#" + SettingsWatch.progressPosition.description)
+            setProgress(value: SettingsWatch.progressPosition)
         }
     }
     
-    override func willActivate()
+    public func setProgress(value: Int)
     {
-        if let appleId = SettingsWatch.appleUserID
-        {
-            self.authorizationButton.setHidden(false)
-            self.signinLabel.setHidden(false)
-            
-            self.donateSwitch.setEnabled(false)
-            self.donateSwitch.setOn(false)
-            self.progressSwitch.setEnabled(false)
-            self.progressSwitch.setOn(false)
-            
-            donateMetricGroup.setHidden(true)
-            progressMetricGroup.setHidden(true)
-            
-            print("add mixpanel here")
-        }
-        else
-        {
-            self.authorizationButton.setHidden(true)
-            self.signinLabel.setHidden(true)
-            
-            self.donateSwitch.setEnabled(true)
-            self.donateSwitch.setOn(SettingsWatch.donations)
-            self.progressSwitch.setEnabled(true)
-            self.progressSwitch.setOn(SettingsWatch.progress)
-            
-            donationsAction(value: SettingsWatch.donations)
-            progressAction(value: SettingsWatch.progress)
-        }
-        
+        progressMetricValue.setText("#" + value.description)
     }
     
     @IBAction func onAppleSignButtonPressed()
@@ -103,6 +75,62 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
         authorizationController.performRequests()
     }
     
+    override func willDisappear() {
+        
+        Mixpanel.sharedInstance()?.track("watch_lab")
+    }
+    
+    @objc func sample(notification: NSNotification)
+    {
+        if let sample = notification.object as? [String : Any]
+        {
+            let donatedString = sample["donated"] as? String
+            let progressString = sample["progress"] as? String ?? "0"
+            
+            DispatchQueue.main.async
+            {
+                self.donateMetricValue.setText(donatedString)
+                self.progressMetricValue.setText("#" + progressString)
+            }
+        }
+    }
+    
+    override func willActivate()
+    {
+        Mixpanel.sharedInstance()?.timeEvent("watch_lab")
+        
+        let isSignedIn = (SettingsWatch.appleUserID != nil)
+        
+        if isSignedIn
+        {
+            self.authorizationButton.setHidden(true)
+            self.signinLabel.setHidden(true)
+    
+            self.donateMetricGroup.setHidden(false)
+            self.progressMetricGroup.setHidden(false)
+            
+            self.donateSwitch.setEnabled(true)
+            self.donateSwitch.setOn(SettingsWatch.donations)
+            self.progressSwitch.setEnabled(true)
+            self.progressSwitch.setOn(SettingsWatch.progress)
+            
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(self.sample),
+                                                   name:  .sample,
+                                                   object: nil)
+        
+        }
+        else
+        {
+            self.authorizationButton.setHidden(false)
+            self.signinLabel.setHidden(false)
+            
+            self.donateMetricGroup.setHidden(true)
+            self.progressMetricGroup.setHidden(true)
+        }
+        
+        
+    }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
     {

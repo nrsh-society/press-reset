@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17132" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17147" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch44"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105.1"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17031"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17032"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="Antenna-Light.otf">
@@ -458,26 +458,26 @@
         <!--Labs-->
         <scene sceneID="AfA-Zh-usQ">
             <objects>
-                <controller identifier="SharingInterfaceController" title="Labs" spacing="9" id="3ad-2P-1UE" customClass="SharingInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="SharingInterfaceController" title="Labs" spacing="9" id="3ad-2P-1UE" customClass="LabInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="left" layout="vertical" spacing="5" id="ZUu-yK-xf2" userLabel="Top">
                             <items>
                                 <group width="1" alignment="left" layout="vertical" spacing="6" id="Yog-ud-tgJ" userLabel="Support Group">
                                     <items>
-                                        <switch width="1" alignment="left" value="YES" title="Support Causes" numberOfLines="4" id="hgR-Th-ZxS">
+                                        <switch width="1" alignment="left" value="YES" enabled="NO" title="Support Causes" numberOfLines="4" id="hgR-Th-ZxS">
                                             <connections>
                                                 <action selector="donationsActionWithValue:" destination="3ad-2P-1UE" id="S3y-nC-upw"/>
                                             </connections>
                                         </switch>
-                                        <label alignment="center" text="Every minute you meditate, we donate" textAlignment="left" numberOfLines="5" id="Q7Y-LL-pPy">
+                                        <label alignment="center" hidden="YES" text="Every minute you meditate, we donate" textAlignment="left" numberOfLines="5" id="Q7Y-LL-pPy">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                             </variation>
                                         </label>
-                                        <group width="1" alignment="left" layout="vertical" id="h8h-zk-YW5">
+                                        <group width="1" alignment="left" hidden="YES" layout="vertical" id="h8h-zk-YW5">
                                             <items>
-                                                <label alignment="center" verticalAlignment="center" text="117" textAlignment="center" minimumScaleFactor="0.5" id="JbO-he-Tmo">
+                                                <label alignment="center" verticalAlignment="center" text="0" textAlignment="center" minimumScaleFactor="0.5" id="JbO-he-Tmo">
                                                     <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="33"/>
                                                     <variation key="device=watch38mm">
                                                         <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="29"/>
@@ -493,20 +493,20 @@
                                 </group>
                                 <group width="1" alignment="left" layout="vertical" spacing="6" id="X7O-19-T4f" userLabel="Progress Group">
                                     <items>
-                                        <switch width="1" alignment="left" value="YES" title="Share Progress" id="jvr-vy-tgB">
+                                        <switch width="1" alignment="left" value="YES" enabled="NO" title="Share Progress" id="jvr-vy-tgB">
                                             <connections>
                                                 <action selector="progressActionWithValue:" destination="3ad-2P-1UE" id="mC3-3o-gKb"/>
                                             </connections>
                                         </switch>
-                                        <label alignment="center" text="Tell others when you you meditate" textAlignment="left" numberOfLines="5" id="IP8-GB-BvL">
+                                        <label alignment="center" hidden="YES" text="Tell others when you you meditate" textAlignment="left" numberOfLines="5" id="IP8-GB-BvL">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                             </variation>
                                         </label>
-                                        <group width="1" alignment="left" layout="vertical" id="Lpe-lJ-rhg">
+                                        <group width="1" alignment="left" hidden="YES" layout="vertical" id="Lpe-lJ-rhg">
                                             <items>
-                                                <label alignment="center" verticalAlignment="center" text="#33" textAlignment="center" minimumScaleFactor="0.5" id="S0U-YQ-VBD">
+                                                <label alignment="center" verticalAlignment="center" text="#0" textAlignment="center" minimumScaleFactor="0.5" id="S0U-YQ-VBD">
                                                     <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="33"/>
                                                     <variation key="device=watch38mm">
                                                         <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="29"/>
@@ -524,7 +524,7 @@
                         </group>
                         <group width="1" alignment="left" layout="vertical" spacing="8" id="3Yy-pY-Sqi" userLabel="Signin Group">
                             <items>
-                                <authorizationAppleIDButton width="1" alignment="left" hidden="YES" id="lPd-XR-Nyp">
+                                <authorizationAppleIDButton width="1" alignment="left" id="lPd-XR-Nyp">
                                     <connections>
                                         <action selector="onAppleSignButtonPressed" destination="3ad-2P-1UE" id="awe-xS-1hU"/>
                                     </connections>
@@ -576,7 +576,7 @@
                     </items>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="1038" y="-435"/>
+            <point key="canvasLocation" x="1032" y="-384"/>
         </scene>
         <!--Dynamic Notification Interface Controller-->
         <scene sceneID="iha-Nf-OKb">

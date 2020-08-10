@@ -31,7 +31,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     var showLevels : Bool = false
     var showGroups : Bool = false
     var rings = [SKShapeNode]()
-    var scene: SKScene
+    var scene: SKScene!
     
     private let captureSession = AVCaptureSession()
     private lazy var previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
@@ -41,7 +41,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     private let rtmpConnection = RTMPConnection()
     private lazy var rtmpStream = RTMPStream(connection: self.rtmpConnection)
     
-    @IBOutlet weak var sceneView: SCNView!
+    @IBOutlet weak var sceneView: SKView!
     {
         
         didSet {
@@ -450,13 +450,12 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         })
     }
     
-    func setupScene() -> SCNScene
+    func setupScene() -> SKScene
     {
         sceneView.frame = UIScreen.main.bounds
         sceneView.contentMode = .scaleAspectFill
         
-        let scene = SCNScene()
-        
+        let scene = SKScene()
         
         sceneView.backgroundColor = .clear
         
@@ -475,7 +474,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 video.position = scene.position
                 video.anchorPoint = scene.anchorPoint
                 video.play()
-                scene.
                 scene.addChild(video)
                     
                 NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
