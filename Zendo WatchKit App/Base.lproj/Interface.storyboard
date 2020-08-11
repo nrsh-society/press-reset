@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17147" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="16097.2" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch44"/>
     <dependencies>
-        <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17120"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17032"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="16012"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="Antenna-Light.otf">
@@ -103,7 +102,7 @@
                         </label>
                     </items>
                     <notificationCategory key="notificationCategory" identifier="HrvSummary" wantsSashBlur="YES" id="JfB-70-Muf">
-                        <color key="titleColor" systemColor="darkTextColor"/>
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="sashColor" red="0.60030913350000004" green="0.67497491840000001" blue="0.6431349516" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </notificationCategory>
                     <connections>
@@ -477,13 +476,13 @@
                                         </label>
                                         <group width="1" alignment="left" hidden="YES" layout="vertical" id="h8h-zk-YW5">
                                             <items>
-                                                <label alignment="center" verticalAlignment="center" text="0" textAlignment="center" minimumScaleFactor="0.5" id="JbO-he-Tmo">
+                                                <label alignment="center" verticalAlignment="center" text="--" textAlignment="center" minimumScaleFactor="0.5" id="JbO-he-Tmo">
                                                     <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="33"/>
                                                     <variation key="device=watch38mm">
                                                         <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="29"/>
                                                     </variation>
                                                 </label>
-                                                <label alignment="center" verticalAlignment="bottom" text="minutes donated" textAlignment="center" id="Hr4-UN-07a">
+                                                <label alignment="center" verticalAlignment="bottom" text="minutes" textAlignment="center" id="Hr4-UN-07a">
                                                     <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
                                                     <variation key="device=watch38mm" text="mins"/>
                                                 </label>
@@ -506,13 +505,13 @@
                                         </label>
                                         <group width="1" alignment="left" hidden="YES" layout="vertical" id="Lpe-lJ-rhg">
                                             <items>
-                                                <label alignment="center" verticalAlignment="center" text="#0" textAlignment="center" minimumScaleFactor="0.5" id="S0U-YQ-VBD">
+                                                <label alignment="center" verticalAlignment="center" text="-- / --" textAlignment="center" minimumScaleFactor="0.5" id="S0U-YQ-VBD">
                                                     <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="33"/>
                                                     <variation key="device=watch38mm">
                                                         <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="29"/>
                                                     </variation>
                                                 </label>
-                                                <label alignment="center" verticalAlignment="bottom" text="top meditator" textAlignment="center" id="BgJ-uD-gq4">
+                                                <label alignment="center" verticalAlignment="bottom" text="meditator" textAlignment="center" id="BgJ-uD-gq4">
                                                     <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
                                                     <variation key="device=watch38mm" text="mins"/>
                                                 </label>
@@ -612,8 +611,5 @@
         <image name="plus" width="120" height="120"/>
         <image name="ring0" width="300" height="300"/>
         <image name="time" width="35" height="40"/>
-        <systemColor name="darkTextColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

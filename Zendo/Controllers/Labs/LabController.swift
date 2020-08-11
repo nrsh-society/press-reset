@@ -223,6 +223,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         self.scene = self.setupScene()
         
+        self.sceneView.presentScene(self.scene)
         
         setupConnectButton()
         
@@ -244,8 +245,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         rtmpStream.publish("streamName")
 
     }
-    
-   
     
     override func didReceiveMemoryWarning()
     {
@@ -300,9 +299,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
  
     }
     
-    
-
-    
     @objc func connectAppleWatch()
     {
         let startingSessions = StartingSessionViewController()
@@ -350,11 +346,13 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                     self.arenaView.hrv.text = "--"
                     self.arenaView.time.text = "--"
                     self.arenaView.setChart([])
-                }
-                
             }
+
+            let vc = ResultGameController.loadFromStoryboard()
+            self.present(vc, animated: true)
             
         }
+    }
     
     @objc func progress(notification: NSNotification)
     {
@@ -533,15 +531,19 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 let chartHR = self.chartHR.sorted(by: <)
 
                 self.arenaView.setChart(chartHR)
+                
+                self.progressView.update(minutes: "", meditator: "")
     
             }
             
             
             DispatchQueue.main.async
             {
+                let donatedString = sample["donated"] as? String ?? "0"
+                let progressString = sample["progress"] as? String ?? "--/--"
                 
-                self.progressView.hrv.text = "1" //
-                self.progressView.time.text = "1"
+                self.progressView.update(minutes: donatedString, meditator: progressString)
+        
             }
             
             if let watch  = self.appleWatch

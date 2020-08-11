@@ -310,10 +310,6 @@ class TrainController: UIViewController
                     self.arenaView.time.text = "--"
                     self.arenaView.setChart([])
                 }
-                
-                let vc = ResultGameController.loadFromStoryboard()
-                self.present(vc, animated: true)
-                
         }
         
     }

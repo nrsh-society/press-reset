@@ -12,26 +12,11 @@ import Charts
 class ProgressView: UIView {
     
     @IBOutlet weak var hudView: UIView!
-    @IBOutlet weak var hrv: UILabel!
-    @IBOutlet weak var time: UILabel!
-    @IBOutlet weak var hrvImage: UIImageView! {
-        didSet {
-//            hrvImage.image = UIImage(named: "hrvTemp")!.withRenderingMode(.alwaysTemplate)
-//            hrvImage.tintColor = UIColor.white
-
-        }
-    }
-    @IBOutlet weak var timeImage: UIImageView! {
-        didSet {
-//            timeImage.image = UIImage(named: "timeTemp")?.withRenderingMode(.alwaysTemplate)
-//            timeImage.tintColor = UIColor.white
-        }
-    }
-    
-    @IBOutlet weak var hrvLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var minutes: UILabel!
+    @IBOutlet weak var meditator: UILabel!
+    @IBOutlet weak var minutesLabel: UILabel!
+    @IBOutlet weak var meditatorLabel: UILabel!
         
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -44,7 +29,6 @@ class ProgressView: UIView {
         loadNib()
     }
     
-    
     override func layoutSubviews()
     {
         super.layoutSubviews()
@@ -56,6 +40,12 @@ class ProgressView: UIView {
         layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
         layer.shadowOpacity = 1
         layer.shadowRadius = 20
+    }
+    
+    func update(minutes: String, meditator: String)
+    {
+        self.minutes.text = minutes
+        self.meditator.text = meditator
     }
     
 }
