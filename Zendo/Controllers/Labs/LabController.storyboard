@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17147" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17120"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -44,36 +46,36 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhC-FU-Hfa" customClass="ProgressView" customModule="Zendo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="375" height="75"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="QeD-ky-ILW"/>
                                 </constraints>
                             </view>
-                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1eM-Kb-Ta5">
-                                <rect key="frame" x="0.0" y="44" width="375" height="724"/>
-                            </sceneKitView>
+                            <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wag-KW-4l9">
+                                <rect key="frame" x="0.0" y="119" width="375" height="574"/>
+                            </skView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="z49-wy-zwZ"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="QhC-FU-Hfa" secondAttribute="trailing" id="6Xp-eS-9nT"/>
-                            <constraint firstItem="1eM-Kb-Ta5" firstAttribute="centerY" secondItem="HIe-zl-TmH" secondAttribute="centerY" id="A08-nr-BWy"/>
-                            <constraint firstItem="1eM-Kb-Ta5" firstAttribute="centerX" secondItem="HIe-zl-TmH" secondAttribute="centerX" id="AtK-5g-Bmi"/>
-                            <constraint firstItem="1eM-Kb-Ta5" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="Gbr-7v-PZF"/>
+                            <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="Wag-KW-4l9" secondAttribute="trailing" id="79E-Pv-YcO"/>
+                            <constraint firstItem="Wag-KW-4l9" firstAttribute="top" secondItem="QhC-FU-Hfa" secondAttribute="bottom" id="7Wn-pI-Cfs"/>
+                            <constraint firstItem="Wag-KW-4l9" firstAttribute="centerX" secondItem="HIe-zl-TmH" secondAttribute="centerX" id="LXP-3a-LSU"/>
                             <constraint firstItem="QhC-FU-Hfa" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="MEO-BB-cwz"/>
-                            <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="1eM-Kb-Ta5" secondAttribute="trailing" id="MaI-VH-DcX"/>
                             <constraint firstItem="QhC-FU-Hfa" firstAttribute="top" secondItem="z49-wy-zwZ" secondAttribute="top" id="PrH-Af-e5X"/>
                             <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="cCa-Pd-CyP" secondAttribute="trailing" id="Rwf-s3-mEJ"/>
+                            <constraint firstItem="Wag-KW-4l9" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="XeE-Au-Do0"/>
                             <constraint firstItem="cCa-Pd-CyP" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" id="Yfa-KS-Srj"/>
-                            <constraint firstItem="1eM-Kb-Ta5" firstAttribute="top" secondItem="z49-wy-zwZ" secondAttribute="top" id="pNu-1L-1eE"/>
                             <constraint firstItem="cCa-Pd-CyP" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="qta-bo-dw0"/>
+                            <constraint firstItem="Wag-KW-4l9" firstAttribute="centerY" secondItem="HIe-zl-TmH" secondAttribute="centerY" id="s7V-CT-8wf"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="z49-wy-zwZ"/>
                     </view>
                     <connections>
                         <outlet property="arenaView" destination="cCa-Pd-CyP" id="pd9-By-euJ"/>
                         <outlet property="connectButton" destination="FTo-no-nA4" id="plm-Fc-T2k"/>
                         <outlet property="progressView" destination="QhC-FU-Hfa" id="Nub-N8-Mis"/>
-                        <outlet property="sceneView" destination="1eM-Kb-Ta5" id="j7r-1q-hi9"/>
+                        <outlet property="sceneView" destination="Wag-KW-4l9" id="dxd-jM-m8d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tVi-YP-W0J" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -81,4 +83,9 @@
             <point key="canvasLocation" x="-186.40000000000001" y="44.527736131934034"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

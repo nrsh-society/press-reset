@@ -54,9 +54,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
 
                 progressView.isHidden = true
                 progressView.alpha = 1.0
-                self.progressView.hrv.text = "--"
-                self.progressView.time.text = "--"
-                
+                self.progressView.update(minutes: "--", meditator: "--/--")
             }
         }
     
@@ -234,15 +232,16 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         self.getCameraFrames()
         self.captureSession.startRunning()
         
-        rtmpStream.attachAudio(AVCaptureDevice.default(for: AVMediaType.audio)) { error in
+        //rtmpStream.attachAudio(AVCaptureDevice.default(for: AVMediaType.audio)) { error in
               // print(error)
-          }
-          rtmpStream.attachCamera(DeviceUtil.device(withPosition: .front)) { error in
+         // }
+        
+        //rtmpStream.attachCamera(DeviceUtil.device(withPosition: .front)) { error in
               // print(error)
-          }
+          //}
           
-        rtmpConnection.connect("rtmp://live-sjc05.twitch.tv/app/live_526664141_tw0025TCdNZBqEkTxmhAllcIQVlvfQ")
-        rtmpStream.publish("streamName")
+        //rtmpConnection.connect("rtmp://live-sjc05.twitch.tv/app/live_526664141_tw0025TCdNZBqEkTxmhAllcIQVlvfQ")
+        //rtmpStream.publish("streamName")
 
     }
     
