@@ -28,8 +28,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     var chartHR = [String: Int]()
     let player = SKSpriteNode(imageNamed: "player1")
     var ring: Int = 0
-    var showLevels : Bool = false
-    var showGroups : Bool = false
     var rings = [SKShapeNode]()
     var scene: SKScene!
     
@@ -43,7 +41,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     
     @IBOutlet weak var sceneView: SKView!
     {
-        
         didSet {
             sceneView.hero.id = idHero
         }
@@ -84,6 +81,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.previewLayer.frame = self.view.frame
+        self.previewLayer.opacity = 0.70
+        self.sceneView.frame = self.view.frame
+        self.sceneView.alpha = 0.75
     }
     
     func captureOutput(
@@ -316,6 +316,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         {
             Mixpanel.mainInstance().time(event: "phone_lab_watch_connected")
             
+            let scene = self.sceneView.scene!
+            
             DispatchQueue.main.async
             {
                 UIView.animate(withDuration: 0.5)
@@ -323,6 +325,20 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                     self.arenaView.isHidden = false
                     self.progressView.isHidden = false
                     self.connectButton.isHidden = true
+                }
+                
+                self.rings.forEach( {$0.isHidden = false })
+                
+                if let shell = scene.childNode(withName: "//0")! as? SKShapeNode
+                {
+                    shell.addChild(self.player)
+                    
+                    self.player.zPosition = 3.0
+                    
+                    let action = SKAction.repeatForever(SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 15.0))
+                    
+                    self.player.run(action)
+                   
                 }
 
             }
@@ -451,10 +467,11 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     {
         sceneView.frame = UIScreen.main.bounds
         sceneView.contentMode = .scaleAspectFill
-        
-        let scene = SKScene()
-        
         sceneView.backgroundColor = .clear
+        sceneView.allowsTransparency = true
+        
+        let scene = SKScene(size: (sceneView.frame.size))
+        scene.scaleMode = .aspectFill
         
         self.startBackgroundContent(story: story, completion:
         {
@@ -531,10 +548,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
 
                 self.arenaView.setChart(chartHR)
                 
-                self.progressView.update(minutes: "", meditator: "")
-    
             }
-            
             
             DispatchQueue.main.async
             {

@@ -270,14 +270,6 @@ class TrainController: UIViewController
                         
                         self.player.zPosition = 3.0
                         
-                        //let emitter = SKEmitterNode(fileNamed: "trainparticles.sks")!
-                        
-                        //emitter.targetNode = shell
-                        
-                        //emitter.zRotation = self.player.zRotation
-        
-                        //self.player.addChild(emitter)
-                        
                         let action = SKAction.repeatForever(SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 15.0))
                         
                         self.player.run(action)

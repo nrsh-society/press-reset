@@ -22,6 +22,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wag-KW-4l9">
+                                <rect key="frame" x="0.0" y="119" width="375" height="574"/>
+                            </skView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cCa-Pd-CyP" customClass="ArenaView" customModule="Zendo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="628" width="375" height="150"/>
                                 <subviews>
@@ -44,16 +47,13 @@
                                     <constraint firstAttribute="bottomMargin" secondItem="FTo-no-nA4" secondAttribute="bottom" constant="50" id="oTQ-QU-Fuw"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhC-FU-Hfa" customClass="ProgressView" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="375" height="75"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QhC-FU-Hfa" customClass="ProgressView" customModule="Zendo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="375" height="150"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="QeD-ky-ILW"/>
                                 </constraints>
                             </view>
-                            <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wag-KW-4l9">
-                                <rect key="frame" x="0.0" y="119" width="375" height="574"/>
-                            </skView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="z49-wy-zwZ"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
