@@ -18,9 +18,13 @@ import Cache
 import SwiftyJSON
 import Vision
 import HaishinKit
+import XpringKit
 
 class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate
 {
+    var enableFaceDetection: Bool = true
+    var enableGameBoard: Bool = true
+    
     var appleWatch : Zensor?
     var story: Story!
     var idHero = ""
@@ -81,7 +85,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.previewLayer.frame = self.view.frame
-        self.previewLayer.opacity = 0.70
+        self.previewLayer.opacity = 0.90
         self.sceneView.frame = self.view.frame
         self.sceneView.alpha = 0.75
     }
@@ -95,7 +99,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             debugPrint("unable to get image from sample buffer")
             return
         }
+        
         self.detectFace(in: frame)
+
     }
     
     private func addCameraInput() {
@@ -130,7 +136,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         let faceDetectionRequest = VNDetectFaceLandmarksRequest(completionHandler: { (request: VNRequest, error: Error?) in
             DispatchQueue.main.async {
                 if let results = request.results as? [VNFaceObservation] {
-                    self.handleFaceDetectionResults(results)
+                    if(self.enableFaceDetection) {
+                        self.handleFaceDetectionResults(results)
+                    }
                 } else {
                     self.clearDrawings()
                 }
@@ -217,6 +225,25 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
         
         sceneView.addGestureRecognizer(panGR)
+        
+        let enableFaceDetectionGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(faceDetectionEnabled)
+          )
+        
+        enableFaceDetectionGesture.numberOfTapsRequired = 2
+        
+        sceneView.addGestureRecognizer(enableFaceDetectionGesture)
+        
+        let enableGameGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(gameBoardEnabled)
+          )
+        
+        enableGameGesture.numberOfTapsRequired = 3
+        
+        sceneView.addGestureRecognizer(enableGameGesture)
+        
         sceneView.backgroundColor = .clear
         
         self.scene = self.setupScene()
@@ -243,6 +270,19 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         //rtmpConnection.connect("rtmp://live-sjc05.twitch.tv/app/live_526664141_tw0025TCdNZBqEkTxmhAllcIQVlvfQ")
         //rtmpStream.publish("streamName")
 
+    }
+    
+    @objc func faceDetectionEnabled()
+    {
+        self.clearDrawings()
+        self.enableFaceDetection = !self.enableFaceDetection
+    }
+    
+    @objc func gameBoardEnabled()
+    {
+        self.enableGameBoard = !self.enableGameBoard
+        
+        self.enableGameBoard ? self.showGameBoard() : self.hideGameBoard()
     }
     
     override func didReceiveMemoryWarning()
@@ -310,13 +350,41 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
     }
     
+    fileprivate func showGameBoard()
+    {
+        UIView.animate(withDuration: 0.5)
+        {
+            self.rings.forEach( {$0.isHidden = false })
+        
+            if let shell = self.scene.childNode(withName: "//0")! as? SKShapeNode
+            {
+                shell.addChild(self.player)
+                
+                self.player.zPosition = 3.0
+                
+                let action = SKAction.repeatForever(SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 15.0))
+                
+                self.player.run(action)
+                
+            }
+        }
+    }
+    
+    fileprivate func hideGameBoard() {
+        
+        UIView.animate(withDuration: 0.5)
+        {
+            self.player.removeAllActions()
+            self.rings.forEach( {$0.isHidden = true })
+            self.player.removeFromParent()
+        }
+    }
+    
     @objc func startSession()
     {
         if(Settings.isSensorConnected)
         {
             Mixpanel.mainInstance().time(event: "phone_lab_watch_connected")
-            
-            let scene = self.sceneView.scene!
             
             DispatchQueue.main.async
             {
@@ -327,45 +395,34 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                     self.connectButton.isHidden = true
                 }
                 
-                self.rings.forEach( {$0.isHidden = false })
-                
-                if let shell = scene.childNode(withName: "//0")! as? SKShapeNode
-                {
-                    shell.addChild(self.player)
-                    
-                    self.player.zPosition = 3.0
-                    
-                    let action = SKAction.repeatForever(SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 15.0))
-                    
-                    self.player.run(action)
-                   
-                }
+                self.showGameBoard()
 
             }
         
         }
     }
-
+    
     @objc func endSession()
     {
         Mixpanel.mainInstance().track(event: "phone_lab_watch_connected",
-                                          properties: ["name": self.story.title])
+                                      properties: ["name": self.story.title])
         DispatchQueue.main.async
         {
+            self.hideGameBoard()
+            
             UIView.animate(withDuration: 0.5)
             {
-                    
-                    self.arenaView.isHidden = true
-                    self.connectButton.isHidden = false
-                    self.progressView.isHidden = true
-                    self.arenaView.hrv.text = "--"
-                    self.arenaView.time.text = "--"
-                    self.arenaView.setChart([])
+                self.connectButton.isHidden = false
+                self.progressView.isHidden = true
+                
+                self.arenaView.isHidden = true
+                self.arenaView.hrv.text = "--"
+                self.arenaView.time.text = "--"
+                self.arenaView.setChart([])
             }
 
             let vc = ResultGameController.loadFromStoryboard()
             self.present(vc, animated: true)
-            
         }
     }
     
@@ -555,7 +612,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 let donatedString = sample["donated"] as? String ?? "0"
                 let progressString = sample["progress"] as? String ?? "--/--"
                 
-                self.progressView.update(minutes: donatedString, meditator: progressString)
+                self.progressView.update(minutes: donatedString, meditator: "1/1")
+                
+                self.donate()
         
             }
             
@@ -569,6 +628,46 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             }
         }
         
+    }
+    
+    
+    func moveXrp(source: Wallet, target: String, drops: UInt64, useMainnet: Bool)
+    {
+           
+        let xpringClient = DefaultXRPClient(grpcURL: "main.xrp.xpring.io:50051", xrplNetwork: XRPLNetwork.main)
+           
+        //let drops = UInt64(drops)! //* 1000000
+           
+        let transactionHash = try! xpringClient.send(drops, to: target, from: source)
+           
+        let status = try! xpringClient.paymentStatus(for: transactionHash)
+        
+        let success = status == TransactionStatus.succeeded
+           
+        let retval = (txn: transactionHash.description, status: success.description)
+           
+        print ("[txn: \(retval.txn)] \r\n")
+    
+    }
+    
+    func donate()
+    {
+        let causePayID = story.causePayID!
+        
+        let payIDClient = PayIDClient()
+        
+        let causeXRPLAddress = try! payIDClient.cryptoAddress(for: causePayID, on: "xrpl-mainnet").get()
+        
+        let tag = UInt32(causeXRPLAddress.tag ?? "0")
+        
+        let causeXAddress = Utils.encode(classicAddress: causeXRPLAddress.address, tag: tag, isTest: false)!
+        
+        let amount = UInt64(166666)
+        
+        let wallet = Wallet(seed: story.sponsorKey!)!
+        
+        self.moveXrp(source: wallet, target: causeXAddress, drops: amount, useMainnet: true)
+          
     }
         
     @objc func pan()

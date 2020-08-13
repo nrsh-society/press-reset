@@ -85,12 +85,12 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
         if let sample = notification.object as? [String : Any]
         {
             let donatedString = sample["donated"] as? String
-            let progressString = sample["progress"] as? String ?? "0"
+            let progressString = sample["progress"] as? String ?? "--/--"
             
             DispatchQueue.main.async
             {
                 self.donateMetricValue.setText(donatedString)
-                self.progressMetricValue.setText("#" + progressString)
+                self.progressMetricValue.setText(progressString)
             }
         }
     }
