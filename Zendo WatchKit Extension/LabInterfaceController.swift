@@ -15,52 +15,39 @@ import Mixpanel
 
 class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerDelegate
 {
+    
+    //signin: @State
+    var signedIn : Bool?
     @IBOutlet weak var authorizationButton: WKInterfaceAuthorizationAppleIDButton!
-    @IBOutlet weak var donateSwitch: WKInterfaceSwitch!
-    @IBOutlet weak var progressSwitch: WKInterfaceSwitch!
-    
     @IBOutlet weak var signinLabel: WKInterfaceLabel!
-    @IBOutlet weak var donateLabel: WKInterfaceLabel!
+    
+    //progress
+    @IBOutlet weak var progressSwitch: WKInterfaceSwitch!
     @IBOutlet weak var progressLabel: WKInterfaceLabel!
-    
-    @IBOutlet weak var donateMetricGroup: WKInterfaceGroup!
     @IBOutlet weak var progressMetricGroup: WKInterfaceGroup!
-    
     @IBOutlet weak var progressMetricValue: WKInterfaceLabel!
+   
+    //cause
+    @IBOutlet weak var donateSwitch: WKInterfaceSwitch!
+    @IBOutlet weak var donateLabel: WKInterfaceLabel!
+    @IBOutlet weak var donateMetricGroup: WKInterfaceGroup!
     @IBOutlet weak var donateMetricValue: WKInterfaceLabel!
+    
     
     @IBAction func donationsAction(value: Bool)
     {
         SettingsWatch.donations = value
-        donateMetricGroup.setHidden(!SettingsWatch.donations)
-        donateLabel.setHidden(SettingsWatch.donations)
-        
-        if(value)
-        {
-            setDonation(value: SettingsWatch.donatedMinutes)
-        }
-    }
-    
-    func setDonation(value: Int)
-    {
-        donateMetricValue.setText(value.description)
+        donateMetricGroup.setHidden(value)
+        donateLabel.setHidden(!value)
+        donateMetricValue.setText(SettingsWatch.donatedMinutes.description)
     }
     
     @IBAction func progressAction(value: Bool)
     {
         SettingsWatch.progress = value
-        progressMetricGroup.setHidden(!SettingsWatch.progress)
-        progressLabel.setHidden(SettingsWatch.progress)
-        
-        if(value)
-        {
-            setProgress(value: SettingsWatch.progressPosition)
-        }
-    }
-    
-    public func setProgress(value: Int)
-    {
-        progressMetricValue.setText("#" + value.description)
+        progressMetricGroup.setHidden(value)
+        progressLabel.setHidden(!value)
+        progressMetricValue.setText(SettingsWatch.progressPosition.description)
     }
     
     @IBAction func onAppleSignButtonPressed()
@@ -95,6 +82,14 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
         }
     }
     
+    override func awake(withContext context: Any?)
+    {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.sample),
+                                               name:  .sample,
+                                               object: nil)
+    }
+    
     override func willActivate()
     {
         Mixpanel.sharedInstance()?.timeEvent("watch_lab")
@@ -113,12 +108,7 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
             self.donateSwitch.setOn(SettingsWatch.donations)
             self.progressSwitch.setEnabled(true)
             self.progressSwitch.setOn(SettingsWatch.progress)
-            
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(self.sample),
-                                                   name:  .sample,
-                                                   object: nil)
-        
+                    
         }
         else
         {
@@ -128,7 +118,6 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
             self.donateMetricGroup.setHidden(true)
             self.progressMetricGroup.setHidden(true)
         }
-        
         
     }
     
@@ -197,7 +186,7 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
                 
             }
         
-            self.presentAlert(withTitle: nil, message: "Error signing up for Labs. Zendō uses Apple Sign in for secure access to donations + community. Nothing is shared without your permission.", preferredStyle: .alert, actions: [ok])
+            self.presentAlert(withTitle: nil, message: "Error signing in to Labs. Zendō uses Apple Sign in for secure access to causes + community. Nothing is shared without your permission.", preferredStyle: .alert, actions: [ok])
     }
     
     

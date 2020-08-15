@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="16097.2" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17147" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch44"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="16012"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17032"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="Antenna-Light.otf">
@@ -102,7 +103,7 @@
                         </label>
                     </items>
                     <notificationCategory key="notificationCategory" identifier="HrvSummary" wantsSashBlur="YES" id="JfB-70-Muf">
-                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="titleColor" systemColor="darkTextColor"/>
                         <color key="sashColor" red="0.60030913350000004" green="0.67497491840000001" blue="0.6431349516" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </notificationCategory>
                     <connections>
@@ -463,7 +464,7 @@
                             <items>
                                 <group width="1" alignment="left" layout="vertical" spacing="6" id="Yog-ud-tgJ" userLabel="Support Group">
                                     <items>
-                                        <switch width="1" alignment="left" value="YES" enabled="NO" title="Support Causes" numberOfLines="4" id="hgR-Th-ZxS">
+                                        <switch width="1" alignment="left" enabled="NO" title="Support Causes" numberOfLines="4" id="hgR-Th-ZxS">
                                             <connections>
                                                 <action selector="donationsActionWithValue:" destination="3ad-2P-1UE" id="S3y-nC-upw"/>
                                             </connections>
@@ -492,7 +493,7 @@
                                 </group>
                                 <group width="1" alignment="left" layout="vertical" spacing="6" id="X7O-19-T4f" userLabel="Progress Group">
                                     <items>
-                                        <switch width="1" alignment="left" value="YES" enabled="NO" title="Share Progress" id="jvr-vy-tgB">
+                                        <switch width="1" alignment="left" enabled="NO" title="Share Progress" id="jvr-vy-tgB">
                                             <connections>
                                                 <action selector="progressActionWithValue:" destination="3ad-2P-1UE" id="mC3-3o-gKb"/>
                                             </connections>
@@ -523,12 +524,12 @@
                         </group>
                         <group width="1" alignment="left" layout="vertical" spacing="8" id="3Yy-pY-Sqi" userLabel="Signin Group">
                             <items>
-                                <authorizationAppleIDButton width="1" alignment="left" id="lPd-XR-Nyp">
+                                <authorizationAppleIDButton width="1" alignment="left" style="white" id="lPd-XR-Nyp">
                                     <connections>
                                         <action selector="onAppleSignButtonPressed" destination="3ad-2P-1UE" id="awe-xS-1hU"/>
                                     </connections>
                                 </authorizationAppleIDButton>
-                                <label alignment="center" hidden="YES" text="Sign in to get access" textAlignment="left" numberOfLines="5" id="6vb-L7-muC">
+                                <label alignment="center" text="to agree to our terms and get access." textAlignment="center" numberOfLines="5" id="6vb-L7-muC">
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                     <variation key="device=watch38mm">
                                         <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
@@ -611,5 +612,8 @@
         <image name="plus" width="120" height="120"/>
         <image name="ring0" width="300" height="300"/>
         <image name="time" width="35" height="40"/>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

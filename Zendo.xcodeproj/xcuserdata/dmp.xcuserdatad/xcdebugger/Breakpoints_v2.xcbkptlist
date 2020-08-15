@@ -284,8 +284,8 @@
             timestampString = "552200500.782654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "getTemplate(complication:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -34,10 +34,21 @@ import ClockKit
      }*/
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
+        
         print("getCurrentTimelineEntry")
         
-        let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: getTemplate(complication: complication))
-        handler(entry)
+        if let template = getTemplate(complication: complication)
+        {
+        
+            let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+            
+            handler(entry)
+            
+        } else
+        {
+            handler(nil)
+        }
+        
     }
     
     func getHrv() -> String {
@@ -74,8 +85,8 @@ import ClockKit
     }
     
     
-    func getTemplate (complication: CLKComplication) -> CLKComplicationTemplate {
-        var retval: CLKComplicationTemplate!
+    func getTemplate (complication: CLKComplication) -> CLKComplicationTemplate? {
+        var retval: CLKComplicationTemplate?
         
         switch complication.family {
         case .modularSmall:
@@ -107,7 +118,7 @@ import ClockKit
         default: break
         }
         
-        return retval
+        return retval ?? nil
     }
     
     

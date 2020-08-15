@@ -19,6 +19,8 @@ class Story: Codable {
     var sponsorPayID: String?
     var causePayID: String?
     var sponsorKey: String?
+    var backgroundOpacity: String?
+    var cameraOpacity: String?
 
     var content = [Content]()
     
@@ -46,6 +48,14 @@ class Story: Codable {
         
         if let sponsorKey = json["sponsorKey"].string {
             self.sponsorKey = sponsorKey
+        }
+        
+        if let backgroundOpacity = json["backgroundOpacity"].string {
+            self.backgroundOpacity = backgroundOpacity
+        }
+        
+        if let cameraOpacity = json["cameraOpacity"].string {
+            self.cameraOpacity = cameraOpacity
         }
         
         content = json["content"].toContents

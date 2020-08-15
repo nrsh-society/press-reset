@@ -85,9 +85,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.previewLayer.frame = self.view.frame
-        self.previewLayer.opacity = 0.90
+        self.previewLayer.opacity = Float(story.cameraOpacity ?? "1.0") ?? 1.0
         self.sceneView.frame = self.view.frame
-        self.sceneView.alpha = 0.75
+        self.sceneView.alpha = CGFloat(Float(story.backgroundOpacity ?? "1.0") ?? 1.0)
     }
     
     func captureOutput(
@@ -612,7 +612,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 let donatedString = sample["donated"] as? String ?? "0"
                 let progressString = sample["progress"] as? String ?? "--/--"
                 
-                self.progressView.update(minutes: donatedString, meditator: "1/1")
+                self.progressView.update(minutes: donatedString, meditator: progressString)
                 
                 self.donate()
         
@@ -630,13 +630,10 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
     }
     
-    
     func moveXrp(source: Wallet, target: String, drops: UInt64, useMainnet: Bool)
     {
            
         let xpringClient = DefaultXRPClient(grpcURL: "main.xrp.xpring.io:50051", xrplNetwork: XRPLNetwork.main)
-           
-        //let drops = UInt64(drops)! //* 1000000
            
         let transactionHash = try! xpringClient.send(drops, to: target, from: source)
            
