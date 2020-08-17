@@ -37,16 +37,16 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
     @IBAction func donationsAction(value: Bool)
     {
         SettingsWatch.donations = value
-        donateMetricGroup.setHidden(value)
-        donateLabel.setHidden(!value)
+        donateMetricGroup.setHidden(!value)
+        donateLabel.setHidden(value)
         donateMetricValue.setText(SettingsWatch.donatedMinutes.description)
     }
     
     @IBAction func progressAction(value: Bool)
     {
         SettingsWatch.progress = value
-        progressMetricGroup.setHidden(value)
-        progressLabel.setHidden(!value)
+        progressMetricGroup.setHidden(!value)
+        progressLabel.setHidden(value)
         progressMetricValue.setText(SettingsWatch.progressPosition.description)
     }
     
@@ -100,23 +100,24 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
         {
             self.authorizationButton.setHidden(true)
             self.signinLabel.setHidden(true)
+            
+            self.donateSwitch.setEnabled(true)
+            self.progressSwitch.setEnabled(true)
     
             self.donateMetricGroup.setHidden(false)
             self.progressMetricGroup.setHidden(false)
             
-            self.donateSwitch.setEnabled(true)
-            self.donateSwitch.setOn(SettingsWatch.donations)
-            self.progressSwitch.setEnabled(true)
-            self.progressSwitch.setOn(SettingsWatch.progress)
-                    
         }
         else
         {
             self.authorizationButton.setHidden(false)
             self.signinLabel.setHidden(false)
             
-            self.donateMetricGroup.setHidden(true)
-            self.progressMetricGroup.setHidden(true)
+            self.donateSwitch.setEnabled(false)
+            self.progressSwitch.setEnabled(false)
+            
+            donationsAction(value: false)
+            progressAction(value: false)
         }
         
     }
@@ -135,11 +136,8 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
                     self.signinLabel.setHidden(true)
                     
                     self.donateSwitch.setEnabled(true)
-                    self.donateSwitch.setOn(SettingsWatch.donations)
                     self.progressSwitch.setEnabled(true)
-                    self.progressSwitch.setOn(SettingsWatch.progress)
-                    
-                    
+
                 }
                 
                 SettingsWatch.appleUserID = userIdentifier
@@ -158,14 +156,7 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
                 
                     let ok = WKAlertAction(title: "OK", style: .default)
                     {
-                    
-                        self.donateSwitch.setEnabled(true)
-                        self.donateSwitch.setOn(true)
-                        self.progressSwitch.setEnabled(true)
-                        self.progressSwitch.setOn(true)
-                        self.authorizationButton.setHidden(true)
-                        self.signinLabel.setHidden(true)
-                        
+                                            
                     }
         
                     self.presentAlert(withTitle: nil, message: "Hi \(fullName.givenName ?? "")! We are sending instructions to \(email.description ) as fast as we can. Welcome.", preferredStyle: .alert, actions: [ok])

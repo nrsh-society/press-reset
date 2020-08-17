@@ -22,8 +22,8 @@ import XpringKit
 
 class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate
 {
-    var enableFaceDetection: Bool = true
-    var enableGameBoard: Bool = true
+    var enableFaceDetection: Bool = false
+    var enableGameBoard: Bool = false
     
     var appleWatch : Zensor?
     var story: Story!
