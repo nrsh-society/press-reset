@@ -104,8 +104,8 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
             self.donateSwitch.setEnabled(true)
             self.progressSwitch.setEnabled(true)
     
-            self.donateMetricGroup.setHidden(false)
-            self.progressMetricGroup.setHidden(false)
+            donationsAction(value: SettingsWatch.donations)
+            progressAction(value: SettingsWatch.progress)
             
         }
         else
