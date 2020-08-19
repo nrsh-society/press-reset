@@ -36,13 +36,13 @@ class SettingsWatch  {
         }
     }
     
-    static var progressPosition: Int {
+    static var progressPosition: String? {
         set {
             defaults.set(newValue, forKey: "progressPosition")
             defaults.synchronize()
         }
         get {
-            return defaults.integer(forKey: "progressPosition")
+            return defaults.string(forKey: "progressPosition")
         }
     }
     
@@ -126,6 +126,8 @@ class SettingsWatch  {
         }
     }
     
+    
+    //
     static func getHealthKitTypes() -> Set<HKSampleType> {
         let healthKitTypes: Set<HKSampleType> = [
             .workoutType(),

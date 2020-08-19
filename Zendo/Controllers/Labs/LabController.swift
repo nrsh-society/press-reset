@@ -278,6 +278,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         self.enableFaceDetection = !self.enableFaceDetection
     }
     
+    
+    //#todo(race): there is a race when the sample thread updates the game and people turn the game on and off, not fixing in b5.5b378
     @objc func gameBoardEnabled()
     {
         self.enableGameBoard = !self.enableGameBoard
@@ -327,6 +329,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                                                selector: #selector(self.progress),
                                                name: .progress,
                                                object: nil)
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(startSession),
                                                name: .startSession,

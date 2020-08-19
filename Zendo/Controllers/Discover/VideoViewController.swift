@@ -83,13 +83,13 @@ class VideoViewController: UIViewController {
     @IBOutlet weak var groupTextView: UITextView!
     
     var idHero = ""
-    var curent = 0
+    var current = 0
     var previous: Int?
     
     var playerLayers = [AVPlayerLayer]()
     
     var playerLayerCurrent: AVPlayerLayer {
-        return playerLayers[curent]
+        return playerLayers[current]
     }
     
     var playerLayerPrevious: AVPlayerLayer? {
@@ -363,7 +363,7 @@ class VideoViewController: UIViewController {
                 self.activity.stopAnimating()
             }
             
-            if let view = self.loadStackView.arrangedSubviews[self.curent] as? LoadingView {
+            if let view = self.loadStackView.arrangedSubviews[self.current] as? LoadingView {
                 let a = currentTime.seconds / duration.seconds
                 self.pauseLabel.text = currentTime.seconds.stringZendoTimeWatch
                 view.setCurent(a)
@@ -397,14 +397,14 @@ class VideoViewController: UIViewController {
     }
     
     @objc func tapLeft() {
-        if let view = loadStackView.arrangedSubviews[curent] as? LoadingView {
+        if let view = loadStackView.arrangedSubviews[current] as? LoadingView {
             view.setStart()
         }
         
-        if curent > 0 {
-            previous = curent
-            curent -= 1
-            if let view = loadStackView.arrangedSubviews[curent] as? LoadingView {
+        if current > 0 {
+            previous = current
+            current -= 1
+            if let view = loadStackView.arrangedSubviews[current] as? LoadingView {
                 view.setStart()
             }
             startVideo()
@@ -415,30 +415,30 @@ class VideoViewController: UIViewController {
         
         NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
         
-        if let view = loadStackView.arrangedSubviews[curent] as? LoadingView {
+        if let view = loadStackView.arrangedSubviews[current] as? LoadingView {
             view.setEnd()
         }
         
-        if curent < story.content.count - 1 {
-            previous = curent
-            curent += 1
+        if current < story.content.count - 1 {
+            previous = current
+            current += 1
             startVideo()
             
-            let isIndexValid = playerLayers.indices.contains(curent + 1)
+            let isIndexValid = playerLayers.indices.contains(current + 1)
             
-            if !isIndexValid && (curent + 1) <= story.content.count - 1,
-                let urlContent = story.content[curent + 1].stream,
+            if !isIndexValid && (current + 1) <= story.content.count - 1,
+                let urlContent = story.content[current + 1].stream,
                 let urlStream = URL(string: urlContent) {
                 
                 var urlDownload: URL?
                 
-                if let download = story.content[curent + 1].download, let url = URL(string: download) {
+                if let download = story.content[current + 1].download, let url = URL(string: download) {
                     urlDownload = url
                 }
                 
                 var urlAirplay: URL?
                 
-                if let airplay = story.content[curent + 1].airplay, let url = URL(string: airplay) {
+                if let airplay = story.content[current + 1].airplay, let url = URL(string: airplay) {
                     urlAirplay = url
                 }
                 
@@ -461,14 +461,14 @@ class VideoViewController: UIViewController {
                 
             }
             
-        } else if curent == story.content.count - 1 {
+        } else if current == story.content.count - 1 {
             dismissVideo()
         }
         
     }
     
     func setBackground() {        
-        if let story = story, let thumbnailUrl = story.content[curent].thumbnailUrl, let url = URL(string: thumbnailUrl) {
+        if let story = story, let thumbnailUrl = story.content[current].thumbnailUrl, let url = URL(string: thumbnailUrl) {
             UIImage.setImage(from: url) { image in
                 DispatchQueue.main.async {
                     self.video.addBackground(image: image, isLayer: true, isReplase: true)

@@ -482,7 +482,13 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             if(SettingsWatch.donations)
             {
-                SettingsWatch.donatedMinutes += 1 //todo;push this to the cloud
+                SettingsWatch.donatedMinutes += 1 //#todo(push this to the cloud)
+                
+            }
+            
+            if(SettingsWatch.progress)
+            {
+                SettingsWatch.progressPosition = "--/--"
             }
             
             let msg = ["progress" : progress]
@@ -539,9 +545,8 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         if let appleUserUUID = SettingsWatch.appleUserID
         {
-            
             metadata["donated"] = SettingsWatch.donatedMinutes.description
-            metadata["position"] = SettingsWatch.progressPosition.description
+            metadata["position"] = SettingsWatch.progressPosition
             metadata["appleID"] = appleUserUUID.description
         }
         

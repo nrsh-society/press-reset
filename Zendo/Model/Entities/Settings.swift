@@ -13,8 +13,8 @@ class Settings: NSObject {
 
     static let defaults = UserDefaults.standard
     
+    //#todo(security): seems bad? #eng can we make this come from a zendo.tools server?
     static let SHARED_SECRET = "80653a3a2e33453c9e69f7d2da8945eb"
-//   static let SHARED_SECRET = "88bc524e373f4aa2956385af85d43c09" // test
     
     static var didFinishCommunitySignup: Bool {
         set {
@@ -66,16 +66,6 @@ class Settings: NSObject {
         }
     }
     
-    static var ilpAddress: String? {
-        set {
-            defaults.set(newValue?.trimmingCharacters(in: CharacterSet.whitespaces), forKey: "ilpAddress")
-            defaults.synchronize()
-        }
-        get {
-            return defaults.string(forKey: "ilpAddress")?.trimmingCharacters(in: CharacterSet.whitespaces)
-        }
-    }
-    
     static var requestedNotificationPermission: Bool {
         set {
             defaults.set(newValue, forKey: "requestedNotificationPermission")
@@ -124,7 +114,8 @@ class Settings: NSObject {
         }
                 
     }
-        
+    
+    //todo(refactor): this should be in #subscription not #settings
     static func checkSubscription(_ completionHandler: ((_ subscription: Bool) -> ())? = nil) {
         
         let prodServer = "https://buy.itunes.apple.com/verifyReceipt"

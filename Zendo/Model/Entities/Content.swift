@@ -34,14 +34,6 @@ class Content: Codable {
             self.download = download
         }
         
-        if let airplay = json["airplay"].string {
-            self.airplay = airplay
-        }
-        
-        if let spherial = json["spherial"].string {
-            self.spherial = spherial
-        }
-        
     }
     
 }

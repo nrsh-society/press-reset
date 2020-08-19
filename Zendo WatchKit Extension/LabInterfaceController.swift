@@ -16,7 +16,7 @@ import Mixpanel
 class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerDelegate
 {
     
-    //signin: @State
+    //#todo(@State)
     var signedIn : Bool?
     @IBOutlet weak var authorizationButton: WKInterfaceAuthorizationAppleIDButton!
     @IBOutlet weak var signinLabel: WKInterfaceLabel!
@@ -33,7 +33,6 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
     @IBOutlet weak var donateMetricGroup: WKInterfaceGroup!
     @IBOutlet weak var donateMetricValue: WKInterfaceLabel!
     
-    
     @IBAction func donationsAction(value: Bool)
     {
         SettingsWatch.donations = value
@@ -47,7 +46,7 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
         SettingsWatch.progress = value
         progressMetricGroup.setHidden(!value)
         progressLabel.setHidden(value)
-        progressMetricValue.setText(SettingsWatch.progressPosition.description)
+        progressMetricValue.setText(SettingsWatch.progressPosition)
     }
     
     @IBAction func onAppleSignButtonPressed()
