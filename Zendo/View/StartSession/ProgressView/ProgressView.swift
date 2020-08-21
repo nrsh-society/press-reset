@@ -61,7 +61,7 @@ class ProgressView: UIView {
         self.cause.text = cause
         self.sponsor.text = sponsor
         self.creator.text = creator
-        self.donator.text = donator
+        //self.donator.text = donator
     }
     
 }

@@ -309,6 +309,16 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         self.connectButton.layer.shadowOpacity = 1
         self.connectButton.layer.shadowRadius = 20
         
+        /*
+        self.donatorPayIDField.layer.borderColor = UIColor.white.cgColor
+        self.donatorPayIDField.layer.borderWidth = 1.0
+        self.donatorPayIDField.layer.cornerRadius = 10.0
+        self.donatorPayIDField.backgroundColor = UIColor(red:0.06, green:0.15, blue:0.13, alpha:0.3)
+        self.donatorPayIDField.layer.shadowOffset = CGSize(width: 0, height: 2)
+        self.donatorPayIDField.layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
+        self.donatorPayIDField.layer.shadowOpacity = 1
+        self.donatorPayIDField.layer.shadowRadius = 20
+        */
         
     }
     
@@ -700,7 +710,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         case .changed:
             Hero.shared.update(progress)
             let currentPos = CGPoint(x: translation.x + view.center.x, y: translation.y + view.center.y)
-          Hero.shared.apply(modifiers: [.position(currentPos)], to: sceneView)
+          //Hero.shared.apply(modifiers: [.position(currentPos)], to: sceneView)
         default:
             
              Hero.shared.finish()
