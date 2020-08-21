@@ -61,6 +61,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     
     
     @IBOutlet weak var connectButton: UIButton!
+    @IBOutlet weak var donatorPayIDField: UITextField!
     
     @IBOutlet weak var arenaView: ArenaView! {
         didSet {
@@ -307,7 +308,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         self.connectButton.layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
         self.connectButton.layer.shadowOpacity = 1
         self.connectButton.layer.shadowRadius = 20
-        self.connectButton.layer.zPosition = 4
+        
+        
     }
     
     func setupWatchNotifications()
@@ -389,6 +391,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                     self.arenaView.isHidden = false
                     self.progressView.isHidden = false
                     self.connectButton.isHidden = true
+                    self.donatorPayIDField.isHidden = true
                     self.sceneView.isHidden = false
                 }
 
@@ -406,6 +409,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             UIView.animate(withDuration: 0.5)
             {
                 self.connectButton.isHidden = false
+                self.donatorPayIDField.isHidden = false
                 self.progressView.isHidden = true
                 
                 self.arenaView.isHidden = true
@@ -608,8 +612,11 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 let creatorPayID = self.story.creatorPayID!
                 let causePayID = self.story.causePayID!
                 let sponsorPayID = self.story.sponsorPayID!
+                
+                let donatorPayID =
+                    self.donatorPayIDField.text ?? ""
             
-                self.progressView.update(minutes: donatedString, meditator: progressString, cause: causePayID, sponsor: sponsorPayID, creator: creatorPayID, donator: "")
+                self.progressView.update(minutes: donatedString, meditator: progressString, cause: causePayID, sponsor: sponsorPayID, creator: creatorPayID, donator: donatorPayID)
                 
                 self.donate()
         

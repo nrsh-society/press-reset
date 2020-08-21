@@ -102,21 +102,13 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
             
             self.donateSwitch.setEnabled(true)
             self.progressSwitch.setEnabled(true)
+            
+            self.donateSwitch.setOn(SettingsWatch.donations)
+            self.progressSwitch.setOn(SettingsWatch.progress)
     
             donationsAction(value: SettingsWatch.donations)
             progressAction(value: SettingsWatch.progress)
             
-        }
-        else
-        {
-            self.authorizationButton.setHidden(false)
-            self.signinLabel.setHidden(false)
-            
-            self.donateSwitch.setEnabled(false)
-            self.progressSwitch.setEnabled(false)
-            
-            donationsAction(value: false)
-            progressAction(value: false)
         }
         
     }
