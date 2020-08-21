@@ -55,7 +55,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
 
                 progressView.isHidden = true
                 progressView.alpha = 1.0
-                self.progressView.update(minutes: "--", meditator: "--/--")
+                self.progressView.update(minutes: "--", meditator: "--/--", cause: story.causePayID!, sponsor: story.sponsorPayID!, creator: story.creatorPayID!, donator: "")
             }
         }
     
@@ -235,15 +235,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         sceneView.addGestureRecognizer(enableFaceDetectionGesture)
         
-        let enableGameGesture = UITapGestureRecognizer(
-            target: self,
-            action: #selector(gameBoardEnabled)
-          )
-        
-        enableGameGesture.numberOfTapsRequired = 3
-        
-        sceneView.addGestureRecognizer(enableGameGesture)
-        
         sceneView.backgroundColor = .clear
         
         self.scene = self.setupScene()
@@ -316,6 +307,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         self.connectButton.layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
         self.connectButton.layer.shadowOpacity = 1
         self.connectButton.layer.shadowRadius = 20
+        self.connectButton.layer.zPosition = 4
     }
     
     func setupWatchNotifications()
@@ -334,6 +326,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                                                selector: #selector(startSession),
                                                name: .startSession,
                                                object: nil)
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(endSession),
                                                name: .endSession,
@@ -396,9 +389,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                     self.arenaView.isHidden = false
                     self.progressView.isHidden = false
                     self.connectButton.isHidden = true
+                    self.sceneView.isHidden = false
                 }
-                
-                self.showGameBoard()
 
             }
         
@@ -411,8 +403,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                                       properties: ["name": self.story.title])
         DispatchQueue.main.async
         {
-            self.hideGameBoard()
-            
             UIView.animate(withDuration: 0.5)
             {
                 self.connectButton.isHidden = false
@@ -422,6 +412,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 self.arenaView.hrv.text = "--"
                 self.arenaView.time.text = "--"
                 self.arenaView.setChart([])
+                self.sceneView.isHidden = true
             }
 
             let vc = ResultGameController.loadFromStoryboard()
@@ -433,12 +424,12 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     {
         if let progress = notification.object as? String
         {
-            let lastProgress = progress.description.lowercased().contains("true")
-            
             if let watch  = self.appleWatch
             {
                 watch.update(progress: progress.description.lowercased())
             }
+            
+            self.payout()
         }
     }
     
@@ -612,10 +603,13 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             
             DispatchQueue.main.async
             {
-                let donatedString = sample["donated"] as? String ?? "0"
+                let donatedString = sample["donated"] as? String ?? "--"
                 let progressString = sample["progress"] as? String ?? "--/--"
-                
-                self.progressView.update(minutes: donatedString, meditator: progressString)
+                let creatorPayID = self.story.creatorPayID!
+                let causePayID = self.story.causePayID!
+                let sponsorPayID = self.story.sponsorPayID!
+            
+                self.progressView.update(minutes: donatedString, meditator: progressString, cause: causePayID, sponsor: sponsorPayID, creator: creatorPayID, donator: "")
                 
                 self.donate()
         
@@ -669,6 +663,25 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         self.moveXrp(source: wallet, target: causeXAddress, drops: amount, useMainnet: true)
           
     }
+    
+    func payout()
+    {
+        let creatorPayID = story.creatorPayID!
+
+        let payIDClient = PayIDClient()
+
+        let creatorXRPLAddress = try! payIDClient.cryptoAddress(for: creatorPayID, on: "xrpl-mainnet").get()
+
+        let tag = UInt32(creatorXRPLAddress.tag ?? "0")
+
+        let causeXAddress = Utils.encode(classicAddress: creatorXRPLAddress.address, tag: tag, isTest: false)!
+
+        let amount = UInt64(166666)
+
+        let wallet = Wallet(seed: story.sponsorKey!)!
+
+        self.moveXrp(source: wallet, target: causeXAddress, drops: amount, useMainnet: true)
+    }
         
     @objc func pan()
     {
@@ -680,7 +693,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         case .changed:
             Hero.shared.update(progress)
             let currentPos = CGPoint(x: translation.x + view.center.x, y: translation.y + view.center.y)
-          //  Hero.shared.apply(modifiers: [.position(currentPos)], to: twitchView)
+          Hero.shared.apply(modifiers: [.position(currentPos)], to: sceneView)
         default:
             
              Hero.shared.finish()

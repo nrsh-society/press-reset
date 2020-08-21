@@ -21,7 +21,8 @@ class Story: Codable {
     var sponsorKey: String?
     var backgroundOpacity: String?
     var cameraOpacity: String?
-
+    var creatorPayID: String?
+    
     var content = [Content]()
     
     public init(_ json: JSON) {
@@ -56,6 +57,10 @@ class Story: Codable {
         
         if let cameraOpacity = json["cameraOpacity"].string {
             self.cameraOpacity = cameraOpacity
+        }
+        
+        if let creatorPayID = json["creatorPayID"].string {
+            self.creatorPayID = creatorPayID
         }
         
         content = json["content"].toContents

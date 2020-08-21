@@ -230,10 +230,10 @@ open class Zensors : NSObject, CBCentralManagerDelegate, HMHomeManagerDelegate, 
     let centralQueue: DispatchQueue = DispatchQueue(label: "tools.sunyata.zendo", attributes: .concurrent)
     
     var centralManager: CBCentralManager!
-    
-    let homeManager = HMHomeManager()
      
     @Published public var current: [Zensor] = []
+    
+    let homeManager = HMHomeManager()
     
     var lightCharacteristic : HMCharacteristic? = nil
     

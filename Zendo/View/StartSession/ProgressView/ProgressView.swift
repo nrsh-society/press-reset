@@ -11,11 +11,23 @@ import Charts
 
 class ProgressView: UIView {
     
-    @IBOutlet weak var hudView: UIView!
     @IBOutlet weak var minutes: UILabel!
-    @IBOutlet weak var meditator: UILabel!
     @IBOutlet weak var minutesLabel: UILabel!
+    
+    @IBOutlet weak var meditator: UILabel!
     @IBOutlet weak var meditatorLabel: UILabel!
+    
+    @IBOutlet weak var cause: UILabel!
+    @IBOutlet weak var causeLabel: UILabel!
+    
+    @IBOutlet weak var sponsorLabel: UILabel!
+    @IBOutlet weak var sponsor: UILabel!
+    
+    @IBOutlet weak var creatorLabel: UILabel!
+    @IBOutlet weak var creator: UILabel!
+    
+    @IBOutlet weak var donatorLabel: UILabel!
+    @IBOutlet weak var donator: UILabel!
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,10 +54,14 @@ class ProgressView: UIView {
         layer.shadowRadius = 20
     }
     
-    func update(minutes: String, meditator: String)
+    func update(minutes: String, meditator: String, cause: String, sponsor: String, creator: String, donator: String)
     {
         self.minutes.text = minutes
         self.meditator.text = meditator
+        self.cause.text = cause
+        self.sponsor.text = sponsor
+        self.creator.text = creator
+        self.donator.text = donator
     }
     
 }
