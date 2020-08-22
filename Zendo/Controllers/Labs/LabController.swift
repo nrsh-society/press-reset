@@ -38,6 +38,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     private let captureSession = AVCaptureSession()
     private lazy var previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
     private let videoDataOutput = AVCaptureVideoDataOutput()
+    private let videoFileOutput = AVCaptureMovieFileOutput()
     private var drawings: [CAShapeLayer] = []
     
     private let rtmpConnection = RTMPConnection()
@@ -258,6 +259,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         //rtmpStream.attachCamera(DeviceUtil.device(withPosition: .front)) { error in
               // print(error)
           //}
+        
           
         //rtmpConnection.connect("rtmp://live-sjc05.twitch.tv/app/live_526664141_tw0025TCdNZBqEkTxmhAllcIQVlvfQ")
         //rtmpStream.publish("streamName")
@@ -432,6 +434,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             let vc = ResultGameController.loadFromStoryboard()
             self.present(vc, animated: true)
         }
+        
+        var output : AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
+        
     }
     
     @objc func progress(notification: NSNotification)

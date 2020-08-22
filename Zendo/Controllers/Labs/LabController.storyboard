@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wag-KW-4l9">
-                                <rect key="frame" x="0.0" y="119" width="375" height="574"/>
+                                <rect key="frame" x="0.0" y="129" width="375" height="554"/>
                             </skView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cCa-Pd-CyP" customClass="ArenaView" customModule="Zendo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="628" width="375" height="150"/>
@@ -63,7 +63,7 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhC-FU-Hfa" customClass="ProgressView" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="375" height="150"/>
+                                <rect key="frame" x="0.0" y="54" width="375" height="150"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="QeD-ky-ILW"/>
@@ -77,9 +77,9 @@
                             <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="QhC-FU-Hfa" secondAttribute="trailing" id="6Xp-eS-9nT"/>
                             <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="Wag-KW-4l9" secondAttribute="trailing" id="79E-Pv-YcO"/>
                             <constraint firstItem="Wag-KW-4l9" firstAttribute="top" secondItem="QhC-FU-Hfa" secondAttribute="bottom" constant="-75" id="7Wn-pI-Cfs"/>
+                            <constraint firstItem="QhC-FU-Hfa" firstAttribute="top" secondItem="z49-wy-zwZ" secondAttribute="top" constant="10" id="BDY-ZC-VQs"/>
                             <constraint firstItem="Wag-KW-4l9" firstAttribute="centerX" secondItem="HIe-zl-TmH" secondAttribute="centerX" id="LXP-3a-LSU"/>
                             <constraint firstItem="QhC-FU-Hfa" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="MEO-BB-cwz"/>
-                            <constraint firstItem="QhC-FU-Hfa" firstAttribute="top" secondItem="z49-wy-zwZ" secondAttribute="top" id="PrH-Af-e5X"/>
                             <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="cCa-Pd-CyP" secondAttribute="trailing" id="Rwf-s3-mEJ"/>
                             <constraint firstItem="Wag-KW-4l9" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="XeE-Au-Do0"/>
                             <constraint firstItem="cCa-Pd-CyP" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" id="Yfa-KS-Srj"/>
