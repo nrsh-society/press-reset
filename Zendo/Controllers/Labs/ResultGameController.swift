@@ -11,8 +11,9 @@ import UIKit
 import HealthKit
 import Mixpanel
 import Charts
-import XpringKit
 
+
+//@boris: finally got the labs experience to a place that is ok experience and code-wise. Trying to figure out the best way to getting this working in that flow now.
 class ResultGameController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!

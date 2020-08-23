@@ -25,21 +25,9 @@
                             <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wag-KW-4l9">
                                 <rect key="frame" x="0.0" y="129" width="375" height="554"/>
                             </skView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cCa-Pd-CyP" customClass="ArenaView" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="628" width="375" height="150"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="ndM-It-NmL"/>
-                                </constraints>
-                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vqb-9n-UKr" userLabel="Connect View">
                                 <rect key="frame" x="37.666666666666657" y="738" width="300" height="30"/>
                                 <subviews>
-                                    <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="optional $payid for direct donations" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9IC-3f-xvJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                     <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTo-no-nA4">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
                                         <constraints>
@@ -51,22 +39,20 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                     </button>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="to agree to our terms and start meditating" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Zp-HB-Enp">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="0.0"/>
-                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="4Zp-HB-Enp" firstAttribute="centerX" secondItem="vqb-9n-UKr" secondAttribute="centerX" id="q8Q-f1-bvo"/>
-                                </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhC-FU-Hfa" customClass="ProgressView" customModule="Zendo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="54" width="375" height="150"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="QeD-ky-ILW"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cCa-Pd-CyP" customClass="ArenaView" customModule="Zendo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="628" width="375" height="150"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="ndM-It-NmL"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -91,7 +77,6 @@
                     <connections>
                         <outlet property="arenaView" destination="cCa-Pd-CyP" id="pd9-By-euJ"/>
                         <outlet property="connectButton" destination="FTo-no-nA4" id="plm-Fc-T2k"/>
-                        <outlet property="donatorPayIDField" destination="9IC-3f-xvJ" id="FiL-V4-65a"/>
                         <outlet property="progressView" destination="QhC-FU-Hfa" id="Nub-N8-Mis"/>
                         <outlet property="sceneView" destination="Wag-KW-4l9" id="dxd-jM-m8d"/>
                     </connections>

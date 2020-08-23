@@ -14,8 +14,8 @@ class ProgressView: UIView {
     @IBOutlet weak var minutes: UILabel!
     @IBOutlet weak var minutesLabel: UILabel!
     
-    @IBOutlet weak var meditator: UILabel!
-    @IBOutlet weak var meditatorLabel: UILabel!
+    @IBOutlet weak var progress: UILabel!
+    @IBOutlet weak var progressLabel: UILabel!
     
     @IBOutlet weak var cause: UILabel!
     @IBOutlet weak var causeLabel: UILabel!
@@ -26,8 +26,8 @@ class ProgressView: UIView {
     @IBOutlet weak var creatorLabel: UILabel!
     @IBOutlet weak var creator: UILabel!
     
-    @IBOutlet weak var donatorLabel: UILabel!
-    @IBOutlet weak var donator: UILabel!
+    @IBOutlet weak var meditatorLabel: UILabel!
+    @IBOutlet weak var meditator: UILabel!
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,14 +54,14 @@ class ProgressView: UIView {
         layer.shadowRadius = 20
     }
     
-    func update(minutes: String, meditator: String, cause: String, sponsor: String, creator: String, donator: String)
+    func update(minutes: String, progress: String, cause: String, sponsor: String, creator: String, meditator: String)
     {
-        self.minutes.text = minutes
         self.meditator.text = meditator
+        self.minutes.text = minutes
+        self.progress.text = progress
         self.cause.text = cause
         self.sponsor.text = sponsor
         self.creator.text = creator
-        //self.donator.text = donator
     }
     
 }

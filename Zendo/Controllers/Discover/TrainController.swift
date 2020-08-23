@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TrainController.swift
 //  zendō arena
 //
 //  Created by Douglas Purdy on 2/5/19.
@@ -246,7 +246,7 @@ class TrainController: UIViewController
     
     @objc func startSession()
     {
-        if(Settings.isSensorConnected)
+        if(Settings.isZensorConnected)
         {
             Mixpanel.mainInstance().time(event: "phone_lab_watch_connected")
             

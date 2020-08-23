@@ -22,32 +22,56 @@ import XpringKit
 
 class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate
 {
-    var enableFaceDetection: Bool = false
-    var enableGameBoard: Bool = false
+    //#todo(debt): If we moved to SwiftUI can we get rid of some of this?
+    var idHero = "" //not too sure what this does but it is store for the one of the dependencies that we have
     
-    var appleWatch : Zensor?
-    var story: Story!
-    var idHero = ""
-    var panGR: UIPanGestureRecognizer!
+    //#todo(debt): //not too sure why this isn't just in the HUDView?
     var chartHR = [String: Int]()
-    let player = SKSpriteNode(imageNamed: "player1")
-    var ring: Int = 0
-    var rings = [SKShapeNode]()
-    var scene: SKScene!
     
+    //todo(debt): this should be moved to some debug setting thing?
+    var enableFaceDetection: Bool = false
+    
+    //todo(debt): all of this private stuff should be in a shared place?
+    //should be common to all Stories?
     private let captureSession = AVCaptureSession()
     private lazy var previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
     private let videoDataOutput = AVCaptureVideoDataOutput()
     private let videoFileOutput = AVCaptureMovieFileOutput()
     private var drawings: [CAShapeLayer] = []
-    
     private let rtmpConnection = RTMPConnection()
     private lazy var rtmpStream = RTMPStream(connection: self.rtmpConnection)
+    private let diskConfig = DiskConfig(name: "DiskCache")
+    private let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
+    private lazy var storage: Cache.Storage? = {
+        return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forData())
+    }()
+    
+    var zensor : Zensor?
+    var story: Story!
+    var scene: SKScene!
     
     @IBOutlet weak var sceneView: SKView!
     {
         didSet {
             sceneView.hero.id = idHero
+            sceneView.frame = UIScreen.main.bounds
+            sceneView.contentMode = .scaleAspectFill
+            sceneView.backgroundColor = .clear
+            sceneView.allowsTransparency = true
+            
+            let panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
+            
+            sceneView.addGestureRecognizer(panGR)
+            
+            let enableFaceDetectionGesture  = UITapGestureRecognizer(
+                target: self,
+                action: #selector(faceDetectionEnabled)
+              )
+            
+            enableFaceDetectionGesture.numberOfTapsRequired = 2
+            
+            sceneView.addGestureRecognizer(enableFaceDetectionGesture)
+      
         }
     }
     
@@ -56,25 +80,53 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
 
                 progressView.isHidden = true
                 progressView.alpha = 1.0
-                self.progressView.update(minutes: "--", meditator: "--/--", cause: story.causePayID!, sponsor: story.sponsorPayID!, creator: story.creatorPayID!, donator: "")
+                self.progressView.update(minutes: "--", progress: "--/--",
+                                         cause: "$cause", sponsor: "$sponsor",
+                                         creator: "$creator", meditator:"--")
             }
         }
-    
-    
-    @IBOutlet weak var connectButton: UIButton!
-    @IBOutlet weak var donatorPayIDField: UITextField!
     
     @IBOutlet weak var arenaView: ArenaView! {
         didSet {
 
             arenaView.isHidden = true
             arenaView.alpha = 1.0
-            self.arenaView.hrv.text = "--"
-            self.arenaView.time.text = "--"
+            arenaView.hrv.text = "--"
+            arenaView.time.text = "--"
             
         }
     }
+    
+    @IBOutlet weak var connectButton: UIButton!
+    {
+        didSet
+        {
+            self.connectButton.addTarget(self, action: #selector(connectZensor), for: .primaryActionTriggered)
+            
+            self.connectButton.layer.borderColor = UIColor.white.cgColor
+            self.connectButton.layer.borderWidth = 1.0
+            self.connectButton.layer.cornerRadius = 10.0
+            self.connectButton.backgroundColor = UIColor(red:0.06, green:0.15, blue:0.13, alpha:0.3)
+            self.connectButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+            self.connectButton.layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
+            self.connectButton.layer.shadowOpacity = 1
+            self.connectButton.layer.shadowRadius = 20
 
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.previewLayer.frame = self.view.frame
+        self.sceneView.frame = self.view.frame
+        self.previewLayer.opacity = Float(self.story.cameraOpacity ?? "1.0") ?? 1.0
+        self.sceneView.alpha = CGFloat(Float(self.story.backgroundOpacity ?? "1.0") ?? 1.0)
+        
+            self.previewLayer.videoGravity = .resizeAspectFill
+            self.view.layer.addSublayer(self.previewLayer)
+            self.previewLayer.zPosition = -1
+        
+    }
     
     static func loadFromStoryboard() -> LabController
     {
@@ -83,174 +135,58 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         return controller
     }
     
-   
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.previewLayer.frame = self.view.frame
-        self.previewLayer.opacity = Float(story.cameraOpacity ?? "1.0") ?? 1.0
-        self.sceneView.frame = self.view.frame
-        self.sceneView.alpha = CGFloat(Float(story.backgroundOpacity ?? "1.0") ?? 1.0)
-    }
-    
-    func captureOutput(
-        _ output: AVCaptureOutput,
-        didOutput sampleBuffer: CMSampleBuffer,
-        from connection: AVCaptureConnection) {
+    override func viewWillDisappear(_ animated: Bool) {
         
-        guard let frame = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-            debugPrint("unable to get image from sample buffer")
-            return
-        }
+        super.viewWillDisappear(animated)
         
-        self.detectFace(in: frame)
-
-    }
-    
-    private func addCameraInput() {
-        guard let device = AVCaptureDevice.DiscoverySession(
-            deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera],
-            mediaType: .video,
-            position: .front).devices.first else {
-                fatalError("No back camera device found, please make sure to run SimpleLaneDetection in an iOS device and not a simulator")
-        }
-        let cameraInput = try! AVCaptureDeviceInput(device: device)
-        self.captureSession.addInput(cameraInput)
-    }
-    
-    private func showCameraFeed() {
-        self.previewLayer.videoGravity = .resizeAspectFill
-        self.view.layer.addSublayer(self.previewLayer)
-        self.previewLayer.zPosition = -1
-        self.previewLayer.frame = self.view.frame
-    }
-    
-    private func getCameraFrames() {
-        self.videoDataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString) : NSNumber(value: kCVPixelFormatType_32BGRA)] as [String : Any]
-        self.videoDataOutput.alwaysDiscardsLateVideoFrames = true
-        self.videoDataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "camera_frame_processing_queue"))
-        self.captureSession.addOutput(self.videoDataOutput)
-        guard let connection = self.videoDataOutput.connection(with: AVMediaType.video),
-            connection.isVideoOrientationSupported else { return }
-        connection.videoOrientation = .portrait
-    }
-    
-    private func detectFace(in image: CVPixelBuffer) {
-        let faceDetectionRequest = VNDetectFaceLandmarksRequest(completionHandler: { (request: VNRequest, error: Error?) in
-            DispatchQueue.main.async {
-                if let results = request.results as? [VNFaceObservation] {
-                    if(self.enableFaceDetection) {
-                        self.handleFaceDetectionResults(results)
-                    }
-                } else {
-                    self.clearDrawings()
-                }
-            }
-        })
-        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: image, orientation: .leftMirrored, options: [:])
-        try? imageRequestHandler.perform([faceDetectionRequest])
-    }
-    
-    private func handleFaceDetectionResults(_ observedFaces: [VNFaceObservation]) {
+        Mixpanel.mainInstance().track(event: "phone_lab", properties: ["name": story.title])
         
-        self.clearDrawings()
-        let facesBoundingBoxes: [CAShapeLayer] = observedFaces.flatMap({ (observedFace: VNFaceObservation) -> [CAShapeLayer] in
-            let faceBoundingBoxOnScreen = self.previewLayer.layerRectConverted(fromMetadataOutputRect: observedFace.boundingBox)
-            let faceBoundingBoxPath = CGPath(rect: faceBoundingBoxOnScreen, transform: nil)
-            let faceBoundingBoxShape = CAShapeLayer()
-            faceBoundingBoxShape.path = faceBoundingBoxPath
-            faceBoundingBoxShape.fillColor = UIColor.clear.cgColor
-            faceBoundingBoxShape.strokeColor = UIColor.green.cgColor
-            var newDrawings = [CAShapeLayer]()
-            newDrawings.append(faceBoundingBoxShape)
-            if let landmarks = observedFace.landmarks {
-                newDrawings = newDrawings + self.drawFaceFeatures(landmarks, screenBoundingBox: faceBoundingBoxOnScreen)
-            }
-            return newDrawings
-        })
-        facesBoundingBoxes.forEach({ faceBoundingBox in self.view.layer.addSublayer(faceBoundingBox) })
-        self.drawings = facesBoundingBoxes
-    }
-    
-    private func clearDrawings() {
-        self.drawings.forEach({ drawing in drawing.removeFromSuperlayer() })
-    }
-    
-    private func drawFaceFeatures(_ landmarks: VNFaceLandmarks2D, screenBoundingBox: CGRect) -> [CAShapeLayer] {
-        var faceFeaturesDrawings: [CAShapeLayer] = []
-        if let leftEye = landmarks.leftEye {
-            let eyeDrawing = self.drawEye(leftEye, screenBoundingBox: screenBoundingBox)
-            faceFeaturesDrawings.append(eyeDrawing)
-        }
-        if let rightEye = landmarks.rightEye {
-            let eyeDrawing = self.drawEye(rightEye, screenBoundingBox: screenBoundingBox)
-            faceFeaturesDrawings.append(eyeDrawing)
-        }
-        // draw other face features here
-        return faceFeaturesDrawings
-    }
-    private func drawEye(_ eye: VNFaceLandmarkRegion2D, screenBoundingBox: CGRect) -> CAShapeLayer {
-        let eyePath = CGMutablePath()
-        let eyePathPoints = eye.normalizedPoints
-            .map({ eyePoint in
-                CGPoint(
-                    x: eyePoint.y * screenBoundingBox.height + screenBoundingBox.origin.x,
-                    y: eyePoint.x * screenBoundingBox.width + screenBoundingBox.origin.y)
-            })
-        eyePath.addLines(between: eyePathPoints)
-        eyePath.closeSubpath()
-        let eyeDrawing = CAShapeLayer()
-        eyeDrawing.path = eyePath
-        eyeDrawing.fillColor = UIColor.clear.cgColor
-        eyeDrawing.strokeColor = UIColor.green.cgColor
+        NotificationCenter.default.removeObserver(self)
+                
+        UIApplication.shared.isIdleTimerDisabled = false
         
-        return eyeDrawing
     }
     
-
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
+        
         super.viewDidLoad()
+    
+        Mixpanel.mainInstance().time(event: "phone_lab")
+    
+        setupPhoneSensors()
+        
+        setupPhoneAV()
+        
+        setupLivestream()
+        
+        setupIntroScene()
+    
+        setupWatchNotifications()
+        
+        startSession()
+        
+    }
+
+    func setupPhoneSensors() {
+        
+        self.addCameraInput()
+        self.getCameraOut()
+    }
+    
+    func setupPhoneAV() {
         
         UIApplication.shared.isIdleTimerDisabled = true
         
-        Mixpanel.mainInstance().time(event: "phone_lab")
-        
-        setupWatchNotifications()
+        modalPresentationCapturesStatusBarAppearance = true
         
         do {
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
             try? AVAudioSession.sharedInstance().setActive(true)
         }
-        
-        modalPresentationCapturesStatusBarAppearance = true
-        
-        panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
-        
-        sceneView.addGestureRecognizer(panGR)
-        
-        let enableFaceDetectionGesture = UITapGestureRecognizer(
-            target: self,
-            action: #selector(faceDetectionEnabled)
-          )
-        
-        enableFaceDetectionGesture.numberOfTapsRequired = 2
-        
-        sceneView.addGestureRecognizer(enableFaceDetectionGesture)
-        
-        sceneView.backgroundColor = .clear
-        
-        self.scene = self.setupScene()
-        
-        self.sceneView.presentScene(self.scene)
-        
-        setupConnectButton()
-        
-        self.startSession()
-        
-        self.addCameraInput()
-        self.showCameraFeed()
-        self.getCameraFrames()
-        self.captureSession.startRunning()
+    }
+    
+    func setupLivestream()
+    {
         
         //rtmpStream.attachAudio(AVCaptureDevice.default(for: AVMediaType.audio)) { error in
               // print(error)
@@ -263,67 +199,15 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
           
         //rtmpConnection.connect("rtmp://live-sjc05.twitch.tv/app/live_526664141_tw0025TCdNZBqEkTxmhAllcIQVlvfQ")
         //rtmpStream.publish("streamName")
-
     }
     
-    @objc func faceDetectionEnabled()
-    {
-        self.clearDrawings()
-        self.enableFaceDetection = !self.enableFaceDetection
+    func setupIntroScene() {
+        
+        self.scene = self.setupScene()
+        
+        self.sceneView.presentScene(self.scene)
     }
-    
-    
-    //#todo(race): there is a race when the sample thread updates the game and people turn the game on and off, not fixing in b5.5b378
-    @objc func gameBoardEnabled()
-    {
-        self.enableGameBoard = !self.enableGameBoard
-        
-        self.enableGameBoard ? self.showGameBoard() : self.hideGameBoard()
-    }
-    
-    override func didReceiveMemoryWarning()
-    {
-        super.didReceiveMemoryWarning()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool)
-    {
-        super.viewWillDisappear(animated)
-        
-        Mixpanel.mainInstance().track(event: "phone_lab", properties: ["name": story.title])
-        
-        NotificationCenter.default.removeObserver(self)
-                
-        UIApplication.shared.isIdleTimerDisabled = false
-        
-    }
-    
-    func setupConnectButton()
-    {
-        self.connectButton.addTarget(self, action: #selector(connectAppleWatch), for: .primaryActionTriggered)
-        
-        self.connectButton.layer.borderColor = UIColor.white.cgColor
-        self.connectButton.layer.borderWidth = 1.0
-        self.connectButton.layer.cornerRadius = 10.0
-        self.connectButton.backgroundColor = UIColor(red:0.06, green:0.15, blue:0.13, alpha:0.3)
-        self.connectButton.layer.shadowOffset = CGSize(width: 0, height: 2)
-        self.connectButton.layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
-        self.connectButton.layer.shadowOpacity = 1
-        self.connectButton.layer.shadowRadius = 20
-        
-        /*
-        self.donatorPayIDField.layer.borderColor = UIColor.white.cgColor
-        self.donatorPayIDField.layer.borderWidth = 1.0
-        self.donatorPayIDField.layer.cornerRadius = 10.0
-        self.donatorPayIDField.backgroundColor = UIColor(red:0.06, green:0.15, blue:0.13, alpha:0.3)
-        self.donatorPayIDField.layer.shadowOffset = CGSize(width: 0, height: 2)
-        self.donatorPayIDField.layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
-        self.donatorPayIDField.layer.shadowOpacity = 1
-        self.donatorPayIDField.layer.shadowRadius = 20
-        */
-        
-    }
-    
+     
     func setupWatchNotifications()
     {
         NotificationCenter.default.addObserver(self,
@@ -348,7 +232,25 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
  
     }
     
-    @objc func connectAppleWatch()
+
+    @objc func pan(_ gestureRecognizer : UIPanGestureRecognizer)
+    {
+        let translation = gestureRecognizer.translation(in: nil)
+        let progress = translation.y / view.bounds.height
+        switch gestureRecognizer.state {
+        case .began:
+            hero.dismissViewController()
+        case .changed:
+            Hero.shared.update(progress)
+            let currentPos = CGPoint(x: translation.x + view.center.x, y: translation.y + view.center.y)
+          Hero.shared.apply(modifiers: [.position(currentPos)], to: view)
+        default:
+             Hero.shared.finish()
+        }
+
+    }
+    
+    @objc func connectZensor()
     {
         let startingSessions = StartingSessionViewController()
         
@@ -360,120 +262,110 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
     }
     
-    fileprivate func showGameBoard()
-    {
-        UIView.animate(withDuration: 0.5)
-        {
-            self.rings.forEach( {$0.isHidden = false })
-        
-            if let shell = self.scene.childNode(withName: "//0")! as? SKShapeNode
-            {
-                shell.addChild(self.player)
-                
-                self.player.zPosition = 3.0
-                
-                let action = SKAction.repeatForever(SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 15.0))
-                
-                self.player.run(action)
-                
-            }
-        }
-    }
-    
-    fileprivate func hideGameBoard() {
-        
-        UIView.animate(withDuration: 0.5)
-        {
-            self.player.removeAllActions()
-            self.rings.forEach( {$0.isHidden = true })
-            self.player.removeFromParent()
-        }
-    }
-    
     @objc func startSession()
     {
-        if(Settings.isSensorConnected)
+        if(Settings.isZensorConnected)
         {
             Mixpanel.mainInstance().time(event: "phone_lab_watch_connected")
-            
+                        
             DispatchQueue.main.async
             {
                 UIView.animate(withDuration: 0.5)
                 {
                     self.arenaView.isHidden = false
                     self.progressView.isHidden = false
-                    self.connectButton.isHidden = true
-                    self.donatorPayIDField.isHidden = true
                     self.sceneView.isHidden = false
                 }
-
+                //todo(bug): this has to be done outside of the
+                //animate for some reason, maybe a beta os issue
+                self.connectButton.isHidden = true
+                
+                self.captureSession.startRunning()
             }
-        
         }
+     
     }
     
     @objc func endSession()
     {
         Mixpanel.mainInstance().track(event: "phone_lab_watch_connected",
                                       properties: ["name": self.story.title])
+        
         DispatchQueue.main.async
         {
+            self.captureSession.stopRunning()
+           
             UIView.animate(withDuration: 0.5)
             {
                 self.connectButton.isHidden = false
-                self.donatorPayIDField.isHidden = false
+                self.sceneView.isHidden = false
                 self.progressView.isHidden = true
-                
                 self.arenaView.isHidden = true
-                self.arenaView.hrv.text = "--"
-                self.arenaView.time.text = "--"
-                self.arenaView.setChart([])
-                self.sceneView.isHidden = true
             }
 
             let vc = ResultGameController.loadFromStoryboard()
             self.present(vc, animated: true)
         }
         
-        var output : AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
-        
     }
     
-    @objc func progress(notification: NSNotification)
-    {
-        if let progress = notification.object as? String
-        {
-            if let watch  = self.appleWatch
+    @objc func progress(notification: NSNotification) {
+        
+        if let progress = notification.object as? String {
+        
+            if let zensor  = self.zensor
             {
-                watch.update(progress: progress.description.lowercased())
+                zensor.update(progress: progress.description.lowercased())
             }
             
-            self.payout()
+            payout()
         }
     }
     
-    func addShell(_ parent: SKNode, _ radius: Int, _ name: String)
+    //todo(bug, blocker): think this is fixed now, but least see.
+    @objc func sample(notification: NSNotification)
     {
-  
-        let pathNode = SKShapeNode(circleOfRadius: CGFloat(radius))
-        
-        pathNode.strokeColor = SKColor.zenWhite
-        
-        pathNode.position = CGPoint(x: parent.frame.midX, y: parent.frame.midY)
-        
-        pathNode.fillColor = SKColor(red:0.06, green:0.15, blue:0.13, alpha:0.3)
+        if let sample = notification.object as? [String : Any]
+        {
+            let raw_hrv = sample["sdnn"] as! String
+            let double_hrv = Double(raw_hrv)!.rounded()
+            let text_hrv = Int(double_hrv.rounded()).description
+            let raw_hr = sample["heart"] as! String
+            let double_hr = (Double(raw_hr)! * 60).rounded()
+            let int_hr = Int(double_hr)
+            let text_hr = int_hr.description
+            let donatedString = sample["donated"] as? String ?? "--"
+            let progressString = sample["progress"] as? String ?? "--/--"
+            let creatorPayID = self.story.creatorPayID!
+            let causePayID = self.story.causePayID!
+            let sponsorPayID = self.story.sponsorPayID!
+            
+            self.chartHR[String(Date().timeIntervalSince1970)] = int_hr
+            
+            let chartHR = self.chartHR.sorted(by: <)
        
-        pathNode.zPosition = 3
+            DispatchQueue.main.async
+            {
+                self.arenaView.hrv.text = text_hrv
+                self.arenaView.time.text = text_hr
+                self.arenaView.setChart(chartHR)
+                            
+                self.progressView.update(minutes: donatedString, progress: progressString, cause: causePayID, sponsor: sponsorPayID, creator: creatorPayID, meditator: Settings.email ?? "anonymous")
+                
+            }
+            
+            if let zensor  = self.zensor
+            {
+                zensor.update(hr: Float(double_hr) )
+            }
+            else
+            {
+                self.zensor = Zensor(id: UUID() , name: Settings.email!, hr: Float(double_hr) , batt: 100)
+            }
+            
+            self.donate()
+        }
         
-        pathNode.name = name
-        
-        pathNode.isHidden = true
-        
-        pathNode.lineWidth = CGFloat(0.01)
-        
-        parent.addChild(pathNode)
-        
-        rings.append(pathNode)
     }
     
     func startBackgroundContent(story : Story, completion: @escaping (AVPlayerItem) -> Void)
@@ -533,13 +425,17 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         })
     }
     
+    
+    func createIntroScene() -> SKScene
+    {
+        let scene = SKScene(size: (sceneView.frame.size))
+        scene.scaleMode = .aspectFill
+        
+        return scene
+    }
+    
     func setupScene() -> SKScene
     {
-        sceneView.frame = UIScreen.main.bounds
-        sceneView.contentMode = .scaleAspectFill
-        sceneView.backgroundColor = .clear
-        sceneView.allowsTransparency = true
-        
         let scene = SKScene(size: (sceneView.frame.size))
         scene.scaleMode = .aspectFill
         
@@ -575,80 +471,11 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 }
             
         })
-    
-        self.addShell(scene, 30, "2")
-        self.addShell(scene, 90, "1")
-        self.addShell(scene, 150, "0")
-        
+            
         return scene
-        
     }
     
-    let diskConfig = DiskConfig(name: "DiskCache")
-    let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
-    
-    lazy var storage: Cache.Storage? = {
-        return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forData())
-    }()
-  
-    
-    @objc func sample(notification: NSNotification)
-    {
-        if let sample = notification.object as? [String : Any]
-        {
-            let raw_hrv = sample["sdnn"] as! String
-            let double_hrv = Double(raw_hrv)!.rounded()
-            let text_hrv = Int(double_hrv.rounded()).description
-            
-            let raw_hr = sample["heart"] as! String
-            let double_hr = (Double(raw_hr)! * 60).rounded()
-            let int_hr = Int(double_hr)
-            let text_hr = int_hr.description
-            
-            
-            DispatchQueue.main.async
-            {
-                self.arenaView.hrv.text = text_hrv
-                
-                self.arenaView.time.text = text_hr
-                
-                self.chartHR[String(Date().timeIntervalSince1970)] = int_hr
-            
-                let chartHR = self.chartHR.sorted(by: <)
-
-                self.arenaView.setChart(chartHR)
-                
-            }
-            
-            DispatchQueue.main.async
-            {
-                let donatedString = sample["donated"] as? String ?? "--"
-                let progressString = sample["progress"] as? String ?? "--/--"
-                let creatorPayID = self.story.creatorPayID!
-                let causePayID = self.story.causePayID!
-                let sponsorPayID = self.story.sponsorPayID!
-                
-                let donatorPayID =
-                    self.donatorPayIDField.text ?? ""
-            
-                self.progressView.update(minutes: donatedString, meditator: progressString, cause: causePayID, sponsor: sponsorPayID, creator: creatorPayID, donator: donatorPayID)
-                
-                self.donate()
-        
-            }
-            
-            if let watch  = self.appleWatch
-            {
-                watch.update(hr: Float(double_hr) )
-            }
-            else
-            {
-                self.appleWatch = Zensor(id: UUID() , name: Settings.email!, hr: Float(double_hr) , batt: 100)
-            }
-        }
-        
-    }
-    
+    //todo(debt): put all of this stuff in a MoneyKit.swift file.
     func moveXrp(source: Wallet, target: String, drops: UInt64, useMainnet: Bool)
     {
            
@@ -704,24 +531,133 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
 
         self.moveXrp(source: wallet, target: causeXAddress, drops: amount, useMainnet: true)
     }
-        
-    @objc func pan()
+            
+    //todo(debt): this is bunch of code to track the donator in the camera frame.
+    @objc func faceDetectionEnabled()
     {
-        let translation = panGR.translation(in: nil)
-        let progress = translation.y / view.bounds.height
-        switch panGR.state {
-        case .began:
-            hero.dismissViewController()
-        case .changed:
-            Hero.shared.update(progress)
-            let currentPos = CGPoint(x: translation.x + view.center.x, y: translation.y + view.center.y)
-          //Hero.shared.apply(modifiers: [.position(currentPos)], to: sceneView)
-        default:
-            
-             Hero.shared.finish()
-            
+        self.clearDrawings()
+        self.enableFaceDetection = !self.enableFaceDetection
+    }
+    
+    func captureOutput(
+        _ output: AVCaptureOutput,
+        didOutput sampleBuffer: CMSampleBuffer,
+        from connection: AVCaptureConnection) {
+        
+        guard let frame = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+            debugPrint("unable to get image from sample buffer")
+            return
         }
+        
+        self.detectFace(in: frame)
 
+    }
+    
+    private func addCameraInput() {
+        guard let device = AVCaptureDevice.DiscoverySession(
+            deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera],
+            mediaType: .video,
+            position: .front).devices.first else {
+                fatalError("No back camera device found, please make sure to run SimpleLaneDetection in an iOS device and not a simulator")
+        }
+        let cameraInput = try! AVCaptureDeviceInput(device: device)
+        self.captureSession.addInput(cameraInput)
+    }
+    
+    
+    private func getCameraOut() {
+        
+        self.videoDataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString) : NSNumber(value: kCVPixelFormatType_32BGRA)] as [String : Any]
+        self.videoDataOutput.alwaysDiscardsLateVideoFrames = true
+        self.videoDataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "camera_frame_processing_queue"))
+        self.captureSession.addOutput(self.videoDataOutput)
+        guard let connection = self.videoDataOutput.connection(with: AVMediaType.video),
+            connection.isVideoOrientationSupported else { return }
+        connection.videoOrientation = .portrait
+        
+       
+    }
+    
+    private func detectFace(in image: CVPixelBuffer) {
+        let faceDetectionRequest = VNDetectFaceLandmarksRequest(completionHandler: { (request: VNRequest, error: Error?) in
+            DispatchQueue.main.async {
+                if let results = request.results as? [VNFaceObservation] {
+                    if(self.enableFaceDetection) {
+                        self.handleFaceDetectionResults(results)
+                    }
+                } else {
+                    self.clearDrawings()
+                }
+            }
+        })
+        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: image, orientation: .leftMirrored, options: [:])
+        try? imageRequestHandler.perform([faceDetectionRequest])
+    }
+    
+    private func handleFaceDetectionResults(_ observedFaces: [VNFaceObservation]) {
+        
+        self.clearDrawings()
+        let facesBoundingBoxes: [CAShapeLayer] = observedFaces.flatMap({ (observedFace: VNFaceObservation) -> [CAShapeLayer] in
+            let faceBoundingBoxOnScreen = self.previewLayer.layerRectConverted(fromMetadataOutputRect: observedFace.boundingBox)
+            let faceBoundingBoxPath = CGPath(rect: faceBoundingBoxOnScreen, transform: nil)
+            let faceBoundingBoxShape = CAShapeLayer()
+            faceBoundingBoxShape.path = faceBoundingBoxPath
+            faceBoundingBoxShape.fillColor = UIColor.clear.cgColor
+            faceBoundingBoxShape.strokeColor = UIColor.green.cgColor
+            var newDrawings = [CAShapeLayer]()
+            newDrawings.append(faceBoundingBoxShape)
+            if let landmarks = observedFace.landmarks {
+                newDrawings = newDrawings + self.drawFaceFeatures(landmarks, screenBoundingBox: faceBoundingBoxOnScreen)
+            }
+            return newDrawings
+        })
+        facesBoundingBoxes.forEach({ faceBoundingBox in self.view.layer.addSublayer(faceBoundingBox) })
+        self.drawings = facesBoundingBoxes
+    }
+    
+    private func clearDrawings() {
+        self.drawings.forEach({ drawing in drawing.removeFromSuperlayer() })
+    }
+    
+    private func drawFaceFeatures(_ landmarks: VNFaceLandmarks2D, screenBoundingBox: CGRect) -> [CAShapeLayer] {
+        var faceFeaturesDrawings: [CAShapeLayer] = []
+        if let leftEye = landmarks.leftEye {
+            let eyeDrawing = self.drawEye(leftEye, screenBoundingBox: screenBoundingBox)
+            faceFeaturesDrawings.append(eyeDrawing)
+        }
+        if let rightEye = landmarks.rightEye {
+            let eyeDrawing = self.drawEye(rightEye, screenBoundingBox: screenBoundingBox)
+            faceFeaturesDrawings.append(eyeDrawing)
+        }
+        // draw other face features here
+        
+        if let innerLips = landmarks.innerLips {
+            let lipsDrawing = self.drawEye(innerLips, screenBoundingBox: screenBoundingBox)
+            faceFeaturesDrawings.append(lipsDrawing)
+        }
+        if let outerLips = landmarks.outerLips {
+            let lipsDrawing = self.drawEye(outerLips, screenBoundingBox: screenBoundingBox)
+            faceFeaturesDrawings.append(lipsDrawing)
+        }
+        return faceFeaturesDrawings
+    }
+    
+    private func drawEye(_ eye: VNFaceLandmarkRegion2D, screenBoundingBox: CGRect) -> CAShapeLayer {
+        let eyePath = CGMutablePath()
+        let eyePathPoints = eye.normalizedPoints
+            .map({ eyePoint in
+                CGPoint(
+                    x: eyePoint.y * screenBoundingBox.height + screenBoundingBox.origin.x,
+                    y: eyePoint.x * screenBoundingBox.width + screenBoundingBox.origin.y)
+            })
+        eyePath.addLines(between: eyePathPoints)
+        eyePath.closeSubpath()
+        let eyeDrawing = CAShapeLayer()
+        eyeDrawing.path = eyePath
+        eyeDrawing.fillColor = UIColor.clear.cgColor
+        eyeDrawing.strokeColor = UIColor.green.cgColor
+        
+        return eyeDrawing
     }
 }
 

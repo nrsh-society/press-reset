@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]?) -> Bool {
         
-        Settings.isSensorConnected = false
+        Settings.isZensorConnected = false
         
         Cloud.enable(application, launchOptions)
         

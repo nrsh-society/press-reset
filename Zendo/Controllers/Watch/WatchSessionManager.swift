@@ -96,7 +96,7 @@ extension WatchSessionManager: WCSessionDelegate {
             }
             else if message["watch"] == "end"
             {
-                Settings.isSensorConnected = false
+                Settings.isZensorConnected = false
                 Settings.connectedDate = nil
                 NotificationCenter.default.post(name: .endSession, object: nil)
             }
@@ -106,7 +106,7 @@ extension WatchSessionManager: WCSessionDelegate {
             }
             else if message["watch"] == "start"
             {
-                Settings.isSensorConnected = true
+                Settings.isZensorConnected = true
                 Settings.connectedDate = Date ()
                 NotificationCenter.default.post(name: .startSession, object: Settings.connectedDate)
             }
