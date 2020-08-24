@@ -81,8 +81,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 progressView.isHidden = true
                 progressView.alpha = 1.0
                 self.progressView.update(minutes: "--", progress: "--/--",
-                                         cause: "$cause", sponsor: "$sponsor",
-                                         creator: "$creator", meditator:"--")
+                                         cause: "--", sponsor: "--",
+                                         creator: "--", meditator:"--")
             }
         }
     
@@ -117,14 +117,16 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
         self.previewLayer.frame = self.view.frame
         self.sceneView.frame = self.view.frame
+        
         self.previewLayer.opacity = Float(self.story.cameraOpacity ?? "1.0") ?? 1.0
         self.sceneView.alpha = CGFloat(Float(self.story.backgroundOpacity ?? "1.0") ?? 1.0)
         
-            self.previewLayer.videoGravity = .resizeAspectFill
-            self.view.layer.addSublayer(self.previewLayer)
-            self.previewLayer.zPosition = -1
+        self.previewLayer.videoGravity = .resizeAspectFill
+        self.view.layer.addSublayer(self.previewLayer)
+        self.previewLayer.zPosition = -1
         
     }
     
@@ -158,8 +160,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         setupPhoneAV()
         
         setupLivestream()
-        
-        setupIntroScene()
     
         setupWatchNotifications()
         
@@ -169,8 +169,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
 
     func setupPhoneSensors() {
         
-        self.addCameraInput()
-        self.getCameraOut()
+        addCameraIn()
+        getCameraOut()
     }
     
     func setupPhoneAV() {
@@ -200,14 +200,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         //rtmpConnection.connect("rtmp://live-sjc05.twitch.tv/app/live_526664141_tw0025TCdNZBqEkTxmhAllcIQVlvfQ")
         //rtmpStream.publish("streamName")
     }
-    
-    func setupIntroScene() {
-        
-        self.scene = self.setupScene()
-        
-        self.sceneView.presentScene(self.scene)
-    }
-     
+         
     func setupWatchNotifications()
     {
         NotificationCenter.default.addObserver(self,
@@ -264,6 +257,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     
     @objc func startSession()
     {
+
         if(Settings.isZensorConnected)
         {
             Mixpanel.mainInstance().time(event: "phone_lab_watch_connected")
@@ -280,7 +274,15 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 //animate for some reason, maybe a beta os issue
                 self.connectButton.isHidden = true
                 
+                self.sceneView.presentScene(self.getMainScene())
+                
                 self.captureSession.startRunning()
+            }
+        } else
+        {
+            DispatchQueue.main.async
+            {
+                self.sceneView.presentScene(self.getIntroScene())
             }
         }
      
@@ -293,7 +295,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         DispatchQueue.main.async
         {
-            self.captureSession.stopRunning()
            
             UIView.animate(withDuration: 0.5)
             {
@@ -368,6 +369,43 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
     }
     
+    func getContent(contentURL: URL, completion: @escaping (AVPlayerItem) -> Void)
+    {
+    
+        var playerItem: AVPlayerItem?
+                
+        storage?.async.entry(forKey: contentURL.absoluteString, completion:
+        {
+            result in
+            
+            switch result
+            {
+                case .value(let entry):
+                
+                    if var path = entry.filePath
+                    {
+                        if path.first == "/"
+                        {
+                            path.removeFirst()
+                        }
+                    
+                        let url = URL(fileURLWithPath: path)
+                    
+                        playerItem = AVPlayerItem(url: url)
+                    }
+            
+                default:
+                    
+                    playerItem = AVPlayerItem(url: contentURL)
+                    
+            }
+            
+            completion(playerItem!)
+            
+        })
+        
+    }
+    
     func startBackgroundContent(story : Story, completion: @escaping (AVPlayerItem) -> Void)
     {
         var playerItem: AVPlayerItem?
@@ -426,15 +464,47 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     }
     
     
-    func createIntroScene() -> SKScene
+    func getIntroScene() -> SKScene
     {
         let scene = SKScene(size: (sceneView.frame.size))
         scene.scaleMode = .aspectFill
         
+        self.getContent(contentURL: URL(string: story.introURL!)!)
+        {
+            item in
+            
+            DispatchQueue.main.async
+            {
+                let videoPlayer = AVPlayer(playerItem: item)
+                
+                let video = SKVideoNode(avPlayer: videoPlayer)
+                    
+                video.zPosition = 1.0
+                video.size = scene.frame.size
+                video.position = scene.position
+                video.anchorPoint = scene.anchorPoint
+                video.play()
+                scene.addChild(video)
+                    
+                NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
+                                                           object: videoPlayer.currentItem, queue: nil)
+                    {
+                       notification in
+                        
+                        DispatchQueue.main.async
+                        {
+                            videoPlayer.seek(to: kCMTimeZero)
+                            videoPlayer.play()
+                        }
+                        
+                    }
+                }
+        }
+        
         return scene
     }
     
-    func setupScene() -> SKScene
+    func getMainScene() -> SKScene
     {
         let scene = SKScene(size: (sceneView.frame.size))
         scene.scaleMode = .aspectFill
@@ -553,7 +623,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
 
     }
     
-    private func addCameraInput() {
+    private func addCameraIn() {
         guard let device = AVCaptureDevice.DiscoverySession(
             deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera],
             mediaType: .video,

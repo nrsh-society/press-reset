@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -29,69 +31,58 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+        <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="115"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" distribution="fillProportionally" alignment="center" id="cFk-rn-L32" userLabel="StoryView">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="28.666666666666671"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cFk-rn-L32" userLabel="StoryView">
+                    <rect key="frame" x="0.0" y="77" width="375" height="28"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="d9a-7Y-n6H" userLabel="CauseView">
-                            <rect key="frame" x="0.0" y="2" width="108" height="24.5"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$cause" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YlU-EC-psk" userLabel="cause">
-                                    <rect key="frame" x="0.0" y="0.0" width="108" height="14.5"/>
-                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$cause " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UF7-eL-mnA" userLabel="$cause">
-                                    <rect key="frame" x="0.0" y="14.5" width="108" height="10"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="10" id="7BS-N2-5UW"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="10"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                        </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="qSG-gz-Dcx" userLabel="SponsorView">
-                            <rect key="frame" x="108" y="2" width="140.5" height="24.5"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="$sponsor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zC-2z-tyS" userLabel="sponsor">
-                                    <rect key="frame" x="0.0" y="0.0" width="140.5" height="14.5"/>
-                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$sponsor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8IZ-uc-X8x" userLabel="$sponsor">
-                                    <rect key="frame" x="0.0" y="14.5" width="140.5" height="10"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="10" id="hXA-VW-n76"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="10"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                        </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9xh-12-lIG" userLabel="CreatorView">
-                            <rect key="frame" x="248.5" y="2" width="126.5" height="24.5"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="9xh-12-lIG" userLabel="CreatorView">
+                            <rect key="frame" x="0.0" y="0.0" width="125" height="28"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="$creator" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXn-KC-GHg" userLabel="creator">
-                                    <rect key="frame" x="0.0" y="0.0" width="126.5" height="14.5"/>
-                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="125" height="12"/>
+                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="12"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$creator" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EYO-ij-QME">
-                                    <rect key="frame" x="0.0" y="14.5" width="126.5" height="10"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="10" id="IXs-CQ-7Gp"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="10"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EYO-ij-QME">
+                                    <rect key="frame" x="0.0" y="20" width="125" height="8"/>
+                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="8"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="d9a-7Y-n6H" userLabel="CauseView">
+                            <rect key="frame" x="125" y="0.0" width="125" height="28"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$cause" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YlU-EC-psk" userLabel="cause">
+                                    <rect key="frame" x="0.0" y="0.0" width="125" height="12"/>
+                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="12"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UF7-eL-mnA" userLabel="$cause">
+                                    <rect key="frame" x="0.0" y="20" width="125" height="8"/>
+                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="8"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qSG-gz-Dcx" userLabel="SponsorView">
+                            <rect key="frame" x="250" y="0.0" width="125" height="28"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="$sponsor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zC-2z-tyS" userLabel="sponsor">
+                                    <rect key="frame" x="0.0" y="0.0" width="125" height="12"/>
+                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="12"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8IZ-uc-X8x" userLabel="$sponsor">
+                                    <rect key="frame" x="0.0" y="20" width="125" height="8"/>
+                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="8"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -99,58 +90,54 @@
                         </stackView>
                     </subviews>
                 </stackView>
-                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" distribution="fillProportionally" alignment="center" id="Qdb-Oa-yC2" userLabel="StatsView">
-                    <rect key="frame" x="0.0" y="70" width="375" height="28.666666666666671"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Qdb-Oa-yC2" userLabel="StatsView">
+                    <rect key="frame" x="0.0" y="20" width="375" height="37"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="niv-Z7-uiO" userLabel="MinutesView">
-                            <rect key="frame" x="0.0" y="0.0" width="119" height="28.5"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="niv-Z7-uiO" userLabel="MinutesView">
+                            <rect key="frame" x="0.0" y="0.0" width="125" height="36.666666666666664"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="minutes " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WlL-GL-TVY">
-                                    <rect key="frame" x="0.0" y="0.0" width="119" height="14.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="125" height="14.333333333333334"/>
                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYT-KN-3v5">
-                                    <rect key="frame" x="0.0" y="14.5" width="119" height="14"/>
+                                    <rect key="frame" x="0.0" y="22.333333333333336" width="125" height="14.333333333333336"/>
                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fDR-zm-Cqu" userLabel="DonatorView">
-                            <rect key="frame" x="119" y="2" width="137" height="24.5"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fDR-zm-Cqu" userLabel="DonatorView">
+                            <rect key="frame" x="125" y="0.0" width="125" height="36.666666666666664"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="meditator" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v4x-cI-j0c" userLabel="donator">
-                                    <rect key="frame" x="0.0" y="0.0" width="137" height="14.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="125" height="14.333333333333334"/>
                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQT-Jg-PU3" userLabel="$donator">
-                                    <rect key="frame" x="0.0" y="14.5" width="137" height="10"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="10" id="JRZ-m8-Hnr"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="10"/>
+                                    <rect key="frame" x="0.0" y="22.333333333333336" width="125" height="14.333333333333336"/>
+                                    <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Shr-Nv-hcg" userLabel="ProgressView">
-                            <rect key="frame" x="256" y="0.0" width="119" height="28.5"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Shr-Nv-hcg" userLabel="ProgressView">
+                            <rect key="frame" x="250" y="0.0" width="125" height="36.666666666666664"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="progress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R6Z-AS-lld">
-                                    <rect key="frame" x="0.0" y="0.0" width="119" height="14.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="125" height="14.333333333333334"/>
                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- / --" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cs8-g6-4st">
-                                    <rect key="frame" x="0.0" y="14.5" width="119" height="14"/>
+                                    <rect key="frame" x="0.0" y="22.333333333333336" width="125" height="14.333333333333336"/>
                                     <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -160,9 +147,18 @@
                     </subviews>
                 </stackView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="kzF-GX-paD"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Qdb-Oa-yC2" firstAttribute="leading" secondItem="kzF-GX-paD" secondAttribute="leading" id="5Ek-vE-VTJ"/>
+                <constraint firstItem="Qdb-Oa-yC2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" symbolic="YES" id="5Fe-Jx-Byx"/>
+                <constraint firstItem="kzF-GX-paD" firstAttribute="trailing" secondItem="cFk-rn-L32" secondAttribute="trailing" id="5hh-R4-iel"/>
+                <constraint firstItem="kzF-GX-paD" firstAttribute="trailing" secondItem="Qdb-Oa-yC2" secondAttribute="trailing" id="FQG-kt-uaB"/>
+                <constraint firstItem="cFk-rn-L32" firstAttribute="top" secondItem="Qdb-Oa-yC2" secondAttribute="bottom" constant="20" id="eDS-d1-awB"/>
+                <constraint firstItem="cFk-rn-L32" firstAttribute="leading" secondItem="kzF-GX-paD" secondAttribute="leading" id="hGy-wV-IGB"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="48.799999999999997" y="101.23152709359606"/>
+            <point key="canvasLocation" x="48.550724637681164" y="101.11607142857143"/>
         </view>
     </objects>
 </document>

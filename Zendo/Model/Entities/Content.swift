@@ -16,9 +16,6 @@ class Content: Codable {
     var thumbnailUrl: String!
     var stream: String?
     var download: String?
-    var airplay: String?
-    var spherial: String?
-
     
     public init(_ json: JSON) {
         

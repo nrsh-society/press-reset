@@ -173,21 +173,15 @@ class VideoViewController: UIViewController {
                         urlDownload = url
                     }
                     
-                    var urlAirplay: URL?
-                    
-                    if let airplay = content.airplay, let url = URL(string: airplay) {
-                        urlAirplay = url
-                    }
-                    
                     let pathExtension = urlStream.pathExtension.lowercased()
                     
                     if pathExtension == "png" || pathExtension == "jpg" || pathExtension == "jpeg"
                     {
-                        startImage(urlStream, urlAirplay, index: index)
+                        startImage(urlStream, index: index)
                     }
                     else
                     {
-                        play(with: urlStream, urlDownload: urlDownload, urlAirplay: urlAirplay)
+                        play(with: urlStream, urlDownload: urlDownload)
                     {
                             playerLayer in
                             
@@ -243,7 +237,7 @@ class VideoViewController: UIViewController {
         return true
     }
     
-    func play(with urlStream: URL, urlDownload: URL?, urlAirplay: URL?, completion: ((AVPlayerLayer)->())? = nil) {
+    func play(with urlStream: URL, urlDownload: URL?, completion: ((AVPlayerLayer)->())? = nil) {
         
         var download = ""
         
@@ -251,12 +245,7 @@ class VideoViewController: UIViewController {
         {
             download = url.absoluteString
         }
-        
-        if let url = urlAirplay
-        {
-            self.airplay(url)
-        }
-        
+                
         storage?.async.entry(forKey: download, completion: { result in
             let playerItem: AVPlayerItem
             switch result {
@@ -289,19 +278,8 @@ class VideoViewController: UIViewController {
             completion?(playerLayer)
         })
     }
-    
-    func airplay(_ url: URL)
-    {
-        if let airplay = self.airplay
-        {
-            airplay.dismiss()
-            airplay.dismiss(animated: true, completion: nil)
-        }
         
-        self.airplay = AirplayController.loadFromStoryboard(url)
-    }
-    
-    func startImage(_ url: URL, _ urlAirplay: URL?, index: Int? = nil)
+    func startImage(_ url: URL, index: Int? = nil)
     {
     
         activity.stopAnimating()
@@ -313,7 +291,7 @@ class VideoViewController: UIViewController {
             
             VideoGenerator.current.generate(withImages: [image], andAudios: [], andType: .single, { (progress) in
             }, success: { (url) in
-                self.play(with: url, urlDownload: nil, urlAirplay: urlAirplay) { playerLayer in
+                self.play(with: url, urlDownload: nil) { playerLayer in
                     self.playerLayers.append(playerLayer)
                     
                     if let i = index, i == 0 {
@@ -436,22 +414,16 @@ class VideoViewController: UIViewController {
                     urlDownload = url
                 }
                 
-                var urlAirplay: URL?
-                
-                if let airplay = story.content[current + 1].airplay, let url = URL(string: airplay) {
-                    urlAirplay = url
-                }
-                
                 let pathExtension = urlStream.pathExtension.lowercased()
                 
                 if pathExtension == "png" || pathExtension == "jpg" || pathExtension == "jpeg"
                 {
-                    startImage(urlStream, urlAirplay)
+                    startImage(urlStream)
                 
                 }
                 else
                 {
-                    play(with: urlStream, urlDownload: urlDownload, urlAirplay: urlAirplay )
+                    play(with: urlStream, urlDownload: urlDownload)
                     {
                         playerLayer in
                         

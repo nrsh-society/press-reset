@@ -22,11 +22,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bgZ-js-m84" userLabel="Progress View" customClass="ProgressView" customModule="Zendo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="375" height="115"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="115" id="9en-vB-OnT"/>
+                                </constraints>
+                            </view>
                             <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wag-KW-4l9">
-                                <rect key="frame" x="0.0" y="129" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                             </skView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vqb-9n-UKr" userLabel="Connect View">
-                                <rect key="frame" x="37.666666666666657" y="738" width="300" height="30"/>
+                                <rect key="frame" x="37.666666666666657" y="748" width="300" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTo-no-nA4">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
@@ -41,13 +48,6 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhC-FU-Hfa" customClass="ProgressView" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="54" width="375" height="150"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="QeD-ky-ILW"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cCa-Pd-CyP" customClass="ArenaView" customModule="Zendo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="628" width="375" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -59,25 +59,26 @@
                         <viewLayoutGuide key="safeArea" id="z49-wy-zwZ"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="z49-wy-zwZ" firstAttribute="bottom" secondItem="vqb-9n-UKr" secondAttribute="bottom" constant="10" id="5Y5-kK-coS"/>
-                            <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="QhC-FU-Hfa" secondAttribute="trailing" id="6Xp-eS-9nT"/>
-                            <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="Wag-KW-4l9" secondAttribute="trailing" id="79E-Pv-YcO"/>
-                            <constraint firstItem="Wag-KW-4l9" firstAttribute="top" secondItem="QhC-FU-Hfa" secondAttribute="bottom" constant="-75" id="7Wn-pI-Cfs"/>
-                            <constraint firstItem="QhC-FU-Hfa" firstAttribute="top" secondItem="z49-wy-zwZ" secondAttribute="top" constant="10" id="BDY-ZC-VQs"/>
-                            <constraint firstItem="Wag-KW-4l9" firstAttribute="centerX" secondItem="HIe-zl-TmH" secondAttribute="centerX" id="LXP-3a-LSU"/>
-                            <constraint firstItem="QhC-FU-Hfa" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="MEO-BB-cwz"/>
-                            <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="cCa-Pd-CyP" secondAttribute="trailing" id="Rwf-s3-mEJ"/>
+                            <constraint firstItem="bgZ-js-m84" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="6HQ-wD-XYc"/>
+                            <constraint firstItem="vqb-9n-UKr" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" id="AwA-Lo-B46"/>
+                            <constraint firstItem="Wag-KW-4l9" firstAttribute="trailing" secondItem="z49-wy-zwZ" secondAttribute="trailing" id="FOU-MF-lQC"/>
+                            <constraint firstItem="Wag-KW-4l9" firstAttribute="top" secondItem="z49-wy-zwZ" secondAttribute="top" id="Kxf-Ob-hMg"/>
+                            <constraint firstItem="Wag-KW-4l9" firstAttribute="top" secondItem="z49-wy-zwZ" secondAttribute="top" id="Wen-xg-gp9"/>
                             <constraint firstItem="Wag-KW-4l9" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="XeE-Au-Do0"/>
                             <constraint firstItem="cCa-Pd-CyP" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" id="Yfa-KS-Srj"/>
+                            <constraint firstItem="z49-wy-zwZ" firstAttribute="bottom" secondItem="Wag-KW-4l9" secondAttribute="bottom" id="aAc-l3-uzr"/>
+                            <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="bgZ-js-m84" secondAttribute="trailing" id="ku3-Rn-5hc"/>
+                            <constraint firstItem="Wag-KW-4l9" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="l2r-w3-S3c"/>
                             <constraint firstItem="cCa-Pd-CyP" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="qta-bo-dw0"/>
-                            <constraint firstItem="Wag-KW-4l9" firstAttribute="centerY" secondItem="HIe-zl-TmH" secondAttribute="centerY" id="s7V-CT-8wf"/>
+                            <constraint firstItem="cCa-Pd-CyP" firstAttribute="trailing" secondItem="z49-wy-zwZ" secondAttribute="trailing" id="ueh-3p-UPc"/>
+                            <constraint firstItem="bgZ-js-m84" firstAttribute="top" secondItem="z49-wy-zwZ" secondAttribute="top" id="vbv-EV-e46"/>
                             <constraint firstItem="vqb-9n-UKr" firstAttribute="centerX" secondItem="HIe-zl-TmH" secondAttribute="centerX" id="yic-9V-qTd"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="arenaView" destination="cCa-Pd-CyP" id="pd9-By-euJ"/>
                         <outlet property="connectButton" destination="FTo-no-nA4" id="plm-Fc-T2k"/>
-                        <outlet property="progressView" destination="QhC-FU-Hfa" id="Nub-N8-Mis"/>
+                        <outlet property="progressView" destination="bgZ-js-m84" id="blS-ce-5D1"/>
                         <outlet property="sceneView" destination="Wag-KW-4l9" id="dxd-jM-m8d"/>
                     </connections>
                 </viewController>
