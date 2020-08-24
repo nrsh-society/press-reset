@@ -9,6 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Antenna-ExtraLight.otf">
+            <string>Antenna-ExtraLight</string>
+        </array>
         <array key="Antenna-Regular.otf">
             <string>Antenna-Regular</string>
         </array>
@@ -22,17 +25,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bgZ-js-m84" userLabel="Progress View" customClass="ProgressView" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="375" height="115"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bgZ-js-m84" userLabel="Progress View" customClass="ProgressView" customModule="Zendo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="375" height="150"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="115" id="9en-vB-OnT"/>
+                                    <constraint firstAttribute="height" constant="120" id="9en-vB-OnT"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d5o-3f-N6a" userLabel="Outro Message">
+                                <rect key="frame" x="154" y="393.66666666666669" width="67" height="25"/>
+                                <fontDescription key="fontDescription" name="Antenna-ExtraLight" family="Antenna" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wag-KW-4l9">
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                             </skView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vqb-9n-UKr" userLabel="Connect View">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vqb-9n-UKr" userLabel="Intro View">
                                 <rect key="frame" x="37.666666666666657" y="748" width="300" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTo-no-nA4">
@@ -59,6 +68,7 @@
                         <viewLayoutGuide key="safeArea" id="z49-wy-zwZ"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="d5o-3f-N6a" firstAttribute="centerY" secondItem="HIe-zl-TmH" secondAttribute="centerY" id="5tQ-IO-iWD"/>
                             <constraint firstItem="bgZ-js-m84" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="6HQ-wD-XYc"/>
                             <constraint firstItem="vqb-9n-UKr" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" id="AwA-Lo-B46"/>
                             <constraint firstItem="Wag-KW-4l9" firstAttribute="trailing" secondItem="z49-wy-zwZ" secondAttribute="trailing" id="FOU-MF-lQC"/>
@@ -67,6 +77,7 @@
                             <constraint firstItem="Wag-KW-4l9" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="XeE-Au-Do0"/>
                             <constraint firstItem="cCa-Pd-CyP" firstAttribute="bottom" secondItem="z49-wy-zwZ" secondAttribute="bottom" id="Yfa-KS-Srj"/>
                             <constraint firstItem="z49-wy-zwZ" firstAttribute="bottom" secondItem="Wag-KW-4l9" secondAttribute="bottom" id="aAc-l3-uzr"/>
+                            <constraint firstItem="d5o-3f-N6a" firstAttribute="centerX" secondItem="HIe-zl-TmH" secondAttribute="centerX" id="dgL-QI-GbJ"/>
                             <constraint firstItem="z49-wy-zwZ" firstAttribute="trailing" secondItem="bgZ-js-m84" secondAttribute="trailing" id="ku3-Rn-5hc"/>
                             <constraint firstItem="Wag-KW-4l9" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="l2r-w3-S3c"/>
                             <constraint firstItem="cCa-Pd-CyP" firstAttribute="leading" secondItem="z49-wy-zwZ" secondAttribute="leading" id="qta-bo-dw0"/>
@@ -78,6 +89,7 @@
                     <connections>
                         <outlet property="arenaView" destination="cCa-Pd-CyP" id="pd9-By-euJ"/>
                         <outlet property="connectButton" destination="FTo-no-nA4" id="plm-Fc-T2k"/>
+                        <outlet property="outroMessageLabel" destination="d5o-3f-N6a" id="m8s-4S-ccT"/>
                         <outlet property="progressView" destination="bgZ-js-m84" id="blS-ce-5D1"/>
                         <outlet property="sceneView" destination="Wag-KW-4l9" id="dxd-jM-m8d"/>
                     </connections>

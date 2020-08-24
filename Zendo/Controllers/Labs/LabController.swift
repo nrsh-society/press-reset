@@ -46,9 +46,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forData())
     }()
     
-    var zensor : Zensor?
+    var zensor: Zensor?
     var story: Story!
-    var scene: SKScene!
     
     @IBOutlet weak var sceneView: SKView!
     {
@@ -74,6 +73,15 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
       
         }
     }
+    
+    @IBOutlet weak var outroMessageLabel: UILabel!
+    {
+            didSet {
+                outroMessageLabel.isHidden = true
+                outroMessageLabel.text = "if you are reading this, it is already too late?"
+            }
+    }
+    
     
     @IBOutlet weak var progressView: ProgressView! {
             didSet {
@@ -243,6 +251,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
 
     }
     
+    
+    //#todo(6.0): need to wire up the BLE Zensor too.
     @objc func connectZensor()
     {
         let startingSessions = StartingSessionViewController()
@@ -264,6 +274,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                         
             DispatchQueue.main.async
             {
+                self.sceneView.presentScene(self.getMainScene())
+                
                 UIView.animate(withDuration: 0.5)
                 {
                     self.arenaView.isHidden = false
@@ -273,8 +285,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 //todo(bug): this has to be done outside of the
                 //animate for some reason, maybe a beta os issue
                 self.connectButton.isHidden = true
-                
-                self.sceneView.presentScene(self.getMainScene())
+                self.outroMessageLabel.isHidden = true
                 
                 self.captureSession.startRunning()
             }
@@ -288,8 +299,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
      
     }
     
-    @objc func endSession()
-    {
+    @objc func endSession() {
+        
+        
         Mixpanel.mainInstance().track(event: "phone_lab_watch_connected",
                                       properties: ["name": self.story.title])
         
@@ -302,7 +314,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 DispatchQueue.main.async
                 {
                     let vc = ZazenController.loadFromStoryboard()
-            
+                    
                     vc.workout = (workouts[0] as! HKWorkout)
                 
                     self.present(vc, animated: true)
@@ -311,14 +323,25 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             }
         }
         
+        let message = """
+
+        +:nothing to add.
+        -:nothing to subtract.
+        =:nothing is complete.
+
+        """
+        
         DispatchQueue.main.async
         {
             UIView.animate(withDuration: 0.5)
             {
-                self.connectButton.isHidden = false
+                self.connectButton.isHidden = true
                 self.sceneView.isHidden = false
-                self.progressView.isHidden = true
-                self.arenaView.isHidden = true
+                self.progressView.isHidden = false
+                self.arenaView.isHidden = false
+                self.outroMessageLabel.isHidden = false
+                self.outroMessageLabel.text = self.story.outroMessage ?? message
+                
             }
         }
     }
