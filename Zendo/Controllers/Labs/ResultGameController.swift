@@ -34,9 +34,6 @@ class ResultGameController: UIViewController {
         return .lightContent
     }
     
-    var causePayID = "GiveDirectly$payid.charity"
-    var sponsor = ""
-    var sender = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()

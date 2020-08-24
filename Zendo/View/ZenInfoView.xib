@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,7 +16,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZenInfoView" customModule="Zendo" customModuleProvider="target">
             <connections>
                 <outlet property="dots" destination="J1t-Uz-19u" id="kYD-5e-TpQ"/>
-                <outlet property="giveImage" destination="rcI-bx-MJG" id="D9a-y0-D4k"/>
                 <outlet property="image" destination="Kfq-nj-ira" id="h9S-Vh-htD"/>
                 <outlet property="title" destination="MmX-wO-8Mh" id="I0j-w8-wqX"/>
                 <outlet property="topTitle" destination="bFZ-4J-47r" id="l4T-Zi-bYj"/>
@@ -66,19 +66,15 @@
                         </label>
                     </subviews>
                 </stackView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="giveDirectly" translatesAutoresizingMaskIntoConstraints="NO" id="rcI-bx-MJG">
-                    <rect key="frame" x="24" y="89.5" width="94" height="15"/>
-                </imageView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="uQb-8M-O5G"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="bFZ-4J-47r" firstAttribute="leading" secondItem="2fO-eB-zfL" secondAttribute="leading" constant="24" id="1Jo-gZ-COt"/>
                 <constraint firstItem="Kfq-nj-ira" firstAttribute="leading" secondItem="Fb2-nF-WJH" secondAttribute="trailing" constant="10" id="DZc-3U-8vl"/>
                 <constraint firstItem="bFZ-4J-47r" firstAttribute="top" secondItem="2fO-eB-zfL" secondAttribute="top" constant="16" id="GNr-3R-b2W"/>
-                <constraint firstItem="rcI-bx-MJG" firstAttribute="leading" secondItem="uQb-8M-O5G" secondAttribute="leading" constant="24" id="LJ2-vD-czd"/>
                 <constraint firstItem="Kfq-nj-ira" firstAttribute="leading" secondItem="bFZ-4J-47r" secondAttribute="trailing" constant="10" id="Ls7-xL-oT4"/>
                 <constraint firstItem="Fb2-nF-WJH" firstAttribute="top" secondItem="bFZ-4J-47r" secondAttribute="bottom" constant="9" id="UY4-HZ-Rie"/>
-                <constraint firstItem="rcI-bx-MJG" firstAttribute="top" secondItem="Fb2-nF-WJH" secondAttribute="bottom" constant="20" id="avM-Uw-bWC"/>
                 <constraint firstItem="Fb2-nF-WJH" firstAttribute="leading" secondItem="uQb-8M-O5G" secondAttribute="leading" constant="24" id="bkT-hT-fb1"/>
                 <constraint firstAttribute="trailing" secondItem="Kfq-nj-ira" secondAttribute="trailing" constant="23" id="hEK-uE-KQh"/>
                 <constraint firstItem="Kfq-nj-ira" firstAttribute="centerY" secondItem="2fO-eB-zfL" secondAttribute="centerY" id="t9p-Ww-byv"/>
@@ -86,11 +82,7 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="uQb-8M-O5G"/>
             <point key="canvasLocation" x="440.80000000000001" y="-176.31184407796104"/>
         </view>
     </objects>
-    <resources>
-        <image name="giveDirectly" width="94" height="15"/>
-    </resources>
 </document>

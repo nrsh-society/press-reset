@@ -46,7 +46,6 @@ class TrainController: UIViewController
     var panGR: UIPanGestureRecognizer!
     var showLevels : Bool = false
     var showGroups : Bool = false
-    var airplay: AirplayController?
     var chartHR = [String: Int]()
     var rings = [SKShapeNode]()
     var scene : SKScene?
@@ -163,9 +162,6 @@ class TrainController: UIViewController
         
         self.spriteView.presentScene(nil)
         self.scene = nil
-        
-        self.airplay?.dismiss()
-        self.airplay = nil
     }
     
     func setupConnectButton()

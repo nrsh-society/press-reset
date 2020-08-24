@@ -102,7 +102,6 @@ class VideoViewController: UIViewController {
     
     let interval = CMTime(seconds: 0.01, preferredTimescale: 1000)
     let mainQueue = DispatchQueue.main
-    var airplay: AirplayController?
     
     @objc func sample(notification: NSNotification)
     {
@@ -219,9 +218,6 @@ class VideoViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
-        
-        self.airplay?.dismiss()
-        self.airplay = nil
         
         NotificationCenter.default.removeObserver(self)
         
@@ -522,9 +518,7 @@ class VideoViewController: UIViewController {
     @objc func dismissVideo()
     {
         removeObserver()
-        
-        airplay?.dismiss()
-        
+    
         dismiss(animated: true)
     }
     
