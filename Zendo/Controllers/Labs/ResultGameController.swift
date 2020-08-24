@@ -277,9 +277,6 @@ class ResultGameController: UIViewController {
         return ChartDataEntry(x: interval, y: value.rounded())
     }
     
-    func setDonated(_ cell: ResultGameTableCell) {
-        cell.donatedView.setTitle("1249 xrp donated")
-    }
     
     func populateHRV(_ cell: ResultGameTableCell, start: Date, end: Date) {
         DispatchQueue.main.async() {
@@ -490,7 +487,6 @@ extension ResultGameController: UITableViewDataSource {
         
         
         populateMMChart(cell: cell)
-        setDonated(cell)
         
         return cell
     }

@@ -207,6 +207,13 @@ class ZazenController: UIViewController {
         Mixpanel.mainInstance().track(event: "detail")
     }
     
+    static func loadFromStoryboard() -> ZazenController
+    {
+        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "zazen-controller") as! ZazenController
+        
+        return controller
+    }
+    
     @IBAction func export(_ sender: Any) {
         let vc = export(samples: self.samples)
         present(vc, animated: true, completion: nil)

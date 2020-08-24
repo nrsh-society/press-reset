@@ -293,9 +293,26 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         Mixpanel.mainInstance().track(event: "phone_lab_watch_connected",
                                       properties: ["name": self.story.title])
         
+        ZBFHealthKit.getWorkouts(limit: 1) {
+         
+            workouts in
+            
+            if (workouts.count > 0 ) {
+            
+                DispatchQueue.main.async
+                {
+                    let vc = ZazenController.loadFromStoryboard()
+            
+                    vc.workout = (workouts[0] as! HKWorkout)
+                
+                    self.present(vc, animated: true)
+                    
+                }
+            }
+        }
+        
         DispatchQueue.main.async
         {
-           
             UIView.animate(withDuration: 0.5)
             {
                 self.connectButton.isHidden = false
@@ -303,11 +320,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 self.progressView.isHidden = true
                 self.arenaView.isHidden = true
             }
-
-            let vc = ResultGameController.loadFromStoryboard()
-            self.present(vc, animated: true)
         }
-        
     }
     
     @objc func progress(notification: NSNotification) {
