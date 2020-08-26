@@ -20,17 +20,35 @@ import Vision
 import HaishinKit
 import XpringKit
 
-class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate
+//#todo(rename): This isn't Labs anymore
+class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate
 {
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        
+        UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
+
+    }
+    
     //#todo(debt): If we moved to SwiftUI can we get rid of some of this?
     var idHero = "" //not too sure what this does but it is store for the one of the dependencies that we have
     
     //#todo(debt): //not too sure why this isn't just in the HUDView?
     var chartHR = [String: Int]()
     
-    //todo(debt): this should be moved to some debug setting thing?
+    //todo(debt): this should be moved to some story setting thing?
     var enableFaceDetection: Bool = false
+    var enableOutro: Bool = false
+    var enableProgress: Bool = false
+    var enableStats: Bool = false
     
+    //todo(5.5): really want to do this before we push to the Apple store.
+    var enableRecord: Bool = false
+    
+    //todo(6.0): enable :-)
+    var enableGame: Bool = false
+    var enableIntro: Bool = false
+    var enableLivestream: Bool = false
+
     //todo(debt): all of this private stuff should be in a shared place?
     //should be common to all Stories?
     private let captureSession = AVCaptureSession()
@@ -52,6 +70,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     @IBOutlet weak var sceneView: SKView!
     {
         didSet {
+            
             sceneView.hero.id = idHero
             sceneView.frame = UIScreen.main.bounds
             sceneView.contentMode = .scaleAspectFill
@@ -62,47 +81,62 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             
             sceneView.addGestureRecognizer(panGR)
             
-            let enableFaceDetectionGesture  = UITapGestureRecognizer(
-                target: self,
-                action: #selector(faceDetectionEnabled)
-              )
-            
-            enableFaceDetectionGesture.numberOfTapsRequired = 2
-            
-            sceneView.addGestureRecognizer(enableFaceDetectionGesture)
-      
         }
     }
     
+    //#todo(6.0): turn this into a control
     @IBOutlet weak var outroMessageLabel: UILabel!
     {
             didSet {
+                
                 outroMessageLabel.isHidden = true
                 outroMessageLabel.text = "if you are reading this, it is already too late?"
             }
     }
     
+    @objc func setOutroToggle()
+    {
+        self.outroMessageLabel.isHidden = !self.outroMessageLabel.isHidden
+    }
+    
+    @objc func toggleFullscreen()
+    {
+        self.toggleStatsView()
+        self.toggleProgressView()
+        
+    }
     
     @IBOutlet weak var progressView: ProgressView! {
             didSet {
 
                 progressView.isHidden = true
                 progressView.alpha = 1.0
+                
                 self.progressView.update(minutes: "--", progress: "--/--",
                                          cause: "--", sponsor: "--",
                                          creator: "--", meditator:"--")
             }
         }
     
-    @IBOutlet weak var arenaView: ArenaView! {
+    @objc func toggleProgressView()
+    {
+        self.progressView.isHidden = !self.progressView.isHidden
+    }
+    
+    @IBOutlet weak var statsView: ArenaView! {
         didSet {
 
-            arenaView.isHidden = true
-            arenaView.alpha = 1.0
-            arenaView.hrv.text = "--"
-            arenaView.time.text = "--"
+            statsView.isHidden = true
+            statsView.alpha = 1.0
+            statsView.hrv.text = "--"
+            statsView.time.text = "--"
             
         }
+    }
+    
+    @objc func toggleStatsView()
+    {
+        self.statsView.isHidden = !self.statsView.isHidden
     }
     
     @IBOutlet weak var connectButton: UIButton!
@@ -162,7 +196,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         super.viewDidLoad()
     
         Mixpanel.mainInstance().time(event: "phone_lab")
-    
+        
+        setBackground()
+        
         setupPhoneSensors()
         
         setupPhoneAV()
@@ -276,9 +312,18 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             {
                 self.sceneView.presentScene(self.getMainScene())
                 
+                let toggleFullscreenGesture = UITapGestureRecognizer(
+                    target: self,
+                    action: #selector(self.toggleFullscreen)
+                  )
+                
+                toggleFullscreenGesture.numberOfTapsRequired = 2
+                
+                self.sceneView.addGestureRecognizer(toggleFullscreenGesture)
+                
                 UIView.animate(withDuration: 0.5)
                 {
-                    self.arenaView.isHidden = false
+                    self.statsView.isHidden = false
                     self.progressView.isHidden = false
                     self.sceneView.isHidden = false
                 }
@@ -288,9 +333,20 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 self.outroMessageLabel.isHidden = true
                 
                 self.captureSession.startRunning()
+                
+                if(self.enableRecord) {
+                    
+                    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+                    let fileUrl = paths[0].appendingPathComponent("meditation.mov")
+                    try? FileManager.default.removeItem(at: fileUrl)
+                
+                    self.videoFileOutput.startRecording(to: fileUrl, recordingDelegate: self)
+                    
+                }
             }
-        } else
-        {
+            
+        } else {
+            
             DispatchQueue.main.async
             {
                 self.sceneView.presentScene(self.getIntroScene())
@@ -301,9 +357,15 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     
     @objc func endSession() {
         
-        
         Mixpanel.mainInstance().track(event: "phone_lab_watch_connected",
                                       properties: ["name": self.story.title])
+        
+        if(self.enableRecord) {
+            
+            self.videoFileOutput.stopRecording()
+        }
+        
+        self.captureSession.stopRunning()
         
         ZBFHealthKit.getWorkouts(limit: 1) {
          
@@ -323,13 +385,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             }
         }
         
-        let message = """
-
-        +:nothing to add.
-        -:nothing to subtract.
-        =:nothing is complete.
-
-        """
+        let message = "Be Well."
         
         DispatchQueue.main.async
         {
@@ -338,7 +394,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 self.connectButton.isHidden = true
                 self.sceneView.isHidden = false
                 self.progressView.isHidden = false
-                self.arenaView.isHidden = false
+                self.statsView.isHidden = false
                 self.outroMessageLabel.isHidden = false
                 self.outroMessageLabel.text = self.story.outroMessage ?? message
                 
@@ -383,9 +439,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
        
             DispatchQueue.main.async
             {
-                self.arenaView.hrv.text = text_hrv
-                self.arenaView.time.text = text_hr
-                self.arenaView.setChart(chartHR)
+                self.statsView.hrv.text = text_hrv
+                self.statsView.time.text = text_hr
+                self.statsView.setChart(chartHR)
                             
                 self.progressView.update(minutes: donatedString, progress: progressString, cause: causePayID, sponsor: sponsorPayID, creator: creatorPayID, meditator: Settings.email ?? "anonymous")
                 
@@ -407,7 +463,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     
     func getContent(contentURL: URL, completion: @escaping (AVPlayerItem) -> Void)
     {
-    
         var playerItem: AVPlayerItem?
                 
         storage?.async.entry(forKey: contentURL.absoluteString, completion:
@@ -521,6 +576,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 video.anchorPoint = scene.anchorPoint
                 video.play()
                 scene.addChild(video)
+                
+                self.removeBackground()
                     
                 NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
                                                            object: videoPlayer.currentItem, queue: nil)
@@ -561,6 +618,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 video.anchorPoint = scene.anchorPoint
                 video.play()
                 scene.addChild(video)
+                
+                self.removeBackground()
                     
                 NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
                                                            object: videoPlayer.currentItem, queue: nil)
@@ -579,6 +638,23 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         })
             
         return scene
+    }
+    
+    func setBackground() {
+        if let story = story, let thumbnailUrl = story.thumbnailUrl, let url = URL(string: thumbnailUrl) {
+            UIImage.setImage(from: url) { image in
+                DispatchQueue.main.async {
+                    self.sceneView.addBackground(image: image, isLayer: false, isReplase: false)
+                }
+            }
+        }
+    }
+    
+    func removeBackground()
+    {
+        if let viewWithTag = self.view.viewWithTag(100) {
+            viewWithTag.removeFromSuperview()
+        }
     }
     
     //todo(debt): put all of this stuff in a MoneyKit.swift file.
@@ -685,6 +761,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         }
         let cameraInput = try! AVCaptureDeviceInput(device: device)
         self.captureSession.addInput(cameraInput)
+        
     }
     
     
@@ -694,11 +771,13 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         self.videoDataOutput.alwaysDiscardsLateVideoFrames = true
         self.videoDataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "camera_frame_processing_queue"))
         self.captureSession.addOutput(self.videoDataOutput)
+        
         guard let connection = self.videoDataOutput.connection(with: AVMediaType.video),
             connection.isVideoOrientationSupported else { return }
         connection.videoOrientation = .portrait
         
-       
+        self.captureSession.addOutput(videoFileOutput)
+        
     }
     
     private func detectFace(in image: CVPixelBuffer) {

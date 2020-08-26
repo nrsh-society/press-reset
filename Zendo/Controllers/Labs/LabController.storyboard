@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -22,7 +20,7 @@
             <objects>
                 <viewController storyboardIdentifier="LabController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NZg-Kt-xhW" customClass="LabController" customModule="Zendo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HIe-zl-TmH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bgZ-js-m84" userLabel="Progress View" customClass="ProgressView" customModule="Zendo" customModuleProvider="target">
@@ -33,16 +31,16 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="thxu." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d5o-3f-N6a" userLabel="Outro Message">
-                                <rect key="frame" x="158.33333333333334" y="393.66666666666669" width="58.666666666666657" height="25"/>
+                                <rect key="frame" x="272" y="285.5" width="56" height="29.5"/>
                                 <fontDescription key="fontDescription" name="Antenna-ExtraLight" family="Antenna" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wag-KW-4l9">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </skView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vqb-9n-UKr" userLabel="Intro View">
-                                <rect key="frame" x="37.666666666666657" y="748" width="300" height="30"/>
+                                <rect key="frame" x="150" y="570" width="300" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTo-no-nA4">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
@@ -58,7 +56,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cCa-Pd-CyP" customClass="ArenaView" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="628" width="375" height="150"/>
+                                <rect key="frame" x="0.0" y="450" width="600" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="ndM-It-NmL"/>
@@ -87,11 +85,11 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="arenaView" destination="cCa-Pd-CyP" id="pd9-By-euJ"/>
                         <outlet property="connectButton" destination="FTo-no-nA4" id="plm-Fc-T2k"/>
                         <outlet property="outroMessageLabel" destination="d5o-3f-N6a" id="m8s-4S-ccT"/>
                         <outlet property="progressView" destination="bgZ-js-m84" id="blS-ce-5D1"/>
                         <outlet property="sceneView" destination="Wag-KW-4l9" id="dxd-jM-m8d"/>
+                        <outlet property="statsView" destination="cCa-Pd-CyP" id="pd9-By-euJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tVi-YP-W0J" userLabel="First Responder" sceneMemberID="firstResponder"/>
