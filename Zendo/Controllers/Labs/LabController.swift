@@ -304,13 +304,18 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     @objc func startSession()
     {
 
+
         if(Settings.isZensorConnected)
         {
             Mixpanel.mainInstance().time(event: "phone_lab_watch_connected")
                         
             DispatchQueue.main.async
             {
-                self.sceneView.presentScene(self.getMainScene())
+                let main = self.getMainScene()
+                
+                self.sceneView.presentScene(nil) //don't ask, just invoke
+                
+                self.sceneView.presentScene(main)
                 
                 let toggleFullscreenGesture = UITapGestureRecognizer(
                     target: self,
@@ -415,7 +420,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         }
     }
     
-    //todo(bug, blocker): think this is fixed now, but least see.
     @objc func sample(notification: NSNotification)
     {
         if let sample = notification.object as? [String : Any]

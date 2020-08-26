@@ -161,7 +161,7 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
                                             
                     }
         
-                    self.presentAlert(withTitle: nil, message: "Hi \(fullName.givenName ?? "")! We are sending instructions to \(email.description ) as fast as we can. Welcome.", preferredStyle: .alert, actions: [ok])
+                    self.presentAlert(withTitle: nil, message: "Hi \(fullName.givenName ?? "")! Thanks for caring.", preferredStyle: .alert, actions: [ok])
                 }
                 
             break
