@@ -113,8 +113,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 progressView.alpha = 1.0
                 
                 self.progressView.update(minutes: "--", progress: "--/--",
-                                         cause: "--", sponsor: "--",
-                                         creator: "--", meditator:"--")
+                                         cause: "loading 🎗", sponsor: "$sponsor",
+                                         creator: "$creator", meditator:"---")
             }
         }
     
@@ -429,6 +429,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             let text_hr = int_hr.description
             let donatedString = sample["donated"] as? String ?? "--"
             let progressString = sample["progress"] as? String ?? "--/--"
+            let appleID = sample["appleID"] as? String ?? "---"
             let creatorPayID = self.story.creatorPayID!
             let causePayID = self.story.causePayID!
             let sponsorPayID = self.story.sponsorPayID!
@@ -443,7 +444,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 self.statsView.time.text = text_hr
                 self.statsView.setChart(chartHR)
                             
-                self.progressView.update(minutes: donatedString, progress: progressString, cause: causePayID, sponsor: sponsorPayID, creator: creatorPayID, meditator: Settings.email ?? "anonymous")
+                self.progressView.update(minutes: donatedString, progress: progressString, cause: causePayID, sponsor: sponsorPayID, creator: creatorPayID, meditator: appleID)
                 
             }
             
@@ -453,7 +454,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             }
             else
             {
-                self.zensor = Zensor(id: UUID() , name: Settings.email!, hr: Float(double_hr) , batt: 100)
+                self.zensor = Zensor(id: UUID() , name: Settings.email ?? "Apple Watch", hr: Float(double_hr) , batt: 100)
             }
             
             self.donate()

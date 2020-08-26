@@ -545,9 +545,16 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         if let appleUserUUID = SettingsWatch.appleUserID
         {
-            metadata["donated"] = SettingsWatch.donatedMinutes.description
-            metadata["position"] = SettingsWatch.progressPosition
-            metadata["appleID"] = appleUserUUID.description
+            if(SettingsWatch.donations)
+            {
+                metadata["donated"] = SettingsWatch.donatedMinutes.description
+            }
+            
+            if(SettingsWatch.progress)
+            {
+                metadata["position"] = SettingsWatch.progressPosition
+                metadata["appleID"] = SettingsWatch.email
+            }
         }
         
         sessionDelegater.sendMessage(["sample" : metadata],

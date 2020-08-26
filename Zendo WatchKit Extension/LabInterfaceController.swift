@@ -46,7 +46,15 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
         SettingsWatch.progress = value
         progressMetricGroup.setHidden(!value)
         progressLabel.setHidden(value)
-        progressMetricValue.setText(SettingsWatch.progressPosition)
+        
+        if let value = SettingsWatch.progressPosition
+        {
+            //this has to be the dumbest line of codes i have written
+            if (value.count  > 0)
+            {
+                progressMetricValue.setText(SettingsWatch.progressPosition)
+            }
+        }
     }
     
     @IBAction func onAppleSignButtonPressed()
@@ -132,11 +140,14 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
                 }
                 
                 SettingsWatch.appleUserID = userIdentifier
+                SettingsWatch.email = appleIDCredential.email
                 
                 if let fullName = appleIDCredential.fullName , let email = appleIDCredential.email
                 {
                 
-                    SettingsWatch.fullName =  (fullName.givenName ?? "") + "" + (fullName.familyName ?? "")
+                    SettingsWatch.fullName =
+                        (fullName.givenName ?? "") +
+                            "" + (fullName.familyName ?? "")
                     SettingsWatch.email = email.description
                 
                     Mixpanel.sharedInstance()?.track("watch_signin", properties: ["email": SettingsWatch.email as Any])
