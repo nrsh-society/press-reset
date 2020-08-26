@@ -168,7 +168,7 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
                 
             }
         
-            self.presentAlert(withTitle: nil, message: "Error signing in to Labs. Zendō uses Apple Sign in for secure access to causes + community. Nothing is shared without your permission.", preferredStyle: .alert, actions: [ok])
+            self.presentAlert(withTitle: nil, message: "Error signing in. Zendō uses Apple Sign in for secure access. Nothing is shared without your permission.", preferredStyle: .alert, actions: [ok])
     }
     
     

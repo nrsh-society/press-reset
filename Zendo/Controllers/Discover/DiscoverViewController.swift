@@ -501,32 +501,19 @@ extension DiscoverViewController: UICollectionViewDataSource {
     }
 
     func getViewControllerForStory(_ story: Story, indexPath: IndexPath, collectionView: UICollectionView) -> UIViewController? {
+        
         var vc : UIViewController?
-        if story.type == "group"
+        
+        if story.type == "cause"
         {
-            if Settings.email == nil || Settings.fullName == nil {
-                let alert = UIAlertController(
-                    title: "Missing Required Info",
-                    message: "Entering into a group session requires full name and email",
-                    preferredStyle: .alert
-                )
+                 let cause = LabController.loadFromStoryboard()
+            cause.story = story
+            cause.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            cause.modalPresentationStyle = .fullScreen
+            cause.hero.isEnabled = true
+                vc = cause
 
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                vc = alert
-            } else {
-                
-                let lab = LabController.loadFromStoryboard()
-                lab.story = story
-                lab.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-                lab.modalPresentationStyle = .fullScreen
-                lab.hero.isEnabled = true
-                vc = lab
-                //let zensorView: some View = ZensorsView()
-                //let hostingController = UIHostingController(rootView: zensorView)
-                //hostingController.story = story
-                //hostingController.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-            }
-        } else if story.type == "solo" || story.type == "train"
+        } else if story.type == "train"
         {
             let solo = TrainController.loadFromStoryboard(true)
             solo.story = story
@@ -534,7 +521,7 @@ extension DiscoverViewController: UICollectionViewDataSource {
             solo.modalPresentationStyle = .fullScreen
             solo.hero.isEnabled = true
             vc = solo
-        } else if story.type == "train2"
+        } else if story.type == "labs"
         {
             let start = StartSessionController.loadFromStoryboard()
             start.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description

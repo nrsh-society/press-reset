@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17147" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17154" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch44"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17120"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17032"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17034"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="Antenna-Light.otf">
@@ -455,10 +455,10 @@
             </objects>
             <point key="canvasLocation" x="404" y="-61"/>
         </scene>
-        <!--Labs-->
+        <!--Compassion-->
         <scene sceneID="AfA-Zh-usQ">
             <objects>
-                <controller identifier="SharingInterfaceController" title="Labs" spacing="9" id="3ad-2P-1UE" customClass="LabInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="SharingInterfaceController" title="Compassion" spacing="9" id="3ad-2P-1UE" customClass="LabInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="left" layout="vertical" spacing="5" id="ZUu-yK-xf2" userLabel="Top">
                             <items>

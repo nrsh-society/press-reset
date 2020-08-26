@@ -605,17 +605,26 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         let payIDClient = PayIDClient()
         
-        let causeXRPLAddress = try! payIDClient.cryptoAddress(for: causePayID, on: "xrpl-mainnet").get()
+        do {
+            
+            let causeXRPLAddress = try payIDClient.cryptoAddress(for: causePayID, on: "xrpl-mainnet").get()
+            
+            let tag = UInt32(causeXRPLAddress.tag ?? "0")
+            
+            let causeXAddress = Utils.encode(classicAddress: causeXRPLAddress.address, tag: tag, isTest: false)!
+            
+            let amount = UInt64(166666)
+            
+            let wallet = Wallet(seed: self.story.sponsorKey!)!
+            
+            self.moveXrp(source: wallet, target: causeXAddress, drops: amount, useMainnet: true)
+            
+        } catch {
+            
+            print(error.localizedDescription)
+            
+        }
         
-        let tag = UInt32(causeXRPLAddress.tag ?? "0")
-        
-        let causeXAddress = Utils.encode(classicAddress: causeXRPLAddress.address, tag: tag, isTest: false)!
-        
-        let amount = UInt64(166666)
-        
-        let wallet = Wallet(seed: story.sponsorKey!)!
-        
-        self.moveXrp(source: wallet, target: causeXAddress, drops: amount, useMainnet: true)
           
     }
     
@@ -624,8 +633,10 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         let creatorPayID = story.creatorPayID!
 
         let payIDClient = PayIDClient()
+        
+        do {
 
-        let creatorXRPLAddress = try! payIDClient.cryptoAddress(for: creatorPayID, on: "xrpl-mainnet").get()
+        let creatorXRPLAddress = try payIDClient.cryptoAddress(for: creatorPayID, on: "xrpl-mainnet").get()
 
         let tag = UInt32(creatorXRPLAddress.tag ?? "0")
 
@@ -636,6 +647,12 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         let wallet = Wallet(seed: story.sponsorKey!)!
 
         self.moveXrp(source: wallet, target: causeXAddress, drops: amount, useMainnet: true)
+        
+    } catch {
+        
+        print(error.localizedDescription)
+        
+    }
     }
             
     //todo(debt): this is bunch of code to track the donator in the camera frame.
