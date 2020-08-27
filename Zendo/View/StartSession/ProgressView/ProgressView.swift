@@ -59,9 +59,13 @@ class ProgressView: UIView {
         self.meditator.text = meditator
         self.minutes.text = minutes
         self.progress.text = progress
-        self.cause.text = cause
         self.sponsor.text = sponsor
         self.creator.text = creator
+        
+        UIView.animate(withDuration: 2.0) {
+            self.cause.text = "🎗" + cause
+        }
+
     }
     
 }

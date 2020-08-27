@@ -73,7 +73,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             
             sceneView.hero.id = idHero
             sceneView.frame = UIScreen.main.bounds
-            sceneView.contentMode = .scaleAspectFill
+            sceneView.contentMode = .scaleAspectFit
             sceneView.backgroundColor = .clear
             sceneView.allowsTransparency = true
             
@@ -113,7 +113,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 progressView.alpha = 1.0
                 
                 self.progressView.update(minutes: "--", progress: "--/--",
-                                         cause: "loading 🎗", sponsor: "$sponsor",
+                                         cause: "", sponsor: "$sponsor",
                                          creator: "$creator", meditator:"---")
             }
         }
@@ -169,6 +169,10 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         self.previewLayer.videoGravity = .resizeAspectFill
         self.view.layer.addSublayer(self.previewLayer)
         self.previewLayer.zPosition = -1
+        self.sceneView.layer.zPosition = 0
+        self.statsView.layer.zPosition = 2
+        self.outroMessageLabel.layer.zPosition = 2
+        self.progressView.layer.zPosition = 2
         
     }
     
@@ -605,7 +609,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     func getMainScene() -> SKScene
     {
         let scene = SKScene(size: (sceneView.frame.size))
-        scene.scaleMode = .aspectFill
+        scene.scaleMode = .aspectFit
         
         self.startBackgroundContent(story: story, completion:
         {
@@ -617,7 +621,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 
                 let video = SKVideoNode(avPlayer: videoPlayer)
                     
-                video.zPosition = 1.0
+                video.zPosition = 4.0
                 video.size = scene.frame.size
                 video.position = scene.position
                 video.anchorPoint = scene.anchorPoint

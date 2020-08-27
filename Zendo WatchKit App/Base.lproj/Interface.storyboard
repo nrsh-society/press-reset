@@ -460,7 +460,7 @@
             <objects>
                 <controller identifier="SharingInterfaceController" title="Compassion" spacing="9" id="3ad-2P-1UE" customClass="LabInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <group width="1" alignment="left" layout="vertical" spacing="5" id="ZUu-yK-xf2" userLabel="Top">
+                        <group width="1" alignment="left" layout="vertical" spacing="10" id="ZUu-yK-xf2" userLabel="Top">
                             <items>
                                 <group width="1" alignment="left" layout="vertical" spacing="6" id="Yog-ud-tgJ" userLabel="Support Group">
                                     <items>

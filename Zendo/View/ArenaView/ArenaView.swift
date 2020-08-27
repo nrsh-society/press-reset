@@ -9,6 +9,8 @@
 import UIKit
 import Charts
 
+
+//#todo(6.): rename to statsView
 class ArenaView: UIView {
     
     @IBOutlet weak var hudView: UIView!
