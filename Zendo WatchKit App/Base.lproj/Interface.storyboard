@@ -469,7 +469,7 @@
                                                 <action selector="donationsActionWithValue:" destination="3ad-2P-1UE" id="S3y-nC-upw"/>
                                             </connections>
                                         </switch>
-                                        <label alignment="center" hidden="YES" text="Every minute you meditate, we donate" textAlignment="left" numberOfLines="5" id="Q7Y-LL-pPy">
+                                        <label alignment="left" text="Every minute you meditate, we donate" textAlignment="left" numberOfLines="5" id="Q7Y-LL-pPy">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
@@ -498,7 +498,7 @@
                                                 <action selector="progressActionWithValue:" destination="3ad-2P-1UE" id="mC3-3o-gKb"/>
                                             </connections>
                                         </switch>
-                                        <label alignment="center" hidden="YES" text="Tell others when you you meditate" textAlignment="left" numberOfLines="5" id="IP8-GB-BvL">
+                                        <label alignment="left" text="Determine your community impact" textAlignment="left" numberOfLines="5" id="IP8-GB-BvL">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
@@ -529,7 +529,7 @@
                                         <action selector="onAppleSignButtonPressed" destination="3ad-2P-1UE" id="awe-xS-1hU"/>
                                     </connections>
                                 </authorizationAppleIDButton>
-                                <label alignment="center" text="to agree to our terms and get access." textAlignment="center" numberOfLines="5" id="6vb-L7-muC">
+                                <label alignment="center" text="to agree to our terms and enable" textAlignment="center" numberOfLines="5" id="6vb-L7-muC">
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                     <variation key="device=watch38mm">
                                         <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
@@ -552,7 +552,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="1047" y="-723"/>
+            <point key="canvasLocation" x="1045.8695652173913" y="-715.66964285714289"/>
         </scene>
         <!--Add Friend-->
         <scene sceneID="E9J-az-EAZ">
