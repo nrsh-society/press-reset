@@ -96,9 +96,13 @@ extension WatchSessionManager: WCSessionDelegate {
             }
             else if message["watch"] == "end"
             {
-                Settings.isZensorConnected = false
-                Settings.connectedDate = nil
-                NotificationCenter.default.post(name: .endSession, object: nil)
+                if(Settings.isZensorConnected) {
+
+                    NotificationCenter.default.post(name: .endSession, object: nil)
+                    
+                    Settings.isZensorConnected = false
+                    Settings.connectedDate = nil
+                }
             }
             else if message["watch"] == "endSession"
             {
@@ -106,9 +110,12 @@ extension WatchSessionManager: WCSessionDelegate {
             }
             else if message["watch"] == "start"
             {
-                Settings.isZensorConnected = true
-                Settings.connectedDate = Date ()
-                NotificationCenter.default.post(name: .startSession, object: Settings.connectedDate)
+                if(!Settings.isZensorConnected) {
+                    
+                    Settings.isZensorConnected = true
+                    Settings.connectedDate = Date ()
+                    NotificationCenter.default.post(name: .startSession, object: Settings.connectedDate)
+                }
             }
             else if let progress = message["progress"] {
             

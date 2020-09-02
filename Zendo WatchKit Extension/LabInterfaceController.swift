@@ -131,12 +131,14 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
                 
                 if userIdentifier == SettingsWatch.appleUserID {
                     
-                    self.authorizationButton.setHidden(true)
-                    self.signinLabel.setHidden(true)
-                    
-                    self.donateSwitch.setEnabled(true)
-                    self.progressSwitch.setEnabled(true)
-
+                    self.animate(withDuration: 1, animations: {
+                        self.authorizationButton.setHidden(true)
+                        self.signinLabel.setHidden(true)
+                        
+                        self.donateSwitch.setEnabled(true)
+                        self.progressSwitch.setEnabled(true)
+                        
+                    })
                 }
                 
                 SettingsWatch.appleUserID = userIdentifier
@@ -168,12 +170,36 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
                 
         default:
             print("if you are seeing this it is too late")
+            
+            //but we are going to hyjack this for the demo videos\
+        
+            self.animate(withDuration: 1, animations: {
+                
+                self.authorizationButton.setHidden(true)
+                self.signinLabel.setHidden(true)
+                
+                self.donateSwitch.setEnabled(true)
+                self.progressSwitch.setEnabled(true)
+                
+            })
         
         }
     }
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error)
     {
+        //but we are going to hyjack this for the demo videos\
+    /*
+        self.animate(withDuration: 1, animations: {
+            
+            self.authorizationButton.setHidden(true)
+            self.signinLabel.setHidden(true)
+            
+            self.donateSwitch.setEnabled(true)
+            self.progressSwitch.setEnabled(true)
+            
+        })*/
+        
             let ok = WKAlertAction(title: "OK", style: .default)
             {
                 

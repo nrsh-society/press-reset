@@ -513,16 +513,27 @@ extension DiscoverViewController: UICollectionViewDataSource {
             cause.hero.isEnabled = true
                 vc = cause
 
-        } else if story.type == "train"
+        }
+        else if story.type == "create"
         {
-            let solo = TrainController.loadFromStoryboard(true)
-            solo.story = story
-            solo.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-            solo.modalPresentationStyle = .fullScreen
-            solo.hero.isEnabled = true
-            vc = solo
+            let creator = LabController.loadFromStoryboard()
+            creator.story = story
+            creator.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            creator.modalPresentationStyle = .fullScreen
+            creator.hero.isEnabled = true
+                    vc = creator
+        }
+        else if story.type == "train"
+        {
+            let train = TrainController.loadFromStoryboard(true)
+            train.story = story
+            train.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            train.modalPresentationStyle = .fullScreen
+            train.hero.isEnabled = true
+            vc = train
         } else if story.type == "labs"
         {
+            //todo(this support N zensors)
             let start = StartSessionController.loadFromStoryboard()
             start.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
             start.modalPresentationStyle = .fullScreen

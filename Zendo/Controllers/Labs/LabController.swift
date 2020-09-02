@@ -26,7 +26,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         
         UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
-
+        
     }
     
     //#todo(debt): If we moved to SwiftUI can we get rid of some of this?
@@ -48,7 +48,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     var enableGame: Bool = false
     var enableIntro: Bool = false
     var enableLivestream: Bool = false
-
+    
     //todo(debt): all of this private stuff should be in a shared place?
     //should be common to all Stories?
     private let captureSession = AVCaptureSession()
@@ -87,11 +87,11 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     //#todo(6.0): turn this into a control
     @IBOutlet weak var outroMessageLabel: UILabel!
     {
-            didSet {
-                
-                outroMessageLabel.isHidden = true
-                outroMessageLabel.text = "if you are reading this, it is already too late?"
-            }
+        didSet {
+            
+            outroMessageLabel.isHidden = true
+            outroMessageLabel.text = "if you are reading this, it is already too late?"
+        }
     }
     
     @objc func setOutroToggle()
@@ -107,16 +107,16 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     }
     
     @IBOutlet weak var progressView: ProgressView! {
-            didSet {
-
-                progressView.isHidden = true
-                progressView.alpha = 1.0
-                
-                self.progressView.update(minutes: "--", progress: "--/--",
-                                         cause: "", sponsor: "$sponsor",
-                                         creator: "$creator", meditator:"---")
-            }
+        didSet {
+            
+            progressView.isHidden = true
+            progressView.alpha = 1.0
+            
+            self.progressView.update(minutes: "--", progress: "--/--",
+                                     cause: "", sponsor: "$sponsor",
+                                     creator: "$creator", meditator:"---")
         }
+    }
     
     @objc func toggleProgressView()
     {
@@ -125,7 +125,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     
     @IBOutlet weak var statsView: ArenaView! {
         didSet {
-
+            
             statsView.isHidden = true
             statsView.alpha = 1.0
             statsView.hrv.text = "--"
@@ -153,7 +153,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             self.connectButton.layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
             self.connectButton.layer.shadowOpacity = 1
             self.connectButton.layer.shadowRadius = 20
-
+            
         }
     }
     
@@ -190,7 +190,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         Mixpanel.mainInstance().track(event: "phone_lab", properties: ["name": story.title])
         
         NotificationCenter.default.removeObserver(self)
-                
+        
         UIApplication.shared.isIdleTimerDisabled = false
         
     }
@@ -198,27 +198,30 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     override func viewDidLoad() {
         
         super.viewDidLoad()
-    
+        
         Mixpanel.mainInstance().time(event: "phone_lab")
         
         setBackground()
         
-        setupPhoneSensors()
+        if(story.type == "create") {
+            
+            setupPhoneSensors()
+            setupPhoneAV()
+            setupLivestream()
+        }
         
-        setupPhoneAV()
-        
-        setupLivestream()
-    
         setupWatchNotifications()
         
         startSession()
         
     }
-
+    
     func setupPhoneSensors() {
         
         addCameraIn()
         getCameraOut()
+        
+        //todo(add record for creator)
     }
     
     func setupPhoneAV() {
@@ -237,18 +240,18 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     {
         
         //rtmpStream.attachAudio(AVCaptureDevice.default(for: AVMediaType.audio)) { error in
-              // print(error)
-         // }
+        // print(error)
+        // }
         
         //rtmpStream.attachCamera(DeviceUtil.device(withPosition: .front)) { error in
-              // print(error)
-          //}
+        // print(error)
+        //}
         
-          
+        
         //rtmpConnection.connect("rtmp://live-sjc05.twitch.tv/app/live_526664141_tw0025TCdNZBqEkTxmhAllcIQVlvfQ")
         //rtmpStream.publish("streamName")
     }
-         
+    
     func setupWatchNotifications()
     {
         NotificationCenter.default.addObserver(self,
@@ -270,10 +273,10 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                                                selector: #selector(endSession),
                                                name: .endSession,
                                                object: nil)
- 
+        
     }
     
-
+    
     @objc func pan(_ gestureRecognizer : UIPanGestureRecognizer)
     {
         let translation = gestureRecognizer.translation(in: nil)
@@ -284,11 +287,11 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         case .changed:
             Hero.shared.update(progress)
             let currentPos = CGPoint(x: translation.x + view.center.x, y: translation.y + view.center.y)
-          Hero.shared.apply(modifiers: [.position(currentPos)], to: view)
+            Hero.shared.apply(modifiers: [.position(currentPos)], to: view)
         default:
-             Hero.shared.finish()
+            Hero.shared.finish()
         }
-
+        
     }
     
     
@@ -305,14 +308,12 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
     }
     
-    @objc func startSession()
-    {
-
-
+    @objc func startSession() {
+        
         if(Settings.isZensorConnected)
         {
             Mixpanel.mainInstance().time(event: "phone_lab_watch_connected")
-                        
+            
             DispatchQueue.main.async
             {
                 let main = self.getMainScene()
@@ -324,7 +325,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 let toggleFullscreenGesture = UITapGestureRecognizer(
                     target: self,
                     action: #selector(self.toggleFullscreen)
-                  )
+                )
                 
                 toggleFullscreenGesture.numberOfTapsRequired = 2
                 
@@ -348,7 +349,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
                     let fileUrl = paths[0].appendingPathComponent("meditation.mov")
                     try? FileManager.default.removeItem(at: fileUrl)
-                
+                    
                     self.videoFileOutput.startRecording(to: fileUrl, recordingDelegate: self)
                     
                 }
@@ -361,7 +362,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 self.sceneView.presentScene(self.getIntroScene())
             }
         }
-     
+        
     }
     
     @objc func endSession() {
@@ -369,52 +370,60 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         Mixpanel.mainInstance().track(event: "phone_lab_watch_connected",
                                       properties: ["name": self.story.title])
         
-        if(self.enableRecord) {
-            
-            self.videoFileOutput.stopRecording()
-        }
         
-        self.captureSession.stopRunning()
-        
-        ZBFHealthKit.getWorkouts(limit: 1) {
-         
-            workouts in
+        if(Settings.isZensorConnected) {
             
-            if (workouts.count > 0 ) {
-            
-                DispatchQueue.main.async
-                {
-                    let vc = ZazenController.loadFromStoryboard()
-                    
-                    vc.workout = (workouts[0] as! HKWorkout)
+            if(story.type == "create") {
                 
-                    self.present(vc, animated: true)
+                self.captureSession.stopRunning()
+                
+                if(self.enableRecord) {
+                    
+                    self.videoFileOutput.stopRecording()
+                }
+            }
+            
+            ZBFHealthKit.getWorkouts(limit: 1) {
+                
+                workouts in
+                
+                if (workouts.count > 0 ) {
+                    
+                    DispatchQueue.main.async
+                    {
+                        let vc = ZazenController.loadFromStoryboard()
+                        
+                        vc.workout = (workouts[0] as! HKWorkout)
+                        
+                        self.present(vc, animated: true)
+                        
+                    }
+                }
+            }
+            
+            let message = "Be Well."
+            
+            DispatchQueue.main.async
+            {
+                UIView.animate(withDuration: 0.5)
+                {
+                    self.connectButton.isHidden = true
+                    self.sceneView.isHidden = false
+                    self.progressView.isHidden = false
+                    self.statsView.isHidden = false
+                    self.outroMessageLabel.isHidden = false
+                    self.outroMessageLabel.text = self.story.outroMessage ?? message
                     
                 }
             }
-        }
-        
-        let message = "Be Well."
-        
-        DispatchQueue.main.async
-        {
-            UIView.animate(withDuration: 0.5)
-            {
-                self.connectButton.isHidden = true
-                self.sceneView.isHidden = false
-                self.progressView.isHidden = false
-                self.statsView.isHidden = false
-                self.outroMessageLabel.isHidden = false
-                self.outroMessageLabel.text = self.story.outroMessage ?? message
-                
-            }
+            
         }
     }
     
     @objc func progress(notification: NSNotification) {
         
         if let progress = notification.object as? String {
-        
+            
             if let zensor  = self.zensor
             {
                 zensor.update(progress: progress.description.lowercased())
@@ -445,13 +454,13 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             self.chartHR[String(Date().timeIntervalSince1970)] = int_hr
             
             let chartHR = self.chartHR.sorted(by: <)
-       
+            
             DispatchQueue.main.async
             {
                 self.statsView.hrv.text = text_hrv
                 self.statsView.time.text = text_hr
                 self.statsView.setChart(chartHR)
-                            
+                
                 self.progressView.update(minutes: donatedString, progress: progressString, cause: causePayID, sponsor: sponsorPayID, creator: creatorPayID, meditator: appleID)
                 
             }
@@ -473,36 +482,36 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     func getContent(contentURL: URL, completion: @escaping (AVPlayerItem) -> Void)
     {
         var playerItem: AVPlayerItem?
-                
+        
         storage?.async.entry(forKey: contentURL.absoluteString, completion:
-        {
-            result in
-            
-            switch result
-            {
-                case .value(let entry):
-                
-                    if var path = entry.filePath
-                    {
-                        if path.first == "/"
-                        {
-                            path.removeFirst()
-                        }
-                    
-                        let url = URL(fileURLWithPath: path)
-                    
-                        playerItem = AVPlayerItem(url: url)
-                    }
-            
-                default:
-                    
-                    playerItem = AVPlayerItem(url: contentURL)
-                    
-            }
-            
-            completion(playerItem!)
-            
-        })
+                                {
+                                    result in
+                                    
+                                    switch result
+                                    {
+                                    case .value(let entry):
+                                        
+                                        if var path = entry.filePath
+                                        {
+                                            if path.first == "/"
+                                            {
+                                                path.removeFirst()
+                                            }
+                                            
+                                            let url = URL(fileURLWithPath: path)
+                                            
+                                            playerItem = AVPlayerItem(url: url)
+                                        }
+                                        
+                                    default:
+                                        
+                                        playerItem = AVPlayerItem(url: contentURL)
+                                        
+                                    }
+                                    
+                                    completion(playerItem!)
+                                    
+                                })
         
     }
     
@@ -527,47 +536,57 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         }
         
         storage?.async.entry(forKey: downloadUrl?.absoluteString ?? "", completion:
-        {
-            result in
-            
-            switch result
-            {
-                case .value(let entry):
-                
-                    if var path = entry.filePath
-                    {
-                        if path.first == "/"
-                        {
-                            path.removeFirst()
-                        }
-                    
-                        let url = URL(fileURLWithPath: path)
-                    
-                        playerItem = AVPlayerItem(url: url)
-                    }
-            
-                default:
-                    
-                    if let url = streamUrl
-                    {
-                        playerItem = AVPlayerItem(url: url)
-                    }
-                    else
-                    {
-                        playerItem = AVPlayerItem(url: downloadUrl!)
-                    }
-            }
-            
-            completion(playerItem!)
-            
-        })
+                                {
+                                    result in
+                                    
+                                    switch result
+                                    {
+                                    case .value(let entry):
+                                        
+                                        if var path = entry.filePath
+                                        {
+                                            if path.first == "/"
+                                            {
+                                                path.removeFirst()
+                                            }
+                                            
+                                            let url = URL(fileURLWithPath: path)
+                                            
+                                            playerItem = AVPlayerItem(url: url)
+                                        } else
+                                        {
+                                            if let url = streamUrl
+                                            {
+                                                playerItem = AVPlayerItem(url: url)
+                                            }
+                                            else
+                                            {
+                                                playerItem = AVPlayerItem(url: downloadUrl!)
+                                            }
+                                        }
+                                    //todo: add invalid to handle a crash
+                                    case .error(let error):
+                                        
+                                        if let url = streamUrl
+                                        {
+                                            playerItem = AVPlayerItem(url: url)
+                                        }
+                                        else
+                                        {
+                                            playerItem = AVPlayerItem(url: downloadUrl!)
+                                        }
+                                    }
+                                    
+                                    completion(playerItem!)
+                                    
+                                })
     }
     
     
     func getIntroScene() -> SKScene
     {
         let scene = SKScene(size: (sceneView.frame.size))
-        scene.scaleMode = .aspectFill
+        scene.scaleMode = .aspectFit
         
         self.getContent(contentURL: URL(string: story.introURL!)!)
         {
@@ -578,7 +597,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 let videoPlayer = AVPlayer(playerItem: item)
                 
                 let video = SKVideoNode(avPlayer: videoPlayer)
-                    
+                
                 video.zPosition = 1.0
                 video.size = scene.frame.size
                 video.position = scene.position
@@ -587,20 +606,20 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 scene.addChild(video)
                 
                 self.removeBackground()
-                    
+                
                 NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
-                                                           object: videoPlayer.currentItem, queue: nil)
+                                                       object: videoPlayer.currentItem, queue: nil)
+                {
+                    notification in
+                    
+                    DispatchQueue.main.async
                     {
-                       notification in
-                        
-                        DispatchQueue.main.async
-                        {
-                            videoPlayer.seek(to: kCMTimeZero)
-                            videoPlayer.play()
-                        }
-                        
+                        videoPlayer.seek(to: kCMTimeZero)
+                        videoPlayer.play()
                     }
+                    
                 }
+            }
         }
         
         return scene
@@ -612,40 +631,40 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         scene.scaleMode = .aspectFit
         
         self.startBackgroundContent(story: story, completion:
-        {
-            item in
-            
-            DispatchQueue.main.async
-            {
-                let videoPlayer = AVPlayer(playerItem: item)
-                
-                let video = SKVideoNode(avPlayer: videoPlayer)
-                    
-                video.zPosition = 4.0
-                video.size = scene.frame.size
-                video.position = scene.position
-                video.anchorPoint = scene.anchorPoint
-                video.play()
-                scene.addChild(video)
-                
-                self.removeBackground()
-                    
-                NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
-                                                           object: videoPlayer.currentItem, queue: nil)
-                    {
-                       notification in
-                        
-                        DispatchQueue.main.async
-                        {
-                            videoPlayer.seek(to: kCMTimeZero)
-                            videoPlayer.play()
-                        }
-                        
-                    }
-                }
-            
-        })
-            
+                                        {
+                                            item in
+                                            
+                                            DispatchQueue.main.async
+                                            {
+                                                let videoPlayer = AVPlayer(playerItem: item)
+                                                
+                                                let video = SKVideoNode(avPlayer: videoPlayer)
+                                                
+                                                video.zPosition = 4.0
+                                                video.size = scene.frame.size
+                                                video.position = scene.position
+                                                video.anchorPoint = scene.anchorPoint
+                                                video.play()
+                                                scene.addChild(video)
+                                                
+                                                self.removeBackground()
+                                                
+                                                NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
+                                                                                       object: videoPlayer.currentItem, queue: nil)
+                                                {
+                                                    notification in
+                                                    
+                                                    DispatchQueue.main.async
+                                                    {
+                                                        videoPlayer.seek(to: kCMTimeZero)
+                                                        videoPlayer.play()
+                                                    }
+                                                    
+                                                }
+                                            }
+                                            
+                                        })
+        
         return scene
     }
     
@@ -669,19 +688,19 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     //todo(debt): put all of this stuff in a MoneyKit.swift file.
     func moveXrp(source: Wallet, target: String, drops: UInt64, useMainnet: Bool)
     {
-           
+        
         let xpringClient = DefaultXRPClient(grpcURL: "main.xrp.xpring.io:50051", xrplNetwork: XRPLNetwork.main)
-           
+        
         let transactionHash = try! xpringClient.send(drops, to: target, from: source)
-           
+        
         let status = try! xpringClient.paymentStatus(for: transactionHash)
         
         let success = status == TransactionStatus.succeeded
-           
+        
         let retval = (txn: transactionHash.description, status: success.description)
-           
+        
         print ("[txn: \(retval.txn)] \r\n")
-    
+        
     }
     
     func donate()
@@ -710,36 +729,36 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             
         }
         
-          
+        
     }
     
     func payout()
     {
         let creatorPayID = story.creatorPayID!
-
+        
         let payIDClient = PayIDClient()
         
         do {
-
-        let creatorXRPLAddress = try payIDClient.cryptoAddress(for: creatorPayID, on: "xrpl-mainnet").get()
-
-        let tag = UInt32(creatorXRPLAddress.tag ?? "0")
-
-        let causeXAddress = Utils.encode(classicAddress: creatorXRPLAddress.address, tag: tag, isTest: false)!
-
-        let amount = UInt64(166666)
-
-        let wallet = Wallet(seed: story.sponsorKey!)!
-
-        self.moveXrp(source: wallet, target: causeXAddress, drops: amount, useMainnet: true)
-        
-    } catch {
-        
-        print(error.localizedDescription)
-        
-    }
-    }
             
+            let creatorXRPLAddress = try payIDClient.cryptoAddress(for: creatorPayID, on: "xrpl-mainnet").get()
+            
+            let tag = UInt32(creatorXRPLAddress.tag ?? "0")
+            
+            let causeXAddress = Utils.encode(classicAddress: creatorXRPLAddress.address, tag: tag, isTest: false)!
+            
+            let amount = UInt64(166666)
+            
+            let wallet = Wallet(seed: story.sponsorKey!)!
+            
+            self.moveXrp(source: wallet, target: causeXAddress, drops: amount, useMainnet: true)
+            
+        } catch {
+            
+            print(error.localizedDescription)
+            
+        }
+    }
+    
     //todo(debt): this is bunch of code to track the donator in the camera frame.
     @objc func faceDetectionEnabled()
     {
@@ -758,7 +777,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         }
         
         self.detectFace(in: frame)
-
+        
     }
     
     private func addCameraIn() {
@@ -766,10 +785,10 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         do {
             
             guard let device = AVCaptureDevice.DiscoverySession(
-                deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera],
-                mediaType: .video,
-                position: .front).devices.first else {
-                    fatalError("No back camera device found, please make sure to run SimpleLaneDetection in an iOS device and not a simulator")
+                    deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera],
+                    mediaType: .video,
+                    position: .front).devices.first else {
+                fatalError("No back camera device found, please make sure to run SimpleLaneDetection in an iOS device and not a simulator")
             }
             
             let cameraInput = try AVCaptureDeviceInput(device: device)
@@ -792,7 +811,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         self.captureSession.addOutput(self.videoDataOutput)
         
         guard let connection = self.videoDataOutput.connection(with: AVMediaType.video),
-            connection.isVideoOrientationSupported else { return }
+              connection.isVideoOrientationSupported else { return }
         connection.videoOrientation = .portrait
         
         self.captureSession.addOutput(videoFileOutput)
@@ -881,6 +900,3 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         return eyeDrawing
     }
 }
-
-
-

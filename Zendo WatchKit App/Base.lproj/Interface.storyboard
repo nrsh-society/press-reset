@@ -460,21 +460,21 @@
             <objects>
                 <controller identifier="SharingInterfaceController" title="Compassion" spacing="9" id="3ad-2P-1UE" customClass="LabInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <group width="1" alignment="left" layout="vertical" spacing="10" id="ZUu-yK-xf2" userLabel="Top">
+                        <group width="1" alignment="center" layout="vertical" spacing="10" id="ZUu-yK-xf2" userLabel="Top">
                             <items>
                                 <group width="1" alignment="left" layout="vertical" spacing="6" id="Yog-ud-tgJ" userLabel="Support Group">
                                     <items>
-                                        <switch width="1" alignment="left" enabled="NO" title="Support Causes" numberOfLines="4" id="hgR-Th-ZxS">
-                                            <connections>
-                                                <action selector="donationsActionWithValue:" destination="3ad-2P-1UE" id="S3y-nC-upw"/>
-                                            </connections>
-                                        </switch>
                                         <label alignment="left" text="Every minute you meditate, we donate" textAlignment="left" numberOfLines="5" id="Q7Y-LL-pPy">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                             </variation>
                                         </label>
+                                        <switch width="1" alignment="left" enabled="NO" title="Support Causes" numberOfLines="4" id="hgR-Th-ZxS">
+                                            <connections>
+                                                <action selector="donationsActionWithValue:" destination="3ad-2P-1UE" id="S3y-nC-upw"/>
+                                            </connections>
+                                        </switch>
                                         <group width="1" alignment="left" hidden="YES" layout="vertical" id="h8h-zk-YW5">
                                             <items>
                                                 <label alignment="center" verticalAlignment="center" text="--" textAlignment="center" minimumScaleFactor="0.5" id="JbO-he-Tmo">
@@ -493,17 +493,17 @@
                                 </group>
                                 <group width="1" alignment="left" layout="vertical" spacing="6" id="X7O-19-T4f" userLabel="Progress Group">
                                     <items>
-                                        <switch width="1" alignment="left" enabled="NO" title="Share Progress" id="jvr-vy-tgB">
-                                            <connections>
-                                                <action selector="progressActionWithValue:" destination="3ad-2P-1UE" id="mC3-3o-gKb"/>
-                                            </connections>
-                                        </switch>
                                         <label alignment="left" text="Determine your community impact" textAlignment="left" numberOfLines="5" id="IP8-GB-BvL">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                             </variation>
                                         </label>
+                                        <switch width="1" alignment="left" enabled="NO" title="Share Progress" id="jvr-vy-tgB">
+                                            <connections>
+                                                <action selector="progressActionWithValue:" destination="3ad-2P-1UE" id="mC3-3o-gKb"/>
+                                            </connections>
+                                        </switch>
                                         <group width="1" alignment="left" hidden="YES" layout="vertical" id="Lpe-lJ-rhg">
                                             <items>
                                                 <label alignment="center" verticalAlignment="center" text="-- / --" textAlignment="center" minimumScaleFactor="0.5" id="S0U-YQ-VBD">
@@ -521,6 +521,7 @@
                                     </items>
                                 </group>
                             </items>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="6" bottom="0.0"/>
                         </group>
                         <group width="1" alignment="left" layout="vertical" spacing="8" id="3Yy-pY-Sqi" userLabel="Signin Group">
                             <items>
