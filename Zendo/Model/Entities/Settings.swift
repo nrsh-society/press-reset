@@ -124,7 +124,7 @@ class Settings: NSObject {
         guard let receiptUrl = Bundle.main.appStoreReceiptURL,
             let receipt = try? Data(contentsOf: receiptUrl).base64EncodedString(),
             let url = URL(string: prodServer) else {
-                completionHandler?(true)
+                completionHandler?(false)
                 return
         }
         
@@ -141,7 +141,7 @@ class Settings: NSObject {
         if let json = try? JSONSerialization.data(withJSONObject: httpBody, options: []) {
             request.httpBody = json
         } else {
-            completionHandler?(true)
+            completionHandler?(false)
         }
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -152,7 +152,7 @@ class Settings: NSObject {
                     let expiresDate = lastReceipt.last?["expires_date"] as? String,
                     let isTrialPeriod = lastReceipt.last?["is_trial_period"] as? String else {
                         print("error trying to convert data to JSON")
-                        completionHandler?(false)
+                        completionHandler?(true)
                         return
                 }
                 

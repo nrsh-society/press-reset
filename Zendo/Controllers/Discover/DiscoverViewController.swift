@@ -102,7 +102,7 @@ class DiscoverViewController: UIViewController {
         return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forData())
     }()
     
-    var isSubscription = true
+    var isSubscription = false
     
     override func viewDidLoad() {
         super.viewDidLoad()

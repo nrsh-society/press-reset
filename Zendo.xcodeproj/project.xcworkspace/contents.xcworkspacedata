@@ -2,7 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/dmp/Desktop/sort/src/Zazen/Zendo.xcodeproj"
-      assignedFileDataType = "com.apple.xcode.project">
+      location = "self:">
    </FileRef>
 </Workspace>

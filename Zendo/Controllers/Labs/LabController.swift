@@ -42,7 +42,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     var enableStats: Bool = false
     
     //todo(5.5): really want to do this before we push to the Apple store.
-    var enableRecord: Bool = false
+    var enableRecord: Bool = true
     
     //todo(6.0): enable :-)
     var enableGame: Bool = false
@@ -793,6 +793,11 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             
             let cameraInput = try AVCaptureDeviceInput(device: device)
             self.captureSession.addInput(cameraInput)
+            
+            let audio = AVCaptureDevice.default(for: .audio)
+            let audioInput = try AVCaptureDeviceInput(device: audio!)
+            
+            self.captureSession.addInput(audioInput)
             
         }
         catch {
