@@ -28,10 +28,14 @@ class ZendoController: UITableViewController {
     var autoUpdateCount = 0
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
+        checkHealthKit(isShow: true)
+        
         if #available(iOS 13.0, *) {
-            // Always adopt a light interface style.
+            //#todo(seems like we need task for dark mode?
+            //Always adopt a light interface style.
             overrideUserInterfaceStyle = .light
         }
         

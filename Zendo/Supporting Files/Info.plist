@@ -71,13 +71,15 @@
 	<key>NSHomeKitUsageDescription</key>
 	<string>Change lighting with heart rate</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app doesn&apos;t use location, so if you so this, there is a problem.</string>
+	<string>This app doesn't use location, so if you so this, there is a problem.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app doesn&apos;t use location, so if you so this, there is a problem.</string>
+	<string>This app doesn't use location, so if you so this, there is a problem.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Record + livestream meditations</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Uses motion data to track posture</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Save meditations to photo library</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>tools.sunyata.Zendo.app</string>
@@ -119,8 +121,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Save meditations to photo library</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 </dict>

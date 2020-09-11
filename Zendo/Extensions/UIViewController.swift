@@ -46,7 +46,7 @@ extension UIViewController {
     func showHealthKitController(isFailed: Bool) {
         if isFailed {
             let vc = HealthKitControllerFailed.loadFromStoryboard()
-            vc.modalPresentationStyle = .fullScreen
+            vc.modalPresentationStyle = .overFullScreen
             present(vc, animated: true)
         } else {
             let controller = HealthKitViewController.loadFromStoryboard()

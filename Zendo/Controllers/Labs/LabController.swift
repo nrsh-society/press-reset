@@ -40,9 +40,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     var enableOutro: Bool = false
     var enableProgress: Bool = false
     var enableStats: Bool = false
-    
-    //todo(5.5): really want to do this before we push to the Apple store.
-    var enableRecord: Bool = true
+    var enableRecord: Bool = false
     
     //todo(6.0): enable :-)
     var enableGame: Bool = false
@@ -205,9 +203,11 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         if(story.type == "create") {
             
+            self.enableRecord = true
             setupPhoneSensors()
             setupPhoneAV()
             setupLivestream()
+    
         }
         
         setupWatchNotifications()
@@ -220,8 +220,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         addCameraIn()
         getCameraOut()
-        
-        //todo(add record for creator)
     }
     
     func setupPhoneAV() {
@@ -231,7 +229,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         modalPresentationCapturesStatusBarAppearance = true
         
         do {
-            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
+            
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with: .mixWithOthers)
+            
             try? AVAudioSession.sharedInstance().setActive(true)
         }
     }
@@ -342,9 +342,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 self.connectButton.isHidden = true
                 self.outroMessageLabel.isHidden = true
                 
-                self.captureSession.startRunning()
-                
                 if(self.enableRecord) {
+                    
+                    self.captureSession.startRunning()
                     
                     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
                     let fileUrl = paths[0].appendingPathComponent("meditation.mov")
@@ -365,6 +365,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
     }
     
+    
     @objc func endSession() {
         
         Mixpanel.mainInstance().track(event: "phone_lab_watch_connected",
@@ -373,14 +374,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         if(Settings.isZensorConnected) {
             
-            if(story.type == "create") {
-                
+            if(self.enableRecord) {
                 self.captureSession.stopRunning()
-                
-                if(self.enableRecord) {
-                    
-                    self.videoFileOutput.stopRecording()
-                }
+                self.videoFileOutput.stopRecording()
             }
             
             ZBFHealthKit.getWorkouts(limit: 1) {

@@ -230,6 +230,8 @@ class TrainController: UIViewController
     
     @objc func connectAppleWatch()
     {
+        checkHealthKit(isShow: true)
+    
         let startingSessions = StartingSessionViewController()
         
         startingSessions.modalPresentationStyle = .overFullScreen

@@ -82,17 +82,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         foregrounder.execute()
     }
     
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        if let vc = window?.topViewController {
-            if let tabVc = vc as? UITabBarController, let selectedVc = tabVc.selectedViewController {
-                selectedVc.checkHealthKit(isShow: true)
-            } else {
-                vc.checkHealthKit(isShow: !vc.isKind(of: HealthKitViewController.self) && !vc.isKind(of: NavigationControllerWelcome.self))
-            }
-        }
-    }
-
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }

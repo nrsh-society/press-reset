@@ -70,6 +70,7 @@ class StartingSessions: UIView {
     }
     
     func showView() {
+    
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(count), userInfo: nil, repeats: true)
         
         circleAnimation.play { finished in

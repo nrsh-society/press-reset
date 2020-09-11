@@ -63,61 +63,15 @@ class OverviewController: UIViewController {
         return .lightContent
     }
     
-    var causePayID = "GiveDirectly$payid.charity"
-    var sponsor = ""
-    var sender = ""
-    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(forName: .reloadOverview, object: nil, queue: .main) { (notification) in
+            self.tableView.reloadData()
+        }
         
-        //        let payIDClient = PayIDClient(network: "xrpl-mainnet")
-        //
-        //        payIDClient.address(for: causePayID) { result in
-        ////            let Destination = try! result.
-        //
-        //            switch result {
-        //            case .success(let address):
-        //
-        //                let Destination = address.address
-        //
-        //                let grpcURL = "main.xrp.xpring.io:50051"
-        //                let amount = 166666
-        //
-        //                let wallet = Wallet(seed: self.sponsor)!
-        //
-        //                let xrpClient = XRPClient(grpcURL: grpcURL, network: XRPLNetwork.main)
-        //
-        //                let xSender = Utils.encode(classicAddress: self.sender)!
-        //
-        //                print(xSender)
-        //
-        //                let balance = try! xrpClient.getBalance(for: xSender)
-        //
-        //                print("Sender balance: " + String(balance))
-        //
-        //                let destinationBalance = try! xrpClient.getBalance(for: Destination)
-        //
-        //                print("Destination balance: " + String(destinationBalance))
-        //
-        //                let result2 = try! xrpClient.send(UInt64(amount), to: Destination, from: wallet)
-        //
-        //                print("Result: " + String(result2))
-        //
-        //                let status = try! xrpClient.paymentStatus(for: result2)
-        //
-        //                //            var status = try! xrpClient.getPayment(for: result2)!
-        //
-        //                print("Status: \(status)")
-        //
-        //                let success = status == TransactionStatus.succeeded
-        //
-        //                print("Sent: " + String(success))
-        //            case .failure(let error):
-        //                print(error.localizedDescription)
-        //            }
-        //
-        //        }
+        checkHealthKit(isShow: true)
         
         if #available(iOS 13.0, *) {
             // Always adopt a light interface style.
@@ -147,13 +101,12 @@ class OverviewController: UIViewController {
         
         navigationController?.navigationBar.shadowImage = UIImage()
         
-        NotificationCenter.default.addObserver(forName: .reloadOverview, object: nil, queue: .main) { (notification) in
-            self.tableView.reloadData()
-        }
         
         initHRVData()
         initMMData()
+        
     }
+        
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -171,6 +124,8 @@ class OverviewController: UIViewController {
                 
             }
         }
+        
+        self.tableView.reloadData()
         
         /*
          * #todo: we were going to do phone notification in 4.20, but decide to do
@@ -190,28 +145,6 @@ class OverviewController: UIViewController {
         super.viewDidAppear(animated)
         
         Mixpanel.mainInstance().time(event: "overview")
-        self.tableView.reloadData()
-        
-        //        ZBFHealthKit.getWorkouts(limit: 1)
-        //        {
-        //            results in
-        //
-        //                if results.count > 0
-        //                {
-        //                    DispatchQueue.main.async()
-        //                    {
-        //                        Mixpanel.mainInstance().time(event: "overview")
-        //                        self.tableView.reloadData()
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    DispatchQueue.main.async()
-        //                    {
-        //                        self.tabBarController?.selectedIndex = 1
-        //                    }
-        //                }
-        //        }
         
     }
     
