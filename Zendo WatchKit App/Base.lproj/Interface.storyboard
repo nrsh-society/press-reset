@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17154" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch44"/>
+    <device id="watch38"/>
     <dependencies>
         <deployment identifier="watchOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
@@ -309,11 +309,11 @@
         <!--Options-->
         <scene sceneID="mYQ-LG-qhF">
             <objects>
-                <controller identifier="OptionsInterfaceController" title="Options" contentMode="scaleAspectFit" id="y7B-OZ-tWG" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="OptionsInterfaceController" title="Options" contentMode="scaleAspectFit" spacing="0.0" id="y7B-OZ-tWG" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <group width="1" alignment="center" verticalAlignment="center" layout="vertical" radius="0.0" spacing="15" id="wPv-bi-RQr">
+                        <group width="1" alignment="center" verticalAlignment="center" layout="vertical" radius="0.0" spacing="0.0" id="wPv-bi-RQr" userLabel="Top">
                             <items>
-                                <group width="1" alignment="left" layout="vertical" spacing="5" id="ksL-6C-M7w">
+                                <group width="1" alignment="left" layout="vertical" spacing="0.0" id="ksL-6C-M7w">
                                     <items>
                                         <label alignment="center" text="Success Feedback" textAlignment="center" id="L7V-Eq-ZNU">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
@@ -328,7 +328,7 @@
                                         </slider>
                                         <group width="1" alignment="left" layout="vertical" spacing="5" id="Fp2-Uw-lpu">
                                             <items>
-                                                <label alignment="center" text="Retry Feedback" textAlignment="center" id="7oa-Us-KrR">
+                                                <label width="1" alignment="center" text="Retry Feedback" textAlignment="center" id="7oa-Us-KrR">
                                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                                     <variation key="device=watch38mm">
                                                         <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
@@ -348,15 +348,102 @@
                             </items>
                             <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                         </group>
+                        <group width="1" alignment="center" verticalAlignment="bottom" layout="vertical" spacing="15" id="crg-3A-uxR" userLabel="Bottom">
+                            <items>
+                                <group width="1" alignment="left" layout="vertical" spacing="5" id="Kf2-fk-tF6" userLabel="Support Group">
+                                    <items>
+                                        <label width="1" alignment="center" text="Compassion" textAlignment="center" numberOfLines="2" id="oJi-Jg-Xg7">
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
+                                            <variation key="device=watch38mm">
+                                                <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                            </variation>
+                                        </label>
+                                        <switch width="1" alignment="left" enabled="NO" title="Support Causes" numberOfLines="4" id="Jun-OP-O0k">
+                                            <connections>
+                                                <action selector="donationsActionWithValue:" destination="y7B-OZ-tWG" id="FZf-jy-lbH"/>
+                                            </connections>
+                                        </switch>
+                                        <group width="1" alignment="left" hidden="YES" layout="vertical" id="E8E-K3-Aqx">
+                                            <items>
+                                                <label alignment="center" verticalAlignment="center" text="--" textAlignment="center" minimumScaleFactor="0.5" id="lD5-xA-81x">
+                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="33"/>
+                                                    <variation key="device=watch38mm">
+                                                        <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="29"/>
+                                                    </variation>
+                                                </label>
+                                                <label alignment="center" verticalAlignment="bottom" text="minutes" textAlignment="center" id="2DD-1l-xG9">
+                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
+                                                    <variation key="device=watch38mm" text="mins"/>
+                                                </label>
+                                            </items>
+                                        </group>
+                                    </items>
+                                </group>
+                                <group width="1" alignment="center" layout="vertical" spacing="5" id="F2T-w0-04m" userLabel="Progress Group">
+                                    <items>
+                                        <label width="1" alignment="left" text="Community" textAlignment="center" numberOfLines="5" id="yT9-B6-Ddo">
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
+                                            <variation key="device=watch38mm">
+                                                <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                            </variation>
+                                        </label>
+                                        <switch width="1" alignment="left" enabled="NO" title="Share Progress" id="wUB-ZN-Iva">
+                                            <connections>
+                                                <action selector="progressActionWithValue:" destination="y7B-OZ-tWG" id="EWy-Gw-7yf"/>
+                                            </connections>
+                                        </switch>
+                                        <group width="1" alignment="left" hidden="YES" layout="vertical" id="wsS-Bw-TOf">
+                                            <items>
+                                                <label alignment="center" verticalAlignment="center" text="-- / --" textAlignment="center" minimumScaleFactor="0.5" id="z7d-Bj-bgq">
+                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="33"/>
+                                                    <variation key="device=watch38mm">
+                                                        <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="29"/>
+                                                    </variation>
+                                                </label>
+                                                <label alignment="center" verticalAlignment="bottom" text="meditator" textAlignment="center" id="KLa-C0-Wib">
+                                                    <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
+                                                    <variation key="device=watch38mm" text="mins"/>
+                                                </label>
+                                            </items>
+                                        </group>
+                                    </items>
+                                </group>
+                                <group width="1" alignment="left" layout="vertical" spacing="8" id="u27-RU-TFd" userLabel="Signin Group">
+                                    <items>
+                                        <authorizationAppleIDButton width="1" alignment="left" style="white" id="hF5-S2-yKR">
+                                            <connections>
+                                                <action selector="onAppleSignButtonPressed" destination="y7B-OZ-tWG" id="ejS-Xx-9IX"/>
+                                            </connections>
+                                        </authorizationAppleIDButton>
+                                        <label width="1" alignment="center" text="to agree to terms to enable" textAlignment="center" numberOfLines="5" id="Wyh-O2-PD5">
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
+                                            <variation key="device=watch38mm">
+                                                <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                            </variation>
+                                        </label>
+                                    </items>
+                                </group>
+                            </items>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="6" bottom="0.0"/>
+                        </group>
                     </items>
                     <connections>
+                        <outlet property="authorizationButton" destination="hF5-S2-yKR" id="Bjf-K3-e8e"/>
+                        <outlet property="donateLabel" destination="oJi-Jg-Xg7" id="akQ-iI-LDl"/>
+                        <outlet property="donateMetricGroup" destination="E8E-K3-Aqx" id="7zX-mB-wOv"/>
+                        <outlet property="donateMetricValue" destination="lD5-xA-81x" id="Ixn-vS-RtY"/>
+                        <outlet property="donateSwitch" destination="Jun-OP-O0k" id="p0H-Dd-94K"/>
                         <outlet property="hapticSetting" destination="Dou-CY-eup" id="bXd-lH-YRP"/>
+                        <outlet property="progressLabel" destination="yT9-B6-Ddo" id="fU8-ar-ruy"/>
+                        <outlet property="progressMetricGroup" destination="wsS-Bw-TOf" id="34s-3y-F3K"/>
+                        <outlet property="progressMetricValue" destination="z7d-Bj-bgq" id="WbG-x7-gPs"/>
+                        <outlet property="progressSwitch" destination="wUB-ZN-Iva" id="j0K-U3-XF3"/>
                         <outlet property="retryFeedbackSlider" destination="u67-Ib-why" id="HB9-LX-Arr"/>
-                        <segue destination="3ad-2P-1UE" kind="relationship" relationship="nextPage" id="BZo-Uc-NwW"/>
+                        <outlet property="signinLabel" destination="Wyh-O2-PD5" id="w8u-a1-E0Y"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="758" y="-723"/>
+            <point key="canvasLocation" x="757.60869565217388" y="-723.63839285714289"/>
         </scene>
         <!--Goals-->
         <scene sceneID="Eaa-gP-xvC">

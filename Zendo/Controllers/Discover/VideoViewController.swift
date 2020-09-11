@@ -103,27 +103,7 @@ class VideoViewController: UIViewController {
     let interval = CMTime(seconds: 0.01, preferredTimescale: 1000)
     let mainQueue = DispatchQueue.main
     
-    @objc func sample(notification: NSNotification)
-    {
-        DispatchQueue.main.async
-        {
-            if let sample = notification.object as? [String : String]
-            {
-                let text_hrv = sample["sdnn"]!
-                let double_hrv = Double(text_hrv)!.rounded()
-                let int_hrv = Int(double_hrv)
-                
-                UIView.animate(withDuration: 0.5, animations:
-                {
-                    self.tickerLabel.alpha = self.tickerLabel.alpha == 0.5 ? 1 : 0.5
-                })
-                
-                self.tickerLabel.text = int_hrv > 1 ? int_hrv.description : "--"
-                
-            }
-        }
-    }
-    
+  
     override func didReceiveMemoryWarning()
     {
         try? storage?.removeAll()

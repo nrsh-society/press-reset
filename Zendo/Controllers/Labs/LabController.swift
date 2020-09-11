@@ -71,7 +71,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             
             sceneView.hero.id = idHero
             sceneView.frame = UIScreen.main.bounds
-            sceneView.contentMode = .scaleAspectFit
+            sceneView.contentMode = .scaleAspectFill
             sceneView.backgroundColor = .clear
             sceneView.allowsTransparency = true
             
@@ -198,17 +198,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         super.viewDidLoad()
         
         Mixpanel.mainInstance().time(event: "phone_lab")
-        
+
         setBackground()
-        
-        if(story.type == "create") {
-            
-            self.enableRecord = true
-            setupPhoneSensors()
-            setupPhoneAV()
-            setupLivestream()
-    
-        }
         
         setupWatchNotifications()
         
@@ -316,6 +307,15 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             
             DispatchQueue.main.async
             {
+                if(self.story.type == "create") {
+                    
+                    self.enableRecord = true
+                    self.setupPhoneSensors()
+                    self.setupPhoneAV()
+                    self.setupLivestream()
+            
+                }
+                
                 let main = self.getMainScene()
                 
                 self.sceneView.presentScene(nil) //don't ask, just invoke
@@ -582,7 +582,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     func getIntroScene() -> SKScene
     {
         let scene = SKScene(size: (sceneView.frame.size))
-        scene.scaleMode = .aspectFit
+        scene.scaleMode = .resizeFill
         
         self.getContent(contentURL: URL(string: story.introURL!)!)
         {
@@ -624,7 +624,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     func getMainScene() -> SKScene
     {
         let scene = SKScene(size: (sceneView.frame.size))
-        scene.scaleMode = .aspectFit
+        scene.scaleMode = .resizeFill
         
         self.startBackgroundContent(story: story, completion:
                                         {
