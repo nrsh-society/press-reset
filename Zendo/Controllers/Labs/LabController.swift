@@ -207,10 +207,46 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
     }
     
-    func setupPhoneSensors() {
+    func setupCamera()
+    {
+        do {
+            
+            guard let device = AVCaptureDevice.DiscoverySession(
+                    deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera],
+                    mediaType: .video,
+                    position: .front).devices.first else { fatalError("in simulation")
+            }
+            
+            let cameraInput = try AVCaptureDeviceInput(device: device)
+            self.captureSession.addInput(cameraInput)
+            
+            let audio = AVCaptureDevice.default(for: .audio)
+            let audioInput = try AVCaptureDeviceInput(device: audio!)
+            self.captureSession.addInput(audioInput)
+            
+            self.videoDataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString) : NSNumber(value: kCVPixelFormatType_32BGRA)] as [String : Any]
+            
+            self.videoDataOutput.alwaysDiscardsLateVideoFrames = true
+            
+            self.videoDataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "camera_frame_processing_queue"))
+            
+            self.captureSession.addOutput(self.videoDataOutput)
         
-        addCameraIn()
-        getCameraOut()
+            guard let connection = self.videoDataOutput.connection(with: AVMediaType.video),
+              connection.isVideoOrientationSupported else { return }
+        
+            connection.videoOrientation = .portrait
+        
+            self.captureSession.addOutput(videoFileOutput)
+            
+            self.enableRecord = true
+            
+        }
+        catch
+        {
+            print(error)
+            self.enableRecord = false
+        }
     }
     
     func setupPhoneAV() {
@@ -289,6 +325,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     //#todo(6.0): need to wire up the BLE Zensor too.
     @objc func connectZensor()
     {
+        checkHealthKit(isShow: true)
+        
         let startingSessions = StartingSessionViewController()
         
         startingSessions.modalPresentationStyle = .overFullScreen
@@ -309,12 +347,13 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             {
                 if(self.story.type == "create") {
                     
-                    self.enableRecord = true
-                    self.setupPhoneSensors()
-                    self.setupPhoneAV()
+                    self.setupCamera()
+                    
                     self.setupLivestream()
             
                 }
+                
+                self.setupPhoneAV()
                 
                 let main = self.getMainScene()
                 
@@ -342,14 +381,16 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 self.connectButton.isHidden = true
                 self.outroMessageLabel.isHidden = true
                 
-                if(self.enableRecord) {
-                    
+                if(self.enableRecord)
+                {
                     self.captureSession.startRunning()
-                    
+                        
                     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-                    let fileUrl = paths[0].appendingPathComponent("meditation.mov")
-                    try? FileManager.default.removeItem(at: fileUrl)
                     
+                    let fileUrl = paths[0].appendingPathComponent("meditation.mov")
+                    
+                    try? FileManager.default.removeItem(at: fileUrl)
+                        
                     self.videoFileOutput.startRecording(to: fileUrl, recordingDelegate: self)
                     
                 }
@@ -374,7 +415,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         if(Settings.isZensorConnected) {
             
-            if(self.enableRecord) {
+            if(self.enableRecord)
+            {
                 self.captureSession.stopRunning()
                 self.videoFileOutput.stopRecording()
             }
@@ -773,49 +815,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         }
         
         self.detectFace(in: frame)
-        
-    }
-    
-    private func addCameraIn() {
-        
-        do {
-            
-            guard let device = AVCaptureDevice.DiscoverySession(
-                    deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera],
-                    mediaType: .video,
-                    position: .front).devices.first else {
-                fatalError("No back camera device found, please make sure to run SimpleLaneDetection in an iOS device and not a simulator")
-            }
-            
-            let cameraInput = try AVCaptureDeviceInput(device: device)
-            self.captureSession.addInput(cameraInput)
-            
-            let audio = AVCaptureDevice.default(for: .audio)
-            let audioInput = try AVCaptureDeviceInput(device: audio!)
-            
-            self.captureSession.addInput(audioInput)
-            
-        }
-        catch {
-            print(error)
-            
-        }
-        
-    }
-    
-    
-    private func getCameraOut() {
-        
-        self.videoDataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString) : NSNumber(value: kCVPixelFormatType_32BGRA)] as [String : Any]
-        self.videoDataOutput.alwaysDiscardsLateVideoFrames = true
-        self.videoDataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "camera_frame_processing_queue"))
-        self.captureSession.addOutput(self.videoDataOutput)
-        
-        guard let connection = self.videoDataOutput.connection(with: AVMediaType.video),
-              connection.isVideoOrientationSupported else { return }
-        connection.videoOrientation = .portrait
-        
-        self.captureSession.addOutput(videoFileOutput)
         
     }
     

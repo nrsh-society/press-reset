@@ -132,12 +132,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         {
             self.startDate = Date()
             
-            sessionDelegater.sendMessage(["watch": "start"],
-                                         replyHandler: { replyHandler in
-                                            
-            }, errorHandler: { error in
-                
-            })
+            requestAccessToHealthKit()
             
             motionManager.startDeviceMotionUpdates()
             
@@ -149,10 +144,41 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             self.isRunning = true
             
+            let msg = ["watch": "start"]
+            
+            let onSuccess : (([String: Any]) -> Void)? =
+            {
+                replyHandler in
+                
+            }
+            
+            let onError : ((Error) -> Void)? = {
+                
+                error in
+                
+            }
+            
+            sessionDelegater.sendMessage(msg,
+                                         replyHandler: onSuccess, errorHandler: onError)
+            
         }
         else
         {
             print("called start on running session")
+        }
+    }
+    
+    func requestAccessToHealthKit() {
+        if #available(watchOSApplicationExtension 5.0, *) {
+            SettingsWatch.checkAuthorizationStatus { [weak self] success in
+                if !success {
+                    let healthKitTypes = SettingsWatch.getHealthKitTypes()
+                    
+                    self?.healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { success, error in
+                        print("Successful HealthKit Authorization from Watch's extension Delegate")
+                    }
+                }
+            }
         }
     }
     

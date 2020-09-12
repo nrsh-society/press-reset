@@ -94,7 +94,7 @@ class SetGoalInterfaceController: WKInterfaceController {
     
     @IBAction func doneAction() {
         if let session = session {
-            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session as AnyObject), (name: "SetGoalInterfaceController", context: false as AnyObject), (name: "OptionsInterfaceController", context: session as AnyObject), (name: "SharingInterfaceController", context: session as AnyObject)])
+            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session as AnyObject), (name: "SetGoalInterfaceController", context: false as AnyObject), (name: "OptionsInterfaceController", context: session as AnyObject)])
         }
     }
 }

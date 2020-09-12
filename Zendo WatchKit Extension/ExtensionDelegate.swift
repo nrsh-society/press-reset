@@ -134,13 +134,15 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
             return
         }
         
+        requestAccessToHealthKit()
+        
         Session.current = Session()
         
         Session.current?.start()
         
         WKInterfaceDevice.current().play(WKHapticType.start)
         
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject), (name: "OptionsInterfaceController", context: Session.current as AnyObject), (name: "SharingInterfaceController", context: Session.current as AnyObject)])
+        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject), (name: "OptionsInterfaceController", context: Session.current as AnyObject)])
     }
     
 }
