@@ -98,8 +98,12 @@ class WatchSyncError: HealthKitViewController {
                         self.dismiss(animated: true)
                     //}
                 case .noInstallZendo:
-                    //#todo(https://developer.apple.com/forums/thread/104915)
+                    //#todo(appl)
                     if let url = URL(string: "itms-watch://") {
+                        self.dismiss(animated: true) {
+                            UIApplication.shared.open(url)
+                        }
+                    } else if let url = URL(string: "itms-watchs://") {
                         self.dismiss(animated: true) {
                             UIApplication.shared.open(url)
                         }

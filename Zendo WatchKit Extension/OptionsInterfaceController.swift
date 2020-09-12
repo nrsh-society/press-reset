@@ -104,8 +104,6 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                }
                
                self.hapticSetting.setValue(Float(Session.options.hapticStrength))
-               self.retryFeedbackSlider.setValue(Float(Session.options.retryStrength))
-              
         
         let isSignedIn = (SettingsWatch.appleUserID != nil)
         
@@ -219,16 +217,13 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     @IBOutlet var bluetoothStatus: WKInterfaceLabel!
     @IBOutlet var hapticSetting: WKInterfaceSlider!
     @IBOutlet var bluetoothToogle: WKInterfaceSwitch!
-    
-    @IBOutlet var retryFeedbackSlider: WKInterfaceSlider!
-    
-    
-    
+        
     @IBAction func KyosakChanged(_ value: Float)
     {
         Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
         
         Session.options.hapticStrength = Int(value)
+        Session.options.retryStrength = Int(value)
                 
         let iterations = Int(Session.options.hapticStrength)
         
@@ -253,8 +248,6 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     {
         Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
         
-        Session.options.retryStrength = Int(value)
-                
         let iterations = Int(Session.options.retryStrength)
         
         if iterations > 0

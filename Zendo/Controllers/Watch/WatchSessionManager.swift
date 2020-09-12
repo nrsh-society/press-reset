@@ -119,6 +119,9 @@ extension WatchSessionManager: WCSessionDelegate {
             }
             else if let progress = message["progress"] {
             
+                Settings.isZensorConnected = true
+                Settings.connectedDate = Date ()
+                
                 NotificationCenter.default.post(name: NSNotification.Name("progress"),
                                                 object: progress )
                 
@@ -132,6 +135,9 @@ extension WatchSessionManager: WCSessionDelegate {
         }
         else if(message.first?.key == "sample")
         {
+            Settings.isZensorConnected = true
+            Settings.connectedDate = Date ()
+            
             if let sample = message.first?.value
             {                
                 NotificationCenter.default.post(name: .sample,
