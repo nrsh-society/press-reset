@@ -129,6 +129,18 @@ class SubscriptionViewController: UIViewController {
         productsRequest.start()
     }
     
+    @IBAction func onTermsClick()
+    {
+         let urlT = URL(string: "https://app.termly.io/document/terms-of-use-for-website/4c956fe5-e097-47f2-9b91-5da9fcc50a1a")
+        UIApplication.shared.open(urlT!)
+    }
+    
+    @IBAction func onPrivacyClick()
+    {
+        let urlPP = URL(string: "http://zendo.tools/privacy")
+        
+        UIApplication.shared.open(urlPP!)
+    }
 }
 
 extension SubscriptionViewController: SKProductsRequestDelegate {

@@ -727,6 +727,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     func moveXrp(source: Wallet, target: String, drops: UInt64, useMainnet: Bool)
     {
         
+        Mixpanel.mainInstance().track(event: "lab_movexrp")
+        
         let xpringClient = DefaultXRPClient(grpcURL: "main.xrp.xpring.io:50051", xrplNetwork: XRPLNetwork.main)
         
         let transactionHash = try! xpringClient.send(drops, to: target, from: source)
@@ -743,6 +745,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     
     func donate()
     {
+        
+        Mixpanel.mainInstance().track(event: "lab_donate")
+        
         let causePayID = story.causePayID!
         
         let payIDClient = PayIDClient()
@@ -772,6 +777,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     
     func payout()
     {
+        
+        Mixpanel.mainInstance().track(event: "lab_payout")
+        
         let creatorPayID = story.creatorPayID!
         
         let payIDClient = PayIDClient()
