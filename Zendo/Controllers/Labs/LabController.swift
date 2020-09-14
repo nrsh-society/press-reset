@@ -37,14 +37,16 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     
     //todo(debt): this should be moved to some story setting thing?
     var enableFaceDetection: Bool = false
-    var enableOutro: Bool = false
-    var enableProgress: Bool = false
-    var enableStats: Bool = false
     var enableRecord: Bool = false
     
-    //todo(6.0): enable :-)
+    //todo(7.0): enable :-)
     var enableGame: Bool = false
-    var enableIntro: Bool = false
+    
+    let player = SKSpriteNode(imageNamed: "player1")
+    var ring: Int = 0
+    var rings = [SKShapeNode]()
+    var showLevels: Bool = false
+    
     var enableLivestream: Bool = false
     
     //todo(debt): all of this private stuff should be in a shared place?
@@ -82,7 +84,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         }
     }
     
-    //#todo(6.0): turn this into a control
+    //#todo(8.0): turn this into a control
     @IBOutlet weak var outroMessageLabel: UILabel!
     {
         didSet {
@@ -200,6 +202,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         Mixpanel.mainInstance().time(event: "phone_lab")
 
         setBackground()
+        
+        UIApplication.shared.isIdleTimerDisabled = true
         
         setupWatchNotifications()
         
@@ -467,7 +471,62 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 zensor.update(progress: progress.description.lowercased())
             }
             
+            if(self.enableGame)
+            {
+                updateGame(notification: notification)
+            }
+            
             payout()
+        }
+    }
+    
+    func updateGame(notification: NSNotification)
+    {
+        if let progress = notification.object as? String
+        {
+            let lastProgress = progress.description.lowercased().contains("true")
+            
+            if (ring >= 2)
+            {
+                DispatchQueue.main.async
+                {
+                    self.player.removeAllActions()
+                    
+                    self.player.removeFromParent()
+                    
+                    self.ring = 0
+                    
+                    if let shell = self.sceneView.scene!.childNode(withName: "//0")! as? SKShapeNode {
+                        
+                        shell.addChild(self.player)
+                        
+                        self.player.zPosition = 3.0
+                        
+                        let action = SKAction.repeatForever( SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 25.0))
+                        
+                        self.player.run(action)
+                    }
+                }
+            }
+            else if(lastProgress && ring < 2)
+            {
+                self.ring = self.ring + 1
+                
+                DispatchQueue.main.async
+                {
+                    self.player.removeAllActions()
+                    self.player.removeFromParent()
+                        
+                    if let shell = self.sceneView.scene!.childNode(withName: "//" + self.ring.description)! as? SKShapeNode
+                    {
+                        shell.addChild(self.player)
+                        
+                        let action = SKAction.repeatForever( SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 15.0))
+                        
+                        self.player.run(action)
+                    }
+                }
+            }
         }
     }
     
@@ -668,6 +727,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         let scene = SKScene(size: (sceneView.frame.size))
         scene.scaleMode = .resizeFill
         
+        sceneView.allowsTransparency = true
+        
         self.startBackgroundContent(story: story, completion:
                                         {
                                             item in
@@ -703,7 +764,38 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                                             
                                         })
         
+        if(self.enableGame)
+        {
+            self.addShell(scene, 30, "2")
+            self.addShell(scene, 90, "1")
+            self.addShell(scene, 150, "0")
+        }
+        
         return scene
+    }
+    
+    func addShell(_ parent: SKNode, _ radius: Int, _ name: String)
+    {
+  
+        let pathNode = SKShapeNode(circleOfRadius: CGFloat(radius))
+        
+        pathNode.strokeColor = SKColor.zenWhite
+        
+        pathNode.position = CGPoint(x: parent.frame.midX, y: parent.frame.midY)
+        
+        pathNode.fillColor = SKColor(red:0.06, green:0.15, blue:0.13, alpha:0.3)
+       
+        pathNode.zPosition = 3
+        
+        pathNode.name = name
+        
+        pathNode.isHidden = true
+        
+        pathNode.lineWidth = CGFloat(0.01)
+        
+        parent.addChild(pathNode)
+        
+        rings.append(pathNode)
     }
     
     func setBackground() {
