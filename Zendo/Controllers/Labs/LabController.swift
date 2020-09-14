@@ -476,7 +476,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 updateGame(notification: notification)
             }
             
-            payout()
+            if let creator = self.story.creatorPayID {
+                payout(creatorPayID: creator)
+            }
         }
     }
     
@@ -544,9 +546,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             let donatedString = sample["donated"] as? String ?? "--"
             let progressString = sample["progress"] as? String ?? "--/--"
             let appleID = sample["appleID"] as? String ?? "---"
-            let creatorPayID = self.story.creatorPayID!
-            let causePayID = self.story.causePayID!
-            let sponsorPayID = self.story.sponsorPayID!
+            let creatorPayID = self.story.creatorPayID ?? "--"
+            let causePayID = self.story.causePayID ?? "--"
+            let sponsorPayID = self.story.sponsorPayID ?? "--"
             
             self.chartHR[String(Date().timeIntervalSince1970)] = int_hr
             
@@ -571,7 +573,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 self.zensor = Zensor(id: UUID() , name: Settings.email ?? "Apple Watch", hr: Float(double_hr) , batt: 100)
             }
             
-            self.donate()
+            if let cause = self.story.causePayID {
+                self.donate(causePayID: cause)
+            }
         }
         
     }
@@ -739,7 +743,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                                                 
                                                 let video = SKVideoNode(avPlayer: videoPlayer)
                                                 
-                                                video.zPosition = 4.0
+                                                video.zPosition = 1.0
                                                 video.size = scene.frame.size
                                                 video.position = scene.position
                                                 video.anchorPoint = scene.anchorPoint
@@ -766,9 +770,25 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         if(self.enableGame)
         {
+            self.player.removeAllActions()
+            self.player.removeFromParent()
+            
             self.addShell(scene, 30, "2")
             self.addShell(scene, 90, "1")
             self.addShell(scene, 150, "0")
+            
+            if let shell = scene.childNode(withName: "//0")! as? SKShapeNode
+            {
+                shell.addChild(self.player)
+                
+                self.player.zPosition = 3.0
+                
+                let action = SKAction.repeatForever(SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 15.0))
+                
+                self.player.run(action)
+               
+            }
+            
         }
         
         return scene
@@ -789,7 +809,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         pathNode.name = name
         
-        pathNode.isHidden = true
+        pathNode.isHidden = false
         
         pathNode.lineWidth = CGFloat(0.01)
         
@@ -835,12 +855,10 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
     }
     
-    func donate()
+    func donate(causePayID: String)
     {
         
         Mixpanel.mainInstance().track(event: "lab_donate")
-        
-        let causePayID = story.causePayID!
         
         let payIDClient = PayIDClient()
         
@@ -867,17 +885,14 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
     }
     
-    func payout()
+    func payout(creatorPayID: String)
     {
-        
         Mixpanel.mainInstance().track(event: "lab_payout")
-        
-        let creatorPayID = story.creatorPayID!
         
         let payIDClient = PayIDClient()
         
-        do {
-            
+        do
+        {
             let creatorXRPLAddress = try payIDClient.cryptoAddress(for: creatorPayID, on: "xrpl-mainnet").get()
             
             let tag = UInt32(creatorXRPLAddress.tag ?? "0")

@@ -19,7 +19,7 @@ class SubscriptionHeaderTableViewCell: UITableViewCell {
     
     enum SubscriptionStatus: String {
         //case end = "support our work together..."
-        case trial =  "Support Our Work"
+        case trial =  "Support the Work"
     }
     
     @IBOutlet weak var textLabelSub: UILabel!
@@ -525,7 +525,8 @@ extension DiscoverViewController: UICollectionViewDataSource {
         }
         else if story.type == "train"
         {
-            let train = TrainController.loadFromStoryboard(true)
+            let train = LabController.loadFromStoryboard()
+            train.enableGame = true
             train.story = story
             train.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
             train.modalPresentationStyle = .fullScreen
