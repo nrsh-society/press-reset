@@ -7,23 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A37338B2-03C6-44B2-8932-0B3C4BD9D380"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Zendo WatchKit Extension/ExtensionDelegate.swift"
-            timestampString = "584148625.2296669"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "14"
-            endingLineNumber = "14"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "3892A78C-0E2C-48C7-A2CA-F7B81CFDD1A8"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -32,10 +15,10 @@
             timestampString = "584817713.461293"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "start()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

@@ -30,12 +30,12 @@ class AppInterfaceController: WKInterfaceController {
     
     @IBAction func start() {
         
-        SettingsWatch.checkAuthorizationStatus {
+        SettingsWatch.checkAuthorizationStatus
+        {
             [weak self] success in
             
-            if success {
-                NSLog("start press")
-                
+            if success
+            {
                 Session.current = Session()
                 
                 Session.current?.start()

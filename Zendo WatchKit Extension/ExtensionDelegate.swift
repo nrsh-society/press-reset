@@ -6,10 +6,11 @@
 //  Copyright © 2017 zenbf. All rights reserved.
 //
 
+import Parse
 import WatchKit
+import Mixpanel
 import HealthKit
 import WatchConnectivity
-import Mixpanel
 import UserNotifications
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserNotificationCenterDelegate {
@@ -17,6 +18,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
     private lazy var sessionDelegater: SessionDelegater = {
         return SessionDelegater()
     }()
+    
     let healthStore = HKHealthStore()
     
     override init()
@@ -31,6 +33,14 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         requestAccessToHealthKit()
         
         Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
+        
+        let parseConfig = ParseClientConfiguration {
+                    $0.applicationId = "APPLICATION_ID"
+                    $0.server = "http://code.zendo.tools:1337/parse"
+                    $0.clientKey = "CLIENT_KEY"
+                }
+        
+        Parse.initialize(with: parseConfig)
 
         if let name = SettingsWatch.fullName, let email = SettingsWatch.email
         {

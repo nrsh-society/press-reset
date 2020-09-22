@@ -5,7 +5,7 @@
 //  Created by Douglas Purdy on 5/3/18.
 //  Copyright © 2018 zenbf. All rights reserved.
 //
-
+import Parse
 import WatchKit
 import Foundation
 import UIKit
@@ -30,6 +30,10 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     @IBOutlet weak var donateLabel: WKInterfaceLabel!
     @IBOutlet weak var donateMetricGroup: WKInterfaceGroup!
     @IBOutlet weak var donateMetricValue: WKInterfaceLabel!
+    
+    private lazy var sessionDelegater: SessionDelegater = {
+        return SessionDelegater()
+    }()
     
     @IBAction func donationsAction(value: Bool)
     {
@@ -70,8 +74,32 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     
     @objc func sample(notification: NSNotification)
     {
-        if let sample = notification.object as? [String : Any]
+        if var sample = notification.object as? [String : Any]
         {
+            
+            if let appleUserUUID = SettingsWatch.appleUserID
+            {
+                if(SettingsWatch.donations)
+                {
+                    sample["donated"] = SettingsWatch.donatedMinutes.description
+                }
+                
+                if(SettingsWatch.progress)
+                {
+                    sample["position"] = SettingsWatch.progressPosition
+                    sample["appleID"] = SettingsWatch.email
+                }
+            }
+            
+            sessionDelegater.sendMessage(["sample" : sample],
+                                         replyHandler:
+                { (message) in
+                    print(message.debugDescription)
+            },
+                                         errorHandler:
+                { (error) in
+                    print(error)
+            })
             let donatedString = sample["donated"] as? String
             let progressString = sample["progress"] as? String ?? "--/--"
             
@@ -83,11 +111,101 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         }
     }
     
+    
+    @objc func progress(notification: NSNotification)
+    {
+        if let progress = notification.object as? String
+        {
+            
+            DispatchQueue.main.async
+            {
+        
+                if(SettingsWatch.donations)
+                {
+                    SettingsWatch.donatedMinutes += 1 //#todo(push this to the cloud)
+                    
+                    self.donateMetricValue.setText(SettingsWatch.donatedMinutes.description)
+                
+                    let user = PFUser()
+                    
+                    user.incrementKey("donatedMinutes")
+                
+                    user.saveInBackground()
+                    
+                    PFCloud.callFunction(inBackground: "donate",
+                                         withParameters: ["id": user.email as Any])
+                    {
+                        (response, error) in
+
+                        if let error = error
+                        {
+                            print(error)
+                        }
+                    }
+                
+                }
+            
+                if(SettingsWatch.progress)
+                {
+                    let user = PFUser()
+                    
+                    PFCloud.callFunction(inBackground: "rank",
+                                         withParameters: ["id": user.email as Any])
+                    {
+                        (response, error) in
+
+                        if let error = error
+                        {
+                            print(error)
+                        } else
+                        {
+                            if let rank = response as? String {
+                                
+                                SettingsWatch.progressPosition = rank
+                                
+                                self.progressMetricValue.setText(SettingsWatch.progressPosition)
+                               
+                                user["progressPosition"] = SettingsWatch.progressPosition
+                            
+                                user.saveInBackground()
+                        
+                            }
+                        }
+                        
+                    }
+                
+                }
+            
+            let msg = ["progress" : progress]
+                
+            let success : (([String: Any]) -> Void) =
+                {
+                    message in
+                    print(message.debugDescription)
+                    
+                }
+            
+            let error = {
+                error in
+                print(error)
+            }
+                
+            self.sessionDelegater.sendMessage(msg, replyHandler: success, errorHandler: error)
+            
+            }
+        }
+    }
+    
     override func awake(withContext context: Any?)
     {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.sample),
                                                name:  .sample,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.progress),
+                                               name:  .progress,
                                                object: nil)
     }
     
@@ -123,8 +241,6 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
             
         }
         
- 
-        
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
@@ -134,6 +250,22 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
             case let appleIDCredential as ASAuthorizationAppleIDCredential:
             
                 let userIdentifier = appleIDCredential.user
+                let email = appleIDCredential.email
+                let fullName = appleIDCredential.fullName
+                
+                let user = PFUser()
+                user.username = userIdentifier
+                user.password = userIdentifier
+                user.email = email
+                user["fullname"] = (fullName?.givenName ?? "") +
+                    " " + (fullName?.familyName ?? "")
+                
+                user.signUpInBackground {
+                    (succeeded, error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }
+                  }
                 
                 if userIdentifier == SettingsWatch.appleUserID {
                     

@@ -140,6 +140,7 @@ class SettingsWatch  {
     }
     
     static func checkAuthorizationStatus(handle: ((_ success: Bool)->())? = nil) {
+        
         if #available(watchOSApplicationExtension 5.0, *) {
             
             let healthKitTypes = getHealthKitTypes()

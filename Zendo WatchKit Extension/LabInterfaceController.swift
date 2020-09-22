@@ -12,6 +12,7 @@ import Contacts
 import WatchKit
 import AuthenticationServices
 import Mixpanel
+import Parse
 
 class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerDelegate
 {
@@ -35,6 +36,8 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
     
     @IBAction func donationsAction(value: Bool)
     {
+        Mixpanel.sharedInstance()?.track("watch_donations")
+        
         SettingsWatch.donations = value
         donateMetricGroup.setHidden(!value)
         donateLabel.setHidden(value)
@@ -43,6 +46,8 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
     
     @IBAction func progressAction(value: Bool)
     {
+        Mixpanel.sharedInstance()?.track("watch_progress")
+        
         SettingsWatch.progress = value
         progressMetricGroup.setHidden(!value)
         progressLabel.setHidden(value)
@@ -59,6 +64,9 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
     
     @IBAction func onAppleSignButtonPressed()
     {
+        
+        Mixpanel.sharedInstance()?.track("watch_signin_start")
+        
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
@@ -69,11 +77,7 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
         authorizationController.performRequests()
     }
     
-    override func willDisappear() {
-        
-        Mixpanel.sharedInstance()?.track("watch_lab")
-    }
-    
+   
     @objc func sample(notification: NSNotification)
     {
         if let sample = notification.object as? [String : Any]
@@ -89,40 +93,53 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
         }
     }
     
+    @objc func progress(notification: NSNotification)
+    {
+
+    }
+    
     override func awake(withContext context: Any?)
     {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.sample),
                                                name:  .sample,
                                                object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.progress),
+                                               name:  .progress,
+                                               object: nil)
     }
     
     override func willActivate()
     {
         Mixpanel.sharedInstance()?.timeEvent("watch_lab")
-        
+                
         let isSignedIn = (SettingsWatch.appleUserID != nil)
         
-        if isSignedIn
-        {
-            self.authorizationButton.setHidden(true)
-            self.signinLabel.setHidden(true)
+            if isSignedIn
+            {
+                self.authorizationButton.setHidden(true)
+                self.signinLabel.setHidden(true)
             
-            self.donateSwitch.setEnabled(true)
-            self.progressSwitch.setEnabled(true)
+                self.donateSwitch.setEnabled(true)
+                self.progressSwitch.setEnabled(true)
             
-            self.donateSwitch.setOn(SettingsWatch.donations)
-            self.progressSwitch.setOn(SettingsWatch.progress)
+                self.donateSwitch.setOn(SettingsWatch.donations)
+                self.progressSwitch.setOn(SettingsWatch.progress)
     
-            donationsAction(value: SettingsWatch.donations)
-            progressAction(value: SettingsWatch.progress)
+                donationsAction(value: SettingsWatch.donations)
+                progressAction(value: SettingsWatch.progress)
             
-        }
+            } else { return }
         
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
     {
+        
+        Mixpanel.sharedInstance()?.track("watch_signin_success")
+        
         switch authorization.credential
         {
             case let appleIDCredential as ASAuthorizationAppleIDCredential:
@@ -157,6 +174,7 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
                     Mixpanel.sharedInstance()?.identify(SettingsWatch.email!)
                     Mixpanel.sharedInstance()?.people.set(["$email": SettingsWatch.email!])
                     Mixpanel.sharedInstance()?.people.set(["$name": SettingsWatch.fullName!])
+                    Mixpanel.sharedInstance()?.people.set(["$appleid": SettingsWatch.appleUserID!])
                 
                     let ok = WKAlertAction(title: "OK", style: .default)
                     {
@@ -188,6 +206,9 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error)
     {
+        
+        Mixpanel.sharedInstance()?.track("watch_signin_error")
+        
         //but we are going to hyjack this for the demo videos\
     /*
         self.animate(withDuration: 1, animations: {
@@ -208,30 +229,8 @@ class LabInterfaceController : WKInterfaceController, ASAuthorizationControllerD
             self.presentAlert(withTitle: nil, message: "Error signing in. Zendō uses Apple Sign in for secure access. Nothing is shared without your permission.", preferredStyle: .alert, actions: [ok])
     }
     
-    
-    //for when we ask for friends on the watch, we are going to do it on the phone for now
-    
-    func checkForContactsAccess(andThen f:(()->())? = nil) {
-        let status = CNContactStore.authorizationStatus(for:.contacts)
-        switch status {
-        case .authorized:
-            f?()
-        case .notDetermined:
-            CNContactStore().requestAccess(for:.contacts) { ok, err in
-                if ok {
-                    DispatchQueue.main.async {
-                        f?()
-                    }
-                }
-            }
-        case .restricted:
-            // do nothing
-            break
-        case .denied:
-            // do nothing, or beg the user to authorize us in Settings
-            print("denied")
-            break
-        @unknown default: fatalError()
-        }
+    override func willDisappear() {
+        
+        Mixpanel.sharedInstance()?.track("watch_lab")
     }
 }
