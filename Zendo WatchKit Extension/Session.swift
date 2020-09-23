@@ -228,12 +228,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         healthStore.save(allSamples)
         {
             success, error in
-            
-            self.sendMessage(["watch": "end"],
-                                         replyHandler: nil,
-                                         errorHandler: nil)
-
-            
+                        
             guard error == nil else
             {
                 print(error.debugDescription)
@@ -493,7 +488,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             if(SettingsWatch.progress)
             {
-                metadata["position"] = SettingsWatch.progressPosition
+                metadata["progress"] = SettingsWatch.progressPosition
                 metadata["appleID"] = SettingsWatch.email
             }
         }

@@ -113,7 +113,6 @@
 		12FFCAE5210F7DDD007E2480 /* Cell+ReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE4210F7DDD007E2480 /* Cell+ReuseIdentifier.swift */; };
 		12FFCAE7210F7E40007E2480 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFCAE6210F7E40007E2480 /* Date.swift */; };
 		3A6F308E245B44040034671A /* ContactsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6F308D245B44040034671A /* ContactsInterfaceController.swift */; };
-		3A9C956424578C67005D8D46 /* LabInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9C956324578C67005D8D46 /* LabInterfaceController.swift */; };
 		3AB1428F2453F4F700CA7268 /* Zensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB1428E2453F4F700CA7268 /* Zensor.swift */; };
 		3AB142912453F5EF00CA7268 /* ZensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB142902453F5EF00CA7268 /* ZensorView.swift */; };
 		7B2BD44C22A4961100B0B5A4 /* MetadataExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2BD44B22A4961100B0B5A4 /* MetadataExtractor.swift */; };
@@ -351,7 +350,6 @@
 		12FFCAE6210F7E40007E2480 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		1AF78C196003BD7D3CA00148 /* Pods-Zendo WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zendo WatchKit Extension.release.xcconfig"; path = "Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 		3A6F308D245B44040034671A /* ContactsInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsInterfaceController.swift; sourceTree = "<group>"; };
-		3A9C956324578C67005D8D46 /* LabInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabInterfaceController.swift; sourceTree = "<group>"; };
 		3AB1428E2453F4F700CA7268 /* Zensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Zensor.swift; sourceTree = "<group>"; };
 		3AB142902453F5EF00CA7268 /* ZensorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZensorView.swift; sourceTree = "<group>"; };
 		3ED375D9041CFE360443FA0F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -971,7 +969,6 @@
 				12BC71FD220C80FD00588739 /* Background.swift */,
 				BE3AE43521ED0ACF0019C489 /* Notification.swift */,
 				123E8E8621748DC900C6E2EC /* SettingsWatch.swift */,
-				3A9C956324578C67005D8D46 /* LabInterfaceController.swift */,
 				3A6F308D245B44040034671A /* ContactsInterfaceController.swift */,
 				128B104021AEB8E6009190B0 /* Supporting Files */,
 			);
@@ -1469,7 +1466,6 @@
 				3A6F308E245B44040034671A /* ContactsInterfaceController.swift in Sources */,
 				123E8E8721748DC900C6E2EC /* SettingsWatch.swift in Sources */,
 				1240AA0923D21340001F03B5 /* Notification+NameWatch.swift in Sources */,
-				3A9C956424578C67005D8D46 /* LabInterfaceController.swift in Sources */,
 				BE89838F20E6BBE300F0FD63 /* ZendoDataSource.swift in Sources */,
 				1277A526215CF3F800B15CE6 /* SummaryInterfaceController.swift in Sources */,
 				12C63FFE22173A46001C93C7 /* SubscribeInterfaceController.swift in Sources */,
@@ -1674,7 +1670,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 410;
+				CURRENT_PROJECT_VERSION = 412;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1704,7 +1700,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 410;
+				CURRENT_PROJECT_VERSION = 412;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1733,7 +1729,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 410;
+				CURRENT_PROJECT_VERSION = 412;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
@@ -1762,7 +1758,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 410;
+				CURRENT_PROJECT_VERSION = 412;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
@@ -1793,7 +1789,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 410;
+				CURRENT_PROJECT_VERSION = 412;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1829,7 +1825,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 410;
+				CURRENT_PROJECT_VERSION = 412;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1862,7 +1858,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 410;
+				CURRENT_PROJECT_VERSION = 412;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";
@@ -1890,7 +1886,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 410;
+				CURRENT_PROJECT_VERSION = 412;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";

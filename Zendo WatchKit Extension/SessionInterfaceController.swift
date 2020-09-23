@@ -67,6 +67,10 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
             
             guard let self = self else { return }
             
+            self.sessionDelegater.sendMessage(["watch": "end"],
+                                         replyHandler: nil,
+                                         errorHandler: nil)
+            
             DispatchQueue.main.async()
             {
                 if let workout = workout
@@ -123,9 +127,9 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
             timeElapsedLabel.setText("00:00")
         }
         
-        if let appleID = SettingsWatch.appleUserID
+        if SettingsWatch.appleUserID != nil
         {
-            PFUser.logInWithUsername(inBackground: appleID, password: appleID)
+            PFUser.logInWithUsername(inBackground: SettingsWatch.email!, password: SettingsWatch.email!)
         }
         
         NotificationCenter.default.addObserver(self,
@@ -137,35 +141,35 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
                                                selector: #selector(endSessionFromiPhone),
                                                name:  .endSessionFromiPhone,
                                                object: nil)
-    }
-
-    override func willActivate() {
-        super.willActivate()
+    
     }
     
-    override func didDeactivate() {
+    override func willActivate()
+    {
+        super.willActivate()
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    override func didDeactivate()
+    {
         super.didDeactivate()
-
     }
     
     @objc func progress(notification: NSNotification)
     {
-        if let progress = notification.object as? String
+        if (notification.object as? String) != nil
         {
             DispatchQueue.main.async
-            {
+            {                
                 if(SettingsWatch.donations)
                 {
                     SettingsWatch.donatedMinutes += 1
                     
-                    if let user = PFUser.current()
-                    {
-                        user.incrementKey("donatedMinutes")
-                
-                        user.saveInBackground()
-                    
                         PFCloud.callFunction(inBackground: "donate",
-                                         withParameters: ["id": user.email as Any])
+                                             withParameters: ["id": SettingsWatch.email as Any, "donatedMinutes": SettingsWatch.donatedMinutes])
                         {
                             (response, error) in
 
@@ -174,16 +178,13 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
                                 print(error)
                             }
                         }
-                    }
                 }
             
                 if(SettingsWatch.progress)
                 {
-                    if let user = PFUser.current()
-                    {
                     
                         PFCloud.callFunction(inBackground: "rank",
-                                         withParameters: ["id": user.email as Any])
+                                             withParameters: ["id": SettingsWatch.email as Any, "donatedMinutes": SettingsWatch.donatedMinutes ])
                         {
                             (response, error) in
 
@@ -196,15 +197,9 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
                                 if let rank = response as? String
                                 {
                                     SettingsWatch.progressPosition = rank
-                                                               
-                                    user["progressPosition"] = SettingsWatch.progressPosition
-                            
-                                    user.saveInBackground()
-                        
                                 }
                             }
                         }
-                    }
                 }
             }
         }

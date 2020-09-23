@@ -72,30 +72,34 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     }
     
     
-    @objc func sample(notification: NSNotification)
+    @objc func progress(notification: NSNotification)
     {
-        if let sample = notification.object as? [String : Any]
+        DispatchQueue.main.async
         {
-            let donatedString = sample["donated"] as? String ?? "0"
-            let progressString = sample["progress"] as? String ?? "--/--"
-            
-            DispatchQueue.main.async
-            {
-                self.donateMetricValue.setText(donatedString)
-                self.progressMetricValue.setText(progressString)
-            }
+            self.donateMetricValue.setText(SettingsWatch.donatedMinutes.description)
+            self.progressMetricValue.setText(SettingsWatch.progressPosition ?? "-/-")
         }
     }
-    
-    
- 
     
     override func awake(withContext context: Any?)
     {
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.sample),
-                                               name:  .sample,
+                                               selector: #selector(self.progress),
+                                               name:  .progress,
                                                object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func didDeactivate()
+    {
+        super.didDeactivate()
+        
+        Mixpanel.sharedInstance()?.track("watch_options")
+        
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func willActivate()
@@ -103,8 +107,10 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         super.willActivate()
             
         Mixpanel.sharedInstance()?.timeEvent("watch_options")
-               
-               if let bluetooth = Session.bluetoothManager
+        
+        
+        
+        if let bluetooth = Session.bluetoothManager
                {   self.bluetoothToogle.setOn(bluetooth.isRunning)
                    Session.bluetoothManager?.statusDelegate = self
                    bluetoothStatus.setText(bluetooth.status)
@@ -128,8 +134,17 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
             donationsAction(value: SettingsWatch.donations)
             progressAction(value: SettingsWatch.progress)
             
+            let donatedString = SettingsWatch.donatedMinutes.description
+            let progressString = SettingsWatch.progressPosition ?? "-/-"
+                
+            self.donateMetricValue.setText(donatedString)
+            self.progressMetricValue.setText(progressString)
+
+            if let email = SettingsWatch.email
+            {
+                PFUser.logInWithUsername(inBackground: email, password: email)
+            }
         }
-        
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
@@ -139,23 +154,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
             case let appleIDCredential as ASAuthorizationAppleIDCredential:
             
                 let userIdentifier = appleIDCredential.user
-                let email = appleIDCredential.email
-                let fullName = appleIDCredential.fullName
-                
-                let user = PFUser()
-                user.username = userIdentifier
-                user.password = userIdentifier
-                user.email = email
-                user["fullname"] = (fullName?.givenName ?? "") +
-                    " " + (fullName?.familyName ?? "")
-                
-                user.signUpInBackground {
-                    (succeeded, error) in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    }
-                  }
-                
+             
                 if userIdentifier == SettingsWatch.appleUserID {
                     
                     self.animate(withDuration: 1, animations: {
@@ -173,17 +172,37 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                 
                 if let fullName = appleIDCredential.fullName , let email = appleIDCredential.email
                 {
-                
+                    
                     SettingsWatch.fullName =
                         (fullName.givenName ?? "") +
-                            "" + (fullName.familyName ?? "")
+                            " " + (fullName.familyName ?? "")
                     SettingsWatch.email = email.description
+                    
+                    let user = PFUser()
+                    user.username = SettingsWatch.email!
+                    user.password = SettingsWatch.email!
+                    user.email = SettingsWatch.email!
+                    user["fullname"] = SettingsWatch.fullName!
+                
+                    user.signUpInBackground
+                    {
+                        (succeeded, error) in
+                        
+                        if let error = error
+                        {
+                            print(error.localizedDescription)
+                            
+                        }
+                    }
+                
+                     
                 
                     Mixpanel.sharedInstance()?.track("watch_signin", properties: ["email": SettingsWatch.email as Any])
                 
                     Mixpanel.sharedInstance()?.identify(SettingsWatch.email!)
                     Mixpanel.sharedInstance()?.people.set(["$email": SettingsWatch.email!])
                     Mixpanel.sharedInstance()?.people.set(["$name": SettingsWatch.fullName!])
+                    Mixpanel.sharedInstance()?.people.set(["$appleid": SettingsWatch.appleUserID!])
                 
                     let ok = WKAlertAction(title: "OK", style: .default)
                     {
@@ -312,14 +331,6 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         {
             self.bluetoothStatus.setText(status)
         }
-    }
-    
-   
-    override func didDeactivate()
-    {
-        super.didDeactivate()
-        
-        Mixpanel.sharedInstance()?.track("watch_options")
     }
     
 }
