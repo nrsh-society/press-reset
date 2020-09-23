@@ -447,9 +447,7 @@ class GameController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                     }
                 }
             }
-            
-            let message = "Be Well"
-            
+    
             DispatchQueue.main.async
             {
                 UIView.animate(withDuration: 0.5)
@@ -459,11 +457,9 @@ class GameController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                     self.progressView.isHidden = !self.story.enableProgress
                     self.statsView.isHidden = false
                     self.outroMessageLabel.isHidden = false
-                    self.outroMessageLabel.text = self.story.outroMessage ?? message
-                    
+                    self.outroMessageLabel.text = self.story.outroMessage ?? "Be well."
                 }
             }
-            
         }
     }
     

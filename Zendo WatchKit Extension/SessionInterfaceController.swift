@@ -123,6 +123,11 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
             timeElapsedLabel.setText("00:00")
         }
         
+        if let appleID = SettingsWatch.appleUserID
+        {
+            PFUser.logInWithUsername(inBackground: appleID, password: appleID)
+        }
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(progress),
                                                name:  .progress,
@@ -153,55 +158,55 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
                 {
                     SettingsWatch.donatedMinutes += 1
                     
-                    let user = PFUser()
-                    
-                    user.incrementKey("donatedMinutes")
-                
-                    user.saveInBackground()
-                    
-                    PFCloud.callFunction(inBackground: "donate",
-                                         withParameters: ["id": user.email as Any])
+                    if let user = PFUser.current()
                     {
-                        (response, error) in
-
-                        if let error = error
+                        user.incrementKey("donatedMinutes")
+                
+                        user.saveInBackground()
+                    
+                        PFCloud.callFunction(inBackground: "donate",
+                                         withParameters: ["id": user.email as Any])
                         {
-                            print(error)
+                            (response, error) in
+
+                            if let error = error
+                            {
+                                print(error)
+                            }
                         }
                     }
-                
                 }
             
                 if(SettingsWatch.progress)
                 {
-                    let user = PFUser()
-                    
-                    PFCloud.callFunction(inBackground: "rank",
-                                         withParameters: ["id": user.email as Any])
+                    if let user = PFUser.current()
                     {
-                        (response, error) in
+                    
+                        PFCloud.callFunction(inBackground: "rank",
+                                         withParameters: ["id": user.email as Any])
+                        {
+                            (response, error) in
 
-                        if let error = error
-                        {
-                            print(error)
-                        } else
-                        {
-                            if let rank = response as? String {
-                                
-                                SettingsWatch.progressPosition = rank
+                            if let error = error
+                            {
+                                print(error)
+                            }
+                            else
+                            {
+                                if let rank = response as? String
+                                {
+                                    SettingsWatch.progressPosition = rank
                                                                
-                                user["progressPosition"] = SettingsWatch.progressPosition
+                                    user["progressPosition"] = SettingsWatch.progressPosition
                             
-                                user.saveInBackground()
+                                    user.saveInBackground()
                         
+                                }
                             }
                         }
-                        
                     }
-                
                 }
             }
         }
     }
-
 }
