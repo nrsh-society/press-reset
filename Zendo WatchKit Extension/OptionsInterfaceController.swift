@@ -74,33 +74,9 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     
     @objc func sample(notification: NSNotification)
     {
-        if var sample = notification.object as? [String : Any]
+        if let sample = notification.object as? [String : Any]
         {
-            
-            if let appleUserUUID = SettingsWatch.appleUserID
-            {
-                if(SettingsWatch.donations)
-                {
-                    sample["donated"] = SettingsWatch.donatedMinutes.description
-                }
-                
-                if(SettingsWatch.progress)
-                {
-                    sample["position"] = SettingsWatch.progressPosition
-                    sample["appleID"] = SettingsWatch.email
-                }
-            }
-            
-            sessionDelegater.sendMessage(["sample" : sample],
-                                         replyHandler:
-                { (message) in
-                    print(message.debugDescription)
-            },
-                                         errorHandler:
-                { (error) in
-                    print(error)
-            })
-            let donatedString = sample["donated"] as? String
+            let donatedString = sample["donated"] as? String ?? "0"
             let progressString = sample["progress"] as? String ?? "--/--"
             
             DispatchQueue.main.async
@@ -112,100 +88,13 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     }
     
     
-    @objc func progress(notification: NSNotification)
-    {
-        if let progress = notification.object as? String
-        {
-            
-            DispatchQueue.main.async
-            {
-        
-                if(SettingsWatch.donations)
-                {
-                    SettingsWatch.donatedMinutes += 1 //#todo(push this to the cloud)
-                    
-                    self.donateMetricValue.setText(SettingsWatch.donatedMinutes.description)
-                
-                    let user = PFUser()
-                    
-                    user.incrementKey("donatedMinutes")
-                
-                    user.saveInBackground()
-                    
-                    PFCloud.callFunction(inBackground: "donate",
-                                         withParameters: ["id": user.email as Any])
-                    {
-                        (response, error) in
-
-                        if let error = error
-                        {
-                            print(error)
-                        }
-                    }
-                
-                }
-            
-                if(SettingsWatch.progress)
-                {
-                    let user = PFUser()
-                    
-                    PFCloud.callFunction(inBackground: "rank",
-                                         withParameters: ["id": user.email as Any])
-                    {
-                        (response, error) in
-
-                        if let error = error
-                        {
-                            print(error)
-                        } else
-                        {
-                            if let rank = response as? String {
-                                
-                                SettingsWatch.progressPosition = rank
-                                
-                                self.progressMetricValue.setText(SettingsWatch.progressPosition)
-                               
-                                user["progressPosition"] = SettingsWatch.progressPosition
-                            
-                                user.saveInBackground()
-                        
-                            }
-                        }
-                        
-                    }
-                
-                }
-            
-            let msg = ["progress" : progress]
-                
-            let success : (([String: Any]) -> Void) =
-                {
-                    message in
-                    print(message.debugDescription)
-                    
-                }
-            
-            let error = {
-                error in
-                print(error)
-            }
-                
-            self.sessionDelegater.sendMessage(msg, replyHandler: success, errorHandler: error)
-            
-            }
-        }
-    }
+ 
     
     override func awake(withContext context: Any?)
     {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.sample),
                                                name:  .sample,
-                                               object: nil)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.progress),
-                                               name:  .progress,
                                                object: nil)
     }
     

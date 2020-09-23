@@ -1,5 +1,5 @@
 //
-//  LabController.swift
+//  GameController.swift
 //  Zendo
 //
 //  Created by Douglas Purdy on 5/8/20.
@@ -20,34 +20,18 @@ import Vision
 import HaishinKit
 import XpringKit
 
-//#todo(rename): This isn't Labs anymore
-class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate
+class GameController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate
 {
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        
-        UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
-        
-    }
-    
     //#todo(debt): If we moved to SwiftUI can we get rid of some of this?
     var idHero = "" //not too sure what this does but it is store for the one of the dependencies that we have
     
     //#todo(debt): //not too sure why this isn't just in the HUDView?
     var chartHR = [String: Int]()
-    
-    //todo(debt): this should be moved to some story setting thing?
-    var enableFaceDetection: Bool = false
-    var enableRecord: Bool = false
-    
-    //todo(7.0): enable :-)
-    var enableGame: Bool = false
-    
+
+    //#todo(debt): put all of this into a game control
     let player = SKSpriteNode(imageNamed: "player1")
     var ring: Int = 0
     var rings = [SKShapeNode]()
-    var showLevels: Bool = false
-    
-    var enableLivestream: Bool = false
     
     //todo(debt): all of this private stuff should be in a shared place?
     //should be common to all Stories?
@@ -66,7 +50,11 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     
     var zensor: Zensor?
     var story: Story!
-    
+        
+    //todo(7.0): enable + move into story
+    var enableLivestream: Bool = false
+    var enableFaceDetection: Bool = false
+
     @IBOutlet weak var sceneView: SKView!
     {
         didSet {
@@ -109,18 +97,21 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     @IBOutlet weak var progressView: ProgressView! {
         didSet {
             
-            progressView.isHidden = true
+            progressView.isHidden = !self.story.enableProgress
             progressView.alpha = 1.0
             
             self.progressView.update(minutes: "--", progress: "--/--",
-                                     cause: "", sponsor: "$sponsor",
-                                     creator: "$creator", meditator:"---")
+                                     cause: self.story.causePayID ?? "", sponsor: self.story.sponsorPayID ?? "$sponsor",
+                                     creator: self.story.creatorPayID ?? "$creator", meditator:"---")
         }
     }
     
     @objc func toggleProgressView()
     {
-        self.progressView.isHidden = !self.progressView.isHidden
+        if(self.story.enableProgress)
+        {
+            self.progressView.isHidden = !self.progressView.isHidden
+        }
     }
     
     @IBOutlet weak var statsView: ArenaView! {
@@ -136,7 +127,10 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     
     @objc func toggleStatsView()
     {
-        self.statsView.isHidden = !self.statsView.isHidden
+        if(self.story.enableStats)
+        {
+            self.statsView.isHidden = !self.statsView.isHidden
+        }
     }
     
     @IBOutlet weak var connectButton: UIButton!
@@ -176,9 +170,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
     }
     
-    static func loadFromStoryboard() -> LabController
+    static func loadFromStoryboard() -> GameController
     {
-        let controller = UIStoryboard(name: "LabController", bundle: nil).instantiateViewController(withIdentifier: "LabController") as! LabController
+        let controller = UIStoryboard(name: "LabController", bundle: nil).instantiateViewController(withIdentifier: "LabController") as! GameController
         
         return controller
     }
@@ -243,13 +237,11 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
             self.captureSession.addOutput(videoFileOutput)
             
-            self.enableRecord = true
-            
         }
         catch
         {
             print(error)
-            self.enableRecord = false
+            self.story.enableRecord = false
         }
     }
     
@@ -281,6 +273,12 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         //rtmpConnection.connect("rtmp://live-sjc05.twitch.tv/app/live_526664141_tw0025TCdNZBqEkTxmhAllcIQVlvfQ")
         //rtmpStream.publish("streamName")
+    }
+    
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        
+        UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
+        
     }
     
     func setupWatchNotifications()
@@ -325,7 +323,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
     }
     
-    
     //#todo(6.0): need to wire up the BLE Zensor too.
     @objc func connectZensor()
     {
@@ -345,16 +342,15 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         if(Settings.isZensorConnected)
         {
-            Mixpanel.mainInstance().time(event: "phone_lab_watch_connected")
+            Mixpanel.mainInstance().time(event: "phone_game_start_session")
             
             DispatchQueue.main.async
             {
-                if(self.story.type == "create") {
+                if(self.story.enableRecord) {
                     
                     self.setupCamera()
                     
                     self.setupLivestream()
-            
                 }
                 
                 self.setupPhoneAV()
@@ -377,7 +373,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 UIView.animate(withDuration: 0.5)
                 {
                     self.statsView.isHidden = false
-                    self.progressView.isHidden = false
+                    self.progressView.isHidden = !self.story.enableProgress
                     self.sceneView.isHidden = false
                 }
                 //todo(bug): this has to be done outside of the
@@ -385,7 +381,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 self.connectButton.isHidden = true
                 self.outroMessageLabel.isHidden = true
                 
-                if(self.enableRecord)
+                if(self.story.enableRecord)
                 {
                     self.captureSession.startRunning()
                         
@@ -419,10 +415,19 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         if(Settings.isZensorConnected) {
             
-            if(self.enableRecord)
+            if(self.story.enableRecord)
             {
                 self.captureSession.stopRunning()
                 self.videoFileOutput.stopRecording()
+            }
+            
+            if(self.story.enableBoard)
+            {
+                self.player.removeAllActions()
+                self.player.removeFromParent()
+                self.rings.forEach { (ring) in
+                    ring.removeFromParent()
+                }
             }
             
             ZBFHealthKit.getWorkouts(limit: 1) {
@@ -443,7 +448,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 }
             }
             
-            let message = "Be Well."
+            let message = "Be Well"
             
             DispatchQueue.main.async
             {
@@ -451,7 +456,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 {
                     self.connectButton.isHidden = true
                     self.sceneView.isHidden = false
-                    self.progressView.isHidden = false
+                    self.progressView.isHidden = !self.story.enableProgress
                     self.statsView.isHidden = false
                     self.outroMessageLabel.isHidden = false
                     self.outroMessageLabel.text = self.story.outroMessage ?? message
@@ -471,7 +476,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 zensor.update(progress: progress.description.lowercased())
             }
             
-            if(self.enableGame)
+            if self.story.enableBoard
             {
                 updateGame(notification: notification)
             }
@@ -768,7 +773,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                                             
                                         })
         
-        if(self.enableGame)
+        if(self.story.enableBoard!)
         {
             self.player.removeAllActions()
             self.player.removeFromParent()

@@ -24,10 +24,30 @@ class Story: Codable {
     var creatorPayID: String?
     var introURL: String?
     var outroMessage: String?
+    var enableBoard: Bool! //= false
+    var enableProgress: Bool! //= false
+    var enableRecord: Bool! //= false
+    var enableStats: Bool! = true
     
     var content = [Content]()
     
     public init(_ json: JSON) {
+        
+        if let enableBoard = json["enableBoard"].bool {
+            self.enableBoard = enableBoard
+        }
+        
+        if let enableProgress = json["enableProgress"].bool {
+            self.enableProgress = enableProgress
+        }
+        
+        if let enableRecord = json["enableRecord"].bool {
+            self.enableRecord = enableRecord
+        }
+        
+        if let enableStats = json["enableStats"].bool {
+            self.enableStats = enableStats
+        }
         
         if let title = json["title"].string {
             self.title = title

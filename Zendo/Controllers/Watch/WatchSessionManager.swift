@@ -52,17 +52,9 @@ extension WatchSessionManager: WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessage message: [String: Any],
                  replyHandler: @escaping ([String: Any]) -> Void)
     {
-        print(message)
-        
         if let message = message as? [String: String]
         {
-            
-            if message["watch"] == "reload"
-            {
-                NotificationCenter.default.post(name: .reloadActivity, object: nil)
-                NotificationCenter.default.post(name: .reloadOverview, object: nil)
-            }
-            else if message["watch"] == "mixpanel"
+            if message["watch"] == "mixpanel"
             {
                 if let email = Settings.email,
                 let name = Settings.fullName
@@ -96,29 +88,31 @@ extension WatchSessionManager: WCSessionDelegate {
             }
             else if message["watch"] == "end"
             {
-                if(Settings.isZensorConnected) {
-
-                    NotificationCenter.default.post(name: .endSession, object: nil)
+                if(Settings.isZensorConnected)
+                {
                     
-                    Settings.isZensorConnected = false
-                    Settings.connectedDate = nil
+                    NotificationCenter.default.post(name: .endSession, object: nil)
+                    NotificationCenter.default.post(name: .reloadActivity, object: nil)
+                    NotificationCenter.default.post(name: .reloadOverview, object: nil)
                 }
-            }
-            else if message["watch"] == "endSession"
-            {
+ 
+                Settings.isZensorConnected = false
+                Settings.connectedDate = nil
                 Settings.isUploadDate = true
+                
             }
             else if message["watch"] == "start"
             {
-                if(!Settings.isZensorConnected) {
-                    
+                if(!Settings.isZensorConnected)
+                {
                     Settings.isZensorConnected = true
                     Settings.connectedDate = Date ()
+                    
                     NotificationCenter.default.post(name: .startSession, object: Settings.connectedDate)
                 }
             }
-            else if let progress = message["progress"] {
-            
+            else if let progress = message["progress"]
+            {
                 Settings.isZensorConnected = true
                 Settings.connectedDate = Date ()
                 

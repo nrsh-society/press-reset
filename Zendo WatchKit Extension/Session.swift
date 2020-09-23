@@ -141,21 +141,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             self.isRunning = true
             
-            let msg = ["watch": "start"]
-            
-            let onSuccess : (([String: Any]) -> Void)? =
-            {
-                replyHandler in
-                
-            }
-            
-            let onError : ((Error) -> Void)? = {
-                
-                error in
-                
-            }
-            
-            self.sendMessage(msg, replyHandler: onSuccess, errorHandler: onError)
+            self.sendMessage(["watch": "start"], replyHandler: nil, errorHandler: nil)
             
         }
         else
@@ -243,14 +229,20 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         {
             success, error in
             
-            guard error == nil else {
+            self.sendMessage(["watch": "end"],
+                                         replyHandler: nil,
+                                         errorHandler: nil)
+
+            
+            guard error == nil else
+            {
                 print(error.debugDescription)
                 workoutEnd(nil)
                 return
             }
             
             self.healthStore.add(healthKitSamples, to: workout, completion:
-                {
+            {
                     success, error in
                     
                     guard error == nil else {
@@ -260,21 +252,11 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                     }
                     
                     workoutEnd(workout)
-                                        
+                 
             })
             
-            self.sendMessage(["watch": "reload"], replyHandler: { (replyMessage) in
-                
-            }, errorHandler: { error in
-                print(error.localizedDescription)
-            })
-
-         
-            self.sendMessage(["watch": "end"],
-                                         replyHandler: nil,
-                                         errorHandler: nil)
-       
         }
+        
     }
     
     typealias HKQueryUpdateHandler = ((HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Swift.Void)
@@ -457,6 +439,8 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             NotificationCenter.default.post(name: .progress, object: progress)
             
+            self.sendMessage(["progress" : progress], replyHandler: nil, errorHandler: nil)
+            
         }
         
         if let date = self.startDate {
@@ -489,7 +473,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             self.heartSDNN = standardDeviation(self.heartRateSamples)
         }
         
-        let metadata: [String: Any] = [
+        var metadata: [String: Any] = [
             MetadataType.time.rawValue: Date().timeIntervalSince1970.description,
             MetadataType.now.rawValue: Date().description,
             MetadataType.motion.rawValue: motion.description,
@@ -499,6 +483,20 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             MetadataType.roll.rawValue: self.rotation.roll.description,
             MetadataType.yaw.rawValue: self.rotation.yaw.description
         ]
+        
+        if SettingsWatch.appleUserID != nil
+        {
+            if(SettingsWatch.donations)
+            {
+                metadata["donated"] = SettingsWatch.donatedMinutes.description
+            }
+            
+            if(SettingsWatch.progress)
+            {
+                metadata["position"] = SettingsWatch.progressPosition
+                metadata["appleID"] = SettingsWatch.email
+            }
+        }
                 
         let empty = metadataWork.isEmpty ? "" : "/"
         
@@ -507,6 +505,8 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         }
         
         NotificationCenter.default.post(name: .sample, object: metadata)
+        
+        self.sendMessage(["sample" : metadata], replyHandler: nil, errorHandler: nil)
         
     }
     

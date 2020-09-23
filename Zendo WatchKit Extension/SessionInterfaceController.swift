@@ -12,15 +12,16 @@ import Foundation
 import HealthKit
 import WatchConnectivity
 import Mixpanel
+import Parse
 
 class SessionInterfaceController: WKInterfaceController, SessionDelegate {
-    
-    @IBOutlet var commandImage: WKInterfaceImage!
-    @IBOutlet var heartRateLabel: WKInterfaceLabel!
+
     var timer: Timer!
     var session: Session!
     var heartBeats = [Int()]
     
+    @IBOutlet var commandImage: WKInterfaceImage!
+    @IBOutlet var heartRateLabel: WKInterfaceLabel!
     @IBOutlet var timeElapsedLabel: WKInterfaceLabel!
     
     private lazy var sessionDelegater: SessionDelegater = { return SessionDelegater() }()
@@ -53,27 +54,36 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         endSession()
     }
     
-    @objc func endSessionFromiPhone() {
+    @objc func endSessionFromiPhone()
+    {
         endSession()
     }
     
-    func endSession() {
-        session.end() { [weak self] workout in
+    func endSession()
+    {
+        session.end()
+        {
+            [weak self] workout in
             
             guard let self = self else { return }
             
-            DispatchQueue.main.async() {
+            DispatchQueue.main.async()
+            {
+                if let workout = workout
+                {
                 
-                if let workout = workout {
                     Mixpanel.sharedInstance()?.track("watch_meditation")
                     
-                    self.sessionDelegater.sendMessage(["watch" : "endSession"], replyHandler: nil, errorHandler: nil)
-                    
-                    WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SummaryInterfaceController", context: ["session": self.session, "workout": workout] as AnyObject)])
-                } else {
-                    
-                    
-                    SettingsWatch.checkAuthorizationStatus { [weak self] success in
+                    WKInterfaceController.reloadRootControllers(withNamesAndContexts:
+                                                                    [(name: "SummaryInterfaceController",
+                                                                      context: ["session": self.session,
+                                                                                "workout": workout] as AnyObject)])
+                }
+                else
+                {
+                    SettingsWatch.checkAuthorizationStatus
+                    {
+                        [weak self] success in
                         
                         guard let self = self else { return }
                         
@@ -105,24 +115,18 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         Mixpanel.sharedInstance()?.timeEvent("watch_meditation")
         
         sessionDelegater.sendMessage(["facebook" : "watch_meditation"],
-                                     replyHandler:
-            {
-                (message) in
-                
-                print(message.debugDescription)
-        },
-                                     errorHandler:
-            {
-                (error) in
-                
-                print(error)
-        })
+                                     replyHandler: nil, errorHandler: nil)
         
         if let context = context as? Session {
             session = context
             session.delegate = self
             timeElapsedLabel.setText("00:00")
         }
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(progress),
+                                               name:  .progress,
+                                               object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(endSessionFromiPhone),
@@ -137,6 +141,67 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     override func didDeactivate() {
         super.didDeactivate()
 
+    }
+    
+    @objc func progress(notification: NSNotification)
+    {
+        if let progress = notification.object as? String
+        {
+            DispatchQueue.main.async
+            {
+                if(SettingsWatch.donations)
+                {
+                    SettingsWatch.donatedMinutes += 1
+                    
+                    let user = PFUser()
+                    
+                    user.incrementKey("donatedMinutes")
+                
+                    user.saveInBackground()
+                    
+                    PFCloud.callFunction(inBackground: "donate",
+                                         withParameters: ["id": user.email as Any])
+                    {
+                        (response, error) in
+
+                        if let error = error
+                        {
+                            print(error)
+                        }
+                    }
+                
+                }
+            
+                if(SettingsWatch.progress)
+                {
+                    let user = PFUser()
+                    
+                    PFCloud.callFunction(inBackground: "rank",
+                                         withParameters: ["id": user.email as Any])
+                    {
+                        (response, error) in
+
+                        if let error = error
+                        {
+                            print(error)
+                        } else
+                        {
+                            if let rank = response as? String {
+                                
+                                SettingsWatch.progressPosition = rank
+                                                               
+                                user["progressPosition"] = SettingsWatch.progressPosition
+                            
+                                user.saveInBackground()
+                        
+                            }
+                        }
+                        
+                    }
+                
+                }
+            }
+        }
     }
 
 }
