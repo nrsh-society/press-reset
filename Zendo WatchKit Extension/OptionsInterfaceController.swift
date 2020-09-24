@@ -109,7 +109,6 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         Mixpanel.sharedInstance()?.timeEvent("watch_options")
         
         
-        
         if let bluetooth = Session.bluetoothManager
                {   self.bluetoothToogle.setOn(bluetooth.isRunning)
                    Session.bluetoothManager?.statusDelegate = self
@@ -140,9 +139,9 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
             self.donateMetricValue.setText(donatedString)
             self.progressMetricValue.setText(progressString)
 
-            if let email = SettingsWatch.email
+            if let appleId = SettingsWatch.appleUserID
             {
-                PFUser.logInWithUsername(inBackground: email, password: email)
+                PFUser.logInWithUsername(inBackground: appleId, password: String(appleId.prefix(9)))
             }
         }
     }
@@ -179,8 +178,8 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                     SettingsWatch.email = email.description
                     
                     let user = PFUser()
-                    user.username = SettingsWatch.email!
-                    user.password = SettingsWatch.email!
+                    user.username = SettingsWatch.appleUserID!
+                    user.password = String(SettingsWatch.appleUserID!.prefix(9))
                     user.email = SettingsWatch.email!
                     user["fullname"] = SettingsWatch.fullName!
                 
@@ -194,8 +193,6 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                             
                         }
                     }
-                
-                     
                 
                     Mixpanel.sharedInstance()?.track("watch_signin", properties: ["email": SettingsWatch.email as Any])
                 

@@ -129,7 +129,10 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         
         if SettingsWatch.appleUserID != nil
         {
-            PFUser.logInWithUsername(inBackground: SettingsWatch.email!, password: SettingsWatch.email!)
+            if let email = SettingsWatch.email
+            {
+                PFUser.logInWithUsername(inBackground: SettingsWatch.appleUserID!, password: String(email.prefix(9)))
+            }
         }
         
         NotificationCenter.default.addObserver(self,
@@ -169,7 +172,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
                     SettingsWatch.donatedMinutes += 1
                     
                         PFCloud.callFunction(inBackground: "donate",
-                                             withParameters: ["id": SettingsWatch.email as Any, "donatedMinutes": SettingsWatch.donatedMinutes])
+                                             withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes])
                         {
                             (response, error) in
 
@@ -184,7 +187,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
                 {
                     
                         PFCloud.callFunction(inBackground: "rank",
-                                             withParameters: ["id": SettingsWatch.email as Any, "donatedMinutes": SettingsWatch.donatedMinutes ])
+                                             withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes ])
                         {
                             (response, error) in
 
