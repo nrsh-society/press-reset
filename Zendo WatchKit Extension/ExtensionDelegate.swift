@@ -32,8 +32,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         
         requestAccessToHealthKit()
         
-        Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
-        
         let parseConfig = ParseClientConfiguration {
                     $0.applicationId = "APPLICATION_ID"
                     $0.server = "http://code.zendo.tools:1337/parse"
@@ -41,6 +39,14 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
                 }
         
         Parse.initialize(with: parseConfig)
+        
+        if let appleId = SettingsWatch.appleUserID
+        {
+            PFUser.logInWithUsername(inBackground: appleId, password: String(appleId.prefix(9)))
+        }
+        
+        //#todo: remove all of mixpanel from the client
+        Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
 
         if let name = SettingsWatch.fullName, let email = SettingsWatch.email
         {

@@ -127,14 +127,6 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
             timeElapsedLabel.setText("00:00")
         }
         
-        if SettingsWatch.appleUserID != nil
-        {
-            if let email = SettingsWatch.email
-            {
-                PFUser.logInWithUsername(inBackground: SettingsWatch.appleUserID!, password: String(email.prefix(9)))
-            }
-        }
-        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(progress),
                                                name:  .progress,

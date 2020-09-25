@@ -471,14 +471,18 @@ class GameController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             {
                 zensor.update(progress: progress.description.lowercased())
             }
-            
-            if self.story.enableBoard
+          
+            DispatchQueue.main.async
             {
-                updateGame(notification: notification)
-            }
-            
-            if let creator = self.story.creatorPayID {
-                payout(creatorPayID: creator)
+                if self.story.enableBoard
+                {
+                    self.updateGame(notification: notification)
+                }
+                
+                if let creator = self.story.creatorPayID
+                {
+                    self.payout(creatorPayID: creator)
+                }
             }
         }
     }

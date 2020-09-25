@@ -139,10 +139,6 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
             self.donateMetricValue.setText(donatedString)
             self.progressMetricValue.setText(progressString)
 
-            if let appleId = SettingsWatch.appleUserID
-            {
-                PFUser.logInWithUsername(inBackground: appleId, password: String(appleId.prefix(9)))
-            }
         }
     }
     
