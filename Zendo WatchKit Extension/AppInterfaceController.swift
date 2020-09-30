@@ -18,8 +18,6 @@ class AppInterfaceController: WKInterfaceController {
     @IBOutlet var hrvLabel: WKInterfaceLabel!
     @IBOutlet var mainGroup: WKInterfaceGroup!
     
-    private lazy var sessionDelegater: SessionDelegater = { return SessionDelegater() }()
-    
     func openUrl(urlString: String) {
         guard let url = URL(string: urlString) else {
             return
@@ -143,26 +141,9 @@ class AppInterfaceController: WKInterfaceController {
     
     override func willActivate()
     {
-
         super.willActivate()
         
         Mixpanel.sharedInstance()?.timeEvent("watch_overview")
-        
-        //#todo(v5.1): logging
-        sessionDelegater.sendMessage(
-            ["facebook" : "watch_overview"],
-            replyHandler:
-            {
-                (message) in
-                
-                print(message.debugDescription)
-            },
-            errorHandler:
-            {
-                (error) in
-                
-                print(error)
-            })
         
         ZBFHealthKit.getPermissions()
         {

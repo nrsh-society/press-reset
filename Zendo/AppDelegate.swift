@@ -21,14 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var foregrounder: Foregrounder!
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]?) -> Bool {
-        
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]?) -> Bool
+    {
         Settings.isZensorConnected = false
         
         Cloud.enable(application, launchOptions)
         
         WatchSessionManager.sharedManager.startSession()
-        
         
         UINavigationBar.appearance().barStyle = .black
         UINavigationBar.appearance().barTintColor = UIColor.zenDarkGreen
@@ -101,7 +100,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let token = tokenParts.joined()
         
         print("Device Token: \(token)")
-        
         
         if let email = Settings.email
         {

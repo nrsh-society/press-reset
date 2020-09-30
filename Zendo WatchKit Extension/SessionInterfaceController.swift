@@ -14,18 +14,13 @@ import WatchConnectivity
 import Mixpanel
 import Parse
 
-class SessionInterfaceController: WKInterfaceController, SessionDelegate {
-
-    var timer: Timer!
+class SessionInterfaceController: WKInterfaceController, SessionDelegate
+{
     var session: Session!
-    var heartBeats = [Int()]
     
-    @IBOutlet var commandImage: WKInterfaceImage!
     @IBOutlet var heartRateLabel: WKInterfaceLabel!
     @IBOutlet var timeElapsedLabel: WKInterfaceLabel!
-    
-    private lazy var sessionDelegater: SessionDelegater = { return SessionDelegater() }()
-    
+        
     func sessionTick(startDate: Date, message: String?)
     {
         DispatchQueue.main.async
@@ -41,10 +36,9 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         }
     }
     
-    func openUrl(urlString: String) {
-        guard let url = URL(string: urlString) else {
-            return
-        }
+    func openUrl(urlString: String)
+    {
+        guard let url = URL(string: urlString) else { return }
         
         NSExtensionContext().open(url)
     }
@@ -66,22 +60,17 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
             [weak self] workout in
             
             guard let self = self else { return }
-            
-            self.sessionDelegater.sendMessage(["watch": "end"],
-                                         replyHandler: nil,
-                                         errorHandler: nil)
-            
+                        
             DispatchQueue.main.async()
             {
                 if let workout = workout
                 {
-                
                     Mixpanel.sharedInstance()?.track("watch_meditation")
                     
                     WKInterfaceController.reloadRootControllers(withNamesAndContexts:
                                                                     [(name: "SummaryInterfaceController",
                                                                       context: ["session": self.session,
-                                                                                "workout": workout] as AnyObject)])
+                                                                            "workout": workout] as AnyObject)])
                 }
                 else
                 {
@@ -91,12 +80,14 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
                         
                         guard let self = self else { return }
                         
-                        if success {
+                        if success
+                        {
                             WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "SetGoalInterfaceController", context: false as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
-                        } else {
+                        }
+                        else
+                        {
                             let ok = WKAlertAction(title: "OK", style: .default)
                             {
-                                
                                 self.openUrl(urlString: "x-apple-health://")
                                 
                                 WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "SetGoalInterfaceController", context: false as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
@@ -118,25 +109,12 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         
         Mixpanel.sharedInstance()?.timeEvent("watch_meditation")
         
-        sessionDelegater.sendMessage(["facebook" : "watch_meditation"],
-                                     replyHandler: nil, errorHandler: nil)
-        
         if let context = context as? Session {
             session = context
             session.delegate = self
             timeElapsedLabel.setText("00:00")
         }
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(progress),
-                                               name:  .progress,
-                                               object: nil)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(endSessionFromiPhone),
-                                               name:  .endSessionFromiPhone,
-                                               object: nil)
-    
     }
     
     override func willActivate()
@@ -144,59 +122,10 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         super.willActivate()
         
     }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
+
     override func didDeactivate()
     {
         super.didDeactivate()
     }
     
-    @objc func progress(notification: NSNotification)
-    {
-        if (notification.object as? String) != nil
-        {
-            DispatchQueue.main.async
-            {                
-                if(SettingsWatch.donations)
-                {
-                    SettingsWatch.donatedMinutes += 1
-                    
-                        PFCloud.callFunction(inBackground: "donate",
-                                             withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes])
-                        {
-                            (response, error) in
-
-                            if let error = error
-                            {
-                                print(error)
-                            }
-                        }
-                }
-            
-                if(SettingsWatch.progress)
-                {
-                    
-                        PFCloud.callFunction(inBackground: "rank",
-                                             withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes ])
-                        {
-                            (response, error) in
-
-                            if let error = error
-                            {
-                                print(error)
-                            }
-                            else
-                            {
-                                if let rank = response as? String
-                                {
-                                    SettingsWatch.progressPosition = rank
-                                }
-                            }
-                        }
-                }
-            }
-        }
-    }
 }

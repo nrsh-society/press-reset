@@ -186,31 +186,43 @@ public class Zensor : Identifiable, ObservableObject
     
     func publish()
     {
-        /*
-         
-         convert from Firebase to Parse
-         
-        let database = Database.database().reference()
-        let players = database.child("players")
-        
-        let name = self.name.replacingOccurrences(of: ".", with: "_")
-        
-        let key = players.child(name)
-        
-        key.setValue(self.getUpdate())
+        if(SettingsWatch.donations)
         {
-            (error, ref) in
+            SettingsWatch.donatedMinutes += 1
             
-            if let error = error
-            {
-                print("Data could not be saved: \(error).")
-                
-                return
-            }
-            
+                PFCloud.callFunction(inBackground: "donate",
+                                     withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes])
+                {
+                    (response, error) in
+
+                    if let error = error
+                    {
+                        print(error)
+                    }
+                }
         }
-         */
-        
+
+        if(SettingsWatch.progress)
+        {
+            
+                PFCloud.callFunction(inBackground: "rank",
+                                     withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes ])
+                {
+                    (response, error) in
+
+                    if let error = error
+                    {
+                        print(error)
+                    }
+                    else
+                    {
+                        if let rank = response as? String
+                        {
+                            SettingsWatch.progressPosition = rank
+                        }
+                    }
+                }
+        }
     }
     
     func reset()

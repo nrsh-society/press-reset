@@ -228,7 +228,9 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         healthStore.save(allSamples)
         {
             success, error in
-                        
+            
+            self.sendMessage(["watch": "end"], replyHandler: nil, errorHandler: nil)
+            
             guard error == nil else
             {
                 print(error.debugDescription)
