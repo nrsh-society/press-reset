@@ -7,12 +7,12 @@
 //  Copyright © 2017 zenbf. All rights reserved.
 //
 
-import WatchKit
-import Foundation
-import HealthKit
-import WatchConnectivity
-import Mixpanel
 import Parse
+import Mixpanel
+import WatchKit
+import HealthKit
+import Foundation
+import WatchConnectivity
 
 class SessionInterfaceController: WKInterfaceController, SessionDelegate
 {
@@ -34,13 +34,6 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate
                 self.heartRateLabel.setText(message)
             }
         }
-    }
-    
-    func openUrl(urlString: String)
-    {
-        guard let url = URL(string: urlString) else { return }
-        
-        NSExtensionContext().open(url)
     }
     
     @IBAction func onDonePress()
@@ -74,31 +67,16 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate
                 }
                 else
                 {
-                    SettingsWatch.checkAuthorizationStatus
+                    let ok = WKAlertAction(title: "OK", style: .default)
                     {
-                        [weak self] success in
+                        ExtensionDelegate.openUrl(urlString: "x-apple-health://")
                         
-                        guard let self = self else { return }
-                        
-                        if success
-                        {
-                            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "SetGoalInterfaceController", context: false as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
-                        }
-                        else
-                        {
-                            let ok = WKAlertAction(title: "OK", style: .default)
-                            {
-                                self.openUrl(urlString: "x-apple-health://")
-                                
-                                WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "SetGoalInterfaceController", context: false as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
-                            }
-                            
-                            self.presentAlert(withTitle: nil, message: "Error saving data. Zendō needs access to Apple Health to measure and record metrics during meditation. All Health data remains on your devices, nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
-                        }
+                        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "SetGoalInterfaceController", context: false as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
                     }
+                    
+                    self.presentAlert(withTitle: nil, message: "Error saving data. Zendō needs access to Apple Health. Nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
                                         
                 }
-                
             }
         }
     }

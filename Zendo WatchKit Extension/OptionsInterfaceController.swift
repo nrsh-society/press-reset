@@ -44,6 +44,8 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         if let user = PFUser.current()
         {
             self.donateMetricValue.setText((user["donatedMinutes"] ?? "--") as? String)
+            user["donated"] = true
+            user.saveInBackground()
         }
         else
         {
@@ -60,6 +62,9 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         if let user = PFUser.current()
         {
             progressMetricValue.setText((user["progressPosition"] ?? "--") as? String)
+            
+            user["progress"] = true
+            user.saveInBackground()
         }
         else
         {
@@ -223,8 +228,6 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                             
                         }
                     }
-                
-                  
                     let ok = WKAlertAction(title: "OK", style: .default)
                     {
                         Mixpanel.sharedInstance()?.track("watch_signin")

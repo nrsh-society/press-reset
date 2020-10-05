@@ -19,8 +19,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         return SessionDelegater()
     }()
     
-    let healthStore = HKHealthStore()
-    
     override init()
     {
         super.init()
@@ -29,8 +27,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
     }
     
     func applicationDidFinishLaunching() {
-        
-        requestAccessToHealthKit()
         
         let parseConfig = ParseClientConfiguration {
                     $0.applicationId = "APPLICATION_ID"
@@ -86,21 +82,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, etc.
     }
-    
-    func requestAccessToHealthKit() {
-        if #available(watchOSApplicationExtension 5.0, *) {
-            SettingsWatch.checkAuthorizationStatus { [weak self] success in
-                if !success {
-                    let healthKitTypes = SettingsWatch.getHealthKitTypes()
-                    
-                    self?.healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { success, error in
-                        print("Successful HealthKit Authorization from Watch's extension Delegate")
-                    }
-                }
-            }
-        }
-    }
-        
+            
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
         // Sent when the system needs to launch the application in the background to process tasks. Tasks arrive in a set, so loop through and process each one.
         for task in backgroundTasks {
@@ -145,20 +127,38 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         
     }
     
-    public func handle(_ workoutConfiguration: HKWorkoutConfiguration) {
+    static func openUrl(urlString: String)
+    {
+        guard let url = URL(string: urlString) else { return }
+        
+        NSExtensionContext().open(url)
+    }
+    
+    public func handle(_ workoutConfiguration: HKWorkoutConfiguration)
+    {
         if Session.current != nil && (Session.current?.isRunning)! {
             return
         }
+    
+        ZBFHealthKit.getPermissions()
+        {
+            success, error in
+            
+            guard error == nil else
+            {
+                
+                //todo: load a controller that shows the health kit permissions
+                return
+            }
+            
+            Mixpanel.sharedInstance()?.track("watch_healthkit", properties: ["success" : success])
+          
+            Session.current = Session()
         
-        requestAccessToHealthKit()
-        
-        Session.current = Session()
-        
-        Session.current?.start()
-        
-        WKInterfaceDevice.current().play(WKHapticType.start)
-        
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject), (name: "OptionsInterfaceController", context: Session.current as AnyObject)])
+            Session.current?.start()
+                
+            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject), (name: "OptionsInterfaceController", context: Session.current as AnyObject)])
+        }
     }
     
 }

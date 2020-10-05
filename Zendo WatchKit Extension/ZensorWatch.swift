@@ -186,9 +186,10 @@ public class Zensor : Identifiable, ObservableObject
     
     func publish()
     {
-        if(SettingsWatch.donations)
+        if let donations = PFUser.current()?["donations"] as? Bool, donations
         {
             SettingsWatch.donatedMinutes += 1
+            PFUser.current()?.incrementKey("donatedMinutes")
             
                 PFCloud.callFunction(inBackground: "donate",
                                      withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes])
@@ -282,7 +283,7 @@ open class Zensors : NSObject, CBCentralManagerDelegate, HMHomeManagerDelegate, 
                         }
                         else
                         {
-                            self.appleWatch = Zensor(id: UUID() , name: SettingsWatch.email!, hr: Float(double_hr) , batt: 100)
+                            self.appleWatch = Zensor(id: UUID() , name: PFUser.current()!.email!, hr: Float(double_hr) , batt: 100)
                             self.current.append(self.appleWatch!)
                         }
                 }
