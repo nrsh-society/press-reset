@@ -25,49 +25,6 @@ struct Rotation
     var yaw: Double = 0.0
 }
 
-struct Options
-{
-    var hapticStrength : Int
-    {
-        get
-        {
-            if let value = UserDefaults.standard.object(forKey: "hapticStrength")
-            {
-                return value as! Int
-            }
-            else
-            {
-                return 1
-            }
-        }
-        
-        set
-        {
-            UserDefaults.standard.set(newValue, forKey: "hapticStrength")
-        }
-    }
-    
-    var retryStrength : Int
-    {
-        get
-        {
-            
-            if let value = UserDefaults.standard.object(forKey: "retryStrength")
-            {
-                return value as! Int
-            }
-            else
-            {
-                return 1
-            }
-        }
-        
-        set
-        {
-            UserDefaults.standard.set(newValue, forKey: "retryStrength")
-        }
-    }
-}
 
 class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate
 {

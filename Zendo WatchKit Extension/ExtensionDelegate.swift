@@ -16,6 +16,7 @@ import UserNotifications
 class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserNotificationCenterDelegate {
     
     private lazy var sessionDelegater: SessionDelegater = {
+        
         return SessionDelegater()
     }()
     
@@ -26,34 +27,71 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         WCSession.default.activate()
     }
     
-    func applicationDidFinishLaunching() {
+    func applicationDidFinishLaunching()
+    {
         
-        let parseConfig = ParseClientConfiguration {
-                    $0.applicationId = "APPLICATION_ID"
-                    $0.server = "http://code.zendo.tools:1337/parse"
-                    $0.clientKey = "CLIENT_KEY"
-                }
+        if(!Parse.isLocalDatastoreEnabled)
+        {
+            Parse.enableLocalDatastore()
+        }
+        
+        let parseConfig = ParseClientConfiguration
+        {
+            $0.applicationId = "APPLICATION_ID"
+            $0.server = "http://code.zendo.tools:1337/parse"
+            $0.clientKey = "CLIENT_KEY"
+            
+        }
         
         Parse.initialize(with: parseConfig)
-        
+    
         if let appleId = SettingsWatch.appleUserID
         {
             PFUser.logInWithUsername(inBackground: appleId, password: String(appleId.prefix(9)))
+         
+            if !SettingsWatch.migratedToParse
+            {
+                if let user = PFUser.current()
+                {
+                    user.donations = SettingsWatch.donations
+                    user.donatedMinutes = SettingsWatch.donatedMinutes
+                    user.progress = SettingsWatch.progress
+                    user.progressPosition = SettingsWatch.progressPosition ?? "-/-"
+                    user.progress = SettingsWatch.progress
+                    user.successFeedbackLevel = Options().hapticStrength
+                    user.retryFeedbackLevel = Options().retryStrength
+                    
+                    //todo
+                    user["_email"] = SettingsWatch.email
+                    user["_fullname"] = SettingsWatch.fullName
+                    user["localNotications"] = SettingsWatch.localNotications
+                    user["dailyMediationGoal"] = SettingsWatch.dailyMediationGoal
+                    user["currentDailyMediationPercent"] = SettingsWatch.currentDailyMediationPercent
+                    
+                    user.migratedToParse = true
+                    user.track("watch_login")
+                    user.saveInBackground()
+                }
+                
+                SettingsWatch.migratedToParse = true
+            }
+            
         }
         
-        //#todo: remove all of mixpanel from the client
-        Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
-
+        //#todo(7.0): remove Mixpanel
         if let name = SettingsWatch.fullName, let email = SettingsWatch.email
         {
+            Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
             Mixpanel.sharedInstance()?.identify(email)
             Mixpanel.sharedInstance()?.people.set(["$email": email])
             Mixpanel.sharedInstance()?.people.set(["$name": name])
-
         }
         else
         {
-            sendMessage(["watch": "mixpanel"], replyHandler: { reply in
+            sendMessage(["watch": "mixpanel"],
+                        replyHandler:
+                            {
+                reply in
                 if let reply = reply as? [String: String],
                     let email = reply["email"],
                     let name = reply["name"] {
@@ -134,9 +172,12 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         NSExtensionContext().open(url)
     }
     
+    //called when a meditation session is created on companion device
     public func handle(_ workoutConfiguration: HKWorkoutConfiguration)
     {
-        if Session.current != nil && (Session.current?.isRunning)! {
+        //if there is already a session running on the companion
+        if Session.current != nil && (Session.current?.isRunning)!
+        {
             return
         }
     
@@ -144,21 +185,22 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         {
             success, error in
             
+            Mixpanel.sharedInstance()?.track("watch_healthkit", properties: ["success" : success])
+            
             guard error == nil else
             {
-                
                 //todo: load a controller that shows the health kit permissions
                 return
             }
-            
-            Mixpanel.sharedInstance()?.track("watch_healthkit", properties: ["success" : success])
-          
-            Session.current = Session()
+    
+            DispatchQueue.main.async()
+            {
+                Session.current = Session()
         
-            Session.current?.start()
+                Session.current?.start()
                 
-            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject), (name: "OptionsInterfaceController", context: Session.current as AnyObject)])
+                WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject), (name: "OptionsInterfaceController", context: Session.current as AnyObject)])
+            }
         }
     }
-    
 }

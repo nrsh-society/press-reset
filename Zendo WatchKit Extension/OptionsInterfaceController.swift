@@ -5,11 +5,11 @@
 //  Created by Douglas Purdy on 5/3/18.
 //  Copyright © 2018 zenbf. All rights reserved.
 //
+import UIKit
 import Parse
+import Mixpanel
 import WatchKit
 import Foundation
-import UIKit
-import Mixpanel
 import AuthenticationServices
 
 class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatusDelegate, ASAuthorizationControllerDelegate
@@ -31,9 +31,91 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     @IBOutlet weak var donateMetricGroup: WKInterfaceGroup!
     @IBOutlet weak var donateMetricValue: WKInterfaceLabel!
     
-    private lazy var sessionDelegater: SessionDelegater = {
-        return SessionDelegater()
-    }()
+    //feedback
+    @IBOutlet var successFeedbackSlider: WKInterfaceSlider!
+    @IBOutlet var retryFeedbackSlider: WKInterfaceSlider!
+    
+    //bluetooth/zensor
+    @IBOutlet var bluetoothSwitch: WKInterfaceSwitch!
+    @IBOutlet var bluetoothLabel: WKInterfaceLabel!
+        
+    @IBAction func successFeedbackSliderChanged(_ value: Float)
+    {
+        Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
+        
+        if let user = PFUser.current(), user.migratedToParse
+        {
+            user.successFeedbackLevel = Int(value)
+            user.track("watch_successFeedbackSliderChanged")
+            user.saveInBackground()
+        }
+        
+        let iterations = Int(value)
+        
+        if iterations > 0
+        {
+            Thread.detachNewThread
+                {
+                    for _ in 1...iterations
+                    {
+                        DispatchQueue.main.async
+                            {
+                                WKInterfaceDevice.current().play(WKHapticType.success)
+                        }
+                        
+                        Thread.sleep(forTimeInterval: 1)
+                    }
+            }
+        }
+    }
+    
+    @IBAction func retryFeedbackSliderChanged(_ value: Float)
+    {
+        Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
+        
+        if let user = PFUser.current(), user.migratedToParse
+        {
+            user.retryFeedbackLevel = Int(value)
+            user.track("watch_retryFeedbackSliderChanged")
+            user.saveInBackground()
+        }
+        
+        let iterations = Int(value)
+        
+        if iterations > 0
+        {
+            Thread.detachNewThread
+            {
+                for _ in 1...iterations
+                {
+                    DispatchQueue.main.async
+                    {
+                        WKInterfaceDevice.current().play(WKHapticType.retry)
+                    }
+                        
+                    Thread.sleep(forTimeInterval: 1)
+                }
+            }
+        }
+    }
+    
+    @IBAction func bluetoothSwitchChanged(_ value: Bool)
+    {
+        Mixpanel.sharedInstance()?.track("watch_options_bluetooth", properties: ["value": value])
+        
+        if(value)
+        {
+            Session.bluetoothManager = BluetoothManager()
+            Session.bluetoothManager?.statusDelegate = self
+            Session.bluetoothManager?.start()
+        }
+        else
+        {
+            Session.bluetoothManager?.end()
+            Session.bluetoothManager = nil
+            bluetoothLabel.setText("")
+        }
+    }
     
     @IBAction func donationsAction(value: Bool)
     {
@@ -41,15 +123,12 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         donateMetricGroup.setHidden(!value)
         donateLabel.setHidden(value)
         
-        if let user = PFUser.current()
+        if let user = PFUser.current(), user.migratedToParse
         {
-            self.donateMetricValue.setText((user["donatedMinutes"] ?? "--") as? String)
-            user["donated"] = true
+            self.donateMetricValue.setText(user.donatedMinutes.description)
+            user.donations = true
+            user.track("watch_donationsAction")
             user.saveInBackground()
-        }
-        else
-        {
-            donateMetricValue.setText(SettingsWatch.donatedMinutes.description)
         }
     }
     
@@ -59,16 +138,12 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         progressMetricGroup.setHidden(!value)
         progressLabel.setHidden(value)
         
-        if let user = PFUser.current()
+        if let user = PFUser.current(), user.migratedToParse
         {
-            progressMetricValue.setText((user["progressPosition"] ?? "--") as? String)
-            
-            user["progress"] = true
+            progressMetricValue.setText(user.progressPosition)
+            user.progress = true
+            user.track("watch_progressAction")
             user.saveInBackground()
-        }
-        else
-        {
-            progressMetricValue.setText(SettingsWatch.progressPosition)
         }
     }
     
@@ -131,7 +206,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                
         if let user = PFUser.current()
         {
-            self.hapticSetting.setValue(Float(Session.options.hapticStrength))
+            self.successFeedbackSlider.setValue(Float(Session.options.hapticStrength))
             
             self.authorizationButton.setHidden(true)
             self.signinLabel.setHidden(true)
@@ -153,12 +228,12 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
 
         }
         
-        //#todo(7): merge with zensor too
+        //#todo(v7.0): merge with zensor too
         if let bluetooth = Session.bluetoothManager
         {
-            self.bluetoothToogle.setOn(bluetooth.isRunning)
+            self.bluetoothSwitch.setOn(bluetooth.isRunning)
             Session.bluetoothManager?.statusDelegate = self
-            bluetoothStatus.setText(bluetooth.status)
+            bluetoothLabel.setText(bluetooth.status)
         }
     }
     
@@ -254,83 +329,12 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         
         self.presentAlert(withTitle: nil, message: "Error signing in. Zendō uses Apple Sign in for secure access. Nothing is shared without your permission.", preferredStyle: .alert, actions: [ok])
     }
-    
-    @IBOutlet var bluetoothStatus: WKInterfaceLabel!
-    @IBOutlet var hapticSetting: WKInterfaceSlider!
-    @IBOutlet var bluetoothToogle: WKInterfaceSwitch!
         
-    @IBAction func KyosakChanged(_ value: Float)
-    {
-        Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
-        
-        Session.options.hapticStrength = Int(value)
-        Session.options.retryStrength = Int(value)
-                
-        let iterations = Int(Session.options.hapticStrength)
-        
-        if iterations > 0
-        {
-            Thread.detachNewThread
-                {
-                    for _ in 1...iterations
-                    {
-                        DispatchQueue.main.async
-                            {
-                                WKInterfaceDevice.current().play(WKHapticType.success)
-                        }
-                        
-                        Thread.sleep(forTimeInterval: 1)
-                    }
-            }
-        }
-    }
-    
-    @IBAction func retryChanged(_ value: Float)
-    {
-        Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
-        
-        let iterations = Int(Session.options.retryStrength)
-        
-        if iterations > 0
-        {
-            Thread.detachNewThread
-                {
-                    for _ in 1...iterations
-                    {
-                        DispatchQueue.main.async
-                            {
-                                WKInterfaceDevice.current().play(WKHapticType.retry)
-                        }
-                        
-                        Thread.sleep(forTimeInterval: 1)
-                    }
-            }
-        }
-    }
-    
-    @IBAction func bluetoothChanged(_ value: Bool)
-    {
-        Mixpanel.sharedInstance()?.track("watch_options_bluetooth", properties: ["value": value])
-        
-        if(value)
-        {
-            Session.bluetoothManager = BluetoothManager()
-            Session.bluetoothManager?.statusDelegate = self
-            Session.bluetoothManager?.start()
-        }
-        else
-        {
-            Session.bluetoothManager?.end()
-            Session.bluetoothManager = nil
-            bluetoothStatus.setText("")
-        }
-    }
-    
     func statusUpdated(_ status: String)
     {
         DispatchQueue.main.async
         {
-            self.bluetoothStatus.setText(status)
+            self.bluetoothLabel.setText(status)
         }
     }
     

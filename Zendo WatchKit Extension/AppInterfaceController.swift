@@ -12,7 +12,6 @@ import HealthKit
 import Mixpanel
 import UserNotifications
 
-
 class AppInterfaceController: WKInterfaceController {
     
     @IBOutlet var hrvLabel: WKInterfaceLabel!
@@ -49,7 +48,6 @@ class AppInterfaceController: WKInterfaceController {
             
             if success
             {
-                
                 DispatchQueue.main.async()
                 {
                     self?.startSession()
@@ -130,7 +128,6 @@ class AppInterfaceController: WKInterfaceController {
                 //Notification.daily()
             #endif
             
-            
             Notification.weekly()
             
             Notification.daily()
@@ -186,35 +183,40 @@ class AppInterfaceController: WKInterfaceController {
 
                     DispatchQueue.main.async()
                     {
-                    let currentPercent = SettingsWatch.currentDailyMediationPercent
-                    let goalMins = SettingsWatch.dailyMediationGoal
                     
-                    if let sec = sec {
-                        let mins = sec / 60.0
+                        let currentPercent = SettingsWatch.currentDailyMediationPercent
+                        let goalMins = SettingsWatch.dailyMediationGoal
+                    
+                        if let sec = sec
+                        {
+                            let mins = sec / 60.0
                         
-                        let percent = Int(((mins / Double(goalMins)) * 100.0) / 2.0)
+                            let percent = Int(((mins / Double(goalMins)) * 100.0) / 2.0)
 
-                        if percent >= 161 {
-                            self?.mainGroup.setBackgroundImageNamed("ring161")
-                            return
-                        }
+                            if percent >= 161
+                            {
+                                self?.mainGroup.setBackgroundImageNamed("ring161")
+                                return
+                            }
 
-                        self?.mainGroup.setBackgroundImageNamed("ring")
+                            self?.mainGroup.setBackgroundImageNamed("ring")
 
-                        if currentPercent < percent {
-                            self?.mainGroup.startAnimatingWithImages(in:
+                            if currentPercent < percent {
+                                self?.mainGroup.startAnimatingWithImages(in:
                                 NSRange(location: currentPercent, length: percent - currentPercent),
                                                                     duration: 0.6, repeatCount: 1)
-                        } else if currentPercent > percent {
-                            self?.mainGroup.setBackgroundImageNamed("ring\(percent)")
+                            } else if currentPercent > percent {
+                                self?.mainGroup.setBackgroundImageNamed("ring\(percent)")
 
-                        } else {
-                            self?.mainGroup.setBackgroundImageNamed("ring\(percent)")
-                        }
+                            } else {
+                                self?.mainGroup.setBackgroundImageNamed("ring\(percent)")
+                            }
 
                         SettingsWatch.currentDailyMediationPercent = percent
 
-                    } else {
+                    }
+                    else
+                    {
                         self?.mainGroup.setBackgroundImageNamed("ring0")
                     }
                     }

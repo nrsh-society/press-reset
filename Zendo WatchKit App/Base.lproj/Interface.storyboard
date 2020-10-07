@@ -313,9 +313,22 @@
                     <items>
                         <group width="1" alignment="center" verticalAlignment="center" layout="vertical" radius="0.0" spacing="0.0" id="wPv-bi-RQr" userLabel="Top">
                             <items>
-                                <group width="1" alignment="left" layout="vertical" radius="0.0" spacing="10" id="ksL-6C-M7w">
+                                <group width="1" alignment="left" hidden="YES" layout="vertical" id="9D7-EB-Q0G">
                                     <items>
-                                        <label alignment="center" text="Feedback Strength" textAlignment="center" id="L7V-Eq-ZNU">
+                                        <label width="1" alignment="center" text="Success Feedback" textAlignment="left" numberOfLines="2" id="KvO-wa-7zt">
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
+                                            <variation key="device=watch38mm">
+                                                <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                            </variation>
+                                        </label>
+                                        <textField width="1" alignment="left" text="Text" id="nDK-CT-1Pz"/>
+                                    </items>
+                                </group>
+                                <group width="1" alignment="left" layout="vertical" radius="0.0" spacing="10" id="ksL-6C-M7w" userLabel="Success Group">
+                                    <items>
+                                        <label width="1" alignment="center" text="Success Feedback" textAlignment="left" numberOfLines="2" id="QGx-SL-EKK">
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
@@ -323,7 +336,24 @@
                                         </label>
                                         <slider height="45" alignment="center" continuous="YES" value="1" maximum="3" steps="3" id="Dou-CY-eup">
                                             <connections>
-                                                <action selector="KyosakChanged:" destination="y7B-OZ-tWG" id="GuZ-zl-8OK"/>
+                                                <action selector="successFeedbackSliderChanged:" destination="y7B-OZ-tWG" id="GuZ-zl-8OK"/>
+                                            </connections>
+                                        </slider>
+                                    </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="0.0"/>
+                                </group>
+                                <group width="1" alignment="left" layout="vertical" radius="0.0" spacing="10" id="2gU-Sa-D58" userLabel="Success Group">
+                                    <items>
+                                        <label width="1" alignment="center" text="Retry Feedback" textAlignment="left" numberOfLines="2" id="F8v-SF-3t1">
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
+                                            <variation key="device=watch38mm">
+                                                <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                            </variation>
+                                        </label>
+                                        <slider height="45" alignment="center" continuous="YES" value="1" maximum="3" steps="3" id="bgq-L8-kdM">
+                                            <connections>
+                                                <action selector="successFeedbackSliderChanged:" destination="y7B-OZ-tWG" id="Hkc-Hb-D6H"/>
                                             </connections>
                                         </slider>
                                     </items>
@@ -331,13 +361,13 @@
                                 </group>
                                 <group width="1" alignment="left" layout="vertical" radius="0.0" spacing="10" id="cpf-qf-lDM">
                                     <items>
-                                        <label alignment="center" hidden="YES" text="Heart Rate Monitor" textAlignment="center" id="7ye-qA-yhy">
+                                        <label alignment="center" text="Heart Rate Monitor" textAlignment="center" id="7ye-qA-yhy">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                             </variation>
                                         </label>
-                                        <switch width="1" alignment="left" hidden="YES" value="YES" title="Bluetooth" id="aUD-Dm-qVf"/>
+                                        <switch width="1" alignment="left" value="YES" title="Bluetooth" id="aUD-Dm-qVf"/>
                                     </items>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="0.0"/>
                                 </group>
@@ -433,12 +463,12 @@
                         <outlet property="donateMetricGroup" destination="E8E-K3-Aqx" id="7zX-mB-wOv"/>
                         <outlet property="donateMetricValue" destination="lD5-xA-81x" id="Ixn-vS-RtY"/>
                         <outlet property="donateSwitch" destination="Jun-OP-O0k" id="p0H-Dd-94K"/>
-                        <outlet property="hapticSetting" destination="Dou-CY-eup" id="bXd-lH-YRP"/>
                         <outlet property="progressLabel" destination="yT9-B6-Ddo" id="fU8-ar-ruy"/>
                         <outlet property="progressMetricGroup" destination="wsS-Bw-TOf" id="34s-3y-F3K"/>
                         <outlet property="progressMetricValue" destination="z7d-Bj-bgq" id="WbG-x7-gPs"/>
                         <outlet property="progressSwitch" destination="wUB-ZN-Iva" id="j0K-U3-XF3"/>
                         <outlet property="signinLabel" destination="Wyh-O2-PD5" id="w8u-a1-E0Y"/>
+                        <outlet property="successFeedbackSlider" destination="Dou-CY-eup" id="bXd-lH-YRP"/>
                     </connections>
                 </controller>
             </objects>

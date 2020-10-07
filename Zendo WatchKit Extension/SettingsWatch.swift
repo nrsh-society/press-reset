@@ -9,19 +9,34 @@
 import Foundation
 import HealthKit
 
-
 class SettingsWatch  {
     
     static let defaults = UserDefaults.standard
     
     static let dailyMediationGoalKey = "dailyMediationGoal"
     
-    static var appleUserID: String? {
-        set {
+    static var migratedToParse: Bool
+    {
+        set
+        {
+            defaults.set(newValue, forKey: "migratedToParse")
+            defaults.synchronize()
+        }
+        get
+        {
+            return defaults.bool(forKey: "migratedToParse")
+        }
+    }
+    
+    static var appleUserID: String?
+    {
+        set
+        {
             defaults.set(newValue, forKey: "appleUserID")
             defaults.synchronize()
         }
-        get {
+        get
+        {
             return defaults.string(forKey: "appleUserID")
         }
     }
@@ -127,3 +142,46 @@ class SettingsWatch  {
     }
 }
 
+struct Options
+{
+    var hapticStrength : Int
+    {
+        get
+        {
+            if let value = UserDefaults.standard.object(forKey: "hapticStrength")
+            {
+                return value as! Int
+            }
+            else
+            {
+                return 1
+            }
+        }
+        
+        set
+        {
+            UserDefaults.standard.set(newValue, forKey: "hapticStrength")
+        }
+    }
+    
+    var retryStrength : Int
+    {
+        get
+        {
+            
+            if let value = UserDefaults.standard.object(forKey: "retryStrength")
+            {
+                return value as! Int
+            }
+            else
+            {
+                return 1
+            }
+        }
+        
+        set
+        {
+            UserDefaults.standard.set(newValue, forKey: "retryStrength")
+        }
+    }
+}
