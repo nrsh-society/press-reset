@@ -63,5 +63,13 @@
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
 	<key>WKRunsIndependentlyOfCompanionApp</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>org.zenbf</key>
+			<string></string>
+		</dict>
+	</dict>
 </dict>
 </plist>

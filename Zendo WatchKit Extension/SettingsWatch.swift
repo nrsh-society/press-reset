@@ -16,6 +16,26 @@ class SettingsWatch  {
     
     static let dailyMediationGoalKey = "dailyMediationGoal"
     
+    static var loggedIn: Bool {
+        set {
+            defaults.set(newValue, forKey: "loggedIn")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.bool(forKey: "loggedIn")
+        }
+    }
+    
+    static var registered: Bool {
+        set {
+            defaults.set(newValue, forKey: "registered")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.bool(forKey: "registered")
+        }
+    }
+    
     static var appleUserID: String? {
         set {
             defaults.set(newValue, forKey: "appleUserID")

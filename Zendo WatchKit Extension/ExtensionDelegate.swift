@@ -45,11 +45,41 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         
         if let appleId = SettingsWatch.appleUserID
         {
-            PFUser.logInWithUsername(inBackground: appleId, password: String(appleId.prefix(9)))
+            if SettingsWatch.registered
+            {
+                PFUser.logInWithUsername(inBackground: appleId, password: String(appleId.prefix(9)))
+                
+                SettingsWatch.loggedIn = true
+            }
+            else
+            {
+                let user = PFUser()
+                user.username = appleId
+                user.password = String(appleId.prefix(9))
+                user.email = SettingsWatch.email
+                
+                user.signUpInBackground
+                {
+                    (succeeded, error) in
+                    
+                    if let error = error
+                    {
+                        print(error.localizedDescription)
+                        
+                        SettingsWatch.registered = false
+                        
+                    }
+                    else
+                    {
+                        SettingsWatch.registered = true
+                    }
+                }
+            }
         }
         
+
         if let user = PFUser.current()
-                        {
+        {
             user.donations = SettingsWatch.donations
             user.donatedMinutes = SettingsWatch.donatedMinutes
             user.progress = SettingsWatch.progress
@@ -68,6 +98,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
             user.saveInBackground()
             
             user.track("watch_login")
+            
+            SettingsWatch.loggedIn = true
         }
         
         requestAccessToHealthKit()
