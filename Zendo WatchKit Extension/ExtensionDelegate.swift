@@ -108,6 +108,28 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
                 print(error.localizedDescription)
             })
         }
+        
+        if(SettingsWatch.progress)
+                {
+                    
+                        PFCloud.callFunction(inBackground: "rank",
+                                             withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes ])
+                        {
+                            (response, error) in
+
+                            if let error = error
+                            {
+                                print(error)
+                            }
+                            else
+                            {
+                                if let rank = response as? String
+                                {
+                                    SettingsWatch.progressPosition = rank
+                                }
+                            }
+                        }
+                }
     
     }
     

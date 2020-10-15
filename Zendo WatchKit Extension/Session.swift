@@ -5,7 +5,7 @@
 //  Created by dmp on 12/29/17.
 //  Copyright © 2017 zenbf. All rights reserved.
 //
-
+import Parse
 import WatchKit
 import HealthKit
 import Foundation
@@ -514,7 +514,25 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             if(SettingsWatch.progress)
             {
-                SettingsWatch.progressPosition = "--/--"
+                PFCloud.callFunction(inBackground: "rank",
+                withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes ])
+                {
+                    (response, error) in
+
+                    if let error = error
+                    {
+                        print(error)
+                                        
+                        SettingsWatch.progressPosition = "--/--"
+                    }
+                    else
+                    {
+                        if let rank = response as? String
+                        {
+                            SettingsWatch.progressPosition = rank
+                        }
+                    }
+                }
             }
             
             let msg = ["progress" : progress]
