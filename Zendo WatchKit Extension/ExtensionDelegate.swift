@@ -6,10 +6,11 @@
 //  Copyright © 2017 zenbf. All rights reserved.
 //
 
+import Parse
 import WatchKit
+import Mixpanel
 import HealthKit
 import WatchConnectivity
-import Mixpanel
 import UserNotifications
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserNotificationCenterDelegate {
@@ -26,7 +27,48 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         WCSession.default.activate()
     }
     
-    func applicationDidFinishLaunching() {
+    func applicationDidFinishLaunching()
+    {
+        if(!Parse.isLocalDatastoreEnabled)
+        {
+            Parse.enableLocalDatastore()
+        }
+        
+        let parseConfig = ParseClientConfiguration
+        {
+            $0.applicationId = "APPLICATION_ID"
+            $0.server = "http://code.zendo.tools:1337/parse"
+            $0.clientKey = "CLIENT_KEY"
+        }
+        
+        Parse.initialize(with: parseConfig)
+        
+        if let appleId = SettingsWatch.appleUserID
+        {
+            PFUser.logInWithUsername(inBackground: appleId, password: String(appleId.prefix(9)))
+        }
+        
+        if let user = PFUser.current()
+                        {
+            user.donations = SettingsWatch.donations
+            user.donatedMinutes = SettingsWatch.donatedMinutes
+            user.progress = SettingsWatch.progress
+            user.progressPosition = SettingsWatch.progressPosition ?? "-/-"
+            user.progress = SettingsWatch.progress
+            user.successFeedbackLevel = Options().hapticStrength
+            user.retryFeedbackLevel = Options().retryStrength
+                            
+            //todo
+            user["_email"] = SettingsWatch.email
+            user["_fullname"] = SettingsWatch.fullName
+            user["localNotications"] = SettingsWatch.localNotications
+            user["dailyMediationGoal"] = SettingsWatch.dailyMediationGoal
+            user["currentDailyMediationPercent"] = SettingsWatch.currentDailyMediationPercent
+            
+            user.saveInBackground()
+            
+            user.track("watch_login")
+        }
         
         requestAccessToHealthKit()
         
@@ -45,6 +87,13 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
                 if let reply = reply as? [String: String],
                     let email = reply["email"],
                     let name = reply["name"] {
+                    
+                    if let user = PFUser.current()
+                    {
+                        user.email = email
+                        user["fullname"] = name
+                        user.saveInBackground()
+                    }
 
                     SettingsWatch.fullName = name
                     SettingsWatch.email = email
@@ -59,6 +108,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
                 print(error.localizedDescription)
             })
         }
+    
     }
     
     func applicationDidBecomeActive() {

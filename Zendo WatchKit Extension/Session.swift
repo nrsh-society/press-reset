@@ -112,7 +112,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         super.init()
         
         let configuration = HKWorkoutConfiguration()
-        configuration.activityType = .mindAndBody
+        configuration.activityType = .other
         configuration.locationType = .unknown
         
         do {
@@ -205,7 +205,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         let energyValue = HKQuantity(unit: energyUnit, doubleValue: 0.0)
         
-        let workout = HKWorkout(activityType: .mindAndBody, start: self.startDate!, end: self.endDate!, workoutEvents: nil, totalEnergyBurned: energyValue, totalDistance: nil, totalSwimmingStrokeCount: nil, device: nil, metadata: metadataWork)
+        let workout = HKWorkout(activityType: .other, start: self.startDate!, end: self.endDate!, workoutEvents: nil, totalEnergyBurned: energyValue, totalDistance: nil, totalSwimmingStrokeCount: nil, device: nil, metadata: metadataWork)
         
         let mindfulType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         
