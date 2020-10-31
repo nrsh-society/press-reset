@@ -48,8 +48,33 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
             if SettingsWatch.registered
             {
                 PFUser.logInWithUsername(inBackground: appleId, password: String(appleId.prefix(9)))
+                {
+                    (user, error) in
+                    
+                    if let user = user
+                    {
+                        user.donations = SettingsWatch.donations
+                        user.donatedMinutes = SettingsWatch.donatedMinutes
+                        user.progress = SettingsWatch.progress
+                        user.progressPosition = SettingsWatch.progressPosition ?? "-/-"
+                        user.progress = SettingsWatch.progress
+                        user.successFeedbackLevel = Options().hapticStrength
+                        user.retryFeedbackLevel = Options().retryStrength
+                                        
+                        //todo
+                        user["communityEmail"] = SettingsWatch.email
+                        user["communityFullname"] = SettingsWatch.fullName
+                        user["localNotications"] = SettingsWatch.localNotications
+                        user["dailyMediationGoal"] = SettingsWatch.dailyMediationGoal
+                        user["currentDailyMediationPercent"] = SettingsWatch.currentDailyMediationPercent
+                        
+                        user.saveInBackground()
+                        user.track("watch_login")
+                    }
+                    
+                    SettingsWatch.loggedIn = true
                 
-                SettingsWatch.loggedIn = true
+                }
             }
             else
             {
@@ -71,35 +96,29 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
                     }
                     else
                     {
+                        user.donations = SettingsWatch.donations
+                        user.donatedMinutes = SettingsWatch.donatedMinutes
+                        user.progress = SettingsWatch.progress
+                        user.progressPosition = SettingsWatch.progressPosition ?? "-/-"
+                        user.progress = SettingsWatch.progress
+                        user.successFeedbackLevel = Options().hapticStrength
+                        user.retryFeedbackLevel = Options().retryStrength
+                                        
+                        //todo
+                        user["communityEmail"] = SettingsWatch.email
+                        user["communityFullname"] = SettingsWatch.fullName
+                        user["localNotications"] = SettingsWatch.localNotications
+                        user["dailyMediationGoal"] = SettingsWatch.dailyMediationGoal
+                        user["currentDailyMediationPercent"] = SettingsWatch.currentDailyMediationPercent
+                        
+                        user.saveInBackground()
+                        user.track("watch_registered")
+                        
                         SettingsWatch.registered = true
+                        SettingsWatch.loggedIn = true
                     }
                 }
             }
-        }
-        
-
-        if let user = PFUser.current()
-        {
-            user.donations = SettingsWatch.donations
-            user.donatedMinutes = SettingsWatch.donatedMinutes
-            user.progress = SettingsWatch.progress
-            user.progressPosition = SettingsWatch.progressPosition ?? "-/-"
-            user.progress = SettingsWatch.progress
-            user.successFeedbackLevel = Options().hapticStrength
-            user.retryFeedbackLevel = Options().retryStrength
-                            
-            //todo
-            user["_email"] = SettingsWatch.email
-            user["_fullname"] = SettingsWatch.fullName
-            user["localNotications"] = SettingsWatch.localNotications
-            user["dailyMediationGoal"] = SettingsWatch.dailyMediationGoal
-            user["currentDailyMediationPercent"] = SettingsWatch.currentDailyMediationPercent
-            
-            user.saveInBackground()
-            
-            user.track("watch_login")
-            
-            SettingsWatch.loggedIn = true
         }
         
         requestAccessToHealthKit()
@@ -142,26 +161,26 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         }
         
         if(SettingsWatch.progress)
-                {
-                    
-                        PFCloud.callFunction(inBackground: "rank",
-                                             withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes ])
-                        {
-                            (response, error) in
+        {
+            let parameters = ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes ]
+            
+            PFCloud.callFunction(inBackground: "rank", withParameters: parameters)
+            {
+                (response, error) in
 
-                            if let error = error
-                            {
-                                print(error)
-                            }
-                            else
-                            {
-                                if let rank = response as? String
-                                {
-                                    SettingsWatch.progressPosition = rank
-                                }
-                            }
-                        }
+                if let error = error
+                {
+                    print(error)
                 }
+                else
+                {
+                    if let rank = response as? String
+                    {
+                        SettingsWatch.progressPosition = rank
+                    }
+                }
+            }
+        }
     
     }
     

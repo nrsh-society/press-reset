@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Zendo</string>
+	<string>Zendō</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -30,6 +30,16 @@
 		<string>CLKComplicationFamilyCircularSmall</string>
 		<string>CLKComplicationFamilyExtraLarge</string>
 	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>org.zenbf</key>
+			<string></string>
+		</dict>
+	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Use bluetooth to discover, connect to, and share information with nearby devices</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
@@ -63,13 +73,5 @@
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
 	<key>WKRunsIndependentlyOfCompanionApp</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>org.zenbf</key>
-			<string></string>
-		</dict>
-	</dict>
 </dict>
 </plist>

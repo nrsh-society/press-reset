@@ -510,6 +510,17 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             {
                 SettingsWatch.donatedMinutes += 1 //#todo(push this to the cloud)
                 
+                PFCloud.callFunction(inBackground: "donate",
+                                     withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes])
+                {
+                    (response, error) in
+
+                    if let error = error
+                    {
+                        print(error)
+                    }
+                }
+                
             }
             
             if(SettingsWatch.progress)
@@ -523,7 +534,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                     {
                         print(error)
                                         
-                        SettingsWatch.progressPosition = "--/--"
+                        SettingsWatch.progressPosition = "-/-"
                     }
                     else
                     {
@@ -596,7 +607,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             if(SettingsWatch.progress)
             {
-                metadata["position"] = SettingsWatch.progressPosition
+                metadata["progress"] = SettingsWatch.progressPosition
                 metadata["appleID"] = SettingsWatch.email
             }
         }
