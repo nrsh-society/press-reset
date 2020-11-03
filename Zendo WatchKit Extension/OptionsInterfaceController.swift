@@ -155,7 +155,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                 
                     SettingsWatch.fullName =
                         (fullName.givenName ?? "") +
-                            "" + (fullName.familyName ?? "")
+                            " " + (fullName.familyName ?? "")
                     SettingsWatch.email = email.description
                 
                     Mixpanel.sharedInstance()?.track("watch_signin", properties: ["email": SettingsWatch.email as Any])
