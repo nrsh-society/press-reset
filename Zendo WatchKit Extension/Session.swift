@@ -71,7 +71,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate
     override init()
     {
         super.init()
-                
+        
         do
         {
             let configuration = HKWorkoutConfiguration()
@@ -79,8 +79,10 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate
             configuration.locationType = .unknown
             
             workoutSession = try HKWorkoutSession(healthStore: healthStore, configuration: configuration)
-            
-        } catch let error as NSError {
+      
+        }
+        catch let error as NSError
+        {
             
             fatalError((error.localizedDescription))
         }
@@ -416,10 +418,43 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate
             if(isMeditating)
             {
                 self.meditationLog.append(isMeditating)
+                
+                SettingsWatch.donatedMinutes += 1 //#todo(push this to the cloud)
+                
+                PFCloud.callFunction(inBackground: "donate",
+                                     withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes])
+                {
+                    (response, error) in
+
+                    if let error = error
+                    {
+                        print(error)
+                    }
+                }
             }
             else
             {
                 self.meditationLog.removeAll()
+
+                PFCloud.callFunction(inBackground: "rank",
+                withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes ])
+                {
+                    (response, error) in
+
+                    if let error = error
+                    {
+                        print(error)
+                                        
+                        SettingsWatch.progressPosition = "-/-"
+                    }
+                    else
+                    {
+                        if let rank = response as? String
+                        {
+                            SettingsWatch.progressPosition = rank
+                        }
+                    }
+                }
             }
             
             let progress = "\(isMeditating)/\(self.meditationLog.count)".description

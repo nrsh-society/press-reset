@@ -100,7 +100,7 @@ PODS:
   - Hero (1.5.0)
   - leveldb-library (1.22)
   - lottie-ios (3.1.8)
-  - Mixpanel (3.6.2)
+  - Mixpanel (3.6.3)
   - Mixpanel-swift (2.7.7):
     - Mixpanel-swift/Complete (= 2.7.7)
   - Mixpanel-swift/Complete (2.7.7)
@@ -112,9 +112,9 @@ PODS:
   - NVActivityIndicatorView (5.0.1):
     - NVActivityIndicatorView/Base (= 5.0.1)
   - NVActivityIndicatorView/Base (5.0.1)
-  - Parse (1.19.0):
-    - Parse/Core (= 1.19.0)
-  - Parse/Core (1.19.0):
+  - Parse (1.19.1):
+    - Parse/Core (= 1.19.1)
+  - Parse/Core (1.19.1):
     - Bolts/Tasks (= 1.9.1)
   - PromiseKit (6.13.1):
     - PromiseKit/CorePromise (= 6.13.1)
@@ -226,11 +226,11 @@ SPEC CHECKSUMS:
   Hero: b7385b75e7259da62f4f85462f59a5082d66b058
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
-  Mixpanel: 0a78141d1a073308201f76c55c3e629535e72b47
+  Mixpanel: 0e9d50ecc6398e1082e690ddedf6968e57e81935
   Mixpanel-swift: 3a8fb9ce791e9c64d556b9446aa470b469c6fa7d
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   NVActivityIndicatorView: 738e843cb8924e9e4fc3e559d0728031624bf860
-  Parse: 0fb5c7cc7ee5900f2434e24607d0496155b8d04f
+  Parse: e40fdb9c7d665823b7fe9865949cac9a53eb2ce7
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   SwiftGRPC: 43d3e8db88f97e7386bd44f159ecdfad02ce3362
@@ -240,4 +240,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 48227903309e061c8704c465098838d94f1600b3
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.0

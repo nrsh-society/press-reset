@@ -9,22 +9,31 @@
 import Foundation
 import HealthKit
 
-class SettingsWatch  {
-    
+class SettingsWatch
+{
     static let defaults = UserDefaults.standard
     
     static let dailyMediationGoalKey = "dailyMediationGoal"
-    
-    static var migratedToParse: Bool
+        
+    static var loggedIn: Bool
     {
-        set
-        {
-            defaults.set(newValue, forKey: "migratedToParse")
+        set {
+            defaults.set(newValue, forKey: "loggedIn")
             defaults.synchronize()
         }
-        get
-        {
-            return defaults.bool(forKey: "migratedToParse")
+        get {
+            return defaults.bool(forKey: "loggedIn")
+        }
+    }
+    
+    static var registered: Bool
+    {
+        set {
+            defaults.set(newValue, forKey: "registered")
+            defaults.synchronize()
+        }
+        get {
+            return defaults.bool(forKey: "registered")
         }
     }
     
@@ -41,27 +50,34 @@ class SettingsWatch  {
         }
     }
     
-    static var donatedMinutes: Int {
-        set {
+    static var donatedMinutes: Int
+    {
+        set
+        {
             defaults.set(newValue, forKey: "totalMinsMeditated")
             defaults.synchronize()
         }
-        get {
+        get
+        {
             return defaults.integer(forKey: "totalMinsMeditated")
         }
     }
     
-    static var progressPosition: String? {
-        set {
+    static var progressPosition: String?
+    {
+        set
+        {
             defaults.set(newValue, forKey: "progressPosition")
             defaults.synchronize()
         }
-        get {
+        get
+        {
             return defaults.string(forKey: "progressPosition")
         }
     }
     
-    static var fullName: String? {
+    static var fullName: String?
+    {
         set {
             defaults.set(newValue, forKey: "fullNameWatch")
             defaults.synchronize()
@@ -71,7 +87,8 @@ class SettingsWatch  {
         }
     }
     
-    static var email: String? {
+    static var email: String?
+    {
         set {
             defaults.set(newValue, forKey: "emailWatch")
             defaults.synchronize()
@@ -81,7 +98,8 @@ class SettingsWatch  {
         }
     }
     
-    static var localNotications: Bool {
+    static var localNotications: Bool
+    {
         set {
             defaults.set(newValue, forKey: "requestedNotificationPermission")
             defaults.synchronize()
@@ -91,7 +109,8 @@ class SettingsWatch  {
         }
     }
     
-    static var donations: Bool {
+    static var donations: Bool
+    {
         set {
             defaults.set(newValue, forKey: "requestedDonationsPermission")
             defaults.synchronize()
@@ -101,7 +120,8 @@ class SettingsWatch  {
         }
     }
     
-    static var progress: Bool {
+    static var progress: Bool
+    {
         set {
             defaults.set(newValue, forKey: "requestedProgressPermission")
             defaults.synchronize()
@@ -111,7 +131,8 @@ class SettingsWatch  {
         }
     }
     
-    static var dailyMediationGoal: Int {
+    static var dailyMediationGoal: Int
+    {
         set {
             defaults.set(newValue, forKey: "dailyMediationGoal")
             defaults.synchronize()
@@ -121,7 +142,8 @@ class SettingsWatch  {
         }
     }
     
-    static var currentDailyMediationPercent: Int {
+    static var currentDailyMediationPercent: Int
+    {
         set {
             defaults.set(newValue, forKey: "currentDailyMediationPercent")
             defaults.synchronize()
@@ -131,7 +153,8 @@ class SettingsWatch  {
         }
     }
     
-    static var isFirstSession: Bool {
+    static var isFirstSession: Bool
+    {
         set {
             defaults.set(newValue, forKey: "isFirsrSession")
             defaults.synchronize()

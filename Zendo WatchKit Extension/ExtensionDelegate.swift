@@ -13,7 +13,8 @@ import HealthKit
 import WatchConnectivity
 import UserNotifications
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserNotificationCenterDelegate {
+class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserNotificationCenterDelegate
+{
     
     private lazy var sessionDelegater: SessionDelegater = {
         
@@ -29,7 +30,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
     
     func applicationDidFinishLaunching()
     {
-        
+
         if(!Parse.isLocalDatastoreEnabled)
         {
             Parse.enableLocalDatastore()
@@ -40,44 +41,87 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
             $0.applicationId = "APPLICATION_ID"
             $0.server = "http://code.zendo.tools:1337/parse"
             $0.clientKey = "CLIENT_KEY"
-            
         }
         
         Parse.initialize(with: parseConfig)
-    
+        
         if let appleId = SettingsWatch.appleUserID
         {
-            PFUser.logInWithUsername(inBackground: appleId, password: String(appleId.prefix(9)))
-         
-            if !SettingsWatch.migratedToParse
+            if SettingsWatch.registered
             {
-                if let user = PFUser.current()
+                PFUser.logInWithUsername(inBackground: appleId, password: String(appleId.prefix(9)))
                 {
-                    user.donations = SettingsWatch.donations
-                    user.donatedMinutes = SettingsWatch.donatedMinutes
-                    user.progress = SettingsWatch.progress
-                    user.progressPosition = SettingsWatch.progressPosition ?? "-/-"
-                    user.progress = SettingsWatch.progress
-                    user.successFeedbackLevel = Options().hapticStrength
-                    user.retryFeedbackLevel = Options().retryStrength
+                    (user, error) in
                     
-                    //todo
-                    user["_email"] = SettingsWatch.email
-                    user["_fullname"] = SettingsWatch.fullName
-                    user["localNotications"] = SettingsWatch.localNotications
-                    user["dailyMediationGoal"] = SettingsWatch.dailyMediationGoal
-                    user["currentDailyMediationPercent"] = SettingsWatch.currentDailyMediationPercent
+                    if let user = user
+                    {
+                        user.donations = SettingsWatch.donations
+                        user.donatedMinutes = SettingsWatch.donatedMinutes
+                        user.progress = SettingsWatch.progress
+                        user.progressPosition = SettingsWatch.progressPosition ?? "-/-"
+                        user.progress = SettingsWatch.progress
+                        user.successFeedbackLevel = Options().hapticStrength
+                        user.retryFeedbackLevel = Options().retryStrength
+                                        
+                        //todo
+                        user["communityEmail"] = SettingsWatch.email
+                        user["communityFullname"] = SettingsWatch.fullName
+                        user["localNotications"] = SettingsWatch.localNotications
+                        user["dailyMediationGoal"] = SettingsWatch.dailyMediationGoal
+                        user["currentDailyMediationPercent"] = SettingsWatch.currentDailyMediationPercent
+                        
+                        user.saveInBackground()
+                        user.track("watch_login")
+                    }
                     
-                    user.migratedToParse = true
-                    user.track("watch_login")
-                    user.saveInBackground()
-                }
+                    SettingsWatch.loggedIn = true
                 
-                SettingsWatch.migratedToParse = true
+                }
             }
-            
-        }
-        
+            else
+            {
+                let user = PFUser()
+                user.username = appleId
+                user.password = String(appleId.prefix(9))
+                user.email = SettingsWatch.email
+                
+                user.signUpInBackground
+                {
+                    (succeeded, error) in
+                    
+                    if let error = error
+                    {
+                        print(error.localizedDescription)
+                        
+                        SettingsWatch.registered = false
+                        
+                    }
+                    else
+                    {
+                        user.donations = SettingsWatch.donations
+                        user.donatedMinutes = SettingsWatch.donatedMinutes
+                        user.progress = SettingsWatch.progress
+                        user.progressPosition = SettingsWatch.progressPosition ?? "-/-"
+                        user.progress = SettingsWatch.progress
+                        user.successFeedbackLevel = Options().hapticStrength
+                        user.retryFeedbackLevel = Options().retryStrength
+                                        
+                        //todo
+                        user["communityEmail"] = SettingsWatch.email
+                        user["communityFullname"] = SettingsWatch.fullName
+                        user["localNotications"] = SettingsWatch.localNotications
+                        user["dailyMediationGoal"] = SettingsWatch.dailyMediationGoal
+                        user["currentDailyMediationPercent"] = SettingsWatch.currentDailyMediationPercent
+                        
+                        user.saveInBackground()
+                        user.track("watch_registered")
+                        
+                        SettingsWatch.registered = true
+                        SettingsWatch.loggedIn = true
+                    }
+                }
+            }
+        }        
         //#todo(7.0): remove Mixpanel
         if let name = SettingsWatch.fullName, let email = SettingsWatch.email
         {
@@ -95,7 +139,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
                 if let reply = reply as? [String: String],
                     let email = reply["email"],
                     let name = reply["name"] {
-
+                    
                     SettingsWatch.fullName = name
                     SettingsWatch.email = email
 
@@ -109,6 +153,29 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
                 print(error.localizedDescription)
             })
         }
+        
+        if(SettingsWatch.progress)
+        {
+            let parameters = ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes ]
+            
+            PFCloud.callFunction(inBackground: "rank", withParameters: parameters)
+            {
+                (response, error) in
+
+                if let error = error
+                {
+                    print(error)
+                }
+                else
+                {
+                    if let rank = response as? String
+                    {
+                        SettingsWatch.progressPosition = rank
+                    }
+                }
+            }
+        }
+    
     }
     
     func applicationDidBecomeActive() {

@@ -36,8 +36,6 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>localhost</key>
-			<string></string>
 			<key>org.zenbf</key>
 			<string></string>
 		</dict>
