@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17154" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17701" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch44"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17034"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17500"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="Antenna-Light.otf">
@@ -334,9 +334,9 @@
                         </group>
                         <group width="1" alignment="center" verticalAlignment="bottom" layout="vertical" spacing="15" id="crg-3A-uxR" userLabel="Bottom">
                             <items>
-                                <group width="1" alignment="left" layout="vertical" spacing="5" id="Kf2-fk-tF6" userLabel="Support Group">
+                                <group width="1" alignment="left" layout="vertical" spacing="12" id="Kf2-fk-tF6" userLabel="Support Group">
                                     <items>
-                                        <label width="1" alignment="center" text="Meditate to Donate" textAlignment="center" numberOfLines="2" id="oJi-Jg-Xg7">
+                                        <label width="1" alignment="center" text="For each minute you meditate, we donate." textAlignment="left" numberOfLines="5" id="oJi-Jg-Xg7">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
@@ -363,9 +363,9 @@
                                         </group>
                                     </items>
                                 </group>
-                                <group width="1" alignment="center" layout="vertical" spacing="5" id="F2T-w0-04m" userLabel="Progress Group">
+                                <group width="1" alignment="left" layout="vertical" spacing="12" id="F2T-w0-04m" userLabel="Progress Group">
                                     <items>
-                                        <label alignment="center" text="Community Rank" textAlignment="center" id="yT9-B6-Ddo">
+                                        <label width="1" alignment="center" text="Compare impact with the community." textAlignment="left" numberOfLines="2" id="yT9-B6-Ddo">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>

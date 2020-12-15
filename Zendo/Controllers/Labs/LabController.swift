@@ -466,8 +466,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             {
                 zensor.update(progress: progress.description.lowercased())
             }
-            
-            payout()
         }
     }
     
@@ -511,8 +509,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             {
                 self.zensor = Zensor(id: UUID() , name: Settings.email ?? "Apple Watch", hr: Float(double_hr) , batt: 100)
             }
-            
-            self.donate()
         }
         
     }
@@ -720,88 +716,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     {
         if let viewWithTag = self.view.viewWithTag(100) {
             viewWithTag.removeFromSuperview()
-        }
-    }
-    
-    //todo(debt): put all of this stuff in a MoneyKit.swift file.
-    func moveXrp(source: Wallet, target: String, drops: UInt64, useMainnet: Bool)
-    {
-        
-        Mixpanel.mainInstance().track(event: "lab_movexrp")
-        
-        let xpringClient = DefaultXRPClient(grpcURL: "main.xrp.xpring.io:50051", xrplNetwork: XRPLNetwork.main)
-        
-        let transactionHash = try! xpringClient.send(drops, to: target, from: source)
-        
-        let status = try! xpringClient.paymentStatus(for: transactionHash)
-        
-        let success = status == TransactionStatus.succeeded
-        
-        let retval = (txn: transactionHash.description, status: success.description)
-        
-        print ("[txn: \(retval.txn)] \r\n")
-        
-    }
-    
-    func donate()
-    {
-        
-        Mixpanel.mainInstance().track(event: "lab_donate")
-        
-        let causePayID = story.causePayID!
-        
-        let payIDClient = PayIDClient()
-        
-        do {
-            
-            let causeXRPLAddress = try payIDClient.cryptoAddress(for: causePayID, on: "xrpl-mainnet").get()
-            
-            let tag = UInt32(causeXRPLAddress.tag ?? "0")
-            
-            let causeXAddress = Utils.encode(classicAddress: causeXRPLAddress.address, tag: tag, isTest: false)!
-            
-            let amount = UInt64(166666)
-            
-            let wallet = Wallet(seed: self.story.sponsorKey!)!
-            
-            self.moveXrp(source: wallet, target: causeXAddress, drops: amount, useMainnet: true)
-            
-        } catch {
-            
-            print(error.localizedDescription)
-            
-        }
-        
-        
-    }
-    
-    func payout()
-    {
-        
-        Mixpanel.mainInstance().track(event: "lab_payout")
-        
-        let creatorPayID = story.creatorPayID!
-        
-        let payIDClient = PayIDClient()
-        
-        do {
-            
-            let creatorXRPLAddress = try payIDClient.cryptoAddress(for: creatorPayID, on: "xrpl-mainnet").get()
-            
-            let tag = UInt32(creatorXRPLAddress.tag ?? "0")
-            
-            let causeXAddress = Utils.encode(classicAddress: creatorXRPLAddress.address, tag: tag, isTest: false)!
-            
-            let amount = UInt64(166666)
-            
-            let wallet = Wallet(seed: story.sponsorKey!)!
-            
-            self.moveXrp(source: wallet, target: causeXAddress, drops: amount, useMainnet: true)
-            
-        } catch {
-            
-            print(error.localizedDescription)
-            
         }
     }
     
