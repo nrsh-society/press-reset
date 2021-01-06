@@ -45,77 +45,53 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         
         if let appleId = SettingsWatch.appleUserID
         {
-            if SettingsWatch.registered
+            PFUser.logInWithUsername(inBackground: appleId, password: String(appleId.prefix(9)))
             {
-                PFUser.logInWithUsername(inBackground: appleId, password: String(appleId.prefix(9)))
-                {
-                    (user, error) in
+                (user, error) in
                     
-                    if let user = user
-                    {
-                        user.donations = SettingsWatch.donations
-                        user.donatedMinutes = SettingsWatch.donatedMinutes
-                        user.progress = SettingsWatch.progress
-                        user.progressPosition = SettingsWatch.progressPosition ?? "-/-"
-                        user.progress = SettingsWatch.progress
-                        user.successFeedbackLevel = Options().hapticStrength
-                        user.retryFeedbackLevel = Options().retryStrength
-                                        
-                        //todo
-                        user["communityEmail"] = SettingsWatch.email
-                        user["communityFullname"] = SettingsWatch.fullName
-                        user["localNotications"] = SettingsWatch.localNotications
-                        user["dailyMediationGoal"] = SettingsWatch.dailyMediationGoal
-                        user["currentDailyMediationPercent"] = SettingsWatch.currentDailyMediationPercent
-                        
-                        user.saveInBackground()
-                        user.track("watch_login")
-                    }
+                if let user = user
+                {
+                    user.donations = SettingsWatch.donations
+                    user.donatedMinutes = SettingsWatch.donatedMinutes
+                    user.progress = SettingsWatch.progress
+                    user.progressPosition = SettingsWatch.progressPosition ?? "-/-"
+                    user.progress = SettingsWatch.progress
+                    user.successFeedbackLevel = Options().hapticStrength
+                    user.retryFeedbackLevel = Options().retryStrength
+                                    
+                    //todo
+                    user["communityEmail"] = SettingsWatch.email ?? ""
+                    user["communityFullname"] = SettingsWatch.fullName ?? ""
+                    user["localNotications"] = SettingsWatch.localNotications
+                    user["dailyMediationGoal"] = SettingsWatch.dailyMediationGoal
+                    user["currentDailyMediationPercent"] = SettingsWatch.currentDailyMediationPercent
+                    
+                    user.saveInBackground()
+                    user.track("watch_login")
                     
                     SettingsWatch.loggedIn = true
-                
+                    SettingsWatch.registered = true
                 }
-            }
-            else
-            {
-                let user = PFUser()
-                user.username = appleId
-                user.password = String(appleId.prefix(9))
-                user.email = SettingsWatch.email
                 
-                user.signUpInBackground
+                if(SettingsWatch.progress)
                 {
-                    (succeeded, error) in
+                    let parameters = ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes ]
                     
-                    if let error = error
+                    PFCloud.callFunction(inBackground: "rank", withParameters: parameters)
                     {
-                        print(error.localizedDescription)
-                        
-                        SettingsWatch.registered = false
-                        
-                    }
-                    else
-                    {
-                        user.donations = SettingsWatch.donations
-                        user.donatedMinutes = SettingsWatch.donatedMinutes
-                        user.progress = SettingsWatch.progress
-                        user.progressPosition = SettingsWatch.progressPosition ?? "-/-"
-                        user.progress = SettingsWatch.progress
-                        user.successFeedbackLevel = Options().hapticStrength
-                        user.retryFeedbackLevel = Options().retryStrength
-                                        
-                        //todo
-                        user["communityEmail"] = SettingsWatch.email
-                        user["communityFullname"] = SettingsWatch.fullName
-                        user["localNotications"] = SettingsWatch.localNotications
-                        user["dailyMediationGoal"] = SettingsWatch.dailyMediationGoal
-                        user["currentDailyMediationPercent"] = SettingsWatch.currentDailyMediationPercent
-                        
-                        user.saveInBackground()
-                        user.track("watch_registered")
-                        
-                        SettingsWatch.registered = true
-                        SettingsWatch.loggedIn = true
+                        (response, error) in
+
+                        if let error = error
+                        {
+                            print(error)
+                        }
+                        else
+                        {
+                            if let rank = response as? String
+                            {
+                                SettingsWatch.progressPosition = rank
+                            }
+                        }
                     }
                 }
             }
@@ -159,29 +135,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
                 print(error.localizedDescription)
             })
         }
-        
-        if(SettingsWatch.progress)
-        {
-            let parameters = ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes ]
-            
-            PFCloud.callFunction(inBackground: "rank", withParameters: parameters)
-            {
-                (response, error) in
-
-                if let error = error
-                {
-                    print(error)
-                }
-                else
-                {
-                    if let rank = response as? String
-                    {
-                        SettingsWatch.progressPosition = rank
-                    }
-                }
-            }
-        }
-    
     }
     
     func applicationDidBecomeActive() {

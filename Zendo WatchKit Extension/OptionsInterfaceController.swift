@@ -5,11 +5,11 @@
 //  Created by Douglas Purdy on 5/3/18.
 //  Copyright © 2018 zenbf. All rights reserved.
 //
-
+import UIKit
+import Parse
+import Mixpanel
 import WatchKit
 import Foundation
-import UIKit
-import Mixpanel
 import AuthenticationServices
 
 class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatusDelegate, ASAuthorizationControllerDelegate
@@ -97,13 +97,14 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
             
         Mixpanel.sharedInstance()?.timeEvent("watch_options")
                
-               if let bluetooth = Session.bluetoothManager
-               {   self.bluetoothToogle.setOn(bluetooth.isRunning)
-                   Session.bluetoothManager?.statusDelegate = self
-                   bluetoothStatus.setText(bluetooth.status)
-               }
+        if let bluetooth = Session.bluetoothManager
+        {
+            self.bluetoothToogle.setOn(bluetooth.isRunning)
+            Session.bluetoothManager?.statusDelegate = self
+            bluetoothStatus.setText(bluetooth.status)
+        }
                
-               self.hapticSetting.setValue(Float(Session.options.hapticStrength))
+        self.hapticSetting.setValue(Float(Session.options.hapticStrength))
         
         let isSignedIn = (SettingsWatch.appleUserID != nil)
         
@@ -122,9 +123,6 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
             progressAction(value: SettingsWatch.progress)
             
         }
-        
- 
-        
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
@@ -150,6 +148,9 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                 SettingsWatch.appleUserID = userIdentifier
                 SettingsWatch.email = appleIDCredential.email
                 
+                PFUser.logInWithUsername(inBackground: userIdentifier, password: String(userIdentifier.prefix(9)))
+                    { user, error in }
+                
                 if let fullName = appleIDCredential.fullName , let email = appleIDCredential.email
                 {
                 
@@ -163,6 +164,47 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                     Mixpanel.sharedInstance()?.identify(SettingsWatch.email!)
                     Mixpanel.sharedInstance()?.people.set(["$email": SettingsWatch.email!])
                     Mixpanel.sharedInstance()?.people.set(["$name": SettingsWatch.fullName!])
+                    
+                    let user = PFUser()
+                    user.username = userIdentifier
+                    user.password = String(userIdentifier.prefix(9))
+                    user.email = SettingsWatch.email
+                    
+                    user.signUpInBackground
+                    {
+                        (succeeded, error) in
+                        
+                        if let error = error
+                        {
+                            print(error.localizedDescription)
+                            
+                            SettingsWatch.registered = false
+                            
+                        }
+                        else
+                        {
+                            user.donations = SettingsWatch.donations
+                            user.donatedMinutes = SettingsWatch.donatedMinutes
+                            user.progress = SettingsWatch.progress
+                            user.progressPosition = SettingsWatch.progressPosition ?? "-/-"
+                            user.progress = SettingsWatch.progress
+                            user.successFeedbackLevel = Options().hapticStrength
+                            user.retryFeedbackLevel = Options().retryStrength
+                                            
+                            //todo
+                            user["communityEmail"] = SettingsWatch.email
+                            user["communityFullname"] = SettingsWatch.fullName
+                            user["localNotications"] = SettingsWatch.localNotications
+                            user["dailyMediationGoal"] = SettingsWatch.dailyMediationGoal
+                            user["currentDailyMediationPercent"] = SettingsWatch.currentDailyMediationPercent
+                            
+                            user.saveInBackground()
+                            user.track("watch_registered")
+                            
+                            SettingsWatch.registered = true
+                            SettingsWatch.loggedIn = true
+                        }
+                    }
                 
                     let ok = WKAlertAction(title: "OK", style: .default)
                     {

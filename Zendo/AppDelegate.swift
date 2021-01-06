@@ -29,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         WatchSessionManager.sharedManager.startSession()
         
-        
         UINavigationBar.appearance().barStyle = .black
         UINavigationBar.appearance().barTintColor = UIColor.zenDarkGreen
         UINavigationBar.appearance().tintColor = UIColor.white
