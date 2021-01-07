@@ -548,11 +548,17 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             let msg = ["progress" : progress]
                 
-            sessionDelegater.sendMessage(msg ,
-                                         replyHandler: { message in
-                                            print(message.debugDescription)
-                                            
-            }, errorHandler:{ error in
+            sessionDelegater.sendMessage(msg,
+            replyHandler:
+            {
+                message in
+                
+                print(message.debugDescription)
+            },
+            errorHandler:
+            {
+                error in
+                
                 print(error)
             })
         }
@@ -628,6 +634,20 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         for type in metadataTypeArray {
             metadataWork[type.rawValue] = ((metadataWork[type.rawValue] as? String) ?? "") + empty + (metadata[type.rawValue] as! String)
+        }
+        
+        let meditation = PFObject(className:"Meditation")
+        meditation["start"] = self.startDate
+        meditation["hr"] = self.heartRate
+        meditation["hrv"] = self.heartSDNN
+        meditation["now"] = Date()
+        
+        meditation.saveInBackground { (succeeded, error)  in
+            if (succeeded) {
+                // The object has been saved.
+            } else {
+                // There was a problem, check error.description
+            }
         }
         
     }
