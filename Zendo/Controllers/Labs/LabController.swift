@@ -17,7 +17,6 @@ import Mixpanel
 import Cache
 import SwiftyJSON
 import Vision
-import HaishinKit
 import XpringKit
 
 //#todo(rename): This isn't Labs anymore
@@ -54,11 +53,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     private let videoDataOutput = AVCaptureVideoDataOutput()
     private let videoFileOutput = AVCaptureMovieFileOutput()
     private var drawings: [CAShapeLayer] = []
-    private let rtmpConnection = RTMPConnection()
-    private lazy var rtmpStream = RTMPStream(connection: self.rtmpConnection)
     private let diskConfig = DiskConfig(name: "DiskCache")
     private let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
-    private lazy var storage: Cache.Storage? = {
+    private lazy var storage: Cache.Storage<String, Data>? = {
         return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forData())
     }()
     

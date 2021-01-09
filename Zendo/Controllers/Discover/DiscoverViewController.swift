@@ -94,11 +94,11 @@ class DiscoverViewController: UIViewController {
     let diskConfig = DiskConfig(name: "DiskCache")
     let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
     
-    lazy var storageCodable: Cache.Storage? = {
-        return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forCodable(ofType: Discover.self))
+    lazy var storageCodable = {
+        return try? Cache.Storage<String, Discover>(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forCodable(ofType: Discover.self))
     }()
     
-    lazy var storage: Cache.Storage? = {
+    lazy var storage: Cache.Storage<String, Data>? = {
         return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forData())
     }()
     
@@ -184,15 +184,22 @@ class DiscoverViewController: UIViewController {
         let urlPath: String = "http://media.zendo.tools/discover.v6.00.json?v=\(Date().timeIntervalSinceNow)"
         #endif
         
-        URLSession.shared.dataTask(with: URL(string: urlPath)!) { data, response, error -> Void in
+        URLSession.shared.dataTask(with: URL(string: urlPath)!)
+        {
             
-            if let data = data, error == nil {
-                do {
+            data, response, error -> Void in
+            
+            if let data = data, error == nil
+            {
+                do
+                {
+                    
                     let json = try JSON(data: data)
+                    
                     self.discover = Discover(json)
                     
-                    DispatchQueue.global(qos: .background).async {
-                        
+                    DispatchQueue.global(qos: .background).async
+                    {
                         guard let discover = self.discover else { return }
                         
                         if let oldDiscover = try? self.storageCodable?.object(forKey: Discover.key) {
