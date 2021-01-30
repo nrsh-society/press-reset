@@ -18,29 +18,39 @@ enum LineChartKey: String {
     case motion = "motion"
 }
 
-class HeaderZazenTableViewCell: UITableViewCell {
+class HeaderZazenTableViewCell: UITableViewCell
+{
     @IBOutlet weak var timeView: UIView!
     @IBOutlet weak var dateTimeLabel: UILabel!
 }
 
-class ZazenTableViewCell: UITableViewCell {
-    @IBOutlet weak var durationView: ZenInfoView! {
-        didSet {
+class ZazenTableViewCell: UITableViewCell
+{
+    @IBOutlet weak var durationView: ZenInfoView!
+    {
+        didSet
+        {
             durationView.zenInfoViewType = .totalMins
             durationView.setTitle("")
         }
     }
-    @IBOutlet weak var hrvView: ZenInfoView! {
+    
+    @IBOutlet weak var hrvView: ZenInfoView!
+    {
         didSet {
             hrvView.zenInfoViewType = .totalHrv
         }
     }
-    @IBOutlet weak var bpmChartView: UIView! {
+    
+    @IBOutlet weak var bpmChartView: UIView!
+    {
         didSet {
             bpmChartView.setShadowView()
         }
     }
-    @IBOutlet weak var motionChartView: UIView! {
+    
+    @IBOutlet weak var motionChartView: UIView!
+    {
         didSet {
             motionChartView.setShadowView()
         }
@@ -48,21 +58,17 @@ class ZazenTableViewCell: UITableViewCell {
     
     @IBOutlet weak var bpmChart: LineChartView!
     @IBOutlet weak var motionChart: LineChartView!
-    // @IBOutlet weak var hrvChart: LineChartView!
-    //    @IBOutlet weak var hrvChartView: UIView! {
-    //        didSet {
-    //            hrvChartView.setShadowView()
-    //        }
-    //    }
     
-    override func layoutSubviews() {
+    override func layoutSubviews()
+    {
         super.layoutSubviews()
         
         let zendoFont = UIFont.zendo(font: .antennaRegular, size: 10.0)
         
         let arrayLineChart = [bpmChart, motionChart]
         
-        for lineChart in arrayLineChart {
+        for lineChart in arrayLineChart
+        {
             lineChart?.noDataText = ""
             lineChart?.autoScaleMinMaxEnabled = true
             lineChart?.chartDescription?.enabled = false
@@ -78,7 +84,6 @@ class ZazenTableViewCell: UITableViewCell {
             lineChart?.layoutIfNeeded()
             let count = Int(((lineChart?.frame.size.width ?? 300) / 51.2).rounded())
             xAxis?.setLabelCount(count, force: true)
-        
             
             let rightAxis = lineChart?.rightAxis
             rightAxis?.drawAxisLineEnabled = false
@@ -105,11 +110,12 @@ class ZazenTableViewCell: UITableViewCell {
     
 }
 
-class ZazenController: UIViewController {
+class ZazenController: UIViewController
+{
     
     @IBOutlet weak var tableView: UITableView!
     
-    var workout: HKWorkout!
+    var workout: HKSample!
     var samples = [[String: Any]]()
     
     lazy var share: Double = {
@@ -117,7 +123,8 @@ class ZazenController: UIViewController {
         return duration / Double(samples.count)
     }()
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         
         if #available(iOS 13.0, *) {
@@ -140,7 +147,6 @@ class ZazenController: UIViewController {
         view.backgroundColor = UIColor.zenWhite
         
         navigationController?.navigationBar.shadowImage = UIImage()
-        
         
         if let metadata = workout.metadata {
             let timeArray = (metadata[MetadataType.time.rawValue] as! String).components(separatedBy: "/")
@@ -196,13 +202,15 @@ class ZazenController: UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         super.viewWillAppear(animated)
         
         Mixpanel.mainInstance().time(event: "detail")
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool)
+    {
         super.viewWillDisappear(animated)
         Mixpanel.mainInstance().track(event: "detail")
     }
@@ -214,17 +222,23 @@ class ZazenController: UIViewController {
         return controller
     }
     
-    @IBAction func export(_ sender: Any) {
+    @IBAction func export(_ sender: Any)
+    {
         let vc = export(samples: self.samples)
         present(vc, animated: true, completion: nil)
     }
     
-    func populateSummary(cell: ZazenTableViewCell) {
+    func populateSummary(cell: ZazenTableViewCell)
+    {
         cell.hrvView.setTitle("")
-        ZBFHealthKit.getHRVAverage(workout) { results, error in
+        
+       // ZBFHealthKit.getHRVAverage(workout)
+        //{
+          //  results, error in
             
-            if let value = results?.first?.value
-            {
+            //if let value = results?.first?.value
+        if let value = workout.hrv
+        {
                 DispatchQueue.main.async()
                 {
                     if(value > 0)
@@ -236,16 +250,15 @@ class ZazenController: UIViewController {
                         cell.hrvView.setTitle("--")
                     }
                 }
-            }
-            else
-            {
+        }
+        else
+        {
                 DispatchQueue.main.async()
                 {
                     cell.hrvView.setTitle("--")
                     
                 }
-                print(error.debugDescription)
-            }
+               // print(error.debugDescription)
         }
     }
     
@@ -356,91 +369,7 @@ class ZazenController: UIViewController {
         }
         
     }
-    //
-    //    func populateHrvChart() {
-    //
-    //        let dataset = LineChartDataSet(values: [ChartDataEntry](), label: "hrv")
-    //
-    //        let communityEntries = [ChartDataEntry]()
-    //
-    //        let communityDataset = LineChartDataSet(values: communityEntries, label: "community")
-    //
-    //        communityDataset.drawCirclesEnabled = false
-    //        communityDataset.drawValuesEnabled = false
-    //        communityDataset.setColor(UIColor(red: 0.291, green: 0.307, blue: 0.752, alpha: 1.0))
-    //        communityDataset.lineWidth = 3.0
-    //
-    //        dataset.drawCirclesEnabled = false
-    //        dataset.lineWidth = 3.0
-    //        dataset.setColor(UIColor.black)
-    //        dataset.drawValuesEnabled = false
-    //
-    //        hrvChart.data = LineChartData(dataSets: [dataset, communityDataset])
-    //
-    //        var interval = DateComponents()
-    //        interval.hour = 1
-    //
-    //        let yesterday = Calendar.current.date(byAdding: .hour, value: -24, to: self.workout.endDate)!
-    //
-    //        let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
-    //
-    //        let query = HKStatisticsCollectionQuery(quantityType: hkType,
-    //                                                quantitySamplePredicate: nil,
-    //                                                options: HKStatisticsOptions.discreteAverage,
-    //                                                anchorDate: yesterday,
-    //                                                intervalComponents: interval)
-    //
-    //        query.initialResultsHandler = { query, results, error in
-    //
-    //            let statsCollection = results!
-    //
-    //            var entries = [Double: Double]()
-    //
-    //            statsCollection.enumerateStatistics(from: yesterday, to: self.workout.endDate) { [unowned self] statistics, stop in
-    //
-    //                var avgValue = 0.0
-    //
-    //                if let avgQ = statistics.averageQuantity() {
-    //                    avgValue = avgQ.doubleValue(for: HKUnit(from: "ms"))
-    //                }
-    //
-    //                let date = statistics.startDate
-    //
-    //                let hours = Calendar.current.dateComponents([.hour], from: date, to: self.workout.endDate).hour!
-    //
-    //                entries[Double(hours)] = avgValue
-    //
-    //            }
-    //
-    //            let sorted = entries.sorted { $0.0 < $1.0 }
-    //
-    //            DispatchQueue.main.async() { sorted.forEach { (key, value) in
-    //
-    //                if value > 0 {
-    //                    let entry = ChartDataEntry(x: Double(key), y: value )
-    //
-    //                    print(entry)
-    //
-    //                    self.hrvChart.data!.addEntry(entry, dataSetIndex: 0)
-    ////                    self.hrvChartView.isHidden = false
-    //                }
-    //
-    //                let community = self.getCommunityDataEntry(key: "sdnn", interval: Double(key), scale: 1.0)
-    //
-    //                self.hrvChart.data!.addEntry(community, dataSetIndex: 1)
-    //                }
-    //
-    //                self.hrvChart.notifyDataSetChanged()
-    //                self.populateChart()
-    //                self.populateSummary()
-    //
-    //            }
-    //        }
-    //
-    //        ZBFHealthKit.healthStore.execute(query)
-    //
-    //    }
-    
+  
     func export(samples: [[String: Any]]) -> UIActivityViewController {
         
         let now = Date().toZazenDateString
@@ -488,29 +417,32 @@ class ZazenController: UIViewController {
 }
 
 
-extension ZazenController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+extension ZazenController: UITableViewDataSource, UITableViewDelegate
+{
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
         let cell = tableView.dequeueReusableCell(withIdentifier: HeaderZazenTableViewCell.reuseIdentifierCell) as! HeaderZazenTableViewCell
         
         cell.timeView.backgroundColor = UIColor.zenDarkGreen
+        
         cell.dateTimeLabel.text = workout.endDate.toZendoDetailsMonthString + " at " + workout.endDate.toZendoDetailsTimeString.lowercased()
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
         let cell = tableView.dequeueReusableCell(withIdentifier: ZazenTableViewCell.reuseIdentifierCell, for: indexPath) as! ZazenTableViewCell
         
         cell.durationView.setTitle(workout.duration.stringZendoTimeWatch)
         
         cell.bpmChartView.isHidden = true
         cell.motionChartView.isHidden = true
-        //        hrvChartView.isHidden = true
         
         populateChart(cell: cell)
         populateSummary(cell: cell)
@@ -520,11 +452,51 @@ extension ZazenController: UITableViewDataSource, UITableViewDelegate {
 }
 
 
-extension ZazenController: IAxisValueFormatter {
-
-    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+extension ZazenController: IAxisValueFormatter
+{
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String
+    {
         return value.stringZendoTimeWatch
     }
 
+}
+
+extension HKSample
+{
+    var duration: TimeInterval!
+    {
+        get
+        {
+            let duration = self.endDate.timeIntervalSince1970 - self.startDate.timeIntervalSince1970
+            return duration
+        }
+    }
+    
+    var hrv: Double!
+    {
+        get
+        {
+            return 0.0
+        }
+    }
+
+}
+
+class Meditation
+{
+    var duration: TimeInterval!
+    {
+        get { return Date().timeIntervalSinceNow }
+    }
+    var hrv: Double!
+    {
+        get { return 0.0 }
+    }
+    
+    var start : Date!
+    {
+        get { return Date() }
+    }
+    
 }
 

@@ -57,14 +57,18 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         endSession()
     }
     
-    func endSession() {
-        session.end() { [weak self] workout in
+    func endSession()
+    {
+        session.end()
+        {
+            [weak self] workout in
             
             guard let self = self else { return }
             
-            DispatchQueue.main.async() {
-                
-                if let workout = workout {
+            DispatchQueue.main.async()
+            {
+                if let workout = workout
+                {
                     Mixpanel.sharedInstance()?.track("watch_meditation")
                     
                     self.sessionDelegater.sendMessage(["watch" : "endSession"], replyHandler: nil, errorHandler: nil)

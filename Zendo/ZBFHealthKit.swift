@@ -10,8 +10,8 @@ import UIKit
 import HealthKit
 
 
-public class ZBFHealthKit {
-    
+public class ZBFHealthKit
+{
     static let healthStore = HKHealthStore()
 
     static let workoutPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody)
@@ -33,16 +33,21 @@ public class ZBFHealthKit {
         
     }
     
-    class func getPermissions() {
-        
-        healthStore.handleAuthorizationForExtension { (success, error) in
+    class func getPermissions()
+    {
+        healthStore.handleAuthorizationForExtension
+        {
+            (success, error) in
             
             healthStore.requestAuthorization(
                 toShare: hkShareTypes,
                 read: hkReadTypes,
-                completion: { success, error in
+                completion:
+                {
+                    success, error in
                     
-                    if !success && error != nil {
+                    if !success && error != nil
+                    {
                         print(error.debugDescription);
                     }
                     
@@ -50,9 +55,8 @@ public class ZBFHealthKit {
         }
     }
     
-    
-    class func populateCell(workout: HKWorkout, cell: UITableViewCell) {
-        
+    class func populateCell(workout: HKWorkout, cell: UITableViewCell)
+    {
         let minutes = (workout.duration / 60).rounded()
         
         cell.textLabel?.text = "\(Int(minutes).description) min"

@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17701" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch44"/>
     <dependencies>
-        <deployment identifier="watchOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17500"/>
     </dependencies>
@@ -313,7 +312,7 @@
                     <items>
                         <group width="1" alignment="center" verticalAlignment="center" layout="vertical" radius="0.0" spacing="0.0" id="wPv-bi-RQr" userLabel="Top">
                             <items>
-                                <group width="1" alignment="left" layout="vertical" radius="0.0" spacing="5" id="ksL-6C-M7w">
+                                <group width="1" alignment="left" layout="vertical" radius="0.0" spacing="5" id="ksL-6C-M7w" userLabel="Feedback Group">
                                     <items>
                                         <label alignment="center" text="Feedback Strength" textAlignment="center" id="L7V-Eq-ZNU">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
@@ -326,6 +325,28 @@
                                                 <action selector="KyosakChanged:" destination="y7B-OZ-tWG" id="GuZ-zl-8OK"/>
                                             </connections>
                                         </slider>
+                                    </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="0.0"/>
+                                </group>
+                                <group width="1" alignment="left" layout="vertical" radius="0.0" spacing="5" id="kCK-On-e7R">
+                                    <items>
+                                        <label alignment="center" text="Heart Rate Monitor" textAlignment="center" id="JUV-fb-cmt">
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
+                                            <variation key="device=watch38mm">
+                                                <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                            </variation>
+                                        </label>
+                                        <switch width="1" alignment="left" value="YES" title="Use Bluetooth" id="ijL-wW-MOc">
+                                            <connections>
+                                                <action selector="bluetoothChanged:" destination="y7B-OZ-tWG" id="FXB-1Z-ple"/>
+                                            </connections>
+                                        </switch>
+                                        <label width="1" alignment="center" textAlignment="center" numberOfLines="5" id="ef6-Lh-4xd">
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
+                                            <variation key="device=watch38mm">
+                                                <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                            </variation>
+                                        </label>
                                     </items>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="0.0"/>
                                 </group>
@@ -413,6 +434,8 @@
                     </items>
                     <connections>
                         <outlet property="authorizationButton" destination="hF5-S2-yKR" id="Bjf-K3-e8e"/>
+                        <outlet property="bluetoothStatus" destination="ef6-Lh-4xd" id="F5M-GS-XeA"/>
+                        <outlet property="bluetoothToogle" destination="ijL-wW-MOc" id="gU3-Yh-K2d"/>
                         <outlet property="donateLabel" destination="oJi-Jg-Xg7" id="akQ-iI-LDl"/>
                         <outlet property="donateMetricGroup" destination="E8E-K3-Aqx" id="7zX-mB-wOv"/>
                         <outlet property="donateMetricValue" destination="lD5-xA-81x" id="Ixn-vS-RtY"/>

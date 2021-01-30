@@ -32,8 +32,8 @@
             timestampString = "584817713.461293"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "start()"
             landmarkType = "7">
          </BreakpointContent>
@@ -114,8 +114,8 @@
             timestampString = "584131980.787846"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
             landmarkName = "populateCell(workout:cell:)"
             landmarkType = "7">
             <Locations>
@@ -165,8 +165,8 @@
             timestampString = "584131980.787905"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "populateCell(workout:cell:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -318,8 +318,8 @@
             timestampString = "584131980.788004"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
+            startingLineNumber = "379"
+            endingLineNumber = "379"
             landmarkName = "fetchLatestHeartRateSample(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -335,8 +335,8 @@
             timestampString = "584131980.788039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
             landmarkName = "getHrvSamples(workout:handler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -352,8 +352,8 @@
             timestampString = "584131980.788072"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "307"
-            endingLineNumber = "307"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
             landmarkName = "getHrvSamples(workout:handler:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -111,12 +111,8 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     {
         super.init()
         
-        let configuration = HKWorkoutConfiguration()
-        configuration.activityType = .other
-        configuration.locationType = .unknown
-        
         do {
-            workoutSession = try HKWorkoutSession(configuration: configuration)
+           // workoutSession = try HKWorkoutSession(configuration: configuration)
             
             //#todo: add the workout management to the wrapper too
             ZBFHealthKit.getPermissions()
@@ -136,7 +132,14 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             motionManager.startDeviceMotionUpdates()
             
-            healthStore.start(workoutSession!)
+            let configuration = HKWorkoutConfiguration()
+            
+            configuration.activityType = .other
+            configuration.locationType = .unknown
+        
+            workoutSession = try? HKWorkoutSession(healthStore: ZBFHealthKit.healthStore, configuration: configuration)
+            
+            workoutSession?.startActivity(with: startDate)
             
             WKInterfaceDevice.current().play(.start)
             
@@ -195,9 +198,11 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         WKInterfaceDevice.current().play(.stop)
         
-        healthStore.end(workoutSession!)
-        
         self.endDate = Date()
+        
+        workoutSession?.stopActivity(with: self.endDate)
+        
+        workoutSession?.end()
         
         var healthKitSamples: [HKSample] = []
         
@@ -207,9 +212,11 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         let workout = HKWorkout(activityType: .other, start: self.startDate!, end: self.endDate!, workoutEvents: nil, totalEnergyBurned: energyValue, totalDistance: nil, totalSwimmingStrokeCount: nil, device: nil, metadata: metadataWork)
         
+        healthKitSamples.append(workout)
+        
         let mindfulType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         
-        let mindfulSample = HKCategorySample(type:mindfulType, value: 0, start: self.startDate!, end: self.endDate!)
+        let mindfulSample = HKCategorySample(type:mindfulType, value: 0, start: self.startDate!, end: self.endDate!, metadata: metadataWork)
         
         healthKitSamples.append(mindfulSample)
         
@@ -227,44 +234,36 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
         }
         
-        var allSamples : [HKSample] = healthKitSamples.map({$0})
-        
-        allSamples.append(workout)
-        
         sessionDelegater.sendMessage(["watch": "end"],
                                      replyHandler: nil,
                                      errorHandler: nil)
         
-        healthStore.save(allSamples)
+        healthStore.save(healthKitSamples)
         {
             success, error in
             
-            guard error == nil else {
+            guard error == nil else
+            {
                 print(error.debugDescription)
+                
                 workoutEnd(nil)
+                
                 return
             }
             
-            self.healthStore.add(healthKitSamples, to: workout, completion:
-                {
-                    success, error in
-                    
-                    guard error == nil else {
-                        print(error.debugDescription)
-                        workoutEnd(nil)
-                        return
-                    }
-                    
-                    workoutEnd(workout)
-                    
-                    self.sendMessage(["watch": "reload"], replyHandler: { (replyMessage) in
-                        
-                    }, errorHandler: { error in
-                        print(error.localizedDescription)
-                    })
-                    
-            })
+            workoutEnd(workout)
             
+            self.sendMessage(["watch": "reload"],
+            replyHandler:
+            {
+                (replyMessage) in
+                
+            },
+            errorHandler:
+            {
+                error in
+                
+            })
         }
         
         invalidate()
@@ -329,72 +328,6 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         healthStore.execute(heart_rate_query)
         
-    }
-    
-    @available(watchOSApplicationExtension 6.0, *)
-    func createTimerEx()
-    {
-        
-        notifyTimerSeconds = 0
-        notifyTimer = Timer.scheduledTimer(timeInterval: 1, target:self, selector: #selector(Session.notify), userInfo: nil, repeats: true)
-        
-        let seriesType = HKSeriesType.heartbeat()
-        
-        let datePredicate = HKQuery.predicateForSamples(withStart: Date(), end: nil, options: .strictStartDate)
-               
-        let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
-               
-        let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[datePredicate, devicePredicate])
-               
-        let updateHandler: HKQueryUpdateHandler =
-        {
-            query, samples, deletedObjects, queryAnchor, error in
-            
-            if let seriesSample = samples as? HKHeartbeatSeriesSample
-            {
-                //seriesSamples
-                
-                //self.process(samples: quantitySamples)
-                
-                let query = HKHeartbeatSeriesQuery(heartbeatSeries: seriesSample)
-                {
-                    (query, timeSinceSeriesStart, precededByGap, done, errorOrNil) in
-                    
-                    // This block may be called multiple times.
-                    
-                    if let error = errorOrNil {
-                        // Handle any errors here.
-                        return
-                    }
-                    
-                    print(timeSinceSeriesStart)
-                    
-                    // Do something with this batch of location data.
-                        
-                    if done {
-                        print("done")
-                    }
-                    
-                    // You can stop the query by calling:
-                    // store.stop(query)
-                    
-                }
-                self.healthStore.execute(query)
-            }
-        }
-               
-        let heart_rate_query = HKAnchoredObjectQuery(type: seriesType,
-                                                    predicate: queryPredicate,
-                                                    anchor: nil,
-                                                    limit: HKObjectQueryNoLimit,
-                                                    resultsHandler: updateHandler)
-               
-        heart_rate_query.updateHandler = updateHandler
-               
-        self.heart_rate_query = heart_rate_query
-               
-        healthStore.execute(heart_rate_query)
-
     }
     
     func rrIntervalUpdated(_ rr: Int) {
@@ -563,7 +496,8 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             })
         }
         
-        if let date = self.startDate {
+        if let date = self.startDate
+        {
             self.delegate.sessionTick(startDate: date, message: message)
         }
         
@@ -614,19 +548,24 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             if(SettingsWatch.progress)
             {
                 metadata["progress"] = SettingsWatch.progressPosition
-                metadata["appleID"] = SettingsWatch.email
+                metadata["appleID"] = SettingsWatch.fullName
             }
         }
         
         sessionDelegater.sendMessage(["sample" : metadata],
-                                     replyHandler:
-            { (message) in
+                                     
+            replyHandler:
+            {
+                (message) in
+                
                 print(message.debugDescription)
-        },
-                                     errorHandler:
-            { (error) in
-                print(error)
-        })
+            },
+            
+            errorHandler:
+            {
+                (error) in
+                    print(error)
+            })
         
         NotificationCenter.default.post(name: .sample, object: metadata)
         
@@ -636,19 +575,22 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             metadataWork[type.rawValue] = ((metadataWork[type.rawValue] as? String) ?? "") + empty + (metadata[type.rawValue] as! String)
         }
         
-        let meditation = PFObject(className:"Meditation")
-        meditation["start"] = self.startDate
-        meditation["hr"] = self.heartRate
-        meditation["hrv"] = self.heartSDNN
-        meditation["now"] = Date()
         
-        meditation.saveInBackground { (succeeded, error)  in
-            if (succeeded) {
-                // The object has been saved.
-            } else {
-                // There was a problem, check error.description
+        #if DEBUG //using this for a live heartrate monitor
+            let meditation = PFObject(className:"Meditation")
+            meditation["start"] = self.startDate
+            meditation["hr"] = self.heartRate
+            meditation["hrv"] = self.heartSDNN
+            meditation["now"] = Date()
+            
+            meditation.saveInBackground { (succeeded, error)  in
+                if (succeeded) {
+                    // The object has been saved.
+                } else {
+                    // There was a problem, check error.description
+                }
             }
-        }
+        #endif
         
     }
     
