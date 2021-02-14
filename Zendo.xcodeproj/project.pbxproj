@@ -1074,8 +1074,6 @@
 				BEF0751221E6B0C700EE657D /* PBXTargetDependency */,
 			);
 			name = Zendo;
-			packageProductDependencies = (
-			);
 			productName = Zazen;
 			productReference = BE2E81E91FF44A7B00D104AC /* Zendo.app */;
 			productType = "com.apple.product-type.application";
@@ -1194,8 +1192,6 @@
 				Base,
 			);
 			mainGroup = BE2E81E01FF44A7B00D104AC;
-			packageReferences = (
-			);
 			productRefGroup = BE2E81EA1FF44A7B00D104AC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1336,12 +1332,14 @@
 				"${PODS_ROOT}/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts-watchOS/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse-watchOS/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/Smooth-watchOS/Smooth.framework",
 				"${BUILT_PRODUCTS_DIR}/Mixpanel/Mixpanel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Smooth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1375,6 +1373,7 @@
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/Smooth-iOS/Smooth.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftGRPC/SwiftGRPC.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -1405,6 +1404,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Smooth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftGRPC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",

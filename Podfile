@@ -22,11 +22,13 @@ target 'Zendo' do
   pod 'lottie-ios'
   pod 'Cache'
   pod 'SDWebImage'
+  pod 'Smooth', :path => '~/Documents/GitHub/Smooth.swift'
 end
 
 target 'Zendo WatchKit Extension' do
   platform :watchos, '4.0'
   pod 'Mixpanel'
+  pod 'Smooth' , :path => '~/Documents/GitHub/Smooth.swift'
   pod 'Parse'
 end
 

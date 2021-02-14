@@ -145,6 +145,7 @@ PODS:
   - SDWebImage (5.10.4):
     - SDWebImage/Core (= 5.10.4)
   - SDWebImage/Core (5.10.4)
+  - Smooth (0.1.1)
   - SwiftGRPC (0.9.1):
     - gRPC-Core (~> 1.19.0)
     - SwiftProtobuf (~> 1.5.0)
@@ -175,6 +176,7 @@ DEPENDENCIES:
   - Parse
   - PromiseKit
   - SDWebImage
+  - Smooth (from `~/Documents/GitHub/Smooth.swift`)
   - SwiftyJSON
   - XpringKit
 
@@ -222,6 +224,10 @@ SPEC REPOS:
     - SwiftyJSON
     - XpringKit
 
+EXTERNAL SOURCES:
+  Smooth:
+    :path: "~/Documents/GitHub/Smooth.swift"
+
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   BigInt: 74b4d88367b0e819d9f77393549226d36faeb0d8
@@ -260,11 +266,12 @@ SPEC CHECKSUMS:
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
+  Smooth: 313630fa4e58d806210038c1301281d1e1b932e3
   SwiftGRPC: 43d3e8db88f97e7386bd44f159ecdfad02ce3362
   SwiftProtobuf: 241400280f912735c1e1b9fe675fdd2c6c4d42e2
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   XpringKit: e6e272ebc1034912331bbab94bcaf535fa156393
 
-PODFILE CHECKSUM: e33043156c34707ae201e23e25f303d657a7ed45
+PODFILE CHECKSUM: 9461544dce77096289530a58e62765423a8ce540
 
 COCOAPODS: 1.10.1

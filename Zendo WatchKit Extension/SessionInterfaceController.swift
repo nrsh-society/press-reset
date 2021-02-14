@@ -82,14 +82,14 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
                         guard let self = self else { return }
                         
                         if success {
-                            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "SetGoalInterfaceController", context: false as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
+                            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
                         } else {
                             let ok = WKAlertAction(title: "OK", style: .default)
                             {
                                 
                                 self.openUrl(urlString: "x-apple-health://")
                                 
-                                WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "SetGoalInterfaceController", context: false as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
+                                WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
                             }
                             
                             self.presentAlert(withTitle: nil, message: "Error saving data. Zendō needs access to Apple Health to measure and record metrics during meditation. All Health data remains on your devices, nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])

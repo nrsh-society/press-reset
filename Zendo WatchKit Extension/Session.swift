@@ -6,10 +6,11 @@
 //  Copyright © 2017 zenbf. All rights reserved.
 //
 import Parse
+import Smooth
 import WatchKit
 import HealthKit
-import Foundation
 import CoreMotion
+import Foundation
 import CoreFoundation
 import WatchConnectivity
 
@@ -284,11 +285,11 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         self.sample()
     }
     
-    func createTimers() {
-        
+    func createTimers()
+    {
         notifyTimerSeconds = 0
-        notifyTimer = Timer.scheduledTimer(timeInterval: 1, target:self, selector: #selector(Session.notify), userInfo: nil, repeats: true)
         
+        self.notifyTimer = Timer.scheduledTimer(timeInterval: 1, target:self, selector: #selector(Session.notify), userInfo: nil, repeats: true)
         
         if let bluetooth = Session.bluetoothManager
         {
@@ -346,18 +347,25 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     
     func standardDeviation(_ arr : [Double]) -> Double
     {
-        let rrIntervals = arr.map
+        let beatsAsFloat : Array<Float> = arr.map
         {
-            (beat) -> Double in
-            
-            return 1000 / beat
+            Float(1000 / $0)
         }
         
-        let length = Double(rrIntervals.count)
+        let smoothBeats = CubicInterpolator(points:
+            CubicInterpolator(points: beatsAsFloat, tension: 0.1).resample(interval: 3)
+                          , tension: 0.1).resample(interval: 0.25).map { $0 }
         
-        let avg = rrIntervals.reduce(0, +) / length
+        let smoothBeatsAsDouble = smoothBeats.map
+        {
+                Double($0)
+        }
         
-        let sumOfSquaredAvgDiff = rrIntervals.map
+        let length = Double(smoothBeatsAsDouble.count)
+        
+        let avg = smoothBeatsAsDouble.reduce(0, +) / length
+        
+        let sumOfSquaredAvgDiff = smoothBeatsAsDouble.map
         {pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
         
         return sqrt(sumOfSquaredAvgDiff / length)
@@ -367,9 +375,14 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     var haptic = WKHapticType.success
     var message = "Calibrating"
     
+    // i am
+    //  called every 1 sec.
+    //  add the heartRate + motion data to a range/window
+    //  look at the window every 1 min and notify listeners if the person is meditating
+    //  listeners are the haptic/sound interface on the watch + zendo server/services
+    //  this clearly needs to be refactored.
     @objc func notify(_ timer: Timer)
     {
-
         heartRateRangeSamples.append(self.heartRate)
         movementRangeSamples.append(self.motion)
         
@@ -441,7 +454,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             if(SettingsWatch.donations)
             {
-                SettingsWatch.donatedMinutes += 1 //#todo(push this to the cloud)
+                SettingsWatch.donatedMinutes += 1
                 
                 PFCloud.callFunction(inBackground: "donate",
                                      withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes])
@@ -459,7 +472,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             if(SettingsWatch.progress)
             {
                 PFCloud.callFunction(inBackground: "rank",
-                withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes ])
+                                     withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes ])
                 {
                     (response, error) in
 
@@ -482,18 +495,18 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             let msg = ["progress" : progress]
                 
             sessionDelegater.sendMessage(msg,
-            replyHandler:
-            {
-                message in
+                                         replyHandler:
+                                            {
+                                                message in
                 
-                print(message.debugDescription)
-            },
-            errorHandler:
-            {
-                error in
+                                                print(message.debugDescription)
+                                            },
+                                         errorHandler:
+                                            {
+                                                error in
                 
-                print(error)
-            })
+                                                print(error)
+                                            })
         }
         
         if let date = self.startDate
@@ -602,24 +615,19 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         {
             healthStore.stop(query)
         }
-        
-        /*
+        else
+        {
+            if let bluetooth = Session.bluetoothManager
+            {
+                if(bluetooth.isConnected())
+                {
+                    bluetooth.dataDelegate = nil
          
-         
-         else
-         {
-         if let bluetooth = Session.bluetoothManager
-         {
-         if(bluetooth.isConnected())
-         {
-         bluetooth.dataDelegate = nil
-         
-         return
+                    return
+                }
+            }
          }
-         }
-         }
-         */
-        
+    
         self.isRunning = false
     }
 }
