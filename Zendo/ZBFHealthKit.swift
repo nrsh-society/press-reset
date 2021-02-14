@@ -22,7 +22,6 @@ public class ZBFHealthKit
 
     class func getPermissionTypes() -> Set<HKSampleType>
     {
-        
         let heartRateType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
         
         let hrvType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
@@ -30,7 +29,6 @@ public class ZBFHealthKit
         let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
 
         return [heartRateType, hrvType, mindfulSessionType, HKObjectType.workoutType()]
-        
     }
     
     class func getPermissions()

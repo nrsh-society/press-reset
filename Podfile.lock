@@ -115,11 +115,11 @@ PODS:
   - GTMSessionFetcher/Core (1.5.0)
   - Hero (1.5.0)
   - leveldb-library (1.22)
-  - lottie-ios (3.1.9)
-  - Mixpanel (3.6.4)
-  - Mixpanel-swift (2.8.1):
-    - Mixpanel-swift/Complete (= 2.8.1)
-  - Mixpanel-swift/Complete (2.8.1)
+  - lottie-ios (3.2.1)
+  - Mixpanel (3.6.5)
+  - Mixpanel-swift (2.8.3):
+    - Mixpanel-swift/Complete (= 2.8.3)
+  - Mixpanel-swift/Complete (2.8.3)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
@@ -142,9 +142,9 @@ PODS:
   - PromiseKit/UIKit (6.13.1):
     - PromiseKit/CorePromise
   - PromisesObjC (1.2.12)
-  - SDWebImage (5.10.2):
-    - SDWebImage/Core (= 5.10.2)
-  - SDWebImage/Core (5.10.2)
+  - SDWebImage (5.10.4):
+    - SDWebImage/Core (= 5.10.4)
+  - SDWebImage/Core (5.10.4)
   - SwiftGRPC (0.9.1):
     - gRPC-Core (~> 1.19.0)
     - SwiftProtobuf (~> 1.5.0)
@@ -251,15 +251,15 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   Hero: b7385b75e7259da62f4f85462f59a5082d66b058
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
-  lottie-ios: 3a3758ef5a008e762faec9c9d50a39842f26d124
-  Mixpanel: 8e0867f15e861deebdd1cf9098547fb570157032
-  Mixpanel-swift: 9d3a2597ef015f187abae0bfa5fda5997d5e4429
+  lottie-ios: 106e92eaf11fbed0a76590b4cdb9b5ec26123ff7
+  Mixpanel: de8296d8568806ab17bfced0f823c908b808e1e0
+  Mixpanel-swift: 947354668bf7dcaff5aaf9c64232fb5bea6ff0c7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   Parse: e40fdb9c7d665823b7fe9865949cac9a53eb2ce7
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
-  SDWebImage: b969dcfc02c40a5da71eac0b03b8f1a0c794a86f
+  SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   SwiftGRPC: 43d3e8db88f97e7386bd44f159ecdfad02ce3362
   SwiftProtobuf: 241400280f912735c1e1b9fe675fdd2c6c4d42e2
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
@@ -267,4 +267,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: e33043156c34707ae201e23e25f303d657a7ed45
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

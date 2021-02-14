@@ -115,7 +115,7 @@ class ZazenController: UIViewController
     
     @IBOutlet weak var tableView: UITableView!
     
-    var workout: HKSample!
+    var workout: HKWorkout!
     var samples = [[String: Any]]()
     
     lazy var share: Double = {
@@ -232,13 +232,13 @@ class ZazenController: UIViewController
     {
         cell.hrvView.setTitle("")
         
-       // ZBFHealthKit.getHRVAverage(workout)
-        //{
-          //  results, error in
-            
-            //if let value = results?.first?.value
-        if let value = workout.hrv
+        ZBFHealthKit.getHRVAverage(workout)
         {
+            results, error in
+            
+            if let value = results?.first?.value
+        //if let value = workout.hrv
+            {
                 DispatchQueue.main.async()
                 {
                     if(value > 0)
@@ -250,7 +250,7 @@ class ZazenController: UIViewController
                         cell.hrvView.setTitle("--")
                     }
                 }
-        }
+            }
         else
         {
                 DispatchQueue.main.async()
@@ -260,6 +260,7 @@ class ZazenController: UIViewController
                 }
                // print(error.debugDescription)
         }
+    }
     }
     
     func getChartData(_ lineChartKey: LineChartKey, scale: Double) -> LineChartData {
