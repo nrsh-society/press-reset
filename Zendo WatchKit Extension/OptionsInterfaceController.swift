@@ -67,6 +67,69 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         authorizationController.performRequests()
     }
     
+    @IBOutlet var mainGroup: WKInterfaceGroup!
+    @IBOutlet var doneButton: WKInterfaceButton!
+    @IBOutlet var topLabel: WKInterfaceLabel!
+    @IBOutlet var minusGroup: WKInterfaceGroup!{
+        didSet {
+            if WKInterfaceDevice.AW42 {
+                minusGroup.setHeight(40)
+                minusGroup.setWidth(40)
+                minusGroup.setCornerRadius(20)
+            } else if WKInterfaceDevice.AW38 {
+                minusGroup.setHeight(28)
+                minusGroup.setWidth(28)
+                minusGroup.setCornerRadius(14)
+            } else if WKInterfaceDevice.AW40 {
+                minusGroup.setHeight(30)
+                minusGroup.setWidth(30)
+                minusGroup.setCornerRadius(15)
+            }
+        }
+    }
+    @IBOutlet var plusGroup: WKInterfaceGroup!{
+        didSet {
+            if WKInterfaceDevice.AW42 {
+                plusGroup.setHeight(40)
+                plusGroup.setWidth(40)
+                plusGroup.setCornerRadius(20)
+            } else if WKInterfaceDevice.AW38 {
+                plusGroup.setHeight(28)
+                plusGroup.setWidth(28)
+                plusGroup.setCornerRadius(14)
+            } else if WKInterfaceDevice.AW40 {
+                plusGroup.setHeight(30)
+                plusGroup.setWidth(30)
+                plusGroup.setCornerRadius(15)
+            }
+        }
+    }
+    @IBOutlet var timeLabel: WKInterfaceLabel!
+
+    
+    func updateTime() {
+        let mins = String(SettingsWatch.dailyMediationGoal)
+        timeLabel?.setText(mins)
+    }
+    
+    @IBAction func plusAction() {
+        SettingsWatch.dailyMediationGoal += 1
+        updateTime()
+    }
+    
+    @IBAction func minusAction() {
+        if SettingsWatch.dailyMediationGoal > 5 {
+            SettingsWatch.dailyMediationGoal -= 1
+            updateTime()
+        }
+    }
+    
+    @IBAction func doneAction() {
+        if let session = session {
+            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session as AnyObject), (name: "OptionsInterfaceController", context: session as AnyObject)])
+        }
+    }
+    
     
     @objc func sample(notification: NSNotification)
     {
@@ -83,8 +146,26 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         }
     }
     
+    var session: Session?
+    
     override func awake(withContext context: Any?)
     {
+        
+        super.awake(withContext: context)
+        
+        if let session = context as? Session {
+            self.session = session
+            
+            doneButton.setHidden(false)
+            topLabel.setText("Set a daily mindfulness goal to get reminders on progress")
+           
+            if WKInterfaceDevice.AW38 || WKInterfaceDevice.AW40 {
+                mainGroup.sizeToFitHeight()
+            }
+            
+            
+        }
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.sample),
                                                name:  .sample,
@@ -94,6 +175,8 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     override func willActivate()
     {
         super.willActivate()
+        
+        updateTime()
             
         Mixpanel.sharedInstance()?.timeEvent("watch_options")
                
@@ -105,6 +188,8 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         }
                
         self.hapticSetting.setValue(Float(Session.options.hapticStrength))
+        
+        self.retryFeedback.setValue(Float(Session.options.retryStrength))
         
         let isSignedIn = (SettingsWatch.appleUserID != nil)
         
@@ -258,6 +343,8 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     
     @IBOutlet var bluetoothStatus: WKInterfaceLabel!
     @IBOutlet var hapticSetting: WKInterfaceSlider!
+    
+    @IBOutlet weak var retryFeedback: WKInterfaceSlider!
     @IBOutlet var bluetoothToogle: WKInterfaceSwitch!
         
     @IBAction func KyosakChanged(_ value: Float)

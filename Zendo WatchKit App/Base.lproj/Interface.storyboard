@@ -48,11 +48,10 @@
                     <connections>
                         <outlet property="hrvLabel" destination="c3z-hl-RcP" id="wYd-MY-4LK"/>
                         <outlet property="mainGroup" destination="obQ-Pj-vnx" id="25j-dH-YEO"/>
-                        <segue destination="iqt-Nq-L2v" kind="relationship" relationship="nextPage" id="E1c-Do-qaL"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="103" y="141"/>
+            <point key="canvasLocation" x="70" y="-406"/>
         </scene>
         <!--Session-->
         <scene sceneID="PLM-Hm-Vur">
@@ -90,7 +89,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="103" y="515"/>
+            <point key="canvasLocation" x="69" y="-99"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
@@ -111,7 +110,7 @@
                     </connections>
                 </notificationController>
             </objects>
-            <point key="canvasLocation" x="103" y="1262"/>
+            <point key="canvasLocation" x="69" y="540"/>
         </scene>
         <!--Summary-->
         <scene sceneID="IZS-JR-IrR">
@@ -216,7 +215,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="103" y="871"/>
+            <point key="canvasLocation" x="69" y="216"/>
         </scene>
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
@@ -237,7 +236,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="374" y="1261"/>
+            <point key="canvasLocation" x="69" y="876"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="f6W-j7-S90">
@@ -257,12 +256,12 @@
                     </connections>
                 </notificationController>
             </objects>
-            <point key="canvasLocation" x="411.695652173913" y="1640.0446428571429"/>
+            <point key="canvasLocation" x="547" y="354"/>
         </scene>
-        <!--Session-->
+        <!--subs-->
         <scene sceneID="cOn-TP-OLG">
             <objects>
-                <controller identifier="SubscribeInterfaceController" title="Session" id="7Dt-61-ueo" customClass="SubscribeInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="SubscribeInterfaceController" title="Session" id="7Dt-61-ueo" userLabel="subs" customClass="SubscribeInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="left" layout="vertical" spacing="10" id="zTx-II-tJ7">
                             <items>
@@ -303,7 +302,7 @@
                     </items>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="668" y="1261"/>
+            <point key="canvasLocation" x="547" y="58"/>
         </scene>
         <!--Options-->
         <scene sceneID="mYQ-LG-qhF">
@@ -314,7 +313,7 @@
                             <items>
                                 <group width="1" height="120" alignment="left" layout="vertical" id="ha5-0j-N6P" userLabel="Goal Group">
                                     <items>
-                                        <label width="1" alignment="center" text="Daily Mindfulness" textAlignment="center" numberOfLines="6" minimumScaleFactor="0.5" id="gYq-xh-IGE">
+                                        <label width="1" alignment="center" text="Mindful Minutess Goal" textAlignment="center" numberOfLines="6" minimumScaleFactor="0.5" id="gYq-xh-IGE">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
@@ -327,7 +326,7 @@
                                                         <button width="1" height="1" alignment="left" verticalAlignment="center" id="xwd-G5-bFo">
                                                             <color key="backgroundColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <connections>
-                                                                <action selector="minusAction" destination="iqt-Nq-L2v" id="Eff-11-SzG"/>
+                                                                <action selector="minusAction" destination="y7B-OZ-tWG" id="dM5-zc-JaX"/>
                                                             </connections>
                                                         </button>
                                                         <imageView width="0.5" height="0.5" alignment="center" verticalAlignment="center" image="minus" id="IyH-jp-uIf">
@@ -356,7 +355,7 @@
                                                             <fontDescription key="font" type="system" pointSize="37"/>
                                                             <variation key="device=watch38mm" width="1"/>
                                                             <connections>
-                                                                <action selector="plusAction" destination="iqt-Nq-L2v" id="cRL-YX-3ZM"/>
+                                                                <action selector="plusAction" destination="y7B-OZ-tWG" id="OLD-8a-8jx"/>
                                                             </connections>
                                                         </button>
                                                         <imageView width="0.5" height="0.5" alignment="center" verticalAlignment="center" image="plus" id="nnW-ek-bxn">
@@ -397,7 +396,7 @@
                                                 </label>
                                                 <slider height="45" alignment="center" continuous="YES" value="1" maximum="3" steps="3" id="ohO-vf-m9d">
                                                     <connections>
-                                                        <action selector="KyosakChanged:" destination="y7B-OZ-tWG" id="WPb-Ch-Mkn"/>
+                                                        <action selector="retryChanged:" destination="y7B-OZ-tWG" id="nEf-KX-8fm"/>
                                                     </connections>
                                                 </slider>
                                             </items>
@@ -515,15 +514,19 @@
                         <outlet property="donateMetricValue" destination="lD5-xA-81x" id="Ixn-vS-RtY"/>
                         <outlet property="donateSwitch" destination="Jun-OP-O0k" id="p0H-Dd-94K"/>
                         <outlet property="hapticSetting" destination="Dou-CY-eup" id="bXd-lH-YRP"/>
+                        <outlet property="minusGroup" destination="TCI-Sx-0ZT" id="q0a-nK-WHi"/>
+                        <outlet property="plusGroup" destination="zWc-ET-8Ye" id="aB1-4W-Wsl"/>
                         <outlet property="progressLabel" destination="yT9-B6-Ddo" id="fU8-ar-ruy"/>
                         <outlet property="progressMetricGroup" destination="wsS-Bw-TOf" id="34s-3y-F3K"/>
                         <outlet property="progressMetricValue" destination="z7d-Bj-bgq" id="WbG-x7-gPs"/>
                         <outlet property="progressSwitch" destination="wUB-ZN-Iva" id="j0K-U3-XF3"/>
+                        <outlet property="retryFeedback" destination="ohO-vf-m9d" id="0nJ-bd-MK4"/>
                         <outlet property="signinLabel" destination="Wyh-O2-PD5" id="w8u-a1-E0Y"/>
+                        <outlet property="timeLabel" destination="NSm-nn-JZC" id="cf4-zb-zYq"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="757.60869565217388" y="-715.66964285714289"/>
+            <point key="canvasLocation" x="309" y="-200"/>
         </scene>
         <!--Goals-->
         <scene sceneID="Eaa-gP-xvC">
@@ -534,7 +537,7 @@
                             <items>
                                 <group width="1" height="1" alignment="left" layout="vertical" id="coT-V1-CPo">
                                     <items>
-                                        <label width="1" alignment="center" text="Daily Mindfulness" textAlignment="center" numberOfLines="6" minimumScaleFactor="0.5" id="Hya-3d-Cbz">
+                                        <label width="1" alignment="center" text="Mindful Minutes Goal" textAlignment="center" numberOfLines="6" minimumScaleFactor="0.5" id="Hya-3d-Cbz">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
@@ -616,11 +619,10 @@
                         <outlet property="plusGroup" destination="Vkz-Uj-VE1" id="E9Z-zu-aNR"/>
                         <outlet property="timeLabel" destination="5oe-OO-D0k" id="6CF-so-kWz"/>
                         <outlet property="topLabel" destination="Hya-3d-Cbz" id="P4A-yc-QhJ"/>
-                        <segue destination="y7B-OZ-tWG" kind="relationship" relationship="nextPage" id="iu2-ob-yMs"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="404" y="-61"/>
+            <point key="canvasLocation" x="309" y="-680"/>
         </scene>
         <!--Add Friend-->
         <scene sceneID="E9J-az-EAZ">
@@ -644,21 +646,14 @@
                     </items>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="1032" y="-384"/>
+            <point key="canvasLocation" x="547" y="-225"/>
         </scene>
         <!--Dynamic Notification Interface Controller-->
         <scene sceneID="iha-Nf-OKb">
             <objects>
                 <controller id="IXi-WN-khc"/>
             </objects>
-            <point key="canvasLocation" x="732" y="1640"/>
-        </scene>
-        <!--Interface Controller-->
-        <scene sceneID="lcV-dL-ix9">
-            <objects>
-                <controller id="Rvk-1V-NVE"/>
-            </objects>
-            <point key="canvasLocation" x="745" y="1971"/>
+            <point key="canvasLocation" x="811" y="704"/>
         </scene>
         <!--Dynamic Interactive Notification Interface Controller-->
         <scene sceneID="v6Q-gg-nBf">
@@ -669,7 +664,7 @@
                     </items>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="412" y="1966"/>
+            <point key="canvasLocation" x="811" y="354"/>
         </scene>
     </scenes>
     <resources>
