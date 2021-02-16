@@ -48,10 +48,11 @@
                     <connections>
                         <outlet property="hrvLabel" destination="c3z-hl-RcP" id="wYd-MY-4LK"/>
                         <outlet property="mainGroup" destination="obQ-Pj-vnx" id="25j-dH-YEO"/>
+                        <segue destination="y7B-OZ-tWG" kind="relationship" relationship="nextPage" id="ih9-Sd-TI9"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="70" y="-406"/>
+            <point key="canvasLocation" x="51" y="-407"/>
         </scene>
         <!--Session-->
         <scene sceneID="PLM-Hm-Vur">
@@ -313,7 +314,7 @@
                             <items>
                                 <group width="1" height="120" alignment="left" layout="vertical" id="ha5-0j-N6P" userLabel="Goal Group">
                                     <items>
-                                        <label width="1" alignment="center" text="Mindful Minutess Goal" textAlignment="center" numberOfLines="6" minimumScaleFactor="0.5" id="gYq-xh-IGE">
+                                        <label width="1" alignment="center" text="Mindful Minutes" textAlignment="center" numberOfLines="6" minimumScaleFactor="0.5" id="gYq-xh-IGE">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
@@ -342,7 +343,7 @@
                                                                 <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="29"/>
                                                             </variation>
                                                         </label>
-                                                        <label alignment="center" verticalAlignment="bottom" text="minutes" textAlignment="center" id="qu9-yg-B82">
+                                                        <label alignment="center" verticalAlignment="bottom" text="Goal" textAlignment="center" id="qu9-yg-B82">
                                                             <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
                                                             <variation key="device=watch38mm" text="mins"/>
                                                         </label>
@@ -537,7 +538,7 @@
                             <items>
                                 <group width="1" height="1" alignment="left" layout="vertical" id="coT-V1-CPo">
                                     <items>
-                                        <label width="1" alignment="center" text="Mindful Minutes Goal" textAlignment="center" numberOfLines="6" minimumScaleFactor="0.5" id="Hya-3d-Cbz">
+                                        <label width="1" alignment="center" text="Mindful Minutes" textAlignment="center" numberOfLines="6" minimumScaleFactor="0.5" id="Hya-3d-Cbz">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="15"/>
@@ -566,7 +567,7 @@
                                                                 <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="29"/>
                                                             </variation>
                                                         </label>
-                                                        <label alignment="center" verticalAlignment="bottom" text="minutes" textAlignment="center" id="ula-Av-Rii">
+                                                        <label alignment="center" verticalAlignment="bottom" text="Goal" textAlignment="center" id="ula-Av-Rii">
                                                             <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
                                                             <variation key="device=watch38mm" text="mins"/>
                                                         </label>
