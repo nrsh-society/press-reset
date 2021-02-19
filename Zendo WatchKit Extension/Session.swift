@@ -138,9 +138,17 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             configuration.activityType = .other
             configuration.locationType = .unknown
         
-            workoutSession = try? HKWorkoutSession(healthStore: ZBFHealthKit.healthStore, configuration: configuration)
+           workoutSession = try? HKWorkoutSession(healthStore: self.healthStore, configuration: configuration)
+            
+            //let builder = workoutSession?.associatedWorkoutBuilder()
+            
+            //builder?.shouldCollectWorkoutEvents = false
             
             workoutSession?.startActivity(with: startDate)
+            
+            workoutSession?.pause()
+            
+            //self.healthStore.start(workoutSession!)
             
             WKInterfaceDevice.current().play(.start)
             
@@ -204,6 +212,8 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         workoutSession?.stopActivity(with: self.endDate)
         
         workoutSession?.end()
+        
+        //healthStore.end(workoutSession!)
         
         var healthKitSamples: [HKSample] = []
         
@@ -338,10 +348,11 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         if(bps != Double.infinity && bps != Double.nan && bps > 0.33 && bps < 3.67)
         {
             self.heartRate = Double(bps)
-            
+        
             heartRateSamples.append(self.heartRate)
             
             self.sample()
+        
         }
     }
     

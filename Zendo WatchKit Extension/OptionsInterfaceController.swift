@@ -72,55 +72,63 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     @IBOutlet var topLabel: WKInterfaceLabel!
     @IBOutlet var minusGroup: WKInterfaceGroup!{
         didSet {
-            if WKInterfaceDevice.AW42 {
-                minusGroup.setHeight(40)
-                minusGroup.setWidth(40)
-                minusGroup.setCornerRadius(20)
-            } else if WKInterfaceDevice.AW38 {
-                minusGroup.setHeight(28)
-                minusGroup.setWidth(28)
-                minusGroup.setCornerRadius(14)
-            } else if WKInterfaceDevice.AW40 {
-                minusGroup.setHeight(30)
-                minusGroup.setWidth(30)
-                minusGroup.setCornerRadius(15)
-            }
+//            if WKInterfaceDevice.AW42 {
+//                minusGroup.setHeight(40)
+//                minusGroup.setWidth(40)
+//                minusGroup.setCornerRadius(20)
+//            } else if WKInterfaceDevice.AW38 {
+//                minusGroup.setHeight(28)
+//                minusGroup.setWidth(28)
+//                minusGroup.setCornerRadius(14)
+//            } else if WKInterfaceDevice.AW40 {
+//                minusGroup.setHeight(30)
+//                minusGroup.setWidth(30)
+//                minusGroup.setCornerRadius(15)
+//            }
         }
     }
     @IBOutlet var plusGroup: WKInterfaceGroup!{
         didSet {
-            if WKInterfaceDevice.AW42 {
-                plusGroup.setHeight(40)
-                plusGroup.setWidth(40)
-                plusGroup.setCornerRadius(20)
-            } else if WKInterfaceDevice.AW38 {
-                plusGroup.setHeight(28)
-                plusGroup.setWidth(28)
-                plusGroup.setCornerRadius(14)
-            } else if WKInterfaceDevice.AW40 {
-                plusGroup.setHeight(30)
-                plusGroup.setWidth(30)
-                plusGroup.setCornerRadius(15)
-            }
+//            if WKInterfaceDevice.AW42 {
+//                plusGroup.setHeight(40)
+//                plusGroup.setWidth(40)
+//                plusGroup.setCornerRadius(20)
+//            } else if WKInterfaceDevice.AW38 {
+//                plusGroup.setHeight(28)
+//                plusGroup.setWidth(28)
+//                plusGroup.setCornerRadius(14)
+//            } else if WKInterfaceDevice.AW40 {
+//                plusGroup.setHeight(30)
+//                plusGroup.setWidth(30)
+//                plusGroup.setCornerRadius(15)
+//            }
         }
     }
     @IBOutlet var timeLabel: WKInterfaceLabel!
 
     
-    func updateTime() {
+    func updateTime()
+    {
         let mins = String(SettingsWatch.dailyMediationGoal)
         timeLabel?.setText(mins)
+    
+        
     }
     
-    @IBAction func plusAction() {
+    @IBAction func plusAction()
+    {
         SettingsWatch.dailyMediationGoal += 1
         updateTime()
+        
+        WKInterfaceDevice.current().play(WKHapticType.directionUp)
     }
     
     @IBAction func minusAction() {
         if SettingsWatch.dailyMediationGoal > 5 {
             SettingsWatch.dailyMediationGoal -= 1
             updateTime()
+            
+            WKInterfaceDevice.current().play(WKHapticType.directionDown)
         }
     }
     
@@ -156,11 +164,11 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         if let session = context as? Session {
             self.session = session
             
-            doneButton.setHidden(false)
-            topLabel.setText("Set a daily mindfulness goal to get reminders on progress")
+//            doneButton.setHidden(false)
+  //          topLabel.setText("Set a daily mindfulness goal to get reminders on progress")
            
             if WKInterfaceDevice.AW38 || WKInterfaceDevice.AW40 {
-                mainGroup.sizeToFitHeight()
+    //            mainGroup.sizeToFitHeight()
             }
             
             
@@ -197,7 +205,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         {
             self.authorizationButton.setHidden(true)
             self.signinLabel.setHidden(true)
-            
+
             self.donateSwitch.setEnabled(true)
             self.progressSwitch.setEnabled(true)
             
@@ -352,7 +360,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
         
         Session.options.hapticStrength = Int(value)
-        Session.options.retryStrength = Int(value)
+        
                 
         let iterations = Int(Session.options.hapticStrength)
         
@@ -376,6 +384,8 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     @IBAction func retryChanged(_ value: Float)
     {
         Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
+        
+        Session.options.retryStrength = Int(value)
         
         let iterations = Int(Session.options.retryStrength)
         
