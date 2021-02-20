@@ -6,10 +6,10 @@
 //  Copyright © 2020 Zendo Tools. All rights reserved.
 //
 
+import HomeKit
 import Foundation
 import CoreBluetooth
 import FirebaseDatabase
-import HomeKit
 
 public class Zensor : Identifiable, ObservableObject
 {

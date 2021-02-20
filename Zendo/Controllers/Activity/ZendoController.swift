@@ -11,8 +11,8 @@ import HealthKit
 import Mixpanel
 import WatchConnectivity
 
-class ZendoController: UITableViewController {
-    
+class ZendoController: UITableViewController
+{
     //segue
     private let showDetailSegue = "showDetail"
     
@@ -27,8 +27,20 @@ class ZendoController: UITableViewController {
     var isAutoUpdate = false
     var autoUpdateCount = 0
     
-    override func viewDidLoad() {
-        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == showDetailSegue,
+            let destination = segue.destination as? ZazenController,
+            let index = tableView.indexPathForSelectedRow
+        {
+            let sample = samplesDictionary[samplesDate[index.section]]![index.row]
+            
+            destination.workout = sample as! HKWorkout
+        }
+    }
+    
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         
         checkHealthKit(isShow: true)
@@ -49,28 +61,31 @@ class ZendoController: UITableViewController {
         tableView.estimatedRowHeight = 60.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        
         NotificationCenter.default.addObserver(self, selector: #selector(reloadActivity), name: .reloadActivity, object: nil)
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         super.viewWillAppear(animated)
         
         Mixpanel.mainInstance().time(event: "activity")
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool)
+    {
         super.viewWillDisappear(animated)
         
         Mixpanel.mainInstance().track(event: "activity")
     }
     
-    deinit {
+    deinit
+    {
          NotificationCenter.default.removeObserver(self, name: .reloadActivity, object: nil)
     }
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?
+    {
         
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { action, indexPath in
             let workout = self.samplesDictionary[self.samplesDate[indexPath.section]]![indexPath.row] as! HKWorkout
@@ -97,9 +112,8 @@ class ZendoController: UITableViewController {
         return [delete]
     }
     
-    
-    func populateTable() {
-        
+    func populateTable()
+    {
         let hkType = HKObjectType.workoutType()
         let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
         
@@ -130,7 +144,6 @@ class ZendoController: UITableViewController {
                         
                         for sample in self.samples
                         {
-                        
                             var date = sample.endDate.toZendoHeaderString
                             
                             if calendar.isDateInToday(sample.endDate)
@@ -177,7 +190,8 @@ class ZendoController: UITableViewController {
     
     }
     
-    func reload() {
+    func reload()
+    {
         Mixpanel.mainInstance().track(event: "activity_load",
                                       properties: ["session_count": self.samples.count])
         
@@ -186,23 +200,13 @@ class ZendoController: UITableViewController {
         self.refreshControl?.endRefreshing()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == showDetailSegue,
-            let destination = segue.destination as? ZazenController,
-            let index = tableView.indexPathForSelectedRow {
-            
-            let sample = samplesDictionary[samplesDate[index.section]]![index.row]
-            
-            currentWorkout = (sample as! HKWorkout)
-            destination.workout = currentWorkout
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
         return  isShowFirstSession ? 0.0 : 33.0
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
         if isShowFirstSession {
             return nil
         }
@@ -211,22 +215,26 @@ class ZendoController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
         if isShowFirstSession {
             return tableView.bounds.height
         }
         return 70.0
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int
+    {
         return isShowFirstSession ? 1 : samplesDate.count
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
         return isShowFirstSession ? 1 : (samplesDictionary[samplesDate[section]]?.count)!
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
         if isShowFirstSession {
             let cell = tableView.dequeueReusableCell(withIdentifier: FirstSessionTableViewCell.reuseIdentifierCell, for: indexPath) as! FirstSessionTableViewCell
             return cell
@@ -237,17 +245,20 @@ class ZendoController: UITableViewController {
         return cell
     }
     
-    @objc func reloadActivity() {
+    @objc func reloadActivity()
+    {
         self.isAutoUpdate = true
         self.autoUpdateCount = self.samples.count
         self.populateTable()
     }
     
-    @objc func onReload(_ sender: UIRefreshControl) {
+    @objc func onReload(_ sender: UIRefreshControl)
+    {
         self.populateTable()
     }
     
-    @IBAction func onNewSession(_ sender: Any) {
+    @IBAction func onNewSession(_ sender: Any)
+    {
         startingSession()
     }
     

@@ -7,20 +7,24 @@
 //  Copyright © 2017 zenbf. All rights reserved.
 //
 
-import Parse
-import Mixpanel
 import WatchKit
-import HealthKit
 import Foundation
+import HealthKit
 import WatchConnectivity
+import Mixpanel
 
-class SessionInterfaceController: WKInterfaceController, SessionDelegate
-{
-    var session: Session!
+class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     
+    @IBOutlet var commandImage: WKInterfaceImage!
     @IBOutlet var heartRateLabel: WKInterfaceLabel!
+    var timer: Timer!
+    var session: Session!
+    var heartBeats = [Int()]
+    
     @IBOutlet var timeElapsedLabel: WKInterfaceLabel!
-        
+    
+    private lazy var sessionDelegater: SessionDelegater = { return SessionDelegater() }()
+    
     func sessionTick(startDate: Date, message: String?)
     {
         DispatchQueue.main.async
@@ -36,13 +40,20 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate
         }
     }
     
+    func openUrl(urlString: String) {
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        
+        NSExtensionContext().open(url)
+    }
+    
     @IBAction func onDonePress()
     {
         endSession()
     }
     
-    @objc func endSessionFromiPhone()
-    {
+    @objc func endSessionFromiPhone() {
         endSession()
     }
     
@@ -53,30 +64,42 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate
             [weak self] workout in
             
             guard let self = self else { return }
-                        
+            
             DispatchQueue.main.async()
             {
                 if let workout = workout
                 {
                     Mixpanel.sharedInstance()?.track("watch_meditation")
                     
-                    WKInterfaceController.reloadRootControllers(withNamesAndContexts:
-                                                                    [(name: "SummaryInterfaceController",
-                                                                      context: ["session": self.session,
-                                                                            "workout": workout] as AnyObject)])
-                }
-                else
-                {
-                    let ok = WKAlertAction(title: "OK", style: .default)
-                    {
-                        ExtensionDelegate.openUrl(urlString: "x-apple-health://")
-                        
-                        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "SetGoalInterfaceController", context: false as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
-                    }
+                    self.sessionDelegater.sendMessage(["watch" : "endSession"], replyHandler: nil, errorHandler: nil)
                     
-                    self.presentAlert(withTitle: nil, message: "Error saving data. Zendō needs access to Apple Health. Nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
+                    WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SummaryInterfaceController", context: ["session": self.session, "workout": workout] as AnyObject)])
+                } else {
+                    
+                    
+                    ZBFHealthKit.getPermissions()
+                    {
+                        [weak self] success, error in
+                        
+                        guard let self = self else { return }
+                        
+                        if success {
+                            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
+                        } else {
+                            let ok = WKAlertAction(title: "OK", style: .default)
+                            {
+                                
+                                self.openUrl(urlString: "x-apple-health://")
+                                
+                                WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
+                            }
+                            
+                            self.presentAlert(withTitle: nil, message: "Error saving data. Zendō needs access to Apple Health to measure and record metrics during meditation. All Health data remains on your devices, nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
+                        }
+                    }
                                         
                 }
+                
             }
         }
     }
@@ -87,23 +110,39 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate
         
         Mixpanel.sharedInstance()?.timeEvent("watch_meditation")
         
+        sessionDelegater.sendMessage(["facebook" : "watch_meditation"],
+                                     replyHandler:
+            {
+                (message) in
+                
+                print(message.debugDescription)
+        },
+                                     errorHandler:
+            {
+                (error) in
+                
+                print(error)
+        })
+        
         if let context = context as? Session {
             session = context
             session.delegate = self
             timeElapsedLabel.setText("00:00")
         }
         
-    }
-    
-    override func willActivate()
-    {
-        super.willActivate()
-        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(endSessionFromiPhone),
+                                               name:  .endSessionFromiPhone,
+                                               object: nil)
     }
 
-    override func didDeactivate()
-    {
-        super.didDeactivate()
+    override func willActivate() {
+        super.willActivate()
     }
     
+    override func didDeactivate() {
+        super.didDeactivate()
+
+    }
+
 }

@@ -10,8 +10,8 @@ import UIKit
 import HealthKit
 
 
-public class ZBFHealthKit {
-    
+public class ZBFHealthKit
+{
     static let healthStore = HKHealthStore()
 
     static let workoutPredicate = HKQuery.predicateForWorkouts(with: .mindAndBody)
@@ -22,7 +22,6 @@ public class ZBFHealthKit {
 
     class func getPermissionTypes() -> Set<HKSampleType>
     {
-        
         let heartRateType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
         
         let hrvType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
@@ -30,19 +29,23 @@ public class ZBFHealthKit {
         let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
 
         return [heartRateType, hrvType, mindfulSessionType, HKObjectType.workoutType()]
-        
     }
     
-    class func getPermissions() {
-        
-        healthStore.handleAuthorizationForExtension { (success, error) in
+    class func getPermissions()
+    {
+        healthStore.handleAuthorizationForExtension
+        {
+            (success, error) in
             
             healthStore.requestAuthorization(
                 toShare: hkShareTypes,
                 read: hkReadTypes,
-                completion: { success, error in
+                completion:
+                {
+                    success, error in
                     
-                    if !success && error != nil {
+                    if !success && error != nil
+                    {
                         print(error.debugDescription);
                     }
                     
@@ -50,9 +53,8 @@ public class ZBFHealthKit {
         }
     }
     
-    
-    class func populateCell(workout: HKWorkout, cell: UITableViewCell) {
-        
+    class func populateCell(workout: HKWorkout, cell: UITableViewCell)
+    {
         let minutes = (workout.duration / 60).rounded()
         
         cell.textLabel?.text = "\(Int(minutes).description) min"

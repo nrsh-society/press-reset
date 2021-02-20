@@ -6,10 +6,11 @@
 //  Copyright © 2017 zenbf. All rights reserved.
 //
 import Parse
+import Smooth
 import WatchKit
 import HealthKit
-import Foundation
 import CoreMotion
+import Foundation
 import CoreFoundation
 import WatchConnectivity
 
@@ -25,84 +26,98 @@ struct Rotation
     var yaw: Double = 0.0
 }
 
-
-class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate
-{
-    static var current: Session?
-    static var options = Options()
+class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     
+    var startDate: Date?
+    var endDate: Date?
+    var workoutSession: HKWorkoutSession?
+    var isRunning = false
     var delegate: SessionDelegate! = nil
-
-    public var isRunning = false
-    public var startDate: Date?
-    public var endDate: Date?
-    public var pitch = 0.0
-    public var roll = 0.0
-    public var yaw = 0.0
-    public var motion = 0.0
-    public var heartRate = 0.0
+    var rotation = Rotation(pitch: 0.0, roll: 0.0, yaw: 0.0)
+    var motion = 0.0
+    var heartRate = 0.0
     public var heartSDNN = 0.0
-    
-    //#todo(7.0): support bluetooth + zensors
-    static var bluetoothManager: BluetoothManager?
-    var zensor = Zensor(id: UUID(), name: (PFUser.current()!.email!), hr: 0.0, batt: 100)
-    
     var heartRateSamples = [Double]()
     var heartRateRangeSamples = [Double]()
     var movementRangeSamples = [Double]()
     var meditationLog = [Bool]()
+    var heart_rate_query : HKAnchoredObjectQuery?
     
+    private var sampleTimer: Timer?
     private var notifyTimer: Timer?
     private var notifyTimerSeconds = 0
-    private var heart_rate_query : HKAnchoredObjectQuery?
     
-    private let healthStore = ZBFHealthKit.healthStore
-    var workoutSession: HKWorkoutSession?
+    private let healthStore = HKHealthStore()
     private let hkType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
     private let hkworkT = HKObjectType.workoutType()
     private var samples = [HKCategorySample]()
     private let motionManager = CMMotionManager()
     
     var metadataWork = [String: Any]()
-
-    var haptic = WKHapticType.success
-    var message = "Calibrating"
+    
+    static var options = Options()
+    static var bluetoothManager: BluetoothManager?
+    
+    static var current: Session?
+    
+    private lazy var sessionDelegater: SessionDelegater = {
+        return SessionDelegater()
+    }()
     
     override init()
     {
         super.init()
-        
-        do
-        {
-            let configuration = HKWorkoutConfiguration()
-            configuration.activityType = .other
-            configuration.locationType = .unknown
-            
-            workoutSession = try HKWorkoutSession(healthStore: healthStore, configuration: configuration)
-      
-        }
-        catch let error as NSError
-        {
-            
-            fatalError((error.localizedDescription))
-        }
     }
     
     func start()
     {
-        if let workoutSession = self.workoutSession, !self.isRunning
+        if (!self.isRunning)
         {
             self.startDate = Date()
-                                    
-            workoutSession.startActivity(with: self.startDate)
             
-            startZensors()
+            requestAccessToHealthKit()
+            
+            motionManager.startDeviceMotionUpdates()
+            
+            let configuration = HKWorkoutConfiguration()
+            
+            configuration.activityType = .mindAndBody
+            configuration.locationType = .unknown
+        
+           workoutSession = try? HKWorkoutSession(healthStore: self.healthStore, configuration: configuration)
+            
+            //let builder = workoutSession?.associatedWorkoutBuilder()
+            
+            //builder?.shouldCollectWorkoutEvents = false
+            
+            workoutSession?.startActivity(with: startDate)
+            
+            workoutSession?.pause()
+            
+            //self.healthStore.start(workoutSession!)
             
             WKInterfaceDevice.current().play(.start)
             
+            createTimers()
+            
             self.isRunning = true
             
-            self.sendMessage(["watch": "start"], replyHandler: nil, errorHandler: nil)
+            let msg = ["watch": "start"]
+            
+            let onSuccess : (([String: Any]) -> Void)? =
+            {
+                replyHandler in
+                
+            }
+            
+            let onError : ((Error) -> Void)? = {
+                
+                error in
+                
+            }
+            
+            sessionDelegater.sendMessage(msg,
+                                         replyHandler: onSuccess, errorHandler: onError)
             
         }
         else
@@ -110,7 +125,16 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate
             print("called start on running session")
         }
     }
+    
+    func requestAccessToHealthKit() {
         
+        ZBFHealthKit.getPermissions()
+        {
+            success, error in
+            
+        }
+    }
+    
     func end(workoutEnd: @escaping (HKWorkout?)->()) {
         
         if !self.isRunning {
@@ -118,17 +142,19 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate
             return
         }
         
-        stopZensors()
+        sample()
+        
+        motionManager.stopDeviceMotionUpdates()
         
         WKInterfaceDevice.current().play(.stop)
         
         self.endDate = Date()
         
-        if let workoutSession = self.workoutSession
-        {
-            workoutSession.stopActivity(with: self.endDate)
-            workoutSession.end()
-        }
+        workoutSession?.stopActivity(with: self.endDate)
+        
+        workoutSession?.end()
+        
+        //healthStore.end(workoutSession!)
         
         var healthKitSamples: [HKSample] = []
         
@@ -136,11 +162,13 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate
         
         let energyValue = HKQuantity(unit: energyUnit, doubleValue: 0.0)
         
-        let workout = HKWorkout(activityType: .other, start: self.startDate!, end: self.endDate!, workoutEvents: nil, totalEnergyBurned: energyValue, totalDistance: nil, totalSwimmingStrokeCount: nil, device: nil, metadata: metadataWork)
+        let workout = HKWorkout(activityType: .mindAndBody, start: self.startDate!, end: self.endDate!, workoutEvents: nil, totalEnergyBurned: energyValue, totalDistance: nil, totalSwimmingStrokeCount: nil, device: nil, metadata: metadataWork)
+        
+        healthKitSamples.append(workout)
         
         let mindfulType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         
-        let mindfulSample = HKCategorySample(type:mindfulType, value: 0, start: self.startDate!, end: self.endDate!)
+        let mindfulSample = HKCategorySample(type:mindfulType, value: 0, start: self.startDate!, end: self.endDate!, metadata: metadataWork)
         
         healthKitSamples.append(mindfulSample)
         
@@ -158,37 +186,39 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate
             
         }
         
-        var allSamples : [HKSample] = healthKitSamples.map({$0})
+        sessionDelegater.sendMessage(["watch": "end"],
+                                     replyHandler: nil,
+                                     errorHandler: nil)
         
-        allSamples.append(workout)
-        
-        healthStore.save(allSamples)
+        healthStore.save(healthKitSamples)
         {
             success, error in
-            
-            self.sendMessage(["watch": "end"], replyHandler: nil, errorHandler: nil)
             
             guard error == nil else
             {
                 print(error.debugDescription)
+                
                 workoutEnd(nil)
+                
                 return
             }
             
-            self.healthStore.add(healthKitSamples, to: workout, completion:
+            workoutEnd(workout)
+            
+            self.sendMessage(["watch": "reload"],
+            replyHandler:
             {
-                    success, error in
-                    
-                    guard error == nil else
-                    {
-                        print(error.debugDescription)
-                        workoutEnd(nil)
-                        return
-                    }
-                    
-                    workoutEnd(workout)
+                (replyMessage) in
+                
+            },
+            errorHandler:
+            {
+                error in
+                
             })
         }
+        
+        invalidate()
     }
     
     typealias HKQueryUpdateHandler = ((HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Swift.Void)
@@ -201,85 +231,17 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate
     private func process(sample: HKQuantitySample)
     {
         self.heartRate = sample.quantity.doubleValue(for: HKUnit(from: "count/s"))
+        heartRateSamples.append(self.heartRate)
         
         self.sample()
     }
     
-    func rrIntervalUpdated(_ rr: Int) {
-        
-        let bps = 1000 / Double(rr)
-        
-        if(bps != Double.infinity && bps != Double.nan && bps > 0.33 && bps < 3.67)
-        {
-            self.heartRate = Double(bps)
-            
-            self.sample()
-        }
-    }
-    
-    @objc func sample()  {
-        
-        heartRateSamples.append(self.heartRate)
-        
-        if(self.heartRateSamples.count > 2)
-        {
-            self.heartSDNN = standardDeviation(self.heartRateSamples)
-        }
-       
-        if let deviceMotion = self.motionManager.deviceMotion {
-            self.pitch = deviceMotion.rotationRate.x
-            self.roll = deviceMotion.rotationRate.y
-            self.yaw = deviceMotion.rotationRate.z
-        }
-                
-        self.motion = (self.pitch + self.roll + self.yaw / 3)
-        
-        var metadata: [String: Any] = [
-            MetadataType.time.rawValue: Date().timeIntervalSince1970.description,
-            MetadataType.now.rawValue: Date().description,
-            MetadataType.motion.rawValue: motion.description,
-            MetadataType.sdnn.rawValue: heartSDNN.description,
-            MetadataType.heart.rawValue: heartRate.description,
-            MetadataType.pitch.rawValue: self.pitch.description,
-            MetadataType.roll.rawValue: self.roll.description,
-            MetadataType.yaw.rawValue: self.yaw.description
-        ]
-        
-        if let user = PFUser.current()
-        {
-            if let donation = user["donations"] as? Bool, donation
-            {
-                metadata["donated"] = user["donatedMinutes"]
-            }
-            
-            if let progress = user["donations"] as? Bool, progress
-            {
-                metadata["progress"] = user["donatedMinutes"]
-                metadata["appleID"] = SettingsWatch.appleUserID
-                metadata["email"] = user.email
-            }
-            
-            user.saveInBackground()
-        }
-                
-        let empty = metadataWork.isEmpty ? "" : "/"
-        
-        for type in metadataTypeArray {
-            metadataWork[type.rawValue] = ((metadataWork[type.rawValue] as? String) ?? "") + empty + (metadata[type.rawValue] as! String)
-        }
-        
-        NotificationCenter.default.post(name: .sample, object: metadata)
-        
-        self.sendMessage(["sample" : metadata], replyHandler: nil, errorHandler: nil)
-        
-        zensor.update(hr: Float(heartRate))
-        
-    }
-    
-    func startZensors()
+    func createTimers()
     {
-        motionManager.startDeviceMotionUpdates()
-
+        notifyTimerSeconds = 0
+        
+        self.notifyTimer = Timer.scheduledTimer(timeInterval: 1, target:self, selector: #selector(Session.notify), userInfo: nil, repeats: true)
+        
         if let bluetooth = Session.bluetoothManager
         {
             if(bluetooth.isConnected())
@@ -318,42 +280,52 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate
         
         healthStore.execute(heart_rate_query)
         
-        notifyTimerSeconds = 0
-     
-        notifyTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true)
+    }
+    
+    func rrIntervalUpdated(_ rr: Int) {
+        
+        let bps = 1000 / Double(rr)
+        
+        if(bps != Double.infinity && bps != Double.nan && bps > 0.33 && bps < 3.67)
         {
-            timer in
-                self.notify(timer)
+            self.heartRate = Double(bps)
+        
+            heartRateSamples.append(self.heartRate)
+            
+            self.sample()
+        
         }
     }
-        
+    
     func standardDeviation(_ arr : [Double]) -> Double
     {
-        let rrIntervals = arr.map
-        {
-            (beat) -> Double in
-            
-            return 1000 / beat
-        }
         
-        let length = Double(rrIntervals.count)
+        let length = Double(arr.count)
         
-        let avg = rrIntervals.reduce(0, +) / length
+        let avg = arr.reduce(0, +) / length
         
-        let sumOfSquaredAvgDiff = rrIntervals.map
+        let sumOfSquaredAvgDiff = arr.map
         {pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
         
         return sqrt(sumOfSquaredAvgDiff / length)
         
     }
-        
-    //#todo(refactor): get the haptics and the meditation/feedback limits out of here
+    
+    var haptic = WKHapticType.success
+    var message = "Calibrating"
+    
+    // i am
+    //  called every 1 sec.
+    //  add the heartRate + motion data to a range/window
+    //  look at the window every 1 min and notify listeners if the person is meditating
+    //  listeners are the haptic/sound interface on the watch + zendo server/services
+    //  this clearly needs to be refactored.
     @objc func notify(_ timer: Timer)
     {
-        notifyTimerSeconds += 1
-        
         heartRateRangeSamples.append(self.heartRate)
         movementRangeSamples.append(self.motion)
+        
+        notifyTimerSeconds += 1
         
         if notifyTimerSeconds % 60 == 0
         {
@@ -415,11 +387,13 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate
             
             let isMeditating = (haptic == WKHapticType.success)
             
-            if(isMeditating)
+            self.meditationLog.append(isMeditating)
+            
+            let progress = "\(isMeditating)/\(self.meditationLog.count)".description
+            
+            if(SettingsWatch.donations)
             {
-                self.meditationLog.append(isMeditating)
-                
-                SettingsWatch.donatedMinutes += 1 //#todo(push this to the cloud)
+                SettingsWatch.donatedMinutes += 1
                 
                 PFCloud.callFunction(inBackground: "donate",
                                      withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes])
@@ -431,13 +405,13 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate
                         print(error)
                     }
                 }
+                
             }
-            else
+            
+            if(SettingsWatch.progress)
             {
-                self.meditationLog.removeAll()
-
                 PFCloud.callFunction(inBackground: "rank",
-                withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes ])
+                                     withParameters: ["id": SettingsWatch.appleUserID as Any, "donatedMinutes": SettingsWatch.donatedMinutes ])
                 {
                     (response, error) in
 
@@ -457,22 +431,142 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate
                 }
             }
             
-            let progress = "\(isMeditating)/\(self.meditationLog.count)".description
-            
-            NotificationCenter.default.post(name: .progress, object: progress)
-            
-            self.sendMessage(["progress" : progress], replyHandler: nil, errorHandler: nil)
-            
-            zensor.update(progress: progress)
+            let msg = ["progress" : progress]
+                
+            sessionDelegater.sendMessage(msg,
+                                         replyHandler:
+                                            {
+                                                message in
+                
+                                                print(message.debugDescription)
+                                            },
+                                         errorHandler:
+                                            {
+                                                error in
+                
+                                                print(error)
+                                            })
         }
         
-        if let date = self.startDate, let delegate = self.delegate {
-            delegate.sessionTick(startDate: date, message: message)
+        if let date = self.startDate
+        {
+            self.delegate.sessionTick(startDate: date, message: message)
         }
         
     }
     
-    func stopZensors()
+    func isMotionFeedbackEnabled() -> Bool
+    {
+        return true
+    }
+    
+    @objc func sample()  {
+        
+        if let deviceMotion = self.motionManager.deviceMotion {
+            self.rotation.pitch = deviceMotion.rotationRate.x
+            self.rotation.roll = deviceMotion.rotationRate.y
+            self.rotation.yaw = deviceMotion.rotationRate.z
+        }
+        
+        self.motion = abs(self.rotation.pitch) + abs(self.rotation.roll) + abs(self.rotation.yaw)
+        
+        self.motion = self.motion / 3
+        
+        self.motion = Double(round(100*self.motion)/100)
+        
+        if(self.heartRateSamples.count > 2)
+        {
+            
+            let beatsAsFloat : Array<Float> = self.heartRateSamples.map
+            {
+                Float(1000 / $0)
+            }
+            
+            
+            let smoothBeats = CubicInterpolator(points:
+                CubicInterpolator(points: beatsAsFloat, tension: 0.1).resample(interval: 3)
+                              , tension: 0.1).resample(interval: 0.25).map { $0 }
+            
+            let smoothBeatsAsDouble = smoothBeats.map
+            {
+                    Double($0)
+            }
+            
+            
+            self.heartSDNN = standardDeviation(smoothBeatsAsDouble)
+            
+            //self.heartRate = 1000 / smoothBeatsAsDouble.last!
+        }
+        
+       
+        var metadata: [String: Any] = [
+            MetadataType.time.rawValue: Date().timeIntervalSince1970.description,
+            MetadataType.now.rawValue: Date().description,
+            MetadataType.motion.rawValue: motion.description,
+            MetadataType.sdnn.rawValue: heartSDNN.description,
+            MetadataType.heart.rawValue: self.heartRate.description,
+            MetadataType.pitch.rawValue: self.rotation.pitch.description,
+            MetadataType.roll.rawValue: self.rotation.roll.description,
+            MetadataType.yaw.rawValue: self.rotation.yaw.description
+        ]
+        
+        if let appleUserUUID = SettingsWatch.appleUserID
+        {
+            if(SettingsWatch.donations)
+            {
+                metadata["donated"] = SettingsWatch.donatedMinutes.description
+            }
+            
+            if(SettingsWatch.progress)
+            {
+                metadata["progress"] = SettingsWatch.progressPosition
+                metadata["appleID"] = SettingsWatch.fullName
+            }
+        }
+        
+        sessionDelegater.sendMessage(["sample" : metadata],
+                                     
+            replyHandler:
+            {
+                (message) in
+                
+                print(message.debugDescription)
+            },
+            
+            errorHandler:
+            {
+                (error) in
+                    print(error)
+            })
+        
+        NotificationCenter.default.post(name: .sample, object: metadata)
+        
+        let empty = metadataWork.isEmpty ? "" : "/"
+        
+        for type in metadataTypeArray {
+            metadataWork[type.rawValue] = ((metadataWork[type.rawValue] as? String) ?? "") + empty + (metadata[type.rawValue] as! String)
+        }
+        
+        
+        #if DEBUG //using this for a live heartrate monitor
+            let meditation = PFObject(className:"Meditation")
+            meditation["start"] = self.startDate
+            meditation["hr"] = self.heartRate
+            meditation["hrv"] = self.heartSDNN
+            meditation["now"] = Date()
+            
+            meditation.saveInBackground { (succeeded, error)  in
+                if (succeeded) {
+                    // The object has been saved.
+                } else {
+                    // There was a problem, check error.description
+                }
+            }
+        #endif
+        
+    }
+    
+    func invalidate()
     {
         notifyTimer!.invalidate()
         
@@ -487,23 +581,12 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate
                 if(bluetooth.isConnected())
                 {
                     bluetooth.dataDelegate = nil
-                    
+         
                     return
                 }
             }
          }
-        
-        motionManager.stopDeviceMotionUpdates()
-        
-        sample()
-        
+    
         self.isRunning = false
     }
-    
-    //todo: one requested feature is to turn + tune the motion feedback seperate from the breath feedback.
-    func isMotionFeedbackEnabled() -> Bool
-    {
-        return true
-    }
-   
 }

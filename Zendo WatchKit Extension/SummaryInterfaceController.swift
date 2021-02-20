@@ -88,7 +88,7 @@ class SummaryInterfaceController: WKInterfaceController {
        Mixpanel.sharedInstance()?.track("watch_summary")
         
         if SettingsWatch.isFirstSession {
-            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session as AnyObject), (name: "SetGoalInterfaceController", context: false as AnyObject), (name: "OptionsInterfaceController", context: session as AnyObject)])
+            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session as AnyObject), (name: "OptionsInterfaceController", context: session as AnyObject)])
         } else {
             SettingsWatch.isFirstSession = true
             WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SetGoalInterfaceController", context: session as AnyObject)])

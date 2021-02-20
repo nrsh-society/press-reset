@@ -31,26 +31,338 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     @IBOutlet weak var donateMetricGroup: WKInterfaceGroup!
     @IBOutlet weak var donateMetricValue: WKInterfaceLabel!
     
-    //feedback
-    @IBOutlet var successFeedbackSlider: WKInterfaceSlider!
-    @IBOutlet var retryFeedbackSlider: WKInterfaceSlider!
+    @IBAction func donationsAction(value: Bool)
+    {
+        SettingsWatch.donations = value
+        donateMetricGroup.setHidden(!value)
+        donateLabel.setHidden(value)
+        donateMetricValue.setText(SettingsWatch.donatedMinutes.description)
+    }
     
-    //bluetooth/zensor
-    @IBOutlet var bluetoothSwitch: WKInterfaceSwitch!
-    @IBOutlet var bluetoothLabel: WKInterfaceLabel!
+    @IBAction func progressAction(value: Bool)
+    {
+        SettingsWatch.progress = value
+        progressMetricGroup.setHidden(!value)
+        progressLabel.setHidden(value)
         
-    @IBAction func successFeedbackSliderChanged(_ value: Float)
+        if let value = SettingsWatch.progressPosition
+        {
+            //this has to be the dumbest line of codes i have written
+            if (value.count  > 0)
+            {
+                progressMetricValue.setText(SettingsWatch.progressPosition)
+            }
+        }
+    }
+    
+    @IBAction func onAppleSignButtonPressed()
+    {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        
+        authorizationController.performRequests()
+    }
+    
+    @IBOutlet var mainGroup: WKInterfaceGroup!
+    @IBOutlet var doneButton: WKInterfaceButton!
+    @IBOutlet var topLabel: WKInterfaceLabel!
+    @IBOutlet var minusGroup: WKInterfaceGroup!{
+        didSet {
+//            if WKInterfaceDevice.AW42 {
+//                minusGroup.setHeight(40)
+//                minusGroup.setWidth(40)
+//                minusGroup.setCornerRadius(20)
+//            } else if WKInterfaceDevice.AW38 {
+//                minusGroup.setHeight(28)
+//                minusGroup.setWidth(28)
+//                minusGroup.setCornerRadius(14)
+//            } else if WKInterfaceDevice.AW40 {
+//                minusGroup.setHeight(30)
+//                minusGroup.setWidth(30)
+//                minusGroup.setCornerRadius(15)
+//            }
+        }
+    }
+    @IBOutlet var plusGroup: WKInterfaceGroup!{
+        didSet {
+//            if WKInterfaceDevice.AW42 {
+//                plusGroup.setHeight(40)
+//                plusGroup.setWidth(40)
+//                plusGroup.setCornerRadius(20)
+//            } else if WKInterfaceDevice.AW38 {
+//                plusGroup.setHeight(28)
+//                plusGroup.setWidth(28)
+//                plusGroup.setCornerRadius(14)
+//            } else if WKInterfaceDevice.AW40 {
+//                plusGroup.setHeight(30)
+//                plusGroup.setWidth(30)
+//                plusGroup.setCornerRadius(15)
+//            }
+        }
+    }
+    @IBOutlet var timeLabel: WKInterfaceLabel!
+
+    
+    func updateTime()
+    {
+        let mins = String(SettingsWatch.dailyMediationGoal)
+        timeLabel?.setText(mins)
+    
+        
+    }
+    
+    @IBAction func plusAction()
+    {
+        SettingsWatch.dailyMediationGoal += 1
+        updateTime()
+        
+        WKInterfaceDevice.current().play(WKHapticType.directionUp)
+    }
+    
+    @IBAction func minusAction() {
+        if SettingsWatch.dailyMediationGoal > 5 {
+            SettingsWatch.dailyMediationGoal -= 1
+            updateTime()
+            
+            WKInterfaceDevice.current().play(WKHapticType.directionDown)
+        }
+    }
+    
+    @IBAction func doneAction() {
+        if let session = session {
+            WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session as AnyObject), (name: "OptionsInterfaceController", context: session as AnyObject)])
+        }
+    }
+    
+    
+    @objc func sample(notification: NSNotification)
+    {
+        if let sample = notification.object as? [String : Any]
+        {
+            let donatedString = sample["donated"] as? String
+            let progressString = sample["progress"] as? String ?? "--/--"
+            
+            DispatchQueue.main.async
+            {
+                self.donateMetricValue.setText(donatedString)
+                self.progressMetricValue.setText(progressString)
+            }
+        }
+    }
+    
+    var session: Session?
+    
+    override func awake(withContext context: Any?)
+    {
+        
+        super.awake(withContext: context)
+        
+        if let session = context as? Session {
+            self.session = session
+            
+//            doneButton.setHidden(false)
+  //          topLabel.setText("Set a daily mindfulness goal to get reminders on progress")
+           
+            if WKInterfaceDevice.AW38 || WKInterfaceDevice.AW40 {
+    //            mainGroup.sizeToFitHeight()
+            }
+            
+            
+        }
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.sample),
+                                               name:  .sample,
+                                               object: nil)
+    }
+    
+    override func willActivate()
+    {
+        super.willActivate()
+        
+        updateTime()
+            
+        Mixpanel.sharedInstance()?.timeEvent("watch_options")
+               
+        if let bluetooth = Session.bluetoothManager
+        {
+            self.bluetoothToogle.setOn(bluetooth.isRunning)
+            Session.bluetoothManager?.statusDelegate = self
+            bluetoothStatus.setText(bluetooth.status)
+        }
+               
+        self.hapticSetting.setValue(Float(Session.options.hapticStrength))
+        
+        self.retryFeedback.setValue(Float(Session.options.retryStrength))
+        
+        let isSignedIn = (SettingsWatch.appleUserID != nil)
+        
+        if isSignedIn
+        {
+            self.authorizationButton.setHidden(true)
+            self.signinLabel.setHidden(true)
+
+            self.donateSwitch.setEnabled(true)
+            self.progressSwitch.setEnabled(true)
+            
+            self.donateSwitch.setOn(SettingsWatch.donations)
+            self.progressSwitch.setOn(SettingsWatch.progress)
+    
+            donationsAction(value: SettingsWatch.donations)
+            progressAction(value: SettingsWatch.progress)
+            
+        }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
+    {
+        switch authorization.credential
+        {
+            case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            
+                let userIdentifier = appleIDCredential.user
+                
+                if userIdentifier == SettingsWatch.appleUserID {
+                    
+                    self.animate(withDuration: 1, animations: {
+                        self.authorizationButton.setHidden(true)
+                        self.signinLabel.setHidden(true)
+                        
+                        self.donateSwitch.setEnabled(true)
+                        self.progressSwitch.setEnabled(true)
+                        
+                    })
+                }
+                
+                SettingsWatch.appleUserID = userIdentifier
+                SettingsWatch.email = appleIDCredential.email
+                
+                PFUser.logInWithUsername(inBackground: userIdentifier, password: String(userIdentifier.prefix(9)))
+                    { user, error in }
+                
+                if let fullName = appleIDCredential.fullName , let email = appleIDCredential.email
+                {
+                
+                    SettingsWatch.fullName =
+                        (fullName.givenName ?? "") +
+                            " " + (fullName.familyName ?? "")
+                    SettingsWatch.email = email.description
+                
+                    Mixpanel.sharedInstance()?.track("watch_signin", properties: ["email": SettingsWatch.email as Any])
+                
+                    Mixpanel.sharedInstance()?.identify(SettingsWatch.email!)
+                    Mixpanel.sharedInstance()?.people.set(["$email": SettingsWatch.email!])
+                    Mixpanel.sharedInstance()?.people.set(["$name": SettingsWatch.fullName!])
+                    
+                    let user = PFUser()
+                    user.username = userIdentifier
+                    user.password = String(userIdentifier.prefix(9))
+                    user.email = SettingsWatch.email
+                    
+                    user.signUpInBackground
+                    {
+                        (succeeded, error) in
+                        
+                        if let error = error
+                        {
+                            print(error.localizedDescription)
+                            
+                            SettingsWatch.registered = false
+                            
+                        }
+                        else
+                        {
+                            user.donations = SettingsWatch.donations
+                            user.donatedMinutes = SettingsWatch.donatedMinutes
+                            user.progress = SettingsWatch.progress
+                            user.progressPosition = SettingsWatch.progressPosition ?? "-/-"
+                            user.progress = SettingsWatch.progress
+                            user.successFeedbackLevel = Options().hapticStrength
+                            user.retryFeedbackLevel = Options().retryStrength
+                                            
+                            //todo
+                            user["communityEmail"] = SettingsWatch.email
+                            user["communityFullname"] = SettingsWatch.fullName
+                            user["localNotications"] = SettingsWatch.localNotications
+                            user["dailyMediationGoal"] = SettingsWatch.dailyMediationGoal
+                            user["currentDailyMediationPercent"] = SettingsWatch.currentDailyMediationPercent
+                            
+                            user.saveInBackground()
+                            user.track("watch_registered")
+                            
+                            SettingsWatch.registered = true
+                            SettingsWatch.loggedIn = true
+                        }
+                    }
+                
+                    let ok = WKAlertAction(title: "OK", style: .default)
+                    {
+                                            
+                    }
+        
+                    self.presentAlert(withTitle: nil, message: "Hi \(fullName.givenName ?? "")! Thanks for caring.", preferredStyle: .alert, actions: [ok])
+                }
+                
+            break
+                
+        default:
+            print("if you are seeing this it is too late")
+            
+            //but we are going to hyjack this for the demo videos\
+        
+            self.animate(withDuration: 1, animations: {
+                
+                self.authorizationButton.setHidden(true)
+                self.signinLabel.setHidden(true)
+                
+                self.donateSwitch.setEnabled(true)
+                self.progressSwitch.setEnabled(true)
+                
+            })
+        
+        }
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error)
+    {
+        //but we are going to hyjack this for the demo videos\
+    /*
+        self.animate(withDuration: 1, animations: {
+            
+            self.authorizationButton.setHidden(true)
+            self.signinLabel.setHidden(true)
+            
+            self.donateSwitch.setEnabled(true)
+            self.progressSwitch.setEnabled(true)
+            
+        })*/
+        
+            let ok = WKAlertAction(title: "OK", style: .default)
+            {
+                
+            }
+        
+            self.presentAlert(withTitle: nil, message: "Error signing in. Zendō uses Apple Sign in for secure access. Nothing is shared without your permission.", preferredStyle: .alert, actions: [ok])
+    }
+    
+    @IBOutlet var bluetoothStatus: WKInterfaceLabel!
+    @IBOutlet var hapticSetting: WKInterfaceSlider!
+    
+    @IBOutlet weak var retryFeedback: WKInterfaceSlider!
+    @IBOutlet var bluetoothToogle: WKInterfaceSwitch!
+        
+    @IBAction func KyosakChanged(_ value: Float)
     {
         Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
         
-        if let user = PFUser.current(), user.migratedToParse
-        {
-            user.successFeedbackLevel = Int(value)
-            user.track("watch_successFeedbackSliderChanged")
-            user.saveInBackground()
-        }
+        Session.options.hapticStrength = Int(value)
         
-        let iterations = Int(value)
+                
+        let iterations = Int(Session.options.hapticStrength)
         
         if iterations > 0
         {
@@ -69,37 +381,32 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         }
     }
     
-    @IBAction func retryFeedbackSliderChanged(_ value: Float)
+    @IBAction func retryChanged(_ value: Float)
     {
         Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
         
-        if let user = PFUser.current(), user.migratedToParse
-        {
-            user.retryFeedbackLevel = Int(value)
-            user.track("watch_retryFeedbackSliderChanged")
-            user.saveInBackground()
-        }
+        Session.options.retryStrength = Int(value)
         
-        let iterations = Int(value)
+        let iterations = Int(Session.options.retryStrength)
         
         if iterations > 0
         {
             Thread.detachNewThread
-            {
-                for _ in 1...iterations
                 {
-                    DispatchQueue.main.async
+                    for _ in 1...iterations
                     {
-                        WKInterfaceDevice.current().play(WKHapticType.retry)
-                    }
+                        DispatchQueue.main.async
+                            {
+                                WKInterfaceDevice.current().play(WKHapticType.retry)
+                        }
                         
-                    Thread.sleep(forTimeInterval: 1)
-                }
+                        Thread.sleep(forTimeInterval: 1)
+                    }
             }
         }
     }
     
-    @IBAction func bluetoothSwitchChanged(_ value: Bool)
+    @IBAction func bluetoothChanged(_ value: Bool)
     {
         Mixpanel.sharedInstance()?.track("watch_options_bluetooth", properties: ["value": value])
         
@@ -113,229 +420,24 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         {
             Session.bluetoothManager?.end()
             Session.bluetoothManager = nil
-            bluetoothLabel.setText("")
+            bluetoothStatus.setText("")
         }
     }
     
-    @IBAction func donationsAction(value: Bool)
+    func statusUpdated(_ status: String)
     {
-        SettingsWatch.donations = value
-        donateMetricGroup.setHidden(!value)
-        donateLabel.setHidden(value)
-        
-        if let user = PFUser.current(), user.migratedToParse
+        DispatchQueue.main.async
         {
-            self.donateMetricValue.setText(user.donatedMinutes.description)
-            user.donations = true
-            user.track("watch_donationsAction")
-            user.saveInBackground()
+            self.bluetoothStatus.setText(status)
         }
     }
     
-    @IBAction func progressAction(value: Bool)
-    {
-        SettingsWatch.progress = value
-        progressMetricGroup.setHidden(!value)
-        progressLabel.setHidden(value)
-        
-        if let user = PFUser.current(), user.migratedToParse
-        {
-            progressMetricValue.setText(user.progressPosition)
-            user.progress = true
-            user.track("watch_progressAction")
-            user.saveInBackground()
-        }
-    }
-    
-    @IBAction func onAppleSignButtonPressed()
-    {
-        Mixpanel.sharedInstance()?.timeEvent("watch_signin")
-        
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-        
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        
-        authorizationController.performRequests()
-    }
-    
-    
-    @objc func progress(notification: NSNotification)
-    {
-        if let user = PFUser.current()
-        {
-            let donatedString = (user["donatedMinutes"] ?? "--") as? String
-            let progressString = (user["progressPosition"] ?? "-/-") as? String
-            
-            DispatchQueue.main.async
-            {
-                self.donateMetricValue.setText(donatedString)
-                self.progressMetricValue.setText(progressString)
-            }
-        }
-    }
-    
-    override func awake(withContext context: Any?)
-    {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.progress),
-                                               name:  .progress,
-                                               object: nil)
-    }
-    
-    deinit
-    {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
+   
     override func didDeactivate()
     {
         super.didDeactivate()
         
         Mixpanel.sharedInstance()?.track("watch_options")
-        
-    }
-    
-    override func willActivate()
-    {
-        super.willActivate()
-            
-        Mixpanel.sharedInstance()?.timeEvent("watch_options")
-               
-        if let user = PFUser.current()
-        {
-            self.successFeedbackSlider.setValue(Float(Session.options.hapticStrength))
-            
-            self.authorizationButton.setHidden(true)
-            self.signinLabel.setHidden(true)
-            
-            self.donateSwitch.setEnabled(true)
-            self.progressSwitch.setEnabled(true)
-            
-            let donations = (user["donations"] ?? false) as! Bool
-            let progress = (user["progress"] ?? false) as! Bool
-            
-            donationsAction(value: donations)
-            progressAction(value: progress)
-            
-            let donatedString = (user["donatedMinutes"] ?? "--") as? String
-            let progressString = (user["progressPosition"] ?? "-/-") as? String
-
-            self.donateMetricValue.setText(donatedString)
-            self.progressMetricValue.setText(progressString)
-
-        }
-        
-        //#todo(v7.0): merge with zensor too
-        if let bluetooth = Session.bluetoothManager
-        {
-            self.bluetoothSwitch.setOn(bluetooth.isRunning)
-            Session.bluetoothManager?.statusDelegate = self
-            bluetoothLabel.setText(bluetooth.status)
-        }
-    }
-    
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
-    {
-        
-        switch authorization.credential
-        {
-            case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            
-                let userIdentifier = appleIDCredential.user
-                
-                //#backward-compat: this was someone that logged in before we added the backend
-                if userIdentifier == SettingsWatch.appleUserID
-                {
-                    self.animate(withDuration: 1, animations:
-                    {
-                        self.authorizationButton.setHidden(true)
-                        self.signinLabel.setHidden(true)
-                        
-                        self.donateSwitch.setOn(SettingsWatch.donations)
-                        self.progressSwitch.setOn(SettingsWatch.progress)
-                
-                        self.donationsAction(value: SettingsWatch.donations)
-                        self.progressAction(value: SettingsWatch.progress)
-                     
-                    })
-                    
-                    Mixpanel.sharedInstance()?.track("watch_signin_upgrade", properties: ["email": SettingsWatch.email as Any])
-                }
-                else
-                {
-                    SettingsWatch.appleUserID = userIdentifier
-                }
-               
-                if let fullName = appleIDCredential.fullName , let email = appleIDCredential.email
-                {
-                    //#backward-compat: support this until 7.0?
-                    SettingsWatch.fullName =
-                        (fullName.givenName ?? "") +
-                            " " + (fullName.familyName ?? "")
-                    SettingsWatch.email = email.description
-                
-                    Mixpanel.sharedInstance()?.identify(SettingsWatch.email!)
-                    Mixpanel.sharedInstance()?.people.set(["$email": SettingsWatch.email!])
-                    Mixpanel.sharedInstance()?.people.set(["$name": SettingsWatch.fullName!])
-                    Mixpanel.sharedInstance()?.people.set(["$appleid": SettingsWatch.appleUserID!])
-            
-                    let user = PFUser()
-                    user.username = userIdentifier
-                    user.password = String(userIdentifier.prefix(9))
-                    user.email = email.description
-                    user["fullname"] = (fullName.givenName ?? "") +
-                        " " + (fullName.familyName ?? "")
-                    user["donatedMinutes"] = 0
-                    user["progressPosition"] = "-/-"
-                    user["donations"] = SettingsWatch.donations //backward compat
-                    user["progress"] = SettingsWatch.progress //backward compat
-                
-                    user.signUpInBackground
-                    {
-                        (succeeded, error) in
-                        
-                        if let error = error
-                        {
-                            print(error.localizedDescription)
-                            
-                        }
-                    }
-                    let ok = WKAlertAction(title: "OK", style: .default)
-                    {
-                        Mixpanel.sharedInstance()?.track("watch_signin")
-                    }
-        
-                    self.presentAlert(withTitle: nil, message: "Hi \(fullName.givenName ?? "")! Thanks for caring.", preferredStyle: .alert, actions: [ok])
-                }
-                
-            break
-                
-        default:
-            print("if you are seeing this it is too late")
-            
-        }
-    }
-
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error)
-    {
-
-        let ok = WKAlertAction(title: "OK", style: .default) {
-            
-            Mixpanel.sharedInstance()?.track("watch_signin", properties: ["email": SettingsWatch.email as Any])
-        }
-        
-        self.presentAlert(withTitle: nil, message: "Error signing in. Zendō uses Apple Sign in for secure access. Nothing is shared without your permission.", preferredStyle: .alert, actions: [ok])
-    }
-        
-    func statusUpdated(_ status: String)
-    {
-        DispatchQueue.main.async
-        {
-            self.bluetoothLabel.setText(status)
-        }
     }
     
 }

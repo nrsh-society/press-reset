@@ -34,7 +34,7 @@ class VideoViewController: UIViewController {
     let diskConfig = DiskConfig(name: "DiskCache")
     let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
     
-    lazy var storage: Cache.Storage? = {
+    lazy var storage: Cache.Storage<String, Data>? = {
         return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forData())
     }()
     

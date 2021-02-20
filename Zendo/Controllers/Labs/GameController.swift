@@ -17,7 +17,6 @@ import Mixpanel
 import Cache
 import SwiftyJSON
 import Vision
-import HaishinKit
 import XpringKit
 
 class GameController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate
@@ -40,11 +39,9 @@ class GameController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     private let videoDataOutput = AVCaptureVideoDataOutput()
     private let videoFileOutput = AVCaptureMovieFileOutput()
     private var drawings: [CAShapeLayer] = []
-    private let rtmpConnection = RTMPConnection()
-    private lazy var rtmpStream = RTMPStream(connection: self.rtmpConnection)
     private let diskConfig = DiskConfig(name: "DiskCache")
     private let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
-    private lazy var storage: Cache.Storage? = {
+    private lazy var storage: Cache.Storage<String, Data>? = {
         return try? Cache.Storage(diskConfig: diskConfig, memoryConfig: memoryConfig, transformer: TransformerFactory.forData())
     }()
     
@@ -481,7 +478,7 @@ class GameController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 
                 if let creator = self.story.creatorPayID
                 {
-                    self.payout(creatorPayID: creator)
+                    //self.payout(creatorPayID: creator)
                 }
             }
         }
@@ -576,10 +573,6 @@ class GameController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             else
             {
                 self.zensor = Zensor(id: UUID() , name: Settings.email ?? "Apple Watch", hr: Float(double_hr) , batt: 100)
-            }
-            
-            if let cause = self.story.causePayID {
-                self.donate(causePayID: cause)
             }
         }
         
@@ -837,83 +830,6 @@ class GameController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     {
         if let viewWithTag = self.view.viewWithTag(100) {
             viewWithTag.removeFromSuperview()
-        }
-    }
-    
-    //todo(debt): put all of this stuff in a MoneyKit.swift file.
-    func moveXrp(source: Wallet, target: String, drops: UInt64, useMainnet: Bool)
-    {
-        
-        Mixpanel.mainInstance().track(event: "lab_movexrp")
-        
-        let xpringClient = DefaultXRPClient(grpcURL: "main.xrp.xpring.io:50051", xrplNetwork: XRPLNetwork.main)
-        
-        let transactionHash = try! xpringClient.send(drops, to: target, from: source)
-        
-        let status = try! xpringClient.paymentStatus(for: transactionHash)
-        
-        let success = status == TransactionStatus.succeeded
-        
-        let retval = (txn: transactionHash.description, status: success.description)
-        
-        print ("[txn: \(retval.txn)] \r\n")
-        
-    }
-    
-    func donate(causePayID: String)
-    {
-        
-        Mixpanel.mainInstance().track(event: "lab_donate")
-        
-        let payIDClient = PayIDClient()
-        
-        do {
-            
-            let causeXRPLAddress = try payIDClient.cryptoAddress(for: causePayID, on: "xrpl-mainnet").get()
-            
-            let tag = UInt32(causeXRPLAddress.tag ?? "0")
-            
-            let causeXAddress = Utils.encode(classicAddress: causeXRPLAddress.address, tag: tag, isTest: false)!
-            
-            let amount = UInt64(166666)
-            
-            let wallet = Wallet(seed: self.story.sponsorKey!)!
-            
-            self.moveXrp(source: wallet, target: causeXAddress, drops: amount, useMainnet: true)
-            
-        } catch {
-            
-            print(error.localizedDescription)
-            
-        }
-        
-        
-    }
-    
-    func payout(creatorPayID: String)
-    {
-        Mixpanel.mainInstance().track(event: "lab_payout")
-        
-        let payIDClient = PayIDClient()
-        
-        do
-        {
-            let creatorXRPLAddress = try payIDClient.cryptoAddress(for: creatorPayID, on: "xrpl-mainnet").get()
-            
-            let tag = UInt32(creatorXRPLAddress.tag ?? "0")
-            
-            let causeXAddress = Utils.encode(classicAddress: creatorXRPLAddress.address, tag: tag, isTest: false)!
-            
-            let amount = UInt64(166666)
-            
-            let wallet = Wallet(seed: story.sponsorKey!)!
-            
-            self.moveXrp(source: wallet, target: causeXAddress, drops: amount, useMainnet: true)
-            
-        } catch {
-            
-            print(error.localizedDescription)
-            
         }
     }
     
