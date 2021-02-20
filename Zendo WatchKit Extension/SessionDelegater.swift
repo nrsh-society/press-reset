@@ -41,4 +41,6 @@ class SessionDelegater: NSObject, WCSessionDelegate, SessionCommands {
         }
     }
     
+    
+    
 }

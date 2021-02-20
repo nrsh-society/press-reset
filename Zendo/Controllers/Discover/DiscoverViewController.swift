@@ -19,7 +19,7 @@ class SubscriptionHeaderTableViewCell: UITableViewCell {
     
     enum SubscriptionStatus: String {
         //case end = "support our work together..."
-        case trial =  "Support Our Work"
+        case trial =  "Support the Work"
     }
     
     @IBOutlet weak var textLabelSub: UILabel!
@@ -179,9 +179,9 @@ class DiscoverViewController: UIViewController {
         
         //#todo: make this based on the build #
         #if DEBUG
-        let urlPath: String = "http://media.zendo.tools/discover.v6.00.json?v=\(Date().timeIntervalSinceNow)"
+        let urlPath: String = "http://media.zendo.tools/discover.v6.50.json?v=\(Date().timeIntervalSinceNow)"
         #else
-        let urlPath: String = "http://media.zendo.tools/discover.v6.00.json?v=\(Date().timeIntervalSinceNow)"
+        let urlPath: String = "http://media.zendo.tools/discover.v6.50.json?v=\(Date().timeIntervalSinceNow)"
         #endif
         
         URLSession.shared.dataTask(with: URL(string: urlPath)!)
@@ -511,33 +511,16 @@ extension DiscoverViewController: UICollectionViewDataSource {
         
         var vc : UIViewController?
         
-        if story.type == "cause"
+        if story.type == "game"
         {
-                 let cause = LabController.loadFromStoryboard()
-            cause.story = story
-            cause.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-            cause.modalPresentationStyle = .fullScreen
-            cause.hero.isEnabled = true
-                vc = cause
+            let game = GameController.loadFromStoryboard()
 
-        }
-        else if story.type == "create"
-        {
-            let creator = LabController.loadFromStoryboard()
-            creator.story = story
-            creator.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-            creator.modalPresentationStyle = .fullScreen
-            creator.hero.isEnabled = true
-                    vc = creator
-        }
-        else if story.type == "train"
-        {
-            let train = TrainController.loadFromStoryboard(true)
-            train.story = story
-            train.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-            train.modalPresentationStyle = .fullScreen
-            train.hero.isEnabled = true
-            vc = train
+            game.story = story
+            game.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            game.modalPresentationStyle = .fullScreen
+            game.hero.isEnabled = true
+            vc = game
+           
         } else if story.type == "labs"
         {
             //todo(this support N zensors)

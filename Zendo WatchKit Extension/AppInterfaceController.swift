@@ -12,13 +12,10 @@ import HealthKit
 import Mixpanel
 import UserNotifications
 
-
 class AppInterfaceController: WKInterfaceController {
     
     @IBOutlet var hrvLabel: WKInterfaceLabel!
     @IBOutlet var mainGroup: WKInterfaceGroup!
-    
-    private lazy var sessionDelegater: SessionDelegater = { return SessionDelegater() }()
     
     func openUrl(urlString: String) {
         guard let url = URL(string: urlString) else {
@@ -30,21 +27,13 @@ class AppInterfaceController: WKInterfaceController {
     
     @IBAction func start() {
         
-        SettingsWatch.checkAuthorizationStatus {
-            [weak self] success in
+        ZBFHealthKit.getPermissions()
+        {
+            [weak self] success, error in
             
-            if success {
-                NSLog("start press")
-                
-                Session.current = Session()
-                
-                Session.current?.start()
-                
-                WKInterfaceDevice.current().play(WKHapticType.start)
-                
-                WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject)])
-            }
-            else
+            Mixpanel.sharedInstance()?.track("watch_healthkit", properties: ["success" : success])
+            
+            guard error == nil else
             {
                 let ok = WKAlertAction(title: "OK", style: .default)
                 {
@@ -52,7 +41,17 @@ class AppInterfaceController: WKInterfaceController {
                     
                 }
                 
-                self?.presentAlert(withTitle: nil, message: "Zendō needs access to Apple Health to measure + record metrics during meditation. All Health data remains on your devices, nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
+                self?.presentAlert(withTitle: nil, message: "Zendō needs access to Apple Health. Nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
+                
+                return
+            }
+            
+            if success
+            {
+                DispatchQueue.main.async()
+                {
+                    self?.startSession()
+                }
             }
         }
         
@@ -129,7 +128,6 @@ class AppInterfaceController: WKInterfaceController {
                 //Notification.daily()
             #endif
             
-            
             Notification.weekly()
             
             Notification.daily()
@@ -143,30 +141,26 @@ class AppInterfaceController: WKInterfaceController {
     
     override func willActivate()
     {
-
         super.willActivate()
-        
-        Mixpanel.sharedInstance()?.timeEvent("watch_overview")
-        
-        //#todo(v5.1): logging
-        sessionDelegater.sendMessage(
-            ["facebook" : "watch_overview"],
-            replyHandler:
-            {
-                (message) in
-                
-                print(message.debugDescription)
-            },
-            errorHandler:
-            {
-                (error) in
-                
-                print(error)
-            })
         
         ZBFHealthKit.getPermissions()
         {
-            success, error in
+            [weak self] success, error in
+            
+            Mixpanel.sharedInstance()?.track("watch_healthkit", properties: ["success" : success])
+            
+            guard error == nil else
+            {
+                let ok = WKAlertAction(title: "OK", style: .default)
+                {
+                    self?.openUrl(urlString: "x-apple-health://")
+                }
+                DispatchQueue.main.async()
+                {
+                self?.presentAlert(withTitle: nil, message: "Zendō needs access to Apple Health. Nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
+                }
+                return
+            }
             
             if(success)
             {
@@ -178,7 +172,7 @@ class AppInterfaceController: WKInterfaceController {
                     {
                         if value > 0.0
                         {
-                            self.hrvLabel.setText(Int(value.rounded()).description + "ms")
+                            self?.hrvLabel.setText(Int(value.rounded()).description + "ms")
                         }
                     }
                 }
@@ -187,42 +181,51 @@ class AppInterfaceController: WKInterfaceController {
                 {
                     sec, error in
 
-                    let currentPercent = SettingsWatch.currentDailyMediationPercent
-                    let goalMins = SettingsWatch.dailyMediationGoal
+                    DispatchQueue.main.async()
+                    {
                     
-                    if let sec = sec {
-                        let mins = sec / 60.0
+                        let currentPercent = SettingsWatch.currentDailyMediationPercent
+                        let goalMins = SettingsWatch.dailyMediationGoal
+                    
+                        if let sec = sec
+                        {
+                            let mins = sec / 60.0
                         
-                        let percent = Int(((mins / Double(goalMins)) * 100.0) / 2.0)
+                            let percent = Int(((mins / Double(goalMins)) * 100.0) / 2.0)
 
-                        if percent >= 161 {
-                            self.mainGroup.setBackgroundImageNamed("ring161")
-                            return
-                        }
+                            if percent >= 161
+                            {
+                                self?.mainGroup.setBackgroundImageNamed("ring161")
+                                return
+                            }
 
-                        self.mainGroup.setBackgroundImageNamed("ring")
+                            self?.mainGroup.setBackgroundImageNamed("ring")
 
-                        if currentPercent < percent {
-                            self.mainGroup.startAnimatingWithImages(in:
+                            if currentPercent < percent {
+                                self?.mainGroup.startAnimatingWithImages(in:
                                 NSRange(location: currentPercent, length: percent - currentPercent),
                                                                     duration: 0.6, repeatCount: 1)
-                        } else if currentPercent > percent {
-                            self.mainGroup.setBackgroundImageNamed("ring\(percent)")
+                            } else if currentPercent > percent {
+                                self?.mainGroup.setBackgroundImageNamed("ring\(percent)")
 
-                        } else {
-                            self.mainGroup.setBackgroundImageNamed("ring\(percent)")
-                        }
+                            } else {
+                                self?.mainGroup.setBackgroundImageNamed("ring\(percent)")
+                            }
 
                         SettingsWatch.currentDailyMediationPercent = percent
 
-                    } else {
-                        self.mainGroup.setBackgroundImageNamed("ring0")
+                    }
+                    else
+                    {
+                        self?.mainGroup.setBackgroundImageNamed("ring0")
+                    }
                     }
                 }
             }
             
         }
         
+        Mixpanel.sharedInstance()?.timeEvent("watch_overview")
     }
     
     override func didDeactivate()

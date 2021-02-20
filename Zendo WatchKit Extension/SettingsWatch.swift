@@ -9,14 +9,14 @@
 import Foundation
 import HealthKit
 
-
-class SettingsWatch  {
-    
+class SettingsWatch
+{
     static let defaults = UserDefaults.standard
     
     static let dailyMediationGoalKey = "dailyMediationGoal"
-    
-    static var loggedIn: Bool {
+        
+    static var loggedIn: Bool
+    {
         set {
             defaults.set(newValue, forKey: "loggedIn")
             defaults.synchronize()
@@ -26,7 +26,8 @@ class SettingsWatch  {
         }
     }
     
-    static var registered: Bool {
+    static var registered: Bool
+    {
         set {
             defaults.set(newValue, forKey: "registered")
             defaults.synchronize()
@@ -36,37 +37,47 @@ class SettingsWatch  {
         }
     }
     
-    static var appleUserID: String? {
-        set {
+    static var appleUserID: String?
+    {
+        set
+        {
             defaults.set(newValue, forKey: "appleUserID")
             defaults.synchronize()
         }
-        get {
+        get
+        {
             return defaults.string(forKey: "appleUserID")
         }
     }
     
-    static var donatedMinutes: Int {
-        set {
+    static var donatedMinutes: Int
+    {
+        set
+        {
             defaults.set(newValue, forKey: "totalMinsMeditated")
             defaults.synchronize()
         }
-        get {
+        get
+        {
             return defaults.integer(forKey: "totalMinsMeditated")
         }
     }
     
-    static var progressPosition: String? {
-        set {
+    static var progressPosition: String?
+    {
+        set
+        {
             defaults.set(newValue, forKey: "progressPosition")
             defaults.synchronize()
         }
-        get {
+        get
+        {
             return defaults.string(forKey: "progressPosition")
         }
     }
     
-    static var fullName: String? {
+    static var fullName: String?
+    {
         set {
             defaults.set(newValue, forKey: "fullNameWatch")
             defaults.synchronize()
@@ -76,7 +87,8 @@ class SettingsWatch  {
         }
     }
     
-    static var email: String? {
+    static var email: String?
+    {
         set {
             defaults.set(newValue, forKey: "emailWatch")
             defaults.synchronize()
@@ -86,7 +98,8 @@ class SettingsWatch  {
         }
     }
     
-    static var localNotications: Bool {
+    static var localNotications: Bool
+    {
         set {
             defaults.set(newValue, forKey: "requestedNotificationPermission")
             defaults.synchronize()
@@ -96,7 +109,8 @@ class SettingsWatch  {
         }
     }
     
-    static var donations: Bool {
+    static var donations: Bool
+    {
         set {
             defaults.set(newValue, forKey: "requestedDonationsPermission")
             defaults.synchronize()
@@ -106,7 +120,8 @@ class SettingsWatch  {
         }
     }
     
-    static var progress: Bool {
+    static var progress: Bool
+    {
         set {
             defaults.set(newValue, forKey: "requestedProgressPermission")
             defaults.synchronize()
@@ -116,7 +131,8 @@ class SettingsWatch  {
         }
     }
     
-    static var dailyMediationGoal: Int {
+    static var dailyMediationGoal: Int
+    {
         set {
             defaults.set(newValue, forKey: "dailyMediationGoal")
             defaults.synchronize()
@@ -126,7 +142,8 @@ class SettingsWatch  {
         }
     }
     
-    static var currentDailyMediationPercent: Int {
+    static var currentDailyMediationPercent: Int
+    {
         set {
             defaults.set(newValue, forKey: "currentDailyMediationPercent")
             defaults.synchronize()
@@ -136,7 +153,8 @@ class SettingsWatch  {
         }
     }
     
-    static var isFirstSession: Bool {
+    static var isFirstSession: Bool
+    {
         set {
             defaults.set(newValue, forKey: "isFirsrSession")
             defaults.synchronize()
@@ -145,43 +163,48 @@ class SettingsWatch  {
             return defaults.bool(forKey: "isFirsrSession")
         }
     }
-    
-    
-    //
-    static func getHealthKitTypes() -> Set<HKSampleType> {
-        let healthKitTypes: Set<HKSampleType> = [
-            .workoutType(),
-            .quantityType(forIdentifier: .heartRate)!,
-            .quantityType(forIdentifier: .heartRateVariabilitySDNN)!,
-            .categoryType(forIdentifier: .mindfulSession)!
-        ]
-
-        return healthKitTypes
-    }
-    
-    static func checkAuthorizationStatus(handle: ((_ success: Bool)->())? = nil) {
-        if #available(watchOSApplicationExtension 5.0, *) {
-            
-            let healthKitTypes = getHealthKitTypes()
-            
-            var isRequestAuthorization = false
-            
-            for type in healthKitTypes {
-                let status = HKHealthStore().authorizationStatus(for: type)
-                
-                if status == .sharingDenied || status == .notDetermined {
-                    isRequestAuthorization = true
-                    break
-                }
-            }
-            
-            handle?(!isRequestAuthorization)
-                                                                                    
-        } else {
-            handle?(true)
-        }
-        
-    }
-    
 }
 
+struct Options
+{
+    var hapticStrength : Int
+    {
+        get
+        {
+            if let value = UserDefaults.standard.object(forKey: "hapticStrength")
+            {
+                return value as! Int
+            }
+            else
+            {
+                return 1
+            }
+        }
+        
+        set
+        {
+            UserDefaults.standard.set(newValue, forKey: "hapticStrength")
+        }
+    }
+    
+    var retryStrength : Int
+    {
+        get
+        {
+            
+            if let value = UserDefaults.standard.object(forKey: "retryStrength")
+            {
+                return value as! Int
+            }
+            else
+            {
+                return 1
+            }
+        }
+        
+        set
+        {
+            UserDefaults.standard.set(newValue, forKey: "retryStrength")
+        }
+    }
+}

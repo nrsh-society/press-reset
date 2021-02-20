@@ -13,12 +13,13 @@ import HealthKit
 import WatchConnectivity
 import UserNotifications
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserNotificationCenterDelegate {
+class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserNotificationCenterDelegate
+{
     
     private lazy var sessionDelegater: SessionDelegater = {
+        
         return SessionDelegater()
     }()
-    let healthStore = HKHealthStore()
     
     override init()
     {
@@ -29,6 +30,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
     
     func applicationDidFinishLaunching()
     {
+
         if(!Parse.isLocalDatastoreEnabled)
         {
             Parse.enableLocalDatastore()
@@ -95,33 +97,25 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
                     }
                 }
             }
-        }
-        
-        requestAccessToHealthKit()
-        
-        Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
-
+        }        
+        //#todo(7.0): remove Mixpanel
         if let name = SettingsWatch.fullName, let email = SettingsWatch.email
         {
+            Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
             Mixpanel.sharedInstance()?.identify(email)
             Mixpanel.sharedInstance()?.people.set(["$email": email])
             Mixpanel.sharedInstance()?.people.set(["$name": name])
-
         }
         else
         {
-            sendMessage(["watch": "mixpanel"], replyHandler: { reply in
+            sendMessage(["watch": "mixpanel"],
+                        replyHandler:
+                            {
+                reply in
                 if let reply = reply as? [String: String],
                     let email = reply["email"],
                     let name = reply["name"] {
                     
-                    if let user = PFUser.current()
-                    {
-                        user.email = email
-                        user["fullname"] = name
-                        user.saveInBackground()
-                    }
-
                     SettingsWatch.fullName = name
                     SettingsWatch.email = email
 
@@ -146,21 +140,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, etc.
     }
-    
-    func requestAccessToHealthKit() {
-        if #available(watchOSApplicationExtension 5.0, *) {
-            SettingsWatch.checkAuthorizationStatus { [weak self] success in
-                if !success {
-                    let healthKitTypes = SettingsWatch.getHealthKitTypes()
-                    
-                    self?.healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { success, error in
-                        print("Successful HealthKit Authorization from Watch's extension Delegate")
-                    }
-                }
-            }
-        }
-    }
-        
+            
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
         // Sent when the system needs to launch the application in the background to process tasks. Tasks arrive in a set, so loop through and process each one.
         for task in backgroundTasks {
@@ -205,20 +185,42 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         
     }
     
-    public func handle(_ workoutConfiguration: HKWorkoutConfiguration) {
-        if Session.current != nil && (Session.current?.isRunning)! {
-            return
-        }
+    static func openUrl(urlString: String)
+    {
+        guard let url = URL(string: urlString) else { return }
         
-        requestAccessToHealthKit()
-        
-        Session.current = Session()
-        
-        Session.current?.start()
-        
-        WKInterfaceDevice.current().play(WKHapticType.start)
-        
-        WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject), (name: "OptionsInterfaceController", context: Session.current as AnyObject)])
+        NSExtensionContext().open(url)
     }
     
+    //called when a meditation session is created on companion device
+    public func handle(_ workoutConfiguration: HKWorkoutConfiguration)
+    {
+        //if there is already a session running on the companion
+        if Session.current != nil && (Session.current?.isRunning)!
+        {
+            return
+        }
+    
+        ZBFHealthKit.getPermissions()
+        {
+            success, error in
+            
+            Mixpanel.sharedInstance()?.track("watch_healthkit", properties: ["success" : success])
+            
+            guard error == nil else
+            {
+                //todo: load a controller that shows the health kit permissions
+                return
+            }
+    
+            DispatchQueue.main.async()
+            {
+                Session.current = Session()
+        
+                Session.current?.start()
+                
+                WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SessionInterfaceController", context: Session.current as AnyObject), (name: "OptionsInterfaceController", context: Session.current as AnyObject)])
+            }
+        }
+    }
 }

@@ -32,19 +32,6 @@ class ZBFHealthKit {
     
     }
     
-    class func getPermissions()  {
-        
-        healthStore.requestAuthorization(
-            toShare: hkShareTypes,
-            read: hkReadTypes,
-            completion: { success, error in
-                
-                if !success && error != nil {
-                    print(error.debugDescription);
-                }
-        })
-    }
-    
     typealias PermissionsHandler = ( _ success: Bool, _ error : Error?) -> Void
    
     class func getPermissions(handler: @escaping PermissionsHandler)
@@ -194,4 +181,5 @@ class ZBFHealthKit {
         
         healthStore.execute(hkSampleQuery)
     }
+    
 }

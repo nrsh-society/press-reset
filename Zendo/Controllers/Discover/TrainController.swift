@@ -39,16 +39,19 @@ class TrainController: UIViewController
         }
     }
     
+    
+    var idHero = ""
+    var story: Story!
+    var scene : SKScene?
+    var panGR: UIPanGestureRecognizer!
+    var chartHR = [String: Int]()
+    
     let player = SKSpriteNode(imageNamed: "player1")
     var ring: Int = 0
-    var story: Story!
-    var idHero = ""
-    var panGR: UIPanGestureRecognizer!
-    var showLevels : Bool = false
-    var showGroups : Bool = false
-    var chartHR = [String: Int]()
     var rings = [SKShapeNode]()
-    var scene : SKScene?
+    var showLevels : Bool = false
+    
+    var showGroups : Bool = false
     
     let diskConfig = DiskConfig(name: "DiskCache")
     let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)

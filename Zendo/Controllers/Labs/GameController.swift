@@ -1,5 +1,5 @@
 //
-//  LabController.swift
+//  GameController.swift
 //  Zendo
 //
 //  Created by Douglas Purdy on 5/8/20.
@@ -19,32 +19,18 @@ import SwiftyJSON
 import Vision
 import XpringKit
 
-//#todo(rename): This isn't Labs anymore
-class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate
+class GameController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate
 {
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        
-        UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
-        
-    }
-    
     //#todo(debt): If we moved to SwiftUI can we get rid of some of this?
     var idHero = "" //not too sure what this does but it is store for the one of the dependencies that we have
     
     //#todo(debt): //not too sure why this isn't just in the HUDView?
     var chartHR = [String: Int]()
-    
-    //todo(debt): this should be moved to some story setting thing?
-    var enableFaceDetection: Bool = false
-    var enableOutro: Bool = false
-    var enableProgress: Bool = false
-    var enableStats: Bool = false
-    var enableRecord: Bool = false
-    
-    //todo(6.0): enable :-)
-    var enableGame: Bool = false
-    var enableIntro: Bool = false
-    var enableLivestream: Bool = false
+
+    //#todo(debt): put all of this into a game control
+    let player = SKSpriteNode(imageNamed: "player1")
+    var ring: Int = 0
+    var rings = [SKShapeNode]()
     
     //todo(debt): all of this private stuff should be in a shared place?
     //should be common to all Stories?
@@ -61,7 +47,11 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     
     var zensor: Zensor?
     var story: Story!
-    
+        
+    //todo(7.0): enable + move into story
+    var enableLivestream: Bool = false
+    var enableFaceDetection: Bool = false
+
     @IBOutlet weak var sceneView: SKView!
     {
         didSet {
@@ -79,7 +69,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         }
     }
     
-    //#todo(6.0): turn this into a control
+    //#todo(8.0): turn this into a control
     @IBOutlet weak var outroMessageLabel: UILabel!
     {
         didSet {
@@ -104,18 +94,21 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     @IBOutlet weak var progressView: ProgressView! {
         didSet {
             
-            progressView.isHidden = true
+            progressView.isHidden = !self.story.enableProgress
             progressView.alpha = 1.0
             
             self.progressView.update(minutes: "--", progress: "--/--",
-                                     cause: "", sponsor: "$sponsor",
-                                     creator: "$creator", meditator:"---")
+                                     cause: self.story.causePayID ?? "", sponsor: self.story.sponsorPayID ?? "$sponsor",
+                                     creator: self.story.creatorPayID ?? "$creator", meditator:"---")
         }
     }
     
     @objc func toggleProgressView()
     {
-        self.progressView.isHidden = !self.progressView.isHidden
+        if(self.story.enableProgress)
+        {
+            self.progressView.isHidden = !self.progressView.isHidden
+        }
     }
     
     @IBOutlet weak var statsView: ArenaView! {
@@ -131,7 +124,10 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
     
     @objc func toggleStatsView()
     {
-        self.statsView.isHidden = !self.statsView.isHidden
+        if(self.story.enableStats)
+        {
+            self.statsView.isHidden = !self.statsView.isHidden
+        }
     }
     
     @IBOutlet weak var connectButton: UIButton!
@@ -171,9 +167,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
     }
     
-    static func loadFromStoryboard() -> LabController
+    static func loadFromStoryboard() -> GameController
     {
-        let controller = UIStoryboard(name: "LabController", bundle: nil).instantiateViewController(withIdentifier: "LabController") as! LabController
+        let controller = UIStoryboard(name: "LabController", bundle: nil).instantiateViewController(withIdentifier: "LabController") as! GameController
         
         return controller
     }
@@ -197,6 +193,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         Mixpanel.mainInstance().time(event: "phone_lab")
 
         setBackground()
+        
+        UIApplication.shared.isIdleTimerDisabled = true
         
         setupWatchNotifications()
         
@@ -236,13 +234,11 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
             self.captureSession.addOutput(videoFileOutput)
             
-            self.enableRecord = true
-            
         }
         catch
         {
             print(error)
-            self.enableRecord = false
+            self.story.enableRecord = false
         }
     }
     
@@ -274,6 +270,12 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         //rtmpConnection.connect("rtmp://live-sjc05.twitch.tv/app/live_526664141_tw0025TCdNZBqEkTxmhAllcIQVlvfQ")
         //rtmpStream.publish("streamName")
+    }
+    
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        
+        UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
+        
     }
     
     func setupWatchNotifications()
@@ -318,7 +320,6 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
     }
     
-    
     //#todo(6.0): need to wire up the BLE Zensor too.
     @objc func connectZensor()
     {
@@ -338,16 +339,15 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         if(Settings.isZensorConnected)
         {
-            Mixpanel.mainInstance().time(event: "phone_lab_watch_connected")
+            Mixpanel.mainInstance().time(event: "phone_game_start_session")
             
             DispatchQueue.main.async
             {
-                if(self.story.type == "create") {
+                if(self.story.enableRecord) {
                     
                     self.setupCamera()
                     
                     self.setupLivestream()
-            
                 }
                 
                 self.setupPhoneAV()
@@ -370,7 +370,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 UIView.animate(withDuration: 0.5)
                 {
                     self.statsView.isHidden = false
-                    self.progressView.isHidden = false
+                    self.progressView.isHidden = !self.story.enableProgress
                     self.sceneView.isHidden = false
                 }
                 //todo(bug): this has to be done outside of the
@@ -378,7 +378,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                 self.connectButton.isHidden = true
                 self.outroMessageLabel.isHidden = true
                 
-                if(self.enableRecord)
+                if(self.story.enableRecord)
                 {
                     self.captureSession.startRunning()
                         
@@ -412,10 +412,19 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         
         if(Settings.isZensorConnected) {
             
-            if(self.enableRecord)
+            if(self.story.enableRecord)
             {
                 self.captureSession.stopRunning()
                 self.videoFileOutput.stopRecording()
+            }
+            
+            if(self.story.enableBoard)
+            {
+                self.player.removeAllActions()
+                self.player.removeFromParent()
+                self.rings.forEach { (ring) in
+                    ring.removeFromParent()
+                }
             }
             
             ZBFHealthKit.getWorkouts(limit: 1) {
@@ -435,23 +444,19 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                     }
                 }
             }
-            
-            let message = "Be Well."
-            
+    
             DispatchQueue.main.async
             {
                 UIView.animate(withDuration: 0.5)
                 {
                     self.connectButton.isHidden = true
                     self.sceneView.isHidden = false
-                    self.progressView.isHidden = false
+                    self.progressView.isHidden = !self.story.enableProgress
                     self.statsView.isHidden = false
                     self.outroMessageLabel.isHidden = false
-                    self.outroMessageLabel.text = self.story.outroMessage ?? message
-                    
+                    self.outroMessageLabel.text = self.story.outroMessage ?? "Be well."
                 }
             }
-            
         }
     }
     
@@ -462,6 +467,69 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             if let zensor  = self.zensor
             {
                 zensor.update(progress: progress.description.lowercased())
+            }
+          
+            DispatchQueue.main.async
+            {
+                if self.story.enableBoard
+                {
+                    self.updateGame(notification: notification)
+                }
+                
+                if let creator = self.story.creatorPayID
+                {
+                    self.payout(creatorPayID: creator)
+                }
+            }
+        }
+    }
+    
+    func updateGame(notification: NSNotification)
+    {
+        if let progress = notification.object as? String
+        {
+            let lastProgress = progress.description.lowercased().contains("true")
+            
+            if (ring >= 2)
+            {
+                DispatchQueue.main.async
+                {
+                    self.player.removeAllActions()
+                    
+                    self.player.removeFromParent()
+                    
+                    self.ring = 0
+                    
+                    if let shell = self.sceneView.scene!.childNode(withName: "//0")! as? SKShapeNode {
+                        
+                        shell.addChild(self.player)
+                        
+                        self.player.zPosition = 3.0
+                        
+                        let action = SKAction.repeatForever( SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 25.0))
+                        
+                        self.player.run(action)
+                    }
+                }
+            }
+            else if(lastProgress && ring < 2)
+            {
+                self.ring = self.ring + 1
+                
+                DispatchQueue.main.async
+                {
+                    self.player.removeAllActions()
+                    self.player.removeFromParent()
+                        
+                    if let shell = self.sceneView.scene!.childNode(withName: "//" + self.ring.description)! as? SKShapeNode
+                    {
+                        shell.addChild(self.player)
+                        
+                        let action = SKAction.repeatForever( SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 15.0))
+                        
+                        self.player.run(action)
+                    }
+                }
             }
         }
     }
@@ -480,9 +548,9 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
             let donatedString = sample["donated"] as? String ?? "--"
             let progressString = sample["progress"] as? String ?? "--/--"
             let appleID = sample["appleID"] as? String ?? "---"
-            let creatorPayID = self.story.creatorPayID!
-            let causePayID = self.story.causePayID!
-            let sponsorPayID = self.story.sponsorPayID!
+            let creatorPayID = self.story.creatorPayID ?? "--"
+            let causePayID = self.story.causePayID ?? "--"
+            let sponsorPayID = self.story.sponsorPayID ?? "--"
             
             self.chartHR[String(Date().timeIntervalSince1970)] = int_hr
             
@@ -661,6 +729,8 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
         let scene = SKScene(size: (sceneView.frame.size))
         scene.scaleMode = .resizeFill
         
+        sceneView.allowsTransparency = true
+        
         self.startBackgroundContent(story: story, completion:
                                         {
                                             item in
@@ -671,7 +741,7 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                                                 
                                                 let video = SKVideoNode(avPlayer: videoPlayer)
                                                 
-                                                video.zPosition = 4.0
+                                                video.zPosition = 1.0
                                                 video.size = scene.frame.size
                                                 video.position = scene.position
                                                 video.anchorPoint = scene.anchorPoint
@@ -696,7 +766,54 @@ class LabController: UIViewController, AVCaptureVideoDataOutputSampleBufferDeleg
                                             
                                         })
         
+        if(self.story.enableBoard!)
+        {
+            self.player.removeAllActions()
+            self.player.removeFromParent()
+            
+            self.addShell(scene, 30, "2")
+            self.addShell(scene, 90, "1")
+            self.addShell(scene, 150, "0")
+            
+            if let shell = scene.childNode(withName: "//0")! as? SKShapeNode
+            {
+                shell.addChild(self.player)
+                
+                self.player.zPosition = 3.0
+                
+                let action = SKAction.repeatForever(SKAction.follow(shell.path!, asOffset: false, orientToPath: true, speed: 15.0))
+                
+                self.player.run(action)
+               
+            }
+            
+        }
+        
         return scene
+    }
+    
+    func addShell(_ parent: SKNode, _ radius: Int, _ name: String)
+    {
+  
+        let pathNode = SKShapeNode(circleOfRadius: CGFloat(radius))
+        
+        pathNode.strokeColor = SKColor.zenWhite
+        
+        pathNode.position = CGPoint(x: parent.frame.midX, y: parent.frame.midY)
+        
+        pathNode.fillColor = SKColor(red:0.06, green:0.15, blue:0.13, alpha:0.3)
+       
+        pathNode.zPosition = 3
+        
+        pathNode.name = name
+        
+        pathNode.isHidden = false
+        
+        pathNode.lineWidth = CGFloat(0.01)
+        
+        parent.addChild(pathNode)
+        
+        rings.append(pathNode)
     }
     
     func setBackground() {
