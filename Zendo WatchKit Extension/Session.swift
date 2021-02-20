@@ -135,7 +135,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             let configuration = HKWorkoutConfiguration()
             
-            configuration.activityType = .other
+            configuration.activityType = .mindAndBody
             configuration.locationType = .unknown
         
            workoutSession = try? HKWorkoutSession(healthStore: self.healthStore, configuration: configuration)
@@ -221,7 +221,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         let energyValue = HKQuantity(unit: energyUnit, doubleValue: 0.0)
         
-        let workout = HKWorkout(activityType: .other, start: self.startDate!, end: self.endDate!, workoutEvents: nil, totalEnergyBurned: energyValue, totalDistance: nil, totalSwimmingStrokeCount: nil, device: nil, metadata: metadataWork)
+        let workout = HKWorkout(activityType: .mindAndBody, start: self.startDate!, end: self.endDate!, workoutEvents: nil, totalEnergyBurned: energyValue, totalDistance: nil, totalSwimmingStrokeCount: nil, device: nil, metadata: metadataWork)
         
         healthKitSamples.append(workout)
         
@@ -358,25 +358,12 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     
     func standardDeviation(_ arr : [Double]) -> Double
     {
-        let beatsAsFloat : Array<Float> = arr.map
-        {
-            Float(1000 / $0)
-        }
         
-        let smoothBeats = CubicInterpolator(points:
-            CubicInterpolator(points: beatsAsFloat, tension: 0.1).resample(interval: 3)
-                          , tension: 0.1).resample(interval: 0.25).map { $0 }
+        let length = Double(arr.count)
         
-        let smoothBeatsAsDouble = smoothBeats.map
-        {
-                Double($0)
-        }
+        let avg = arr.reduce(0, +) / length
         
-        let length = Double(smoothBeatsAsDouble.count)
-        
-        let avg = smoothBeatsAsDouble.reduce(0, +) / length
-        
-        let sumOfSquaredAvgDiff = smoothBeatsAsDouble.map
+        let sumOfSquaredAvgDiff = arr.map
         {pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
         
         return sqrt(sumOfSquaredAvgDiff / length)
@@ -548,15 +535,35 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         if(self.heartRateSamples.count > 2)
         {
-            self.heartSDNN = standardDeviation(self.heartRateSamples)
+            
+            let beatsAsFloat : Array<Float> = self.heartRateSamples.map
+            {
+                Float(1000 / $0)
+            }
+            
+            
+            let smoothBeats = CubicInterpolator(points:
+                CubicInterpolator(points: beatsAsFloat, tension: 0.1).resample(interval: 3)
+                              , tension: 0.1).resample(interval: 0.25).map { $0 }
+            
+            let smoothBeatsAsDouble = smoothBeats.map
+            {
+                    Double($0)
+            }
+            
+            
+            self.heartSDNN = standardDeviation(smoothBeatsAsDouble)
+            
+            //self.heartRate = 1000 / smoothBeatsAsDouble.last!
         }
         
+       
         var metadata: [String: Any] = [
             MetadataType.time.rawValue: Date().timeIntervalSince1970.description,
             MetadataType.now.rawValue: Date().description,
             MetadataType.motion.rawValue: motion.description,
             MetadataType.sdnn.rawValue: heartSDNN.description,
-            MetadataType.heart.rawValue: heartRate.description,
+            MetadataType.heart.rawValue: self.heartRate.description,
             MetadataType.pitch.rawValue: self.rotation.pitch.description,
             MetadataType.roll.rawValue: self.rotation.roll.description,
             MetadataType.yaw.rawValue: self.rotation.yaw.description
