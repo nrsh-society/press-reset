@@ -169,7 +169,7 @@ class GameController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     static func loadFromStoryboard() -> GameController
     {
-        let controller = UIStoryboard(name: "LabController", bundle: nil).instantiateViewController(withIdentifier: "LabController") as! GameController
+        let controller = UIStoryboard(name: "GameController", bundle: nil).instantiateViewController(withIdentifier: "GameController") as! GameController
         
         return controller
     }
