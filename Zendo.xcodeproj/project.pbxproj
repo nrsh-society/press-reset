@@ -143,8 +143,7 @@
 		BE3AE43621ED0ACF0019C489 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3AE43521ED0ACF0019C489 /* Notification.swift */; };
 		BE4895AC206B0CC400B007D6 /* ZazenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4895AB206B0CC400B007D6 /* ZazenController.swift */; };
 		BE50D2F220CC3BA200FF9C54 /* CommunityDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */; };
-		BE73BCBE2465D5AD00EBF8DB /* LabController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE73BCBD2465D5AD00EBF8DB /* LabController.storyboard */; };
-		BE73BCC02465D5E300EBF8DB /* LabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE73BCBF2465D5E300EBF8DB /* LabController.swift */; };
+		BE73BCBE2465D5AD00EBF8DB /* GameController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE73BCBD2465D5AD00EBF8DB /* GameController.storyboard */; };
 		BE75AEBF20F708C300311512 /* ChartColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75AEBC20F708C300311512 /* ChartColors.swift */; };
 		BE75AEC020F708C300311512 /* ChartSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75AEBD20F708C300311512 /* ChartSeries.swift */; };
 		BE75AEC120F708C300311512 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75AEBE20F708C300311512 /* Chart.swift */; };
@@ -167,6 +166,7 @@
 		BEEA862F20D4A941003E1E1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEEA862E20D4A941003E1E1D /* Assets.xcassets */; };
 		BEF0750F21E6B0C700EE657D /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0750E21E6B0C700EE657D /* NotificationService.swift */; };
 		BEF0751321E6B0C700EE657D /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BEF0750C21E6B0C700EE657D /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BEF80B2125E0F6DD006E7A3A /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF80B2025E0F6DD006E7A3A /* GameController.swift */; };
 		DFE3B16E2189A3DF008830CD /* StartingSessions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE3B16D2189A3DF008830CD /* StartingSessions.swift */; };
 		DFE3B1702189A3FA008830CD /* StartingSessions.xib in Resources */ = {isa = PBXBuildFile; fileRef = DFE3B16F2189A3FA008830CD /* StartingSessions.xib */; };
 		DFE3B1742189A6E5008830CD /* animationStartingSession.json in Resources */ = {isa = PBXBuildFile; fileRef = DFE3B1732189A6E5008830CD /* animationStartingSession.json */; };
@@ -405,8 +405,7 @@
 		BE4F346522D550D60006BAAE /* Movesense.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Movesense.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE4F346722D550F90006BAAE /* libmds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmds.a; path = "Pods/Movesense/IOS/Movesense/Release-iphoneos/libmds.a"; sourceTree = "<group>"; };
 		BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDataLoader.swift; sourceTree = "<group>"; };
-		BE73BCBD2465D5AD00EBF8DB /* LabController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LabController.storyboard; sourceTree = "<group>"; };
-		BE73BCBF2465D5E300EBF8DB /* LabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabController.swift; sourceTree = "<group>"; };
+		BE73BCBD2465D5AD00EBF8DB /* GameController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GameController.storyboard; sourceTree = "<group>"; };
 		BE75AEBC20F708C300311512 /* ChartColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartColors.swift; sourceTree = "<group>"; };
 		BE75AEBD20F708C300311512 /* ChartSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSeries.swift; sourceTree = "<group>"; };
 		BE75AEBE20F708C300311512 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
@@ -435,6 +434,7 @@
 		BEF0750C21E6B0C700EE657D /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEF0750E21E6B0C700EE657D /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		BEF0751021E6B0C700EE657D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BEF80B2025E0F6DD006E7A3A /* GameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		C1967FB0271C4E53D1F32745 /* Pods_Zendo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zendo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5EE270417BDD012045FC9FF /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		C86368BD68AC54656999A5EB /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -885,12 +885,12 @@
 		BE0C4B5124E070FA008B95A1 /* Labs */ = {
 			isa = PBXGroup;
 			children = (
+				BEF80B2025E0F6DD006E7A3A /* GameController.swift */,
 				12E8F03B24C5DF8200F7FE48 /* ResultGameController.swift */,
 				12E8F03D24C5E4E700F7FE48 /* ResultGameTableCell.swift */,
 				3AB142902453F5EF00CA7268 /* ZensorView.swift */,
 				3AB1428E2453F4F700CA7268 /* Zensor.swift */,
-				BE73BCBD2465D5AD00EBF8DB /* LabController.storyboard */,
-				BE73BCBF2465D5E300EBF8DB /* LabController.swift */,
+				BE73BCBD2465D5AD00EBF8DB /* GameController.storyboard */,
 			);
 			path = Labs;
 			sourceTree = "<group>";
@@ -1214,7 +1214,7 @@
 				12C1A72A2119B75900EEFF4F /* ZenButton.xib in Resources */,
 				1284B7B523C8D6880026B511 /* StartSessionView.xib in Resources */,
 				12E2A1A7211073D600E0E911 /* Antenna-ExtraLight.otf in Resources */,
-				BE73BCBE2465D5AD00EBF8DB /* LabController.storyboard in Resources */,
+				BE73BCBE2465D5AD00EBF8DB /* GameController.storyboard in Resources */,
 				BEBAE48D20E6DED800495C65 /* gallery.ckcomplication in Resources */,
 				12AC1A6E23C7670A00696DA5 /* PairDevices.storyboard in Resources */,
 				DFE3B1702189A3FA008830CD /* StartingSessions.xib in Resources */,
@@ -1505,12 +1505,12 @@
 				BE75AEBF20F708C300311512 /* ChartColors.swift in Sources */,
 				7BEDEAF522A34CCF008FCAF7 /* WorkoutFetcher.swift in Sources */,
 				121F2605211B3D9C00C1CC96 /* Notification+Name.swift in Sources */,
-				BE73BCC02465D5E300EBF8DB /* LabController.swift in Sources */,
 				1219E51E248AB6EA005E9654 /* HealthKitControllerFailed.swift in Sources */,
 				12C1A72C2119B78900EEFF4F /* UIView+Nib.swift in Sources */,
 				12E2A1B22110774000E0E911 /* ConstraintFont.swift in Sources */,
 				12A8991023ABE76B00DDAFA3 /* Foregrounder.swift in Sources */,
 				12C63FF8221593B6001C93C7 /* SubscriptionViewController.swift in Sources */,
+				BEF80B2125E0F6DD006E7A3A /* GameController.swift in Sources */,
 				127C3E412178DAF500B332EB /* LoadingView.swift in Sources */,
 				126F116B23D1D59500513202 /* UIColor+Hex.swift in Sources */,
 			);
@@ -1736,7 +1736,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 439;
+				CURRENT_PROJECT_VERSION = 440;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1744,7 +1744,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 6.7;
+				MARKETING_VERSION = 7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
@@ -1766,7 +1766,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 439;
+				CURRENT_PROJECT_VERSION = 440;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1774,7 +1774,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 6.7;
+				MARKETING_VERSION = 7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
@@ -1795,7 +1795,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 439;
+				CURRENT_PROJECT_VERSION = 440;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
@@ -1803,7 +1803,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.7;
+				MARKETING_VERSION = 7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1824,7 +1824,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 439;
+				CURRENT_PROJECT_VERSION = 440;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
@@ -1832,7 +1832,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.7;
+				MARKETING_VERSION = 7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1855,7 +1855,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 439;
+				CURRENT_PROJECT_VERSION = 440;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1870,7 +1870,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 6.7;
+				MARKETING_VERSION = 7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1892,7 +1892,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 439;
+				CURRENT_PROJECT_VERSION = 440;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1907,7 +1907,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 6.7;
+				MARKETING_VERSION = 7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1927,7 +1927,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 439;
+				CURRENT_PROJECT_VERSION = 440;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";
@@ -1937,7 +1937,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 6.7;
+				MARKETING_VERSION = 7.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.NotificationService;
@@ -1957,7 +1957,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 439;
+				CURRENT_PROJECT_VERSION = 440;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/NotificationService/Info.plist";
@@ -1967,7 +1967,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 6.7;
+				MARKETING_VERSION = 7.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";

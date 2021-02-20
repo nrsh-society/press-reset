@@ -77,7 +77,9 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
                 } else {
                     
                     
-                    SettingsWatch.checkAuthorizationStatus { [weak self] success in
+                    ZBFHealthKit.getPermissions()
+                    {
+                        [weak self] success, error in
                         
                         guard let self = self else { return }
                         

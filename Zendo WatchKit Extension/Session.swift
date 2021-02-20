@@ -26,50 +26,6 @@ struct Rotation
     var yaw: Double = 0.0
 }
 
-struct Options
-{
-    var hapticStrength : Int
-    {
-        get
-        {
-            if let value = UserDefaults.standard.object(forKey: "hapticStrength")
-            {
-                return value as! Int
-            }
-            else
-            {
-                return 1
-            }
-        }
-        
-        set
-        {
-            UserDefaults.standard.set(newValue, forKey: "hapticStrength")
-        }
-    }
-    
-    var retryStrength : Int
-    {
-        get
-        {
-            
-            if let value = UserDefaults.standard.object(forKey: "retryStrength")
-            {
-                return value as! Int
-            }
-            else
-            {
-                return 1
-            }
-        }
-        
-        set
-        {
-            UserDefaults.standard.set(newValue, forKey: "retryStrength")
-        }
-    }
-}
-
 class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     
     var startDate: Date?
@@ -111,16 +67,6 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     override init()
     {
         super.init()
-        
-        do {
-           // workoutSession = try HKWorkoutSession(configuration: configuration)
-            
-            //#todo: add the workout management to the wrapper too
-            ZBFHealthKit.getPermissions()
-        } catch let error as NSError {
-            //$todo: clean up all error handling
-            fatalError("*** Unable to create the workout session: \(error.localizedDescription) ***")
-        }
     }
     
     func start()
@@ -181,16 +127,11 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     }
     
     func requestAccessToHealthKit() {
-        if #available(watchOSApplicationExtension 5.0, *) {
-            SettingsWatch.checkAuthorizationStatus { [weak self] success in
-                if !success {
-                    let healthKitTypes = SettingsWatch.getHealthKitTypes()
-                    
-                    self?.healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { success, error in
-                        print("Successful HealthKit Authorization from Watch's extension Delegate")
-                    }
-                }
-            }
+        
+        ZBFHealthKit.getPermissions()
+        {
+            success, error in
+            
         }
     }
     
