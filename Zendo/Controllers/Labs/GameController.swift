@@ -478,10 +478,57 @@ class GameController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 
                 if let creator = self.story.creatorPayID
                 {
-                    //self.payout(creatorPayID: creator)
+                    self.payout(creatorPayID: creator)
                 }
             }
         }
+    }
+    
+    func payout(creatorPayID: String)
+    {
+        Mixpanel.mainInstance().track(event: "lab_payout")
+        
+        let payIDClient = PayIDClient()
+        
+        do
+        {
+            let creatorXRPLAddress = try payIDClient.cryptoAddress(for: creatorPayID, on: "xrpl-mainnet").get()
+            
+            let tag = UInt32(creatorXRPLAddress.tag ?? "0")
+            
+            let causeXAddress = Utils.encode(classicAddress: creatorXRPLAddress.address, tag: tag, isTest: false)!
+            
+            let amount = UInt64(166666)
+            
+            let wallet = Wallet(seed: story.sponsorKey!)!
+            
+            self.moveXrp(source: wallet, target: causeXAddress, drops: amount, useMainnet: true)
+            
+        } catch {
+            
+            print(error.localizedDescription)
+            
+        }
+    }
+    
+    //todo(debt): put all of this stuff in a MoneyKit.swift file.
+    func moveXrp(source: Wallet, target: String, drops: UInt64, useMainnet: Bool)
+    {
+        
+        Mixpanel.mainInstance().track(event: "lab_movexrp")
+        
+        let xpringClient = DefaultXRPClient(grpcURL: "main.xrp.xpring.io:50051", xrplNetwork: XRPLNetwork.main)
+        
+        let transactionHash = try! xpringClient.send(drops, to: target, from: source)
+        
+        let status = try! xpringClient.paymentStatus(for: transactionHash)
+        
+        let success = status == TransactionStatus.succeeded
+        
+        let retval = (txn: transactionHash.description, status: success.description)
+        
+        print ("[txn: \(retval.txn)] \r\n")
+        
     }
     
     func updateGame(notification: NSNotification)
