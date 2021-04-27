@@ -55,8 +55,10 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "32">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/Zendo&#x304;">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BE2E81FA1FF44A7B00D104AC"
@@ -64,7 +66,7 @@
             BlueprintName = "Zendo WatchKit App"
             ReferencedContainer = "container:Zendo.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -73,8 +75,10 @@
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
       launchAutomaticallySubstyle = "32">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/Zendo&#x304;">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BE2E81FA1FF44A7B00D104AC"
@@ -82,7 +86,16 @@
             BlueprintName = "Zendo WatchKit App"
             ReferencedContainer = "container:Zendo.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "BE2E81FA1FF44A7B00D104AC"
+            BuildableName = "Zendo WatchKit App.app"
+            BlueprintName = "Zendo WatchKit App"
+            ReferencedContainer = "container:Zendo.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

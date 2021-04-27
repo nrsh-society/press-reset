@@ -234,21 +234,6 @@ public class Zensor : NSObject, Identifiable, ObservableObject, HMHomeManagerDel
         
     }
     
-    
-    func hsba(from color: UIColor) -> [CGFloat] {
-        
-        let HSBA = [CGFloat](repeating: 0.0, count: 4)
-        
-        var hue = HSBA[0]
-        var saturation = HSBA[1]
-        var brightness = HSBA[2]
-        var alpha = HSBA[3]
-        
-        color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
-        
-        return HSBA
-    }
-    
     @objc public func homeManagerDidUpdateHomes(_ manager: HMHomeManager) {
         
         guard let home = manager.homes.first else { return }
@@ -268,7 +253,7 @@ public class Zensor : NSObject, Identifiable, ObservableObject, HMHomeManagerDel
     {
         var brightness = 0.0
     
-        if(self.isInBreath)
+        if(self.isMeditating)
         {
             brightness = 100.0
         }
