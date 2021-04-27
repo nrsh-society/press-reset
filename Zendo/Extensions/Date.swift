@@ -21,6 +21,17 @@ let zendoHeaderDayTimeFormat = "MMMM dd 'at' HH:mma"
 
 
 extension Date {
+    
+    var startOfDay: Date {
+        return calender.startOfDay(for: self)
+    }
+    
+    var endOfDay: Date {
+        var components = DateComponents()
+        components.day = 1
+        components.second = -1
+        return calender.date(byAdding: components, to: startOfDay)!
+    }
 
     static func createFrom(year: Int, month: Int, day: Int) -> Date? {
         var dateComponents = DateComponents()
@@ -109,17 +120,6 @@ extension Date {
         var componentsEnd = gregorian.dateComponents([.second], from: endWeek)
         componentsEnd.minute = -1
         return calender.date(byAdding: componentsEnd, to: endWeek)!
-    }
-    
-    var startOfDay: Date {
-        return calender.startOfDay(for: self)
-    }
-    
-    var endOfDay: Date {
-        var components = DateComponents()
-        components.day = 1
-        components.second = -1
-        return calender.date(byAdding: components, to: startOfDay)!
     }
     
     var startOfMonth: Date {

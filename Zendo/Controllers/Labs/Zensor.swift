@@ -11,13 +11,16 @@ import Foundation
 import CoreBluetooth
 import FirebaseDatabase
 
-public class Zensor : Identifiable, ObservableObject
+public class Zensor : NSObject, Identifiable, ObservableObject, HMHomeManagerDelegate
 {
     var batt : UInt8 = 0
     
     public var id : UUID
     public var name : String
     var startDate = Date()
+    
+    let homeManager = HMHomeManager()
+    var lightCharacteristic : HMCharacteristic? = nil
     
     @Published public var hrv : String = "0.0"
     @Published public var hr : String = "0.0"
@@ -31,10 +34,15 @@ public class Zensor : Identifiable, ObservableObject
     
     init(id: UUID, name: String, hr: Float, batt: UInt8) {
         
+        
         self.id = id
         self.name = name
         self.hr = hr.description
         self.batt = batt
+        
+        super.init()
+        
+        homeManager.delegate = self
     }
     
     func update(hr: Float) {
@@ -60,6 +68,8 @@ public class Zensor : Identifiable, ObservableObject
             self.progress = self.getProgress()
             
             self.publish()
+            
+            self.adjustLights()
         }
     }
     
@@ -223,79 +233,7 @@ public class Zensor : Identifiable, ObservableObject
         key.removeValue()
         
     }
-}
-
-open class Zensors : NSObject, CBCentralManagerDelegate, HMHomeManagerDelegate, ObservableObject {
-
-    let centralQueue: DispatchQueue = DispatchQueue(label: "tools.sunyata.zendo", attributes: .concurrent)
     
-    var centralManager: CBCentralManager!
-     
-    @Published public var current: [Zensor] = []
-    
-    let homeManager = HMHomeManager()
-    
-    var lightCharacteristic : HMCharacteristic? = nil
-    
-    var appleWatch : Zensor?
-    
-    @objc func sample(notification: NSNotification)
-    {
-        if let sample = notification.object as? [String : Any]
-        {
-            let raw_hrv = sample["sdnn"] as! String
-            let double_hrv = Double(raw_hrv)!.rounded()
-            let text_hrv = Int(double_hrv.rounded()).description
-            
-            let raw_hr = sample["heart"] as! String
-            let double_hr = (Double(raw_hr)! * 60).rounded()
-            let int_hr = Int(double_hr)
-            let text_hr = int_hr.description
-            
-            if (double_hr  != 0)
-            {
-                DispatchQueue.main.async
-                    {
-                        if let watch  = self.appleWatch
-                        {
-                            watch.update(hr: Float(double_hr) )
-                        }
-                        else
-                        {
-                            self.appleWatch = Zensor(id: UUID() , name: Settings.email!, hr: Float(double_hr) , batt: 100)
-                            self.current.append(self.appleWatch!)
-                        }
-                }
-            }
-        }
-    }
-    
-    @objc func progress(notification: NSNotification)
-    {
-        if let progress = notification.object as? String
-        {
-            if let watch  = self.appleWatch
-            {
-                watch.update(progress: progress.description.lowercased())
-            }
-        }
-    }
-
-    override init()
-    {
-        super.init()
-        
-        centralManager = CBCentralManager(delegate: self, queue: centralQueue)
-    
-        homeManager.delegate = self
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.sample), name: .sample, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.progress), name: .progress, object: nil)
-        
-    }
-    
-
     
     func hsba(from color: UIColor) -> [CGFloat] {
         
@@ -311,7 +249,7 @@ open class Zensors : NSObject, CBCentralManagerDelegate, HMHomeManagerDelegate, 
         return HSBA
     }
     
-    public func homeManagerDidUpdateHomes(_ manager: HMHomeManager) {
+    @objc public func homeManagerDidUpdateHomes(_ manager: HMHomeManager) {
         
         guard let home = manager.homes.first else { return }
   
@@ -326,91 +264,17 @@ open class Zensors : NSObject, CBCentralManagerDelegate, HMHomeManagerDelegate, 
         
     }
     
-    func reset()
+    func adjustLights()
     {
-        self.current.forEach {
-            
-            (zensor) in
-            
-            zensor.reset()
-        }
-        
-        self.current.removeAll()
-    }
+        var brightness = 0.0
     
-    public func centralManagerDidUpdateState(_ central: CBCentralManager)
-    {
-        switch central.state
+        if(self.isInBreath)
         {
-        case .poweredOn:
-            
-            centralManager.scanForPeripherals(withServices: nil, options: nil)
-            
-        case .poweredOff:
-            
-            print("Bluetooth status is POWERED OFF")
-            
-        case .unknown, .resetting, .unsupported, .unauthorized: break
-            
+            brightness = 100.0
         }
-    }
     
-    public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber)
-    {
-        
-        var bytes=[UInt8](repeating:0, count:16)
-        var hr_bytes=[UInt8](repeating:0, count:4)
-        var batt_byte=[UInt8](repeating:0, count:1)
-        
-        if let payload: NSData = advertisementData["kCBAdvDataManufacturerData"] as? NSData
-        {
-            if let name = peripheral.name
-            {
-                if name.lowercased().contains("movesense")
-                {
-                    payload.getBytes(&bytes,length:15)
-                    
-                    var hr:Float = 0
-                    var batt:UInt8 = 0
-                    
-                    for i in 7...10 {
-                        hr_bytes[i-7]=bytes[i]
-                    }
-                    
-                    batt_byte[0]=bytes[14]
-                    
-                    memcpy(&hr,&hr_bytes,4)
-                    memcpy(&batt,&batt_byte,1)
-                    
-                    if (hr != 0)
-                    {
-                        DispatchQueue.main.async
-                            {
-                                if let zensor  = self.current.first(where: { $0.id == peripheral.identifier })
-                                {
-                                    zensor.update(hr: hr)
-                                    
-                                    if peripheral.name!.contains("502") {
-                                        
-                                        var brightness = 0.0
-                                        
-                                        if(zensor.isInBreath)
-                                        {
-                                            brightness = 100.0
-                                        }
-                                        
-                                        self.lightCharacteristic?.writeValue(NSNumber(value: Double(brightness)), completionHandler: { if let error = $0 { print("Failed: \(error)") } })
-                                    }
-                                }
-                                else
-                                {
-                                    let zensor = Zensor(id: peripheral.identifier , name: peripheral.name ?? "unknown", hr: hr, batt: batt)
-                                    self.current.append(zensor)
-                                }
-                        }
-                    }
-                }
-            }
-        }
+        self.lightCharacteristic?.writeValue(NSNumber(value: Double(brightness)), completionHandler: { if let error = $0 { print("Failed: \(error)") } })
     }
+
 }
+

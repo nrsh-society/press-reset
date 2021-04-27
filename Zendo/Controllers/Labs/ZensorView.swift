@@ -76,41 +76,6 @@ struct ZensorView: View
                     Text(model.level.description).font(.system(size: 10)).bold()
                     
                 }
-                
-               
         }
-    }
-}
-
-struct ZensorsView: View {
-    
-    @ObservedObject var zensors = Zensors()
-    
-    var body: some View
-    {
-        VStack {
-            Text("Zensors").font(.headline)
-            List {
-                ForEach(zensors.current) {
-                    
-                    zensor in
-                    
-                    ZensorView(model: zensor)
-                    
-                }
-            }
-            
-            Button("Reset")
-            {
-                self.zensors.reset()
-            }
-        }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        ZensorsView()
     }
 }

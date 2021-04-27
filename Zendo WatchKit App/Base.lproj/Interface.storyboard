@@ -237,7 +237,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="69" y="876"/>
+            <point key="canvasLocation" x="69" y="983"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="f6W-j7-S90">
@@ -370,6 +370,7 @@
                                     </items>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="11" bottom="0.0"/>
                                 </group>
+                                <switch width="1" alignment="left" value="YES" title="Notification" id="Bm0-uw-8db"/>
                                 <separator alignment="left" id="fpw-Bn-oRt">
                                     <color key="color" red="0.34932014350000001" green="0.54117977620000002" blue="0.47449994089999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </separator>
