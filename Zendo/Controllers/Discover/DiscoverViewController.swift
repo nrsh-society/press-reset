@@ -521,13 +521,6 @@ extension DiscoverViewController: UICollectionViewDataSource {
             game.hero.isEnabled = true
             vc = game
            
-        } else if story.type == "labs"
-        {
-            //todo(this support N zensors)
-            let start = StartSessionController.loadFromStoryboard()
-            start.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
-            start.modalPresentationStyle = .fullScreen
-            vc = start
         }
         else //tutorial
         {

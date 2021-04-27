@@ -186,10 +186,6 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
         }
         
-        sessionDelegater.sendMessage(["watch": "end"],
-                                     replyHandler: nil,
-                                     errorHandler: nil)
-        
         healthStore.save(healthKitSamples)
         {
             success, error in
@@ -204,6 +200,10 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             }
             
             workoutEnd(workout)
+            
+            self.sessionDelegater.sendMessage(["watch": "end"],
+                                         replyHandler: nil,
+                                         errorHandler: nil)
             
             self.sendMessage(["watch": "reload"],
             replyHandler:
