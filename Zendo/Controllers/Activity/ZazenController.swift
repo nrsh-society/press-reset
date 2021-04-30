@@ -115,7 +115,7 @@ class ZazenController: UIViewController
     
     @IBOutlet weak var tableView: UITableView!
     
-    var workout: HKWorkout!
+    var workout: HKSample!
     var samples = [[String: Any]]()
     
     lazy var share: Double = {
@@ -232,7 +232,7 @@ class ZazenController: UIViewController
     {
         cell.hrvView.setTitle("")
         
-        ZBFHealthKit.getHRVAverage(workout)
+        ZBFHealthKit.getHRVAverage(start: workout.startDate, end: workout.endDate)
         {
             results, error in
             

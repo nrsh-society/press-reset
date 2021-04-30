@@ -86,7 +86,7 @@ class ZBFHealthKit {
         
     }
     
-    class func getHRVAverage(_ workout: HKWorkout, handler: @escaping SamplesHandler) {
+    class func getHRVAverage(_ workout: HKSample, handler: @escaping SamplesHandler) {
         
         let hkType  = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
         

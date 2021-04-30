@@ -164,7 +164,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         
         let workout = HKWorkout(activityType: .mindAndBody, start: self.startDate!, end: self.endDate!, workoutEvents: nil, totalEnergyBurned: energyValue, totalDistance: nil, totalSwimmingStrokeCount: nil, device: nil, metadata: metadataWork)
         
-        healthKitSamples.append(workout)
+        //healthKitSamples.append(workout)
         
         let mindfulType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         

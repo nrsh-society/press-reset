@@ -39,7 +39,7 @@ class ZendoTableViewCell: UITableViewCell {
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
-    var workout: HKWorkout! {
+    var workout: HKSample! {
         didSet {
             durationLabel?.text = workout.duration.stringZendoTimeWatch
             timeLabel.text = workout.endDate.toZendoEndString.lowercased()

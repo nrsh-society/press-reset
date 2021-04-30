@@ -181,7 +181,7 @@ public class ZBFHealthKit
         return imageWithText!
     }
     
-    class func deleteWorkout(workout: HKWorkout)
+    class func deleteWorkout(workout: HKSample)
     {
         getMindfulSamples(workout: workout)
         {
@@ -195,7 +195,7 @@ public class ZBFHealthKit
                 
                     objects.append(contentsOf: hrvSamples)
             
-                    objects.append(workout)
+                   // objects.append(workout)
                 
                     healthStore.delete(objects)
                     {
@@ -272,7 +272,7 @@ public class ZBFHealthKit
     
     typealias GetSamplesHandler = ([HKSample]) -> Void
     
-    class func getMindfulSamples(workout: HKWorkout, handler: @escaping GetSamplesHandler ) {
+    class func getMindfulSamples(workout: HKSample, handler: @escaping GetSamplesHandler ) {
         
         //let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
         let hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictStartDate)
@@ -296,7 +296,7 @@ public class ZBFHealthKit
         
     }
     
-    class func getHrvSamples(workout: HKWorkout, handler: @escaping GetSamplesHandler ) {
+    class func getHrvSamples(workout: HKSample, handler: @escaping GetSamplesHandler ) {
         
         //let hkPredicate = HKQuery.predicateForObjects(from: workout as HKWorkout)
         let hkPredicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: .strictStartDate)

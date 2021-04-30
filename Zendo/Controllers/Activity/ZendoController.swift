@@ -15,8 +15,6 @@ class ZendoController: UITableViewController
 {
     //segue
     private let showDetailSegue = "showDetail"
-    
-    var currentWorkout: HKWorkout?
     var samples = [HKSample]()
     var samplesDate = [String]()
     var samplesDictionary = [String: [HKSample]]()
@@ -35,7 +33,7 @@ class ZendoController: UITableViewController
         {
             let sample = samplesDictionary[samplesDate[index.section]]![index.row]
             
-            destination.workout = sample as! HKWorkout
+            destination.workout = sample as! HKSample
         }
     }
     
@@ -88,7 +86,7 @@ class ZendoController: UITableViewController
     {
         
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { action, indexPath in
-            let workout = self.samplesDictionary[self.samplesDate[indexPath.section]]![indexPath.row] as! HKWorkout
+            let workout = self.samplesDictionary[self.samplesDate[indexPath.section]]![indexPath.row]
             ZBFHealthKit.deleteWorkout(workout: workout)
             
             var arr = self.samplesDictionary[self.samplesDate[indexPath.section]]!
@@ -114,12 +112,14 @@ class ZendoController: UITableViewController
     
     func populateTable()
     {
-        let hkType = HKObjectType.workoutType()
+        //let hkType = HKObjectType.workoutType()
+        let mindfulType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
+       
         let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
         
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
         
-        let hkQuery = HKSampleQuery(sampleType: hkType,
+        let hkQuery = HKSampleQuery(sampleType: mindfulType,
                                     predicate: hkPredicate,
                                     limit: HKObjectQueryNoLimit,
                                     sortDescriptors: [sortDescriptor],
@@ -241,7 +241,7 @@ class ZendoController: UITableViewController
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: ZendoTableViewCell.reuseIdentifierCell, for: indexPath) as! ZendoTableViewCell
-        cell.workout = (samplesDictionary[samplesDate[indexPath.section]]![indexPath.row] as! HKWorkout)
+        cell.workout = (samplesDictionary[samplesDate[indexPath.section]]![indexPath.row])
         return cell
     }
     
