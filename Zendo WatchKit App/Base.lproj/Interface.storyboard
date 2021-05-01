@@ -111,7 +111,7 @@
                     </connections>
                 </notificationController>
             </objects>
-            <point key="canvasLocation" x="69" y="540"/>
+            <point key="canvasLocation" x="-4" y="655"/>
         </scene>
         <!--Summary-->
         <scene sceneID="IZS-JR-IrR">
@@ -144,7 +144,7 @@
                                 </separator>
                                 <group width="1" alignment="center" verticalAlignment="center" layout="vertical" spacing="0.0" id="X66-wc-Xms">
                                     <items>
-                                        <label alignment="left" verticalAlignment="center" text="hrv" id="hGy-gU-yJ5">
+                                        <label alignment="left" text="hrv" id="hGy-gU-yJ5">
                                             <fontDescription key="font" type="system" pointSize="12"/>
                                         </label>
                                         <group width="1" alignment="left" verticalAlignment="bottom" id="Vzg-T3-rJS">
@@ -156,6 +156,15 @@
                                                 <imageView width="25" height="25" alignment="right" verticalAlignment="center" image="hrv" contentMode="scaleAspectFit" id="IVo-nx-G7r"/>
                                             </items>
                                             <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="0.0"/>
+                                        </group>
+                                        <group width="1" alignment="left" verticalAlignment="bottom" layout="vertical" id="JPr-AX-pEj">
+                                            <items>
+                                                <switch width="1" alignment="left" value="YES" title="Save HRV" id="pOH-6r-aV9">
+                                                    <connections>
+                                                        <action selector="onHRVSwitchChanged:" destination="Mk4-5F-50h" id="9eh-4V-HfD"/>
+                                                    </connections>
+                                                </switch>
+                                            </items>
                                         </group>
                                     </items>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="5" bottom="5"/>
@@ -212,11 +221,12 @@
                         <outlet property="bpm" destination="ceG-3B-e0b" id="kcP-Pf-ZhL"/>
                         <outlet property="bpmRange" destination="dzD-VC-bdl" id="BhV-Xg-EBu"/>
                         <outlet property="hrv" destination="GLu-3s-woe" id="gbR-eL-2WH"/>
+                        <outlet property="saveHRVSwitch" destination="pOH-6r-aV9" id="ACV-YK-jPa"/>
                         <outlet property="totalTime" destination="vss-pe-7sR" id="kXJ-o4-SRQ"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="69" y="239"/>
+            <point key="canvasLocation" x="69" y="273"/>
         </scene>
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">

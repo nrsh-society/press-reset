@@ -207,4 +207,26 @@ struct Options
             UserDefaults.standard.set(newValue, forKey: "retryStrength")
         }
     }
+    
+    
+    var saveHRVSamples : Bool
+    {
+        get
+        {
+            
+            if let value = UserDefaults.standard.object(forKey: "saveHRVSamples")
+            {
+                return value as! Bool
+            }
+            else
+            {
+                return true
+            }
+        }
+        
+        set
+        {
+            UserDefaults.standard.set(newValue, forKey: "saveHRVSamples")
+        }
+    }
 }

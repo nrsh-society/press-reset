@@ -19,6 +19,9 @@ class SummaryInterfaceController: WKInterfaceController {
     @IBOutlet var bpm: WKInterfaceLabel!
     @IBOutlet var bpmRange: WKInterfaceLabel!
     
+    @IBOutlet var saveHRVSwitch : WKInterfaceSwitch!
+    
+    
     var session: Session!
     
     override func awake(withContext context: Any?) {
@@ -31,6 +34,9 @@ class SummaryInterfaceController: WKInterfaceController {
             let workout = array["workout"] as? HKWorkout
         {
             self.session = session;
+            
+            
+            self.saveHRVSwitch.setOn(Session.options.saveHRVSamples)
             
             totalTime.setDate(session.startDate!)
             
@@ -87,6 +93,8 @@ class SummaryInterfaceController: WKInterfaceController {
     @IBAction func onDonePress() {
        Mixpanel.sharedInstance()?.track("watch_summary")
         
+        //todo: need to move the save here or after this view unloads
+        
         if SettingsWatch.isFirstSession {
             WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session as AnyObject), (name: "OptionsInterfaceController", context: session as AnyObject)])
         } else {
@@ -95,5 +103,13 @@ class SummaryInterfaceController: WKInterfaceController {
         }
         
     }
+    
+    
+    @IBAction func onHRVSwitchChanged(_ value: Bool)
+    {
+        //I promise that if you have written Smalltalk code, this will make sense.
+        Session.options.saveHRVSamples = value
+    }
+    
 
 }
