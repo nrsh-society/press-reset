@@ -31,6 +31,9 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     @IBOutlet weak var donateMetricGroup: WKInterfaceGroup!
     @IBOutlet weak var donateMetricValue: WKInterfaceLabel!
     
+    //7.1
+    @IBOutlet var saveHRVSwitch : WKInterfaceSwitch!
+  
     @IBAction func donationsAction(value: Bool)
     {
         SettingsWatch.donations = value

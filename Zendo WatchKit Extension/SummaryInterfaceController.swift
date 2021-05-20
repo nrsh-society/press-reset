@@ -19,9 +19,6 @@ class SummaryInterfaceController: WKInterfaceController {
     @IBOutlet var bpm: WKInterfaceLabel!
     @IBOutlet var bpmRange: WKInterfaceLabel!
     
-    @IBOutlet var saveHRVSwitch : WKInterfaceSwitch!
-    
-    
     var session: Session!
     
     override func awake(withContext context: Any?) {
@@ -35,8 +32,6 @@ class SummaryInterfaceController: WKInterfaceController {
         {
             self.session = session;
             
-            
-            self.saveHRVSwitch.setOn(Session.options.saveHRVSamples)
             
             totalTime.setDate(session.startDate!)
             

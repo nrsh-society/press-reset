@@ -157,15 +157,6 @@
                                             </items>
                                             <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="0.0"/>
                                         </group>
-                                        <group width="1" alignment="left" verticalAlignment="bottom" layout="vertical" id="JPr-AX-pEj">
-                                            <items>
-                                                <switch width="1" alignment="left" value="YES" title="Save HRV" id="pOH-6r-aV9">
-                                                    <connections>
-                                                        <action selector="onHRVSwitchChanged:" destination="Mk4-5F-50h" id="9eh-4V-HfD"/>
-                                                    </connections>
-                                                </switch>
-                                            </items>
-                                        </group>
                                     </items>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="5" bottom="5"/>
                                 </group>
@@ -221,7 +212,6 @@
                         <outlet property="bpm" destination="ceG-3B-e0b" id="kcP-Pf-ZhL"/>
                         <outlet property="bpmRange" destination="dzD-VC-bdl" id="BhV-Xg-EBu"/>
                         <outlet property="hrv" destination="GLu-3s-woe" id="gbR-eL-2WH"/>
-                        <outlet property="saveHRVSwitch" destination="pOH-6r-aV9" id="ACV-YK-jPa"/>
                         <outlet property="totalTime" destination="vss-pe-7sR" id="kXJ-o4-SRQ"/>
                     </connections>
                 </controller>
