@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="18122" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch38"/>
+    <device id="watch44"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="18022"/>
@@ -308,7 +308,7 @@
         <!--Options-->
         <scene sceneID="mYQ-LG-qhF">
             <objects>
-                <controller identifier="OptionsInterfaceController" title="Options" contentMode="scaleAspectFit" id="y7B-OZ-tWG" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="OptionsInterfaceController" title="Options" id="y7B-OZ-tWG" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="left" layout="vertical" spacing="5" id="mb7-hQ-jiz" userLabel="Options Group">
                             <items>
@@ -448,12 +448,12 @@
                                                         <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                     </variation>
                                                 </label>
-                                                <switch width="1" alignment="left" title="Support Causes" numberOfLines="4" id="Jun-OP-O0k">
+                                                <switch width="1" alignment="left" enabled="NO" title="Support Causes" numberOfLines="4" id="Jun-OP-O0k">
                                                     <connections>
                                                         <action selector="donationsActionWithValue:" destination="y7B-OZ-tWG" id="FZf-jy-lbH"/>
                                                     </connections>
                                                 </switch>
-                                                <group width="1" alignment="left" layout="vertical" id="E8E-K3-Aqx">
+                                                <group width="1" alignment="left" hidden="YES" layout="vertical" id="E8E-K3-Aqx">
                                                     <items>
                                                         <label alignment="center" verticalAlignment="center" text="--" textAlignment="center" minimumScaleFactor="0.5" id="lD5-xA-81x">
                                                             <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="33"/>
@@ -472,18 +472,18 @@
                                         </group>
                                         <group width="1" alignment="left" layout="vertical" spacing="5" id="F2T-w0-04m" userLabel="Progress">
                                             <items>
-                                                <label width="1" alignment="center" text="Compare impact with the community." textAlignment="left" numberOfLines="2" id="yT9-B6-Ddo">
+                                                <label width="1" alignment="center" text="Compare impact with the community." textAlignment="left" numberOfLines="3" id="yT9-B6-Ddo">
                                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                                     <variation key="device=watch38mm">
                                                         <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                     </variation>
                                                 </label>
-                                                <switch width="1" alignment="left" title="Share Progress" id="wUB-ZN-Iva">
+                                                <switch width="1" alignment="left" enabled="NO" title="Share Progress" id="wUB-ZN-Iva">
                                                     <connections>
                                                         <action selector="progressActionWithValue:" destination="y7B-OZ-tWG" id="EWy-Gw-7yf"/>
                                                     </connections>
                                                 </switch>
-                                                <group width="1" alignment="left" layout="vertical" id="wsS-Bw-TOf">
+                                                <group width="1" alignment="left" hidden="YES" layout="vertical" id="wsS-Bw-TOf">
                                                     <items>
                                                         <label alignment="center" verticalAlignment="center" text="-- / --" textAlignment="center" minimumScaleFactor="0.5" id="z7d-Bj-bgq">
                                                             <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="33"/>
@@ -500,7 +500,7 @@
                                             </items>
                                             <edgeInsets key="margins" left="0.0" right="0.0" top="5" bottom="0.0"/>
                                         </group>
-                                        <group width="1" height="100" alignment="left" layout="vertical" spacing="5" id="u27-RU-TFd" userLabel="Signin Group">
+                                        <group width="1" height="172" alignment="left" layout="vertical" spacing="5" id="u27-RU-TFd" userLabel="Signin Group">
                                             <items>
                                                 <authorizationAppleIDButton width="1" alignment="left" style="white" id="hF5-S2-yKR">
                                                     <connections>

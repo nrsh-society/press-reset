@@ -110,20 +110,6 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         
         Mixpanel.sharedInstance()?.timeEvent("watch_meditation")
         
-        sessionDelegater.sendMessage(["facebook" : "watch_meditation"],
-                                     replyHandler:
-            {
-                (message) in
-                
-                print(message.debugDescription)
-        },
-                                     errorHandler:
-            {
-                (error) in
-                
-                print(error)
-        })
-        
         if let context = context as? Session {
             session = context
             session.delegate = self

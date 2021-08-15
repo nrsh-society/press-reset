@@ -478,7 +478,7 @@ class GameController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 
                 if let creator = self.story.creatorPayID
                 {
-                    self.payout(creatorPayID: creator)
+                    //self.payout(creatorPayID: creator)
                 }
             }
         }

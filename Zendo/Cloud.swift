@@ -13,6 +13,7 @@ import FBSDKCoreKit
 import Mixpanel
 import FirebaseStorage
 import FacebookCore
+import AppTrackingTransparency
 
 class Player
 {
@@ -295,10 +296,19 @@ class Cloud
 
     static func enable(_ application: UIApplication, _ options : [UIApplicationLaunchOptionsKey : Any]?)
     {
+        if #available(iOS 14, *) {
+            
+            ATTrackingManager.requestTrackingAuthorization { status in
+                
+                if (status == .authorized)
+                {
+                    ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: options)
+                }
+            }
+        }
+       
         FirebaseApp.configure()
-        
-        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: options)
-        
+    
         Mixpanel.initialize(token: "73167d0429d8da0c05c6707e832cbb46")
         
         BuddyBuildSDK.setup()

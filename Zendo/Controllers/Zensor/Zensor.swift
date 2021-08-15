@@ -6,12 +6,12 @@
 //  Copyright © 2020 Zendo Tools. All rights reserved.
 //
 
-import HomeKit
+//import HomeKit
 import Foundation
 import CoreBluetooth
 import FirebaseDatabase
 
-public class Zensor : NSObject, Identifiable, ObservableObject, HMHomeManagerDelegate
+public class Zensor : NSObject, Identifiable, ObservableObject //, HMHomeManagerDelegate
 {
     var batt : UInt8 = 0
     
@@ -19,8 +19,8 @@ public class Zensor : NSObject, Identifiable, ObservableObject, HMHomeManagerDel
     public var name : String
     var startDate = Date()
     
-    let homeManager = HMHomeManager()
-    var lightCharacteristic : HMCharacteristic? = nil
+    //let homeManager = HMHomeManager()
+    //var lightCharacteristic : HMCharacteristic? = nil
     
     @Published public var hrv : String = "0.0"
     @Published public var hr : String = "0.0"
@@ -42,7 +42,7 @@ public class Zensor : NSObject, Identifiable, ObservableObject, HMHomeManagerDel
         
         super.init()
         
-        homeManager.delegate = self
+        //homeManager.delegate = self
     }
     
     func update(hr: Float) {
@@ -69,7 +69,7 @@ public class Zensor : NSObject, Identifiable, ObservableObject, HMHomeManagerDel
             
             self.publish()
             
-            self.adjustLights()
+            //self.adjustLights()
         }
     }
     
@@ -234,6 +234,8 @@ public class Zensor : NSObject, Identifiable, ObservableObject, HMHomeManagerDel
         
     }
     
+    /*
+     
     @objc public func homeManagerDidUpdateHomes(_ manager: HMHomeManager) {
         
         guard let home = manager.homes.first else { return }
@@ -245,9 +247,11 @@ public class Zensor : NSObject, Identifiable, ObservableObject, HMHomeManagerDel
         .flatMap { $0.characteristics }
         .filter { $0.characteristicType == HMCharacteristicTypeBrightness }
 
-        self.lightCharacteristic = lightCharacteristics.first!
+        self.lightCharacteristic = lightCharacteristics.first
         
     }
+     
+    
     
     func adjustLights()
     {
@@ -260,6 +264,8 @@ public class Zensor : NSObject, Identifiable, ObservableObject, HMHomeManagerDel
     
         self.lightCharacteristic?.writeValue(NSNumber(value: Double(brightness)), completionHandler: { if let error = $0 { print("Failed: \(error)") } })
     }
+ 
+     */
 
 }
 
