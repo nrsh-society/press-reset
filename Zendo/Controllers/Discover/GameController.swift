@@ -437,7 +437,7 @@ class GameController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                     {
                         let vc = ZazenController.loadFromStoryboard()
                         
-                        vc.workout = (workouts[0] as! HKWorkout)
+                        vc.workout = workouts[0]
                         
                         self.present(vc, animated: true)
                         

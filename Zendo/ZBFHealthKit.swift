@@ -211,12 +211,13 @@ public class ZBFHealthKit
     
     class func getWorkouts(limit: Int, handler: @escaping GetSamplesHandler)
     {
-        let hkType = HKObjectType.workoutType()
         let hkPredicate = HKQuery.predicateForObjects(from: HKSource.default())
+        
+        let mindfulSessionType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
         
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
         
-        let hkQuery = HKSampleQuery(sampleType: hkType,
+        let hkQuery = HKSampleQuery(sampleType: mindfulSessionType,
                                     predicate: hkPredicate,
                                     limit: limit,
                                     sortDescriptors: [sortDescriptor],
