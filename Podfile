@@ -5,9 +5,7 @@ target 'Zendo' do
   use_frameworks!
   pod 'PromiseKit'
   pod 'Parse'
-  #pod 'Charts'
   pod 'Charts', :git => 'https://github.com/danielgindi/Charts.git', :branch => 'master'
-  #pod 'Mixpanel'
   pod 'NVActivityIndicatorView'
   pod 'Hero'
   pod 'SwiftyJSON'
@@ -20,7 +18,6 @@ end
 target 'Zendo WatchKit Extension' do
   platform :watchos, '8.0'
   use_frameworks!
-  #pod 'Mixpanel'
   pod 'Smooth' , :path => '~/Documents/GitHub/Smooth.swift'
   pod 'Parse'
 end
