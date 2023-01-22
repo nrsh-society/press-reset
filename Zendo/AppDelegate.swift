@@ -9,10 +9,8 @@
 import UIKit
 import HealthKit
 import Mixpanel
-import FBSDKCoreKit
 import UserNotifications
-import FBSDKLoginKit
-import FacebookCore
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,7 +26,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         WatchSessionManager.sharedManager.startSession()
         
-        UINavigationBar.appearance().barStyle = .black
+       
+        
+        if #available(iOS 15.0, *) {
+            let navigationBarAppearance = UINavigationBarAppearance()
+            navigationBarAppearance.configureWithTransparentBackground()
+            navigationBarAppearance.titleTextAttributes = [.font: UIFont.zendo(font: .antennaMedium, size: 24.0), .foregroundColor: UIColor.white]
+            
+            //navigationBarAppearance.titleTextAttributes = [.font: UIFont.zendo(font: .antennaRegular, size: 14.0), .foregroundColor: UIColor.white]
+            
+            navigationBarAppearance.backgroundColor = UIColor.zenDarkGreen
+            
+            UINavigationBar.appearance().standardAppearance =  navigationBarAppearance
+            UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+            UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+        }
+        
+        //UINavigationBar.appearance().barStyle = .black
         UINavigationBar.appearance().barTintColor = UIColor.zenDarkGreen
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().isTranslucent = false
@@ -57,10 +71,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    /*
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool
     {
-        return ApplicationDelegate.shared.application(app, open: url, options: options)
+        //return ApplicationDelegate.shared.application(app, open: url, options: options)
     }
+    */
     
     func applicationWillEnterForeground(_ application: UIApplication)
     {
@@ -94,7 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 Mixpanel.mainInstance().people.set(properties: ["$name": name])
             }
             
-            Mixpanel.mainInstance().people.addPushDeviceToken(deviceToken)
+            //Mixpanel.mainInstance().people.addPushDeviceToken(deviceToken)
         }
         
     }

@@ -3,20 +3,12 @@ use_frameworks!
 target 'Zendo' do
   platform :ios, '13.0'
   use_frameworks!
-  pod 'BuddyBuildSDK'
-  pod 'Firebase/Core'
-  pod 'Firebase/Database'
-  pod 'Firebase/Storage'
   pod 'PromiseKit'
-  pod 'XpringKit'
   pod 'Parse'
-  pod 'Charts'
-  pod 'Mixpanel-swift'
+  #pod 'Charts'
+  pod 'Charts', :git => 'https://github.com/danielgindi/Charts.git', :branch => 'master'
+  #pod 'Mixpanel'
   pod 'NVActivityIndicatorView'
-  pod 'FBSDKCoreKit'
-  pod 'FacebookCore'
-  pod 'FBSDKLoginKit'
-  pod 'FBSDKShareKit'
   pod 'Hero'
   pod 'SwiftyJSON'
   pod 'lottie-ios'
@@ -26,8 +18,9 @@ target 'Zendo' do
 end
 
 target 'Zendo WatchKit Extension' do
-  platform :watchos, '4.0'
-  pod 'Mixpanel'
+  platform :watchos, '8.0'
+  use_frameworks!
+  #pod 'Mixpanel'
   pod 'Smooth' , :path => '~/Documents/GitHub/Smooth.swift'
   pod 'Parse'
 end
@@ -39,4 +32,3 @@ end
 #        end
 #    end
 #end
-

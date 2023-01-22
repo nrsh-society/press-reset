@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="18122" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch44"/>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="21507" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch49"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="18022"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="21501"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="Antenna-Light.otf">
@@ -373,6 +373,25 @@
                                 <separator alignment="left" id="fpw-Bn-oRt">
                                     <color key="color" red="0.34932014350000001" green="0.54117977620000002" blue="0.47449994089999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </separator>
+                                <group width="1" alignment="left" layout="vertical" spacing="0.0" id="flm-sq-83P">
+                                    <items>
+                                        <switch width="1" alignment="left" value="YES" title="Audio Feedback" id="mNE-Vv-mXL">
+                                            <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
+                                            <variation key="device=watch38mm">
+                                                <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
+                                            </variation>
+                                            <connections>
+                                                <action selector="onAudioFeedbackChanged:" destination="y7B-OZ-tWG" id="38E-T0-Chi"/>
+                                            </connections>
+                                        </switch>
+                                        <picker height="60" alignment="left" focusStyle="stack" indicatorMode="shownWhileFocused" id="oI6-8u-1o3">
+                                            <connections>
+                                                <action selector="onOptionsChanged:" destination="y7B-OZ-tWG" id="qIl-Dq-h7O"/>
+                                            </connections>
+                                        </picker>
+                                    </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="5" bottom="2"/>
+                                </group>
                                 <group width="1" alignment="left" layout="vertical" spacing="5" id="8zB-c5-OX9" userLabel="Feedback">
                                     <items>
                                         <group width="1" alignment="left" layout="vertical" radius="0.0" spacing="5" id="ksL-6C-M7w" userLabel="Success Feedback Group">
@@ -522,6 +541,8 @@
                         </group>
                     </items>
                     <connections>
+                        <outlet property="audioOptions" destination="oI6-8u-1o3" id="gbx-KE-nKx"/>
+                        <outlet property="audioSwitch" destination="mNE-Vv-mXL" id="2kX-Bi-Gh7"/>
                         <outlet property="authorizationButton" destination="hF5-S2-yKR" id="Bjf-K3-e8e"/>
                         <outlet property="bluetoothStatus" destination="ef6-Lh-4xd" id="F5M-GS-XeA"/>
                         <outlet property="bluetoothToogle" destination="ijL-wW-MOc" id="gU3-Yh-K2d"/>
@@ -542,7 +563,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="357" y="-161"/>
+            <point key="canvasLocation" x="356.4848484848485" y="-178.4297520661157"/>
         </scene>
         <!--Goals-->
         <scene sceneID="Eaa-gP-xvC">

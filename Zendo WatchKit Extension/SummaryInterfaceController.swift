@@ -24,7 +24,7 @@ class SummaryInterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-       Mixpanel.sharedInstance()?.timeEvent("watch_summary")
+        Mixpanel.mainInstance().time(event: "watch_summary")
         
         if  let array = context as? [String: Any],
             let session = array["session"] as? Session,
@@ -86,25 +86,21 @@ class SummaryInterfaceController: WKInterfaceController {
     }
     
     @IBAction func onDonePress() {
-       Mixpanel.sharedInstance()?.track("watch_summary")
+        Mixpanel.mainInstance().track(event: "watch_summary")
         
         //todo: need to move the save here or after this view unloads
         
         if SettingsWatch.isFirstSession {
             WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: session as AnyObject), (name: "OptionsInterfaceController", context: session as AnyObject)])
         } else {
+            
+            //todo: think the easest path to add the timer is to repurope the meditation goal feature
+            //that means that this needa to move to start on the first session, rather than its summary
+            //lets go see where we are make this change on the other side.
+            
             SettingsWatch.isFirstSession = true
             WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "SetGoalInterfaceController", context: session as AnyObject)])
         }
         
     }
-    
-    
-    @IBAction func onHRVSwitchChanged(_ value: Bool)
-    {
-        //I promise that if you have written Smalltalk code, this will make sense.
-        Session.options.saveHRVSamples = value
-    }
-    
-
 }

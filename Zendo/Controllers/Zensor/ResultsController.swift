@@ -94,7 +94,10 @@ class ResultsController: UIViewController {
         let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
         
         dataset.fillAlpha = 1
-        dataset.fill = Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
+        dataset.fill = LinearGradientFill(gradient: gradient, angle: 90)
+        //Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
+        
+        
         dataset.drawFilledEnabled = true
         
         self.hrvData = LineChartData(dataSets: [dataset, communityDataset])
@@ -107,7 +110,7 @@ class ResultsController: UIViewController {
         
         cell.hrvChart.highlightValues([])
         cell.hrvChart.drawGridBackgroundEnabled = false
-        cell.hrvChart.chartDescription?.enabled = false
+        cell.hrvChart.chartDescription.enabled = false
         cell.hrvChart.autoScaleMinMaxEnabled = true
         cell.hrvChart.noDataText = ""
         
@@ -121,8 +124,11 @@ class ResultsController: UIViewController {
             DispatchQueue.main.async()
                 {
                     
-                    let dataset = self.hrvData?.getDataSetByIndex(0)!
-                    let communityDataset = self.hrvData?.getDataSetByIndex(1)!
+                    //let dataset = self.hrvData?.getDataSetByIndex(0)!
+                    //let communityDataset = self.hrvData?.getDataSetByIndex(1)!
+                    
+                    let dataset = self.hrvData?.dataSets[0]
+                    let communityDataset = self.hrvData?.dataSets[1]
                     dataset?.clear()
                     communityDataset?.clear()
                     
@@ -150,7 +156,7 @@ class ResultsController: UIViewController {
                         
                         cell.hrvChart.xAxis.valueFormatter = xaxis.valueFormatter
                         
-                        cell.hrvChart.data!.highlightEnabled = true
+                        //cell.hrvChart.data!.highlightEnabled = true
                         self.hrvData?.notifyDataChanged()
                         cell.hrvChart.notifyDataSetChanged()
                         cell.hrvChart.fitScreen()

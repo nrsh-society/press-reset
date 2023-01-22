@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-public class MMChartFormatter: NSObject, IAxisValueFormatter {
+public class MMChartFormatter: NSObject, AxisValueFormatter {
     
     public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         return String(format: "%.0f", value)

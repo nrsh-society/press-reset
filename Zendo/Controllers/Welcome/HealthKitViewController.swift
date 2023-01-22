@@ -85,13 +85,14 @@ class HealthKitViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        //todo: logging abstraction
         Mixpanel.mainInstance().time(event: "healthkit")
 
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        //todo: logging abstraction
         Mixpanel.mainInstance().track(event: "healthkit")
     }
     

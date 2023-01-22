@@ -1,130 +1,12 @@
 PODS:
-  - Alamofire (4.9.1)
-  - BigInt (5.0.0)
   - Bolts/Tasks (1.9.1)
-  - BoringSSL-GRPC (0.0.3):
-    - BoringSSL-GRPC/Implementation (= 0.0.3)
-    - BoringSSL-GRPC/Interface (= 0.0.3)
-  - BoringSSL-GRPC/Implementation (0.0.3):
-    - BoringSSL-GRPC/Interface (= 0.0.3)
-  - BoringSSL-GRPC/Interface (0.0.3)
-  - BuddyBuildSDK (1.0.17)
   - Cache (6.0.0)
-  - Charts (3.6.0):
-    - Charts/Core (= 3.6.0)
-  - Charts/Core (3.6.0)
-  - FacebookCore (0.9.0):
-    - FBSDKCoreKit (~> 5.0)
-  - FBSDKCoreKit (5.15.1):
-    - FBSDKCoreKit/Basics (= 5.15.1)
-    - FBSDKCoreKit/Core (= 5.15.1)
-  - FBSDKCoreKit/Basics (5.15.1)
-  - FBSDKCoreKit/Core (5.15.1):
-    - FBSDKCoreKit/Basics
-  - FBSDKLoginKit (5.15.1):
-    - FBSDKLoginKit/Login (= 5.15.1)
-  - FBSDKLoginKit/Login (5.15.1):
-    - FBSDKCoreKit (~> 5.0)
-  - FBSDKShareKit (5.15.1):
-    - FBSDKShareKit/Share (= 5.15.1)
-  - FBSDKShareKit/Share (5.15.1):
-    - FBSDKCoreKit (~> 5.0)
-  - Firebase/Core (6.23.0):
-    - Firebase/CoreOnly
-    - FirebaseAnalytics (= 6.4.2)
-  - Firebase/CoreOnly (6.23.0):
-    - FirebaseCore (= 6.6.7)
-  - Firebase/Database (6.23.0):
-    - Firebase/CoreOnly
-    - FirebaseDatabase (~> 6.2.0)
-  - Firebase/Storage (6.23.0):
-    - Firebase/CoreOnly
-    - FirebaseStorage (~> 3.6.1)
-  - FirebaseAnalytics (6.4.2):
-    - FirebaseCore (~> 6.6)
-    - FirebaseInstallations (~> 1.2)
-    - GoogleAppMeasurement (= 6.4.2)
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
-    - GoogleUtilities/MethodSwizzler (~> 6.0)
-    - GoogleUtilities/Network (~> 6.0)
-    - "GoogleUtilities/NSData+zlib (~> 6.0)"
-    - nanopb (= 0.3.9011)
-  - FirebaseAuthInterop (1.1.0)
-  - FirebaseCore (6.6.7):
-    - FirebaseCoreDiagnostics (~> 1.2)
-    - FirebaseCoreDiagnosticsInterop (~> 1.2)
-    - GoogleUtilities/Environment (~> 6.5)
-    - GoogleUtilities/Logger (~> 6.5)
-  - FirebaseCoreDiagnostics (1.2.4):
-    - FirebaseCoreDiagnosticsInterop (~> 1.2)
-    - GoogleDataTransportCCTSupport (~> 3.0)
-    - GoogleUtilities/Environment (~> 6.5)
-    - GoogleUtilities/Logger (~> 6.5)
-    - nanopb (~> 0.3.901)
-  - FirebaseCoreDiagnosticsInterop (1.2.0)
-  - FirebaseDatabase (6.2.1):
-    - FirebaseAuthInterop (~> 1.0)
-    - FirebaseCore (~> 6.0)
-    - leveldb-library (~> 1.22)
-  - FirebaseInstallations (1.3.0):
-    - FirebaseCore (~> 6.6)
-    - GoogleUtilities/Environment (~> 6.6)
-    - GoogleUtilities/UserDefaults (~> 6.6)
-    - PromisesObjC (~> 1.2)
-  - FirebaseStorage (3.6.1):
-    - FirebaseAuthInterop (~> 1.1)
-    - FirebaseCore (~> 6.6)
-    - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleAppMeasurement (6.4.2):
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
-    - GoogleUtilities/MethodSwizzler (~> 6.0)
-    - GoogleUtilities/Network (~> 6.0)
-    - "GoogleUtilities/NSData+zlib (~> 6.0)"
-    - nanopb (= 0.3.9011)
-  - GoogleDataTransport (6.2.1)
-  - GoogleDataTransportCCTSupport (3.0.0):
-    - GoogleDataTransport (~> 6.0)
-    - nanopb (~> 0.3.901)
-  - GoogleUtilities/AppDelegateSwizzler (6.7.2):
-    - GoogleUtilities/Environment
-    - GoogleUtilities/Logger
-    - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.7.2):
-    - PromisesObjC (~> 1.2)
-  - GoogleUtilities/Logger (6.7.2):
-    - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (6.7.2):
-    - GoogleUtilities/Logger
-  - GoogleUtilities/Network (6.7.2):
-    - GoogleUtilities/Logger
-    - "GoogleUtilities/NSData+zlib"
-    - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.7.2)"
-  - GoogleUtilities/Reachability (6.7.2):
-    - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (6.7.2):
-    - GoogleUtilities/Logger
-  - gRPC-Core (1.19.0):
-    - gRPC-Core/Implementation (= 1.19.0)
-    - gRPC-Core/Interface (= 1.19.0)
-  - gRPC-Core/Implementation (1.19.0):
-    - BoringSSL-GRPC (= 0.0.3)
-    - gRPC-Core/Interface (= 1.19.0)
-    - nanopb (~> 0.3)
-  - gRPC-Core/Interface (1.19.0)
-  - GTMSessionFetcher/Core (1.5.0)
+  - Charts (4.0.3):
+    - Charts/Core (= 4.0.3)
+  - Charts/Core (4.0.3):
+    - SwiftAlgorithms (~> 1.0)
   - Hero (1.5.0)
-  - leveldb-library (1.22)
   - lottie-ios (3.2.1)
-  - Mixpanel (3.6.5)
-  - Mixpanel-swift (2.8.3):
-    - Mixpanel-swift/Complete (= 2.8.3)
-  - Mixpanel-swift/Complete (2.8.3)
-  - nanopb (0.3.9011):
-    - nanopb/decode (= 0.3.9011)
-    - nanopb/encode (= 0.3.9011)
-  - nanopb/decode (0.3.9011)
-  - nanopb/encode (0.3.9011)
   - NVActivityIndicatorView (5.1.1):
     - NVActivityIndicatorView/Base (= 5.1.1)
   - NVActivityIndicatorView/Base (5.1.1)
@@ -141,137 +23,64 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (6.13.1):
     - PromiseKit/CorePromise
-  - PromisesObjC (1.2.12)
   - SDWebImage (5.10.4):
     - SDWebImage/Core (= 5.10.4)
   - SDWebImage/Core (5.10.4)
   - Smooth (0.1.1)
-  - SwiftGRPC (0.9.1):
-    - gRPC-Core (~> 1.19.0)
-    - SwiftProtobuf (~> 1.5.0)
-  - SwiftProtobuf (1.5.0)
+  - SwiftAlgorithms (1.0.0)
   - SwiftyJSON (5.0.0)
-  - XpringKit (5.1.1):
-    - Alamofire (~> 4.9.0)
-    - BigInt (~> 5.0.0)
-    - SwiftGRPC (~> 0.9.1)
-    - SwiftProtobuf (~> 1.5.0)
 
 DEPENDENCIES:
-  - BuddyBuildSDK
   - Cache
-  - Charts
-  - FacebookCore
-  - FBSDKCoreKit
-  - FBSDKLoginKit
-  - FBSDKShareKit
-  - Firebase/Core
-  - Firebase/Database
-  - Firebase/Storage
+  - Charts (from `https://github.com/danielgindi/Charts.git`, branch `master`)
   - Hero
   - lottie-ios
-  - Mixpanel
-  - Mixpanel-swift
   - NVActivityIndicatorView
   - Parse
   - PromiseKit
   - SDWebImage
   - Smooth (from `~/Documents/GitHub/Smooth.swift`)
   - SwiftyJSON
-  - XpringKit
 
 SPEC REPOS:
   trunk:
-    - Alamofire
-    - BigInt
     - Bolts
-    - BoringSSL-GRPC
-    - BuddyBuildSDK
     - Cache
-    - Charts
-    - FacebookCore
-    - FBSDKCoreKit
-    - FBSDKLoginKit
-    - FBSDKShareKit
-    - Firebase
-    - FirebaseAnalytics
-    - FirebaseAuthInterop
-    - FirebaseCore
-    - FirebaseCoreDiagnostics
-    - FirebaseCoreDiagnosticsInterop
-    - FirebaseDatabase
-    - FirebaseInstallations
-    - FirebaseStorage
-    - GoogleAppMeasurement
-    - GoogleDataTransport
-    - GoogleDataTransportCCTSupport
-    - GoogleUtilities
-    - gRPC-Core
-    - GTMSessionFetcher
     - Hero
-    - leveldb-library
     - lottie-ios
-    - Mixpanel
-    - Mixpanel-swift
-    - nanopb
     - NVActivityIndicatorView
     - Parse
     - PromiseKit
-    - PromisesObjC
     - SDWebImage
-    - SwiftGRPC
-    - SwiftProtobuf
+    - SwiftAlgorithms
     - SwiftyJSON
-    - XpringKit
 
 EXTERNAL SOURCES:
+  Charts:
+    :branch: master
+    :git: https://github.com/danielgindi/Charts.git
   Smooth:
     :path: "~/Documents/GitHub/Smooth.swift"
 
+CHECKOUT OPTIONS:
+  Charts:
+    :commit: 2c77b2b8a4ccb82a36260b44b2c794683cc6f17b
+    :git: https://github.com/danielgindi/Charts.git
+
 SPEC CHECKSUMS:
-  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  BigInt: 74b4d88367b0e819d9f77393549226d36faeb0d8
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
-  BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
-  BuddyBuildSDK: 8ae12ee721098b356a961ea7dce70ae55f93a7d2
   Cache: 4ca7e00363fca5455f26534e5607634c820ffc2d
-  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
-  FacebookCore: ba86524b66cfa86d0f8e65d08faa8504a9f732dd
-  FBSDKCoreKit: 1d5acf7c9d7a2f92bb1a242dc60cae5b7adb91df
-  FBSDKLoginKit: f1ea8026a58b52d30c9f2e6a58ca7d813619fb83
-  FBSDKShareKit: 259737eab3cc807087374553abdf588b3096ba55
-  Firebase: 585ae467b3edda6a5444e788fda6888f024d8d6f
-  FirebaseAnalytics: 558f7a03d19de451093032c806f39d5f9dff096e
-  FirebaseAuthInterop: a0f37ae05833af156e72028f648d313f7e7592e9
-  FirebaseCore: a2788a0d5f6c1dff17b8f79b4a73654a8d4bfdbd
-  FirebaseCoreDiagnostics: b59c024493a409f8aecba02c99928d0d8431d159
-  FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
-  FirebaseDatabase: 4e99c0c475d1ee0aa64ae2b53c93f80b7b60d7d9
-  FirebaseInstallations: 6f5f680e65dc374397a483c32d1799ba822a395b
-  FirebaseStorage: f4f39ae834a7145963b913f54e2f24a9db1d8fac
-  GoogleAppMeasurement: 2253e99c1f22638cf234c059144660c338ad76c3
-  GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
-  GoogleDataTransportCCTSupport: 0f39025e8cf51f168711bd3fb773938d7e62ddb5
-  GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
-  gRPC-Core: bd9472c8daa2e414b9f8038ba667bf56ce0e02b8
-  GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
+  Charts: d959d6723c8eedfdd0735dfc28cb0a71762ac4d9
   Hero: b7385b75e7259da62f4f85462f59a5082d66b058
-  leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   lottie-ios: 106e92eaf11fbed0a76590b4cdb9b5ec26123ff7
-  Mixpanel: de8296d8568806ab17bfced0f823c908b808e1e0
-  Mixpanel-swift: 947354668bf7dcaff5aaf9c64232fb5bea6ff0c7
-  nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   Parse: e40fdb9c7d665823b7fe9865949cac9a53eb2ce7
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
-  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   Smooth: 313630fa4e58d806210038c1301281d1e1b932e3
-  SwiftGRPC: 43d3e8db88f97e7386bd44f159ecdfad02ce3362
-  SwiftProtobuf: 241400280f912735c1e1b9fe675fdd2c6c4d42e2
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
-  XpringKit: e6e272ebc1034912331bbab94bcaf535fa156393
 
-PODFILE CHECKSUM: 9461544dce77096289530a58e62765423a8ce540
+PODFILE CHECKSUM: f52373fdcc5b675674485ee7d20c3b16d58ab3ab
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.11.3

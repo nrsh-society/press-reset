@@ -135,7 +135,8 @@ class ResultGameController: UIViewController {
         let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
         
         dataset.fillAlpha = 1
-        dataset.fill = Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
+        dataset.fill = LinearGradientFill(gradient: gradient, angle: 90)
+        //Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
         dataset.drawFilledEnabled = true
         
         self.hrvData = LineChartData(dataSets: [dataset, communityDataset])
@@ -176,7 +177,8 @@ class ResultGameController: UIViewController {
         let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
         
         dataset.fillAlpha = 1
-        dataset.fill = Fill(linearGradient: gradient, angle: 90)
+        dataset.fill = LinearGradientFill(gradient: gradient, angle: 90)
+        //Fill(linearGradient: gradient, angle: 90)
         dataset.drawFilledEnabled = true
         
         self.mmData = LineChartData(dataSets: [dataset, communityDataset])
@@ -195,7 +197,7 @@ class ResultGameController: UIViewController {
         DispatchQueue.main.async {
             cell.hrvChart.highlightValues([])
             cell.hrvChart.drawGridBackgroundEnabled = false
-            cell.hrvChart.chartDescription?.enabled = false
+            cell.hrvChart.chartDescription.enabled = false
             cell.hrvChart.autoScaleMinMaxEnabled = true
             cell.hrvChart.noDataText = ""
             
@@ -209,9 +211,12 @@ class ResultGameController: UIViewController {
             
             DispatchQueue.main.async {
                     
-                    let dataset = self.hrvData?.getDataSetByIndex(0)!
-                    let communityDataset = self.hrvData?.getDataSetByIndex(1)!
-                    dataset?.clear()
+                    //let dataset = self.hrvData?.getDataSetByIndex(0)!
+                let dataset = self.hrvData?.dataSets[0]
+                //let communityDataset = self.hrvData?.getDataSetByIndex(1)!
+                let communityDataset = self.hrvData?.dataSets[1]
+                  
+                dataset?.clear()
                     communityDataset?.clear()
                     
                     if cell.hrvChart.data == nil
@@ -258,7 +263,7 @@ class ResultGameController: UIViewController {
                         
                         cell.hrvChart.xAxis.valueFormatter = xaxis.valueFormatter
                         
-                        cell.hrvChart.data!.highlightEnabled = true
+                        //cell.hrvChart.data!.highlightEnabled = true
                         self.hrvData?.notifyDataChanged()
                         cell.hrvChart.notifyDataSetChanged()
                         cell.hrvChart.fitScreen()
@@ -311,7 +316,7 @@ class ResultGameController: UIViewController {
             cell.mmChart.leftAxis.drawAxisLineEnabled = false
             
             cell.mmChart.drawGridBackgroundEnabled = false
-            cell.mmChart.chartDescription?.enabled = false
+            cell.mmChart.chartDescription.enabled = false
             cell.mmChart.autoScaleMinMaxEnabled = true
             cell.mmChart.noDataText = ""
         }
@@ -327,8 +332,11 @@ class ResultGameController: UIViewController {
             
             DispatchQueue.main.async() {
                 
-                let dataset = self.mmData?.getDataSetByIndex(0)!
-                let communityDataset = self.mmData?.getDataSetByIndex(1)!
+                //let dataset = self.mmData?.getDataSetByIndex(0)!
+                //let communityDataset = self.mmData?.getDataSetByIndex(1)!
+                let dataset = self.mmData?.dataSets[0]
+                let communityDataset = self.mmData?.dataSets[1]
+                
                 dataset?.clear()
                 communityDataset?.clear()
                 
@@ -394,7 +402,7 @@ class ResultGameController: UIViewController {
                 cell.mmChart.xAxis.valueFormatter = xaxis.valueFormatter
                 cell.mmChart.rightAxis.valueFormatter = xaxisValue.valueFormatter
                 
-                cell.mmChart.data!.highlightEnabled = true
+                //cell.mmChart.data!.highlightEnabled = true
                 self.mmData?.notifyDataChanged()
                 cell.mmChart.notifyDataSetChanged()
                 cell.mmChart.fitScreen()
@@ -442,7 +450,7 @@ class ResultGameController: UIViewController {
     
 }
 
-extension ResultGameController: IAxisValueFormatter {
+extension ResultGameController: AxisValueFormatter {
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         return stringForValue(value, self.currentInterval.interval)

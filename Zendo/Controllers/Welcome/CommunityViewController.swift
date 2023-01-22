@@ -39,21 +39,16 @@ class CommunityViewController: UIViewController {
     }
     @IBOutlet var labels: [UILabel]!
     @IBOutlet weak var skipButton: UIBarButtonItem!
-
-    //@IBOutlet weak var wallet: ZenTextField! {
-      //  didSet {
-        //    wallet.zenTextFieldType = .wallet
-          //  wallet.textField.delegate = self
-        //}
-    //}
     
     override func viewDidAppear(_ animated: Bool) {
+        
         super.viewDidAppear(animated)
         
         Mixpanel.mainInstance().time(event: "community")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        
         super.viewWillDisappear(animated)
         
         NotificationCenter.default.removeObserver(self)
@@ -61,6 +56,7 @@ class CommunityViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         if #available(iOS 13.0, *) {
@@ -105,6 +101,7 @@ class CommunityViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(forName: .UIKeyboardWillChangeFrame,

@@ -11,8 +11,6 @@ import AVFoundation
 import Hero
 import Cache
 import Mixpanel
-import Firebase
-import FirebaseDatabase
 
 enum PlayerStatus: Float {
     case pause = 0.0

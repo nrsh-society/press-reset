@@ -182,6 +182,52 @@ class ZBFHealthKit {
         healthStore.execute(hkSampleQuery)
     }
     
+    @available(*, renamed: "getRestingHeartRate()")
+    class func getRestingHeartRate(handler: @escaping SamplesHandlerDouble) {
+        
+        let start = Date().startOfDay
+        let end = Date().endOfDay
+        
+        let hkType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.restingHeartRate)!
+        
+        let hkPredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictStartDate)
+        
+        let options: HKStatisticsOptions = [HKStatisticsOptions.discreteAverage, HKStatisticsOptions.discreteMax, HKStatisticsOptions.discreteMin]
+        
+        let hkQuery = HKStatisticsQuery(quantityType: hkType,
+                                        quantitySamplePredicate: hkPredicate,
+                                        options: options) { query, result, error in
+                                            
+                                            if let result = result {
+                                                if let value = result.averageQuantity()?.doubleValue(for: HKUnit(from: "count/s")) {
+                                                    
+                                                    handler(value, nil)
+                                                } else {
+                                                    handler(nil, nil)
+                                                }
+                                            } else {
+                                                handler(nil, error)
+                                            }
+        }
+        
+        healthStore.execute(hkQuery)
+        
+    }
+    
+    class func getRestingHeartRate() async throws -> Double {
+        return try await withCheckedThrowingContinuation { continuation in
+            getRestingHeartRate() { result, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+                guard let result = result else {
+                    fatalError("Expected non-nil result 'result' for nil error")
+                }
+                continuation.resume(returning: result)
+            }
+        }
+    }
 }
 
 

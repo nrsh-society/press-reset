@@ -10,7 +10,6 @@ import Foundation
 import HealthKit
 import Mixpanel
 import Charts
-import XpringKit
 
 enum CurrentInterval: Int {
     case hour = 0
@@ -196,7 +195,8 @@ class OverviewController: UIViewController {
         let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
         
         dataset.fillAlpha = 1
-        dataset.fill = Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
+        dataset.fill = LinearGradientFill(gradient: gradient, angle: 90)
+        //Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
         dataset.drawFilledEnabled = true
         
         self.hrvData = LineChartData(dataSets: [dataset, communityDataset])
@@ -237,7 +237,8 @@ class OverviewController: UIViewController {
         let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
         
         dataset.fillAlpha = 1
-        dataset.fill = Fill(linearGradient: gradient, angle: 90)
+        dataset.fill = LinearGradientFill(gradient: gradient, angle: 90)
+        //Fill(linearGradient: gradient, angle: 90)
         dataset.drawFilledEnabled = true
         
         self.mmData = LineChartData(dataSets: [dataset, communityDataset])
@@ -253,7 +254,7 @@ class OverviewController: UIViewController {
         
         cell.hrvChart.highlightValues([])
         cell.hrvChart.drawGridBackgroundEnabled = false
-        cell.hrvChart.chartDescription?.enabled = false
+        cell.hrvChart.chartDescription.enabled = false
         cell.hrvChart.autoScaleMinMaxEnabled = true
         cell.hrvChart.noDataText = ""
         
@@ -267,8 +268,11 @@ class OverviewController: UIViewController {
             DispatchQueue.main.async()
                 {
                     
-                    let dataset = self.hrvData?.getDataSetByIndex(0)!
-                    let communityDataset = self.hrvData?.getDataSetByIndex(1)!
+                    //let dataset = self.hrvData?.getDataSetByIndex(0)!
+                    //let communityDataset = self.hrvData?.getDataSetByIndex(1)!
+                    
+                    let dataset = self.hrvData?.dataSets[0]
+                    let communityDataset = self.hrvData?.dataSets[1]
                     dataset?.clear()
                     communityDataset?.clear()
                     
@@ -312,7 +316,7 @@ class OverviewController: UIViewController {
                         
                         cell.hrvChart.xAxis.valueFormatter = xaxis.valueFormatter
                         
-                        cell.hrvChart.data!.highlightEnabled = true
+                        //cell.hrvChart.data!.highlightEnabled = true
                         self.hrvData?.notifyDataChanged()
                         cell.hrvChart.notifyDataSetChanged()
                         cell.hrvChart.fitScreen()
@@ -381,7 +385,7 @@ class OverviewController: UIViewController {
         cell.mmChart.leftAxis.drawAxisLineEnabled = false
         
         cell.mmChart.drawGridBackgroundEnabled = false
-        cell.mmChart.chartDescription?.enabled = false
+        cell.mmChart.chartDescription.enabled = false
         cell.mmChart.autoScaleMinMaxEnabled = true
         cell.mmChart.noDataText = ""
         
@@ -390,8 +394,11 @@ class OverviewController: UIViewController {
         ZBFHealthKit.getMindfulMinutes(start: start, end: end, currentInterval: currentInterval) { samples, error in
             DispatchQueue.main.async() {
                 
-                let dataset = self.mmData?.getDataSetByIndex(0)!
-                let communityDataset = self.mmData?.getDataSetByIndex(1)!
+                //let dataset = self.mmData?.getDataSetByIndex(0)!
+                //let communityDataset = self.mmData?.getDataSetByIndex(1)!
+                let dataset = self.mmData?.dataSets[0]
+                let communityDataset = self.mmData?.dataSets[1]
+                
                 dataset?.clear()
                 communityDataset?.clear()
                 
@@ -454,7 +461,7 @@ class OverviewController: UIViewController {
                 cell.mmChart.xAxis.valueFormatter = xaxis.valueFormatter
                 cell.mmChart.rightAxis.valueFormatter = xaxisValue.valueFormatter
                 
-                cell.mmChart.data!.highlightEnabled = true
+                //cell.mmChart.data!.highlightEnabled = true
                 self.mmData?.notifyDataChanged()
                 cell.mmChart.notifyDataSetChanged()
                 cell.mmChart.fitScreen()
@@ -497,7 +504,7 @@ class OverviewController: UIViewController {
     
 }
 
-extension OverviewController: IAxisValueFormatter {
+extension OverviewController: AxisValueFormatter {
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         return stringForValue(value, self.currentInterval.interval)

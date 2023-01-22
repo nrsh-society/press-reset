@@ -6,12 +6,11 @@
 //  Copyright © 2020 Zendo Tools. All rights reserved.
 //
 
-//import HomeKit
+import HomeKit
 import Foundation
 import CoreBluetooth
-import FirebaseDatabase
 
-public class Zensor : NSObject, Identifiable, ObservableObject //, HMHomeManagerDelegate
+public class Zensor : NSObject, Identifiable, ObservableObject , HMHomeManagerDelegate
 {
     var batt : UInt8 = 0
     
@@ -19,8 +18,9 @@ public class Zensor : NSObject, Identifiable, ObservableObject //, HMHomeManager
     public var name : String
     var startDate = Date()
     
-    //let homeManager = HMHomeManager()
-    //var lightCharacteristic : HMCharacteristic? = nil
+    let homeManager = HMHomeManager()
+    var lightCharacteristic : HMCharacteristic? = nil
+    var hueCharacteristic : HMCharacteristic? = nil
     
     @Published public var hrv : String = "0.0"
     @Published public var hr : String = "0.0"
@@ -42,7 +42,7 @@ public class Zensor : NSObject, Identifiable, ObservableObject //, HMHomeManager
         
         super.init()
         
-        //homeManager.delegate = self
+        homeManager.delegate = self
     }
     
     func update(hr: Float) {
@@ -69,7 +69,7 @@ public class Zensor : NSObject, Identifiable, ObservableObject //, HMHomeManager
             
             self.publish()
             
-            //self.adjustLights()
+            self.adjustLights()
         }
     }
     
@@ -198,74 +198,50 @@ public class Zensor : NSObject, Identifiable, ObservableObject //, HMHomeManager
     
     func publish()
     {
-        let database = Database.database().reference()
-        let players = database.child("players")
         
-        let name = self.name.replacingOccurrences(of: ".", with: "_")
-        
-        let key = players.child(name)
-        
-        key.setValue(self.getUpdate())
-        {
-            (error, ref) in
-            
-            if let error = error
-            {
-                print("Data could not be saved: \(error).")
-                
-                return
-            }
-            
-        }
         
     }
     
     func reset()
     {
-        let database = Database.database().reference()
         
-        let players = database.child("players")
-        
-        let name = self.name.replacingOccurrences(of: ".", with: "_")
-        
-        let key = players.child(name)
-        
-        key.removeValue()
         
     }
     
-    /*
-     
     @objc public func homeManagerDidUpdateHomes(_ manager: HMHomeManager) {
         
         guard let home = manager.homes.first else { return }
   
         let lights = home.accessories.filter { $0.category.categoryType == HMAccessoryCategoryTypeLightbulb }
-
-        let lightCharacteristics = lights
+        
+        self.hueCharacteristic = lights
         .flatMap { $0.services }
         .flatMap { $0.characteristics }
-        .filter { $0.characteristicType == HMCharacteristicTypeBrightness }
+        .filter { $0.characteristicType == HMCharacteristicTypeBrightness }.first
 
-        self.lightCharacteristic = lightCharacteristics.first
+        self.hueCharacteristic = lights
+            .flatMap { $0.services }
+            .flatMap { $0.characteristics }
+            .filter { $0.characteristicType == HMCharacteristicTypeHue }.first
         
     }
      
-    
-    
     func adjustLights()
     {
-        var brightness = 0.0
-    
-        if(self.isMeditating)
-        {
-            brightness = 100.0
+        var hrv = 0.0
+        
+        ZBFHealthKit.getHRVAverage(start: Date().startOfDay, end: Date().endOfDay) { samples, error in
+            
+            if let sample = samples?.first?.value
+            {
+                hrv = sample
+                
+                self.lightCharacteristic?.writeValue(NSNumber(value: 100), completionHandler: { if let error = $0 { print("Failed: \(error)") } })
+                
+                self.hueCharacteristic?.writeValue(NSNumber(value: hrv), completionHandler: { if let error = $0 { print("Failed: \(error)") } })
+            }
         }
-    
-        self.lightCharacteristic?.writeValue(NSNumber(value: Double(brightness)), completionHandler: { if let error = $0 { print("Failed: \(error)") } })
     }
  
-     */
-
 }
 

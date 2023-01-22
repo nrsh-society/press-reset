@@ -12,6 +12,8 @@ import Foundation
 import HealthKit
 import WatchConnectivity
 import Mixpanel
+import AVFAudio
+import AVFoundation
 
 class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     
@@ -24,8 +26,8 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     @IBOutlet var timeElapsedLabel: WKInterfaceLabel!
     
     private lazy var sessionDelegater: SessionDelegater = { return SessionDelegater() }()
-    
-    func sessionTick(startDate: Date, message: String?)
+        
+    func sessionTick(startDate: Date, message: String?, status: Status)
     {
         DispatchQueue.main.async
         {
@@ -36,6 +38,22 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
             if let message = message
             {
                 self.heartRateLabel.setText(message)
+            }
+            
+            if(Int(startDate.timeIntervalSinceNow) % 60 == 0) {
+                
+                if(Session.options.audioFeedbackEnabled)
+                   {
+                        if(status == .notmeditating)
+                        {
+                            AudioFeedback.stop()
+                            
+                        } else if (status == .meditating) {
+                            
+                            AudioFeedback.play()
+                        
+                        }
+                   }
             }
         }
     }
@@ -59,6 +77,12 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     
     func endSession()
     {
+        
+        if(Session.options.audioFeedbackEnabled)
+        {
+            AudioFeedback.stop()
+        }
+        
         session.end()
         {
             [weak self] workout in
@@ -69,7 +93,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
             {
                 if let workout = workout
                 {
-                    Mixpanel.sharedInstance()?.track("watch_meditation")
+                    Mixpanel.mainInstance().track(event: "watch_meditation")
                     
                     self.sessionDelegater.sendMessage(["watch" : "endSession"], replyHandler: nil, errorHandler: nil)
                     
@@ -108,7 +132,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     {
         super.awake(withContext: context)
         
-        Mixpanel.sharedInstance()?.timeEvent("watch_meditation")
+        Mixpanel.mainInstance().time(event: "watch_meditation")
         
         if let context = context as? Session {
             session = context
@@ -120,6 +144,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
                                                selector: #selector(endSessionFromiPhone),
                                                name:  .endSessionFromiPhone,
                                                object: nil)
+        
     }
 
     override func willActivate() {
@@ -127,8 +152,9 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     }
     
     override func didDeactivate() {
+        
+        
         super.didDeactivate()
-
     }
 
 }

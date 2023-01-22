@@ -101,10 +101,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         //#todo(7.0): remove Mixpanel
         if let name = SettingsWatch.fullName, let email = SettingsWatch.email
         {
-            Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46")
-            Mixpanel.sharedInstance()?.identify(email)
-            Mixpanel.sharedInstance()?.people.set(["$email": email])
-            Mixpanel.sharedInstance()?.people.set(["$name": name])
+            //Mixpanel.sharedInstance(withToken: "73167d0429d8da0c05c6707e832cbb46", trackAutomaticEvents: true)
+            Mixpanel.initialize(token: "73167d0429d8da0c05c6707e832cbb46")
+            Mixpanel.mainInstance().identify(distinctId: email)
+            //Mixpanel.sharedInstance()?.people.set(["$email": email])
+            //Mixpanel.sharedInstance()?.people.set(["$name": name])
         }
         else
         {
@@ -119,11 +120,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
                     SettingsWatch.fullName = name
                     SettingsWatch.email = email
 
-                    Mixpanel.sharedInstance()?.createAlias(email, forDistinctID: (Mixpanel.sharedInstance()?.distinctId)!)
+                    //Mixpanel.sharedInstance()?.createAlias(email, forDistinctID: (Mixpanel.sharedInstance()?.distinctId)!)
 
-                    Mixpanel.sharedInstance()?.identify(email)
-                    Mixpanel.sharedInstance()?.people.set(["$email": email])
-                    Mixpanel.sharedInstance()?.people.set(["$name": name])
+                    //Mixpanel.sharedInstance()?.identify(email)
+                    //Mixpanel.sharedInstance()?.people.set(["$email": email])
+                    //Mixpanel.sharedInstance()?.people.set(["$name": name])
                 }
             }, errorHandler: { (error) in
                 print(error.localizedDescription)
@@ -205,7 +206,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, SessionCommands, UNUserN
         {
             success, error in
             
-            Mixpanel.sharedInstance()?.track("watch_healthkit", properties: ["success" : success])
+            //#todo: create a logging abstraction
+            Mixpanel.mainInstance().track(event: "watch_healthkit", properties: ["success" : success])
             
             guard error == nil else
             {
