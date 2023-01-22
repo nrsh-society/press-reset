@@ -43,7 +43,7 @@ class ArenaView: UIView {
             
             lineChartView.noDataText = ""
             lineChartView.autoScaleMinMaxEnabled = true
-            lineChartView.chartDescription?.enabled = false
+            lineChartView.chartDescription.enabled = false
             lineChartView.drawGridBackgroundEnabled = false
             lineChartView.pinchZoomEnabled = false
             
@@ -85,9 +85,14 @@ class ArenaView: UIView {
             lineChartView.leftAxis.drawAxisLineEnabled = false
             
             lineChartView.drawGridBackgroundEnabled = false
-            lineChartView.chartDescription?.enabled = false
+            lineChartView.chartDescription.enabled = false
             lineChartView.autoScaleMinMaxEnabled = true
             lineChartView.noDataText = ""
+            
+            //lineChartView.xAxis.enabled = false
+            //lineChartView.yAxis.enabled = false
+            lineChartView.leftAxis.enabled = false
+            lineChartView.rightAxis.enabled = false
             
             initChartData()
             setChart([])
@@ -126,8 +131,8 @@ class ArenaView: UIView {
     
     func setChart(_ hrv: [(key: String, value: Int)]) {
         
-        let dataset = chartData?.getDataSetByIndex(0)!
-        
+        //let dataset = chartData?.getDataSetByIndex(0)!
+        let dataset = chartData?.dataSets[0]
         dataset?.clear()
         
         if lineChartView.data == nil {

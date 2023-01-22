@@ -31,7 +31,7 @@ class AppInterfaceController: WKInterfaceController {
         {
             [weak self] success, error in
             
-            Mixpanel.sharedInstance()?.track("watch_healthkit", properties: ["success" : success])
+            Mixpanel.mainInstance().track(event: "watch_healthkit", properties: ["success" : success])
             
             guard error == nil else
             {
@@ -59,7 +59,6 @@ class AppInterfaceController: WKInterfaceController {
     
     func startSession() {
         
-        Mixpanel.sharedInstance()?.track("watch_new_session")
         
         Session.current = Session()
         
@@ -93,7 +92,8 @@ class AppInterfaceController: WKInterfaceController {
                                 self.enableLocalNotifications()
                             }
                             
-                            Mixpanel.sharedInstance()?.track("watch_notification_auth")
+                            Mixpanel.mainInstance().track(event: "watch_notification_auth")
+                            
                         }
                     }
                     
@@ -134,7 +134,7 @@ class AppInterfaceController: WKInterfaceController {
             
             Notification.enabled = true
             
-            Mixpanel.sharedInstance()?.track("watch_notification_enabled")
+            Mixpanel.mainInstance().track(event: "watch_notification_enabled")
         }
     }
     
@@ -147,7 +147,7 @@ class AppInterfaceController: WKInterfaceController {
         {
             [weak self] success, error in
             
-            Mixpanel.sharedInstance()?.track("watch_healthkit", properties: ["success" : success])
+            Mixpanel.mainInstance().track(event: "watch_healthkit", properties: ["success" : success])
             
             guard error == nil else
             {
@@ -224,15 +224,15 @@ class AppInterfaceController: WKInterfaceController {
             }
             
         }
-        
-        Mixpanel.sharedInstance()?.timeEvent("watch_overview")
+        Mixpanel.initialize(token: "73167d0429d8da0c05c6707e832cbb46")
+        Mixpanel.mainInstance().time(event: "watch_overview")
     }
     
     override func didDeactivate()
     {
         super.didDeactivate()
         
-        Mixpanel.sharedInstance()?.track("watch_overview")
+        Mixpanel.mainInstance().track(event: "watch_overview")
     }
     
 }

@@ -61,7 +61,9 @@
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Add Zendō data to Apple Health</string>
 	<key>UIBackgroundModes</key>
-	<array/>
+	<array>
+		<string>audio</string>
+	</array>
 	<key>UIRequiresPersistentWiFi</key>
 	<true/>
 	<key>WKBackgroundModes</key>

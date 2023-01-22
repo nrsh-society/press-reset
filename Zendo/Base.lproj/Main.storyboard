@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Nz-z1-oTd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Nz-z1-oTd">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -45,20 +45,20 @@
                         <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="0.92156862745098034" green="0.94117647058823528" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="6zs-LL-Hh2">
-                            <rect key="frame" x="0.0" y="631.66666828502309" width="375" height="0.0"/>
+                            <rect key="frame" x="0.0" y="661" width="375" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ZendoTableViewCell" rowHeight="70" id="wm8-xC-gnJ" customClass="ZendoTableViewCell" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.333333969116211" width="375" height="70"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wm8-xC-gnJ" id="XaM-oy-Pvh">
-                                    <rect key="frame" x="0.0" y="0.0" width="345.33333333333331" height="70"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="344.66666666666669" height="70"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="sht-ML-rR1">
-                                            <rect key="frame" x="15" y="0.0" width="325.33333333333331" height="70"/>
+                                            <rect key="frame" x="15" y="0.0" width="324.66666666666669" height="70"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bJS-yt-Qcq">
                                                     <rect key="frame" x="0.0" y="21" width="151" height="28"/>
@@ -90,10 +90,10 @@
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ruD-Kg-FEg">
-                                                    <rect key="frame" x="161" y="23" width="79.666666666666686" height="24"/>
+                                                    <rect key="frame" x="161" y="23" width="79.333333333333314" height="24"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2h 2m" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NLa-WG-Cet">
-                                                            <rect key="frame" x="0.0" y="0.0" width="79.666666666666671" height="24"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="79.333333333333329" height="24"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="24"/>
                                                             <color key="textColor" red="0.050980392156862744" green="0.19607843137254902" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -101,10 +101,10 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7C3-D8-gAe">
-                                                    <rect key="frame" x="250.66666666666666" y="29" width="74.666666666666657" height="12"/>
+                                                    <rect key="frame" x="250.33333333333334" y="29" width="74.333333333333343" height="12"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="XJV-7f-4Hg">
-                                                            <rect key="frame" x="0.0" y="0.0" width="74.666666666666671" height="12"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="74.333333333333329" height="12"/>
                                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="12"/>
                                                             <color key="textColor" red="0.050980392156862744" green="0.19607843137254902" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -136,7 +136,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HeaderZendoTableViewCell" rowHeight="33" id="T5l-gU-0oA" customClass="HeaderZendoTableViewCell" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="94.333333969116211" width="375" height="33"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="33"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T5l-gU-0oA" id="tYw-6i-Q1G">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="33"/>
@@ -162,7 +162,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FirstSessionTableViewCell" rowHeight="480" id="D3T-KK-cLt" customClass="FirstSessionTableViewCell" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="127.33333396911621" width="375" height="480"/>
+                                <rect key="frame" x="0.0" y="153" width="375" height="480"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D3T-KK-cLt" id="cVa-X4-jIO">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="480"/>
@@ -246,13 +246,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="878"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="sO7-2v-iAR">
-                                    <rect key="frame" x="0.0" y="878.66666828502309" width="320" height="1"/>
+                                    <rect key="frame" x="0.0" y="908" width="320" height="1"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderZazenTableViewCell" rowHeight="30" id="txs-gQ-tMi" customClass="HeaderZazenTableViewCell" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="320" height="30"/>
+                                        <rect key="frame" x="0.0" y="50" width="320" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="txs-gQ-tMi" id="dpa-zo-n64">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
@@ -290,7 +290,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ZazenTableViewCell" rowHeight="800" id="A1r-As-wRg" customClass="ZazenTableViewCell" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="54.333333969116211" width="320" height="800"/>
+                                        <rect key="frame" x="0.0" y="80" width="320" height="800"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A1r-As-wRg" id="NMX-4c-NiT">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
@@ -448,7 +448,7 @@
                     <navigationItem key="navigationItem" title="Details" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="gar-aa-P4o">
                         <barButtonItem key="rightBarButtonItem" image="share" id="bZn-Be-kW9">
                             <connections>
-                                <action selector="export:" destination="TsE-Ce-fNs" id="ddD-1r-nP2"/>
+                                <action selector="exportAction:" destination="TsE-Ce-fNs" id="hhv-ge-VxA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -570,122 +570,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BYx-Uq-KDh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3257" y="-735"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="5T6-K5-oSo">
-            <objects>
-                <viewController modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="FOx-Oj-Aa3" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="gr2-6O-C2R">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gFT-zA-ERl">
-                                <rect key="frame" x="41" y="94" width="332" height="122.33333333333331"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="join the" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVx-Jo-CSq">
-                                        <rect key="frame" x="0.0" y="0.0" width="109.66666666666667" height="30"/>
-                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
-                                        <color key="textColor" systemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="community." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e29-hP-oad">
-                                        <rect key="frame" x="0.0" y="40" width="175.66666666666666" height="30"/>
-                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
-                                        <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are a group of meditators from around the world working together to bring the best tools and techniques to our practice." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xua-QO-A7Q">
-                                        <rect key="frame" x="0.0" y="80" width="320" height="42.333333333333343"/>
-                                        <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
-                                        <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="j4b-yy-xhs">
-                                <rect key="frame" x="41" y="229.33333333333337" width="373" height="135"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAN-ji-17l" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="373" height="48"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="Ca3-zK-vvh"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mN8-Qu-Loh" customClass="ZenTextField" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="86.999999999999972" width="373" height="48"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="Cib-CH-TjC"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                            </stackView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="By joining the community, you are agreeing to our Terms and Privacy Policy" translatesAutoresizingMaskIntoConstraints="NO" id="eLb-uV-ioF">
-                                <rect key="frame" x="41" y="389.33333333333331" width="332" height="66"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="66" id="3as-gM-QTw"/>
-                                </constraints>
-                                <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n8Z-dv-fhB" customClass="ZenButton" customModule="Zendo" customModuleProvider="target">
-                                <rect key="frame" x="207" y="780" width="207" height="45"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="OpT-fT-VwG"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="titleButton" value="Next"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="dGQ-zL-A4P"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="dGQ-zL-A4P" firstAttribute="bottom" secondItem="n8Z-dv-fhB" secondAttribute="bottom" constant="37" id="7pk-aw-dT1"/>
-                            <constraint firstItem="j4b-yy-xhs" firstAttribute="leading" secondItem="dGQ-zL-A4P" secondAttribute="leading" constant="41" id="D66-x7-Itd"/>
-                            <constraint firstItem="n8Z-dv-fhB" firstAttribute="width" secondItem="gr2-6O-C2R" secondAttribute="width" multiplier="0.5" id="JgB-65-4ex"/>
-                            <constraint firstItem="eLb-uV-ioF" firstAttribute="top" secondItem="j4b-yy-xhs" secondAttribute="bottom" constant="25" id="PeO-DI-r1Q"/>
-                            <constraint firstAttribute="trailing" secondItem="gFT-zA-ERl" secondAttribute="trailing" constant="41" id="PrJ-VQ-jcc"/>
-                            <constraint firstItem="dGQ-zL-A4P" firstAttribute="trailing" secondItem="n8Z-dv-fhB" secondAttribute="trailing" id="QMr-tr-897"/>
-                            <constraint firstItem="j4b-yy-xhs" firstAttribute="top" secondItem="gFT-zA-ERl" secondAttribute="bottom" constant="12.999999999999659" id="e4l-5i-CXC"/>
-                            <constraint firstItem="dGQ-zL-A4P" firstAttribute="trailing" secondItem="j4b-yy-xhs" secondAttribute="trailing" id="mAM-nw-oAc"/>
-                            <constraint firstItem="gFT-zA-ERl" firstAttribute="leading" secondItem="dGQ-zL-A4P" secondAttribute="leading" constant="41" id="ook-Tl-vXJ"/>
-                            <constraint firstItem="dGQ-zL-A4P" firstAttribute="trailing" secondItem="eLb-uV-ioF" secondAttribute="trailing" constant="41" id="s7Z-1b-v8d"/>
-                            <constraint firstItem="eLb-uV-ioF" firstAttribute="leading" secondItem="dGQ-zL-A4P" secondAttribute="leading" constant="41" id="u29-rS-1jd"/>
-                            <constraint firstItem="gFT-zA-ERl" firstAttribute="top" secondItem="dGQ-zL-A4P" secondAttribute="top" constant="50" id="wOs-pP-v6B"/>
-                        </constraints>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" id="zKr-Am-NzO">
-                        <barButtonItem key="rightBarButtonItem" title="Skip" id="5u3-ZB-4vL" userLabel="Skip">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="didSkipWithSender:" destination="FOx-Oj-Aa3" id="1fK-b5-wL9"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="TOSPP" destination="eLb-uV-ioF" id="SDJ-bL-mvF"/>
-                        <outlet property="email" destination="mN8-Qu-Loh" id="XiD-uX-ScQ"/>
-                        <outlet property="fullName" destination="oAN-ji-17l" id="PXr-91-A3n"/>
-                        <outlet property="nextBottomSpace" destination="7pk-aw-dT1" id="hlH-E9-IIo"/>
-                        <outlet property="nextButton" destination="n8Z-dv-fhB" id="P8j-Qx-Ycs"/>
-                        <outlet property="skipButton" destination="5u3-ZB-4vL" id="a7Q-Hy-gIt"/>
-                        <outlet property="stackView" destination="j4b-yy-xhs" id="B8d-e3-WXS"/>
-                        <outlet property="topSpace" destination="wOs-pP-v6B" id="T9f-J2-Nbe"/>
-                        <outlet property="topSpaceTextField" destination="e4l-5i-CXC" id="gNB-7O-VjE"/>
-                        <outletCollection property="labels" destination="xua-QO-A7Q" collectionClass="NSMutableArray" id="bgw-M2-zrL"/>
-                        <outletCollection property="labels" destination="e29-hP-oad" collectionClass="NSMutableArray" id="10C-dT-Bde"/>
-                        <outletCollection property="labels" destination="YVx-Jo-CSq" collectionClass="NSMutableArray" id="r0H-UG-p6L"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="D9f-cy-vpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3256.521739130435" y="-1403.5714285714284"/>
         </scene>
         <!--Health Kit Controller Failed-->
         <scene sceneID="9Ia-Am-Swj">
@@ -862,22 +746,22 @@
                                 <rect key="frame" x="32" y="100" width="350" height="448"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3D2-S6-5aY">
-                                <rect key="frame" x="41" y="507.99999999999994" width="328" height="155.33333333333331"/>
+                                <rect key="frame" x="41" y="507.99999999999994" width="328" height="150.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="connect to" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjV-Yv-0YV">
-                                        <rect key="frame" x="0.0" y="0.0" width="143.66666666666666" height="35"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="159" height="30"/>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                         <color key="textColor" systemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="health app" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kKI-qz-oqU">
-                                        <rect key="frame" x="0.0" y="45" width="142" height="35"/>
+                                        <rect key="frame" x="0.0" y="40" width="160.66666666666666" height="30"/>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="30"/>
                                         <color key="textColor" red="0.2784313725" green="0.54901960780000003" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RV6-Pm-tov">
-                                        <rect key="frame" x="0.0" y="90" width="309" height="65.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="80" width="327" height="70.333333333333314"/>
                                         <string key="text">Zendō needs access to Apple Health to measure and record metrics during meditation. All Health data remains on your devices, nothing is shared with us or anyone else without your permission.</string>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                         <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -923,7 +807,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbt-5N-nPu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2447" y="-1403"/>
+            <point key="canvasLocation" x="-3258" y="-1492"/>
         </scene>
         <!--Activity-->
         <scene sceneID="irP-UE-39A">
@@ -990,13 +874,13 @@
                                 <rect key="frame" x="0.0" y="122" width="414" height="895"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="EgG-QL-Qld">
-                                    <rect key="frame" x="0.0" y="938.66666828502309" width="414" height="1"/>
+                                    <rect key="frame" x="0.0" y="968" width="414" height="1"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HeaderOverviewTableViewCell" rowHeight="90" id="ZRr-Is-SZE" customClass="HeaderOverviewTableViewCell" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="50" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZRr-Is-SZE" id="BBG-zI-F5s">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
@@ -1082,7 +966,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="OverviewTableViewCell" rowHeight="800" id="AuI-Fn-Mvz" customClass="OverviewTableViewCell" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="114.33333396911621" width="414" height="800"/>
+                                        <rect key="frame" x="0.0" y="140" width="414" height="800"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AuI-Fn-Mvz" id="nbU-Cl-gFA">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
@@ -1389,7 +1273,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ND1-RI-JSD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3256.521739130435" y="-2175.6696428571427"/>
+            <point key="canvasLocation" x="-3357" y="-2267"/>
         </scene>
         <!--Result Game Controller-->
         <scene sceneID="KAH-Sj-tjd">
@@ -1403,13 +1287,13 @@
                                 <rect key="frame" x="0.0" y="150.33333333333331" width="414" height="745.66666666666674"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="6qU-XO-rRu">
-                                    <rect key="frame" x="0.0" y="848.66666828502309" width="414" height="1"/>
+                                    <rect key="frame" x="0.0" y="878" width="414" height="1"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ResultGameTableCell" rowHeight="800" id="Smg-D8-doO" customClass="ResultGameTableCell" customModule="Zendo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="800"/>
+                                        <rect key="frame" x="0.0" y="50" width="414" height="800"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Smg-D8-doO" id="NeG-B4-RMm">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>

@@ -13,10 +13,18 @@ import CoreMotion
 import Foundation
 import CoreFoundation
 import WatchConnectivity
+import AVFoundation
+import AVFAudio
 
 protocol SessionDelegate
 {
-    func sessionTick(startDate: Date, message : String?)
+    func sessionTick(startDate: Date, message : String?, status: Status)
+}
+
+enum Status {
+    case meditating
+    case notmeditating
+    case calibrating
 }
 
 struct Rotation
@@ -59,6 +67,8 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     static var bluetoothManager: BluetoothManager?
     
     static var current: Session?
+    
+    private var zensor: Zensor?
     
     private lazy var sessionDelegater: SessionDelegater = {
         return SessionDelegater()
@@ -313,6 +323,7 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
     
     var haptic = WKHapticType.success
     var message = "Calibrating"
+    var status = Status.calibrating
     
     // i am
     //  called every 1 sec.
@@ -338,9 +349,11 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                 case 0...3:
                     haptic = WKHapticType.retry
                     message = "Breathe deeper"
+                    status = .notmeditating
                 default:
                     haptic = WKHapticType.success
                     message = "Good work"
+                    status = .meditating
                 }
             }
             
@@ -354,11 +367,13 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                     {
                         haptic = WKHapticType.retry
                         message = "Stop moving"
+                        status = .notmeditating
                     }
                     else
                     {
                         haptic = WKHapticType.success
                         message = "Good work"
+                        status = .meditating
                     }
                 }
             }
@@ -387,9 +402,24 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
             
             let isMeditating = (haptic == WKHapticType.success)
             
-            self.meditationLog.append(isMeditating)
+            if (!isMeditating)
+            {
+                meditationLog.removeAll()
+            }
+            else
+            {
+                if(self.meditationLog.count < 5)
+                {
+                    self.meditationLog.append(isMeditating)
+                }
+            }
             
             let progress = "\(isMeditating)/\(self.meditationLog.count)".description
+            
+            if let zensor = zensor
+            {
+                zensor.update(progress: progress)
+            }
             
             if(SettingsWatch.donations)
             {
@@ -448,9 +478,10 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                                             })
         }
         
+         
         if let date = self.startDate
         {
-            self.delegate.sessionTick(startDate: date, message: message)
+            self.delegate.sessionTick(startDate: date, message: message, status: status)
         }
         
     }
@@ -522,6 +553,17 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
                 metadata["progress"] = SettingsWatch.progressPosition
                 metadata["appleID"] = SettingsWatch.fullName
             }
+            
+            if let zensor = zensor
+            {
+                zensor.update(hr: self.heartRate * 60)
+            
+            } else
+            {
+                self.zensor = Zensor(id: appleUserUUID, name: SettingsWatch.fullName ?? "", hr: self.heartRate * 60)
+                
+                self.zensor?.update(progress: "false/0")
+            }
         }
         
         sessionDelegater.sendMessage(["sample" : metadata],
@@ -546,24 +588,6 @@ class Session: NSObject, SessionCommands, BluetoothManagerDataDelegate {
         for type in metadataTypeArray {
             metadataWork[type.rawValue] = ((metadataWork[type.rawValue] as? String) ?? "") + empty + (metadata[type.rawValue] as! String)
         }
-        
-        
-        #if DEBUG //using this for a live heartrate monitor
-            let meditation = PFObject(className:"Meditation")
-            meditation["start"] = self.startDate
-            meditation["hr"] = self.heartRate
-            meditation["hrv"] = self.heartSDNN
-            meditation["now"] = Date()
-            
-            meditation.saveInBackground { (succeeded, error)  in
-                if (succeeded) {
-                    // The object has been saved.
-                } else {
-                    // There was a problem, check error.description
-                }
-            }
-        #endif
-        
     }
     
     func invalidate()

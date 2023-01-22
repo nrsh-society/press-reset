@@ -71,7 +71,7 @@ class ZazenTableViewCell: UITableViewCell
         {
             lineChart?.noDataText = ""
             lineChart?.autoScaleMinMaxEnabled = true
-            lineChart?.chartDescription?.enabled = false
+            lineChart?.chartDescription.enabled = false
             lineChart?.drawGridBackgroundEnabled = false
             lineChart?.pinchZoomEnabled = false
             
@@ -222,7 +222,7 @@ class ZazenController: UIViewController
         return controller
     }
     
-    @IBAction func export(_ sender: Any)
+    @IBAction func exportAction(_ sender: Any)
     {
         let vc = export(samples: self.samples)
         present(vc, animated: true, completion: nil)
@@ -315,7 +315,8 @@ class ZazenController: UIViewController
             let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
             
             entryDataset.fillAlpha = 1
-            entryDataset.fill = Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
+            entryDataset.fill = LinearGradientFill(gradient: gradient, angle: 90)
+            //Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
             entryDataset.drawFilledEnabled = true
         case .heart, .rate:
             entryDataset.mode = .cubicBezier
@@ -370,7 +371,7 @@ class ZazenController: UIViewController
         }
         
     }
-  
+    
     func export(samples: [[String: Any]]) -> UIActivityViewController {
         
         let now = Date().toZazenDateString
@@ -453,7 +454,7 @@ extension ZazenController: UITableViewDataSource, UITableViewDelegate
 }
 
 
-extension ZazenController: IAxisValueFormatter
+extension ZazenController: AxisValueFormatter
 {
     func stringForValue(_ value: Double, axis: AxisBase?) -> String
     {

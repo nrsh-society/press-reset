@@ -5,10 +5,8 @@
 //  Created by Anton Pavlov on 16/10/2018.
 //  Copyright © 2018 zenbf. All rights reserved.
 //
-
+import UIKit
 import WatchConnectivity
-import Firebase
-import FirebaseDatabase
 
 class WatchSessionManager: NSObject {
     
@@ -114,10 +112,6 @@ extension WatchSessionManager: WCSessionDelegate {
                 
                 NotificationCenter.default.post(name: NSNotification.Name("progress"),
                                                 object: progress )
-                
-            }
-            
-            else if let facebook = message["facebook"] {
                 
             }
         }

@@ -37,7 +37,8 @@ class NotificationController: WKUserNotificationInterfaceController {
     override func didReceive(_ notification: UNNotification)
     {
         
-        Mixpanel.sharedInstance()?.track("watch_localnotification")
+        //#todo: create a logging abstraction
+        Mixpanel.mainInstance().track(event: "watch_localnotification")
         
         let meditateAction = UNNotificationAction(identifier: "MEDITATE_ACTION",
                                                  title: "Meditate Now",

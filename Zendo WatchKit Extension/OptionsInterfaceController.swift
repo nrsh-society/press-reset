@@ -32,7 +32,10 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     @IBOutlet weak var donateMetricValue: WKInterfaceLabel!
     
     //7.1
-    @IBOutlet var saveHRVSwitch : WKInterfaceSwitch!
+    @IBOutlet var audioSwitch : WKInterfaceSwitch!
+    
+    @IBOutlet weak var audioOptions: WKInterfacePicker!
+    
   
     @IBAction func donationsAction(value: Bool)
     {
@@ -115,7 +118,6 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         let mins = String(SettingsWatch.dailyMediationGoal)
         timeLabel?.setText(mins)
     
-        
     }
     
     @IBAction func plusAction()
@@ -126,7 +128,8 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         WKInterfaceDevice.current().play(WKHapticType.directionUp)
     }
     
-    @IBAction func minusAction() {
+    @IBAction func minusAction()
+    {
         if SettingsWatch.dailyMediationGoal > 5 {
             SettingsWatch.dailyMediationGoal -= 1
             updateTime()
@@ -159,6 +162,13 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     
     var session: Session?
     
+    
+    @IBAction func onOptionsChanged(_ value: Int) {
+        
+        AudioFeedback.currentSound = value
+        
+    }
+    
     override func awake(withContext context: Any?)
     {
         
@@ -183,13 +193,28 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                                                object: nil)
     }
     
+    
+    func getOptionValues() -> [WKPickerItem]
+    {
+        return AudioFeedback.availableSounds.map {
+            sound in
+                let item = WKPickerItem()
+                item.title = sound
+                return item
+        }
+    }
+    
+    fileprivate func time(event:String) {
+        Mixpanel.mainInstance().time(event: event)
+    }
+    
     override func willActivate()
     {
         super.willActivate()
         
         updateTime()
             
-        Mixpanel.sharedInstance()?.timeEvent("watch_options")
+        self.time(event: "watch_options")
                
         if let bluetooth = Session.bluetoothManager
         {
@@ -201,6 +226,16 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         self.hapticSetting.setValue(Float(Session.options.hapticStrength))
         
         self.retryFeedback.setValue(Float(Session.options.retryStrength))
+        
+        self.audioSwitch.setOn(Session.options.audioFeedbackEnabled)
+    
+        self.audioOptions.setHidden(Bool(!Session.options.audioFeedbackEnabled))
+        
+        if(Session.options.audioFeedbackEnabled)
+        {
+            self.audioOptions.setItems(self.getOptionValues())
+            self.audioOptions.setSelectedItemIndex(AudioFeedback.currentSound)
+        }
         
         let isSignedIn = (SettingsWatch.appleUserID != nil)
         
@@ -255,11 +290,11 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                             " " + (fullName.familyName ?? "")
                     SettingsWatch.email = email.description
                 
-                    Mixpanel.sharedInstance()?.track("watch_signin", properties: ["email": SettingsWatch.email as Any])
+                    //Mixpanel.mainInstance().track(event: "watch_signin", properties: ["email": SettingsWatch.email as Any])
                 
-                    Mixpanel.sharedInstance()?.identify(SettingsWatch.email!)
-                    Mixpanel.sharedInstance()?.people.set(["$email": SettingsWatch.email!])
-                    Mixpanel.sharedInstance()?.people.set(["$name": SettingsWatch.fullName!])
+                    //Mixpanel.sharedInstance()?.identify(SettingsWatch.email!)
+                    //Mixpanel.sharedInstance()?.people.set(["$email": SettingsWatch.email!])
+                    //Mixpanel.sharedInstance()?.people.set(["$name": SettingsWatch.fullName!])
                     
                     let user = PFUser()
                     user.username = userIdentifier
@@ -314,8 +349,6 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                 
         default:
             print("if you are seeing this it is too late")
-            
-            //but we are going to hyjack this for the demo videos\
         
             self.animate(withDuration: 1, animations: {
                 
@@ -332,17 +365,6 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error)
     {
-        //but we are going to hyjack this for the demo videos\
-    /*
-        self.animate(withDuration: 1, animations: {
-            
-            self.authorizationButton.setHidden(true)
-            self.signinLabel.setHidden(true)
-            
-            self.donateSwitch.setEnabled(true)
-            self.progressSwitch.setEnabled(true)
-            
-        })*/
         
             let ok = WKAlertAction(title: "OK", style: .default)
             {
@@ -360,7 +382,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         
     @IBAction func KyosakChanged(_ value: Float)
     {
-        Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
+        Mixpanel.mainInstance().track(event: "watch_options_haptic", properties: ["value": value])
         
         Session.options.hapticStrength = Int(value)
         
@@ -386,7 +408,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     
     @IBAction func retryChanged(_ value: Float)
     {
-        Mixpanel.sharedInstance()?.track("watch_options_haptic", properties: ["value": value])
+        Mixpanel.mainInstance().track(event: "watch_options_haptic", properties: ["value": value])
         
         Session.options.retryStrength = Int(value)
         
@@ -411,7 +433,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
     
     @IBAction func bluetoothChanged(_ value: Bool)
     {
-        Mixpanel.sharedInstance()?.track("watch_options_bluetooth", properties: ["value": value])
+        Mixpanel.mainInstance().track(event: "watch_options_bluetooth", properties: ["value": value])
         
         if(value)
         {
@@ -435,12 +457,24 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
         }
     }
     
-   
+    @IBAction func onAudioFeedbackChanged(_ value: Bool)
+    {
+        Session.options.audioFeedbackEnabled = value
+        
+        audioOptions.setHidden(!value)
+        
+        if(Session.options.audioFeedbackEnabled)
+        {
+            self.audioOptions.setItems(self.getOptionValues())
+            self.audioOptions.setSelectedItemIndex(AudioFeedback.currentSound)
+        }
+    }
+    
     override func didDeactivate()
     {
         super.didDeactivate()
         
-        Mixpanel.sharedInstance()?.track("watch_options")
+        Mixpanel.mainInstance().track(event: "watch_options")
     }
     
 }

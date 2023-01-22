@@ -179,9 +179,9 @@ class DiscoverViewController: UIViewController {
         
         //#todo: make this based on the build #
         #if DEBUG
-        let urlPath: String = "http://media.zendo.tools/discover.v7.00.json?v=\(Date().timeIntervalSinceNow)"
+        let urlPath: String = "http://media.zendo.tools/discover.v7.50.json?v=\(Date().timeIntervalSinceNow)"
         #else
-        let urlPath: String = "http://media.zendo.tools/discover.v7.00.json?v=\(Date().timeIntervalSinceNow)"
+        let urlPath: String = "http://media.zendo.tools/discover.v7.50.json?v=\(Date().timeIntervalSinceNow)"
         #endif
         
         URLSession.shared.dataTask(with: URL(string: urlPath)!)
@@ -514,6 +514,17 @@ extension DiscoverViewController: UICollectionViewDataSource {
         if story.type == "game"
         {
             let game = GameController.loadFromStoryboard()
+
+            game.story = story
+            game.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description
+            game.modalPresentationStyle = .fullScreen
+           game.hero.isEnabled = true
+            vc = game
+           
+        }
+        else if story.type == "community"
+        {
+            let game = CommunityController.loadFromStoryboard()
 
             game.story = story
             game.idHero = "cellImage" + indexPath.row.description + collectionView.tag.description

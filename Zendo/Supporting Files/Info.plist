@@ -71,7 +71,7 @@
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Add Zendō data to Apple Health </string>
 	<key>NSHomeKitUsageDescription</key>
-	<string>Change lighting with heart rate</string>
+	<string>Control lighting based on health data</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>This app doesn't use location, so if you so this, there is a problem.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -86,8 +86,6 @@
 	<array>
 		<string>tools.sunyata.Zendo.app</string>
 	</array>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>We use third-party services to better understand who is install + using the app.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Antenna-ExtraLight.otf</string>

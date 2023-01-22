@@ -209,12 +209,14 @@ struct Options
     }
     
     
-    var saveHRVSamples : Bool
+    //todo: could combine these audio feedback properties into
+    //a single property with the selection set to 0 if the 
+    var audioFeedbackEnabled : Bool
     {
         get
         {
             
-            if let value = UserDefaults.standard.object(forKey: "saveHRVSamples")
+            if let value = UserDefaults.standard.object(forKey: "audioFeedbackEnabled")
             {
                 return value as! Bool
             }
@@ -226,7 +228,8 @@ struct Options
         
         set
         {
-            UserDefaults.standard.set(newValue, forKey: "saveHRVSamples")
+            UserDefaults.standard.set(newValue, forKey: "audioFeedbackEnabled")
         }
     }
+    
 }

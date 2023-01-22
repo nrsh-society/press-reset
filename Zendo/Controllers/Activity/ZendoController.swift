@@ -33,7 +33,7 @@ class ZendoController: UITableViewController
         {
             let sample = samplesDictionary[samplesDate[index.section]]![index.row]
             
-            destination.workout = sample as! HKSample
+            destination.workout = sample
         }
     }
     

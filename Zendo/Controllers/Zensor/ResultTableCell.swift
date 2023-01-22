@@ -46,7 +46,7 @@ class ResultTableCell: UITableViewCell {
         for (index, lineChart) in arrayLineChart.enumerated() {
             lineChart?.noDataText = ""
             lineChart?.autoScaleMinMaxEnabled = true
-            lineChart?.chartDescription?.enabled = false
+            lineChart?.chartDescription.enabled = false
             lineChart?.drawGridBackgroundEnabled = false
             lineChart?.pinchZoomEnabled = false
             
