@@ -147,6 +147,7 @@ class AppInterfaceController: WKInterfaceController {
         {
             [weak self] success, error in
             
+            Mixpanel.initialize(token: "73167d0429d8da0c05c6707e832cbb46")
             Mixpanel.mainInstance().track(event: "watch_healthkit", properties: ["success" : success])
             
             guard error == nil else
