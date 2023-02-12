@@ -12,13 +12,13 @@ target 'Zendo' do
   pod 'lottie-ios'
   pod 'Cache'
   pod 'SDWebImage'
-  pod 'Smooth', :path => '~/Documents/GitHub/Smooth.swift'
+  pod 'Smooth', :path => '~/src/Smooth.swift'
 end
 
 target 'Zendo WatchKit Extension' do
-  platform :watchos, '8.0'
+  platform :watchos, '9.0'
   use_frameworks!
-  pod 'Smooth' , :path => '~/Documents/GitHub/Smooth.swift'
+  pod 'Smooth' , :path => '~/src/Smooth.swift'
   pod 'Parse'
 end
 
