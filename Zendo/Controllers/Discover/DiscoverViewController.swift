@@ -415,6 +415,8 @@ extension DiscoverViewController: UITableViewDelegate {
 extension DiscoverViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
+        /*removing subscriptions
+        
         if !isSubscription  {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: SubscriptionHeaderTableViewCell.reuseIdentifierCell) as! SubscriptionHeaderTableViewCell
@@ -431,15 +433,21 @@ extension DiscoverViewController: UITableViewDataSource {
             
             return cell
         }
+         
+        */
         
         return nil
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
+        /*removing subscriptions
+        
         if !isSubscription {
             return 40.0
         }
+         
+         */
         
         return 0.0
     }
