@@ -46,11 +46,11 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
                    {
                         if(status == .notmeditating)
                         {
-                            AudioFeedback.stop()
+                            //AudioFeedback.stop()
                             
                         } else if (status == .meditating) {
                             
-                            AudioFeedback.play()
+                            //AudioFeedback.play()
                         
                         }
                    }
