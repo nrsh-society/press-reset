@@ -13,7 +13,7 @@ Start Zendō on your Apple Watch similar to how you would record a regular worko
 
 ## Analyze Each Meditation
 
-Dive into your stats after meditation. Using Health Kit, Zendō is able to measure HRV and other health indicators during meditation. It also creates a mind & body workout for each meditation session, working in concert with Apple Activity app. 
+Dive into your stats after meditation. Using Health Kit, Zendō is able to measure heart rate and estimate HRV during meditation.
 
 ## Monitor HRV (Heart Rate Variability)
 
