@@ -39,7 +39,7 @@ DEPENDENCIES:
   - Parse
   - PromiseKit
   - SDWebImage
-  - Smooth (from `~/src/Smooth.swift`)
+  - Smooth (from `~/src/cancelself/Smooth.swift`)
   - SwiftyJSON
 
 SPEC REPOS:
@@ -60,7 +60,7 @@ EXTERNAL SOURCES:
     :branch: master
     :git: https://github.com/danielgindi/Charts.git
   Smooth:
-    :path: "~/src/Smooth.swift"
+    :path: "~/src/cancelself/Smooth.swift"
 
 CHECKOUT OPTIONS:
   Charts:
@@ -81,6 +81,6 @@ SPEC CHECKSUMS:
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 1961b308e8a9d66c77100c46e4bd3df226065296
+PODFILE CHECKSUM: b08555d0bd6b252a55f1fa4c495cadca856df831
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.13.0

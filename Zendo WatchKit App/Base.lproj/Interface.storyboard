@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="21507" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="22155" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch49"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="21501"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="22022"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="Antenna-Light.otf">
@@ -16,10 +17,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Zendō-->
+        <!--AppInterfaceController-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="AppInterfaceController" title="Zendō" contentMode="scaleAspectFit" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="AppInterfaceController" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="center" backgroundImage="ring0" contentMode="scaleAspectFit" layout="overlap" id="obQ-Pj-vnx">
                             <items>
@@ -304,12 +305,12 @@
             </objects>
             <point key="canvasLocation" x="603" y="62"/>
         </scene>
-        <!--Options-->
+        <!--OptionsInterfaceController-->
         <scene sceneID="mYQ-LG-qhF">
             <objects>
-                <controller identifier="OptionsInterfaceController" title="Options" contentMode="scaleAspectFit" id="y7B-OZ-tWG" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="OptionsInterfaceController" contentMode="scaleAspectFit" id="y7B-OZ-tWG" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
-                        <group alignment="left" contentMode="scaleAspectFit" layout="vertical" spacing="5" id="mb7-hQ-jiz" userLabel="Options Group">
+                        <group height="827" alignment="left" contentMode="scaleAspectFit" layout="vertical" spacing="5" id="mb7-hQ-jiz" userLabel="Options Group">
                             <items>
                                 <group width="1" height="120" alignment="left" layout="vertical" spacing="5" id="ha5-0j-N6P" userLabel="Goal">
                                     <items>
@@ -372,9 +373,9 @@
                                 <separator alignment="left" id="fpw-Bn-oRt">
                                     <color key="color" red="0.34932014350000001" green="0.54117977620000002" blue="0.47449994089999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </separator>
-                                <group width="1" alignment="left" hidden="YES" layout="vertical" spacing="0.0" id="flm-sq-83P">
+                                <group width="1" alignment="left" layout="vertical" spacing="0.0" id="flm-sq-83P">
                                     <items>
-                                        <switch width="1" alignment="left" hidden="YES" value="YES" title="Audio Feedback" id="mNE-Vv-mXL">
+                                        <switch width="1" alignment="left" value="YES" title="Audio Feedback" id="mNE-Vv-mXL">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
@@ -383,7 +384,7 @@
                                                 <action selector="onAudioFeedbackChanged:" destination="y7B-OZ-tWG" id="38E-T0-Chi"/>
                                             </connections>
                                         </switch>
-                                        <picker height="60" alignment="left" hidden="YES" focusStyle="stack" indicatorMode="shownWhileFocused" id="oI6-8u-1o3">
+                                        <picker height="60" alignment="left" focusStyle="stack" indicatorMode="shownWhileFocused" id="oI6-8u-1o3">
                                             <connections>
                                                 <action selector="onOptionsChanged:" destination="y7B-OZ-tWG" id="qIl-Dq-h7O"/>
                                             </connections>
@@ -391,7 +392,7 @@
                                     </items>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="5" bottom="2"/>
                                 </group>
-                                <group width="1" height="170" alignment="left" layout="vertical" spacing="5" id="8zB-c5-OX9" userLabel="Feedback">
+                                <group width="1" height="172" alignment="left" layout="vertical" spacing="5" id="8zB-c5-OX9" userLabel="Feedback">
                                     <items>
                                         <group width="1" alignment="left" layout="vertical" radius="0.0" spacing="5" id="ksL-6C-M7w" userLabel="Success Feedback Group">
                                             <items>
@@ -431,7 +432,7 @@
                                 <separator alignment="left" hidden="YES" id="uLp-QK-6aO">
                                     <color key="color" red="0.34932014350000001" green="0.54117977620000002" blue="0.47449994089999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </separator>
-                                <group width="1" alignment="left" hidden="YES" layout="vertical" radius="0.0" spacing="5" id="kCK-On-e7R" userLabel="HRM">
+                                <group width="1" alignment="left" layout="vertical" radius="0.0" spacing="5" id="kCK-On-e7R" userLabel="HRM">
                                     <items>
                                         <label alignment="center" text="Heart Rate Monitor" textAlignment="center" id="JUV-fb-cmt">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
@@ -456,7 +457,7 @@
                                 <separator alignment="left" hidden="YES" id="Efn-dB-BWt">
                                     <color key="color" red="0.34932014350000001" green="0.54117977620000002" blue="0.47449994089999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </separator>
-                                <group width="1" alignment="center" verticalAlignment="bottom" hidden="YES" layout="vertical" radius="0.0" spacing="12" id="crg-3A-uxR" userLabel="Community">
+                                <group alignment="center" verticalAlignment="bottom" layout="vertical" radius="0.0" spacing="12" id="crg-3A-uxR" userLabel="Community">
                                     <items>
                                         <group width="1" alignment="left" layout="vertical" spacing="5" id="Kf2-fk-tF6" userLabel="Causes">
                                             <items>
@@ -562,7 +563,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="356.25365853658536" y="-174.74103585657369"/>
+            <point key="canvasLocation" x="356.25365853658536" y="2.7091633466135456"/>
         </scene>
         <!--Goals-->
         <scene sceneID="Eaa-gP-xvC">
