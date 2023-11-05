@@ -36,7 +36,9 @@ class AudioFeedback {
     
     static var rate: Float = 1.0
     
-    static var avPlayer: AVPlayer?
+    //static var avPlayer: AVPlayer?
+    
+    static var avPlayer: AVQueuePlayer?
     
     static var isPlaying = false
     
@@ -48,15 +50,20 @@ class AudioFeedback {
             
             try? AVAudioSession.sharedInstance().setActive(true)
             
-            /* looping code*/
             NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: self.avPlayer?.currentItem, queue: .main) { [self] _ in
-                self.avPlayer?.seek(to: kCMTimeZero)
-                self.avPlayer?.play()
+                let item = avPlayer?.currentItem?.copy() as! AVPlayerItem
+                avPlayer?.insert(item, after: nil)
             }
             
             let currentSoundName = availableSounds[currentSound].lowercased()
             
-            self.avPlayer = AVPlayer(url: Bundle.main.url(forResource: currentSoundName, withExtension: "mp3")!)
+            let url = Bundle.main.url(forResource: currentSoundName, withExtension: "mp3")!
+            
+            let playerItem1 = AVPlayerItem(url: url)
+            
+            let playerItem2 = playerItem1.copy() as! AVPlayerItem
+            
+            self.avPlayer = AVQueuePlayer(items: [playerItem1, playerItem2])
             
             self.avPlayer?.currentItem?.audioTimePitchAlgorithm = .spectral
             
