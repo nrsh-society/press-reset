@@ -15,7 +15,7 @@ import Mixpanel
 import AVFAudio
 import AVFoundation
 
-class SessionInterfaceController: WKInterfaceController, SessionDelegate {
+class SessionInterfaceController: WKInterfaceController, SessionDelegate, WKCrownDelegate {
     
     @IBOutlet var commandImage: WKInterfaceImage!
     @IBOutlet var heartRateLabel: WKInterfaceLabel!
@@ -25,7 +25,22 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     
     @IBOutlet var timeElapsedLabel: WKInterfaceLabel!
     
+    @IBOutlet weak var volumeControl: WKInterfaceVolumeControl!
+    
     private lazy var sessionDelegater: SessionDelegater = { return SessionDelegater() }()
+    
+    func crownDidRotate(
+        _ crownSequencer: WKCrownSequencer?,
+        rotationalDelta: Double
+    ) {
+        volumeControl.setHidden(true)
+        volumeControl.focus()
+    }
+    
+    func crownDidBecomeIdle(_ crownSequencer: WKCrownSequencer?)
+    {
+        volumeControl.setHidden(true)
+    }
         
     func sessionTick(startDate: Date, message: String?, status: Status)
     {
@@ -42,18 +57,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
             
             if(Int(startDate.timeIntervalSinceNow) % 60 == 0) {
                 
-                if(Session.options.audioFeedbackEnabled)
-                   {
-                        if(status == .notmeditating)
-                        {
-                            AudioFeedback.stop()
-                            
-                        } else if (status == .meditating) {
-                            
-                            AudioFeedback.play()
-                        
-                        }
-                   }
+                
             }
         }
     }
@@ -140,6 +144,9 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
             timeElapsedLabel.setText("00:00")
         }
         
+        self.crownSequencer.delegate = self
+        
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(endSessionFromiPhone),
                                                name:  .endSessionFromiPhone,
@@ -149,10 +156,16 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
 
     override func willActivate() {
         super.willActivate()
+        
+        if(Session.options.audioFeedbackEnabled)
+        {
+            AudioFeedback.play()
+        }
+        
+        self.crownSequencer.focus()
     }
     
     override func didDeactivate() {
-        
         
         super.didDeactivate()
     }

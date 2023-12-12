@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="22155" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch49"/>
+    <device id="watch38"/>
     <dependencies>
         <deployment identifier="watchOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="22022"/>
@@ -54,13 +54,18 @@
             </objects>
             <point key="canvasLocation" x="51" y="-407"/>
         </scene>
-        <!--Session-->
+        <!--SessionInterfaceController-->
         <scene sceneID="PLM-Hm-Vur">
             <objects>
-                <controller identifier="SessionInterfaceController" title="Session" contentMode="scaleAspectFit" id="ni9-qQ-E13" customClass="SessionInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="SessionInterfaceController" contentMode="scaleAspectFit" id="ni9-qQ-E13" customClass="SessionInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="bottom" contentMode="scaleAspectFit" layout="vertical" spacing="0.0" id="tim-Rb-wsC">
                             <items>
+                                <group width="1" alignment="left" layout="overlap" id="Yvb-iS-VP2">
+                                    <items>
+                                        <volumeControlView alignment="right" semanticContentAttribute="playback" hidden="YES" id="ES5-E7-Oxg"/>
+                                    </items>
+                                </group>
                                 <label width="1" height="43" alignment="center" textAlignment="center" id="edt-RR-Jqa">
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="17"/>
                                 </label>
@@ -87,6 +92,7 @@
                     <connections>
                         <outlet property="heartRateLabel" destination="edt-RR-Jqa" id="mMg-tX-ZpV"/>
                         <outlet property="timeElapsedLabel" destination="Ur6-FC-Vdd" id="Dao-4m-ETd"/>
+                        <outlet property="volumeControl" destination="ES5-E7-Oxg" id="nz0-9u-1Qm"/>
                     </connections>
                 </controller>
             </objects>
@@ -113,10 +119,10 @@
             </objects>
             <point key="canvasLocation" x="-4" y="655"/>
         </scene>
-        <!--Summary-->
+        <!--SummaryInterfaceController-->
         <scene sceneID="IZS-JR-IrR">
             <objects>
-                <controller identifier="SummaryInterfaceController" title="Summary" id="Mk4-5F-50h" customClass="SummaryInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="SummaryInterfaceController" id="Mk4-5F-50h" customClass="SummaryInterfaceController" customModule="Zendo_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="FaZ-Fg-9fM">
                             <items>
@@ -228,7 +234,7 @@
                         </label>
                         <label alignment="left" text="Your HRV this week is ▾ 11ms from last week's 50ms." textAlignment="left" numberOfLines="6" id="U53-F1-s3O">
                             <color key="textColor" red="0.6002739668" green="0.67491501570000001" blue="0.64313453440000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            <fontDescription key="font" name="Antenna-Light" family="Antenna" pointSize="15"/>
+                            <fontDescription key="font" name="Antenna-Light" family="Antenna" pointSize="26"/>
                         </label>
                     </items>
                     <connections>
@@ -375,7 +381,7 @@
                                 </separator>
                                 <group width="1" alignment="left" layout="vertical" spacing="0.0" id="flm-sq-83P">
                                     <items>
-                                        <switch width="1" alignment="left" value="YES" title="Audio Feedback" id="mNE-Vv-mXL">
+                                        <switch width="1" alignment="left" value="YES" title="Background Sounds" id="mNE-Vv-mXL">
                                             <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="16"/>
                                             <variation key="device=watch38mm">
                                                 <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>

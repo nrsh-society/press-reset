@@ -12,7 +12,7 @@ import AVFoundation
 
 class AudioFeedback {
         
-    static let availableSounds = ["Rain", "Birds", "Stream", "Crystal"]
+    static let availableSounds = ["Rain", "Birds", "Stream"]
     
     static var currentSound: Int  {
         get

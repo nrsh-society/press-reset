@@ -150,7 +150,6 @@
 		BE32C40E28D9665500F06614 /* birds.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BE32C40D28D9665500F06614 /* birds.mp3 */; };
 		BE32C41028D9666000F06614 /* rain.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BE32C40F28D9666000F06614 /* rain.mp3 */; };
 		BE32C41228DA730D00F06614 /* stream.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BE32C41128DA730D00F06614 /* stream.mp3 */; };
-		BE32C41428DA732B00F06614 /* crystal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BE32C41328DA732B00F06614 /* crystal.mp3 */; };
 		BE3AE43621ED0ACF0019C489 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3AE43521ED0ACF0019C489 /* Notification.swift */; };
 		BE4895AC206B0CC400B007D6 /* ZazenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4895AB206B0CC400B007D6 /* ZazenController.swift */; };
 		BE50D2F220CC3BA200FF9C54 /* CommunityDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50D2F120CC3BA200FF9C54 /* CommunityDataLoader.swift */; };
@@ -428,7 +427,6 @@
 		BE32C40D28D9665500F06614 /* birds.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = birds.mp3; sourceTree = "<group>"; };
 		BE32C40F28D9666000F06614 /* rain.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rain.mp3; sourceTree = "<group>"; };
 		BE32C41128DA730D00F06614 /* stream.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = stream.mp3; sourceTree = "<group>"; };
-		BE32C41328DA732B00F06614 /* crystal.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = crystal.mp3; sourceTree = "<group>"; };
 		BE3AE43521ED0ACF0019C489 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		BE4895AB206B0CC400B007D6 /* ZazenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZazenController.swift; sourceTree = "<group>"; };
 		BE4F346522D550D60006BAAE /* Movesense.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Movesense.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -648,7 +646,6 @@
 		128B104021AEB8E6009190B0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				BE32C41328DA732B00F06614 /* crystal.mp3 */,
 				BE32C41128DA730D00F06614 /* stream.mp3 */,
 				BE32C40D28D9665500F06614 /* birds.mp3 */,
 				BE32C40F28D9666000F06614 /* rain.mp3 */,
@@ -1306,7 +1303,6 @@
 				BE32C41028D9666000F06614 /* rain.mp3 in Resources */,
 				12CE61E42158FEA100AD8A11 /* Antenna-Regular.otf in Resources */,
 				BE32C41228DA730D00F06614 /* stream.mp3 in Resources */,
-				BE32C41428DA732B00F06614 /* crystal.mp3 in Resources */,
 				12CE61E52158FEFF00AD8A11 /* Antenna-ExtraLight.otf in Resources */,
 				12CE61EA2158FF0A00AD8A11 /* Antenna-Medium.otf in Resources */,
 				12CE61E62158FF0200AD8A11 /* Antenna-Light.otf in Resources */,
@@ -1756,7 +1752,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 478;
+				CURRENT_PROJECT_VERSION = 483;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1787,7 +1783,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 478;
+				CURRENT_PROJECT_VERSION = 483;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1817,7 +1813,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 478;
+				CURRENT_PROJECT_VERSION = 483;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
@@ -1846,7 +1842,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 478;
+				CURRENT_PROJECT_VERSION = 483;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
@@ -1877,7 +1873,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 478;
+				CURRENT_PROJECT_VERSION = 483;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1916,7 +1912,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 478;
+				CURRENT_PROJECT_VERSION = 483;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (

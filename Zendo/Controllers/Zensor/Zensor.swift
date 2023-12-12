@@ -6,21 +6,22 @@
 //  Copyright © 2020 Zendo Tools. All rights reserved.
 //
 
-import HomeKit
+//import HomeKit
 import Foundation
 import CoreBluetooth
 
-public class Zensor : NSObject, Identifiable, ObservableObject , HMHomeManagerDelegate
+public class Zensor : NSObject, Identifiable, ObservableObject //, HMHomeManagerDelegate
 {
     var batt : UInt8 = 0
     
     public var id : UUID
     public var name : String
     var startDate = Date()
-    
+   /*
     let homeManager = HMHomeManager()
     var lightCharacteristic : HMCharacteristic? = nil
     var hueCharacteristic : HMCharacteristic? = nil
+    */
     
     @Published public var hrv : String = "0.0"
     @Published public var hr : String = "0.0"
@@ -42,7 +43,7 @@ public class Zensor : NSObject, Identifiable, ObservableObject , HMHomeManagerDe
         
         super.init()
         
-        homeManager.delegate = self
+       // homeManager.delegate = self
     }
     
     func update(hr: Float) {
@@ -69,7 +70,7 @@ public class Zensor : NSObject, Identifiable, ObservableObject , HMHomeManagerDe
             
             self.publish()
             
-            self.adjustLights()
+            //self.adjustLights()
         }
     }
     
@@ -207,7 +208,7 @@ public class Zensor : NSObject, Identifiable, ObservableObject , HMHomeManagerDe
         
         
     }
-    
+    /*
     @objc public func homeManagerDidUpdateHomes(_ manager: HMHomeManager) {
         
         guard let home = manager.homes.first else { return }
@@ -242,6 +243,7 @@ public class Zensor : NSObject, Identifiable, ObservableObject , HMHomeManagerDe
             }
         }
     }
+     */
  
 }
 
