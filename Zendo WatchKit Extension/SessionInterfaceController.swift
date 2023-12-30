@@ -15,7 +15,7 @@ import Mixpanel
 import AVFAudio
 import AVFoundation
 
-class SessionInterfaceController: WKInterfaceController, SessionDelegate {
+class SessionInterfaceController: WKInterfaceController, SessionDelegate, WKCrownDelegate {
     
     @IBOutlet var commandImage: WKInterfaceImage!
     @IBOutlet var heartRateLabel: WKInterfaceLabel!
@@ -23,17 +23,60 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
     var session: Session!
     var heartBeats = [Int()]
     
+    var countdownDuration: TimeInterval = 0 // Duration in seconds
+    var countdownTimer: Timer?
+    
+    
+    func startSessionWithDuration(minutes: Int) {
+        countdownDuration = TimeInterval(minutes * 60) // Convert minutes to seconds
+        let timeString = self.formatTime(for: self.countdownDuration)
+        self.timeElapsedLabel.setText(timeString)
+    
+    }
+
+
+
+    private func updateTimeElapsedLabel() {
+        let timeString = formatTime(for: countdownDuration)
+        self.timeElapsedLabel.setText(timeString)
+    }
+
+    private func formatTime(for duration: TimeInterval) -> String {
+        let minutes = Int(duration) / 60
+        let seconds = Int(duration) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
     @IBOutlet var timeElapsedLabel: WKInterfaceLabel!
     
+    @IBOutlet weak var volumeControl: WKInterfaceVolumeControl!
+    
     private lazy var sessionDelegater: SessionDelegater = { return SessionDelegater() }()
+    
+    func crownDidRotate(
+        _ crownSequencer: WKCrownSequencer?,
+        rotationalDelta: Double
+    ) {
+        volumeControl.setHidden(true)
+        volumeControl.focus()
+    }
+    
+    func crownDidBecomeIdle(_ crownSequencer: WKCrownSequencer?)
+    {
+        volumeControl.setHidden(true)
+    }
         
     func sessionTick(startDate: Date, message: String?, status: Status)
     {
         DispatchQueue.main.async
         {
             let timeElapsed = abs(startDate.timeIntervalSinceNow)
+            
+            self.countdownDuration -= 1
+            let timeString = self.formatTime(for: self.countdownDuration)
+            self.timeElapsedLabel.setText(timeString)
         
-            self.timeElapsedLabel.setText(timeElapsed.stringZendoTimeWatch)
+            //self.timeElapsedLabel.setText(timeElapsed.stringZendoTimeWatch)
             
             if let message = message
             {
@@ -42,18 +85,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
             
             if(Int(startDate.timeIntervalSinceNow) % 60 == 0) {
                 
-                if(Session.options.audioFeedbackEnabled)
-                   {
-                        if(status == .notmeditating)
-                        {
-                            AudioFeedback.stop()
-                            
-                        } else if (status == .meditating) {
-                            
-                            AudioFeedback.play()
-                        
-                        }
-                   }
+                self.countdownDuration -= 1
             }
         }
     }
@@ -137,8 +169,12 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
         if let context = context as? Session {
             session = context
             session.delegate = self
-            timeElapsedLabel.setText("00:00")
+            //timeElapsedLabel.setText("00:00")
+            self.startSessionWithDuration(minutes: SettingsWatch.dailyMediationGoal)
         }
+        
+        self.crownSequencer.delegate = self
+        
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(endSessionFromiPhone),
@@ -149,10 +185,16 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate {
 
     override func willActivate() {
         super.willActivate()
+        
+        if(Session.options.audioFeedbackEnabled)
+        {
+            AudioFeedback.play()
+        }
+        
+        self.crownSequencer.focus()
     }
     
     override func didDeactivate() {
-        
         
         super.didDeactivate()
     }

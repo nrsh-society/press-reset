@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Zendō</string>
+	<string>Lumos Mind</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -51,15 +51,15 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>WKAppBundleIdentifier</key>
-			<string>tools.sunyata.Zendo.watchkit</string>
+			<string>tools.nrsh.lumosmind.watchkit</string>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
 	<key>NSHealthShareUsageDescription</key>
-	<string>Show progress across Zendō sessions </string>
+	<string>Show progress across Lumos Mind sessions </string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>Add Zendō data to Apple Health</string>
+	<string>Add Lumos Mind data to Apple Health</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>

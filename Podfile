@@ -1,6 +1,6 @@
 use_frameworks!
 
-target 'Zendo' do
+target 'Breathe' do
   platform :ios, '13.0'
   use_frameworks!
   pod 'PromiseKit'
@@ -15,7 +15,7 @@ target 'Zendo' do
   pod 'Smooth', :path => '~/src/cancelself/Smooth.swift'
 end
 
-target 'Zendo WatchKit Extension' do
+target 'Breathe WatchKit Extension' do
   platform :watchos, '9.0'
   use_frameworks!
   pod 'Smooth' , :path => '~/src/cancelself/Smooth.swift'
