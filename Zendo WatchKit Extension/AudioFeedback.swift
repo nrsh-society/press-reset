@@ -9,79 +9,54 @@
 import Foundation
 import AVFAudio
 import AVFoundation
+import CoreMedia
 
 class AudioFeedback {
-        
+    
     static let availableSounds = ["Rain", "Birds", "Stream"]
     
-    static var currentSound: Int  {
-        get
-        {
-            
-            if let value = UserDefaults.standard.object(forKey: "audioFeedbackSelection")
-            {
-                return value as! Int
-            }
-            else
-            {
+    static var currentSound: Int {
+        get {
+            if let value = UserDefaults.standard.object(forKey: "audioFeedbackSelection") as? Int {
+                return value
+            } else {
                 return 0
             }
         }
-        
-        set
-        {
+        set {
             UserDefaults.standard.set(newValue, forKey: "audioFeedbackSelection")
         }
     }
     
     static var rate: Float = 1.0
-    
-    //static var avPlayer: AVPlayer?
-    
-    static var avPlayer: AVQueuePlayer?
-    
+    static var player: AVAudioPlayer?
     static var isPlaying = false
     
     static func play() {
-        
-        if(!isPlaying) {
+        if !isPlaying {
             
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, mode: AVAudioSessionModeDefault)
-            
             try? AVAudioSession.sharedInstance().setActive(true)
             
-            NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: self.avPlayer?.currentItem, queue: .main) { [self] _ in
-                let item = avPlayer?.currentItem?.copy() as! AVPlayerItem
-                avPlayer?.insert(item, after: nil)
-            }
-            
             let currentSoundName = availableSounds[currentSound].lowercased()
-            
-            let url = Bundle.main.url(forResource: currentSoundName, withExtension: "mp3")!
-            
-            let playerItem1 = AVPlayerItem(url: url)
-            
-            let playerItem2 = playerItem1.copy() as! AVPlayerItem
-            
-            self.avPlayer = AVQueuePlayer(items: [playerItem1, playerItem2])
-            
-            self.avPlayer?.currentItem?.audioTimePitchAlgorithm = .spectral
-            
-            self.avPlayer?.play()
-        
-            self.isPlaying = true
-        
+            if let url = Bundle.main.url(forResource: currentSoundName, withExtension: "mp3") {
+                
+
+                self.player = try? AVAudioPlayer(contentsOf: url)
+                
+                player?.numberOfLoops = -1
+                                 
+                player?.play()
+
+                isPlaying = true
+            }
         } else {
             
-            self.avPlayer?.rate = self.rate
         }
-        
     }
     
     static func stop() {
-        
-        self.avPlayer?.pause()
-        self.isPlaying = false
+        player?.pause()
+        isPlaying = false
     }
-    
 }

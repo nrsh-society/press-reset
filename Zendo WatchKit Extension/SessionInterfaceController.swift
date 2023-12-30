@@ -23,6 +23,30 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate, WKCrow
     var session: Session!
     var heartBeats = [Int()]
     
+    var countdownDuration: TimeInterval = 0 // Duration in seconds
+    var countdownTimer: Timer?
+    
+    
+    func startSessionWithDuration(minutes: Int) {
+        countdownDuration = TimeInterval(minutes * 60) // Convert minutes to seconds
+        let timeString = self.formatTime(for: self.countdownDuration)
+        self.timeElapsedLabel.setText(timeString)
+    
+    }
+
+
+
+    private func updateTimeElapsedLabel() {
+        let timeString = formatTime(for: countdownDuration)
+        self.timeElapsedLabel.setText(timeString)
+    }
+
+    private func formatTime(for duration: TimeInterval) -> String {
+        let minutes = Int(duration) / 60
+        let seconds = Int(duration) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
     @IBOutlet var timeElapsedLabel: WKInterfaceLabel!
     
     @IBOutlet weak var volumeControl: WKInterfaceVolumeControl!
@@ -47,8 +71,12 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate, WKCrow
         DispatchQueue.main.async
         {
             let timeElapsed = abs(startDate.timeIntervalSinceNow)
+            
+            self.countdownDuration -= 1
+            let timeString = self.formatTime(for: self.countdownDuration)
+            self.timeElapsedLabel.setText(timeString)
         
-            self.timeElapsedLabel.setText(timeElapsed.stringZendoTimeWatch)
+            //self.timeElapsedLabel.setText(timeElapsed.stringZendoTimeWatch)
             
             if let message = message
             {
@@ -57,7 +85,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate, WKCrow
             
             if(Int(startDate.timeIntervalSinceNow) % 60 == 0) {
                 
-                
+                self.countdownDuration -= 1
             }
         }
     }
@@ -141,7 +169,8 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate, WKCrow
         if let context = context as? Session {
             session = context
             session.delegate = self
-            timeElapsedLabel.setText("00:00")
+            //timeElapsedLabel.setText("00:00")
+            self.startSessionWithDuration(minutes: SettingsWatch.dailyMediationGoal)
         }
         
         self.crownSequencer.delegate = self

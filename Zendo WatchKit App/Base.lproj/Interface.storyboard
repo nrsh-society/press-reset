@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="22155" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch38"/>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="22505" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch49"/>
     <dependencies>
-        <deployment identifier="watchOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="22022"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -20,7 +19,7 @@
         <!--AppInterfaceController-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="AppInterfaceController" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="AppInterfaceController" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Lumos_Mind_WatchKit_Extension">
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="center" backgroundImage="ring0" contentMode="scaleAspectFit" layout="overlap" id="obQ-Pj-vnx">
                             <items>
@@ -57,7 +56,7 @@
         <!--SessionInterfaceController-->
         <scene sceneID="PLM-Hm-Vur">
             <objects>
-                <controller identifier="SessionInterfaceController" contentMode="scaleAspectFit" id="ni9-qQ-E13" customClass="SessionInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="SessionInterfaceController" contentMode="scaleAspectFit" id="ni9-qQ-E13" customClass="SessionInterfaceController" customModule="Lumos_Mind_WatchKit_Extension">
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="bottom" contentMode="scaleAspectFit" layout="vertical" spacing="0.0" id="tim-Rb-wsC">
                             <items>
@@ -69,7 +68,7 @@
                                 <label width="1" height="43" alignment="center" textAlignment="center" id="edt-RR-Jqa">
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="17"/>
                                 </label>
-                                <label width="1" alignment="center" verticalAlignment="center" text="00:00" textAlignment="center" minimumScaleFactor="0.69999999999999996" id="Ur6-FC-Vdd">
+                                <label width="1" alignment="center" verticalAlignment="center" text=" " textAlignment="center" minimumScaleFactor="0.69999999999999996" id="Ur6-FC-Vdd">
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="42"/>
                                 </label>
@@ -122,7 +121,7 @@
         <!--SummaryInterfaceController-->
         <scene sceneID="IZS-JR-IrR">
             <objects>
-                <controller identifier="SummaryInterfaceController" id="Mk4-5F-50h" customClass="SummaryInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="SummaryInterfaceController" id="Mk4-5F-50h" customClass="SummaryInterfaceController" customModule="Lumos_Mind_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="FaZ-Fg-9fM">
                             <items>
@@ -227,14 +226,14 @@
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
             <objects>
-                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Zendo_WatchKit_App" customModuleProvider="target">
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Lumos_Mind_WatchKit_App" customModuleProvider="target">
                     <items>
                         <label alignment="left" text="Weekly Summary" id="IMc-zh-QlA">
                             <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
                         </label>
                         <label alignment="left" text="Your HRV this week is ▾ 11ms from last week's 50ms." textAlignment="left" numberOfLines="6" id="U53-F1-s3O">
                             <color key="textColor" red="0.6002739668" green="0.67491501570000001" blue="0.64313453440000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            <fontDescription key="font" name="Antenna-Light" family="Antenna" pointSize="26"/>
+                            <fontDescription key="font" name="Antenna-Light" family="Antenna" pointSize="20"/>
                         </label>
                     </items>
                     <connections>
@@ -243,7 +242,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="69" y="983"/>
+            <point key="canvasLocation" x="87" y="1375"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="f6W-j7-S90">
@@ -314,7 +313,7 @@
         <!--OptionsInterfaceController-->
         <scene sceneID="mYQ-LG-qhF">
             <objects>
-                <controller identifier="OptionsInterfaceController" contentMode="scaleAspectFit" id="y7B-OZ-tWG" customClass="OptionsInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="OptionsInterfaceController" contentMode="scaleAspectFit" id="y7B-OZ-tWG" customClass="OptionsInterfaceController" customModule="Lumos_Mind_WatchKit_Extension">
                     <items>
                         <group height="827" alignment="left" contentMode="scaleAspectFit" layout="vertical" spacing="5" id="mb7-hQ-jiz" userLabel="Options Group">
                             <items>
@@ -351,7 +350,7 @@
                                                         </label>
                                                         <label alignment="center" verticalAlignment="bottom" text="Goal" textAlignment="center" id="qu9-yg-B82">
                                                             <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
-                                                            <variation key="device=watch38mm" text="mins"/>
+                                                            <variation key="device=watch38mm" text="Goal"/>
                                                         </label>
                                                     </items>
                                                 </group>
@@ -408,7 +407,7 @@
                                                         <fontDescription key="font" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                                     </variation>
                                                 </label>
-                                                <slider height="45" alignment="center" continuous="YES" value="1" maximum="3" steps="3" id="Dou-CY-eup">
+                                                <slider height="45" alignment="center" continuous="YES" maximum="3" steps="3" id="Dou-CY-eup">
                                                     <connections>
                                                         <action selector="KyosakChanged:" destination="y7B-OZ-tWG" id="GuZ-zl-8OK"/>
                                                     </connections>
@@ -569,12 +568,12 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="356.25365853658536" y="2.7091633466135456"/>
+            <point key="canvasLocation" x="790" y="-339"/>
         </scene>
         <!--Goals-->
         <scene sceneID="Eaa-gP-xvC">
             <objects>
-                <controller identifier="SetGoalInterfaceController" title="Goals" contentMode="scaleAspectFit" id="iqt-Nq-L2v" customClass="SetGoalInterfaceController" customModule="Zendo_WatchKit_Extension">
+                <controller identifier="SetGoalInterfaceController" title="Goals" contentMode="scaleAspectFit" id="iqt-Nq-L2v" customClass="SetGoalInterfaceController" customModule="Lumos_Mind_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="center" layout="vertical" spacing="15" id="ne0-EB-Veg">
                             <items>
@@ -696,7 +695,7 @@
             <objects>
                 <controller id="IXi-WN-khc"/>
             </objects>
-            <point key="canvasLocation" x="811" y="704"/>
+            <point key="canvasLocation" x="1128" y="1169"/>
         </scene>
         <!--Dynamic Interactive Notification Interface Controller-->
         <scene sceneID="v6Q-gg-nBf">
@@ -707,7 +706,7 @@
                     </items>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="811" y="354"/>
+            <point key="canvasLocation" x="526" y="1107"/>
         </scene>
     </scenes>
     <resources>

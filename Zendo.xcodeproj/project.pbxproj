@@ -114,12 +114,12 @@
 		3A6F308E245B44040034671A /* ContactsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6F308D245B44040034671A /* ContactsInterfaceController.swift */; };
 		3AB1428F2453F4F700CA7268 /* Zensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB1428E2453F4F700CA7268 /* Zensor.swift */; };
 		3AB142912453F5EF00CA7268 /* ZensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB142902453F5EF00CA7268 /* ZensorView.swift */; };
-		6545B054969AD95BE046F7A2 /* Pods_Zendo_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8524980B6734997DAFF72373 /* Pods_Zendo_WatchKit_Extension.framework */; };
+		529D59FDB1CC717FE849E4C2 /* Pods_Breathe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAF0A0422E1C7E1E93FB48C /* Pods_Breathe.framework */; };
+		775D30362DA389A120AD0CCB /* Pods_Breathe_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8574B14A1176F483A4DE05C0 /* Pods_Breathe_WatchKit_Extension.framework */; };
 		7B2BD44C22A4961100B0B5A4 /* MetadataExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2BD44B22A4961100B0B5A4 /* MetadataExtractor.swift */; };
 		7BEDEAEF22A3440B008FCAF7 /* WorkoutSessionReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAEE22A3440B008FCAF7 /* WorkoutSessionReporter.swift */; };
 		7BEDEAF522A34CCF008FCAF7 /* WorkoutFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDEAF422A34CCF008FCAF7 /* WorkoutFetcher.swift */; };
 		9509B6602537F8D2005E6A29 /* PFUser+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9509B65F2537F8D2005E6A29 /* PFUser+Settings.swift */; };
-		96754525914E2682144E3657 /* Pods_Zendo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B95EA3C533F13853D7654F9 /* Pods_Zendo.framework */; };
 		BE066BD820F1EFC10008747D /* OverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE066BD720F1EFC10008747D /* OverviewController.swift */; };
 		BE066BDD20F1F3D10008747D /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE066BDC20F1F3D10008747D /* PageController.swift */; };
 		BE08D77426D6BB24002BEB3C /* CommunityController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE08D77226D6BB23002BEB3C /* CommunityController.storyboard */; };
@@ -137,9 +137,9 @@
 		BE2E81EF1FF44A7B00D104AC /* ZendoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E81EE1FF44A7B00D104AC /* ZendoController.swift */; };
 		BE2E81F21FF44A7B00D104AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE2E81F01FF44A7B00D104AC /* Main.storyboard */; };
 		BE2E81F71FF44A7B00D104AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE2E81F51FF44A7B00D104AC /* LaunchScreen.storyboard */; };
-		BE2E81FC1FF44A7B00D104AC /* Zendo WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BE2E81FB1FF44A7B00D104AC /* Zendo WatchKit App.app */; platformFilter = ios; };
+		BE2E81FC1FF44A7B00D104AC /* Lumos Mind WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BE2E81FB1FF44A7B00D104AC /* Lumos Mind WatchKit App.app */; platformFilter = ios; };
 		BE2E82021FF44A7B00D104AC /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE2E82001FF44A7B00D104AC /* Interface.storyboard */; };
-		BE2E820B1FF44A7B00D104AC /* Zendo WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BE2E820A1FF44A7B00D104AC /* Zendo WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BE2E820B1FF44A7B00D104AC /* Lumos Mind WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BE2E820A1FF44A7B00D104AC /* Lumos Mind WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BE2E82101FF44A7B00D104AC /* AppInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E820F1FF44A7B00D104AC /* AppInterfaceController.swift */; };
 		BE2E82121FF44A7B00D104AC /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E82111FF44A7B00D104AC /* ExtensionDelegate.swift */; };
 		BE2E82141FF44A7B00D104AC /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E82131FF44A7B00D104AC /* NotificationController.swift */; };
@@ -219,7 +219,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				BE2E820B1FF44A7B00D104AC /* Zendo WatchKit Extension.appex in Embed App Extensions */,
+				BE2E820B1FF44A7B00D104AC /* Lumos Mind WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -230,7 +230,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				BE2E81FC1FF44A7B00D104AC /* Zendo WatchKit App.app in Embed Watch Content */,
+				BE2E81FC1FF44A7B00D104AC /* Lumos Mind WatchKit App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,6 +270,7 @@
 
 /* Begin PBXFileReference section */
 		0158B9843DA865AF722A4126 /* Pods-Zendo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zendo.debug.xcconfig"; path = "Target Support Files/Pods-Zendo/Pods-Zendo.debug.xcconfig"; sourceTree = "<group>"; };
+		0BAF0A0422E1C7E1E93FB48C /* Pods_Breathe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Breathe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1219E51D248AB6EA005E9654 /* HealthKitControllerFailed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitControllerFailed.swift; sourceTree = "<group>"; };
 		121F25FD211B367D00C1CC96 /* SessionCommands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCommands.swift; sourceTree = "<group>"; };
 		121F25FF211B372300C1CC96 /* SessionDelegater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDelegater.swift; sourceTree = "<group>"; };
@@ -370,6 +371,7 @@
 		3AB142902453F5EF00CA7268 /* ZensorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZensorView.swift; sourceTree = "<group>"; };
 		3ED375D9041CFE360443FA0F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		52A40FB3C69940CC2A7D2835 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		66D05844C6432A8BE2D900E7 /* Pods-Breathe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathe.debug.xcconfig"; path = "Target Support Files/Pods-Breathe/Pods-Breathe.debug.xcconfig"; sourceTree = "<group>"; };
 		67414F738D8DE6FB16C9FEE1 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		6E976786A0B62DF02B6D3728 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		73956C9DFF514C25FAEB0010 /* Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
@@ -383,13 +385,14 @@
 		7BEDEB0122A35D0E008FCAF7 /* Date+InitializersTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+InitializersTest.swift"; sourceTree = "<group>"; };
 		7BEDEB0722A436F7008FCAF7 /* MockWorkoutSessionReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWorkoutSessionReporter.swift; sourceTree = "<group>"; };
 		7BF70C9D229B80D4001E4D0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8524980B6734997DAFF72373 /* Pods_Zendo_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zendo_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8157FBD05587A035B63D7FA3 /* Pods-Breathe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathe.release.xcconfig"; path = "Target Support Files/Pods-Breathe/Pods-Breathe.release.xcconfig"; sourceTree = "<group>"; };
+		8574B14A1176F483A4DE05C0 /* Pods_Breathe_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Breathe_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8710FFDFC607E6D774849C5F /* Pods-Breathe WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathe WatchKit Extension.debug.xcconfig"; path = "Target Support Files/Pods-Breathe WatchKit Extension/Pods-Breathe WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		8EA26F84F27CAA4C2B578604 /* Pods-Zendo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zendo.release.xcconfig"; path = "Target Support Files/Pods-Zendo/Pods-Zendo.release.xcconfig"; sourceTree = "<group>"; };
 		91FBDAC94D9B42088C3E7F8B /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
 		9509B65F2537F8D2005E6A29 /* PFUser+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PFUser+Settings.swift"; sourceTree = "<group>"; };
 		956FF25D254A8C5E0082E970 /* ZendoRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZendoRelease.entitlements; sourceTree = "<group>"; };
 		956FF260254A95200082E970 /* Zendo WatchKit ExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Zendo WatchKit ExtensionDebug.entitlements"; sourceTree = "<group>"; };
-		9B95EA3C533F13853D7654F9 /* Pods_Zendo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zendo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE029E9A22D1000B00649DEF /* ZendoKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZendoKit.swift; sourceTree = "<group>"; };
 		BE066BD720F1EFC10008747D /* OverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewController.swift; sourceTree = "<group>"; };
 		BE066BDC20F1F3D10008747D /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
@@ -405,16 +408,16 @@
 		BE1FAA0C263880230090FA1F /* HomeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HomeKit.framework; path = System/Library/Frameworks/HomeKit.framework; sourceTree = SDKROOT; };
 		BE24023A1FFC961A008679C4 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		BE24023C1FFC965F008679C4 /* SessionInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionInterfaceController.swift; sourceTree = "<group>"; };
-		BE2E81E91FF44A7B00D104AC /* Zendo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zendo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE2E81E91FF44A7B00D104AC /* Lumos Mind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lumos Mind.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2E81EC1FF44A7B00D104AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2E81EE1FF44A7B00D104AC /* ZendoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZendoController.swift; sourceTree = "<group>"; };
 		BE2E81F11FF44A7B00D104AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE2E81F61FF44A7B00D104AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BE2E81F81FF44A7B00D104AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BE2E81FB1FF44A7B00D104AC /* Zendo WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zendo WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE2E81FB1FF44A7B00D104AC /* Lumos Mind WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lumos Mind WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2E82011FF44A7B00D104AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		BE2E82051FF44A7B00D104AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BE2E820A1FF44A7B00D104AC /* Zendo WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Zendo WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE2E820A1FF44A7B00D104AC /* Lumos Mind WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Lumos Mind WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2E820F1FF44A7B00D104AC /* AppInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInterfaceController.swift; sourceTree = "<group>"; };
 		BE2E82111FF44A7B00D104AC /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		BE2E82131FF44A7B00D104AC /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
@@ -473,6 +476,7 @@
 		DFE3B16F2189A3FA008830CD /* StartingSessions.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StartingSessions.xib; sourceTree = "<group>"; };
 		DFE3B1732189A6E5008830CD /* animationStartingSession.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animationStartingSession.json; sourceTree = "<group>"; };
 		DFE3B1752189C377008830CD /* StartingSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingSessionViewController.swift; sourceTree = "<group>"; };
+		EE28A412792ABF3538638461 /* Pods-Breathe WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathe WatchKit Extension.release.xcconfig"; path = "Target Support Files/Pods-Breathe WatchKit Extension/Pods-Breathe WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -491,7 +495,7 @@
 				BE81B26F2001B85500274FA1 /* HealthKit.framework in Frameworks */,
 				1246892423ABC607000F18FC /* StoreKit.framework in Frameworks */,
 				BE205E0C297CB87D00560B0C /* Mixpanel in Frameworks */,
-				96754525914E2682144E3657 /* Pods_Zendo.framework in Frameworks */,
+				529D59FDB1CC717FE849E4C2 /* Pods_Breathe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,7 +506,7 @@
 				BE9B00042065FF6B007FF96A /* CoreMotion.framework in Frameworks */,
 				BE8BB21F1FFDCC4600B2E113 /* HealthKit.framework in Frameworks */,
 				BED58CC5297CB9BB00789988 /* Mixpanel in Frameworks */,
-				6545B054969AD95BE046F7A2 /* Pods_Zendo_WatchKit_Extension.framework in Frameworks */,
+				775D30362DA389A120AD0CCB /* Pods_Breathe_WatchKit_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -915,6 +919,10 @@
 				8EA26F84F27CAA4C2B578604 /* Pods-Zendo.release.xcconfig */,
 				144FF9C6C5DF6DA5F2FFBD87 /* Pods-Zendo WatchKit Extension.debug.xcconfig */,
 				250EC5ED6EF62C4D9887694D /* Pods-Zendo WatchKit Extension.release.xcconfig */,
+				66D05844C6432A8BE2D900E7 /* Pods-Breathe.debug.xcconfig */,
+				8157FBD05587A035B63D7FA3 /* Pods-Breathe.release.xcconfig */,
+				8710FFDFC607E6D774849C5F /* Pods-Breathe WatchKit Extension.debug.xcconfig */,
+				EE28A412792ABF3538638461 /* Pods-Breathe WatchKit Extension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -939,9 +947,9 @@
 		BE2E81EA1FF44A7B00D104AC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BE2E81E91FF44A7B00D104AC /* Zendo.app */,
-				BE2E81FB1FF44A7B00D104AC /* Zendo WatchKit App.app */,
-				BE2E820A1FF44A7B00D104AC /* Zendo WatchKit Extension.appex */,
+				BE2E81E91FF44A7B00D104AC /* Lumos Mind.app */,
+				BE2E81FB1FF44A7B00D104AC /* Lumos Mind WatchKit App.app */,
+				BE2E820A1FF44A7B00D104AC /* Lumos Mind WatchKit Extension.appex */,
 				BEF0750C21E6B0C700EE657D /* NotificationService.appex */,
 			);
 			name = Products;
@@ -1056,8 +1064,8 @@
 				6E976786A0B62DF02B6D3728 /* CoreMedia.framework */,
 				C86368BD68AC54656999A5EB /* CoreVideo.framework */,
 				BE813BE422D070E6007DED15 /* Messages.framework */,
-				9B95EA3C533F13853D7654F9 /* Pods_Zendo.framework */,
-				8524980B6734997DAFF72373 /* Pods_Zendo_WatchKit_Extension.framework */,
+				0BAF0A0422E1C7E1E93FB48C /* Pods_Breathe.framework */,
+				8574B14A1176F483A4DE05C0 /* Pods_Breathe_WatchKit_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1074,9 +1082,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BE2E81E81FF44A7B00D104AC /* Zendo */ = {
+		BE2E81E81FF44A7B00D104AC /* Lumos Mind */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BE2E82231FF44A7B00D104AC /* Build configuration list for PBXNativeTarget "Zendo" */;
+			buildConfigurationList = BE2E82231FF44A7B00D104AC /* Build configuration list for PBXNativeTarget "Lumos Mind" */;
 			buildPhases = (
 				A1C9D9DD964DE77312C94636 /* [CP] Check Pods Manifest.lock */,
 				BE2E81E51FF44A7B00D104AC /* Sources */,
@@ -1093,17 +1101,17 @@
 				BE2E81FE1FF44A7B00D104AC /* PBXTargetDependency */,
 				BEF0751221E6B0C700EE657D /* PBXTargetDependency */,
 			);
-			name = Zendo;
+			name = "Lumos Mind";
 			packageProductDependencies = (
 				BE205E0B297CB87D00560B0C /* Mixpanel */,
 			);
 			productName = Zazen;
-			productReference = BE2E81E91FF44A7B00D104AC /* Zendo.app */;
+			productReference = BE2E81E91FF44A7B00D104AC /* Lumos Mind.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BE2E81FA1FF44A7B00D104AC /* Zendo WatchKit App */ = {
+		BE2E81FA1FF44A7B00D104AC /* Lumos Mind WatchKit App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BE2E821F1FF44A7B00D104AC /* Build configuration list for PBXNativeTarget "Zendo WatchKit App" */;
+			buildConfigurationList = BE2E821F1FF44A7B00D104AC /* Build configuration list for PBXNativeTarget "Lumos Mind WatchKit App" */;
 			buildPhases = (
 				BE2E81F91FF44A7B00D104AC /* Resources */,
 				BE2E821E1FF44A7B00D104AC /* Embed App Extensions */,
@@ -1115,17 +1123,17 @@
 			dependencies = (
 				BE2E820D1FF44A7B00D104AC /* PBXTargetDependency */,
 			);
-			name = "Zendo WatchKit App";
+			name = "Lumos Mind WatchKit App";
 			packageProductDependencies = (
 				BED58CC2297CB9AB00789988 /* Mixpanel */,
 			);
 			productName = "Zazen WatchKit App";
-			productReference = BE2E81FB1FF44A7B00D104AC /* Zendo WatchKit App.app */;
+			productReference = BE2E81FB1FF44A7B00D104AC /* Lumos Mind WatchKit App.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
-		BE2E82091FF44A7B00D104AC /* Zendo WatchKit Extension */ = {
+		BE2E82091FF44A7B00D104AC /* Lumos Mind WatchKit Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BE2E821B1FF44A7B00D104AC /* Build configuration list for PBXNativeTarget "Zendo WatchKit Extension" */;
+			buildConfigurationList = BE2E821B1FF44A7B00D104AC /* Build configuration list for PBXNativeTarget "Lumos Mind WatchKit Extension" */;
 			buildPhases = (
 				26F06222D812A3D41833F89F /* [CP] Check Pods Manifest.lock */,
 				BE2E82061FF44A7B00D104AC /* Sources */,
@@ -1137,12 +1145,12 @@
 			);
 			dependencies = (
 			);
-			name = "Zendo WatchKit Extension";
+			name = "Lumos Mind WatchKit Extension";
 			packageProductDependencies = (
 				BED58CC4297CB9BB00789988 /* Mixpanel */,
 			);
 			productName = "Zazen WatchKit Extension";
-			productReference = BE2E820A1FF44A7B00D104AC /* Zendo WatchKit Extension.appex */;
+			productReference = BE2E820A1FF44A7B00D104AC /* Lumos Mind WatchKit Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
 		BEF0750B21E6B0C700EE657D /* NotificationService */ = {
@@ -1231,9 +1239,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BE2E81E81FF44A7B00D104AC /* Zendo */,
-				BE2E81FA1FF44A7B00D104AC /* Zendo WatchKit App */,
-				BE2E82091FF44A7B00D104AC /* Zendo WatchKit Extension */,
+				BE2E81E81FF44A7B00D104AC /* Lumos Mind */,
+				BE2E81FA1FF44A7B00D104AC /* Lumos Mind WatchKit App */,
+				BE2E82091FF44A7B00D104AC /* Lumos Mind WatchKit Extension */,
 				BEF0750B21E6B0C700EE657D /* NotificationService */,
 			);
 		};
@@ -1329,7 +1337,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Zendo/Pods-Zendo-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Breathe/Pods-Breathe-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts-iOS/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
@@ -1360,7 +1368,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Zendo/Pods-Zendo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Breathe/Pods-Breathe-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		26F06222D812A3D41833F89F /* [CP] Check Pods Manifest.lock */ = {
@@ -1378,7 +1386,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Zendo WatchKit Extension-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Breathe WatchKit Extension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1400,7 +1408,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Zendo-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Breathe-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1413,7 +1421,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Breathe WatchKit Extension/Pods-Breathe WatchKit Extension-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts-watchOS/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse-watchOS/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/Smooth-watchOS/Smooth.framework",
@@ -1426,7 +1434,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Zendo WatchKit Extension/Pods-Zendo WatchKit Extension-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Breathe WatchKit Extension/Pods-Breathe WatchKit Extension-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1574,12 +1582,12 @@
 		BE2E81FE1FF44A7B00D104AC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
-			target = BE2E81FA1FF44A7B00D104AC /* Zendo WatchKit App */;
+			target = BE2E81FA1FF44A7B00D104AC /* Lumos Mind WatchKit App */;
 			targetProxy = BE2E81FD1FF44A7B00D104AC /* PBXContainerItemProxy */;
 		};
 		BE2E820D1FF44A7B00D104AC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BE2E82091FF44A7B00D104AC /* Zendo WatchKit Extension */;
+			target = BE2E82091FF44A7B00D104AC /* Lumos Mind WatchKit Extension */;
 			targetProxy = BE2E820C1FF44A7B00D104AC /* PBXContainerItemProxy */;
 		};
 		BEF0751221E6B0C700EE657D /* PBXTargetDependency */ = {
@@ -1676,13 +1684,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = Default;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
 		};
@@ -1732,7 +1741,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = Default;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1740,19 +1749,20 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};
 		BE2E821C1FF44A7B00D104AC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 144FF9C6C5DF6DA5F2FFBD87 /* Pods-Zendo WatchKit Extension.debug.xcconfig */;
+			baseConfigurationReference = 8710FFDFC607E6D774849C5F /* Pods-Breathe WatchKit Extension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Zendo WatchKit Extension/Zendo WatchKit ExtensionDebug.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 483;
+				CURRENT_PROJECT_VERSION = 484;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1760,9 +1770,9 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 8.0;
+				MARKETING_VERSION = 8.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.nrsh.lumosmind.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1770,20 +1780,20 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
 		};
 		BE2E821D1FF44A7B00D104AC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 250EC5ED6EF62C4D9887694D /* Pods-Zendo WatchKit Extension.release.xcconfig */;
+			baseConfigurationReference = EE28A412792ABF3538638461 /* Pods-Breathe WatchKit Extension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Zendo WatchKit Extension/Supporting Files/Zendo WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 483;
+				CURRENT_PROJECT_VERSION = 484;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				INFOPLIST_FILE = "Zendo WatchKit Extension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1791,9 +1801,9 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 8.0;
+				MARKETING_VERSION = 8.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit.ext;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.nrsh.lumosmind.watchkit.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1801,7 +1811,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};
@@ -1813,24 +1823,26 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 483;
+				CURRENT_PROJECT_VERSION = 484;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=*]" = "";
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 8.0;
+				MARKETING_VERSION = 8.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.nrsh.lumosmind.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
 		};
@@ -1842,7 +1854,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 483;
+				CURRENT_PROJECT_VERSION = 484;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				IBSC_MODULE = Zendo_WatchKit_Extension;
 				INFOPLIST_FILE = "Zendo WatchKit App/Info.plist";
@@ -1850,22 +1862,22 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 8.0;
+				MARKETING_VERSION = 8.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.watchkit;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.nrsh.lumosmind.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};
 		BE2E82241FF44A7B00D104AC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0158B9843DA865AF722A4126 /* Pods-Zendo.debug.xcconfig */;
+			baseConfigurationReference = 66D05844C6432A8BE2D900E7 /* Pods-Breathe.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1873,7 +1885,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 483;
+				CURRENT_PROJECT_VERSION = 484;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1882,16 +1894,16 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/Supporting Files/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_QUOTE_LINKER_ARGUMENTS_FOR_COMPILER_DRIVER = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 8.0;
+				MARKETING_VERSION = 8.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.nrsh.lumosmind;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1904,7 +1916,7 @@
 		};
 		BE2E82251FF44A7B00D104AC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8EA26F84F27CAA4C2B578604 /* Pods-Zendo.release.xcconfig */;
+			baseConfigurationReference = 8157FBD05587A035B63D7FA3 /* Pods-Breathe.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1912,7 +1924,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 483;
+				CURRENT_PROJECT_VERSION = 484;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6N25VDH5A9;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1921,16 +1933,16 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Zendo/Supporting Files/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_QUOTE_LINKER_ARGUMENTS_FOR_COMPILER_DRIVER = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 8.0;
+				MARKETING_VERSION = 8.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.nrsh.lumosmind;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1963,7 +1975,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.nrsh.lumosmind.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -1993,7 +2005,7 @@
 				MARKETING_VERSION = 8.0;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tools.sunyata.Zendo.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = tools.nrsh.lumosmind.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -2014,7 +2026,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BE2E821B1FF44A7B00D104AC /* Build configuration list for PBXNativeTarget "Zendo WatchKit Extension" */ = {
+		BE2E821B1FF44A7B00D104AC /* Build configuration list for PBXNativeTarget "Lumos Mind WatchKit Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE2E821C1FF44A7B00D104AC /* Debug */,
@@ -2023,7 +2035,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BE2E821F1FF44A7B00D104AC /* Build configuration list for PBXNativeTarget "Zendo WatchKit App" */ = {
+		BE2E821F1FF44A7B00D104AC /* Build configuration list for PBXNativeTarget "Lumos Mind WatchKit App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE2E82201FF44A7B00D104AC /* Debug */,
@@ -2032,7 +2044,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BE2E82231FF44A7B00D104AC /* Build configuration list for PBXNativeTarget "Zendo" */ = {
+		BE2E82231FF44A7B00D104AC /* Build configuration list for PBXNativeTarget "Lumos Mind" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE2E82241FF44A7B00D104AC /* Debug */,
