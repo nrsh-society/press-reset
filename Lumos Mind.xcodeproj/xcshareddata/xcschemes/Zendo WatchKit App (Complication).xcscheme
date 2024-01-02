@@ -17,7 +17,7 @@
                BlueprintIdentifier = "BE2E81FA1FF44A7B00D104AC"
                BuildableName = "Lumos Mind WatchKit App.app"
                BlueprintName = "Lumos Mind WatchKit App"
-               ReferencedContainer = "container:Zendo.xcodeproj">
+               ReferencedContainer = "container:Lumos Mind.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "BE2E81E81FF44A7B00D104AC"
                BuildableName = "Lumos Mind.app"
                BlueprintName = "Lumos Mind"
-               ReferencedContainer = "container:Zendo.xcodeproj">
+               ReferencedContainer = "container:Lumos Mind.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -62,7 +62,7 @@
             BlueprintIdentifier = "BE2E81FA1FF44A7B00D104AC"
             BuildableName = "Lumos Mind WatchKit App.app"
             BlueprintName = "Lumos Mind WatchKit App"
-            ReferencedContainer = "container:Zendo.xcodeproj">
+            ReferencedContainer = "container:Lumos Mind.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -80,7 +80,7 @@
             BlueprintIdentifier = "BE2E81FA1FF44A7B00D104AC"
             BuildableName = "Lumos Mind WatchKit App.app"
             BlueprintName = "Lumos Mind WatchKit App"
-            ReferencedContainer = "container:Zendo.xcodeproj">
+            ReferencedContainer = "container:Lumos Mind.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

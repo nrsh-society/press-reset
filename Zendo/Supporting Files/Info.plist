@@ -67,9 +67,9 @@
 	<key>NSContactsUsageDescription</key>
 	<string>Pick people to share daily progress</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>Show progress across Zendō sessions </string>
+	<string>Show progress across Lumos Mind sessions </string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>Add Zendō data to Apple Health </string>
+	<string>Add Lumos Mind data to Apple Health </string>
 	<key>NSHomeKitUsageDescription</key>
 	<string>Control lighting based on health data</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
@@ -84,7 +84,7 @@
 	<string>Save meditations to photo library</string>
 	<key>NSUserActivityTypes</key>
 	<array>
-		<string>tools.sunyata.Zendo.app</string>
+		<string>tools.nrsh.Lumos-Mind.app</string>
 	</array>
 	<key>UIAppFonts</key>
 	<array>

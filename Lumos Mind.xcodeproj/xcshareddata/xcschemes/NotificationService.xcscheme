@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1400"
-   version = "1.3">
+   wasCreatedForAppExtension = "YES"
+   version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BE2E81FA1FF44A7B00D104AC"
-               BuildableName = "Lumos Mind WatchKit App.app"
-               BlueprintName = "Lumos Mind WatchKit App"
-               ReferencedContainer = "container:Zendo.xcodeproj">
+               BlueprintIdentifier = "BEF0750B21E6B0C700EE657D"
+               BuildableName = "NotificationService.appex"
+               BlueprintName = "NotificationService"
+               ReferencedContainer = "container:Lumos Mind.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +32,7 @@
                BlueprintIdentifier = "BE2E81E81FF44A7B00D104AC"
                BuildableName = "Lumos Mind.app"
                BlueprintName = "Lumos Mind"
-               ReferencedContainer = "container:Zendo.xcodeproj">
+               ReferencedContainer = "container:Lumos Mind.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -41,28 +42,38 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "BEF0750B21E6B0C700EE657D"
+            BuildableName = "NotificationService.appex"
+            BlueprintName = "NotificationService"
+            ReferencedContainer = "container:Lumos Mind.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
       </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
+      askForAppToLaunch = "Yes"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
-      notificationPayloadFile = "Zendo WatchKit Extension/Supporting Files/PushNotificationPayload.apns">
+      launchAutomaticallySubstyle = "2">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BE2E81FA1FF44A7B00D104AC"
-            BuildableName = "Lumos Mind WatchKit App.app"
-            BlueprintName = "Lumos Mind WatchKit App"
-            ReferencedContainer = "container:Zendo.xcodeproj">
+            BlueprintIdentifier = "BE2E81E81FF44A7B00D104AC"
+            BuildableName = "Lumos Mind.app"
+            BlueprintName = "Lumos Mind"
+            ReferencedContainer = "container:Lumos Mind.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -71,15 +82,17 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES">
+      debugDocumentVersioning = "YES"
+      askForAppToLaunch = "Yes"
+      launchAutomaticallySubstyle = "2">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BE2E81FA1FF44A7B00D104AC"
-            BuildableName = "Lumos Mind WatchKit App.app"
-            BlueprintName = "Lumos Mind WatchKit App"
-            ReferencedContainer = "container:Zendo.xcodeproj">
+            BlueprintIdentifier = "BE2E81E81FF44A7B00D104AC"
+            BuildableName = "Lumos Mind.app"
+            BlueprintName = "Lumos Mind"
+            ReferencedContainer = "container:Lumos Mind.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

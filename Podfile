@@ -1,7 +1,7 @@
 use_frameworks!
 
-target 'Breathe' do
-  platform :ios, '13.0'
+target 'Lumos Mind' do
+  platform :ios, '17.0'
   use_frameworks!
   pod 'PromiseKit'
   pod 'Parse'
@@ -15,8 +15,8 @@ target 'Breathe' do
   pod 'Smooth', :path => '~/src/cancelself/Smooth.swift'
 end
 
-target 'Breathe WatchKit Extension' do
-  platform :watchos, '9.0'
+target 'Lumos Mind WatchKit Extension' do
+  platform :watchos, '10.0'
   use_frameworks!
   pod 'Smooth' , :path => '~/src/cancelself/Smooth.swift'
   pod 'Parse'

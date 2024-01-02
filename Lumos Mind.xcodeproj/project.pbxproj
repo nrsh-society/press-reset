@@ -1223,7 +1223,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BE2E81E41FF44A7B00D104AC /* Build configuration list for PBXProject "Zendo" */;
+			buildConfigurationList = BE2E81E41FF44A7B00D104AC /* Build configuration list for PBXProject "Lumos Mind" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -2017,7 +2017,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BE2E81E41FF44A7B00D104AC /* Build configuration list for PBXProject "Zendo" */ = {
+		BE2E81E41FF44A7B00D104AC /* Build configuration list for PBXProject "Lumos Mind" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE2E82191FF44A7B00D104AC /* Debug */,

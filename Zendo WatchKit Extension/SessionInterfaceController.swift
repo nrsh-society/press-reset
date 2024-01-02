@@ -73,10 +73,13 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate, WKCrow
             let timeElapsed = abs(startDate.timeIntervalSinceNow)
             
             self.countdownDuration -= 1
-            let timeString = self.formatTime(for: self.countdownDuration)
-            self.timeElapsedLabel.setText(timeString)
-        
-            //self.timeElapsedLabel.setText(timeElapsed.stringZendoTimeWatch)
+            
+            if(self.countdownDuration > 0 ) {
+                let timeString = self.formatTime(for: self.countdownDuration)
+                self.timeElapsedLabel.setText(timeString)
+            } else {
+                self.onDonePress()
+            }
             
             if let message = message
             {
@@ -85,7 +88,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate, WKCrow
             
             if(Int(startDate.timeIntervalSinceNow) % 60 == 0) {
                 
-                self.countdownDuration -= 1
+                
             }
         }
     }
@@ -150,7 +153,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate, WKCrow
                                 WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
                             }
                             
-                            self.presentAlert(withTitle: nil, message: "Error saving data. Zendō needs access to Apple Health to measure and record metrics during meditation. All Health data remains on your devices, nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
+                            self.presentAlert(withTitle: nil, message: "Error saving data. Lumos Mind needs access to Apple Health to measure and record metrics during meditation. All Health data remains on your devices, nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
                         }
                     }
                                         
@@ -195,8 +198,6 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate, WKCrow
     }
     
     override func didDeactivate() {
-        
         super.didDeactivate()
     }
-
 }
