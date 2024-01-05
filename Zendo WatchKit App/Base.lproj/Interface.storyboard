@@ -226,7 +226,7 @@
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
             <objects>
-                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Lumos_Mind_WatchKit_App" customModuleProvider="target">
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Lumos_Mind_WatchKit_Extension">
                     <items>
                         <label alignment="left" text="Weekly Summary" id="IMc-zh-QlA">
                             <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
