@@ -217,7 +217,7 @@ extension StartSessionController {
     
     func setCentralManager() {
         if let _ = Settings.nameMovesense {
-            let centralQueue: DispatchQueue = DispatchQueue(label: "tools.sunyata.zendo", attributes: .concurrent)
+            let centralQueue: DispatchQueue = DispatchQueue(label: "org.nrsh.pressreset", attributes: .concurrent)
             centralManager = CBCentralManager(delegate: self, queue: centralQueue)
         }
     }

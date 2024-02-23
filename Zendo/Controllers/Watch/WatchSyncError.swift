@@ -50,13 +50,13 @@ enum ErrorConfiguration {
             "Successfully connected to Apple Watch. Use your watch to monitor your HRV and record meditation sessions."
             ]
         case .noInstallZendo: return [
-            "install zendō",
+            "install press reset",
             "watch app",
             """
-            Zendō needs to be installed on Apple Watch.
+            Press Reset needs to be installed on Apple Watch.
             
             1.  Go to Watch App
-            2.  Locate Zendō and tap Install
+            2.  Locate Press Reset and tap Install
             """
             ]
         case .needWear: return [
@@ -67,7 +67,7 @@ enum ErrorConfiguration {
         case .noAppleWatch: return [
             "no Apple Watch",
             "paired to phone",
-            "In order to record a meditation session and track your HRV, Zendō requires Apple Watch."
+            "In order to record a meditation session and track your HRV, Press Reset requires Apple Watch."
             ]
         case .unableToDetect: return [
             "unable to detect",

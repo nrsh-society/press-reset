@@ -13,10 +13,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Zendō-->
+        <!--Press Reset-->
         <scene sceneID="lTf-et-eam">
             <objects>
-                <tabBarController title="Zendō" automaticallyAdjustsScrollViewInsets="NO" id="5Nz-z1-oTd" customClass="TabBarController" customModule="Lumos_Mind" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController title="Press Reset" automaticallyAdjustsScrollViewInsets="NO" id="5Nz-z1-oTd" customClass="TabBarController" customModule="Press_Reset" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="Nbg-hk-ofl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -37,7 +37,7 @@
         <!--Zazen-->
         <scene sceneID="dOy-lG-oqi">
             <objects>
-                <tableViewController storyboardIdentifier="Zazen" title="Zazen" id="OgR-X5-jbh" customClass="ZendoController" customModule="Lumos_Mind" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Zazen" title="Zazen" id="OgR-X5-jbh" customClass="ZendoController" customModule="Press_Reset" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3Qe-6i-7b8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="829"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -49,7 +49,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ZendoTableViewCell" rowHeight="70" id="wm8-xC-gnJ" customClass="ZendoTableViewCell" customModule="Lumos_Mind" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ZendoTableViewCell" rowHeight="70" id="wm8-xC-gnJ" customClass="ZendoTableViewCell" customModule="Press_Reset" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wm8-xC-gnJ" id="XaM-oy-Pvh">
@@ -134,7 +134,7 @@
                                     <segue destination="TsE-Ce-fNs" kind="show" identifier="showDetail" id="nLz-B5-7XK"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HeaderZendoTableViewCell" rowHeight="33" id="T5l-gU-0oA" customClass="HeaderZendoTableViewCell" customModule="Lumos_Mind" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HeaderZendoTableViewCell" rowHeight="33" id="T5l-gU-0oA" customClass="HeaderZendoTableViewCell" customModule="Press_Reset" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="120" width="375" height="33"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T5l-gU-0oA" id="tYw-6i-Q1G">
@@ -160,7 +160,7 @@
                                     <outlet property="dateLabel" destination="tRP-u1-KuN" id="AyM-ZP-FUT"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FirstSessionTableViewCell" rowHeight="480" id="D3T-KK-cLt" customClass="FirstSessionTableViewCell" customModule="Lumos_Mind" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FirstSessionTableViewCell" rowHeight="480" id="D3T-KK-cLt" customClass="FirstSessionTableViewCell" customModule="Press_Reset" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="153" width="375" height="480"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D3T-KK-cLt" id="cVa-X4-jIO">
@@ -176,7 +176,7 @@
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5J-CS-i6v">
                                             <rect key="frame" x="32" y="350" width="311" height="56.333333333333314"/>
-                                            <string key="text">Record your meditation session using your Apple Watch. Zendō works great with Headspace, Calm, podcasts, or self-guided meditations</string>
+                                            <string key="text">Record your meditation session using your Apple Watch. Press Reset works great with Headspace, Calm, podcasts, or self-guided meditations</string>
                                             <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                             <color key="textColor" red="0.58431372549019611" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -236,7 +236,7 @@
         <!--Details-->
         <scene sceneID="OWy-UP-yZ6">
             <objects>
-                <viewController storyboardIdentifier="zazen-controller" title="Details" hidesBottomBarWhenPushed="YES" id="TsE-Ce-fNs" customClass="ZazenController" customModule="Lumos_Mind" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="zazen-controller" title="Details" hidesBottomBarWhenPushed="YES" id="TsE-Ce-fNs" customClass="ZazenController" customModule="Press_Reset" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FTR-xS-jSK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="912"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -250,7 +250,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderZazenTableViewCell" rowHeight="30" id="txs-gQ-tMi" customClass="HeaderZazenTableViewCell" customModule="Lumos_Mind" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderZazenTableViewCell" rowHeight="30" id="txs-gQ-tMi" customClass="HeaderZazenTableViewCell" customModule="Press_Reset" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="320" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="txs-gQ-tMi" id="dpa-zo-n64">
@@ -288,7 +288,7 @@
                                             <outlet property="timeView" destination="Lun-TT-wts" id="7dS-l8-eFB"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ZazenTableViewCell" rowHeight="800" id="A1r-As-wRg" customClass="ZazenTableViewCell" customModule="Lumos_Mind" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ZazenTableViewCell" rowHeight="800" id="A1r-As-wRg" customClass="ZazenTableViewCell" customModule="Press_Reset" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="80" width="320" height="800"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A1r-As-wRg" id="NMX-4c-NiT">
@@ -298,14 +298,14 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ekh-GF-ILb">
                                                     <rect key="frame" x="8" y="16" width="304" height="768"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IZi-QW-Bsu" customClass="ZenInfoView" customModule="Lumos_Mind" customModuleProvider="target">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IZi-QW-Bsu" customClass="ZenInfoView" customModule="Press_Reset" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="304" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="87" id="UO5-Dq-KcB"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6sU-lg-LHu" customClass="ZenInfoView" customModule="Lumos_Mind" customModuleProvider="target">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6sU-lg-LHu" customClass="ZenInfoView" customModule="Press_Reset" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="125" width="304" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -464,7 +464,7 @@
         <!--Navigation Controller Welcome-->
         <scene sceneID="4bq-fE-EeM">
             <objects>
-                <navigationController storyboardIdentifier="NavigationControllerWelcome" id="KDa-Fk-7Af" customClass="NavigationControllerWelcome" customModule="Lumos_Mind" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationControllerWelcome" id="KDa-Fk-7Af" customClass="NavigationControllerWelcome" customModule="Press_Reset" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="VZa-kL-ul3">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -480,7 +480,7 @@
         <!--Notification View Controller-->
         <scene sceneID="iwe-rf-nYd">
             <objects>
-                <viewController storyboardIdentifier="NotificationViewController" id="ZNZ-FJ-18P" customClass="NotificationViewController" customModule="Lumos_Mind" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NotificationViewController" id="ZNZ-FJ-18P" customClass="NotificationViewController" customModule="Press_Reset" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BoB-0f-sAu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -506,7 +506,7 @@
                                 <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRC-qy-O7k" customClass="ZenButton" customModule="Lumos_Mind" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRC-qy-O7k" customClass="ZenButton" customModule="Press_Reset" customModuleProvider="target">
                                 <rect key="frame" x="47" y="745" width="115" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -524,7 +524,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yyU-TB-LnH" customClass="ZenButton" customModule="Lumos_Mind" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yyU-TB-LnH" customClass="ZenButton" customModule="Press_Reset" customModuleProvider="target">
                                 <rect key="frame" x="250" y="745" width="144" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -573,7 +573,7 @@
         <!--Health Kit Controller Failed-->
         <scene sceneID="9Ia-Am-Swj">
             <objects>
-                <viewController storyboardIdentifier="HealthKitControllerFailed" id="002-ls-Kib" customClass="HealthKitControllerFailed" customModule="Lumos_Mind" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HealthKitControllerFailed" id="002-ls-Kib" customClass="HealthKitControllerFailed" customModule="Press_Reset" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7fB-Gk-ttr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="2000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -666,7 +666,7 @@
                                         <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RPs-hz-hbz" customClass="ZenButton" customModule="Lumos_Mind" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RPs-hz-hbz" customClass="ZenButton" customModule="Press_Reset" customModuleProvider="target">
                                         <rect key="frame" x="207" y="1498" width="207" height="45"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -738,7 +738,7 @@
         <!--Health Kit View Controller-->
         <scene sceneID="ox8-A3-TLw">
             <objects>
-                <viewController storyboardIdentifier="HealthKitViewController" modalTransitionStyle="crossDissolve" id="gph-pp-dV7" customClass="HealthKitViewController" customModule="Lumos_Mind" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HealthKitViewController" modalTransitionStyle="crossDissolve" id="gph-pp-dV7" customClass="HealthKitViewController" customModule="Press_Reset" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="myn-d5-4EB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -763,14 +763,14 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RV6-Pm-tov">
                                         <rect key="frame" x="0.0" y="80" width="327" height="70.333333333333314"/>
-                                        <string key="text">Zendō needs access to Apple Health to measure and record metrics during meditation. All Health data remains on your devices, nothing is shared with us or anyone else without your permission.</string>
+                                        <string key="text">Press Reset needs access to Apple Health to measure and record metrics during meditation. All Health data remains on your devices, nothing is shared with us or anyone else without your permission.</string>
                                         <fontDescription key="fontDescription" name="Antenna-Regular" family="Antenna" pointSize="14"/>
                                         <color key="textColor" red="0.52156862745098043" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ivM-fa-1vR" customClass="ZenButton" customModule="Lumos_Mind" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ivM-fa-1vR" customClass="ZenButton" customModule="Press_Reset" customModuleProvider="target">
                                 <rect key="frame" x="207" y="780" width="207" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -866,7 +866,7 @@
         <!--full name-->
         <scene sceneID="QGL-GW-IDO">
             <objects>
-                <viewController storyboardIdentifier="Overview" id="y4I-bb-DEZ" customClass="OverviewController" customModule="Lumos_Mind" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Overview" id="y4I-bb-DEZ" customClass="OverviewController" customModule="Press_Reset" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="A6X-yJ-wG5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="1017"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -880,7 +880,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HeaderOverviewTableViewCell" rowHeight="90" id="ZRr-Is-SZE" customClass="HeaderOverviewTableViewCell" customModule="Lumos_Mind" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HeaderOverviewTableViewCell" rowHeight="90" id="ZRr-Is-SZE" customClass="HeaderOverviewTableViewCell" customModule="Press_Reset" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZRr-Is-SZE" id="BBG-zI-F5s">
@@ -966,7 +966,7 @@
                                             <outletCollection property="buttons" destination="K1L-io-blG" collectionClass="NSMutableArray" id="3Vv-tn-qlU"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="OverviewTableViewCell" rowHeight="800" id="AuI-Fn-Mvz" customClass="OverviewTableViewCell" customModule="Lumos_Mind" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="OverviewTableViewCell" rowHeight="800" id="AuI-Fn-Mvz" customClass="OverviewTableViewCell" customModule="Press_Reset" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="140" width="414" height="800"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AuI-Fn-Mvz" id="nbU-Cl-gFA">
@@ -976,14 +976,14 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="S7i-H9-E3O">
                                                     <rect key="frame" x="8" y="16" width="398" height="768"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="krg-bZ-Jep" customClass="ZenInfoView" customModule="Lumos_Mind" customModuleProvider="target">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="krg-bZ-Jep" customClass="ZenInfoView" customModule="Press_Reset" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="398" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="87" id="3Ww-9J-gHm"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5G-Jy-bEC" customClass="ZenInfoView" customModule="Lumos_Mind" customModuleProvider="target">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5G-Jy-bEC" customClass="ZenInfoView" customModule="Press_Reset" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="125" width="398" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -1150,7 +1150,7 @@
         <!--Community View Controller-->
         <scene sceneID="5gS-ya-cbw">
             <objects>
-                <viewController storyboardIdentifier="CommunityViewController" modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="dTm-tQ-If7" customClass="CommunityViewController" customModule="Lumos_Mind" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CommunityViewController" modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="dTm-tQ-If7" customClass="CommunityViewController" customModule="Press_Reset" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lKK-2y-d4y">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1191,14 +1191,14 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="gDt-1i-cDa">
                                         <rect key="frame" x="41" y="185.33333333333331" width="373" height="135"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LAi-dC-tgE" customClass="ZenTextField" customModule="Lumos_Mind" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LAi-dC-tgE" customClass="ZenTextField" customModule="Press_Reset" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="373" height="48"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="2uS-ML-N9N"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiH-ko-dqO" customClass="ZenTextField" customModule="Lumos_Mind" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiH-ko-dqO" customClass="ZenTextField" customModule="Press_Reset" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="87" width="373" height="48"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -1223,7 +1223,7 @@
                                     <constraint firstAttribute="trailing" secondItem="Bcb-gF-Pxe" secondAttribute="trailing" constant="41" id="rfl-ym-R2y"/>
                                 </constraints>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GTL-oE-BVC" customClass="ZenButton" customModule="Lumos_Mind" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GTL-oE-BVC" customClass="ZenButton" customModule="Press_Reset" customModuleProvider="target">
                                 <rect key="frame" x="207" y="692" width="207" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1279,7 +1279,7 @@
         <!--Result Game Controller-->
         <scene sceneID="KAH-Sj-tjd">
             <objects>
-                <viewController storyboardIdentifier="ResultGameController" id="Acy-z8-kVN" customClass="ResultGameController" customModule="Lumos_Mind" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ResultGameController" id="Acy-z8-kVN" customClass="ResultGameController" customModule="Press_Reset" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NS4-BZ-YGn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1293,7 +1293,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ResultGameTableCell" rowHeight="800" id="Smg-D8-doO" customClass="ResultGameTableCell" customModule="Lumos_Mind" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ResultGameTableCell" rowHeight="800" id="Smg-D8-doO" customClass="ResultGameTableCell" customModule="Press_Reset" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="414" height="800"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Smg-D8-doO" id="NeG-B4-RMm">
@@ -1303,21 +1303,21 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LZF-1u-PEJ">
                                                     <rect key="frame" x="8" y="16" width="398" height="768"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CNP-Dc-3cG" customClass="ZenInfoView" customModule="Lumos_Mind" customModuleProvider="target">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CNP-Dc-3cG" customClass="ZenInfoView" customModule="Press_Reset" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="398" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="87" id="xft-PP-GIY"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sSq-vN-Ksk" customClass="ZenInfoView" customModule="Lumos_Mind" customModuleProvider="target">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sSq-vN-Ksk" customClass="ZenInfoView" customModule="Press_Reset" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="97" width="398" height="130"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="130" id="a0a-nc-Gtm"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ezv-2Q-mhj" customClass="ZenInfoView" customModule="Lumos_Mind" customModuleProvider="target">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ezv-2Q-mhj" customClass="ZenInfoView" customModule="Press_Reset" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="237" width="398" height="87"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>

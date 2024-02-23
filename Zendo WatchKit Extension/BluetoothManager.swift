@@ -35,7 +35,7 @@ class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
         if(!isRunning)
         {
             isRunning = true
-            manager = CBCentralManager(delegate: self, queue: DispatchQueue(label: "tools.sunyata.zendo"))
+            manager = CBCentralManager(delegate: self, queue: DispatchQueue(label: "org.nrsh.pressreset"))
         }
     }
     

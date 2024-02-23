@@ -249,7 +249,7 @@
             <objects>
                 <notificationController id="vqY-BJ-eIe">
                     <items>
-                        <label width="1" height="107" alignment="left" text="Zendō Community! We are giving $5K to families on Basic Income Day. For each minute you meditate, you donate with us." numberOfLines="15" id="9b5-b3-vT9">
+                        <label width="1" height="107" alignment="left" text="Press Reset Community! We are giving $5K to families on Basic Income Day. For each minute you meditate, you donate with us." numberOfLines="15" id="9b5-b3-vT9">
                             <color key="textColor" red="0.6002739668" green="0.67491501570000001" blue="0.64313453440000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <fontDescription key="font" name="Antenna-Light" family="Antenna" pointSize="15"/>
                         </label>
@@ -276,7 +276,7 @@
                                         <imageView width="50" height="50" alignment="center" image="Lock" contentMode="scaleAspectFit" id="u0M-AT-oFY"/>
                                     </items>
                                 </group>
-                                <label alignment="center" text="Recording a meditation requires a monthly subscription. Go to Zendō app on the phone to subscribe. " textAlignment="center" numberOfLines="0" id="t4F-ed-mDq">
+                                <label alignment="center" text="Recording a meditation requires a monthly subscription. Go to Press Reset app on the phone to subscribe. " textAlignment="center" numberOfLines="0" id="t4F-ed-mDq">
                                     <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="13"/>
                                 </label>
                                 <group width="1" height="40" alignment="left" radius="20" id="2XN-Qx-95s">

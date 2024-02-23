@@ -41,7 +41,7 @@ class AppInterfaceController: WKInterfaceController {
                     
                 }
                 
-                self?.presentAlert(withTitle: nil, message: "Zendō needs access to Apple Health. Nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
+                self?.presentAlert(withTitle: nil, message: "Press Reset needs access to Apple Health. Nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
                 
                 return
             }
@@ -158,7 +158,7 @@ class AppInterfaceController: WKInterfaceController {
                 }
                 DispatchQueue.main.async()
                 {
-                self?.presentAlert(withTitle: nil, message: "Zendō needs access to Apple Health. Nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
+                self?.presentAlert(withTitle: nil, message: "Press Reset needs access to Apple Health. Nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
                 }
                 return
             }

@@ -112,7 +112,7 @@ import ClockKit
         case .utilitarianSmallFlat:
             let template = CLKComplicationTemplateUtilitarianSmallFlat()
             template.imageProvider = CLKImageProvider(onePieceImage: UIImage(named: "Complication/Utilitarian")!)
-            template.textProvider = CLKSimpleTextProvider(text: "Zendo")
+            template.textProvider = CLKSimpleTextProvider(text: "Press Reset")
             template.tintColor = UIColor.zenLightGreen
             retval = template
         default: break

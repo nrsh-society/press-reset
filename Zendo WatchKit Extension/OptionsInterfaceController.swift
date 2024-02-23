@@ -371,7 +371,7 @@ class OptionsInterfaceController : WKInterfaceController, BluetoothManagerStatus
                 
             }
         
-            self.presentAlert(withTitle: nil, message: "Error signing in. Zendō uses Apple Sign in for secure access. Nothing is shared without your permission.", preferredStyle: .alert, actions: [ok])
+            self.presentAlert(withTitle: nil, message: "Error signing in. Press Reset uses Apple Sign in for secure access. Nothing is shared without your permission.", preferredStyle: .alert, actions: [ok])
     }
     
     @IBOutlet var bluetoothStatus: WKInterfaceLabel!

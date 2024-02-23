@@ -106,11 +106,11 @@ class HealthKitViewController: UIViewController {
             case 1: label.text = "sync failed"
             case 2: label.text =
             """
-            Zendō requires access to Health App.
+            Press Reset requires access to Health App.
             
             1. Go to Health app.
             2. Tap on the Source Tab.
-            3. Locate and Tap on Zendō
+            3. Locate and Tap on Press Reset
             4. Tap on Turn All Categories On.
             """
             
