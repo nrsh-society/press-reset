@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Lumos Mind</string>
+	<string>Press Reset</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -51,15 +51,15 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>WKAppBundleIdentifier</key>
-			<string>tools.nrsh.lumosmind.watchkit</string>
+			<string>org.nrsh.pressreset.watchkit</string>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
 	<key>NSHealthShareUsageDescription</key>
-	<string>Show progress across Lumos Mind sessions </string>
+	<string>Show progress across Press Reset sessions </string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>Add Lumos Mind data to Apple Health</string>
+	<string>Add Press Reset data to Apple Health</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>

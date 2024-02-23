@@ -13,7 +13,7 @@ import CoreMedia
 
 class AudioFeedback {
     
-    static let availableSounds = ["Rain", "Birds", "Stream"]
+    static let availableSounds = ["Rain", "Birds", "Stream", "Ocean"]
     
     static var currentSound: Int {
         get {

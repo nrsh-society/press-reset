@@ -19,7 +19,7 @@
         <!--AppInterfaceController-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="AppInterfaceController" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Lumos_Mind_WatchKit_Extension">
+                <controller identifier="AppInterfaceController" id="AgC-eL-Hgc" customClass="AppInterfaceController" customModule="Press_Reset_WatchKit_Extension">
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="center" backgroundImage="ring0" contentMode="scaleAspectFit" layout="overlap" id="obQ-Pj-vnx">
                             <items>
@@ -56,7 +56,7 @@
         <!--SessionInterfaceController-->
         <scene sceneID="PLM-Hm-Vur">
             <objects>
-                <controller identifier="SessionInterfaceController" contentMode="scaleAspectFit" id="ni9-qQ-E13" customClass="SessionInterfaceController" customModule="Lumos_Mind_WatchKit_Extension">
+                <controller identifier="SessionInterfaceController" contentMode="scaleAspectFit" id="ni9-qQ-E13" customClass="SessionInterfaceController" customModule="Press_Reset_WatchKit_Extension">
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="bottom" contentMode="scaleAspectFit" layout="vertical" spacing="0.0" id="tim-Rb-wsC">
                             <items>
@@ -121,7 +121,7 @@
         <!--SummaryInterfaceController-->
         <scene sceneID="IZS-JR-IrR">
             <objects>
-                <controller identifier="SummaryInterfaceController" id="Mk4-5F-50h" customClass="SummaryInterfaceController" customModule="Lumos_Mind_WatchKit_Extension">
+                <controller identifier="SummaryInterfaceController" id="Mk4-5F-50h" customClass="SummaryInterfaceController" customModule="Press_Reset_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="FaZ-Fg-9fM">
                             <items>
@@ -226,7 +226,7 @@
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
             <objects>
-                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Lumos_Mind_WatchKit_Extension">
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Press_Reset_WatchKit_Extension">
                     <items>
                         <label alignment="left" text="Weekly Summary" id="IMc-zh-QlA">
                             <fontDescription key="font" name="Antenna-Medium" family="Antenna" pointSize="15"/>
@@ -313,7 +313,7 @@
         <!--OptionsInterfaceController-->
         <scene sceneID="mYQ-LG-qhF">
             <objects>
-                <controller identifier="OptionsInterfaceController" contentMode="scaleAspectFit" id="y7B-OZ-tWG" customClass="OptionsInterfaceController" customModule="Lumos_Mind_WatchKit_Extension">
+                <controller identifier="OptionsInterfaceController" contentMode="scaleAspectFit" id="y7B-OZ-tWG" customClass="OptionsInterfaceController" customModule="Press_Reset_WatchKit_Extension">
                     <items>
                         <group height="827" alignment="left" contentMode="scaleAspectFit" layout="vertical" spacing="5" id="mb7-hQ-jiz" userLabel="Options Group">
                             <items>
@@ -573,7 +573,7 @@
         <!--Goals-->
         <scene sceneID="Eaa-gP-xvC">
             <objects>
-                <controller identifier="SetGoalInterfaceController" title="Goals" contentMode="scaleAspectFit" id="iqt-Nq-L2v" customClass="SetGoalInterfaceController" customModule="Lumos_Mind_WatchKit_Extension">
+                <controller identifier="SetGoalInterfaceController" title="Goals" contentMode="scaleAspectFit" id="iqt-Nq-L2v" customClass="SetGoalInterfaceController" customModule="Press_Reset_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="center" layout="vertical" spacing="15" id="ne0-EB-Veg">
                             <items>

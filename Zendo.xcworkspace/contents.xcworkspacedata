@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/cancelself/src/nrsh-society/zendo/Lumos Mind.xcodeproj">
+      location = "group:/Users/cancelself/src/nrsh-society/zendo/Press Reset.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Lumos Mind</string>
+	<string>Press Reset</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -67,15 +67,15 @@
 	<key>NSContactsUsageDescription</key>
 	<string>Pick people to share daily progress</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>Show progress across Lumos Mind sessions </string>
+	<string>Show progress across Press Reset sessions </string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>Add Lumos Mind data to Apple Health </string>
+	<string>Add Press Reset data to Apple Health </string>
 	<key>NSHomeKitUsageDescription</key>
 	<string>Control lighting based on health data</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app doesn't use location, so if you so this, there is a problem.</string>
+	<string>This app doesn&apos;t use location, so if you so this, there is a problem.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app doesn't use location, so if you so this, there is a problem.</string>
+	<string>This app doesn&apos;t use location, so if you so this, there is a problem.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Record meditations</string>
 	<key>NSMotionUsageDescription</key>
@@ -84,7 +84,7 @@
 	<string>Save meditations to photo library</string>
 	<key>NSUserActivityTypes</key>
 	<array>
-		<string>tools.nrsh.Lumos-Mind.app</string>
+		<string>tools.nrsh.Press-Reset.app</string>
 	</array>
 	<key>UIAppFonts</key>
 	<array>

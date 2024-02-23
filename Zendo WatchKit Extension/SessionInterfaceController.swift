@@ -153,7 +153,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate, WKCrow
                                 WKInterfaceController.reloadRootControllers(withNamesAndContexts: [(name: "AppInterfaceController", context: self.session as AnyObject), (name: "OptionsInterfaceController", context: self.session as AnyObject)])
                             }
                             
-                            self.presentAlert(withTitle: nil, message: "Error saving data. Lumos Mind needs access to Apple Health to measure and record metrics during meditation. All Health data remains on your devices, nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
+                            self.presentAlert(withTitle: nil, message: "Error saving data. Press Reset needs access to Apple Health to measure and record metrics during meditation. All Health data remains on your devices, nothing is shared with us or anyone else without your permission.", preferredStyle: .alert, actions: [ok])
                         }
                     }
                                         
@@ -168,7 +168,7 @@ class SessionInterfaceController: WKInterfaceController, SessionDelegate, WKCrow
         super.awake(withContext: context)
         
         Mixpanel.mainInstance().time(event: "watch_meditation")
-        
+            
         if let context = context as? Session {
             session = context
             session.delegate = self
